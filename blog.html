@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Danilo Hurwitz</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #E6F3FF 0%, #B3E5FC 100%);
+      color: #2C3E50;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #DAA520;
+      font-family: 'Playfair Display', serif;
+    }
+    .blog-list {
+      display: grid;
+      gap: 20px;
+      max-width: 800px;
+      margin: 40px auto;
+    }
+    .blog-card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+    .blog-card:hover { transform: translateY(-5px); }
+    .blog-card a {
+      text-decoration: none;
+      color: #4682B4;
+      font-weight: 600;
+    }
+    .date { color: #708090; font-size: 0.9em; margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Blog Posts</h1>
+  <div class="blog-list" id="blogList"></div>
 
+  <script>
+    fetch('../blogs.json')
+      .then(res => res.json())
+      .then(blogs => {
+        const list = document.getElementById('blogList');
+        blogs.reverse().forEach(blog => {
+          const card = document.createElement('div');
+          card.className = 'blog-card';
+          card.innerHTML = `
+            <div class="date">${new Date(blog.date).toLocaleDateString()}</div>
+            <h3>${blog.title}</h3>
+            <p>${blog.summary}</p>
+            <a href="./blog/${blog.id}.html">Read More →</a>
+          `;
+          list.appendChild(card);
+        });
+      })
+      .catch(err => console.error('Error loading blogs:', err));
+  </script>
+</body>
+</html>
