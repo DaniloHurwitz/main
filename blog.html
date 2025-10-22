@@ -7,15 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --primary-color: #87CEEB; /* Celeste cielo */
-    --accent-color: #FFD700;   /* Dorado */
-    --text-color: #333;
-    --link-color: #1a0dab;   /* Azul Google */
-    --url-color: #006400;    /* Verde oscuro (como Google) */
-    --summary-color: #4d5156; /* Gris Google */
-    --bg-color: #f8f9fa;      /* Fondo muy claro */
-    --border-color: #dfe1e5; /* Borde sutil gris */
-    --shadow-color: rgba(0, 0, 0, 0.1);
+    /* Paleta inspirada en tu imagen */
+    --primary-accent: #00FFFF; /* Cian/Teal vibrante */
+    --secondary-accent: #FFD700; /* Dorado para resaltar */
+    --text-color: #E0E0E0;      /* Texto principal - Gris muy claro / Casi blanco */
+    --text-muted: #B0B0B0;     /* Texto secundario/resúmenes - Gris más apagado */
+    --link-hover: #90FFFF;     /* Cian más claro para hover */
+    --bg-dark-primary: #1a1a2e; /* Fondo principal - Azul oscuro/Morado */
+    --bg-dark-secondary: #2a2a3e;/* Fondo contenedor - Ligeramente más claro */
+    --border-color: #444;       /* Bordes sutiles oscuros */
+    --shadow-glow: rgba(0, 255, 255, 0.15); /* Resplandor Cian */
   }
 
   * {
@@ -26,104 +27,112 @@
 
   body {
     font-family: 'Roboto', Arial, sans-serif;
-    background-color: var(--bg-color);
+    /* Fondo oscuro texturizado/gradiente */
+    background-color: var(--bg-dark-primary);
+    background-image: linear-gradient(135deg, #12121f 0%, var(--bg-dark-primary) 50%, #1f1f38 100%); /* Ejemplo gradiente */
+    /* Podrías añadir una imagen sutil de ruido/textura si quieres más complejidad */
+    /* background-image: linear-gradient(...), url('ruta/a/tu/textura.png'); */
     color: var(--text-color);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 20px; /* Espacio para el botón volver */
+    padding-top: 20px;
   }
 
   .container {
     max-width: 800px;
     margin: 20px auto;
-    padding: 20px 30px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px var(--shadow-color);
-    flex-grow: 1; /* Ocupa el espacio disponible */
+    padding: 25px 35px;
+    background-color: var(--bg-dark-secondary);
+    border-radius: 6px; /* Bordes ligeramente redondeados */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 8px var(--shadow-glow); /* Sombra + Resplandor */
+    flex-grow: 1;
+    border: 1px solid var(--border-color); /* Borde sutil */
   }
 
   header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--primary-accent); /* Línea divisoria Cian */
   }
 
   .main-title {
-    color: var(--primary-color);
+    color: var(--primary-accent);
     text-align: center;
-    font-size: 2.5em;
+    font-size: 2.2em; /* Ligeramente más pequeño */
     font-weight: 700;
     margin: 0;
-    flex-grow: 1; /* Centra el título */
-    /* text-shadow: 1px 1px 2px rgba(0,0,0,0.1); */ /* Sombra sutil opcional */
+    flex-grow: 1;
+    text-shadow: 0 0 5px var(--shadow-glow); /* Resplandor sutil al título */
   }
 
   .back-button {
     display: inline-block;
-    padding: 8px 15px;
-    background-color: var(--accent-color);
-    color: var(--text-color);
+    padding: 9px 18px;
+    background-color: transparent;
+    color: var(--primary-accent);
     text-decoration: none;
     border-radius: 5px;
     font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--primary-accent);
     cursor: pointer;
   }
 
   .back-button:hover {
-    background-color: #e6c300; /* Dorado más oscuro */
+    background-color: var(--primary-accent);
+    color: var(--bg-dark-primary); /* Texto oscuro al hacer hover */
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 255, 255, 0.2); /* Resplandor más intenso al hover */
   }
 
   .search-container {
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     position: relative;
   }
 
   #search-input {
     width: 100%;
-    padding: 12px 20px 12px 45px; /* Espacio para el ícono */
+    padding: 14px 22px 14px 50px; /* Más padding, espacio ícono */
+    background-color: var(--bg-dark-primary); /* Fondo input más oscuro */
+    color: var(--text-color);
     border: 1px solid var(--border-color);
-    border-radius: 24px; /* Estilo Google */
+    border-radius: 30px; /* Más redondeado */
     font-size: 16px;
     outline: none;
-    transition: box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   #search-input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(135, 206, 235, 0.5); /* Sombra celeste */
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 8px var(--shadow-glow); /* Resplandor Cian al enfocar */
   }
 
-  .search-container::before { /* Pseudo-elemento para el ícono */
-    content: '🔍'; /* O un SVG/FontAwesome */
+  .search-container::before { /* Ícono de búsqueda */
+    content: '🔍';
     position: absolute;
-    left: 15px;
+    left: 18px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 18px;
-    color: #9aa0a6; /* Gris del ícono de Google */
-    pointer-events: none; /* Para que no interfiera con el input */
+    font-size: 20px;
+    color: var(--text-muted);
+    pointer-events: none;
   }
 
-
   #results-container {
-    opacity: 0; /* Para animación de entrada */
-    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
   }
 
   .blog-result {
-    margin-bottom: 25px;
-    padding-bottom: 15px;
+    margin-bottom: 28px;
+    padding-bottom: 18px;
     border-bottom: 1px dashed var(--border-color);
-    animation: fadeIn 0.5s ease-out forwards; /* Animación individual */
+    animation: fadeIn 0.6s ease-out forwards;
   }
 
   .blog-result:last-child {
@@ -131,91 +140,92 @@
   }
 
   .blog-title {
-    color: var(--link-color);
-    font-size: 20px;
+    color: var(--primary-accent); /* Títulos en Cian */
+    font-size: 19px; /* Ligeramente más pequeño */
     font-weight: 500;
     text-decoration: none;
-    display: inline-block; /* Permite transform */
-    transition: transform 0.2s ease;
+    display: inline-block;
+    transition: color 0.3s ease, transform 0.2s ease;
+    text-shadow: 0 0 3px rgba(0, 255, 255, 0.2); /* Resplandor sutil */
   }
 
   .blog-title:hover {
+    color: var(--link-hover); /* Cian más claro */
     text-decoration: underline;
-    transform: translateX(3px); /* Pequeño desplazamiento al pasar el mouse */
+    transform: translateX(4px);
   }
 
   .blog-link {
-    color: var(--url-color);
-    font-size: 14px;
+    color: #9ab; /* Un gris azulado claro para la URL */
+    font-size: 13px; /* Más pequeña */
     display: block;
-    margin-top: 3px;
-    word-break: break-all; /* Evita que links largos rompan el layout */
+    margin-top: 4px;
+    word-break: break-all;
+    opacity: 0.8;
   }
 
   .blog-summary {
-    color: var(--summary-color);
+    color: var(--text-muted);
     font-size: 14px;
-    margin-top: 5px;
+    margin-top: 6px;
   }
 
   #pagination-container {
     text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
+    margin-top: 35px;
+    padding-top: 25px;
     border-top: 1px solid var(--border-color);
   }
 
   .pagination-button {
     display: inline-block;
-    padding: 8px 12px;
-    margin: 0 5px;
-    background-color: #fff;
-    color: var(--link-color);
+    padding: 8px 14px; /* Un poco más de padding */
+    margin: 0 6px;
+    background-color: var(--bg-dark-secondary); /* Fondo oscuro */
+    color: var(--primary-accent); /* Texto Cian */
     border: 1px solid var(--border-color);
     border-radius: 4px;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
   }
 
-  .pagination-button:hover {
-    background-color: var(--primary-color);
-    color: #fff;
-    border-color: var(--primary-color);
+  .pagination-button:hover:not(.disabled) {
+    background-color: var(--primary-accent);
+    color: var(--bg-dark-primary); /* Texto oscuro */
+    border-color: var(--primary-accent);
+    transform: translateY(-2px);
   }
 
   .pagination-button.active {
-    background-color: var(--link-color);
-    color: #fff;
-    border-color: var(--link-color);
+    background-color: var(--primary-accent);
+    color: var(--bg-dark-primary);
+    border-color: var(--primary-accent);
     font-weight: bold;
     cursor: default;
+    box-shadow: 0 0 5px var(--shadow-glow);
   }
 
   .pagination-button.disabled {
-    color: #ccc;
-    border-color: #eee;
+    color: #666; /* Gris oscuro para deshabilitado */
+    border-color: #444;
     cursor: not-allowed;
-    background-color: #f9f9f9;
+    background-color: #222; /* Fondo muy oscuro */
+    opacity: 0.6;
   }
 
   .no-results {
     text-align: center;
-    color: var(--summary-color);
+    color: var(--text-muted);
     font-style: italic;
-    margin-top: 20px;
+    margin-top: 25px;
+    font-size: 16px;
   }
 
-  /* Animación Fade In */
+  /* Animación Fade In (igual que antes) */
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
 </style>
@@ -224,12 +234,13 @@
 
 <div class="container">
   <header>
-    <a href="index.html" class="back-button">Volver al Inicio</a>
+    <a href="index.html" class="back-button" title="Volver al Menú Principal">← Volver</a>
     <h1 class="main-title">Archivo de Blogs</h1>
+    <span style="visibility: hidden;" class="back-button">← Volver</span>
   </header>
 
   <div class="search-container">
-    <input type="text" id="search-input" placeholder="Buscar en los blogs...">
+    <input type="text" id="search-input" placeholder="Buscar por título o contenido...">
   </div>
 
   <div id="results-container">
@@ -240,6 +251,8 @@
 </div>
 
 <script>
+  // --- EL CÓDIGO JAVASCRIPT ES EXACTAMENTE EL MISMO QUE ANTES ---
+  // --- Pega aquí todo el <script>...</script> anterior ---
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
@@ -261,18 +274,14 @@
     const endIndex = startIndex + itemsPerPage;
     const paginatedItems = blogsToShow.slice(startIndex, endIndex);
 
-    if (paginatedItems.length === 0 && blogsToShow.length > 0) {
-        // Si no hay items para ESTA página pero SÍ hay resultados en total (página inválida?)
-        // Podríamos ir a la última página válida o mostrar un mensaje
-        // Por ahora, mostraremos mensaje si no hay resultados en general
-    } else if (paginatedItems.length === 0 && blogsToShow.length === 0) {
+    if (paginatedItems.length === 0) {
+         // Mostrar mensaje si no hay resultados para la búsqueda O si la página está vacía
          resultsContainer.innerHTML = '<p class="no-results">No se encontraron blogs que coincidan con tu búsqueda.</p>';
     } else {
         paginatedItems.forEach((blog, index) => {
             const div = document.createElement('div');
             div.className = 'blog-result';
-            // Añadir un pequeño delay a la animación basado en el índice
-            div.style.animationDelay = `${index * 0.05}s`;
+            div.style.animationDelay = `${index * 0.07}s`; // Un poco más lento el delay
             div.innerHTML = `
                 <a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a>
                 <span class="blog-link">${blog.link}</span>
@@ -282,7 +291,6 @@
         });
     }
 
-    // Pequeño delay para que la animación funcione al cambiar página/buscar
     setTimeout(() => {
         resultsContainer.style.opacity = 1;
     }, 50);
@@ -290,16 +298,14 @@
     setupPagination(blogsToShow);
   }
 
-  // Función para configurar los botones de paginación
   function setupPagination(blogsToShow) {
-    paginationContainer.innerHTML = ''; // Limpiar paginación anterior
+    paginationContainer.innerHTML = '';
     const pageCount = Math.ceil(blogsToShow.length / itemsPerPage);
 
-    if (pageCount <= 1) return; // No mostrar paginación si hay 1 página o menos
+    if (pageCount <= 1) return;
 
-    // Botón "Anterior"
     const prevButton = document.createElement('button');
-    prevButton.textContent = 'Anterior';
+    prevButton.textContent = '« Anterior'; // Iconos de flecha
     prevButton.className = 'pagination-button';
     if (currentPage === 1) {
       prevButton.classList.add('disabled');
@@ -312,9 +318,36 @@
     });
     paginationContainer.appendChild(prevButton);
 
-    // Botones de número de página (simplificado por ahora)
-    // Se podrían añadir lógicas para mostrar solo algunos números (ej. 1 ... 5 6 7 ... 10)
-    for (let i = 1; i <= pageCount; i++) {
+    // Lógica para mostrar solo algunos números de página (ej. 1 ... 4 5 6 ... 10)
+    const maxPagesToShow = 5; // Máximo de botones numéricos visibles
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1);
+
+    // Ajustar si estamos cerca del final
+     if (endPage - startPage + 1 < maxPagesToShow) {
+        startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+
+
+    if (startPage > 1) {
+        // Botón para ir a la primera página
+        const firstPageButton = document.createElement('button');
+        firstPageButton.textContent = '1';
+        firstPageButton.className = 'pagination-button';
+        firstPageButton.addEventListener('click', () => displayBlogs(blogsToShow, 1));
+        paginationContainer.appendChild(firstPageButton);
+        if (startPage > 2) {
+             // Puntos suspensivos si hay más páginas entre 1 y startPage
+            const ellipsis = document.createElement('span');
+            ellipsis.textContent = '...';
+            ellipsis.style.margin = '0 8px';
+            ellipsis.style.color = 'var(--text-muted)';
+            paginationContainer.appendChild(ellipsis);
+        }
+    }
+
+
+    for (let i = startPage; i <= endPage; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
       pageButton.className = 'pagination-button';
@@ -327,9 +360,26 @@
       paginationContainer.appendChild(pageButton);
     }
 
-    // Botón "Siguiente"
+     if (endPage < pageCount) {
+         if (endPage < pageCount - 1) {
+             // Puntos suspensivos
+            const ellipsis = document.createElement('span');
+            ellipsis.textContent = '...';
+            ellipsis.style.margin = '0 8px';
+            ellipsis.style.color = 'var(--text-muted)';
+            paginationContainer.appendChild(ellipsis);
+        }
+         // Botón para ir a la última página
+        const lastPageButton = document.createElement('button');
+        lastPageButton.textContent = pageCount;
+        lastPageButton.className = 'pagination-button';
+        lastPageButton.addEventListener('click', () => displayBlogs(blogsToShow, pageCount));
+        paginationContainer.appendChild(lastPageButton);
+    }
+
+
     const nextButton = document.createElement('button');
-    nextButton.textContent = 'Siguiente';
+    nextButton.textContent = 'Siguiente »';
     nextButton.className = 'pagination-button';
     if (currentPage === pageCount) {
       nextButton.classList.add('disabled');
@@ -343,51 +393,54 @@
     paginationContainer.appendChild(nextButton);
   }
 
-  // Función para manejar la búsqueda en tiempo real
   function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase().trim();
 
     if (searchTerm === '') {
-      filteredBlogs = [...allBlogs]; // Mostrar todos si la búsqueda está vacía
+      filteredBlogs = [...allBlogs];
     } else {
       filteredBlogs = allBlogs.filter(blog =>
         blog.title.toLowerCase().includes(searchTerm) ||
         blog.summary.toLowerCase().includes(searchTerm)
       );
     }
-    displayBlogs(filteredBlogs, 1); // Volver a la página 1 después de buscar
+    displayBlogs(filteredBlogs, 1);
   }
 
-  // Función para resaltar las coincidencias en los resultados (opcional pero útil)
   function highlightMatch(text, term) {
-      if (!term) return text; // Si no hay término de búsqueda, devolver texto original
-      // Escapar caracteres especiales para la expresión regular
+      if (!term || term.trim() === '') return text;
       const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedTerm})`, 'gi'); // 'g' global, 'i' case-insensitive
-      return text.replace(regex, '<mark style="background-color: var(--accent-color); color: var(--text-color); padding: 0.1em; border-radius: 3px;">$1</mark>');
+      const regex = new RegExp(`(${escapedTerm})`, 'gi');
+      // Usar el color dorado (secondary-accent) para resaltar
+      return text.replace(regex, '<mark style="background-color: var(--secondary-accent); color: #111; padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500;">$1</mark>');
   }
 
-
-  // Cargar los blogs del JSON al iniciar
   fetch('blogs.json')
     .then(response => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
+      // Asegurarse de que la respuesta sea JSON
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new TypeError("Oops, no recibimos JSON!");
+      }
       return response.json();
     })
     .then(blogs => {
-      allBlogs = blogs; // Guardar original
-      filteredBlogs = [...allBlogs]; // Inicializar filtrados
-      displayBlogs(filteredBlogs, 1); // Mostrar la primera página
+      if (!Array.isArray(blogs)) {
+         throw new TypeError("El archivo JSON no contiene un array de blogs.");
+      }
+      allBlogs = blogs;
+      filteredBlogs = [...allBlogs];
+      displayBlogs(filteredBlogs, 1);
     })
     .catch(error => {
-      console.error('Error al cargar los blogs:', error);
-      resultsContainer.innerHTML = '<p class="no-results" style="color: red;">Error al cargar los blogs. Revisa la consola.</p>';
+      console.error('Error al cargar o procesar los blogs:', error);
+      resultsContainer.innerHTML = `<p class="no-results" style="color: #ff6b6b;">${error.message}. Asegúrate de que 'blogs.json' existe, está en la misma carpeta y tiene el formato JSON correcto (un array [...] de objetos {...}).</p>`;
       resultsContainer.style.opacity = 1;
     });
 
-  // Añadir listener al input de búsqueda
   searchInput.addEventListener('input', handleSearch);
 
 </script>
