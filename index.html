@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - Trilingual Medical Translator</title>
+    <title>Danilo Hurwitz | Trilingual Medical Translator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
         
@@ -773,10 +773,11 @@
                 </form>
                 <div class="newsletter">
     <p>Or subscribe to my monthly tips newsletter:</p>
-    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
+<form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
     <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
     <input type="hidden" name="_subject" value="New Newsletter Subscriber">
     <button type="submit">Subscribe</button>
+    <div id="newsletter-status" style="margin-top: 10px; font-size: 0.9em; color: #4682B4;"></div>  <!-- Mensaje aquí -->
 </form>
 </div>
             </div>
@@ -841,36 +842,36 @@ function downloadCV() {
             openTab('summary');
         });
 
-  var form = document.getElementById("my-form");
-  
-  async function handleSubmit(event) {
-    event.preventDefault();
-    var status = document.getElementById("my-form-status");
-    var data = new FormData(event.target);
-    fetch(event.target.action, {
-      method: form.method,
-      body: data,
-      headers: {
-          'Accept': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        status.innerHTML = "Thanks for your submission!";
-        form.reset()
-      } else {
-        response.json().then(data => {
-          if (Object.hasOwn(data, 'errors')) {
-            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
-          } else {
-            status.innerHTML = "Oops! There was a problem submitting your form"
-          }
-        })
-      }
-    }).catch(error => {
-      status.innerHTML = "Oops! There was a problem submitting your form"
-    });
-  }
-  form.addEventListener("submit", handleSubmit)
+var form = document.getElementById("newsletterForm");  // <-- Cambié a tu ID real
+    
+    async function handleSubmit(event) {
+        event.preventDefault();  // Detiene el redirect
+        var status = document.getElementById("newsletter-status");  // ID para mostrar mensaje
+        var data = new FormData(event.target);
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        }).then(response => {
+            if (response.ok) {
+                status.innerHTML = "Thanks for subscribing! Check your email for confirmation.";  // Mensaje de éxito
+                form.reset();  // Borra el email
+            } else {
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        status.innerHTML = "Oops! There was a problem subscribing.";
+                    }
+                });
+            }
+        }).catch(error => {
+            status.innerHTML = "Oops! Network error. Try again.";
+        });
+    }
+    form.addEventListener("submit", handleSubmit);  // <-- Adjunta al form correcto
         
     </script>
 </body>
