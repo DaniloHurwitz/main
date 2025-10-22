@@ -856,7 +856,7 @@ var form = document.getElementById("newsletterForm");  // <-- Cambié a tu ID re
             }
         }).then(response => {
             if (response.ok) {
-                status.innerHTML = "Thanks for subscribing! Check your email for confirmation.";  // Mensaje de éxito
+                status.innerHTML = "Thanks for subscribing!";  // Mensaje de éxito
                 form.reset();  // Borra el email
             } else {
                 response.json().then(data => {
