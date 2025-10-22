@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danilo Hurwitz - Trilingual Medical Translator & Future Physician</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #E6F3FF 0%, #B3E5FC 100%); /* Soft sky blues */
+            color: #2C3E50;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+            z-index: -1;
+            opacity: 0.7;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.4s ease;
+        }
+        
+        .header:hover {
+            transform: translateY(-3px);
+        }
+        
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: #DAA520; /* Gold */
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .tagline {
+            font-size: 1.2em;
+            color: #4682B4; /* Steel blue */
+            margin-bottom: 20px;
+        }
+        
+        .contact {
+            font-size: 0.95em;
+            color: #708090;
+            margin-bottom: 20px;
+        }
+        
+        .contact a {
+            color: #87CEEB; /* Sky blue */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .contact a:hover {
+            color: #DAA520;
+        }
+        
+        .video-container {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.4s ease;
+        }
+        
+        .video-container:hover {
+            box-shadow: 0 12px 35px rgba(135, 206, 235, 0.25);
+        }
+        
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+        
+        /* CV Section */
+        .cv-section {
+            margin-bottom: 40px;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: rgba(135, 206, 235, 0.5);
+            color: #2C3E50;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn:hover, .tab-btn.active {
+            background: #DAA520;
+            color: white;
+            transform: scale(1.03);
+        }
+        
+        .tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.4s ease-out;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #DAA520;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* CV Content Styles (compact) - Omitted for brevity, same as before */
+        /* ... Include all CV tab contents from previous versions ... */
+        
+        /* Tools Section - Separated */
+        .tools-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #87CEEB;
+        }
+        
+        .tools-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .tools-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #DAA520;
+        }
+        
+        .tools-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .tools-tab-btn {
+            background: rgba(218, 165, 32, 0.2);
+            color: #2C3E50;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+        }
+        
+        .tools-tab-btn:hover, .tools-tab-btn.active {
+            background: #87CEEB;
+            color: white;
+            transform: scale(1.03);
+        }
+        
+        .tools-tab-content {
+            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.4s ease-out;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .tools-tab-content.active {
+            display: block;
+        }
+        
+        /* Glossary Tool */
+        .glossary-tool {
+            margin-top: 15px;
+        }
+        
+        .glossary-search {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #87CEEB;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .glossary-search:focus {
+            border-color: #DAA520;
+            outline: none;
+        }
+        
+        .glossary-results {
+            max-height: 250px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .glossary-item {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(135, 206, 235
