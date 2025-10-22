@@ -564,7 +564,7 @@
             <h1 class="name">Danilo Hurwitz</h1>
             <p class="tagline">Trilingual Medical Translator & Medical Student</p>
             <p class="contact">
-                Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar<br>
+                Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br>
                 <a href="https://linkedin.com/in/danilo-hurwitz/" target="_blank">LinkedIn</a> | 
                 <a href="https://upwork.com/freelancers/danilohurwitz" target="_blank">Upwork</a>
             </p>
@@ -833,9 +833,14 @@
             }
         }
         
-        function downloadCV() {
-            alert('Downloading CV... (Simulated link)');
-        }
+function downloadCV() {
+    const link = document.createElement('a');
+    link.href = 'Curriculum Vitae - Danilo Hurwitz.pdf';
+    link.download = 'Curriculum Vitae - Danilo Hurwitz.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
         
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
