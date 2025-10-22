@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - Trilingual Medical Translator & Future Physician</title>
+    <title>Danilo Hurwitz - Traductor Médico Trilingüe & Futuro Médico</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
         
@@ -15,7 +15,7 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #E6F3FF 0%, #B3E5FC 100%); /* Soft sky blues */
+            background: linear-gradient(135deg, #E6F3FF 0%, #B3E5FC 100%); /* Celestes suaves */
             color: #2C3E50;
             line-height: 1.6;
             overflow-x: hidden;
@@ -59,14 +59,14 @@
         .name {
             font-family: 'Playfair Display', serif;
             font-size: 3em;
-            color: #DAA520; /* Gold */
+            color: #DAA520; /* Dorado */
             margin-bottom: 10px;
             letter-spacing: 1px;
         }
         
         .tagline {
             font-size: 1.2em;
-            color: #4682B4; /* Steel blue */
+            color: #4682B4; /* Azul acero */
             margin-bottom: 20px;
         }
         
@@ -77,7 +77,7 @@
         }
         
         .contact a {
-            color: #87CEEB; /* Sky blue */
+            color: #87CEEB; /* Celeste cielo */
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -106,11 +106,7 @@
             border: none;
         }
         
-        /* CV Tabs */
-        .cv-section {
-            margin-bottom: 40px;
-        }
-        
+        /* Tabs más compactas */
         .tabs-nav {
             display: flex;
             justify-content: center;
@@ -144,7 +140,7 @@
             border-radius: 20px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
             animation: fadeIn 0.4s ease-out;
-            max-height: 600px;
+            max-height: 600px; /* Compacto */
             overflow-y: auto;
         }
         
@@ -165,7 +161,7 @@
             text-align: center;
         }
         
-        /* CV Content Styles (same as before, compact) */
+        /* Summary */
         .summary p {
             font-size: 1.05em;
             text-align: center;
@@ -174,6 +170,7 @@
             margin: 0 auto;
         }
         
+        /* Experience - Compact */
         .job {
             margin-bottom: 20px;
             padding: 15px;
@@ -249,6 +246,7 @@
             float: right;
         }
         
+        /* Education */
         .education-item {
             text-align: center;
             padding: 15px;
@@ -257,6 +255,7 @@
             margin-bottom: 15px;
         }
         
+        /* Skills - Compact grid */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -302,6 +301,7 @@
             background: rgba(218, 165, 32, 0.15);
         }
         
+        /* Portfolio */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -327,6 +327,7 @@
             font-weight: 500;
         }
         
+        /* Insights - Compact */
         .insights {
             margin-top: 15px;
         }
@@ -361,6 +362,76 @@
             text-decoration: none;
         }
         
+        /* Glossary - Nueva herramienta útil */
+        .glossary-tool {
+            margin-top: 15px;
+        }
+        
+        .glossary-search {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #87CEEB;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .glossary-search:focus {
+            border-color: #DAA520;
+            outline: none;
+        }
+        
+        .glossary-results {
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 8px;
+            padding: 10px;
+        }
+        
+        .glossary-item {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(135, 206, 235, 0.3);
+            font-size: 0.9em;
+        }
+        
+        .glossary-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* Quote Calculator - Nueva utilidad */
+        .quote-tool {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .quote-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .quote-input input {
+            padding: 10px;
+            border: 1px solid #87CEEB;
+            border-radius: 8px;
+        }
+        
+        .quote-input select {
+            padding: 10px;
+            border: 1px solid #87CEEB;
+            border-radius: 8px;
+        }
+        
+        .quote-result {
+            font-size: 1.1em;
+            color: #DAA520;
+            font-weight: 600;
+        }
+        
+        /* Certifications & Strengths - Compact */
         .cert-list, .strengths-list {
             list-style: none;
         }
@@ -374,6 +445,7 @@
             font-size: 0.95em;
         }
         
+        /* Contact Form - Compact */
         .contact-form {
             max-width: 400px;
             margin: 15px auto;
@@ -410,196 +482,6 @@
             background: #B8860B;
         }
         
-        /* Tools Section - Separated */
-        .tools-section {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid #87CEEB;
-        }
-        
-        .tools-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .tools-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2em;
-            color: #DAA520;
-        }
-        
-        .tools-nav {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-        
-        .tools-tab-btn {
-            background: rgba(218, 165, 32, 0.2);
-            color: #2C3E50;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 0.95em;
-            transition: all 0.3s ease;
-        }
-        
-        .tools-tab-btn:hover, .tools-tab-btn.active {
-            background: #87CEEB;
-            color: white;
-            transform: scale(1.03);
-        }
-        
-        .tools-tab-content {
-            display: none;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-            animation: fadeIn 0.4s ease-out;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-        
-        .tools-tab-content.active {
-            display: block;
-        }
-        
-        /* Glossary Tool */
-        .glossary-tool {
-            margin-top: 15px;
-        }
-        
-        .glossary-search {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #87CEEB;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            transition: border-color 0.3s ease;
-        }
-        
-        .glossary-search:focus {
-            border-color: #DAA520;
-            outline: none;
-        }
-        
-        .glossary-results {
-            max-height: 250px;
-            overflow-y: auto;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 8px;
-            padding: 10px;
-        }
-        
-        .glossary-item {
-            padding: 5px 0;
-            border-bottom: 1px solid rgba(135, 206, 235, 0.3);
-            font-size: 0.9em;
-        }
-        
-        .glossary-item:last-child {
-            border-bottom: none;
-        }
-        
-        /* Quote Tool */
-        .quote-tool {
-            margin-top: 15px;
-            text-align: center;
-        }
-        
-        .quote-input {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        
-        .quote-input input {
-            padding: 10px;
-            border: 1px solid #87CEEB;
-            border-radius: 8px;
-        }
-        
-        .quote-input select {
-            padding: 10px;
-            border: 1px solid #87CEEB;
-            border-radius: 8px;
-        }
-        
-        .quote-result {
-            font-size: 1.1em;
-            color: #DAA520;
-            font-weight: 600;
-        }
-        
-        /* New: Term Quiz Tool */
-        .quiz-tool {
-            margin-top: 15px;
-            text-align: center;
-        }
-        
-        .quiz-question {
-            font-size: 1.1em;
-            color: #4682B4;
-            margin-bottom: 15px;
-        }
-        
-        .quiz-options {
-            display: grid;
-            gap: 8px;
-            margin-bottom: 15px;
-        }
-        
-        .quiz-option {
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-        
-        .quiz-option:hover {
-            background: rgba(135, 206, 235, 0.4);
-        }
-        
-        .quiz-score {
-            font-size: 1.2em;
-            color: #DAA520;
-            font-weight: bold;
-        }
-        
-        /* New: Time Zone Converter */
-        .tz-tool {
-            margin-top: 15px;
-            text-align: center;
-        }
-        
-        .tz-input {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 10px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        
-        .tz-input select {
-            padding: 10px;
-            border: 1px solid #87CEEB;
-            border-radius: 8px;
-        }
-        
-        .tz-result {
-            font-size: 1.1em;
-            color: #4682B4;
-            margin-top: 10px;
-        }
-        
         /* Footer */
         .footer {
             text-align: center;
@@ -629,12 +511,12 @@
         /* Responsive */
         @media (max-width: 768px) {
             .name { font-size: 2.2em; }
-            .tabs-nav, .tools-nav { gap: 5px; }
-            .tab-btn, .tools-tab-btn { padding: 8px 16px; font-size: 0.9em; }
+            .tabs-nav { gap: 5px; }
+            .tab-btn { padding: 8px 16px; font-size: 0.9em; }
             .languages { flex-direction: column; }
             .video-container iframe { height: 200px; }
-            .skills-grid, .portfolio-grid { grid-template-columns: 1fr; }
-            .quote-input { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -642,281 +524,242 @@
     <div class="container">
         <header class="header">
             <h1 class="name">Danilo Hurwitz</h1>
-            <p class="tagline">Trilingual Medical Translator & Medical Student</p>
+            <p class="tagline">Traductor Médico Trilingüe & Estudiante de Medicina</p>
             <p class="contact">
                 Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar<br>
                 <a href="https://linkedin.com/in/danilo-hurwitz/" target="_blank">LinkedIn</a> | 
                 <a href="https://upwork.com/freelancers/danilohurwitz" target="_blank">Upwork</a>
             </p>
             <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/KjFjam4KmCU?si=RKffDr3whfKj3MIi&controls=0" title="Presentation Video" frameborder="0" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/KjFjam4KmCU?si=RKffDr3whfKj3MIi&controls=0" title="Video de Presentación" frameborder="0" allowfullscreen></iframe>
             </div>
         </header>
 
-        <!-- CV Section -->
-        <div class="cv-section">
-            <h2 style="text-align: center; color: #4682B4; margin-bottom: 20px;">My Professional Profile</h2>
-            <nav class="tabs-nav">
-                <button class="tab-btn active" onclick="openTab('summary')">Summary</button>
-                <button class="tab-btn" onclick="openTab('experience')">Experience</button>
-                <button class="tab-btn" onclick="openTab('skills')">Skills</button>
-                <button class="tab-btn" onclick="openTab('education')">Education</button>
-                <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
-                <button class="tab-btn" onclick="openTab('insights')">Insights</button>
-                <button class="tab-btn" onclick="openTab('strengths')">Strengths</button>
-                <button class="tab-btn" onclick="openTab('contact')">Contact</button>
-            </nav>
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab('summary')">Resumen</button>
+            <button class="tab-btn" onclick="openTab('experience')">Experiencia</button>
+            <button class="tab-btn" onclick="openTab('skills')">Habilidades</button>
+            <button class="tab-btn" onclick="openTab('education')">Educación</button>
+            <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
+            <button class="tab-btn" onclick="openTab('glossary')">Glosario</button>
+            <button class="tab-btn" onclick="openTab('quote')">Cotizador</button>
+            <button class="tab-btn" onclick="openTab('insights')">Insights</button>
+            <button class="tab-btn" onclick="openTab('strengths')">Fortalezas</button>
+            <button class="tab-btn" onclick="openTab('contact')">Contacto</button>
+        </nav>
 
-            <div id="summary" class="tab-content active">
-                <h2 class="section-title">Professional Summary</h2>
-                <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
-            </div>
+        <div id="summary" class="tab-content active">
+            <h2 class="section-title">Resumen Profesional</h2>
+            <p>Traductor Médico Trilingüe de Primer Nivel (Hebreo/Inglés/Español) y Estudiante de Medicina actual, aprovechando un profundo conocimiento médico y precisión lingüística para los sectores de HealthTech, Farmacéutico y Académico. Capacidad probada para entregar traducciones 100% precisas de documentación clínica y técnica compleja. Puntaje de Éxito Laboral del 100% en Upwork refleja una excepcional confiabilidad, satisfacción del cliente y compromiso con los plazos en proyectos internacionales.</p>
+        </div>
 
-            <div id="experience" class="tab-content">
-                <h2 class="section-title">Professional Experience</h2>
-                <div class="job" onclick="toggleTestimonial(this)">
-                    <h3 class="job-title">Freelance Translator & Proofreader</h3>
-                    <p class="company-dates">Upwork | May 2023 – Present</p>
-                    <p class="description">Delivered Top-Rated translation and proofreading (HE/EN/ES) for diverse global clients, specializing in high-stakes medical, technical, and academic content requiring terminological precision.</p>
-                    <ul>
-                        <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
-                        <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
-                        <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
-                    </ul>
-                    <div class="testimonial">
-                        <strong>Hebrew to English Translation Project</strong><br>
-                        Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
-                        "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. The attention to detail and commitment to maintaining the essence of the content were evident in the final output. Communication was seamless, deadlines were met promptly, and the overall collaboration was both professional and enjoyable. I highly recommend Danilo Hurwitz for any MTPE project and look forward to future collaborations. Five stars!"
-                        <button class="toggle-btn">Read Less</button>
-                    </div>
-                </div>
-                <div class="job" onclick="toggleTestimonial(this)">
-                    <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
-                    <p class="company-dates">Upwork | May 2023 – Present</p>
-                    <p class="description">Provided specialized video editing services focused on creating accurate and synchronized multilingual subtitles (HE/EN/ES) for complex educational and professional content.</p>
-                    <ul>
-                        <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
-                        <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
-                    </ul>
-                    <div class="testimonial">
-                        <strong>Video Editing of a Short Family Video</strong><br>
-                        Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
-                        "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. Also the process of working with him was very convenient. I'd fully recommend working with him!"
-                        <button class="toggle-btn">Read Less</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="skills" class="tab-content">
-                <h2 class="section-title">Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h3>Medical Translation</h3>
-                        <ul>
-                            <li>Clinical Documentation, Patient Reports</li>
-                            <li>Informed Consents, MedTech Manuals</li>
-                            <li>Academic Papers, Regulatory Submissions (basic)</li>
-                            <li>Healthcare Marketing Content</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Translation & Editing</h3>
-                        <ul>
-                            <li>Proofreading, Copy Editing, MTPE</li>
-                            <li>Terminology Management, QA</li>
-                            <li>Style Guide Implementation</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Software & Tools</h3>
-                        <ul>
-                            <li>MS Office (Advanced), Google Workspace</li>
-                            <li>CapCut, Subtitle Edit</li>
-                            <li>Basic SEO</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Other</h3>
-                        <ul>
-                            <li>Medical Copywriting, Ghostwriting</li>
-                            <li>Cross-Cultural Communication</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="languages">
-                    <div class="lang-card">
-                        <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
-                    </div>
-                    <div class="lang-card">
-                        <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
-                    </div>
-                    <div class="lang-card">
-                        <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
-                    </div>
-                </div>
-            </div>
-
-            <div id="education" class="tab-content">
-                <h2 class="section-title">Education</h2>
-                <div class="education-item">
-                    <h3>Candidate for Doctor of Medicine (MD)</h3>
-                    <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
-                    <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
-                </div>
-            </div>
-
-            <div id="portfolio" class="tab-content">
-                <h2 class="section-title">Portfolio</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Samples showcasing my translation and editing expertise.</p>
-                <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <h4>Clinical Report Translation</h4>
-                        <a href="#" target="_blank">View Sample (PDF)</a>
-                    </div>
-                    <div class="portfolio-item">
-                        <h4>Medical Video Subtitles</h4>
-                        <a href="#" target="_blank">Watch Demo</a>
-                    </div>
-                    <div class="portfolio-item">
-                        <h4>Academic Paper Proofreading</h4>
-                        <a href="#" target="_blank">Download Example</a>
-                    </div>
-                    <div class="portfolio-item">
-                        <h4>MedTech Manual Adaptation</h4>
-                        <a href="#" target="_blank">View Project</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="insights" class="tab-content">
-                <h2 class="section-title">Insights & Resources</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Practical tips and short articles on medical translation and HealthTech.</p>
-                <div class="insights">
-                    <div class="insight-item">
-                        <h4>5 Tips for MTPE in Pharma</h4>
-                        <p>Refine AI translations for regulatory compliance with terminological precision...</p>
-                        <a href="#" target="_blank">Read More</a>
-                    </div>
-                    <div class="insight-item">
-                        <h4>Bridging Languages in Global Health</h4>
-                        <p>A trilingual translator's perspective on cross-cultural care...</p>
-                        <a href="#" target="_blank">Read More</a>
-                    </div>
-                    <div class="insight-item">
-                        <h4>Tools for Video Localization</h4>
-                        <p>Essential software for syncing multilingual subtitles in med-ed videos...</p>
-                        <a href="#" target="_blank">Read More</a>
-                    </div>
-                    <div class="insight-item">
-                        <h4>Common Errors in Clinical Translations</h4>
-                        <p>How to avoid them with active medical knowledge...</p>
-                        <a href="#" target="_blank">Read More</a>
-                    </div>
-                </div>
-            </div>
-
-            <div id="strengths" class="tab-content">
-                <h2 class="section-title">Key Strengths</h2>
-                <ul class="strengths-list">
-                    <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
-                    <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
-                    <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork.</li>
+        <div id="experience" class="tab-content">
+            <h2 class="section-title">Experiencia Profesional</h2>
+            <div class="job" onclick="toggleTestimonial(this)">
+                <h3 class="job-title">Traductor & Corrector Freelance</h3>
+                <p class="company-dates">Upwork | Mayo 2023 – Presente</p>
+                <p class="description">Entregué traducciones y correcciones de primer nivel (HE/EN/ES) para clientes globales diversos, especializándome en contenido médico, técnico y académico de alto riesgo que requiere precisión terminológica.</p>
+                <ul>
+                    <li>Completé exitosamente más de 10 proyectos de traducción complejos, incluyendo revisiones de documentación clínica y adaptaciones de manuales técnicos, manteniendo una precisión impecable.</li>
+                    <li>Domine flujos de trabajo de Post-Edición de Traducción Automática (MTPE), mejorando la eficiencia mientras aseguraba fluidez nativa y relevancia cultural en los entregables finales.</li>
+                    <li>Alcanicé y mantuve 100% de Satisfacción del Cliente y Puntaje de Éxito Laboral a través de comunicación proactiva, control de calidad meticuloso y entrega consistente a tiempo.</li>
                 </ul>
+                <div class="testimonial">
+                    <strong>Proyecto de Traducción Hebreo a Inglés</strong><br>
+                    Calificación: 5.0 (18 Nov 2023 - 5 Feb 2024)<br>
+                    "Trabajar con Danilo Hurwitz en un proyecto de MTPE de Hebreo a Inglés fue una experiencia excepcional. La proficiencia de Danilo en ambos idiomas brilló, asegurando una traducción altamente precisa y pulida. [...] ¡Cinco estrellas!"
+                    <button class="toggle-btn">Leer Menos</button>
+                </div>
             </div>
-
-            <div id="contact" class="tab-content">
-                <h2 class="section-title">Contact</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
-                <form class="contact-form" onsubmit="sendEmail(event)">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea rows="3" placeholder="Describe your project..." required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-                <p style="text-align: center; margin-top: 10px; font-size: 0.85em; color: #708090;">Or subscribe to my monthly newsletter for tips: <input type="email" placeholder="Email" style="width: 150px; padding: 5px; border-radius: 4px; border: 1px solid #87CEEB;"> <button onclick="subscribeNewsletter()" style="padding: 5px 10px; background: #DAA520; color: white; border: none; border-radius: 4px; cursor: pointer;">Subscribe</button></p>
+            <div class="job" onclick="toggleTestimonial(this)">
+                <h3 class="job-title">Editor de Video & Creador de Subtítulos Freelance</h3>
+                <p class="company-dates">Upwork | Mayo 2023 – Presente</p>
+                <p class="description">Proporcioné servicios especializados de edición de video enfocados en crear subtítulos multilingües precisos y sincronizados (HE/EN/ES) para contenido educativo y profesional complejo.</p>
+                <ul>
+                    <li>Contribuí a la claridad y accesibilidad de módulos de e-learning médico y videos educativos para pacientes a través de optimización audiovisual precisa.</li>
+                    <li>Recibí retroalimentación consistente de 5 estrellas de clientes por calidad técnica y atención al detalle.</li>
+                </ul>
+                <div class="testimonial">
+                    <strong>Edición de Video de un Corto Familiar</strong><br>
+                    Calificación: 5.0 (9 Oct 2024 - 28 Oct 2024)<br>
+                    "¡Danilo hizo un gran trabajo! Fue muy receptivo, creó un video genial y profesional, y se aseguró de que todo lo que necesitaba se hiciera perfectamente. [...] ¡Totalmente recomiendo trabajar con él!"
+                    <button class="toggle-btn">Leer Menos</button>
+                </div>
             </div>
         </div>
 
-        <!-- Tools Section - Separated -->
-        <div class="tools-section">
-            <div class="tools-header">
-                <h2>Useful Tools</h2>
-                <p style="text-align: center; color: #4682B4; font-size: 0.95em;">Interactive resources to assist with medical translation and collaboration.</p>
-            </div>
-            <nav class="tools-nav">
-                <button class="tools-tab-btn active" onclick="openToolsTab('glossary')">Glossary</button>
-                <button class="tools-tab-btn" onclick="openToolsTab('quote')">Quote Calculator</button>
-                <button class="tools-tab-btn" onclick="openToolsTab('quiz')">Term Quiz</button>
-                <button class="tools-tab-btn" onclick="openToolsTab('tz')">Time Zone Converter</button>
-            </nav>
-
-            <div id="glossary" class="tools-tab-content active">
-                <h2 class="section-title">Medical Term Glossary</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Quick search for common medical terms with translations in ES/EN/HE.</p>
-                <div class="glossary-tool">
-                    <input type="text" class="glossary-search" id="glossarySearch" placeholder="e.g., 'anatomy' or 'diagnosis'" onkeyup="searchGlossary()">
-                    <div id="glossaryResults" class="glossary-results"></div>
+        <div id="skills" class="tab-content">
+            <h2 class="section-title">Habilidades</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Traducción Médica</h3>
+                    <ul>
+                        <li>Documentación Clínica, Informes de Pacientes</li>
+                        <li>Consentimientos Informados, Manuales MedTech</li>
+                        <li>Artículos Académicos, Presentaciones Regulatorias (básico)</li>
+                        <li>Contenido de Marketing en Salud</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Traducción & Edición</h3>
+                    <ul>
+                        <li>Corrección de Pruebas, Edición de Copia, MTPE</li>
+                        <li>Gestión de Terminología, QA</li>
+                        <li>Implementación de Guías de Estilo</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Software & Herramientas</h3>
+                    <ul>
+                        <li>MS Office (Avanzado), Google Workspace</li>
+                        <li>CapCut, Subtitle Edit</li>
+                        <li>Principios Básicos de SEO</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Otras</h3>
+                    <ul>
+                        <li>Redacción Médica por Encargo, Escritura Fantasma</li>
+                        <li>Comunicación Intercultural</li>
+                    </ul>
                 </div>
             </div>
-
-            <div id="quote" class="tools-tab-content">
-                <h2 class="section-title">Service Quote Calculator</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Estimate costs for translation or editing projects (approx. USD per word/minute).</p>
-                <div class="quote-tool">
-                    <div class="quote-input">
-                        <input type="number" id="wordCount" placeholder="Word Count" min="1">
-                        <select id="serviceType">
-                            <option value="0.02">Basic Translation ($0.02/word)</option>
-                            <option value="0.04">Medical Translation ($0.04/word)</option>
-                            <option value="0.015">Editing/Proofreading ($0.015/word)</option>
-                            <option value="0.03">Video Subtitles ($0.03/minute)</option>
-                        </select>
-                    </div>
-                    <button onclick="calculateQuote()">Calculate Quote</button>
-                    <div id="quoteResult" class="quote-result"></div>
+            <div class="languages">
+                <div class="lang-card">
+                    <strong>Español</strong><br><small>Nativo (Nacido en Málaga, España - Experticia en variantes Castellana y LATAM)</small>
+                </div>
+                <div class="lang-card">
+                    <strong>Inglés</strong><br><small>Fluido (Equivalente C1, 15+ años)</small>
+                </div>
+                <div class="lang-card">
+                    <strong>Hebreo</strong><br><small>Fluido (Equivalente C1, 10+ años de inmersión diaria)</small>
                 </div>
             </div>
+        </div>
 
-            <div id="quiz" class="tools-tab-content">
-                <h2 class="section-title">Medical Term Quiz</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Test your knowledge with a quick quiz on common terms. Score improves with each try!</p>
-                <div class="quiz-tool">
-                    <div class="quiz-question" id="quizQuestion"></div>
-                    <div class="quiz-options" id="quizOptions"></div>
-                    <div class="quiz-score" id="quizScore">Score: 0/0</div>
-                    <button onclick="nextQuiz()" style="margin-top: 10px; padding: 8px 16px; background: #DAA520; color: white; border: none; border-radius: 6px; cursor: pointer;">Next Question</button>
+        <div id="education" class="tab-content">
+            <h2 class="section-title">Educación</h2>
+            <div class="education-item">
+                <h3>Candidato a Doctor en Medicina (MD)</h3>
+                <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Graduación Esperada: 2029</p>
+                <p>Adquiriendo conocimiento integral de anatomía, fisiología, terminología clínica y metodologías de investigación – directamente aplicado para asegurar precisión en proyectos de traducción médica.</p>
+            </div>
+        </div>
+
+        <div id="portfolio" class="tab-content">
+            <h2 class="section-title">Portfolio</h2>
+            <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Muestras de trabajos que destacan mi expertise en traducción y edición médica.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <h4>Informe Clínico Traducido</h4>
+                    <a href="#" target="_blank">Ver Muestra (PDF)</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4>Subtítulos para Video Médico</h4>
+                    <a href="#" target="_blank">Ver Demo</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4>Corrección de Artículo Académico</h4>
+                    <a href="#" target="_blank">Descargar Ejemplo</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4>Manual MedTech Adaptado</h4>
+                    <a href="#" target="_blank">Ver Proyecto</a>
                 </div>
             </div>
+        </div>
 
-            <div id="tz" class="tools-tab-content">
-                <h2 class="section-title">Global Collaboration Time Zone Converter</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Convert times for seamless international meetings (based on your location in Argentina).</p>
-                <div class="tz-tool">
-                    <div class="tz-input">
-                        <select id="tzSelect" onchange="convertTime()">
-                            <option value="">Select Time Zone</option>
-                            <option value="America/New_York">US East (EST/EDT)</option>
-                            <option value="America/Los_Angeles">US West (PST/PDT)</option>
-                            <option value="Europe/London">UK (GMT/BST)</option>
-                            <option value="Europe/Berlin">Germany (CET/CEST)</option>
-                            <option value="Asia/Tel_Aviv">Israel (IST)</option>
-                            <option value="Asia/Tokyo">Japan (JST)</option>
-                        </select>
-                        <input type="time" id="localTime" value="09:00" onchange="convertTime()">
-                    </div>
-                    <div id="tzResult" class="tz-result">Select a time zone to convert.</div>
+        <div id="glossary" class="tab-content">
+            <h2 class="section-title">Glosario Médico Rápido</h2>
+            <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Busca términos médicos comunes y obtén traducciones en ES/EN/HE. ¡Útil para consultas rápidas!</p>
+            <div class="glossary-tool">
+                <input type="text" class="glossary-search" id="glossarySearch" placeholder="Ej: 'anatomía' o 'diagnosis'" onkeyup="searchGlossary()">
+                <div id="glossaryResults" class="glossary-results"></div>
+            </div>
+        </div>
+
+        <div id="quote" class="tab-content">
+            <h2 class="section-title">Cotizador Rápido de Servicios</h2>
+            <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Estima el costo de tu proyecto de traducción o edición. (Precios aproximados en USD por minuto/página).</p>
+            <div class="quote-tool">
+                <div class="quote-input">
+                    <input type="number" id="wordCount" placeholder="Nº de palabras" min="1">
+                    <select id="serviceType">
+                        <option value="0.02">Traducción Básica ($0.02/palabra)</option>
+                        <option value="0.04">Traducción Médica ($0.04/palabra)</option>
+                        <option value="0.015">Edición/Proofreading ($0.015/palabra)</option>
+                        <option value="0.03">Subtítulos Video ($0.03/minuto)</option>
+                    </select>
+                </div>
+                <button onclick="calculateQuote()">Calcular Cotización</button>
+                <div id="quoteResult" class="quote-result" style="margin-top: 10px;"></div>
+            </div>
+        </div>
+
+        <div id="insights" class="tab-content">
+            <h2 class="section-title">Insights & Recursos</h2>
+            <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Consejos prácticos y artículos cortos sobre traducción médica y HealthTech.</p>
+            <div class="insights">
+                <div class="insight-item">
+                    <h4>5 Tips para MTPE en Farmacéutica</h4>
+                    <p>Refina traducciones AI para cumplimiento regulatorio con precisión terminológica...</p>
+                    <a href="#" target="_blank">Leer Más</a>
+                </div>
+                <div class="insight-item">
+                    <h4>Puentes Lingüísticos en Salud Global</h4>
+                    <p>Perspectiva de un traductor trilingüe sobre cuidado intercultural...</p>
+                    <a href="#" target="_blank">Leer Más</a>
+                </div>
+                <div class="insight-item">
+                    <h4>Herramientas para Localización de Video</h4>
+                    <p>Software esencial para sincronizar subtítulos multilingües en videos med-ed...</p>
+                    <a href="#" target="_blank">Leer Más</a>
+                </div>
+                <div class="insight-item">
+                    <h4>Errores Comunes en Traducciones Clínicas</h4>
+                    <p>Cómo evitarlos con conocimiento médico activo...</p>
+                    <a href="#" target="_blank">Leer Más</a>
                 </div>
             </div>
+        </div>
+
+        <div id="strengths" class="tab-content">
+            <h2 class="section-title">Fortalezas Clave</h2>
+            <ul class="strengths-list">
+                <li><strong>Acumen Médico Trilingüe de Élite:</strong> Combina entrenamiento médico activo con dominio nativo/fluido de Hebreo, Inglés y Español para precisión inigualable.</li>
+                <li><strong>Precisión Intercultural:</strong> Comprensión nativa de matices del Español (España), complementada por experiencia en Israel y Argentina, asegurando comunicación impecable.</li>
+                <li><strong>Confiabilidad Probada:</strong> Supera expectativas en proyectos complejos y con plazos ajustados para clientes internacionales vía Upwork.</li>
+            </ul>
+        </div>
+
+        <div id="contact" class="tab-content">
+            <h2 class="section-title">Contacto</h2>
+            <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">¿Listo para colaborar? Cuéntame sobre tu proyecto.</p>
+            <form class="contact-form" onsubmit="sendEmail(event)">
+                <input type="text" placeholder="Tu Nombre" required>
+                <input type="email" placeholder="Tu Email" required>
+                <textarea rows="3" placeholder="Describe tu proyecto..." required></textarea>
+                <button type="submit">Enviar Mensaje</button>
+            </form>
+            <p style="text-align: center; margin-top: 10px; font-size: 0.85em; color: #708090;">O suscríbete a mi newsletter para tips mensuales: <input type="email" placeholder="Email" style="width: 150px; padding: 5px; border-radius: 4px; border: 1px solid #87CEEB;"> <button onclick="subscribeNewsletter()" style="padding: 5px 10px; background: #DAA520; color: white; border: none; border-radius: 4px; cursor: pointer;">Suscribir</button></p>
         </div>
     </div>
 
     <footer class="footer">
-        <a href="#" class="download-cv" onclick="downloadCV()">Download Full CV (PDF)</a>
-        <p>&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
+        <a href="#" class="download-cv" onclick="downloadCV()">Descargar CV Completo (PDF)</a>
+        <p>&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.</p>
     </footer>
 
     <script>
-        // CV Tabs
+        // Datos para glosario (ejemplos reales, expande con más)
+        const glossaryData = [
+            { term: 'anatomía', es: 'anatomía', en: 'anatomy', he: 'אנטומיה' },
+            { term: 'diagnóstico', es: 'diagnóstico', en: 'diagnosis', he: 'אבחון' },
+            { term: 'terapia', es: 'terapia', en: 'therapy', he: 'טיפול' },
+            { term: 'cirugía', es: 'cirugía', en: 'surgery', he: 'ניתוח' },
+            { term: 'farmacología', es: 'farmacología', en: 'pharmacology', he: 'פרמקולוגיה' }
+        ];
+
         function openTab(tabName) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -927,36 +770,13 @@
             event.target.classList.add('active');
         }
         
-        // Tools Tabs
-        function openToolsTab(tabName) {
-            const contents = document.querySelectorAll('.tools-tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-            
-            const btns = document.querySelectorAll('.tools-tab-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-        
-        // Toggle Testimonial
         function toggleTestimonial(job) {
             const testimonial = job.querySelector('.testimonial');
             testimonial.classList.toggle('expanded');
             const btn = job.querySelector('.toggle-btn');
-            btn.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
+            btn.textContent = testimonial.classList.contains('expanded') ? 'Leer Menos' : 'Leer Más';
         }
         
-        // Glossary Data
-        const glossaryData = [
-            { term: 'anatomy', es: 'anatomía', en: 'anatomy', he: 'אנטומיה' },
-            { term: 'diagnosis', es: 'diagnóstico', en: 'diagnosis', he: 'אבחון' },
-            { term: 'therapy', es: 'terapia', en: 'therapy', he: 'טיפול' },
-            { term: 'surgery', es: 'cirugía', en: 'surgery', he: 'ניתוח' },
-            { term: 'pharmacology', es: 'farmacología', en: 'pharmacology', he: 'פרמקולוגיה' },
-            { term: 'vaccine', es: 'vacuna', en: 'vaccine', he: 'חיסון' },
-            { term: 'symptom', es: 'síntoma', en: 'symptom', he: 'תסמין' }
-        ];
-
         function searchGlossary() {
             const query = document.getElementById('glossarySearch').value.toLowerCase();
             const results = document.getElementById('glossaryResults');
@@ -967,112 +787,46 @@
             const filtered = glossaryData.filter(item => item.term.toLowerCase().includes(query));
             results.innerHTML = filtered.map(item => 
                 `<div class="glossary-item"><strong>${item.term}:</strong> ES: ${item.es} | EN: ${item.en} | HE: ${item.he}</div>`
-            ).join('') || '<div class="glossary-item">No terms found. Try another keyword.</div>';
+            ).join('');
         }
         
-        // Quote Calculator
         function calculateQuote() {
             const words = parseInt(document.getElementById('wordCount').value) || 0;
             const rate = parseFloat(document.getElementById('serviceType').value);
             const total = (words * rate).toFixed(2);
-            document.getElementById('quoteResult').innerHTML = words > 0 ? `Estimated Quote: $${total} USD` : 'Enter a word count.';
+            document.getElementById('quoteResult').innerHTML = words > 0 ? `Cotización estimada: $${total} USD` : 'Ingresa un número de palabras.';
         }
         
-        // Quiz Data
-        const quizData = [
-            {
-                question: "What is the Hebrew term for 'diagnosis'?",
-                options: ['אבחון', 'טיפול', 'ניתוח'],
-                correct: 0
-            },
-            {
-                question: "Translate 'surgery' to Spanish:",
-                options: ['cirugía', 'terapia', 'anatomía'],
-                correct: 0
-            },
-            {
-                question: "English for 'farmacología':",
-                options: ['therapy', 'pharmacology', 'vaccine'],
-                correct: 1
-            }
-        ];
-        let currentQuiz = 0;
-        let score = 0;
-        let total = 0;
-
-        function loadQuiz() {
-            const q = quizData[currentQuiz];
-            document.getElementById('quizQuestion').innerHTML = q.question;
-            document.getElementById('quizOptions').innerHTML = q.options.map((opt, i) => 
-                `<div class="quiz-option" onclick="checkAnswer(${i})">${opt}</div>`
-            ).join('');
-            document.getElementById('quizScore').innerHTML = `Score: ${score}/${total}`;
-        }
-        
-        function checkAnswer(selected) {
-            const q = quizData[currentQuiz];
-            if (selected === q.correct) score++;
-            total++;
-            currentQuiz = (currentQuiz + 1) % quizData.length;
-            loadQuiz();
-        }
-        
-        function nextQuiz() {
-            currentQuiz = Math.floor(Math.random() * quizData.length);
-            loadQuiz();
-        }
-        
-        // Time Zone Converter (simple JS Date)
-        function convertTime() {
-            const tz = document.getElementById('tzSelect').value;
-            const time = document.getElementById('localTime').value;
-            const result = document.getElementById('tzResult');
-            if (!tz || !time) {
-                result.innerHTML = 'Select a time zone and enter a time.';
-                return;
-            }
-            const [hours, minutes] = time.split(':').map(Number);
-            const localDate = new Date();
-            localDate.setHours(hours, minutes, 0, 0);
-            const utcDate = new Date(localDate.toLocaleString('en-US', {timeZone: 'UTC'}));
-            const converted = new Date(utcDate.toLocaleString('en-US', {timeZone: tz}));
-            const convertedTime = converted.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
-            result.innerHTML = `Converted Time in ${tz.split('/')[1].replace('_', ' ')}: ${convertedTime}`;
-        }
-        
-        // Other functions (email, subscribe, download)
         function sendEmail(event) {
             event.preventDefault();
             const form = event.target;
             const name = form[0].value;
             const email = form[1].value;
             const message = form[2].value;
-            const subject = `Project Inquiry from ${name}`;
-            const body = `Hi Danilo,\n\n${message}\n\nBest,\n${name} (${email})`;
+            const subject = `Consulta de Proyecto de ${name}`;
+            const body = `Hola Danilo,\n\n${message}\n\nSaludos,\n${name} (${email})`;
             window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             form.reset();
-            alert('Message sent! Check your email client.');
+            alert('¡Mensaje enviado! Revisa tu cliente de email.');
         }
         
         function subscribeNewsletter() {
-            const emailInput = document.querySelector('input[placeholder="Email"]');
-            const email = emailInput.value;
+            const email = document.querySelector('.contact-form input[type="email"]:last-of-type').value;
             if (email) {
-                alert(`Subscribed! You'll receive monthly tips at ${email}. (Simulated)`);
-                emailInput.value = '';
+                alert(`¡Suscrito! Recibirás tips mensuales en ${email}. (Simulado)`);
             } else {
-                alert('Enter your email to subscribe.');
+                alert('Ingresa tu email para suscribirte.');
             }
         }
         
         function downloadCV() {
-            alert('Downloading CV... (Simulated - replace with real link)');
+            // Simula descarga - reemplaza con enlace real
+            alert('Descargando CV... (Enlace simulado)');
+            // window.open('cv_danilo.pdf', '_blank');
         }
         
-        // Init
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
-            loadQuiz();
         });
     </script>
 </body>
