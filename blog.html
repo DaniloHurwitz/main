@@ -1,209 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Blog | Danilo Hurwitz</title>
-
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #E6F3FF 0%, #B3E5FC 100%);
-      color: #2C3E50;
-    }
-
-    header {
-      text-align: center;
-      padding: 40px 20px 20px;
-    }
-
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      color: #DAA520;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      color: #5A6C7D;
-      font-size: 1.1em;
-    }
-
-    .blog-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1100px;
-      margin: 40px auto;
-      padding: 0 20px 60px;
-    }
-
-    .blog-card {
-      background: rgba(255,255,255,0.9);
-      border-radius: 20px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-      overflow: hidden;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .blog-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    }
-
-    .blog-card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-
-    .blog-content {
-      padding: 20px;
-    }
-
-    .blog-date {
-      color: #708090;
-      font-size: 0.9em;
-      margin-bottom: 5px;
-    }
-
-    .blog-content h2 {
-      font-size: 1.3em;
-      color: #2C3E50;
-      margin: 8px 0;
-    }
-
-    .blog-summary {
-      color: #4A5A6A;
-      font-size: 0.95em;
-      line-height: 1.5;
-    }
-
-    .read-more {
-      display: inline-block;
-      margin-top: 12px;
-      color: #4682B4;
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
-
-    .read-more:hover {
-      color: #DAA520;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #5A6C7D;
-      font-size: 0.9em;
-    }
-
-    /* Modal (para ver post completo) */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      padding: 20px;
-    }
-
-    .modal-content {
-      background: white;
-      max-width: 700px;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      overflow-y: auto;
-      max-height: 90vh;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .close-btn {
-      float: right;
-      font-size: 1.5em;
-      cursor: pointer;
-      color: #888;
-    }
-
-    .close-btn:hover { color: #DAA520; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freelance Blog Search</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f8fa;
+    padding: 20px;
+  }
+  .blog-result {
+    margin-bottom: 25px;
+  }
+  .blog-title {
+    color: #1a0dab; /* azul Google */
+    font-size: 18px;
+    text-decoration: none;
+  }
+  .blog-url {
+    color: #c58f00; /* dorado */
+    font-size: 14px;
+    display: block;
+  }
+  .blog-summary {
+    color: #4d5156; /* gris */
+    font-size: 14px;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Blog</h1>
-    <p>Insights on Translation, MTPE, and Medical Communication</p>
-  </header>
 
-  <div class="blog-container" id="blogContainer"></div>
+<h1>Freelance Blog Search</h1>
+<div id="blog-list"></div>
 
-  <footer>
-    © 2025 Danilo Hurwitz — Freelance Medical Translator
-  </footer>
+<script>
+fetch('blogs.json')
+  .then(response => response.json())
+  .then(blogs => {
+    const container = document.getElementById('blog-list');
+    blogs.forEach(blog => {
+      const div = document.createElement('div');
+      div.className = 'blog-result';
+      div.innerHTML = `
+        <a href="${blog.url}" class="blog-title">${blog.title}</a>
+        <span class="blog-url">${blog.url}</span>
+        <p class="blog-summary">${blog.summary}</p>
+      `;
+      container.appendChild(div);
+    });
+  });
+</script>
 
-  <!-- Modal para leer post completo -->
-  <div class="modal" id="modal">
-    <div class="modal-content" id="modalContent">
-      <span class="close-btn" id="closeBtn">&times;</span>
-      <h2 id="modalTitle"></h2>
-      <p class="blog-date" id="modalDate"></p>
-      <img id="modalImage" style="width:100%; border-radius:15px; margin:10px 0;">
-      <p id="modalText"></p>
-    </div>
-  </div>
-
-  <script>
-    const container = document.getElementById('blogContainer');
-    const modal = document.getElementById('modal');
-    const closeBtn = document.getElementById('closeBtn');
-
-    fetch('blogs.json')
-      .then(res => res.json())
-      .then(blogs => {
-        blogs.reverse().forEach(blog => {
-          const card = document.createElement('div');
-          card.classList.add('blog-card');
-          card.innerHTML = `
-            <img src="${blog.image}" alt="${blog.title}">
-            <div class="blog-content">
-              <div class="blog-date">${new Date(blog.date).toLocaleDateString()}</div>
-              <h2>${blog.title}</h2>
-              <p class="blog-summary">${blog.summary}</p>
-              <a href="#" class="read-more">Read more →</a>
-            </div>
-          `;
-          card.querySelector('.read-more').addEventListener('click', (e) => {
-            e.preventDefault();
-            openModal(blog);
-          });
-          container.appendChild(card);
-        });
-      })
-      .catch(err => {
-        container.innerHTML = "<p style='text-align:center;color:#888;'>Error loading blogs 😢</p>";
-        console.error(err);
-      });
-
-    function openModal(blog) {
-      document.getElementById('modalTitle').innerText = blog.title;
-      document.getElementById('modalDate').innerText = new Date(blog.date).toLocaleDateString();
-      document.getElementById('modalImage').src = blog.image;
-      document.getElementById('modalText').innerText = blog.content;
-      modal.style.display = 'flex';
-    }
-
-    closeBtn.onclick = () => modal.style.display = 'none';
-    window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
-  </script>
 </body>
 </html>
