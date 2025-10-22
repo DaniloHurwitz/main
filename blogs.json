@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "title": "5 Tips for MTPE in Pharmaceuticals",
+    "date": "2025-10-21",
+    "summary": "Refine AI translations for regulatory compliance with terminological precision.",
+    "content": "Machine Translation Post-Editing (MTPE) en farmacéutica requiere precisión terminológica, comprensión de regulaciones y revisión humana experta para mantener la validez clínica de cada documento...",
+    "image": "img/mtpe-pharma.jpg"
+  },
+  {
+    "id": 2,
+    "title": "Bridging Languages in Global Health",
+    "date": "2025-10-18",
+    "summary": "A trilingual translator’s perspective on cross-cultural care.",
+    "content": "La comunicación médica multilingüe es esencial en contextos globales. Traductores con conocimiento clínico garantizan que las indicaciones médicas no pierdan sentido cultural ni precisión técnica...",
+    "image": "img/global-health.jpg"
+  }
+]
