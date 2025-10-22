@@ -18,7 +18,7 @@
     font-size: 18px;
     text-decoration: none;
   }
-  .blog-url {
+  .blog-link {
     color: #c58f00; /* dorado */
     font-size: 14px;
     display: block;
@@ -43,8 +43,8 @@ fetch('blogs.json')
       const div = document.createElement('div');
       div.className = 'blog-result';
       div.innerHTML = `
-        <a href="${blog.url}" class="blog-title">${blog.title}</a>
-        <span class="blog-url">${blog.url}</span>
+        <a href="${blog.link}" class="blog-title">${blog.title}</a>
+        <span class="blog-link">${blog.link}</span>
         <p class="blog-summary">${blog.summary}</p>
       `;
       container.appendChild(div);
