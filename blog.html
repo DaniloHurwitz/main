@@ -1,55 +1,395 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Freelance Blog Search</title>
+<title>Archivo de Conocimiento | Buscador de Blogs</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #f5f8fa;
-    padding: 20px;
+  :root {
+    --primary-color: #87CEEB; /* Celeste cielo */
+    --accent-color: #FFD700;   /* Dorado */
+    --text-color: #333;
+    --link-color: #1a0dab;   /* Azul Google */
+    --url-color: #006400;    /* Verde oscuro (como Google) */
+    --summary-color: #4d5156; /* Gris Google */
+    --bg-color: #f8f9fa;      /* Fondo muy claro */
+    --border-color: #dfe1e5; /* Borde sutil gris */
+    --shadow-color: rgba(0, 0, 0, 0.1);
   }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 20px; /* Espacio para el botón volver */
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    flex-grow: 1; /* Ocupa el espacio disponible */
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .main-title {
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 2.5em;
+    font-weight: 700;
+    margin: 0;
+    flex-grow: 1; /* Centra el título */
+    /* text-shadow: 1px 1px 2px rgba(0,0,0,0.1); */ /* Sombra sutil opcional */
+  }
+
+  .back-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .back-button:hover {
+    background-color: #e6c300; /* Dorado más oscuro */
+    transform: translateY(-2px);
+  }
+
+  .search-container {
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 12px 20px 12px 45px; /* Espacio para el ícono */
+    border: 1px solid var(--border-color);
+    border-radius: 24px; /* Estilo Google */
+    font-size: 16px;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+
+  #search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(135, 206, 235, 0.5); /* Sombra celeste */
+  }
+
+  .search-container::before { /* Pseudo-elemento para el ícono */
+    content: '🔍'; /* O un SVG/FontAwesome */
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #9aa0a6; /* Gris del ícono de Google */
+    pointer-events: none; /* Para que no interfiera con el input */
+  }
+
+
+  #results-container {
+    opacity: 0; /* Para animación de entrada */
+    transition: opacity 0.5s ease-in-out;
+  }
+
   .blog-result {
     margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed var(--border-color);
+    animation: fadeIn 0.5s ease-out forwards; /* Animación individual */
   }
+
+  .blog-result:last-child {
+    border-bottom: none;
+  }
+
   .blog-title {
-    color: #1a0dab; /* azul Google */
-    font-size: 18px;
+    color: var(--link-color);
+    font-size: 20px;
+    font-weight: 500;
     text-decoration: none;
+    display: inline-block; /* Permite transform */
+    transition: transform 0.2s ease;
   }
+
+  .blog-title:hover {
+    text-decoration: underline;
+    transform: translateX(3px); /* Pequeño desplazamiento al pasar el mouse */
+  }
+
   .blog-link {
-    color: #c58f00; /* dorado */
+    color: var(--url-color);
     font-size: 14px;
     display: block;
+    margin-top: 3px;
+    word-break: break-all; /* Evita que links largos rompan el layout */
   }
+
   .blog-summary {
-    color: #4d5156; /* gris */
+    color: var(--summary-color);
     font-size: 14px;
+    margin-top: 5px;
   }
+
+  #pagination-container {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .pagination-button {
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 0 5px;
+    background-color: #fff;
+    color: var(--link-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .pagination-button:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+  }
+
+  .pagination-button.active {
+    background-color: var(--link-color);
+    color: #fff;
+    border-color: var(--link-color);
+    font-weight: bold;
+    cursor: default;
+  }
+
+  .pagination-button.disabled {
+    color: #ccc;
+    border-color: #eee;
+    cursor: not-allowed;
+    background-color: #f9f9f9;
+  }
+
+  .no-results {
+    text-align: center;
+    color: var(--summary-color);
+    font-style: italic;
+    margin-top: 20px;
+  }
+
+  /* Animación Fade In */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
 </style>
 </head>
 <body>
 
-<h1>Freelance Blog Search</h1>
-<div id="blog-list"></div>
+<div class="container">
+  <header>
+    <a href="index.html" class="back-button">Volver al Inicio</a>
+    <h1 class="main-title">Archivo de Blogs</h1>
+  </header>
+
+  <div class="search-container">
+    <input type="text" id="search-input" placeholder="Buscar en los blogs...">
+  </div>
+
+  <div id="results-container">
+    </div>
+
+  <div id="pagination-container">
+    </div>
+</div>
 
 <script>
-fetch('blogs.json')
-  .then(response => response.json())
-  .then(blogs => {
-    const container = document.getElementById('blog-list');
-    blogs.forEach(blog => {
-      const div = document.createElement('div');
-      div.className = 'blog-result';
-      div.innerHTML = `
-        <a href="${blog.link}" class="blog-title">${blog.title}</a>
-        <span class="blog-link">${blog.link}</span>
-        <p class="blog-summary">${blog.summary}</p>
-      `;
-      container.appendChild(div);
+  const resultsContainer = document.getElementById('results-container');
+  const searchInput = document.getElementById('search-input');
+  const paginationContainer = document.getElementById('pagination-container');
+
+  let allBlogs = []; // Guarda todos los blogs originales
+  let filteredBlogs = []; // Guarda los blogs filtrados por búsqueda
+  const itemsPerPage = 5;
+  let currentPage = 1;
+
+  // Función para mostrar los blogs de una página específica
+  function displayBlogs(blogsToShow, page) {
+    resultsContainer.innerHTML = ''; // Limpiar resultados anteriores
+    resultsContainer.style.opacity = 0; // Para reiniciar animación
+
+    page = page || 1; // Si no se especifica página, es la 1
+    currentPage = page;
+
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedItems = blogsToShow.slice(startIndex, endIndex);
+
+    if (paginatedItems.length === 0 && blogsToShow.length > 0) {
+        // Si no hay items para ESTA página pero SÍ hay resultados en total (página inválida?)
+        // Podríamos ir a la última página válida o mostrar un mensaje
+        // Por ahora, mostraremos mensaje si no hay resultados en general
+    } else if (paginatedItems.length === 0 && blogsToShow.length === 0) {
+         resultsContainer.innerHTML = '<p class="no-results">No se encontraron blogs que coincidan con tu búsqueda.</p>';
+    } else {
+        paginatedItems.forEach((blog, index) => {
+            const div = document.createElement('div');
+            div.className = 'blog-result';
+            // Añadir un pequeño delay a la animación basado en el índice
+            div.style.animationDelay = `${index * 0.05}s`;
+            div.innerHTML = `
+                <a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a>
+                <span class="blog-link">${blog.link}</span>
+                <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>
+            `;
+            resultsContainer.appendChild(div);
+        });
+    }
+
+    // Pequeño delay para que la animación funcione al cambiar página/buscar
+    setTimeout(() => {
+        resultsContainer.style.opacity = 1;
+    }, 50);
+
+    setupPagination(blogsToShow);
+  }
+
+  // Función para configurar los botones de paginación
+  function setupPagination(blogsToShow) {
+    paginationContainer.innerHTML = ''; // Limpiar paginación anterior
+    const pageCount = Math.ceil(blogsToShow.length / itemsPerPage);
+
+    if (pageCount <= 1) return; // No mostrar paginación si hay 1 página o menos
+
+    // Botón "Anterior"
+    const prevButton = document.createElement('button');
+    prevButton.textContent = 'Anterior';
+    prevButton.className = 'pagination-button';
+    if (currentPage === 1) {
+      prevButton.classList.add('disabled');
+      prevButton.disabled = true;
+    }
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        displayBlogs(blogsToShow, currentPage - 1);
+      }
     });
-  });
+    paginationContainer.appendChild(prevButton);
+
+    // Botones de número de página (simplificado por ahora)
+    // Se podrían añadir lógicas para mostrar solo algunos números (ej. 1 ... 5 6 7 ... 10)
+    for (let i = 1; i <= pageCount; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.className = 'pagination-button';
+      if (i === currentPage) {
+        pageButton.classList.add('active');
+      }
+      pageButton.addEventListener('click', () => {
+        displayBlogs(blogsToShow, i);
+      });
+      paginationContainer.appendChild(pageButton);
+    }
+
+    // Botón "Siguiente"
+    const nextButton = document.createElement('button');
+    nextButton.textContent = 'Siguiente';
+    nextButton.className = 'pagination-button';
+    if (currentPage === pageCount) {
+      nextButton.classList.add('disabled');
+      nextButton.disabled = true;
+    }
+    nextButton.addEventListener('click', () => {
+      if (currentPage < pageCount) {
+        displayBlogs(blogsToShow, currentPage + 1);
+      }
+    });
+    paginationContainer.appendChild(nextButton);
+  }
+
+  // Función para manejar la búsqueda en tiempo real
+  function handleSearch() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+
+    if (searchTerm === '') {
+      filteredBlogs = [...allBlogs]; // Mostrar todos si la búsqueda está vacía
+    } else {
+      filteredBlogs = allBlogs.filter(blog =>
+        blog.title.toLowerCase().includes(searchTerm) ||
+        blog.summary.toLowerCase().includes(searchTerm)
+      );
+    }
+    displayBlogs(filteredBlogs, 1); // Volver a la página 1 después de buscar
+  }
+
+  // Función para resaltar las coincidencias en los resultados (opcional pero útil)
+  function highlightMatch(text, term) {
+      if (!term) return text; // Si no hay término de búsqueda, devolver texto original
+      // Escapar caracteres especiales para la expresión regular
+      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escapedTerm})`, 'gi'); // 'g' global, 'i' case-insensitive
+      return text.replace(regex, '<mark style="background-color: var(--accent-color); color: var(--text-color); padding: 0.1em; border-radius: 3px;">$1</mark>');
+  }
+
+
+  // Cargar los blogs del JSON al iniciar
+  fetch('blogs.json')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(blogs => {
+      allBlogs = blogs; // Guardar original
+      filteredBlogs = [...allBlogs]; // Inicializar filtrados
+      displayBlogs(filteredBlogs, 1); // Mostrar la primera página
+    })
+    .catch(error => {
+      console.error('Error al cargar los blogs:', error);
+      resultsContainer.innerHTML = '<p class="no-results" style="color: red;">Error al cargar los blogs. Revisa la consola.</p>';
+      resultsContainer.style.opacity = 1;
+    });
+
+  // Añadir listener al input de búsqueda
+  searchInput.addEventListener('input', handleSearch);
+
 </script>
 
 </body>
