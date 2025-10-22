@@ -773,12 +773,11 @@
                 </form>
                 <div class="newsletter">
     <p>Or subscribe to my monthly tips newsletter:</p>
-    <form action="https://formspree.io/f/xgvnjkjg" method="POST">  <!-- Poné tu endpoint de Formspree -->
-        <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
-        <input type="hidden" name="_subject" value="New Newsletter Subscriber">  <!-- Asunto automático -->
-        <input type="hidden" name="_next" value="https://tu-sitio.com/gracias.html">  <!-- Página de gracias opcional; o dejá vacío -->
-        <button type="submit">Subscribe</button>
-    </form>
+    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
+    <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
+    <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+    <button type="submit">Subscribe</button>
+</form>
 </div>
             </div>
         </div>
