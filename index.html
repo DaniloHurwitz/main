@@ -106,7 +106,7 @@
             border: none;
         }
         
-        /* CV Section */
+        /* CV Tabs */
         .cv-section {
             margin-bottom: 40px;
         }
@@ -165,7 +165,7 @@
             text-align: center;
         }
         
-        /* CV Content Styles (compact, same as before) */
+        /* CV Content Styles (same as before, compact) */
         .summary p {
             font-size: 1.05em;
             text-align: center;
@@ -538,83 +538,66 @@
             font-weight: 600;
         }
         
-        /* New: Word Counter Tool */
-        .word-counter-tool {
+        /* New: Term Quiz Tool */
+        .quiz-tool {
             margin-top: 15px;
-        }
-        
-        .word-counter-text {
-            width: 100%;
-            height: 120px;
-            padding: 10px;
-            border: 1px solid #87CEEB;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            resize: vertical;
-            transition: border-color 0.3s ease;
-        }
-        
-        .word-counter-text:focus {
-            border-color: #DAA520;
-            outline: none;
-        }
-        
-        .word-counter-results {
-            background: rgba(255, 255, 255, 0.6);
-            padding: 10px;
-            border-radius: 8px;
             text-align: center;
         }
         
-        .counter-stat {
-            display: inline-block;
-            margin: 0 10px;
-            font-weight: 500;
+        .quiz-question {
+            font-size: 1.1em;
             color: #4682B4;
-        }
-        
-        /* New: Random Fact Generator */
-        .fact-tool {
-            margin-top: 15px;
-            text-align: center;
-        }
-        
-        .fact-button {
-            padding: 12px 24px;
-            background: #DAA520;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s ease;
             margin-bottom: 15px;
         }
         
-        .fact-button:hover {
-            background: #B8860B;
+        .quiz-options {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 15px;
         }
         
-        .fact-display {
+        .quiz-option {
+            padding: 10px;
             background: rgba(255, 255, 255, 0.6);
-            padding: 15px;
-            border-radius: 8px;
-            font-style: italic;
-            color: #4682B4;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
         
-        .fact-lang-select {
+        .quiz-option:hover {
+            background: rgba(135, 206, 235, 0.4);
+        }
+        
+        .quiz-score {
+            font-size: 1.2em;
+            color: #DAA520;
+            font-weight: bold;
+        }
+        
+        /* New: Time Zone Converter */
+        .tz-tool {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .tz-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
             margin-bottom: 10px;
+            align-items: center;
         }
         
-        .fact-lang-select select {
-            padding: 5px;
+        .tz-input select {
+            padding: 10px;
             border: 1px solid #87CEEB;
-            border-radius: 4px;
+            border-radius: 8px;
+        }
+        
+        .tz-result {
+            font-size: 1.1em;
+            color: #4682B4;
+            margin-top: 10px;
         }
         
         /* Footer */
@@ -684,25 +667,187 @@
                 <button class="tab-btn" onclick="openTab('contact')">Contact</button>
             </nav>
 
-            <!-- CV Tab Contents (same as before, omitted for brevity; include all from previous) -->
             <div id="summary" class="tab-content active">
                 <h2 class="section-title">Professional Summary</h2>
                 <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
             </div>
-            <!-- ... (include all other CV tabs from previous response) ... -->
+
+            <div id="experience" class="tab-content">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="job" onclick="toggleTestimonial(this)">
+                    <h3 class="job-title">Freelance Translator & Proofreader</h3>
+                    <p class="company-dates">Upwork | May 2023 – Present</p>
+                    <p class="description">Delivered Top-Rated translation and proofreading (HE/EN/ES) for diverse global clients, specializing in high-stakes medical, technical, and academic content requiring terminological precision.</p>
+                    <ul>
+                        <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
+                        <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
+                        <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
+                    </ul>
+                    <div class="testimonial">
+                        <strong>Hebrew to English Translation Project</strong><br>
+                        Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
+                        "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. The attention to detail and commitment to maintaining the essence of the content were evident in the final output. Communication was seamless, deadlines were met promptly, and the overall collaboration was both professional and enjoyable. I highly recommend Danilo Hurwitz for any MTPE project and look forward to future collaborations. Five stars!"
+                        <button class="toggle-btn">Read Less</button>
+                    </div>
+                </div>
+                <div class="job" onclick="toggleTestimonial(this)">
+                    <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
+                    <p class="company-dates">Upwork | May 2023 – Present</p>
+                    <p class="description">Provided specialized video editing services focused on creating accurate and synchronized multilingual subtitles (HE/EN/ES) for complex educational and professional content.</p>
+                    <ul>
+                        <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
+                        <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
+                    </ul>
+                    <div class="testimonial">
+                        <strong>Video Editing of a Short Family Video</strong><br>
+                        Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
+                        "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. Also the process of working with him was very convenient. I'd fully recommend working with him!"
+                        <button class="toggle-btn">Read Less</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="skills" class="tab-content">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Medical Translation</h3>
+                        <ul>
+                            <li>Clinical Documentation, Patient Reports</li>
+                            <li>Informed Consents, MedTech Manuals</li>
+                            <li>Academic Papers, Regulatory Submissions (basic)</li>
+                            <li>Healthcare Marketing Content</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Translation & Editing</h3>
+                        <ul>
+                            <li>Proofreading, Copy Editing, MTPE</li>
+                            <li>Terminology Management, QA</li>
+                            <li>Style Guide Implementation</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Software & Tools</h3>
+                        <ul>
+                            <li>MS Office (Advanced), Google Workspace</li>
+                            <li>CapCut, Subtitle Edit</li>
+                            <li>Basic SEO</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Other</h3>
+                        <ul>
+                            <li>Medical Copywriting, Ghostwriting</li>
+                            <li>Cross-Cultural Communication</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="languages">
+                    <div class="lang-card">
+                        <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
+                    </div>
+                    <div class="lang-card">
+                        <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
+                    </div>
+                    <div class="lang-card">
+                        <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
+                    </div>
+                </div>
+            </div>
+
+            <div id="education" class="tab-content">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <h3>Candidate for Doctor of Medicine (MD)</h3>
+                    <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
+                    <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
+                </div>
+            </div>
+
+            <div id="portfolio" class="tab-content">
+                <h2 class="section-title">Portfolio</h2>
+                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Samples showcasing my translation and editing expertise.</p>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <h4>Clinical Report Translation</h4>
+                        <a href="#" target="_blank">View Sample (PDF)</a>
+                    </div>
+                    <div class="portfolio-item">
+                        <h4>Medical Video Subtitles</h4>
+                        <a href="#" target="_blank">Watch Demo</a>
+                    </div>
+                    <div class="portfolio-item">
+                        <h4>Academic Paper Proofreading</h4>
+                        <a href="#" target="_blank">Download Example</a>
+                    </div>
+                    <div class="portfolio-item">
+                        <h4>MedTech Manual Adaptation</h4>
+                        <a href="#" target="_blank">View Project</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="insights" class="tab-content">
+                <h2 class="section-title">Insights & Resources</h2>
+                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Practical tips and short articles on medical translation and HealthTech.</p>
+                <div class="insights">
+                    <div class="insight-item">
+                        <h4>5 Tips for MTPE in Pharma</h4>
+                        <p>Refine AI translations for regulatory compliance with terminological precision...</p>
+                        <a href="#" target="_blank">Read More</a>
+                    </div>
+                    <div class="insight-item">
+                        <h4>Bridging Languages in Global Health</h4>
+                        <p>A trilingual translator's perspective on cross-cultural care...</p>
+                        <a href="#" target="_blank">Read More</a>
+                    </div>
+                    <div class="insight-item">
+                        <h4>Tools for Video Localization</h4>
+                        <p>Essential software for syncing multilingual subtitles in med-ed videos...</p>
+                        <a href="#" target="_blank">Read More</a>
+                    </div>
+                    <div class="insight-item">
+                        <h4>Common Errors in Clinical Translations</h4>
+                        <p>How to avoid them with active medical knowledge...</p>
+                        <a href="#" target="_blank">Read More</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="strengths" class="tab-content">
+                <h2 class="section-title">Key Strengths</h2>
+                <ul class="strengths-list">
+                    <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
+                    <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
+                    <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork.</li>
+                </ul>
+            </div>
+
+            <div id="contact" class="tab-content">
+                <h2 class="section-title">Contact</h2>
+                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
+                <form class="contact-form" onsubmit="sendEmail(event)">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea rows="3" placeholder="Describe your project..." required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <p style="text-align: center; margin-top: 10px; font-size: 0.85em; color: #708090;">Or subscribe to my monthly newsletter for tips: <input type="email" placeholder="Email" style="width: 150px; padding: 5px; border-radius: 4px; border: 1px solid #87CEEB;"> <button onclick="subscribeNewsletter()" style="padding: 5px 10px; background: #DAA520; color: white; border: none; border-radius: 4px; cursor: pointer;">Subscribe</button></p>
+            </div>
         </div>
 
         <!-- Tools Section - Separated -->
         <div class="tools-section">
             <div class="tools-header">
-                <h2>Interactive Tools</h2>
-                <p style="text-align: center; color: #4682B4; font-size: 0.95em;">Fun and practical resources to make translation easier and more engaging.</p>
+                <h2>Useful Tools</h2>
+                <p style="text-align: center; color: #4682B4; font-size: 0.95em;">Interactive resources to assist with medical translation and collaboration.</p>
             </div>
             <nav class="tools-nav">
                 <button class="tools-tab-btn active" onclick="openToolsTab('glossary')">Glossary</button>
                 <button class="tools-tab-btn" onclick="openToolsTab('quote')">Quote Calculator</button>
-                <button class="tools-tab-btn" onclick="openToolsTab('wordcounter')">Word Counter</button>
-                <button class="tools-tab-btn" onclick="openToolsTab('factgen')">Fact Generator</button>
+                <button class="tools-tab-btn" onclick="openToolsTab('quiz')">Term Quiz</button>
+                <button class="tools-tab-btn" onclick="openToolsTab('tz')">Time Zone Converter</button>
             </nav>
 
             <div id="glossary" class="tools-tab-content active">
@@ -732,33 +877,34 @@
                 </div>
             </div>
 
-            <div id="wordcounter" class="tools-tab-content">
-                <h2 class="section-title">Text Analyzer & Word Counter</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Paste your text to count words, characters, and get a readability score—perfect for pre-editing checks!</p>
-                <div class="word-counter-tool">
-                    <textarea class="word-counter-text" id="wordCounterText" placeholder="Paste your text here..."></textarea>
-                    <div id="wordCounterResults" class="word-counter-results">
-                        <span class="counter-stat"><strong>Words:</strong> <span id="wordCountResult">0</span></span>
-                        <span class="counter-stat"><strong>Characters:</strong> <span id="charCountResult">0</span></span>
-                        <span class="counter-stat"><strong>Readability (Flesch):</strong> <span id="readabilityResult">N/A</span></span>
-                    </div>
+            <div id="quiz" class="tools-tab-content">
+                <h2 class="section-title">Medical Term Quiz</h2>
+                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Test your knowledge with a quick quiz on common terms. Score improves with each try!</p>
+                <div class="quiz-tool">
+                    <div class="quiz-question" id="quizQuestion"></div>
+                    <div class="quiz-options" id="quizOptions"></div>
+                    <div class="quiz-score" id="quizScore">Score: 0/0</div>
+                    <button onclick="nextQuiz()" style="margin-top: 10px; padding: 8px 16px; background: #DAA520; color: white; border: none; border-radius: 6px; cursor: pointer;">Next Question</button>
                 </div>
             </div>
 
-            <div id="factgen" class="tools-tab-content">
-                <h2 class="section-title">Daily Medical Fact Generator</h2>
-                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Click for a random fun fact about medicine or translation—translated in your chosen language. Shareable and surprising!</p>
-                <div class="fact-tool">
-                    <div class="fact-lang-select">
-                        <select id="factLang" onchange="generateFact()">
-                            <option value="en">English</option>
-                            <option value="es">Spanish</option>
-                            <option value="he">Hebrew</option>
+            <div id="tz" class="tools-tab-content">
+                <h2 class="section-title">Global Collaboration Time Zone Converter</h2>
+                <p style="text-align: center; margin-bottom: 15px; color: #4682B4; font-size: 0.95em;">Convert times for seamless international meetings (based on your location in Argentina).</p>
+                <div class="tz-tool">
+                    <div class="tz-input">
+                        <select id="tzSelect" onchange="convertTime()">
+                            <option value="">Select Time Zone</option>
+                            <option value="America/New_York">US East (EST/EDT)</option>
+                            <option value="America/Los_Angeles">US West (PST/PDT)</option>
+                            <option value="Europe/London">UK (GMT/BST)</option>
+                            <option value="Europe/Berlin">Germany (CET/CEST)</option>
+                            <option value="Asia/Tel_Aviv">Israel (IST)</option>
+                            <option value="Asia/Tokyo">Japan (JST)</option>
                         </select>
+                        <input type="time" id="localTime" value="09:00" onchange="convertTime()">
                     </div>
-                    <button class="fact-button" onclick="generateFact()">Generate Fact</button>
-                    <div id="factDisplay" class="fact-display">Click to discover a fact!</div>
-                    <button onclick="shareFact()" style="margin-top: 10px; padding: 5px 10px; background: #87CEEB; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">Share This Fact</button>
+                    <div id="tzResult" class="tz-result">Select a time zone to convert.</div>
                 </div>
             </div>
         </div>
@@ -770,7 +916,7 @@
     </footer>
 
     <script>
-        // CV Tabs (same as before)
+        // CV Tabs
         function openTab(tabName) {
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
@@ -792,7 +938,7 @@
             event.target.classList.add('active');
         }
         
-        // Toggle Testimonial (same)
+        // Toggle Testimonial
         function toggleTestimonial(job) {
             const testimonial = job.querySelector('.testimonial');
             testimonial.classList.toggle('expanded');
@@ -800,7 +946,7 @@
             btn.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
         }
         
-        // Glossary (same, expanded data)
+        // Glossary Data
         const glossaryData = [
             { term: 'anatomy', es: 'anatomía', en: 'anatomy', he: 'אנטומיה' },
             { term: 'diagnosis', es: 'diagnóstico', en: 'diagnosis', he: 'אבחון' },
@@ -808,10 +954,7 @@
             { term: 'surgery', es: 'cirugía', en: 'surgery', he: 'ניתוח' },
             { term: 'pharmacology', es: 'farmacología', en: 'pharmacology', he: 'פרמקולוגיה' },
             { term: 'vaccine', es: 'vacuna', en: 'vaccine', he: 'חיסון' },
-            { term: 'symptom', es: 'síntoma', en: 'symptom', he: 'תסמין' },
-            { term: 'prognosis', es: 'pronóstico', en: 'prognosis', he: 'פרוגנוזה' },
-            { term: 'pathology', es: 'patología', en: 'pathology', he: 'פתולוגיה' },
-            { term: 'epidemiology', es: 'epidemiología', en: 'epidemiology', he: 'אפידמיולוגיה' }
+            { term: 'symptom', es: 'síntoma', en: 'symptom', he: 'תסמין' }
         ];
 
         function searchGlossary() {
@@ -827,7 +970,7 @@
             ).join('') || '<div class="glossary-item">No terms found. Try another keyword.</div>';
         }
         
-        // Quote Calculator (same)
+        // Quote Calculator
         function calculateQuote() {
             const words = parseInt(document.getElementById('wordCount').value) || 0;
             const rate = parseFloat(document.getElementById('serviceType').value);
@@ -835,60 +978,69 @@
             document.getElementById('quoteResult').innerHTML = words > 0 ? `Estimated Quote: $${total} USD` : 'Enter a word count.';
         }
         
-        // New: Word Counter
-        document.getElementById('wordCounterText').addEventListener('input', function() {
-            const text = this.value;
-            const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-            const chars = text.length;
-            const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
-            const syllables = text.match(/[aeiouy]/gi)?.length || 0; // Simple estimate
-            const flesch = 206.835 - 1.015 * (words / sentences) - 84.6 * (syllables / words);
-            document.getElementById('wordCountResult').textContent = words;
-            document.getElementById('charCountResult').textContent = chars;
-            document.getElementById('readabilityResult').textContent = isNaN(flesch) ? 'N/A' : flesch.toFixed(1);
-        });
-        
-        // New: Fact Generator
-        const facts = {
-            en: [
-                "Did you know? The human body has about 0.2 milligrams of gold, most of it in the blood.",
-                "Fun fact: 'Hippopotomonstrosesquippedaliophobia' is the fear of long words—ironically long itself!",
-                "Medical trivia: The first successful organ transplant was a kidney in 1954 between identical twins.",
-                "Translation tip: 'Placebo' comes from Latin for 'I shall please'—still used in trials today.",
-                "Did you know? Octopuses have three hearts: two pump blood to gills, one to the body."
-            ],
-            es: [
-                "¿Sabías? El cuerpo humano tiene unos 0.2 miligramos de oro, la mayoría en la sangre.",
-                "Dato curioso: 'Hipopotomonstrosesquipedaliofobia' es el miedo a las palabras largas—irónicamente larga ella misma!",
-                "Trivia médica: El primer trasplante de órgano exitoso fue un riñón en 1954 entre gemelos idénticos.",
-                "Consejo de traducción: 'Placebo' viene del latín 'placere', 'complacer'—aún usado en ensayos.",
-                "¿Sabías? Los pulpos tienen tres corazones: dos bombean sangre a las branquias, uno al cuerpo."
-            ],
-            he: [
-                "האם ידעת? בגוף האדם יש כ-0.2 מיליגרם זהב, רובו בדם.",
-                "עובדה משעשעת: 'היפופוטומונסטרוססקוויפדליוופוביה' היא הפחד ממילים ארוכות—איירוני שהיא ארוכה בעצמה!",
-                "טריוויה רפואית: ההשתלת איבר מוצלחת הראשונה הייתה כליה ב-1954 בין תאומים זהים.",
-                "טיפ תרגום: 'פלצבו' מגיע מלטינית 'אשמח'—עדיין משומש בניסויים.",
-                "האם ידעת? תמנונים יש שלושה לבבות: שניים מזרימים דם לסנפירים, אחד לגוף."
-            ]
-        };
-
-        function generateFact() {
-            const lang = document.getElementById('factLang').value;
-            const randomFact = facts[lang][Math.floor(Math.random() * facts[lang].length)];
-            document.getElementById('factDisplay').innerHTML = randomFact;
-        }
-        
-        function shareFact() {
-            const fact = document.getElementById('factDisplay').textContent;
-            if (navigator.share) {
-                navigator.share({ title: 'Cool Medical Fact from Danilo', text: fact });
-            } else {
-                navigator.clipboard.writeText(fact).then(() => alert('Fact copied to clipboard!'));
+        // Quiz Data
+        const quizData = [
+            {
+                question: "What is the Hebrew term for 'diagnosis'?",
+                options: ['אבחון', 'טיפול', 'ניתוח'],
+                correct: 0
+            },
+            {
+                question: "Translate 'surgery' to Spanish:",
+                options: ['cirugía', 'terapia', 'anatomía'],
+                correct: 0
+            },
+            {
+                question: "English for 'farmacología':",
+                options: ['therapy', 'pharmacology', 'vaccine'],
+                correct: 1
             }
+        ];
+        let currentQuiz = 0;
+        let score = 0;
+        let total = 0;
+
+        function loadQuiz() {
+            const q = quizData[currentQuiz];
+            document.getElementById('quizQuestion').innerHTML = q.question;
+            document.getElementById('quizOptions').innerHTML = q.options.map((opt, i) => 
+                `<div class="quiz-option" onclick="checkAnswer(${i})">${opt}</div>`
+            ).join('');
+            document.getElementById('quizScore').innerHTML = `Score: ${score}/${total}`;
         }
         
-        // Other functions (email, subscribe, download - same as before)
+        function checkAnswer(selected) {
+            const q = quizData[currentQuiz];
+            if (selected === q.correct) score++;
+            total++;
+            currentQuiz = (currentQuiz + 1) % quizData.length;
+            loadQuiz();
+        }
+        
+        function nextQuiz() {
+            currentQuiz = Math.floor(Math.random() * quizData.length);
+            loadQuiz();
+        }
+        
+        // Time Zone Converter (simple JS Date)
+        function convertTime() {
+            const tz = document.getElementById('tzSelect').value;
+            const time = document.getElementById('localTime').value;
+            const result = document.getElementById('tzResult');
+            if (!tz || !time) {
+                result.innerHTML = 'Select a time zone and enter a time.';
+                return;
+            }
+            const [hours, minutes] = time.split(':').map(Number);
+            const localDate = new Date();
+            localDate.setHours(hours, minutes, 0, 0);
+            const utcDate = new Date(localDate.toLocaleString('en-US', {timeZone: 'UTC'}));
+            const converted = new Date(utcDate.toLocaleString('en-US', {timeZone: tz}));
+            const convertedTime = converted.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+            result.innerHTML = `Converted Time in ${tz.split('/')[1].replace('_', ' ')}: ${convertedTime}`;
+        }
+        
+        // Other functions (email, subscribe, download)
         function sendEmail(event) {
             event.preventDefault();
             const form = event.target;
@@ -920,7 +1072,7 @@
         // Init
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
-            generateFact(); // Initial fact
+            loadQuiz();
         });
     </script>
 </body>
