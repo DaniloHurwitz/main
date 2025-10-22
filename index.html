@@ -772,10 +772,14 @@
                     <button type="submit">Send Message</button>
                 </form>
                 <div class="newsletter">
-                    <p>Or subscribe to my monthly tips newsletter:</p>
-                    <input type="email" placeholder="Email" id="newsletterEmail">
-                    <button onclick="subscribeNewsletter()">Subscribe</button>
-                </div>
+    <p>Or subscribe to my monthly tips newsletter:</p>
+    <form action="https://formspree.io/f/xgvnjkjg" method="POST">  <!-- Poné tu endpoint de Formspree -->
+        <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
+        <input type="hidden" name="_subject" value="New Newsletter Subscriber">  <!-- Asunto automático -->
+        <input type="hidden" name="_next" value="https://tu-sitio.com/gracias.html">  <!-- Página de gracias opcional; o dejá vacío -->
+        <button type="submit">Subscribe</button>
+    </form>
+</div>
             </div>
         </div>
     </div>
@@ -823,15 +827,7 @@
             alert('Message sent! Check your email client.');
         }
         
-        function subscribeNewsletter() {
-            const email = document.getElementById('newsletterEmail').value;
-            if (email) {
-                alert(`Subscribed! You'll receive monthly tips at ${email}. (Simulated)`);
-                document.getElementById('newsletterEmail').value = '';
-            } else {
-                alert('Enter your email to subscribe.');
-            }
-        }
+    
         
 function downloadCV() {
     const link = document.createElement('a');
