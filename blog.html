@@ -8,18 +8,18 @@
 <style>
   :root {
     /* Paleta Celeste y Dorado */
-    --primary-color: #87CEEB; /* Celeste cielo */
-    --accent-color: #FFD700;   /* Dorado */
-    --text-color: #333;
-    --link-color: #1a0dab;   /* Azul oscuro (links) */
-    --url-color: #006400;    /* Verde oscuro (URLs) */
-    --summary-color: #4d5156; /* Gris (resúmenes) */
-    --bg-color: #f8f9fa;      /* Fondo muy claro */
-    --container-bg: #ffffff;  /* Fondo del contenedor */
-    --border-color: #dfe1e5; /* Borde sutil gris */
-    --shadow-color: rgba(0, 0, 0, 0.1);
-    --highlight-bg: #FFFACD; /* Fondo resaltado suave (amarillo pálido) */
-    --highlight-text: #333;
+    --primary-color: #87CEEB;   /* Celeste cielo */
+    --accent-color: #FFD700;    /* Dorado */
+    --accent-dark: #e6c300;     /* Dorado oscuro hover */
+    --text-color: #2C3E50;      /* Gris-azulado oscuro */
+    --link-color: #4682B4;      /* Azul medio para links */
+    --summary-color: #708090;   /* Slate gray para resúmenes */
+    --bg-color: #E6F3FF;        /* Fondo principal celeste muy suave */
+    --container-bg: #ffffff;    /* Fondo del contenedor */
+    --border-color: #B3E5FC;    /* Celeste suave para bordes */
+    --shadow-color: rgba(0,0,0,0.08);
+    --highlight-bg: rgba(255,215,0,0.2); /* Amarillo pálido para resaltar */
+    --highlight-text: #2C3E50;
   }
 
   * {
@@ -44,7 +44,7 @@
     margin: 20px auto;
     padding: 25px 35px;
     background-color: var(--container-bg);
-    border-radius: 8px;
+    border-radius: 10px;
     box-shadow: 0 2px 10px var(--shadow-color);
     flex-grow: 1;
   }
@@ -59,19 +59,18 @@
   }
 
   .main-title {
-    color: var(--primary-color); /* Título Celeste */
+    color: var(--primary-color);
     text-align: center;
     font-size: 2.3em;
     font-weight: 700;
     margin: 0;
     flex-grow: 1;
-     /* text-shadow: 1px 1px 1px rgba(0,0,0,0.05); */
   }
 
   .back-button {
     display: inline-block;
     padding: 9px 18px;
-    background-color: var(--accent-color); /* Botón Dorado */
+    background-color: var(--accent-color);
     color: var(--text-color);
     text-decoration: none;
     border-radius: 5px;
@@ -82,7 +81,7 @@
   }
 
   .back-button:hover {
-    background-color: #e6c300; /* Dorado más oscuro */
+    background-color: var(--accent-dark);
     transform: translateY(-2px);
   }
 
@@ -94,7 +93,7 @@
   #search-input {
     width: 100%;
     padding: 14px 22px 14px 50px;
-    background-color: #fff; /* Fondo blanco input */
+    background-color: var(--container-bg);
     color: var(--text-color);
     border: 1px solid var(--border-color);
     border-radius: 24px;
@@ -105,10 +104,10 @@
 
   #search-input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 5px rgba(135, 206, 235, 0.5); /* Sombra celeste */
+    box-shadow: 0 0 5px var(--primary-color);
   }
 
-  .search-container::before { /* Ícono */
+  .search-container::before {
     content: '🔍';
     position: absolute;
     left: 18px;
@@ -136,7 +135,7 @@
   }
 
   .blog-title {
-    color: var(--link-color); /* Azul link */
+    color: var(--link-color);
     font-size: 19px;
     font-weight: 500;
     text-decoration: none;
@@ -150,7 +149,7 @@
   }
 
   .blog-link {
-    color: var(--url-color); /* Verde URL */
+    color: var(--primary-color);
     font-size: 14px;
     display: block;
     margin-top: 3px;
@@ -158,7 +157,7 @@
   }
 
   .blog-summary {
-    color: var(--summary-color); /* Gris resumen */
+    color: var(--summary-color);
     font-size: 14px;
     margin-top: 5px;
   }
@@ -174,7 +173,7 @@
     display: inline-block;
     padding: 8px 12px;
     margin: 0 5px;
-    background-color: #fff;
+    background-color: var(--container-bg);
     color: var(--link-color);
     border: 1px solid var(--border-color);
     border-radius: 4px;
@@ -184,13 +183,13 @@
   }
 
   .pagination-button:hover:not(.disabled) {
-    background-color: var(--primary-color); /* Fondo celeste hover */
+    background-color: var(--primary-color);
     color: #fff;
     border-color: var(--primary-color);
   }
 
   .pagination-button.active {
-    background-color: var(--link-color); /* Fondo azul activo */
+    background-color: var(--link-color);
     color: #fff;
     border-color: var(--link-color);
     font-weight: bold;
@@ -211,7 +210,7 @@
     margin-top: 20px;
   }
 
-  mark { /* Estilo para el resaltado de búsqueda */
+  mark {
     background-color: var(--highlight-bg);
     color: var(--highlight-text);
     padding: 0.1em 0.2em;
@@ -219,16 +218,13 @@
     font-weight: 500;
   }
 
-  /* Animación Fade In */
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
 </style>
 </head>
-<body>
-
+</body>
 <div class="container">
   <header>
     <a href="index.html" class="back-button" title="Volver al Menú Principal">← Volver</a>
