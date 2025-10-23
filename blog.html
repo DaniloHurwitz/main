@@ -45,27 +45,27 @@
   body::before,
   body::after {
     content: '';
-    position: fixed;
+    position: fixed; /* Fijas */
     top: 0;
     left: 0;
-    width: 200%;
+    width: 200%; /* Más anchas */
     height: 100%;
     /* !!! REEMPLAZA ESTA URL POR LA DE TU IMAGEN DE NUBES PNG TRANSPARENTE !!! */
     background-image: url('URL_DE_TU_IMAGEN_DE_NUBES_PNG_TRANSPARENTE');
     background-repeat: repeat-x;
-    background-size: contain;
-    z-index: -1;
-    opacity: 0.15;
-    transition: transform 15s linear;
+    background-size: contain; /* O 'auto', 'cover', prueba cuál queda mejor */
+    z-index: -1; /* Detrás del contenido */
+    opacity: 0.15; /* Nubes sutiles */
+    transition: transform 15s linear; /* Transición LENTA por defecto */
     will-change: transform;
   }
   body::before { background-position: 0% 20%; animation: moveClouds 60s linear infinite alternate; }
   body::after { background-position: 50% 50%; opacity: 0.1; animation: moveClouds 40s linear infinite alternate-reverse; }
   @keyframes moveClouds { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
-  body:hover::before, body:hover::after { transition: transform 2s ease-out; }
+  body:hover::before, body:hover::after { transition: transform 2s ease-out; /* Transición más rápida en hover */ }
 
 
-  /* --- BOTÓN BACK GLOBAL FIJO --- */
+  /* --- BOTÓN BACK GLOBAL FIJO (NUEVO ESTILO) --- */
   #global-back-button {
     display: inline-block;
     padding: 10px 20px; /* Un poco más grande */
@@ -80,8 +80,9 @@
     position: fixed; /* Fijo en la pantalla */
     top: 20px;      /* Distancia desde arriba */
     left: 20px;     /* Distancia desde la izquierda */
-    z-index: 1001;  /* Asegura que esté por encima de todo */
+    z-index: 1001;  /* Asegura que esté por encima de todo (incluido container) */
     box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
+    white-space: nowrap;
   }
 
   #global-back-button:hover {
@@ -94,23 +95,24 @@
     max-width: 800px;
     margin: 40px auto 20px auto; /* Aumentado margen superior para no chocar con botón fijo */
     padding: 25px 35px;
-    background-color: var(--container-bg);
+    background-color: var(--container-bg); /* Blanco semi-transparente */
     border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-color);
+    box-shadow: 0 4px 15px var(--shadow-color); /* Sombra más marcada */
     flex-grow: 1;
-    border: 1px solid rgba(179, 229, 252, 0.5);
-    z-index: 1;
-    position: relative;
+    border: 1px solid rgba(179, 229, 252, 0.5); /* Borde celeste translúcido */
+    z-index: 1; /* Encima de las nubes */
+    position: relative; /* Necesario para z-index */
   }
 
   /* --- HEADER SIN BOTÓN DENTRO --- */
   header {
-    display: flex;
+    display: flex; /* Mantenemos flex por si acaso necesitas alinear algo más en el futuro */
     align-items: center;
+    justify-content: center; /* Centra el contenido (el título) horizontalmente */
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
-    position: relative; /* Mantenido por si acaso */
+    /* position: relative; Ya no es necesario */
     min-height: 50px;
   }
 
@@ -119,15 +121,12 @@
     text-align: center;
     font-size: 2.3em;
     font-weight: 700;
-    margin: 0 auto; /* Centrado */
+    margin: 0; /* Quitamos margin auto, ya que justify-content center lo centra */
     /* Padding lateral ya no es necesario */
     /* padding-left: 120px; QUITADO */
     /* padding-right: 120px; QUITADO */
     line-height: 1.2;
   }
-
-  /* Ya no necesitamos la regla .back-button aquí dentro */
-
 
   /* --- Controles (Buscador, Ordenar, Filtrar) --- */
    .controls-container {
@@ -231,7 +230,7 @@
 
 <script>
   // --- EL CÓDIGO JAVASCRIPT ES EXACTAMENTE EL MISMO QUE ANTES ---
-  // --- (Sin cambios necesarios en el JS para mover el botón) ---
+  // --- (No necesita cambios para mover el botón con CSS) ---
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
