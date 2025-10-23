@@ -12,5 +12,61 @@
     "date": "2025-10-23",
     "summary": "Learn key strategies to stand out and get clients faster in the competitive world of freelancing.",
     "link": "blog/002.html"
+  },
+  {
+    "id": 3,
+    "title": "Top 5 Mistakes New Freelancers Make",
+    "date": "2025-10-24",
+    "summary": "Avoid common pitfalls like undercharging, overcommitting, and poor client communication to grow your freelance career faster.",
+    "link": "blog/003.html"
+  },
+  {
+    "id": 4,
+    "title": "Time Management for Freelancers",
+    "date": "2025-10-25",
+    "summary": "Learn practical strategies to balance multiple projects, study, or personal life while staying productive as a freelancer.",
+    "link": "blog/004.html"
+  },
+  {
+    "id": 5,
+    "title": "How to Build a Freelance Portfolio That Sells",
+    "date": "2025-10-26",
+    "summary": "Tips on curating your best work, presenting it professionally, and attracting higher-paying clients.",
+    "link": "blog/005.html"
+  },
+  {
+    "id": 6,
+    "title": "Finding Your Freelance Niche",
+    "date": "2025-10-27",
+    "summary": "Discover how to focus on your strengths and specialize to stand out in a crowded market.",
+    "link": "blog/006.html"
+  },
+  {
+    "id": 7,
+    "title": "Setting Rates as a Freelancer",
+    "date": "2025-10-28",
+    "summary": "Learn how to price your services fairly, increase rates over time, and communicate value to clients effectively.",
+    "link": "blog/007.html"
+  },
+  {
+    "id": 8,
+    "title": "Freelancing Tools I Use Every Day",
+    "date": "2025-10-29",
+    "summary": "A guide to software, apps, and resources that make freelancing easier and more efficient.",
+    "link": "blog/008.html"
+  },
+  {
+    "id": 9,
+    "title": "How to Handle Difficult Clients",
+    "date": "2025-10-30",
+    "summary": "Practical advice for maintaining professionalism, setting boundaries, and ensuring smooth project delivery.",
+    "link": "blog/009.html"
+  },
+  {
+    "id": 10,
+    "title": "Scaling Your Freelance Business",
+    "date": "2025-10-31",
+    "summary": "Tips on growing your income, automating tasks, and turning freelancing into a sustainable career.",
+    "link": "blog/010.html"
   }
 ]
