@@ -227,19 +227,20 @@
 </body>
 <div class="container">
   <header>
-    <a href="index.html" class="back-button" title="Volver al Menú Principal">← Volver</a>
-    <h1 class="main-title">Archivo de Blogs</h1>
-    <span style="visibility: hidden;" class="back-button">← Volver</span> </header>
+    <a href="index.html" class="back-button" title="Back to Main Menu">← Back</a>
+    <h1 class="main-title">Blog Archive</h1>
+    <span style="visibility: hidden;" class="back-button">← Back</span>
+  </header>
 
   <div class="search-container">
-    <input type="text" id="search-input" placeholder="Buscar por título o contenido...">
+    <input type="text" id="search-input" placeholder="Search by title or content...">
   </div>
 
   <div id="results-container">
-    </div>
+  </div>
 
   <div id="pagination-container">
-    </div>
+  </div>
 </div>
 
 <script>
@@ -247,17 +248,17 @@
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
 
-  let allBlogs = []; // Guarda todos los blogs originales
-  let filteredBlogs = []; // Guarda los blogs filtrados por búsqueda
+  let allBlogs = []; // Stores all original blogs
+  let filteredBlogs = []; // Stores filtered blogs by search
   const itemsPerPage = 5;
   let currentPage = 1;
 
-  // Función para mostrar los blogs de una página específica
+  // Function to display blogs of a specific page
   function displayBlogs(blogsToShow, page) {
-    resultsContainer.innerHTML = ''; // Limpiar resultados anteriores
-    resultsContainer.style.opacity = 0; // Para reiniciar animación
+    resultsContainer.innerHTML = ''; // Clear previous results
+    resultsContainer.style.opacity = 0; // Reset animation
 
-    page = page || 1; // Si no se especifica página, es la 1
+    page = page || 1; // Default page is 1
     currentPage = page;
 
     const startIndex = (page - 1) * itemsPerPage;
@@ -265,7 +266,7 @@
     const paginatedItems = blogsToShow.slice(startIndex, endIndex);
 
     if (paginatedItems.length === 0) {
-        resultsContainer.innerHTML = '<p class="no-results">No se encontraron blogs que coincidan con tu búsqueda.</p>';
+        resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search.</p>';
     } else {
         paginatedItems.forEach((blog, index) => {
             const div = document.createElement('div');
@@ -287,16 +288,16 @@
     setupPagination(blogsToShow);
   }
 
-  // Función para configurar los botones de paginación
+  // Function to setup pagination buttons
   function setupPagination(blogsToShow) {
     paginationContainer.innerHTML = '';
     const pageCount = Math.ceil(blogsToShow.length / itemsPerPage);
 
     if (pageCount <= 1) return;
 
-    // Botón "Anterior"
+    // "Previous" button
     const prevButton = document.createElement('button');
-    prevButton.textContent = '« Anterior';
+    prevButton.textContent = '« Previous';
     prevButton.className = 'pagination-button';
     if (currentPage === 1) {
       prevButton.classList.add('disabled');
@@ -305,18 +306,15 @@
     prevButton.addEventListener('click', () => {
       if (currentPage > 1) {
         displayBlogs(blogsToShow, currentPage - 1);
-        window.scrollTo(0, 0); // Opcional: Scroll al top al cambiar página
+        window.scrollTo(0, 0);
       }
     });
     paginationContainer.appendChild(prevButton);
 
-    // Lógica para mostrar números de página
     const maxPagesToShow = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
     let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1);
-    if (endPage - startPage + 1 < maxPagesToShow) {
-       startPage = Math.max(1, endPage - maxPagesToShow + 1);
-   }
+    if (endPage - startPage + 1 < maxPagesToShow) startPage = Math.max(1, endPage - maxPagesToShow + 1);
 
     if (startPage > 1) {
         const firstPageButton = document.createElement('button');
@@ -337,13 +335,8 @@
       const pageButton = document.createElement('button');
       pageButton.textContent = i;
       pageButton.className = 'pagination-button';
-      if (i === currentPage) {
-        pageButton.classList.add('active');
-      }
-      pageButton.addEventListener('click', () => {
-        displayBlogs(blogsToShow, i);
-        window.scrollTo(0, 0);
-      });
+      if (i === currentPage) pageButton.classList.add('active');
+      pageButton.addEventListener('click', () => { displayBlogs(blogsToShow, i); window.scrollTo(0, 0); });
       paginationContainer.appendChild(pageButton);
     }
 
@@ -362,24 +355,21 @@
         paginationContainer.appendChild(lastPageButton);
     }
 
-    // Botón "Siguiente"
+    // "Next" button
     const nextButton = document.createElement('button');
-    nextButton.textContent = 'Siguiente »';
+    nextButton.textContent = 'Next »';
     nextButton.className = 'pagination-button';
     if (currentPage === pageCount) {
       nextButton.classList.add('disabled');
       nextButton.disabled = true;
     }
     nextButton.addEventListener('click', () => {
-      if (currentPage < pageCount) {
-        displayBlogs(blogsToShow, currentPage + 1);
-        window.scrollTo(0, 0);
-      }
+      if (currentPage < pageCount) displayBlogs(blogsToShow, currentPage + 1);
+      window.scrollTo(0, 0);
     });
     paginationContainer.appendChild(nextButton);
   }
 
-  // Función para manejar la búsqueda
   function handleSearch() {
     const searchTerm = searchInput.value.toLowerCase().trim();
 
@@ -391,43 +381,34 @@
         blog.summary.toLowerCase().includes(searchTerm)
       );
     }
-    displayBlogs(filteredBlogs, 1); // Siempre volver a pág 1 al buscar
+    displayBlogs(filteredBlogs, 1);
   }
 
-  // Función para resaltar
   function highlightMatch(text, term) {
-      if (!term || term.trim() === '') return text;
-      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedTerm})`, 'gi');
-      return text.replace(regex, '<mark>$1</mark>'); // Usa el estilo CSS para <mark>
+    if (!term || term.trim() === '') return text;
+    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp(`(${escapedTerm})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
   }
 
-  // Carga inicial de blogs
   fetch('blogs.json')
     .then(response => {
-      // ... (manejo de errores de fetch igual que antes) ...
        if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
        const contentType = response.headers.get("content-type");
-       if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); }
+       if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, we didn't receive JSON!"); }
        return response.json();
     })
     .then(blogs => {
-      // ... (validación de array igual que antes) ...
-       if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
+       if (!Array.isArray(blogs)) { throw new TypeError("The JSON file does not contain an array of blogs."); }
       allBlogs = blogs;
       filteredBlogs = [...allBlogs];
       displayBlogs(filteredBlogs, 1);
     })
     .catch(error => {
-      // ... (manejo de errores de catch igual que antes) ...
-       console.error('Error al cargar o procesar los blogs:', error);
-       resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Asegúrate de que 'blogs.json' existe, está en la misma carpeta y tiene el formato JSON correcto (un array [...] de objetos {...}).</p>`;
+       console.error('Error loading or processing blogs:', error);
+       resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Make sure 'blogs.json' exists, is in the same folder, and has the correct JSON format (an array [...] of objects {...}).</p>`;
        resultsContainer.style.opacity = 1;
     });
 
-  // Listener de búsqueda
   searchInput.addEventListener('input', handleSearch);
 </script>
-
-</body>
-</html>
