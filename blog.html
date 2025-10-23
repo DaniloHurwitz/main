@@ -35,77 +35,82 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 20px;
+    /* padding-top: 20px; QUITADO, el botón ahora es fijo */
     position: relative; /* Necesario para las nubes */
     overflow-x: hidden; /* Evita scroll horizontal por las nubes */
     transition: background 0.5s ease;
   }
 
-  /* --- Capa de Nubes (Usando Pseudo-elementos) --- */
+  /* --- Capa de Nubes --- */
   body::before,
   body::after {
     content: '';
-    position: fixed; /* Fijas */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 200%; /* Más anchas */
+    width: 200%;
     height: 100%;
     /* !!! REEMPLAZA ESTA URL POR LA DE TU IMAGEN DE NUBES PNG TRANSPARENTE !!! */
     background-image: url('URL_DE_TU_IMAGEN_DE_NUBES_PNG_TRANSPARENTE');
     background-repeat: repeat-x;
-    background-size: contain; /* O 'auto', 'cover', prueba cuál queda mejor */
-    z-index: -1; /* Detrás del contenido */
-    opacity: 0.15; /* Nubes sutiles */
-    transition: transform 15s linear; /* Transición LENTA por defecto */
+    background-size: contain;
+    z-index: -1;
+    opacity: 0.15;
+    transition: transform 15s linear;
     will-change: transform;
   }
+  body::before { background-position: 0% 20%; animation: moveClouds 60s linear infinite alternate; }
+  body::after { background-position: 50% 50%; opacity: 0.1; animation: moveClouds 40s linear infinite alternate-reverse; }
+  @keyframes moveClouds { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+  body:hover::before, body:hover::after { transition: transform 2s ease-out; }
 
-  /* Nube 1 */
-  body::before {
-    background-position: 0% 20%;
-    animation: moveClouds 60s linear infinite alternate;
+
+  /* --- BOTÓN BACK GLOBAL FIJO --- */
+  #global-back-button {
+    display: inline-block;
+    padding: 10px 20px; /* Un poco más grande */
+    background-color: var(--accent-color); /* Color Dorado */
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 8px; /* Más redondeado */
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: fixed; /* Fijo en la pantalla */
+    top: 20px;      /* Distancia desde arriba */
+    left: 20px;     /* Distancia desde la izquierda */
+    z-index: 1001;  /* Asegura que esté por encima de todo */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
   }
 
-  /* Nube 2 */
-  body::after {
-    background-position: 50% 50%;
-    opacity: 0.1;
-    animation: moveClouds 40s linear infinite alternate-reverse;
-  }
-
-  /* Animación movimiento nubes */
-  @keyframes moveClouds {
-    from { transform: translateX(0%); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* Efecto Hover (Intenta acelerar la transición) */
-  body:hover::before,
-  body:hover::after {
-     transition: transform 2s ease-out; /* Transición más rápida en hover */
+  #global-back-button:hover {
+    background-color: var(--accent-dark); /* Hover Dorado oscuro */
+    transform: translateY(-2px); /* Efecto levantar */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
 
   .container {
     max-width: 800px;
-    margin: 20px auto;
+    margin: 40px auto 20px auto; /* Aumentado margen superior para no chocar con botón fijo */
     padding: 25px 35px;
-    background-color: var(--container-bg); /* Blanco semi-transparente */
+    background-color: var(--container-bg);
     border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-color); /* Sombra más marcada */
+    box-shadow: 0 4px 15px var(--shadow-color);
     flex-grow: 1;
-    border: 1px solid rgba(179, 229, 252, 0.5); /* Borde celeste translúcido */
-    z-index: 1; /* Encima de las nubes */
-    position: relative; /* Necesario para z-index */
+    border: 1px solid rgba(179, 229, 252, 0.5);
+    z-index: 1;
+    position: relative;
   }
 
-  /* --- HEADER CORREGIDO --- */
+  /* --- HEADER SIN BOTÓN DENTRO --- */
   header {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
     padding-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
-    position: relative;
+    position: relative; /* Mantenido por si acaso */
     min-height: 50px;
   }
 
@@ -114,42 +119,24 @@
     text-align: center;
     font-size: 2.3em;
     font-weight: 700;
-    margin: 0 auto;
-    padding-left: 120px; /* Ajusta según ancho de tu botón + margen */
-    padding-right: 120px; /* Ajusta según ancho de tu botón + margen */
-    line-height: 1.2; /* Evita que el título sea demasiado alto si es largo */
+    margin: 0 auto; /* Centrado */
+    /* Padding lateral ya no es necesario */
+    /* padding-left: 120px; QUITADO */
+    /* padding-right: 120px; QUITADO */
+    line-height: 1.2;
   }
 
-  .back-button {
-    display: inline-block;
-    padding: 9px 18px;
-    background-color: var(--accent-color); /* Color Dorado */
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    white-space: nowrap; /* Evita que el texto del botón se parta */
-  }
+  /* Ya no necesitamos la regla .back-button aquí dentro */
 
-  .back-button:hover {
-    background-color: var(--accent-dark);
-  }
 
   /* --- Controles (Buscador, Ordenar, Filtrar) --- */
    .controls-container {
     display: flex;
-    flex-direction: column; /* Apila buscador/sort y filtros */
-    gap: 15px; /* Espacio entre las filas */
+    flex-direction: column;
+    gap: 15px;
     margin-bottom: 30px;
     padding: 15px;
-    background-color: var(--control-bg); /* Fondo controles semi-transparente */
+    background-color: var(--control-bg);
     border-radius: 8px;
     border: 1px solid var(--border-color);
   }
@@ -159,109 +146,23 @@
       justify-content: space-between;
       align-items: center;
       gap: 20px;
-      width: 100%; /* Ocupa todo el ancho */
+      width: 100%;
   }
 
-  .search-container {
-    flex-grow: 1;
-    position: relative;
-    margin-bottom: 0;
-  }
-
-  #search-input {
-    width: 100%;
-    padding: 12px 20px 12px 45px;
-    background-color: var(--container-bg);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  #search-input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 5px var(--primary-color);
-  }
-  .search-container::before {
-    content: '🔍';
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 18px;
-    color: #9aa0a6;
-    pointer-events: none;
-  }
-
-  .sort-filter-controls {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-shrink: 0; /* Evita que los selects se achiquen */
-  }
-
-  .sort-filter-controls label {
-    font-weight: 500;
-    color: var(--text-color);
-    margin-right: 5px;
-    white-space: nowrap;
-  }
-
-  .sort-filter-controls select {
-    padding: 8px 12px;
-    border-radius: 5px;
-    border: 1px solid var(--border-color);
-    background-color: var(--container-bg);
-    color: var(--text-color);
-    font-size: 14px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-  }
-  .sort-filter-controls select:focus {
-     outline: none;
-     border-color: var(--primary-color);
-     box-shadow: 0 0 3px var(--primary-color);
-  }
-
-  /* --- Estilos para Filtros Rápidos --- */
-  .quick-filters {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px 15px; /* Espacio vertical y horizontal */
-    padding-top: 10px;
-    border-top: 1px dashed var(--border-color);
-    width: 100%;
-  }
-
-  .filter-label {
-      font-weight: 500;
-      color: var(--text-color);
-      margin-right: 5px;
-  }
-
-  .checkbox-label {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      font-size: 0.9em;
-      color: var(--summary-color);
-      transition: color 0.3s ease;
-  }
-
-  .checkbox-label:hover {
-      color: var(--text-color);
-  }
-
-  .checkbox-label input[type="checkbox"] {
-      margin-right: 6px;
-      cursor: pointer;
-      accent-color: var(--primary-color);
-      transform: scale(1.1);
-  }
-
-  /* --- Estilos de resultados y paginación --- */
+  /* ... (Resto de los estilos CSS para controles, resultados, paginación, etc. son IGUALES) ... */
+  .search-container { flex-grow: 1; position: relative; margin-bottom: 0; }
+  #search-input { width: 100%; padding: 12px 20px 12px 45px; background-color: var(--container-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 24px; font-size: 16px; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  #search-input:focus { border-color: var(--primary-color); box-shadow: 0 0 5px var(--primary-color); }
+  .search-container::before { content: '🔍'; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #9aa0a6; pointer-events: none; }
+  .sort-filter-controls { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
+  .sort-filter-controls label { font-weight: 500; color: var(--text-color); margin-right: 5px; white-space: nowrap; }
+  .sort-filter-controls select { padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border-color); background-color: var(--container-bg); color: var(--text-color); font-size: 14px; cursor: pointer; transition: border-color 0.3s ease; }
+  .sort-filter-controls select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 3px var(--primary-color); }
+  .quick-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 15px; padding-top: 10px; border-top: 1px dashed var(--border-color); width: 100%; }
+  .filter-label { font-weight: 500; color: var(--text-color); margin-right: 5px; }
+  .checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 0.9em; color: var(--summary-color); transition: color 0.3s ease; }
+  .checkbox-label:hover { color: var(--text-color); }
+  .checkbox-label input[type="checkbox"] { margin-right: 6px; cursor: pointer; accent-color: var(--primary-color); transform: scale(1.1); }
   #results-container { opacity: 0; transition: opacity 0.5s ease-in-out; }
   .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
   .blog-result:last-child { border-bottom: none; }
@@ -282,9 +183,10 @@
 </head>
 <body>
 
+<a href="index.html" id="global-back-button" title="Back to Main Menu">← Back</a>
+
 <div class="container">
   <header>
-    <a href="index.html" class="back-button" title="Back to Main Menu">← Back</a>
     <h1 class="main-title">The Freelancer's Compass Blog</h1>
   </header>
 
@@ -303,7 +205,6 @@
           </select>
         </div>
     </div>
-
     <div class="quick-filters">
         <span class="filter-label">Quick Filters:</span>
         <label class="checkbox-label">
@@ -321,7 +222,6 @@
     </div>
   </div>
 
-
   <div id="results-container">
     </div>
 
@@ -331,7 +231,7 @@
 
 <script>
   // --- EL CÓDIGO JAVASCRIPT ES EXACTAMENTE EL MISMO QUE ANTES ---
-  // --- (El que maneja fetch, processBlogs, displayBlogs, setupPagination, highlightMatch y los listeners) ---
+  // --- (Sin cambios necesarios en el JS para mover el botón) ---
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
