@@ -16,7 +16,7 @@
         --slate-gray: #708090;
         --gray-dark: #555;
         --white-translucent: rgba(255,255,255,0.9);
-        --white-semi: rgba(255,255,255,0.6);
+        --white-semi: rgba(255,255,255,0.85); /* Un poco menos transparente para legibilidad */
       }
 
       * {
@@ -33,12 +33,13 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        font-size: 16px; /* Tamaño base para escritorio */
       }
 
       /* Top Navigation */
       .top-nav {
         background-color: var(--white-translucent);
-        padding: 10px 5%;
+        padding: 10px 5%; /* Padding base */
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -46,12 +47,13 @@
         position: sticky;
         top: 0;
         z-index: 1000;
-        border-radius: 10px;
-        margin-bottom: 20px;
+        /* Quitamos border-radius y margin-bottom para que ocupe todo el ancho */
+        /* border-radius: 10px; */
+        /* margin-bottom: 20px; */
       }
 
       .nav-buttons button, .nav-buttons a {
-        padding: 8px 15px;
+        padding: 8px 15px; /* Padding base botones */
         background-color: transparent;
         color: var(--sky-blue);
         text-decoration: none;
@@ -60,8 +62,9 @@
         border: 1px solid var(--sky-blue);
         cursor: pointer;
         margin-left: 10px;
-        font-size: 0.9em;
+        font-size: 0.9em; /* Tamaño base botones */
         transition: all 0.3s ease;
+        white-space: nowrap; /* Evita que el texto se parta */
       }
 
       .nav-buttons button:hover, .nav-buttons a:hover {
@@ -73,10 +76,10 @@
 
       /* Main Blog Container */
       .blog-container {
-        max-width: 800px;
-        width: 90%;
-        margin: 40px auto;
-        padding: 30px 40px;
+        max-width: 800px; /* Ancho máximo */
+        width: 90%;      /* Ancho por defecto (escritorio) */
+        margin: 20px auto 40px auto; /* Reducido margen superior */
+        padding: 30px 40px; /* Padding base */
         background-color: var(--white-semi);
         border-radius: 12px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -84,7 +87,7 @@
 
       .blog-header h1 {
         color: var(--gold);
-        font-size: 2.3em;
+        font-size: 2.3em; /* Tamaño base título */
         font-weight: 700;
         margin-bottom: 25px;
         text-align: center;
@@ -93,7 +96,7 @@
 
       article h2 {
         color: var(--gold);
-        font-size: 1.8em;
+        font-size: 1.8em; /* Tamaño base subtítulo */
         font-weight: 500;
         margin-top: 35px;
         margin-bottom: 15px;
@@ -115,19 +118,21 @@
       article p {
         margin-bottom: 18px;
         color: var(--steel-blue);
-        font-size: 1.05em;
+        font-size: 1.05em; /* Tamaño base párrafo */
       }
 
       article ul {
-        margin-left: 20px;
+        margin-left: 20px; /* Sangría base lista */
         margin-bottom: 18px;
         list-style: none;
+        padding-left: 0; /* Quitar padding por defecto */
       }
 
       article li {
         margin-bottom: 10px;
-        padding-left: 20px;
+        padding-left: 20px; /* Espacio para el marcador */
         position: relative;
+        font-size: 1em; /* Tamaño base item lista */
       }
 
       article li::before {
@@ -156,6 +161,60 @@
         color: var(--steel-blue);
         text-decoration: underline;
       }
+
+      /* --- *** MEDIA QUERIES PARA MÓVILES *** --- */
+      @media (max-width: 768px) {
+        body {
+          font-size: 15px; /* Reducir tamaño base general */
+          padding-top: 0; /* Quitar padding superior si nav es sticky */
+        }
+
+        .top-nav {
+          padding: 8px 3%; /* Menos padding en nav */
+          flex-wrap: wrap; /* Permitir que los botones bajen si no caben */
+          justify-content: center; /* Centrar si se envuelven */
+        }
+
+        .nav-buttons button, .nav-buttons a {
+          padding: 6px 10px; /* Botones más pequeños */
+          font-size: 0.8em; /* Texto botones más pequeño */
+          margin: 3px; /* Añadir margen vertical si se envuelven */
+        }
+
+        .blog-container {
+          width: 95%; /* Usar más ancho */
+          margin: 15px auto 30px auto; /* Reducir márgenes */
+          padding: 20px 15px; /* Reducir padding interno */
+        }
+
+        .blog-header h1 {
+          font-size: 1.8em; /* Título más pequeño */
+          margin-bottom: 20px;
+        }
+
+        article h2 {
+          font-size: 1.5em; /* Subtítulos más pequeños */
+          margin-top: 25px;
+        }
+
+        article p {
+          font-size: 1em; /* Párrafos tamaño normal */
+        }
+
+         article ul {
+            margin-left: 10px; /* Menos sangría en listas */
+         }
+
+        article li {
+          font-size: 0.95em; /* Items lista ligeramente más pequeños */
+           padding-left: 15px; /* Menos espacio para el marcador */
+        }
+         article li::before {
+             font-size: 1.1em;
+         }
+
+      } /* Fin de Media Query */
+
     </style>
 </head>
 <body>
@@ -163,8 +222,8 @@
     <nav class="top-nav">
         <div></div>
         <div class="nav-buttons">
-            <a href="/main/blog.html">← Blog Archive</a>
-            <a href="/main/index.html">Home</a>
+            <a href="blog.html">← Blog Archive</a>
+            <a href="index.html">Home</a>
         </div>
     </nav>
 
