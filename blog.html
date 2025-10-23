@@ -115,8 +115,9 @@
     font-size: 2.3em;
     font-weight: 700;
     margin: 0 auto;
-    padding-left: 120px;
-    padding-right: 120px;
+    padding-left: 120px; /* Ajusta según ancho de tu botón + margen */
+    padding-right: 120px; /* Ajusta según ancho de tu botón + margen */
+    line-height: 1.2; /* Evita que el título sea demasiado alto si es largo */
   }
 
   .back-button {
@@ -134,19 +135,18 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+    white-space: nowrap; /* Evita que el texto del botón se parta */
   }
 
   .back-button:hover {
     background-color: var(--accent-dark);
   }
 
-
-  /* --- Controles (Buscador y Ordenar/Filtrar) --- */
-  .controls-container {
+  /* --- Controles (Buscador, Ordenar, Filtrar) --- */
+   .controls-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
+    flex-direction: column; /* Apila buscador/sort y filtros */
+    gap: 15px; /* Espacio entre las filas */
     margin-bottom: 30px;
     padding: 15px;
     background-color: var(--control-bg); /* Fondo controles semi-transparente */
@@ -154,15 +154,112 @@
     border: 1px solid var(--border-color);
   }
 
-  /* ... (Resto de los estilos CSS para .search-container, #search-input, .sort-filter-controls, etc. SON IGUALES que en el código anterior) ... */
-  .search-container { flex-grow: 1; position: relative; margin-bottom: 0; }
-  #search-input { width: 100%; padding: 12px 20px 12px 45px; background-color: var(--container-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 24px; font-size: 16px; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
-  #search-input:focus { border-color: var(--primary-color); box-shadow: 0 0 5px var(--primary-color); }
-  .search-container::before { content: '🔍'; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #9aa0a6; pointer-events: none; }
-  .sort-filter-controls { display: flex; align-items: center; gap: 15px; }
-  .sort-filter-controls label { font-weight: 500; color: var(--text-color); margin-right: 5px; }
-  .sort-filter-controls select { padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border-color); background-color: var(--container-bg); color: var(--text-color); font-size: 14px; cursor: pointer; transition: border-color 0.3s ease; }
-  .sort-filter-controls select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 3px var(--primary-color); }
+  .search-sort-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      width: 100%; /* Ocupa todo el ancho */
+  }
+
+  .search-container {
+    flex-grow: 1;
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 12px 20px 12px 45px;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  #search-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px var(--primary-color);
+  }
+  .search-container::before {
+    content: '🔍';
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #9aa0a6;
+    pointer-events: none;
+  }
+
+  .sort-filter-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-shrink: 0; /* Evita que los selects se achiquen */
+  }
+
+  .sort-filter-controls label {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-right: 5px;
+    white-space: nowrap;
+  }
+
+  .sort-filter-controls select {
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+  }
+  .sort-filter-controls select:focus {
+     outline: none;
+     border-color: var(--primary-color);
+     box-shadow: 0 0 3px var(--primary-color);
+  }
+
+  /* --- Estilos para Filtros Rápidos --- */
+  .quick-filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 15px; /* Espacio vertical y horizontal */
+    padding-top: 10px;
+    border-top: 1px dashed var(--border-color);
+    width: 100%;
+  }
+
+  .filter-label {
+      font-weight: 500;
+      color: var(--text-color);
+      margin-right: 5px;
+  }
+
+  .checkbox-label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.9em;
+      color: var(--summary-color);
+      transition: color 0.3s ease;
+  }
+
+  .checkbox-label:hover {
+      color: var(--text-color);
+  }
+
+  .checkbox-label input[type="checkbox"] {
+      margin-right: 6px;
+      cursor: pointer;
+      accent-color: var(--primary-color);
+      transform: scale(1.1);
+  }
 
   /* --- Estilos de resultados y paginación --- */
   #results-container { opacity: 0; transition: opacity 0.5s ease-in-out; }
@@ -170,7 +267,7 @@
   .blog-result:last-child { border-bottom: none; }
   .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
   .blog-title:hover { text-decoration: underline; transform: translateX(3px); }
-  .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; }
+  .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; opacity: 0.8; }
   .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; }
   #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); }
   .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
@@ -192,19 +289,38 @@
   </header>
 
   <div class="controls-container">
-    <div class="search-container">
-      <input type="text" id="search-input" placeholder="Search by title or content...">
+    <div class="search-sort-wrapper">
+        <div class="search-container">
+          <input type="text" id="search-input" placeholder="Search by title or content...">
+        </div>
+        <div class="sort-filter-controls">
+          <label for="sort-select">Order by:</label>
+          <select id="sort-select">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="title-asc">Title (A-Z)</option>
+            <option value="title-desc">Title (Z-A)</option>
+          </select>
+        </div>
     </div>
-    <div class="sort-filter-controls">
-      <label for="sort-select">Order by:</label>
-      <select id="sort-select">
-        <option value="newest">Newest First</option>
-        <option value="oldest">Oldest First</option>
-        <option value="title-asc">Title (A-Z)</option>
-        <option value="title-desc">Title (Z-A)</option>
-      </select>
-      </div>
+
+    <div class="quick-filters">
+        <span class="filter-label">Quick Filters:</span>
+        <label class="checkbox-label">
+            <input type="checkbox" name="quickFilter" value="How to"> How to...
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" name="quickFilter" value="Tips"> Tips & Tricks
+        </label>
+        <label class="checkbox-label">
+            <input type="checkbox" name="quickFilter" value="Mistakes"> Common Mistakes
+        </label>
+         <label class="checkbox-label">
+            <input type="checkbox" name="quickFilter" value="Guide"> Guides
+        </label>
+    </div>
   </div>
+
 
   <div id="results-container">
     </div>
@@ -215,23 +331,27 @@
 
 <script>
   // --- EL CÓDIGO JAVASCRIPT ES EXACTAMENTE EL MISMO QUE ANTES ---
-  // --- (El que maneja fetch, processBlogs, displayBlogs, setupPagination, highlightMatch) ---
+  // --- (El que maneja fetch, processBlogs, displayBlogs, setupPagination, highlightMatch y los listeners) ---
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
   const sortSelect = document.getElementById('sort-select');
-  // const categorySelect = document.getElementById('category-select');
+  const quickFilterCheckboxes = document.querySelectorAll('input[name="quickFilter"]');
 
   let allBlogs = [];
   let processedBlogs = [];
   const itemsPerPage = 5;
   let currentPage = 1;
   let currentSort = 'newest';
-  // let currentCategory = 'all';
 
   function processBlogs() {
     const searchTerm = searchInput.value.toLowerCase().trim();
-    // const selectedCategory = categorySelect.value;
+    const selectedFilters = [];
+    quickFilterCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            selectedFilters.push(checkbox.value.toLowerCase());
+        }
+    });
 
     let tempBlogs = allBlogs.filter(blog =>
       (searchTerm === '') ||
@@ -239,15 +359,16 @@
       blog.summary.toLowerCase().includes(searchTerm)
     );
 
-    /*
-    if (selectedCategory !== 'all') {
-      tempBlogs = tempBlogs.filter(blog => blog.category === selectedCategory);
+    if (selectedFilters.length > 0) {
+      tempBlogs = tempBlogs.filter(blog => {
+        const blogContent = (blog.title + ' ' + blog.summary).toLowerCase();
+        return selectedFilters.some(filterTerm => blogContent.includes(filterTerm));
+      });
     }
-    */
 
     currentSort = sortSelect.value;
     switch (currentSort) {
-      case 'newest':
+       case 'newest':
          tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
         break;
       case 'oldest':
@@ -266,7 +387,6 @@
     processedBlogs = tempBlogs;
     displayBlogs(processedBlogs, 1);
   }
-
 
   function displayBlogs(blogsToDisplay, page) {
     resultsContainer.innerHTML = '';
@@ -413,7 +533,9 @@
 
   searchInput.addEventListener('input', processBlogs);
   sortSelect.addEventListener('change', processBlogs);
-  // categorySelect.addEventListener('change', processBlogs);
+  quickFilterCheckboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', processBlogs);
+  });
 
 </script>
 
