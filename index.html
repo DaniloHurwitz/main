@@ -38,7 +38,7 @@
             color: var(--dark-gray);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 80px; /* Add padding to body top to prevent overlap with fixed button */
+            padding-top: 20px; /* Adjusted padding, removed fixed button padding */
         }
 
         body::before {
@@ -55,30 +55,8 @@
             opacity: 0.7;
         }
 
-        /* --- GLOBAL BACK BUTTON --- */
-        #global-back-button {
-            display: inline-block;
-            padding: 10px 20px; /* Slightly larger */
-            background-color: var(--accent-color); /* Gold color */
-            color: var(--dark-gray); /* Dark text for contrast */
-            text-decoration: none;
-            border-radius: 8px; /* More rounded */
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            border: none;
-            cursor: pointer;
-            position: fixed; /* Fixed position on the screen */
-            top: 20px;      /* Distance from the top */
-            left: 20px;     /* Distance from the left */
-            z-index: 1001;  /* Ensure it's above other content */
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add shadow for visibility */
-        }
-
-        #global-back-button:hover {
-            background-color: var(--accent-dark); /* Darker gold on hover */
-            transform: translateY(-2px); /* Lift effect */
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
+        /* --- GLOBAL BACK BUTTON REMOVED --- */
+        /* #global-back-button { ... } */
 
 
         .container {
@@ -612,14 +590,17 @@
             background: var(--steel-blue);
         }
 
-         /* --- BOTÓN DEL BLOG SEPARADO --- */
-        .blog-nav-container {
-            text-align: center;
+        /* --- BOTONES DE NAVEGACIÓN SECUNDARIA (BLOG Y TOOLS) --- */
+        .secondary-nav-container {
+            text-align: center; /* Centra los botones */
             margin-top: 25px;
             margin-bottom: 25px;
+            display: flex; /* Para ponerlos lado a lado */
+            justify-content: center; /* Centra los botones horizontalmente */
+            gap: 15px; /* Espacio entre los botones */
         }
 
-        #blog-nav-btn {
+        .secondary-nav-btn { /* Estilo común para ambos botones */
             padding: 14px 28px;
             font-size: 1.1em;
             font-weight: 600;
@@ -629,16 +610,18 @@
             border-radius: 20px; /* Match tab style */
             box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
             cursor: pointer;
-            transition: all 0.3s ease; /* Inherited from .tab-btn, but explicit */
+            transition: all 0.3s ease;
+            text-decoration: none; /* Asegura que no haya subrayado si se usa <a> */
+            display: inline-block; /* Necesario para padding y centrado */
         }
 
-        #blog-nav-btn:hover {
+        .secondary-nav-btn:hover {
             background: linear-gradient(45deg, var(--accent-dark), var(--accent-color));
             transform: scale(1.05) translateY(-2px);
             box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4);
         }
 
-        .blog-subtitle {
+        .secondary-nav-subtitle { /* Estilo para el subtítulo de los botones */
             display: block;
             font-size: 0.75em;
             font-weight: 400;
@@ -651,14 +634,11 @@
         /* Responsive */
         @media (max-width: 768px) {
             body {
-                padding-top: 70px; /* More space for fixed button */
+                 padding-top: 20px; /* Reset padding for smaller screens if back button isn't fixed */
             }
-            #global-back-button {
-                 padding: 8px 14px;
-                 font-size: 0.9em;
-                 top: 15px;
-                 left: 15px;
-            }
+            /* Remove fixed back button styles if not needed globally */
+            /* #global-back-button { ... } */
+
             .container {
                 width: 95%;
                 padding: 15px; /* Reduce padding */
@@ -671,15 +651,28 @@
             .tagline { font-size: 1.1em; }
             .contact { font-size: 0.9em; }
             .tabs-nav { gap: 5px; }
-            .tab-btn { padding: 8px 14px; font-size: 0.9em; }
-            #blog-nav-btn { padding: 12px 24px; font-size: 1em;}
-            .video-container iframe { height: 250px; } /* Adjust height for mobile */
+            .tab-btn { padding: 8px 14px; font-size: 0.9em; } /* Smaller tabs */
+
+             /* Stack secondary nav buttons on mobile */
+            .secondary-nav-container {
+                 flex-direction: column; /* Apila los botones */
+                 gap: 10px; /* Reduce gap */
+                 align-items: center; /* Centra los botones apilados */
+            }
+             .secondary-nav-btn {
+                 padding: 12px 24px;
+                 font-size: 1em;
+                 width: 80%; /* Limit button width */
+                 max-width: 300px; /* Max width */
+             }
+
+            .video-container iframe { height: 250px; }
             .section-title { font-size: 1.6em; }
             .job-title { font-size: 1.1em; }
             .skills-grid { grid-template-columns: 1fr; }
             .languages { flex-direction: column; align-items: center;}
-            .lang-card { min-width: 180px; /* Ensure cards aren't too narrow */}
-            .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); } /* Allow 2 columns if space */
+            .lang-card { min-width: 180px; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
             .tools-section { grid-template-columns: 1fr; }
             .newsletter form { flex-direction: column; align-items: stretch;}
             .newsletter input { width: 100%; margin-bottom: 5px;}
@@ -690,15 +683,14 @@
              .tagline { font-size: 1em; }
              .video-container iframe { height: 200px; }
              .tab-btn { padding: 7px 12px; font-size: 0.85em; }
-             #blog-nav-btn { padding: 10px 20px; font-size: 0.95em;}
-             .quote-input { grid-template-columns: 1fr; } /* Stack input and select */
-             .portfolio-grid { grid-template-columns: 1fr; } /* Force single column */
+             .secondary-nav-btn { padding: 10px 20px; font-size: 0.95em; width: 90%;}
+             .quote-input { grid-template-columns: 1fr; }
+             .portfolio-grid { grid-template-columns: 1fr; }
         }
 
     </style>
 </head>
 <body>
-
     <div class="container">
         <header class="header">
             <h1 class="name">Danilo Hurwitz</h1>
@@ -720,14 +712,17 @@
             <button class="tab-btn" onclick="openTab('education')">Education</button>
             <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
             <button class="tab-btn" onclick="openTab('strengths')">Strengths</button>
-            </nav>
+        </nav>
 
-        <div class="blog-nav-container">
-            <button id="blog-nav-btn" class="tab-btn" onclick="window.location.href='blog.html'">
-                The Freelancer's Compass Blog
-                <span class="blog-subtitle">Insights & Guides for New Freelancers</span>
-            </button>
+        <div class="secondary-nav-container">
+            <a href="blog.html" class="secondary-nav-btn"> The Freelancer's Compass Blog
+                <span class="secondary-nav-subtitle">Insights & Guides</span>
+            </a>
+            <a href="tools.html" class="secondary-nav-btn"> Freelancer Utilities
+                <span class="secondary-nav-subtitle">Calculators & Resources</span>
+            </a>
         </div>
+
 
         <div id="summary" class="tab-content active">
             <h2 class="section-title">Professional Summary</h2>
@@ -828,22 +823,22 @@
             <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill.</p>
             <div class="portfolio-grid">
                  <div class="portfolio-item">
-                    <h4>Hebrew to English Medical Records</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a> </div>
+                     <h4>Hebrew to English Medical Records</h4>
+                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
+                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a> </div>
                  <div class="portfolio-item">
-                    <h4>Hebrew Tutorial Video Adaptation</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a> </div>
-                <div class="portfolio-item">
-                    <h4>Family Video Editing & Subtitling</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a> </div>
-                <div class="portfolio-item">
-                    <h4>Native Hebrew Audio Review</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a> </div>
-                </div>
+                     <h4>Hebrew Tutorial Video Adaptation</h4>
+                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
+                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a> </div>
+                 <div class="portfolio-item">
+                     <h4>Family Video Editing & Subtitling</h4>
+                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
+                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a> </div>
+                 <div class="portfolio-item">
+                     <h4>Native Hebrew Audio Review</h4>
+                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
+                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a> </div>
+                 </div>
         </div>
 
         <div id="strengths" class="tab-content">
@@ -854,10 +849,7 @@
                 <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
             </ul>
         </div>
-    </div>
-
-    <div class="container">
-        <div class="tools-section">
+    </div> <div class="container"> <div class="tools-section">
             <div class="tool-card">
                 <h3 class="tool-title">Quick Quote Calculator</h3>
                 <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
@@ -892,15 +884,14 @@
                         <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
                         <input type="hidden" name="_subject" value="New Newsletter Subscriber">
                         <button type="submit">Subscribe</button>
-                        <div id="newsletter-status"></div>
                     </form>
+                     <div id="newsletter-status"></div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <footer class="footer">
-        <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download>Download Full CV (PDF)</a> <p>&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
+    </div> <footer class="footer">
+        <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download>Download Full CV (PDF)</a>
+        <p>&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
     </footer>
 
     <script>
@@ -909,8 +900,8 @@
             document.getElementById(tabName).classList.add('active');
 
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            // Find the button associated with the tabName (could be more robust, e.g., using data attributes)
-             const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick').includes(`openTab('${tabName}')`));
+            // Find the button associated with the tabName
+             const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
              if (clickedButton) {
                  clickedButton.classList.add('active');
              }
@@ -919,15 +910,25 @@
         function toggleTestimonial(jobElement) {
             const testimonial = jobElement.querySelector('.testimonial');
             const btn = jobElement.querySelector('.toggle-btn');
-            testimonial.classList.toggle('expanded');
-            btn.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
+            if (testimonial && btn) { // Check if elements exist
+                testimonial.classList.toggle('expanded');
+                btn.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
+            }
         }
 
         function calculateQuote() {
-            const words = parseInt(document.getElementById('wordCount').value) || 0;
-            const rate = parseFloat(document.getElementById('serviceType').value);
-            const total = (words * rate).toFixed(2);
-            document.getElementById('quoteResult').innerHTML = words > 0 ? `Approx. Quote: $${total} USD` : 'Enter word/minute count.';
+            const wordsInput = document.getElementById('wordCount');
+            const rateSelect = document.getElementById('serviceType');
+            const resultDiv = document.getElementById('quoteResult');
+            const words = parseInt(wordsInput.value) || 0;
+            const rate = parseFloat(rateSelect.value);
+
+            if (words > 0 && rate) {
+                const total = (words * rate).toFixed(2);
+                resultDiv.innerHTML = `Approx. Quote: $${total} USD`;
+            } else {
+                 resultDiv.innerHTML = 'Enter word/minute count.';
+            }
         }
 
         function sendEmail(event) {
@@ -937,11 +938,8 @@
             const message = document.getElementById('contactMessage').value;
             const subject = `Project Inquiry from ${name} (Website)`;
             const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
-            // Simple mailto link - relies on user's email client
             window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            // Optionally reset form - user might want text to remain if mailto fails
-            // event.target.reset();
-            // alert('Your email client should open to send the message.'); // Provide feedback
+            // event.target.reset(); // Optional reset
         }
 
         // --- Newsletter Form Submission (using Formspree AJAX) ---
@@ -951,6 +949,7 @@
         async function handleNewsletterSubmit(event) {
             event.preventDefault();
             const data = new FormData(event.target);
+            newsletterStatus.innerHTML = "Subscribing..."; // Provide feedback
             try {
                 const response = await fetch(event.target.action, {
                     method: newsletterForm.method,
@@ -974,24 +973,19 @@
         }
         newsletterForm.addEventListener("submit", handleNewsletterSubmit);
 
-        // --- Initialize default tab ---
+        // --- Initialize default tab & Testimonial Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary'); // Open Summary tab by default
 
-             // Add event listeners to testimonial toggle buttons after DOM is loaded
-             document.querySelectorAll('.job').forEach(jobElement => {
-                 const btn = jobElement.querySelector('.toggle-btn');
-                 if(btn) { // Ensure button exists
-                     btn.addEventListener('click', (e) => {
-                         e.stopPropagation(); // Prevent job click event when clicking button
-                         toggleTestimonial(jobElement);
-                     });
-                 }
+             // Add event listeners to testimonial toggle buttons
+             document.querySelectorAll('.job .toggle-btn').forEach(btn => {
+                 btn.addEventListener('click', (e) => {
+                     e.stopPropagation(); // Prevent job click event
+                     const jobElement = e.target.closest('.job');
+                     if(jobElement) toggleTestimonial(jobElement);
+                 });
              });
         });
-
-        // Function downloadCV removed as link now directly points to the PDF
-        // function downloadCV() { ... }
 
     </script>
 </body>
