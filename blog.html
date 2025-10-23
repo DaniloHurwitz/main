@@ -15,25 +15,22 @@
     --text-color: #2C3E50;
     --link-color: #4682B4;
     --summary-color: #708090;
-    --container-bg: rgba(255, 255, 255, 0.92);
+    --container-bg: rgba(255, 255, 255, 0.92); /* Ligeramente más opaco */
     --border-color: #B3E5FC;
-    --shadow-color: rgba(0,0,0,0.12);
+    --shadow-color: rgba(0,0,0,0.12); /* Sombra un poco más definida */
     --highlight-bg: rgba(255,215,0,0.3);
     --highlight-text: #2C3E50;
-    --control-bg: rgba(240, 248, 255, 0.9);
+    --control-bg: rgba(240, 248, 255, 0.9); /* Controles más opacos */
     /* Colores Blackjack */
-    --bj-bg: #006400; --bj-card-bg: #ffffff; --bj-card-border: #ccc; --bj-text-light: #f0f0f0;
-    --bj-button-bg: #4CAF50; --bj-button-hover: #45a049; --bj-button-disabled: #aaa; --bj-red: #D22; --bj-black: #333;
-    /* Colores Matrix */
-    --matrix-bg: #000;
-    --matrix-text: #0F0; /* Verde clásico */
-    /* --matrix-text: var(--primary-color); */ /* O celeste */
-    /* --matrix-text: var(--accent-color); */ /* O dorado */
-    /* Colores Snake */
-    --snake-bg: #222;
-    --snake-color: var(--primary-color);
-    --food-color: var(--accent-color);
-    --snake-grid: #444;
+    --bj-bg: #006400; /* Verde mesa */
+    --bj-card-bg: #ffffff;
+    --bj-card-border: #ccc;
+    --bj-text-light: #f0f0f0;
+    --bj-button-bg: #4CAF50;
+    --bj-button-hover: #45a049;
+    --bj-button-disabled: #aaa;
+    --bj-red: #D22;
+    --bj-black: #333;
   }
 
   /* --- Estilos base, body, nubes --- */
@@ -42,37 +39,63 @@
   body {
     font-family: 'Roboto', Arial, sans-serif;
     background: linear-gradient(to bottom, #a1d4f4 40%, #e6f3ff 100%);
-    color: var(--text-color); line-height: 1.6; display: flex; flex-direction: column;
-    min-height: 100vh; position: relative; overflow-x: hidden; transition: background 0.5s ease;
-    padding-top: 80px; /* Espacio botón Back */
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    transition: background 0.5s ease;
+    padding-top: 80px; /* Espacio para el botón Back fijo */
   }
-  /* ... (Estilos Nubes ::before, ::after, @keyframes - SIN CAMBIOS) ... */
-  body::before, body::after { content: ''; position: fixed; top: 0; left: 0; width: 200%; height: 100%;
-    /* !!! REEMPLAZA URL !!! */ background-image: url('URL_DE_TU_IMAGEN_DE_NUBES_PNG_TRANSPARENTE');
+  body::before, body::after { /* Nubes */
+    content: ''; position: fixed; top: 0; left: 0; width: 200%; height: 100%;
+    /* !!! REEMPLAZA ESTA URL POR LA DE TU IMAGEN DE NUBES PNG TRANSPARENTE !!! */
+    background-image: url('URL_DE_TU_IMAGEN_DE_NUBES_PNG_TRANSPARENTE');
     background-repeat: repeat-x; background-size: contain; z-index: -1; opacity: 0.15;
-    transition: transform 15s linear; will-change: transform; }
+    transition: transform 15s linear; will-change: transform;
+  }
   body::before { background-position: 0% 20%; animation: moveClouds 60s linear infinite alternate; }
   body::after { background-position: 50% 50%; opacity: 0.1; animation: moveClouds 40s linear infinite alternate-reverse; }
   @keyframes moveClouds { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
   body:hover::before, body:hover::after { transition: transform 2s ease-out; }
 
-  /* --- Botón Back Fijo --- */
-  #global-back-button { /* ... (SIN CAMBIOS) ... */
-    display: inline-block; padding: 10px 20px; background-color: var(--accent-color); color: var(--text-color); text-decoration: none; border-radius: 8px; font-weight: 500; transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; border: none; cursor: pointer; position: fixed; top: 20px; left: 20px; z-index: 1001; box-shadow: 0 2px 5px rgba(0,0,0,0.2); white-space: nowrap; }
+  /* --- BOTÓN BACK GLOBAL FIJO --- */
+  #global-back-button {
+    display: inline-block; padding: 10px 20px; background-color: var(--accent-color);
+    color: var(--text-color); text-decoration: none; border-radius: 8px; font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    border: none; cursor: pointer; position: fixed; top: 20px; left: 20px; z-index: 1001;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); white-space: nowrap;
+  }
   #global-back-button:hover { background-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
 
   /* --- Contenedor Principal --- */
-  .container { /* ... (SIN CAMBIOS) ... */
-    max-width: 800px; margin: 0 auto 40px auto; padding: 25px 35px; background-color: var(--container-bg); border-radius: 10px; box-shadow: 0 4px 15px var(--shadow-color); flex-grow: 1; border: 1px solid rgba(179, 229, 252, 0.5); z-index: 1; position: relative; }
+  .container {
+    max-width: 800px;
+    margin: 0 auto 40px auto; /* Margen superior 0, el padding del body da espacio */
+    padding: 25px 35px; background-color: var(--container-bg); border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-color); flex-grow: 1; border: 1px solid rgba(179, 229, 252, 0.5);
+    z-index: 1; position: relative;
+  }
 
   /* --- Header --- */
-  header { /* ... (SIN CAMBIOS) ... */
-    display: flex; align-items: center; justify-content: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); min-height: 50px; }
-  .main-title { color: var(--primary-color); text-align: center; font-size: 2.3em; font-weight: 700; margin: 0; line-height: 1.2; }
+  header {
+    display: flex; align-items: center; justify-content: center; /* Centra el título */
+    margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
+    min-height: 50px; position: relative; /* Mantenido relativo */
+  }
+  .main-title {
+    color: var(--primary-color); text-align: center; font-size: 2.3em;
+    font-weight: 700; margin: 0; line-height: 1.2;
+    /* Ya no necesita padding lateral */
+  }
+  /* La regla .back-button ya no aplica aquí */
+
 
   /* --- Controles --- */
-  .controls-container { /* ... (SIN CAMBIOS) ... */
-    display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; padding: 15px; background-color: var(--control-bg); border-radius: 8px; border: 1px solid var(--border-color); }
+  .controls-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; padding: 15px; background-color: var(--control-bg); border-radius: 8px; border: 1px solid var(--border-color); }
   .search-sort-wrapper { display: flex; justify-content: space-between; align-items: center; gap: 20px; width: 100%; }
   .search-container { flex-grow: 1; position: relative; margin-bottom: 0; }
   #search-input { width: 100%; padding: 12px 20px 12px 45px; background-color: var(--container-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 24px; font-size: 16px; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
@@ -90,74 +113,34 @@
 
   /* --- Resultados y Paginación --- */
   #results-container { opacity: 1; transition: opacity 0.3s ease-out; }
+  .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
+  .blog-result:last-child { border-bottom: none; }
+  .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
+  .blog-title:hover { text-decoration: underline; transform: translateX(3px); }
+  .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; opacity: 0.8; }
+  .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; }
   #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); transition: opacity 0.3s ease-out; }
-  /* ... (Estilos internos .blog-result, .pagination-button, etc. SIN CAMBIOS) ... */
-  .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; } .blog-result:last-child { border-bottom: none; } .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; } .blog-title:hover { text-decoration: underline; transform: translateX(3px); } .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; opacity: 0.8; } .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; } .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; } .pagination-button:hover:not(.disabled) { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); } .pagination-button.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); font-weight: bold; cursor: default; } .pagination-button.disabled { color: #ccc; border-color: #eee; cursor: not-allowed; background-color: #f9f9f9; } .no-results { text-align: center; color: var(--summary-color); font-style: italic; margin-top: 20px; } mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; } @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .pagination-button:hover:not(.disabled) { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+  .pagination-button.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); font-weight: bold; cursor: default; }
+  .pagination-button.disabled { color: #ccc; border-color: #eee; cursor: not-allowed; background-color: #f9f9f9; }
+  .no-results { text-align: center; color: var(--summary-color); font-style: italic; margin-top: 20px; }
+  mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
   /* --- Estilos Blackjack --- */
   #blackjack-game { display: none; background-color: var(--bj-bg); color: var(--bj-text-light); padding: 25px; border-radius: 10px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 3px solid var(--accent-dark); animation: fadeIn 0.5s ease-out; text-align: center; }
-  /* ... (Estilos internos Blackjack .hand, .card, etc. SIN CAMBIOS) ... */
-   #blackjack-game h2 { color: var(--accent-color); margin-bottom: 20px; font-size: 1.8em; } .hand { margin: 15px 0; min-height: 80px; } .hand h3 { margin-bottom: 10px; font-size: 1.1em; color: var(--bj-text-light); } .cards { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; } .card { background-color: var(--bj-card-bg); color: var(--bj-black); border: 1px solid var(--bj-card-border); border-radius: 5px; padding: 10px 8px; font-size: 1.4em; min-width: 40px; text-align: center; font-weight: bold; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); display: inline-block; } .card.red { color: var(--bj-red); } .card.hidden { background-color: #B00; color: transparent; border: 1px solid #800; } #blackjack-message { margin: 20px 0; font-size: 1.2em; font-weight: bold; min-height: 1.5em; color: var(--accent-color); } .blackjack-buttons button { padding: 12px 25px; margin: 0 10px; background-color: var(--bj-button-bg); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; } .blackjack-buttons button:hover:not(:disabled) { background-color: var(--bj-button-hover); transform: translateY(-2px); } .blackjack-buttons button:disabled { background-color: var(--bj-button-disabled); cursor: not-allowed; opacity: 0.7; }
-
-  /* --- *** NUEVOS ESTILOS PARA MATRIX Y SNAKE *** --- */
-  .easter-egg-container {
-      display: none; /* Oculto por defecto */
-      margin-top: 20px;
-      animation: fadeIn 0.5s ease-out;
-      text-align: center; /* Centra el canvas si es más chico */
-      position: relative; /* Para botón de cierre */
-      border-radius: 10px;
-      overflow: hidden; /* Oculta bordes del canvas si es necesario */
-  }
-
-  /* Estilos Matrix */
-  #matrix-effect {
-      background-color: var(--matrix-bg);
-      border: 3px solid var(--accent-dark); /* Borde dorado */
-      display: block; /* Evita espacio extra debajo del canvas */
-      /* width: 100%; Se ajusta por JS */
-      /* height: 400px; Se ajusta por JS */
-  }
-
-  /* Estilos Snake */
-  #snake-game {
-      background-color: var(--snake-bg);
-      border: 3px solid var(--accent-dark); /* Borde dorado */
-      display: block; /* Evita espacio extra debajo del canvas */
-      margin: 0 auto; /* Centra el canvas horizontalmente */
-  }
-   #snake-score {
-       color: var(--bj-text-light); /* Texto blanco/claro */
-       font-size: 1.2em;
-       margin-bottom: 10px;
-   }
-   #snake-controls button { /* Reutiliza estilos de botones BJ? O crea nuevos */
-      padding: 10px 15px; margin: 5px; background-color: var(--bj-button-bg); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9em; transition: background-color 0.3s ease;
-   }
-    #snake-controls button:hover { background-color: var(--bj-button-hover); }
-
-   /* Botón para cerrar Easter Eggs (opcional) */
-   .close-easter-egg {
-       position: absolute;
-       top: 10px;
-       right: 15px;
-       background: rgba(255, 0, 0, 0.7);
-       color: white;
-       border: none;
-       border-radius: 50%;
-       width: 25px;
-       height: 25px;
-       font-size: 14px;
-       font-weight: bold;
-       cursor: pointer;
-       line-height: 25px; /* Centra la X */
-       text-align: center;
-       transition: background-color 0.3s ease, transform 0.2s ease;
-   }
-    .close-easter-egg:hover {
-        background-color: rgba(200, 0, 0, 0.9);
-        transform: scale(1.1);
-    }
+  #blackjack-game h2 { color: var(--accent-color); margin-bottom: 20px; font-size: 1.8em; }
+  .hand { margin: 15px 0; min-height: 80px; }
+  .hand h3 { margin-bottom: 10px; font-size: 1.1em; color: var(--bj-text-light); }
+  .cards { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .card { background-color: var(--bj-card-bg); color: var(--bj-black); border: 1px solid var(--bj-card-border); border-radius: 5px; padding: 10px 8px; font-size: 1.4em; min-width: 40px; text-align: center; font-weight: bold; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); display: inline-block; }
+  .card.red { color: var(--bj-red); }
+  .card.hidden { background-color: #B00; color: transparent; border: 1px solid #800; }
+  #blackjack-message { margin: 20px 0; font-size: 1.2em; font-weight: bold; min-height: 1.5em; color: var(--accent-color); }
+  .blackjack-buttons button { padding: 12px 25px; margin: 0 10px; background-color: var(--bj-button-bg); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; }
+  .blackjack-buttons button:hover:not(:disabled) { background-color: var(--bj-button-hover); transform: translateY(-2px); }
+  .blackjack-buttons button:disabled { background-color: var(--bj-button-disabled); cursor: not-allowed; opacity: 0.7; }
 
 </style>
 </head>
@@ -194,44 +177,28 @@
     </div>
   </div>
 
-  <div id="blog-content-area">
-      <div id="results-container"></div>
-      <div id="pagination-container"></div>
-  </div>
+  <div id="results-container">
+    </div>
 
-  <div id="blackjack-game" class="easter-egg-container">
-      <button class="close-easter-egg" onclick="hideActiveEasterEgg()">X</button>
-      <h2><i class="fas fa-cards-blank"></i> Blackjack! <i class="fas fa-spade"></i></h2>
+  <div id="pagination-container">
+    </div>
+
+  <div id="blackjack-game">
+      <h2><i class="fas fa-cards-blank"></i> Blackjack Easter Egg! <i class="fas fa-spade"></i></h2>
       <div class="hand">
-          <h3>Dealer (<span id="dealer-score">0</span>):</h3>
+          <h3>Dealer's Hand (<span id="dealer-score">0</span>):</h3>
           <div id="dealer-cards" class="cards"></div>
       </div>
       <div class="hand">
-          <h3>You (<span id="player-score">0</span>):</h3>
+          <h3>Your Hand (<span id="player-score">0</span>):</h3>
           <div id="player-cards" class="cards"></div>
       </div>
-      <div id="blackjack-message">Click Deal!</div>
+      <div id="blackjack-message">Click Deal to start!</div>
       <div class="blackjack-buttons">
-          <button id="bj-hit" disabled><i class="fas fa-plus"></i> Hit</button>
-          <button id="bj-stand" disabled><i class="fas fa-hand-paper"></i> Stand</button>
-          <button id="bj-deal"><i class="fas fa-play"></i> Deal</button>
+          <button id="bj-hit" disabled>Hit (Pedir)</button>
+          <button id="bj-stand" disabled>Stand (Plantarse)</button>
+          <button id="bj-deal">Deal (Repartir)</button>
       </div>
-  </div>
-
-  <div id="matrix-container" class="easter-egg-container">
-       <button class="close-easter-egg" onclick="hideActiveEasterEgg()">X</button>
-       <canvas id="matrix-effect"></canvas>
-  </div>
-
-  <div id="snake-container" class="easter-egg-container">
-       <button class="close-easter-egg" onclick="hideActiveEasterEgg()">X</button>
-       <h2><i class="fas fa-snake"></i> Snake Game!</h2>
-       <div id="snake-score">Score: 0</div>
-       <canvas id="snake-game" width="400" height="400"></canvas>
-        <div id="snake-controls">
-            <button onclick="snakeGame.startGame()"><i class="fas fa-play"></i> Start/Restart</button>
-            <p style="color: var(--bj-text-light); font-size: 0.9em; margin-top: 10px;">Use Arrow Keys to move</p>
-       </div>
   </div>
 
 </div>
@@ -243,12 +210,7 @@
   const paginationContainer = document.getElementById('pagination-container');
   const sortSelect = document.getElementById('sort-select');
   const quickFilterCheckboxes = document.querySelectorAll('input[name="quickFilter"]');
-  const blogContentArea = document.getElementById('blog-content-area'); // Wrapper para blog
-  // Easter Eggs
   const blackjackGameDiv = document.getElementById('blackjack-game');
-  const matrixContainer = document.getElementById('matrix-container');
-  const snakeContainer = document.getElementById('snake-container');
-  let activeEasterEgg = null; // Para saber cuál está activo
 
   let allBlogs = [];
   let processedBlogs = [];
@@ -260,308 +222,194 @@
   function processBlogs() {
     const searchTerm = searchInput.value.toLowerCase().trim();
 
-    // *** EASTER EGG CHECK ***
-    if (searchTerm === 'blackjack') { showBlackjack(); return; }
-    else if (searchTerm === 'matrix') { showMatrix(); return; }
-    else if (searchTerm === 'snake') { showSnake(); return; }
-    else { hideActiveEasterEgg(); } // Oculta CUALQUIER easter egg si no es palabra clave
+    if (searchTerm === 'blackjack') {
+      showBlackjack();
+      return;
+    } else {
+      hideBlackjack(); // Asegura ocultar si no es la búsqueda
+    }
 
-    // --- Continúa procesamiento normal del blog ---
     const selectedFilters = [];
     quickFilterCheckboxes.forEach(checkbox => { if (checkbox.checked) selectedFilters.push(checkbox.value.toLowerCase()); });
+
     let tempBlogs = allBlogs.filter(blog => (searchTerm === '') || blog.title.toLowerCase().includes(searchTerm) || blog.summary.toLowerCase().includes(searchTerm));
-    if (selectedFilters.length > 0) { tempBlogs = tempBlogs.filter(blog => { const bc = (blog.title + ' ' + blog.summary).toLowerCase(); return selectedFilters.some(ft => bc.includes(ft)); }); }
-    currentSort = sortSelect.value;
-    switch (currentSort) { /* ... (igual que antes) ... */
-       case 'newest': tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)); break; case 'oldest': tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0)); break; case 'title-asc': tempBlogs.sort((a, b) => a.title.localeCompare(b.title)); break; case 'title-desc': tempBlogs.sort((a, b) => b.title.localeCompare(a.title)); break; default: break;
+
+    if (selectedFilters.length > 0) {
+      tempBlogs = tempBlogs.filter(blog => { const blogContent = (blog.title + ' ' + blog.summary).toLowerCase(); return selectedFilters.some(filterTerm => blogContent.includes(filterTerm)); });
     }
-    processedBlogs = tempBlogs; displayBlogs(processedBlogs, 1);
+
+    currentSort = sortSelect.value;
+    switch (currentSort) {
+      case 'newest': tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)); break;
+      case 'oldest': tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0)); break;
+      case 'title-asc': tempBlogs.sort((a, b) => a.title.localeCompare(b.title)); break;
+      case 'title-desc': tempBlogs.sort((a, b) => b.title.localeCompare(a.title)); break;
+      default: break;
+    }
+
+    processedBlogs = tempBlogs;
+    displayBlogs(processedBlogs, 1);
   }
-  // ... (displayBlogs, setupPagination, highlightMatch - SIN CAMBIOS) ...
-  function displayBlogs(blogsToDisplay, page) { resultsContainer.innerHTML = ''; resultsContainer.style.opacity = 0; page = page || 1; currentPage = page; const startIndex = (page - 1) * itemsPerPage; const endIndex = startIndex + itemsPerPage; const paginatedItems = blogsToDisplay.slice(startIndex, endIndex); if (paginatedItems.length === 0) { resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search or filters.</p>'; } else { paginatedItems.forEach((blog, index) => { const div = document.createElement('div'); div.className = 'blog-result'; div.style.animationDelay = `${index * 0.05}s`; div.innerHTML = `<a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a> <span class="blog-link">${blog.link}</span> <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>`; resultsContainer.appendChild(div); }); } setTimeout(() => { resultsContainer.style.opacity = 1; }, 50); setupPagination(blogsToDisplay); }
-  function setupPagination(blogsToDisplay) { paginationContainer.innerHTML = ''; const pageCount = Math.ceil(blogsToDisplay.length / itemsPerPage); if (pageCount <= 1) return; const prevButton = document.createElement('button'); prevButton.textContent = '« Previous'; prevButton.className = 'pagination-button'; if (currentPage === 1) { prevButton.classList.add('disabled'); prevButton.disabled = true; } prevButton.addEventListener('click', () => { if (currentPage > 1) { displayBlogs(blogsToDisplay, currentPage - 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(prevButton); const maxPagesToShow = 5; let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2)); let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1); if (endPage - startPage + 1 < maxPagesToShow) startPage = Math.max(1, endPage - maxPagesToShow + 1); if (startPage > 1) { const firstPageButton = document.createElement('button'); firstPageButton.textContent = '1'; firstPageButton.className = 'pagination-button'; firstPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, 1); window.scrollTo(0, 0); }); paginationContainer.appendChild(firstPageButton); if (startPage > 2) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); } } for (let i = startPage; i <= endPage; i++) { const pageButton = document.createElement('button'); pageButton.textContent = i; pageButton.className = 'pagination-button'; if (i === currentPage) pageButton.classList.add('active'); pageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, i); window.scrollTo(0, 0); }); paginationContainer.appendChild(pageButton); } if (endPage < pageCount) { if (endPage < pageCount - 1) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); } const lastPageButton = document.createElement('button'); lastPageButton.textContent = pageCount; lastPageButton.className = 'pagination-button'; lastPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, pageCount); window.scrollTo(0, 0); }); paginationContainer.appendChild(lastPageButton); } const nextButton = document.createElement('button'); nextButton.textContent = 'Next »'; nextButton.className = 'pagination-button'; if (currentPage === pageCount) { nextButton.classList.add('disabled'); nextButton.disabled = true; } nextButton.addEventListener('click', () => { if (currentPage < pageCount) { displayBlogs(blogsToDisplay, currentPage + 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(nextButton); }
-  function highlightMatch(text, term) { if (!term || term.trim() === '') return text; const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const regex = new RegExp(`(${escapedTerm})`, 'gi'); return text.replace(regex, '<mark>$1</mark>'); }
 
-  // --- Fetch inicial de Blogs ---
-  fetch('blogs.json') /* ... (igual que antes) ... */
-    .then(response => { if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } const ct = response.headers.get("content-type"); if (!ct || !ct.includes("application/json")) { throw new TypeError("Oops, no JSON!"); } return response.json(); })
-    .then(blogs => { if (!Array.isArray(blogs)) { throw new TypeError("JSON no es array."); }
-      allBlogs = blogs.map((b, i) => ({ ...b, date: b.date || new Date(Date.now() - i * 864e5).toISOString().split('T')[0] })); processBlogs(); })
-    .catch(error => { console.error('Error blogs:', error); resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Check 'blogs.json'.</p>`; resultsContainer.style.opacity = 1; });
+  function displayBlogs(blogsToDisplay, page) {
+    resultsContainer.innerHTML = ''; resultsContainer.style.opacity = 0; page = page || 1; currentPage = page;
+    const startIndex = (page - 1) * itemsPerPage; const endIndex = startIndex + itemsPerPage; const paginatedItems = blogsToDisplay.slice(startIndex, endIndex);
+    if (paginatedItems.length === 0) { resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search or filters.</p>'; }
+    else { paginatedItems.forEach((blog, index) => {
+        const div = document.createElement('div'); div.className = 'blog-result'; div.style.animationDelay = `${index * 0.05}s`;
+        div.innerHTML = `<a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a> <span class="blog-link">${blog.link}</span> <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>`;
+        resultsContainer.appendChild(div); });
+    }
+    setTimeout(() => { resultsContainer.style.opacity = 1; }, 50); setupPagination(blogsToDisplay);
+  }
 
-  // --- Listeners Blog ---
+  function setupPagination(blogsToDisplay) {
+    paginationContainer.innerHTML = ''; const pageCount = Math.ceil(blogsToDisplay.length / itemsPerPage); if (pageCount <= 1) return;
+    const prevButton = document.createElement('button'); prevButton.textContent = '« Previous'; prevButton.className = 'pagination-button'; if (currentPage === 1) { prevButton.classList.add('disabled'); prevButton.disabled = true; }
+    prevButton.addEventListener('click', () => { if (currentPage > 1) { displayBlogs(blogsToDisplay, currentPage - 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(prevButton);
+    const maxPagesToShow = 5; let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2)); let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1); if (endPage - startPage + 1 < maxPagesToShow) startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    if (startPage > 1) {
+        const firstPageButton = document.createElement('button'); firstPageButton.textContent = '1'; firstPageButton.className = 'pagination-button'; firstPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, 1); window.scrollTo(0, 0); }); paginationContainer.appendChild(firstPageButton);
+        if (startPage > 2) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); }
+    }
+    for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('button'); pageButton.textContent = i; pageButton.className = 'pagination-button'; if (i === currentPage) pageButton.classList.add('active');
+        pageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, i); window.scrollTo(0, 0); }); paginationContainer.appendChild(pageButton);
+    }
+    if (endPage < pageCount) {
+        if (endPage < pageCount - 1) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); }
+        const lastPageButton = document.createElement('button'); lastPageButton.textContent = pageCount; lastPageButton.className = 'pagination-button'; lastPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, pageCount); window.scrollTo(0, 0); }); paginationContainer.appendChild(lastPageButton);
+    }
+    const nextButton = document.createElement('button'); nextButton.textContent = 'Next »'; nextButton.className = 'pagination-button'; if (currentPage === pageCount) { nextButton.classList.add('disabled'); nextButton.disabled = true; }
+    nextButton.addEventListener('click', () => { if (currentPage < pageCount) { displayBlogs(blogsToDisplay, currentPage + 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(nextButton);
+  }
+
+  function highlightMatch(text, term) {
+    if (!term || term.trim() === '') return text; const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const regex = new RegExp(`(${escapedTerm})`, 'gi'); return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  fetch('blogs.json')
+    .then(response => { if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } const contentType = response.headers.get("content-type"); if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); } return response.json(); })
+    .then(blogs => { if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
+      allBlogs = blogs.map((blog, index) => ({ ...blog, date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0] }));
+      processBlogs();
+    })
+    .catch(error => { console.error('Error loading or processing blogs:', error); resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Make sure 'blogs.json' exists, is in the same folder, and has the correct JSON format (an array [...] of objects {...}).</p>`; resultsContainer.style.opacity = 1; });
+
   searchInput.addEventListener('input', processBlogs);
   sortSelect.addEventListener('change', processBlogs);
-  quickFilterCheckboxes.forEach(cb => { cb.addEventListener('change', processBlogs); });
+  quickFilterCheckboxes.forEach(checkbox => { checkbox.addEventListener('change', processBlogs); });
 
   // --- Lógica Blackjack ---
-  // ... (Variables y funciones Blackjack: deck, playerCards, dealerCards, etc. SIN CAMBIOS) ...
-  let deck = [], playerCards = [], dealerCards = [], playerScore = 0, dealerScore = 0, bjGameOver = true, dealerTurnTimeout; const dealerCardsDiv = document.getElementById('dealer-cards'); const playerCardsDiv = document.getElementById('player-cards'); const dealerScoreSpan = document.getElementById('dealer-score'); const playerScoreSpan = document.getElementById('player-score'); const messageDiv = document.getElementById('blackjack-message'); const hitButton = document.getElementById('bj-hit'); const standButton = document.getElementById('bj-stand'); const dealButton = document.getElementById('bj-deal'); function createDeck() { const s=['♥','♦','♣','♠'], r=['A','2','3','4','5','6','7','8','9','10','J','Q','K']; deck=[]; for(const t of s)for(const k of r)deck.push({suit:t,rank:k}); } function shuffleDeck() { for(let i=deck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[deck[i],deck[j]]=[deck[j],deck[i]];} } function getCardValue(c){ if(['K','Q','J'].includes(c.rank))return 10;if(c.rank==='A')return 11;return parseInt(c.rank);} function calculateHandValue(h){ let s=0,a=0;for(const c of h){s+=getCardValue(c);if(c.rank==='A')a++;}while(s>21&&a>0){s-=10;a--;}return s;} function renderCard(c,t,h=false){ const d=document.createElement('div');d.className='card';if(h){d.classList.add('hidden');d.textContent='?';}else{d.textContent=`${c.rank}${c.suit}`;if(['♥','♦'].includes(c.suit))d.classList.add('red');}t.appendChild(d);} function renderHands(h=true){ dealerCardsDiv.innerHTML='';playerCardsDiv.innerHTML='';dealerCards.forEach((c,i)=>renderCard(c,dealerCardsDiv,h&&i===0));playerCards.forEach(c=>renderCard(c,playerCardsDiv));playerScore=calculateHandValue(playerCards);dealerScore=h?calculateHandValue(dealerCards.slice(1)):calculateHandValue(dealerCards);playerScoreSpan.textContent=playerScore;dealerScoreSpan.textContent=h?`${dealerScore} + ?`:dealerScore;} function playerHit(){ if(bjGameOver)return;playerCards.push(deck.pop());renderHands();if(playerScore>21)endGame("You busted! Dealer wins.");} function playerStand(){ if(bjGameOver)return;bjGameOver=true;hitButton.disabled=true;standButton.disabled=true;dealerScore=calculateHandValue(dealerCards);renderHands(false);function dealerTurn(){dealerScore=calculateHandValue(dealerCards);renderHands(false);if(dealerScore<17){messageDiv.textContent="Dealer hits...";dealerTurnTimeout=setTimeout(()=>{if(deck.length>0){dealerCards.push(deck.pop());dealerTurn();}else{determineWinner();}},800);}else{determineWinner();}}dealerTurn();} function determineWinner(){ clearTimeout(dealerTurnTimeout);dealerScore=calculateHandValue(dealerCards);renderHands(false);let m="";if(playerScore>21){m="You busted! Dealer wins.";}else if(dealerScore>21){m="Dealer busted! You win!";}else if(playerScore>dealerScore){m="You win!";}else if(dealerScore>playerScore){m="Dealer wins.";}else{m="Push! (It's a tie)";}endGame(m);} function endGame(m){ bjGameOver=true;messageDiv.textContent=m;hitButton.disabled=true;standButton.disabled=true;dealButton.disabled=false;dealButton.textContent="New Game";clearTimeout(dealerTurnTimeout);} function startBlackjack(){ clearTimeout(dealerTurnTimeout);createDeck();shuffleDeck();playerCards=[deck.pop(),deck.pop()];dealerCards=[deck.pop(),deck.pop()];bjGameOver=false;renderHands();messageDiv.textContent="Hit or Stand?";hitButton.disabled=false;standButton.disabled=false;dealButton.disabled=true;dealButton.textContent="Deal";playerScore=calculateHandValue(playerCards);const d=calculateHandValue(dealerCards.slice(1));if(playerScore===21){if(d>=10){playerStand();}else{endGame("Blackjack! You win!");}}} hitButton.addEventListener('click', playerHit); standButton.addEventListener('click', playerStand); dealButton.addEventListener('click', startBlackjack);
+  let deck = [], playerCards = [], dealerCards = [], playerScore = 0, dealerScore = 0, gameOver = true, dealerTurnTimeout; // Timeout para turno dealer
+  const dealerCardsDiv = document.getElementById('dealer-cards');
+  const playerCardsDiv = document.getElementById('player-cards');
+  const dealerScoreSpan = document.getElementById('dealer-score');
+  const playerScoreSpan = document.getElementById('player-score');
+  const messageDiv = document.getElementById('blackjack-message');
+  const hitButton = document.getElementById('bj-hit');
+  const standButton = document.getElementById('bj-stand');
+  const dealButton = document.getElementById('bj-deal');
 
-  // --- *** NUEVA LÓGICA PARA MATRIX *** ---
-  const matrixCanvas = document.getElementById('matrix-effect');
-  const matrixCtx = matrixCanvas.getContext('2d');
-  let matrixIntervalId = null;
-  let matrixColumns;
-  let matrixDrops = [];
-  const matrixChars = "DaniloHurwitzTraductorMedicoHEENESABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+=-{}[]|;':\",./<>?";
-  const matrixFontSize = 16; // Tamaño de fuente
-
-  function setupMatrix() {
-      matrixCanvas.width = matrixContainer.offsetWidth; // Ajusta al contenedor
-      matrixCanvas.height = 400; // Altura fija (o ajusta como prefieras)
-      matrixColumns = Math.floor(matrixCanvas.width / matrixFontSize);
-      matrixDrops = [];
-      for (let i = 0; i < matrixColumns; i++) {
-          matrixDrops[i] = Math.random() * matrixCanvas.height / matrixFontSize; // Posición inicial aleatoria
-      }
+  function createDeck() { /* ... (igual que antes) ... */
+      const suits = ['♥', '♦', '♣', '♠']; const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']; deck = [];
+      for (const suit of suits) { for (const rank of ranks) { deck.push({ suit, rank }); } }
+  }
+  function shuffleDeck() { /* ... (igual que antes) ... */
+      for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+  }
+  function getCardValue(card) { /* ... (igual que antes) ... */
+      if (['K', 'Q', 'J'].includes(card.rank)) return 10; if (card.rank === 'A') return 11; return parseInt(card.rank);
+  }
+  function calculateHandValue(hand) { /* ... (igual que antes) ... */
+      let sum = 0; let aceCount = 0; for (const card of hand) { sum += getCardValue(card); if (card.rank === 'A') aceCount++; }
+      while (sum > 21 && aceCount > 0) { sum -= 10; aceCount--; } return sum;
+  }
+  function renderCard(card, targetDiv, isHidden = false) { /* ... (igual que antes) ... */
+      const cardDiv = document.createElement('div'); cardDiv.className = 'card'; if (isHidden) { cardDiv.classList.add('hidden'); cardDiv.textContent = '?'; }
+      else { cardDiv.textContent = `${card.rank}${card.suit}`; if (['♥', '♦'].includes(card.suit)) cardDiv.classList.add('red'); }
+      targetDiv.appendChild(cardDiv);
+  }
+  function renderHands(hideDealerCard = true) { /* ... (igual que antes) ... */
+      dealerCardsDiv.innerHTML = ''; playerCardsDiv.innerHTML = ''; dealerCards.forEach((card, index) => renderCard(card, dealerCardsDiv, hideDealerCard && index === 0)); playerCards.forEach(card => renderCard(card, playerCardsDiv));
+      playerScore = calculateHandValue(playerCards); dealerScore = hideDealerCard ? calculateHandValue(dealerCards.slice(1)) : calculateHandValue(dealerCards);
+      playerScoreSpan.textContent = playerScore; dealerScoreSpan.textContent = hideDealerCard ? `${dealerScore} + ?` : dealerScore;
   }
 
-  function drawMatrix() {
-      // Fondo semi-transparente para efecto de estela
-      matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-      matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-      matrixCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--matrix-text').trim() || '#0F0'; // Usa variable CSS o verde
-      matrixCtx.font = matrixFontSize + 'px monospace';
-
-      for (let i = 0; i < matrixDrops.length; i++) {
-          const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-          const x = i * matrixFontSize;
-          const y = matrixDrops[i] * matrixFontSize;
-          matrixCtx.fillText(text, x, y);
-
-          // Mover la gota hacia abajo
-          matrixDrops[i]++;
-
-          // Resetear si se sale o aleatoriamente
-          if (matrixDrops[i] * matrixFontSize > matrixCanvas.height && Math.random() > 0.975) {
-              matrixDrops[i] = 0;
-          }
-      }
+  function playerHit() { /* ... (igual que antes) ... */
+    if (gameOver) return; playerCards.push(deck.pop()); renderHands(); if (playerScore > 21) endGame("You busted! Dealer wins.");
   }
 
-  function startMatrix() {
-      if (matrixIntervalId) clearInterval(matrixIntervalId); // Limpia intervalo anterior si existe
-      setupMatrix();
-      matrixIntervalId = setInterval(drawMatrix, 50); // Ajusta velocidad (ms)
-  }
+  // --- FUNCIÓN playerStand CORREGIDA ---
+  function playerStand() {
+      if (gameOver) return;
+      gameOver = true; // El jugador ya no puede hacer más acciones
+      hitButton.disabled = true;
+      standButton.disabled = true;
 
-  function stopMatrix() {
-      clearInterval(matrixIntervalId);
-      matrixIntervalId = null;
-      // Opcional: Limpiar canvas al detener
-      // matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-  }
+      // Revelar carta oculta y mostrar score real
+      dealerScore = calculateHandValue(dealerCards);
+      renderHands(false); // Mostrar todas las cartas del dealer
 
-   // Ajustar tamaño del canvas si la ventana cambia
-   window.addEventListener('resize', () => {
-       if (activeEasterEgg === 'matrix') {
-           stopMatrix(); // Detener para evitar errores
-           setTimeout(startMatrix, 100); // Reiniciar después de un breve delay
-       }
-   });
+      // Lógica recursiva y asíncrona del dealer con delays
+      function dealerTurn() {
+          dealerScore = calculateHandValue(dealerCards); // Recalcular por si acaso
+          renderHands(false); // Asegurarse de que esté visible el score correcto
 
-
-  // --- *** NUEVA LÓGICA PARA SNAKE *** ---
-  const snakeCanvas = document.getElementById('snake-game');
-  const snakeCtx = snakeCanvas.getContext('2d');
-  const snakeScoreDisplay = document.getElementById('snake-score');
-  const box = 20; // Tamaño de cada cuadro
-  const canvasSize = 400; // Debe coincidir con width/height del canvas
-  let snake;
-  let food;
-  let score;
-  let direction;
-  let snakeGameInterval = null;
-  let snakeGameOver = true;
-
-  const snakeGame = {
-      init: function() {
-          snake = [];
-          snake[0] = { x: 9 * box, y: 10 * box }; // Posición inicial
-          score = 0;
-          direction = null; // Espera primer movimiento
-          snakeGameOver = false;
-          snakeScoreDisplay.textContent = `Score: ${score}`;
-          this.placeFood();
-          if (snakeGameInterval) clearInterval(snakeGameInterval); // Limpia intervalo anterior
-          snakeGameInterval = setInterval(this.draw, 120); // Velocidad del juego (ms)
-           document.addEventListener("keydown", this.changeDirection); // Añadir listener de teclas
-      },
-      placeFood: function() {
-          let newFoodPosition;
-          do {
-              newFoodPosition = {
-                  x: Math.floor(Math.random() * (canvasSize / box)) * box,
-                  y: Math.floor(Math.random() * (canvasSize / box)) * box
-              };
-          } while (this.isSnakeBody(newFoodPosition)); // Asegura que no caiga sobre la serpiente
-          food = newFoodPosition;
-      },
-      isSnakeBody: function(position) {
-          for(let i = 0; i < snake.length; i++) {
-              if(position.x === snake[i].x && position.y === snake[i].y) {
-                  return true;
-              }
-          }
-          return false;
-      },
-      changeDirection: function(event) {
-          // Solo cambia dirección si el juego está activo
-          if (snakeGameOver || !snakeGameInterval) return;
-
-          if (event.keyCode == 37 && direction != "RIGHT") direction = "LEFT";
-          else if (event.keyCode == 38 && direction != "DOWN") direction = "UP";
-          else if (event.keyCode == 39 && direction != "LEFT") direction = "RIGHT";
-          else if (event.keyCode == 40 && direction != "UP") direction = "DOWN";
-      }.bind(this), // Importante: bind(this) para mantener contexto
-      draw: function() {
-          if (snakeGameOver) return;
-
-          // Limpiar canvas
-          snakeCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--snake-bg').trim() || '#222';
-          snakeCtx.fillRect(0, 0, canvasSize, canvasSize);
-
-           // Dibujar grid (opcional)
-           /*
-           snakeCtx.strokeStyle = getComputedStyle(document.documentElement).getPropertyValue('--snake-grid').trim() || '#444';
-           for (let i = 0; i < canvasSize / box; i++) {
-               snakeCtx.beginPath();
-               snakeCtx.moveTo(i * box, 0); snakeCtx.lineTo(i * box, canvasSize);
-               snakeCtx.moveTo(0, i * box); snakeCtx.lineTo(canvasSize, i * box);
-               snakeCtx.stroke();
-           }
-           */
-
-
-          // Dibujar serpiente
-          snakeCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--snake-color').trim() || '#87CEEB';
-          for(let i = 0; i < snake.length; i++) {
-              snakeCtx.fillRect(snake[i].x, snake[i].y, box, box);
-              // Opcional: borde para segmentos
-              snakeCtx.strokeStyle = var(--snake-bg); // Borde del color del fondo
-              snakeCtx.strokeRect(snake[i].x, snake[i].y, box, box);
-          }
-
-          // Dibujar comida
-          snakeCtx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--food-color').trim() || '#FFD700';
-          snakeCtx.fillRect(food.x, food.y, box, box);
-          snakeCtx.strokeStyle = var(--snake-bg); // Borde
-          snakeCtx.strokeRect(food.x, food.y, box, box);
-
-
-          // Mover la serpiente (obtener nueva cabeza)
-          let snakeX = snake[0].x;
-          let snakeY = snake[0].y;
-
-          if (!direction) { // No mover hasta que se presione una tecla
-              // Mantener la cabeza donde está para el primer dibujado
+          if (dealerScore < 17) {
+              messageDiv.textContent = "Dealer hits...";
+              dealerTurnTimeout = setTimeout(() => { // Guardar el timeout ID
+                  if (deck.length > 0) { // Asegurarse que haya cartas
+                      dealerCards.push(deck.pop());
+                      dealerTurn(); // Llamada recursiva para el próximo turno/delay
+                  } else {
+                      // No quedan cartas, determinar ganador con lo que hay
+                      determineWinner();
+                  }
+              }, 800); // Delay más largo para ver la acción
           } else {
-              if (direction == "LEFT") snakeX -= box;
-              if (direction == "UP") snakeY -= box;
-              if (direction == "RIGHT") snakeX += box;
-              if (direction == "DOWN") snakeY += box;
-          }
-
-
-          // Comprobar si come la comida
-          if (snakeX == food.x && snakeY == food.y) {
-              score++;
-              snakeScoreDisplay.textContent = `Score: ${score}`;
-              this.placeFood();
-          } else {
-              // Si no come, quitar la cola (solo si se movió)
-              if (direction) snake.pop();
-          }
-
-          // Nueva cabeza
-           let newHead = { x: snakeX, y: snakeY };
-
-          // Comprobar colisiones
-          if (snakeX < 0 || snakeX >= canvasSize || snakeY < 0 || snakeY >= canvasSize || this.collision(newHead, snake)) {
-              this.endGame();
-              return; // Detiene el dibujado si hay colisión
-          }
-
-          // Añadir nueva cabeza (solo si se movió)
-           if (direction) snake.unshift(newHead);
-
-      }.bind(this), // Importante: bind(this)
-      collision: function(head, array) {
-          for(let i = 0; i < array.length; i++) {
-              if(head.x == array[i].x && head.y == array[i].y) {
-                  return true; // Colisión con cuerpo
-              }
-          }
-          return false;
-      },
-       endGame: function() {
-           clearInterval(snakeGameInterval);
-           snakeGameInterval = null;
-           snakeGameOver = true;
-           document.removeEventListener("keydown", this.changeDirection); // Quitar listener
-           snakeScoreDisplay.textContent = `Game Over! Score: ${score}`;
-           // Aquí podrías mostrar un mensaje más grande en el canvas si quieres
-           // snakeCtx.fillStyle = "red"; snakeCtx.font = "45px Changa one"; snakeCtx.fillText("Game Over", canvasSize / 4, canvasSize / 2);
-       }.bind(this),
-       startGame: function() { // Función pública para iniciar/reiniciar
-            this.endGame(); // Asegura detener el juego anterior
-            this.init();
-       }.bind(this)
-  };
-
-
-  // --- Funciones para Mostrar/Ocultar Easter Eggs ---
-  function showBlackjack() {
-      hideActiveEasterEgg(true); // Oculta otros sin reiniciar búsqueda
-      blogContentArea.style.display = 'none';
-      blackjackGameDiv.style.display = 'block';
-      activeEasterEgg = 'blackjack';
-      if(bjGameOver) startBlackjack();
-  }
-   function showMatrix() {
-      hideActiveEasterEgg(true);
-      blogContentArea.style.display = 'none';
-      matrixContainer.style.display = 'block';
-      activeEasterEgg = 'matrix';
-      startMatrix();
-   }
-    function showSnake() {
-      hideActiveEasterEgg(true);
-      blogContentArea.style.display = 'none';
-      snakeContainer.style.display = 'block';
-      activeEasterEgg = 'snake';
-      // Inicia el juego solo si no está ya iniciado o si terminó
-       if(snakeGameOver) {
-           snakeGame.startGame();
-       } else {
-            // Si ya estaba corriendo y se ocultó, quizás pausar/reanudar? Por ahora lo dejamos así.
-            document.addEventListener("keydown", snakeGame.changeDirection); // Re-añadir listener si se ocultó
-       }
-
-   }
-
-  // Función genérica para ocultar el Easter Egg activo
-  function hideActiveEasterEgg(calledInternally = false) {
-      if (activeEasterEgg === 'blackjack') blackjackGameDiv.style.display = 'none';
-      if (activeEasterEgg === 'matrix') { matrixContainer.style.display = 'none'; stopMatrix(); }
-      if (activeEasterEgg === 'snake') {
-           snakeContainer.style.display = 'none';
-           // snakeGame.endGame(); // Detiene el juego al ocultar
-           document.removeEventListener("keydown", snakeGame.changeDirection); // Quitar listener
-       }
-
-      // Solo muestra el blog si esta función NO fue llamada por otra función show...()
-      if (!calledInternally) {
-          blogContentArea.style.display = 'block';
-          // Si el input está vacío después de cerrar, muestra todos los blogs
-          if(searchInput.value.trim() === '') {
-              processBlogs(); // Reprocesa para mostrar todo si search está vacío
+              // El dealer se planta (>= 17)
+              determineWinner();
           }
       }
-      activeEasterEgg = null;
+      dealerTurn(); // Iniciar el turno del dealer
   }
+
+
+  function determineWinner() { /* ... (igual que antes) ... */
+    clearTimeout(dealerTurnTimeout); // Limpiar timeout por si acaso
+    dealerScore = calculateHandValue(dealerCards); renderHands(false); // Asegura score final y cartas visibles
+    let msg = "";
+    if (playerScore > 21) { msg = "You busted! Dealer wins."; }
+    else if (dealerScore > 21) { msg = "Dealer busted! You win!"; }
+    else if (playerScore > dealerScore) { msg = "You win!"; }
+    else if (dealerScore > playerScore) { msg = "Dealer wins."; }
+    else { msg = "Push! (It's a tie)"; }
+    endGame(msg);
+  }
+
+  function endGame(msg) { /* ... (igual que antes) ... */
+    gameOver = true; messageDiv.textContent = msg; hitButton.disabled = true; standButton.disabled = true;
+    dealButton.disabled = false; dealButton.textContent = "New Game";
+    clearTimeout(dealerTurnTimeout); // Limpiar cualquier timeout pendiente del dealer
+  }
+
+  function startBlackjack() { /* ... (igual que antes) ... */
+    clearTimeout(dealerTurnTimeout); // Limpiar timeout de juegos anteriores
+    createDeck(); shuffleDeck(); playerCards = [deck.pop(), deck.pop()]; dealerCards = [deck.pop(), deck.pop()]; gameOver = false;
+    renderHands(); messageDiv.textContent = "Hit or Stand?"; hitButton.disabled = false; standButton.disabled = false; dealButton.disabled = true; dealButton.textContent = "Deal";
+    playerScore = calculateHandValue(playerCards); const dealerVisibleScore = calculateHandValue(dealerCards.slice(1));
+    if (playerScore === 21) { if (dealerVisibleScore >= 10) { playerStand(); } else { endGame("Blackjack! You win!"); } }
+  }
+
+  // --- Funciones show/hide (igual que antes) ---
+  function showBlackjack() { resultsContainer.style.display = 'none'; paginationContainer.style.display = 'none'; blackjackGameDiv.style.display = 'block'; if(gameOver) startBlackjack(); }
+  function hideBlackjack() { resultsContainer.style.display = 'block'; paginationContainer.style.display = 'block'; blackjackGameDiv.style.display = 'none'; }
+
+  // --- Listeners Blackjack ---
+  hitButton.addEventListener('click', playerHit);
+  standButton.addEventListener('click', playerStand);
+  dealButton.addEventListener('click', startBlackjack);
 
 </script>
 
