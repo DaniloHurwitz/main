@@ -5,150 +5,85 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Freelancer's Compass Blog</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
   :root {
-    /* Paleta Celeste y Dorado */
-    --primary-color: #87CEEB;   /* Celeste cielo */
-    --accent-color: #FFD700;    /* Dorado */
-    --accent-dark: #e6c300;     /* Dorado oscuro hover */
-    --text-color: #2C3E50;      /* Gris-azulado oscuro */
-    --link-color: #4682B4;      /* Azul medio para links */
-    --summary-color: #708090;   /* Slate gray para resúmenes */
-    /* Fondo se define en body */
-    --container-bg: rgba(255, 255, 255, 0.9); /* Blanco semi-transparente */
-    --border-color: #B3E5FC;    /* Celeste suave para bordes */
-    --shadow-color: rgba(0,0,0,0.15); /* Sombra un poco más marcada */
-    --highlight-bg: rgba(255,215,0,0.3); /* Resaltado más visible */
+    /* Paleta */
+    --primary-color: #87CEEB;
+    --accent-color: #FFD700;
+    --accent-dark: #e6c300;
+    --text-color: #2C3E50;
+    --link-color: #4682B4;
+    --summary-color: #708090;
+    --container-bg: rgba(255, 255, 255, 0.9);
+    --border-color: #B3E5FC;
+    --shadow-color: rgba(0,0,0,0.15);
+    --highlight-bg: rgba(255,215,0,0.3);
     --highlight-text: #2C3E50;
-    --control-bg: rgba(240, 248, 255, 0.85); /* Fondo controles semi-transparente */
+    --control-bg: rgba(240, 248, 255, 0.85);
+    /* Colores Blackjack */
+    --bj-bg: #006400; /* Verde mesa */
+    --bj-card-bg: #ffffff;
+    --bj-card-border: #ccc;
+    --bj-text-light: #f0f0f0;
+    --bj-button-bg: #4CAF50;
+    --bj-button-hover: #45a049;
+    --bj-button-disabled: #aaa;
+    --bj-red: #D22;
+    --bj-black: #333;
   }
 
-  /* --- Estilos base --- */
+  /* --- Estilos base, body, nubes (igual que antes) --- */
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   body {
     font-family: 'Roboto', Arial, sans-serif;
-    /* Fondo de Cielo con Gradiente */
     background: linear-gradient(to bottom, #a1d4f4 40%, #e6f3ff 100%);
     color: var(--text-color);
     line-height: 1.6;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    /* padding-top: 20px; QUITADO, el botón ahora es fijo */
-    position: relative; /* Necesario para las nubes */
-    overflow-x: hidden; /* Evita scroll horizontal por las nubes */
+    position: relative;
+    overflow-x: hidden;
     transition: background 0.5s ease;
   }
-
-  /* --- Capa de Nubes --- */
-  body::before,
-  body::after {
-    content: '';
-    position: fixed; /* Fijas */
-    top: 0;
-    left: 0;
-    width: 200%; /* Más anchas */
-    height: 100%;
+  body::before, body::after { /* Nubes */
+    content: ''; position: fixed; top: 0; left: 0; width: 200%; height: 100%;
     /* !!! REEMPLAZA ESTA URL POR LA DE TU IMAGEN DE NUBES PNG TRANSPARENTE !!! */
     background-image: url('URL_DE_TU_IMAGEN_DE_NUBES_PNG_TRANSPARENTE');
-    background-repeat: repeat-x;
-    background-size: contain; /* O 'auto', 'cover', prueba cuál queda mejor */
-    z-index: -1; /* Detrás del contenido */
-    opacity: 0.15; /* Nubes sutiles */
-    transition: transform 15s linear; /* Transición LENTA por defecto */
-    will-change: transform;
+    background-repeat: repeat-x; background-size: contain; z-index: -1; opacity: 0.15;
+    transition: transform 15s linear; will-change: transform;
   }
   body::before { background-position: 0% 20%; animation: moveClouds 60s linear infinite alternate; }
   body::after { background-position: 50% 50%; opacity: 0.1; animation: moveClouds 40s linear infinite alternate-reverse; }
   @keyframes moveClouds { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
-  body:hover::before, body:hover::after { transition: transform 2s ease-out; /* Transición más rápida en hover */ }
+  body:hover::before, body:hover::after { transition: transform 2s ease-out; }
 
-
-  /* --- BOTÓN BACK GLOBAL FIJO (NUEVO ESTILO) --- */
+  /* --- Botón Back Fijo (igual que antes) --- */
   #global-back-button {
-    display: inline-block;
-    padding: 10px 20px; /* Un poco más grande */
-    background-color: var(--accent-color); /* Color Dorado */
-    color: var(--text-color);
-    text-decoration: none;
-    border-radius: 8px; /* Más redondeado */
-    font-weight: 500;
+    display: inline-block; padding: 10px 20px; background-color: var(--accent-color);
+    color: var(--text-color); text-decoration: none; border-radius: 8px; font-weight: 500;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    border: none;
-    cursor: pointer;
-    position: fixed; /* Fijo en la pantalla */
-    top: 20px;      /* Distancia desde arriba */
-    left: 20px;     /* Distancia desde la izquierda */
-    z-index: 1001;  /* Asegura que esté por encima de todo (incluido container) */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para destacar */
-    white-space: nowrap;
+    border: none; cursor: pointer; position: fixed; top: 20px; left: 20px; z-index: 1001;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); white-space: nowrap;
   }
+  #global-back-button:hover { background-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
 
-  #global-back-button:hover {
-    background-color: var(--accent-dark); /* Hover Dorado oscuro */
-    transform: translateY(-2px); /* Efecto levantar */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-
+  /* --- Contenedor Principal (igual que antes) --- */
   .container {
-    max-width: 800px;
-    margin: 40px auto 20px auto; /* Aumentado margen superior para no chocar con botón fijo */
-    padding: 25px 35px;
-    background-color: var(--container-bg); /* Blanco semi-transparente */
-    border-radius: 10px;
-    box-shadow: 0 4px 15px var(--shadow-color); /* Sombra más marcada */
-    flex-grow: 1;
-    border: 1px solid rgba(179, 229, 252, 0.5); /* Borde celeste translúcido */
-    z-index: 1; /* Encima de las nubes */
-    position: relative; /* Necesario para z-index */
+    max-width: 800px; margin: 60px auto 20px auto; /* Aumentado margen superior */
+    padding: 25px 35px; background-color: var(--container-bg); border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-color); flex-grow: 1; border: 1px solid rgba(179, 229, 252, 0.5);
+    z-index: 1; position: relative;
   }
 
-  /* --- HEADER SIN BOTÓN DENTRO --- */
-  header {
-    display: flex; /* Mantenemos flex por si acaso necesitas alinear algo más en el futuro */
-    align-items: center;
-    justify-content: center; /* Centra el contenido (el título) horizontalmente */
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--border-color);
-    /* position: relative; Ya no es necesario */
-    min-height: 50px;
-  }
+  /* --- Header (igual que antes) --- */
+  header { display: flex; align-items: center; justify-content: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); min-height: 50px; }
+  .main-title { color: var(--primary-color); text-align: center; font-size: 2.3em; font-weight: 700; margin: 0; line-height: 1.2; }
 
-  .main-title {
-    color: var(--primary-color);
-    text-align: center;
-    font-size: 2.3em;
-    font-weight: 700;
-    margin: 0; /* Quitamos margin auto, ya que justify-content center lo centra */
-    /* Padding lateral ya no es necesario */
-    /* padding-left: 120px; QUITADO */
-    /* padding-right: 120px; QUITADO */
-    line-height: 1.2;
-  }
-
-  /* --- Controles (Buscador, Ordenar, Filtrar) --- */
-   .controls-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 30px;
-    padding: 15px;
-    background-color: var(--control-bg);
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-  }
-
-  .search-sort-wrapper {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-  }
-
-  /* ... (Resto de los estilos CSS para controles, resultados, paginación, etc. son IGUALES) ... */
+  /* --- Controles (igual que antes) --- */
+  .controls-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; padding: 15px; background-color: var(--control-bg); border-radius: 8px; border: 1px solid var(--border-color); }
+  .search-sort-wrapper { display: flex; justify-content: space-between; align-items: center; gap: 20px; width: 100%; }
   .search-container { flex-grow: 1; position: relative; margin-bottom: 0; }
   #search-input { width: 100%; padding: 12px 20px 12px 45px; background-color: var(--container-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 24px; font-size: 16px; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
   #search-input:focus { border-color: var(--primary-color); box-shadow: 0 0 5px var(--primary-color); }
@@ -162,14 +97,16 @@
   .checkbox-label { display: flex; align-items: center; cursor: pointer; font-size: 0.9em; color: var(--summary-color); transition: color 0.3s ease; }
   .checkbox-label:hover { color: var(--text-color); }
   .checkbox-label input[type="checkbox"] { margin-right: 6px; cursor: pointer; accent-color: var(--primary-color); transform: scale(1.1); }
-  #results-container { opacity: 0; transition: opacity 0.5s ease-in-out; }
+
+  /* --- Estilos Resultados y Paginación (igual que antes) --- */
+  #results-container { opacity: 1; transition: opacity 0.3s ease-out; } /* Opacidad inicial 1 */
   .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
   .blog-result:last-child { border-bottom: none; }
   .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
   .blog-title:hover { text-decoration: underline; transform: translateX(3px); }
   .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; opacity: 0.8; }
   .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; }
-  #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+  #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); transition: opacity 0.3s ease-out; }
   .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
   .pagination-button:hover:not(.disabled) { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
   .pagination-button.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); font-weight: bold; cursor: default; }
@@ -177,6 +114,87 @@
   .no-results { text-align: center; color: var(--summary-color); font-style: italic; margin-top: 20px; }
   mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* --- *** NUEVOS ESTILOS PARA BLACKJACK *** --- */
+  #blackjack-game {
+    display: none; /* Oculto por defecto */
+    background-color: var(--bj-bg);
+    color: var(--bj-text-light);
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 3px solid var(--accent-dark);
+    animation: fadeIn 0.5s ease-out; /* Animación al aparecer */
+    text-align: center;
+  }
+  #blackjack-game h2 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-size: 1.8em;
+  }
+  .hand {
+    margin: 15px 0;
+    min-height: 80px; /* Espacio para cartas */
+  }
+  .hand h3 {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--bj-text-light);
+  }
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap; /* Por si hay muchas cartas */
+  }
+  .card {
+    background-color: var(--bj-card-bg);
+    color: var(--bj-black);
+    border: 1px solid var(--bj-card-border);
+    border-radius: 5px;
+    padding: 10px 8px;
+    font-size: 1.4em;
+    min-width: 40px; /* Ancho mínimo */
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    display: inline-block; /* Para que estén en línea */
+  }
+  .card.red { color: var(--bj-red); }
+  .card.hidden {
+      background-color: #B00; /* Dorso rojo */
+      color: transparent; /* Oculta el texto */
+       border: 1px solid #800;
+  }
+  #blackjack-message {
+    margin: 20px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+    min-height: 1.5em; /* Evita saltos de layout */
+    color: var(--accent-color); /* Mensajes en dorado */
+  }
+  .blackjack-buttons button {
+    padding: 12px 25px;
+    margin: 0 10px;
+    background-color: var(--bj-button-bg);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .blackjack-buttons button:hover:not(:disabled) {
+    background-color: var(--bj-button-hover);
+    transform: translateY(-2px);
+  }
+   .blackjack-buttons button:disabled {
+      background-color: var(--bj-button-disabled);
+      cursor: not-allowed;
+      opacity: 0.7;
+   }
 
 </style>
 </head>
@@ -206,36 +224,49 @@
     </div>
     <div class="quick-filters">
         <span class="filter-label">Quick Filters:</span>
-        <label class="checkbox-label">
-            <input type="checkbox" name="quickFilter" value="How to"> How to...
-        </label>
-        <label class="checkbox-label">
-            <input type="checkbox" name="quickFilter" value="Tips"> Tips & Tricks
-        </label>
-        <label class="checkbox-label">
-            <input type="checkbox" name="quickFilter" value="Mistakes"> Common Mistakes
-        </label>
-         <label class="checkbox-label">
-            <input type="checkbox" name="quickFilter" value="Guide"> Guides
-        </label>
+        <label class="checkbox-label"> <input type="checkbox" name="quickFilter" value="How to"> How to... </label>
+        <label class="checkbox-label"> <input type="checkbox" name="quickFilter" value="Tips"> Tips & Tricks </label>
+        <label class="checkbox-label"> <input type="checkbox" name="quickFilter" value="Mistakes"> Common Mistakes </label>
+        <label class="checkbox-label"> <input type="checkbox" name="quickFilter" value="Guide"> Guides </label>
     </div>
   </div>
 
   <div id="results-container">
-    </div>
-
+     </div>
   <div id="pagination-container">
-    </div>
+     </div>
+
+  <div id="blackjack-game">
+      <h2><i class="fas fa-cards-blank"></i> Blackjack Easter Egg! <i class="fas fa-spade"></i></h2>
+
+      <div class="hand">
+          <h3>Dealer's Hand (<span id="dealer-score">0</span>):</h3>
+          <div id="dealer-cards" class="cards"></div>
+      </div>
+
+      <div class="hand">
+          <h3>Your Hand (<span id="player-score">0</span>):</h3>
+          <div id="player-cards" class="cards"></div>
+      </div>
+
+      <div id="blackjack-message">Place your bets... Just kidding, click Deal!</div>
+
+      <div class="blackjack-buttons">
+          <button id="bj-hit">Hit (Pedir)</button>
+          <button id="bj-stand">Stand (Plantarse)</button>
+          <button id="bj-deal">Deal (Repartir)</button> </div>
+  </div>
+
 </div>
 
 <script>
-  // --- EL CÓDIGO JAVASCRIPT ES EXACTAMENTE EL MISMO QUE ANTES ---
-  // --- (No necesita cambios para mover el botón con CSS) ---
+  // --- Variables Globales ---
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
   const sortSelect = document.getElementById('sort-select');
   const quickFilterCheckboxes = document.querySelectorAll('input[name="quickFilter"]');
+  const blackjackGameDiv = document.getElementById('blackjack-game'); // Div del juego
 
   let allBlogs = [];
   let processedBlogs = [];
@@ -243,198 +274,315 @@
   let currentPage = 1;
   let currentSort = 'newest';
 
+  // --- Lógica del Blog (Búsqueda, Filtro, Orden, Paginación) ---
+
   function processBlogs() {
     const searchTerm = searchInput.value.toLowerCase().trim();
+
+    // *** EASTER EGG CHECK ***
+    if (searchTerm === 'blackjack') {
+        showBlackjack();
+        return; // Detiene el procesamiento normal del blog
+    } else {
+        hideBlackjack(); // Asegura que el juego esté oculto si no es la búsqueda
+    }
+
+    // --- Continúa procesamiento normal del blog ---
     const selectedFilters = [];
-    quickFilterCheckboxes.forEach(checkbox => {
-        if (checkbox.checked) {
-            selectedFilters.push(checkbox.value.toLowerCase());
-        }
+    quickFilterCheckboxes.forEach(checkbox => { /* ... (igual que antes) ... */
+         if (checkbox.checked) selectedFilters.push(checkbox.value.toLowerCase());
     });
 
-    let tempBlogs = allBlogs.filter(blog =>
+    let tempBlogs = allBlogs.filter(blog => /* ... (igual que antes) ... */
       (searchTerm === '') ||
       blog.title.toLowerCase().includes(searchTerm) ||
       blog.summary.toLowerCase().includes(searchTerm)
     );
 
-    if (selectedFilters.length > 0) {
-      tempBlogs = tempBlogs.filter(blog => {
-        const blogContent = (blog.title + ' ' + blog.summary).toLowerCase();
-        return selectedFilters.some(filterTerm => blogContent.includes(filterTerm));
-      });
+    if (selectedFilters.length > 0) { /* ... (igual que antes) ... */
+       tempBlogs = tempBlogs.filter(blog => {
+         const blogContent = (blog.title + ' ' + blog.summary).toLowerCase();
+         return selectedFilters.some(filterTerm => blogContent.includes(filterTerm));
+       });
     }
 
     currentSort = sortSelect.value;
-    switch (currentSort) {
-       case 'newest':
-         tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
-        break;
-      case 'oldest':
-         tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
-        break;
-      case 'title-asc':
-        tempBlogs.sort((a, b) => a.title.localeCompare(b.title));
-        break;
-      case 'title-desc':
-        tempBlogs.sort((a, b) => b.title.localeCompare(a.title));
-        break;
-      default:
-        break;
+    switch (currentSort) { /* ... (igual que antes) ... */
+       case 'newest': tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)); break;
+       case 'oldest': tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0)); break;
+       case 'title-asc': tempBlogs.sort((a, b) => a.title.localeCompare(b.title)); break;
+       case 'title-desc': tempBlogs.sort((a, b) => b.title.localeCompare(a.title)); break;
+       default: break;
     }
 
     processedBlogs = tempBlogs;
     displayBlogs(processedBlogs, 1);
   }
 
-  function displayBlogs(blogsToDisplay, page) {
-    resultsContainer.innerHTML = '';
-    resultsContainer.style.opacity = 0;
-
-    page = page || 1;
-    currentPage = page;
-
-    const startIndex = (page - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const paginatedItems = blogsToDisplay.slice(startIndex, endIndex);
-
-    if (paginatedItems.length === 0) {
-      resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search or filters.</p>';
-    } else {
-      paginatedItems.forEach((blog, index) => {
-        const div = document.createElement('div');
-        div.className = 'blog-result';
-        div.style.animationDelay = `${index * 0.05}s`;
-        div.innerHTML = `
-          <a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a>
-          <span class="blog-link">${blog.link}</span>
-          <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>
-        `;
-        resultsContainer.appendChild(div);
-      });
+  function displayBlogs(blogsToDisplay, page) { /* ... (igual que antes) ... */
+    resultsContainer.innerHTML = ''; resultsContainer.style.opacity = 0; page = page || 1; currentPage = page;
+    const startIndex = (page - 1) * itemsPerPage; const endIndex = startIndex + itemsPerPage; const paginatedItems = blogsToDisplay.slice(startIndex, endIndex);
+    if (paginatedItems.length === 0) { resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search or filters.</p>'; }
+    else { paginatedItems.forEach((blog, index) => { /* ... (crear y añadir divs blog-result) ... */
+        const div = document.createElement('div'); div.className = 'blog-result'; div.style.animationDelay = `${index * 0.05}s`;
+        div.innerHTML = `<a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a> <span class="blog-link">${blog.link}</span> <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>`;
+        resultsContainer.appendChild(div); });
     }
-
-    setTimeout(() => {
-      resultsContainer.style.opacity = 1;
-    }, 50);
-
-    setupPagination(blogsToDisplay);
+    setTimeout(() => { resultsContainer.style.opacity = 1; }, 50); setupPagination(blogsToDisplay);
   }
 
-  function setupPagination(blogsToDisplay) {
-    paginationContainer.innerHTML = '';
-    const pageCount = Math.ceil(blogsToDisplay.length / itemsPerPage);
-
-    if (pageCount <= 1) return;
-
-    const prevButton = document.createElement('button');
-    prevButton.textContent = '« Previous';
-    prevButton.className = 'pagination-button';
-    if (currentPage === 1) {
-      prevButton.classList.add('disabled');
-      prevButton.disabled = true;
+  function setupPagination(blogsToDisplay) { /* ... (igual que antes) ... */
+    paginationContainer.innerHTML = ''; const pageCount = Math.ceil(blogsToDisplay.length / itemsPerPage); if (pageCount <= 1) return;
+    const prevButton = document.createElement('button'); prevButton.textContent = '« Previous'; prevButton.className = 'pagination-button'; if (currentPage === 1) { prevButton.classList.add('disabled'); prevButton.disabled = true; }
+    prevButton.addEventListener('click', () => { if (currentPage > 1) { displayBlogs(blogsToDisplay, currentPage - 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(prevButton);
+    const maxPagesToShow = 5; let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2)); let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1); if (endPage - startPage + 1 < maxPagesToShow) startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    if (startPage > 1) { /* ... (botón '1' y '...') ... */
+        const firstPageButton = document.createElement('button'); firstPageButton.textContent = '1'; firstPageButton.className = 'pagination-button'; firstPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, 1); window.scrollTo(0, 0); }); paginationContainer.appendChild(firstPageButton);
+        if (startPage > 2) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); }
     }
-    prevButton.addEventListener('click', () => {
-      if (currentPage > 1) {
-        displayBlogs(blogsToDisplay, currentPage - 1);
-        window.scrollTo(0, 0);
-      }
-    });
-    paginationContainer.appendChild(prevButton);
-
-    const maxPagesToShow = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1);
-    if (endPage - startPage + 1 < maxPagesToShow) startPage = Math.max(1, endPage - maxPagesToShow + 1);
-
-    if (startPage > 1) {
-        const firstPageButton = document.createElement('button');
-        firstPageButton.textContent = '1';
-        firstPageButton.className = 'pagination-button';
-        firstPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, 1); window.scrollTo(0, 0); });
-        paginationContainer.appendChild(firstPageButton);
-        if (startPage > 2) {
-            const ellipsis = document.createElement('span');
-            ellipsis.textContent = '...';
-            ellipsis.style.margin = '0 8px';
-            ellipsis.style.color = 'var(--summary-color)';
-            paginationContainer.appendChild(ellipsis);
-        }
+    for (let i = startPage; i <= endPage; i++) { /* ... (botones numéricos) ... */
+        const pageButton = document.createElement('button'); pageButton.textContent = i; pageButton.className = 'pagination-button'; if (i === currentPage) pageButton.classList.add('active');
+        pageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, i); window.scrollTo(0, 0); }); paginationContainer.appendChild(pageButton);
     }
-
-    for (let i = startPage; i <= endPage; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i;
-      pageButton.className = 'pagination-button';
-      if (i === currentPage) pageButton.classList.add('active');
-      pageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, i); window.scrollTo(0, 0); });
-      paginationContainer.appendChild(pageButton);
+    if (endPage < pageCount) { /* ... (botón última pág y '...') ... */
+        if (endPage < pageCount - 1) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); }
+        const lastPageButton = document.createElement('button'); lastPageButton.textContent = pageCount; lastPageButton.className = 'pagination-button'; lastPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, pageCount); window.scrollTo(0, 0); }); paginationContainer.appendChild(lastPageButton);
     }
-
-    if (endPage < pageCount) {
-        if (endPage < pageCount - 1) {
-            const ellipsis = document.createElement('span');
-            ellipsis.textContent = '...';
-            ellipsis.style.margin = '0 8px';
-            ellipsis.style.color = 'var(--summary-color)';
-            paginationContainer.appendChild(ellipsis);
-        }
-        const lastPageButton = document.createElement('button');
-        lastPageButton.textContent = pageCount;
-        lastPageButton.className = 'pagination-button';
-        lastPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, pageCount); window.scrollTo(0, 0); });
-        paginationContainer.appendChild(lastPageButton);
-    }
-
-    const nextButton = document.createElement('button');
-    nextButton.textContent = 'Next »';
-    nextButton.className = 'pagination-button';
-    if (currentPage === pageCount) {
-      nextButton.classList.add('disabled');
-      nextButton.disabled = true;
-    }
-    nextButton.addEventListener('click', () => {
-      if (currentPage < pageCount) {
-         displayBlogs(blogsToDisplay, currentPage + 1);
-         window.scrollTo(0, 0);
-      }
-    });
-    paginationContainer.appendChild(nextButton);
+    const nextButton = document.createElement('button'); nextButton.textContent = 'Next »'; nextButton.className = 'pagination-button'; if (currentPage === pageCount) { nextButton.classList.add('disabled'); nextButton.disabled = true; }
+    nextButton.addEventListener('click', () => { if (currentPage < pageCount) { displayBlogs(blogsToDisplay, currentPage + 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(nextButton);
   }
 
-  function highlightMatch(text, term) {
-      if (!term || term.trim() === '') return text;
-      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedTerm})`, 'gi');
-      return text.replace(regex, '<mark>$1</mark>');
+  function highlightMatch(text, term) { /* ... (igual que antes) ... */
+    if (!term || term.trim() === '') return text; const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const regex = new RegExp(`(${escapedTerm})`, 'gi'); return text.replace(regex, '<mark>$1</mark>');
   }
 
+  // --- Fetch inicial de Blogs ---
   fetch('blogs.json')
-    .then(response => {
-       if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
-       const contentType = response.headers.get("content-type");
-       if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); }
-       return response.json();
+    .then(response => { /* ... (igual que antes) ... */
+       if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } const contentType = response.headers.get("content-type"); if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); } return response.json();
     })
-    .then(blogs => {
+    .then(blogs => { /* ... (igual que antes) ... */
        if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
-       allBlogs = blogs.map((blog, index) => ({
-           ...blog,
-           date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0]
-       }));
-       processBlogs();
+       allBlogs = blogs.map((blog, index) => ({ ...blog, date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0] }));
+       processBlogs(); // Llama a la función que procesa y muestra inicialmente
     })
-    .catch(error => {
-       console.error('Error loading or processing blogs:', error);
-       resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Make sure 'blogs.json' exists, is in the same folder, and has the correct JSON format (an array [...] of objects {...}).</p>`;
-       resultsContainer.style.opacity = 1;
+    .catch(error => { /* ... (igual que antes) ... */
+       console.error('Error loading or processing blogs:', error); resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Make sure 'blogs.json' exists, is in the same folder, and has the correct JSON format (an array [...] of objects {...}).</p>`; resultsContainer.style.opacity = 1;
     });
 
+  // --- Listeners para controles del Blog ---
   searchInput.addEventListener('input', processBlogs);
   sortSelect.addEventListener('change', processBlogs);
-  quickFilterCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', processBlogs);
-  });
+  quickFilterCheckboxes.forEach(checkbox => { checkbox.addEventListener('change', processBlogs); });
+
+  // --- *** NUEVA LÓGICA PARA BLACKJACK *** ---
+
+  // Variables del juego
+  let deck = [];
+  let playerCards = [];
+  let dealerCards = [];
+  let playerScore = 0;
+  let dealerScore = 0;
+  let gameOver = true; // Empieza como terminado hasta que se reparte
+
+  // Elementos del DOM del juego
+  const dealerCardsDiv = document.getElementById('dealer-cards');
+  const playerCardsDiv = document.getElementById('player-cards');
+  const dealerScoreSpan = document.getElementById('dealer-score');
+  const playerScoreSpan = document.getElementById('player-score');
+  const messageDiv = document.getElementById('blackjack-message');
+  const hitButton = document.getElementById('bj-hit');
+  const standButton = document.getElementById('bj-stand');
+  const dealButton = document.getElementById('bj-deal');
+
+  // Funciones de utilidad Blackjack
+  function createDeck() {
+    const suits = ['♥', '♦', '♣', '♠']; // Corazones, Diamantes, Tréboles, Picas
+    const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+    deck = [];
+    for (const suit of suits) {
+      for (const rank of ranks) {
+        deck.push({ suit, rank });
+      }
+    }
+  }
+
+  function shuffleDeck() {
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]]; // Intercambio
+    }
+  }
+
+  function getCardValue(card) {
+    if (['K', 'Q', 'J'].includes(card.rank)) return 10;
+    if (card.rank === 'A') return 11; // Se maneja el 1 más tarde si es necesario
+    return parseInt(card.rank);
+  }
+
+  function calculateHandValue(hand) {
+    let sum = 0;
+    let aceCount = 0;
+    for (const card of hand) {
+      sum += getCardValue(card);
+      if (card.rank === 'A') aceCount++;
+    }
+    // Ajustar valor de Ases si la suma es > 21
+    while (sum > 21 && aceCount > 0) {
+      sum -= 10;
+      aceCount--;
+    }
+    return sum;
+  }
+
+  // Funciones para renderizar el juego
+  function renderCard(card, targetDiv, isHidden = false) {
+    const cardDiv = document.createElement('div');
+    cardDiv.className = 'card';
+    if (isHidden) {
+      cardDiv.classList.add('hidden');
+      cardDiv.textContent = '?'; // O dejar vacío
+    } else {
+      cardDiv.textContent = `${card.rank}${card.suit}`;
+      if (['♥', '♦'].includes(card.suit)) {
+        cardDiv.classList.add('red');
+      }
+    }
+    targetDiv.appendChild(cardDiv);
+  }
+
+  function renderHands(hideDealerCard = true) {
+    dealerCardsDiv.innerHTML = '';
+    playerCardsDiv.innerHTML = '';
+
+    dealerCards.forEach((card, index) => {
+      renderCard(card, dealerCardsDiv, hideDealerCard && index === 0); // Oculta la primera del dealer
+    });
+    playerCards.forEach(card => renderCard(card, playerCardsDiv));
+
+    playerScore = calculateHandValue(playerCards);
+    // Calcula el score visible del dealer (si una está oculta, no cuenta esa)
+    dealerScore = hideDealerCard
+        ? calculateHandValue(dealerCards.slice(1)) // Solo la segunda carta visible
+        : calculateHandValue(dealerCards); // Todas visibles
+
+    playerScoreSpan.textContent = playerScore;
+    dealerScoreSpan.textContent = hideDealerCard ? `${dealerScore} + ?` : dealerScore;
+  }
+
+  // Acciones del juego
+  function playerHit() {
+    if (gameOver) return;
+    playerCards.push(deck.pop());
+    renderHands();
+    if (playerScore > 21) {
+      endGame("You busted! Dealer wins.");
+    }
+  }
+
+  function playerStand() {
+    if (gameOver) return;
+    // Revelar carta oculta del dealer y calcular score real
+    dealerScore = calculateHandValue(dealerCards);
+    renderHands(false); // Mostrar todas las cartas del dealer
+
+    // Lógica del dealer: pedir carta hasta 17 o más
+    while (dealerScore < 17) {
+        messageDiv.textContent = "Dealer hits...";
+        // Pequeño delay para simular pensamiento
+        setTimeout(() => { // Necesitaríamos manejar esto mejor si hacemos delays largos
+           dealerCards.push(deck.pop());
+           dealerScore = calculateHandValue(dealerCards);
+           renderHands(false);
+        }, 500); // Espera medio segundo (simplificado)
+    }
+
+     // Determinar ganador después de que el dealer termine (simplificado sin manejo de delays complejos)
+     // En una implementación real, esto debería esperar a que terminen los timeouts
+     setTimeout(() => {
+        determineWinner();
+     }, dealerScore < 17 ? 1000 : 100); // Espera un poco más si el dealer pidió cartas
+
+  }
+
+  function determineWinner() {
+      dealerScore = calculateHandValue(dealerCards); // Asegura score final
+      renderHands(false); // Asegura que todo esté visible
+
+      if (playerScore > 21) {
+          messageDiv.textContent = "You busted! Dealer wins.";
+      } else if (dealerScore > 21) {
+          messageDiv.textContent = "Dealer busted! You win!";
+      } else if (playerScore > dealerScore) {
+          messageDiv.textContent = "You win!";
+      } else if (dealerScore > playerScore) {
+          messageDiv.textContent = "Dealer wins.";
+      } else {
+          messageDiv.textContent = "Push! (It's a tie)";
+      }
+      endGame(messageDiv.textContent); // Llama a endGame con el mensaje final
+  }
+
+   function endGame(msg) {
+        gameOver = true;
+        messageDiv.textContent = msg;
+        hitButton.disabled = true;
+        standButton.disabled = true;
+        dealButton.disabled = false; // Habilitar Nuevo Juego
+        dealButton.textContent = "New Game"; // Cambiar texto
+   }
+
+
+  function startBlackjack() {
+    createDeck();
+    shuffleDeck();
+    playerCards = [deck.pop(), deck.pop()];
+    dealerCards = [deck.pop(), deck.pop()];
+    gameOver = false;
+
+    renderHands();
+
+    messageDiv.textContent = "Hit or Stand?";
+    hitButton.disabled = false;
+    standButton.disabled = false;
+    dealButton.disabled = true; // Deshabilitar Deal hasta que termine
+    dealButton.textContent = "Deal"; // Texto original
+
+     // Check inicial por Blackjack
+     playerScore = calculateHandValue(playerCards);
+     const dealerVisibleScore = calculateHandValue(dealerCards.slice(1)); // Score inicial visible
+     if (playerScore === 21) {
+          // Si el dealer muestra un 10 o As, esperar a ver si tiene Blackjack también
+          if (dealerVisibleScore >= 10) {
+              playerStand(); // Forzar stand para revelar carta del dealer
+          } else {
+             endGame("Blackjack! You win!");
+          }
+     }
+  }
+
+  // --- Funciones para mostrar/ocultar juego ---
+  function showBlackjack() {
+      resultsContainer.style.display = 'none'; // Ocultar resultados blog
+      paginationContainer.style.display = 'none'; // Ocultar paginación blog
+      blackjackGameDiv.style.display = 'block'; // Mostrar juego
+      if(gameOver) { // Solo inicia un juego nuevo si el anterior terminó o es la primera vez
+        startBlackjack();
+      }
+  }
+
+  function hideBlackjack() {
+      resultsContainer.style.display = 'block'; // Mostrar resultados blog
+      paginationContainer.style.display = 'block'; // Mostrar paginación blog
+      blackjackGameDiv.style.display = 'none'; // Ocultar juego
+       // Opcional: Pausar o resetear el juego si estaba activo
+      // if (!gameOver) pauseTimer(); // Si tuvieras pausa
+  }
+
+  // --- Listeners para botones Blackjack ---
+  hitButton.addEventListener('click', playerHit);
+  standButton.addEventListener('click', playerStand);
+  dealButton.addEventListener('click', startBlackjack); // Deal y New Game usan la misma función
 
 </script>
 
