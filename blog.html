@@ -1,189 +1,187 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Freelancer's Compass Blog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-      :root {
-        /* Paleta Celeste y Dorado */
-        --primary-color: #87CEEB;   /* Celeste cielo */
-        --accent-color: #FFD700;    /* Dorado */
-        --accent-dark: #e6c300;     /* Dorado oscuro hover */
-        --text-color: #2C3E50;      /* Gris-azulado oscuro */
-        --link-color: #4682B4;      /* Azul medio para links */
-        --summary-color: #708090;   /* Slate gray para resúmenes */
-        --bg-color: #E6F3FF;       /* Fondo principal celeste muy suave */
-        --container-bg: #ffffff;   /* Fondo del contenedor */
-        --border-color: #B3E5FC;    /* Celeste suave para bordes */
-        --shadow-color: rgba(0,0,0,0.08);
-        --highlight-bg: rgba(255,215,0,0.2); /* Amarillo pálido para resaltar */
-        --highlight-text: #2C3E50;
-        --control-bg: #f0f8ff; /* Fondo para controles */
-      }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Freelancer's Compass Blog</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Paleta Celeste y Dorado */
+    --primary-color: #87CEEB;   /* Celeste cielo */
+    --accent-color: #FFD700;    /* Dorado */
+    --accent-dark: #e6c300;     /* Dorado oscuro hover */
+    --text-color: #2C3E50;      /* Gris-azulado oscuro */
+    --link-color: #4682B4;      /* Azul medio para links */
+    --summary-color: #708090;   /* Slate gray para resúmenes */
+    /* Fondo se define en body */
+    --container-bg: rgba(255, 255, 255, 0.9); /* Blanco semi-transparente */
+    --border-color: #B3E5FC;    /* Celeste suave para bordes */
+    --shadow-color: rgba(0,0,0,0.15); /* Sombra un poco más marcada */
+    --highlight-bg: rgba(255,215,0,0.3); /* Resaltado más visible */
+    --highlight-text: #2C3E50;
+    --control-bg: rgba(240, 248, 255, 0.85); /* Fondo controles semi-transparente */
+  }
 
-      /* --- Estilos base --- */
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      body {
-        font-family: 'Roboto', Arial, sans-serif;
-        background-color: var(--bg-color);
-        color: var(--text-color);
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        padding-top: 20px;
-      }
-      .container {
-        max-width: 800px;
-        margin: 20px auto;
-        padding: 25px 35px;
-        background-color: var(--container-bg);
-        border-radius: 10px;
-        box-shadow: 0 2px 10px var(--shadow-color);
-        flex-grow: 1;
-      }
+  /* --- Estilos base --- */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-      /* --- HEADER CORREGIDO --- */
-      header {
-        display: flex;
-        /* justify-content: space-between; QUITADO */
-        align-items: center; /* Mantenemos centrado vertical */
-        margin-bottom: 30px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid var(--border-color);
-        position: relative; /* Necesario para posicionar el botón */
-        min-height: 50px; /* Asegura altura mínima para centrar botón */
-      }
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    /* Fondo de Cielo con Gradiente */
+    background: linear-gradient(to bottom, #a1d4f4 40%, #e6f3ff 100%);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 20px;
+    position: relative; /* Necesario para las nubes */
+    overflow-x: hidden; /* Evita scroll horizontal por las nubes */
+    transition: background 0.5s ease;
+  }
 
-      .main-title {
-        color: var(--primary-color);
-        text-align: center;
-        font-size: 2.3em;
-        font-weight: 700;
-        margin: 0 auto; /* Centra el título en el espacio disponible */
-        /* flex-grow: 1; QUITADO */
-        /* Padding para evitar superposición con el botón absoluto */
-        padding-left: 120px; /* Ajusta según ancho de tu botón + margen */
-        padding-right: 120px; /* Ajusta según ancho de tu botón + margen */
-      }
+  /* --- Capa de Nubes (Usando Pseudo-elementos) --- */
+  body::before,
+  body::after {
+    content: '';
+    position: fixed; /* Fijas */
+    top: 0;
+    left: 0;
+    width: 200%; /* Más anchas */
+    height: 100%;
+    /* !!! REEMPLAZA ESTA URL POR LA DE TU IMAGEN DE NUBES PNG TRANSPARENTE !!! */
+    background-image: url('URL_DE_TU_IMAGEN_DE_NUBES_PNG_TRANSPARENTE');
+    background-repeat: repeat-x;
+    background-size: contain; /* O 'auto', 'cover', prueba cuál queda mejor */
+    z-index: -1; /* Detrás del contenido */
+    opacity: 0.15; /* Nubes sutiles */
+    transition: transform 15s linear; /* Transición LENTA por defecto */
+    will-change: transform;
+  }
 
-      .back-button {
-        display: inline-block;
-        padding: 9px 18px;
-        background-color: var(--accent-color); /* Color Dorado */
-        color: var(--text-color);
-        text-decoration: none;
-        border-radius: 5px;
-        font-weight: 500;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        border: none;
-        cursor: pointer;
-        /* Posicionamiento absoluto */
-        position: absolute;
-        left: 0; /* Pegado a la izquierda del header */
-        top: 50%; /* Centrado vertical */
-        transform: translateY(-50%); /* Ajuste fino del centrado vertical */
-      }
+  /* Nube 1 */
+  body::before {
+    background-position: 0% 20%;
+    animation: moveClouds 60s linear infinite alternate;
+  }
 
-      /* Estilo hover específico para back-button */
-     .back-button:hover {
-        background-color: var(--accent-dark); /* Hover Dorado oscuro */
-        /* Puedes añadir otro efecto si quieres, ej. un ligero scale */
-        /* transform: translateY(-50%) scale(1.05); */
-     }
+  /* Nube 2 */
+  body::after {
+    background-position: 50% 50%;
+    opacity: 0.1;
+    animation: moveClouds 40s linear infinite alternate-reverse;
+  }
 
-      /* --- Controles (Buscador y Ordenar/Filtrar) --- */
-      .controls-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 20px;
-        margin-bottom: 30px;
-        padding: 15px;
-        background-color: var(--control-bg);
-        border-radius: 8px;
-        border: 1px solid var(--border-color);
-      }
+  /* Animación movimiento nubes */
+  @keyframes moveClouds {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-50%); }
+  }
 
-      .search-container {
-        flex-grow: 1;
-        position: relative;
-        margin-bottom: 0;
-      }
+  /* Efecto Hover (Intenta acelerar la transición) */
+  body:hover::before,
+  body:hover::after {
+     transition: transform 2s ease-out; /* Transición más rápida en hover */
+  }
 
-      #search-input {
-        width: 100%;
-        padding: 12px 20px 12px 45px;
-        background-color: var(--container-bg);
-        color: var(--text-color);
-        border: 1px solid var(--border-color);
-        border-radius: 24px;
-        font-size: 16px;
-        outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-      }
-      #search-input:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 5px var(--primary-color);
-      }
-      .search-container::before {
-        content: '🔍';
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
-        color: #9aa0a6;
-        pointer-events: none;
-      }
+  .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 25px 35px;
+    background-color: var(--container-bg); /* Blanco semi-transparente */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--shadow-color); /* Sombra más marcada */
+    flex-grow: 1;
+    border: 1px solid rgba(179, 229, 252, 0.5); /* Borde celeste translúcido */
+    z-index: 1; /* Encima de las nubes */
+    position: relative; /* Necesario para z-index */
+  }
 
-      .sort-filter-controls {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
+  /* --- HEADER CORREGIDO --- */
+  header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+    min-height: 50px;
+  }
 
-      .sort-filter-controls label {
-        font-weight: 500;
-        color: var(--text-color);
-        margin-right: 5px;
-      }
+  .main-title {
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 2.3em;
+    font-weight: 700;
+    margin: 0 auto;
+    padding-left: 120px;
+    padding-right: 120px;
+  }
 
-      .sort-filter-controls select {
-        padding: 8px 12px;
-        border-radius: 5px;
-        border: 1px solid var(--border-color);
-        background-color: var(--container-bg);
-        color: var(--text-color);
-        font-size: 14px;
-        cursor: pointer;
-        transition: border-color 0.3s ease;
-      }
-      .sort-filter-controls select:focus {
-         outline: none;
-         border-color: var(--primary-color);
-         box-shadow: 0 0 3px var(--primary-color);
-      }
+  .back-button {
+    display: inline-block;
+    padding: 9px 18px;
+    background-color: var(--accent-color); /* Color Dorado */
+    color: var(--text-color);
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-      /* --- Estilos de resultados y paginación --- */
-      #results-container { opacity: 0; transition: opacity 0.5s ease-in-out; }
-      .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
-      .blog-result:last-child { border-bottom: none; }
-      .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
-      .blog-title:hover { text-decoration: underline; transform: translateX(3px); }
-      .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; }
-      .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; }
-      #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); }
-      .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
-      .pagination-button:hover:not(.disabled) { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
-      .pagination-button.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); font-weight: bold; cursor: default; }
-      .pagination-button.disabled { color: #ccc; border-color: #eee; cursor: not-allowed; background-color: #f9f9f9; }
-      .no-results { text-align: center; color: var(--summary-color); font-style: italic; margin-top: 20px; }
-      mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; }
-      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+  .back-button:hover {
+    background-color: var(--accent-dark);
+  }
+
+
+  /* --- Controles (Buscador y Ordenar/Filtrar) --- */
+  .controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: var(--control-bg); /* Fondo controles semi-transparente */
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* ... (Resto de los estilos CSS para .search-container, #search-input, .sort-filter-controls, etc. SON IGUALES que en el código anterior) ... */
+  .search-container { flex-grow: 1; position: relative; margin-bottom: 0; }
+  #search-input { width: 100%; padding: 12px 20px 12px 45px; background-color: var(--container-bg); color: var(--text-color); border: 1px solid var(--border-color); border-radius: 24px; font-size: 16px; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  #search-input:focus { border-color: var(--primary-color); box-shadow: 0 0 5px var(--primary-color); }
+  .search-container::before { content: '🔍'; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-size: 18px; color: #9aa0a6; pointer-events: none; }
+  .sort-filter-controls { display: flex; align-items: center; gap: 15px; }
+  .sort-filter-controls label { font-weight: 500; color: var(--text-color); margin-right: 5px; }
+  .sort-filter-controls select { padding: 8px 12px; border-radius: 5px; border: 1px solid var(--border-color); background-color: var(--container-bg); color: var(--text-color); font-size: 14px; cursor: pointer; transition: border-color 0.3s ease; }
+  .sort-filter-controls select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 3px var(--primary-color); }
+
+  /* --- Estilos de resultados y paginación --- */
+  #results-container { opacity: 0; transition: opacity 0.5s ease-in-out; }
+  .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
+  .blog-result:last-child { border-bottom: none; }
+  .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
+  .blog-title:hover { text-decoration: underline; transform: translateX(3px); }
+  .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; }
+  .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; }
+  #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+  .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .pagination-button:hover:not(.disabled) { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+  .pagination-button.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); font-weight: bold; cursor: default; }
+  .pagination-button.disabled { color: #ccc; border-color: #eee; cursor: not-allowed; background-color: #f9f9f9; }
+  .no-results { text-align: center; color: var(--summary-color); font-style: italic; margin-top: 20px; }
+  mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+</style>
 </head>
 <body>
 
@@ -216,6 +214,8 @@
 </div>
 
 <script>
+  // --- EL CÓDIGO JAVASCRIPT ES EXACTAMENTE EL MISMO QUE ANTES ---
+  // --- (El que maneja fetch, processBlogs, displayBlogs, setupPagination, highlightMatch) ---
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
@@ -399,13 +399,11 @@
     })
     .then(blogs => {
        if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
-       // Asegúrate de que los blogs tengan fecha para ordenar
        allBlogs = blogs.map((blog, index) => ({
            ...blog,
-           // Si tu JSON no tiene 'date', esta línea crea una fecha simulada
            date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0]
        }));
-       processBlogs(); // Llama a la función que procesa y muestra inicialmente
+       processBlogs();
     })
     .catch(error => {
        console.error('Error loading or processing blogs:', error);
@@ -413,10 +411,9 @@
        resultsContainer.style.opacity = 1;
     });
 
-  // Listeners para búsqueda y ordenación
   searchInput.addEventListener('input', processBlogs);
   sortSelect.addEventListener('change', processBlogs);
-  // categorySelect.addEventListener('change', processBlogs); // Si añades filtros
+  // categorySelect.addEventListener('change', processBlogs);
 
 </script>
 
