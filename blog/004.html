@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Build a Freelance Portfolio With No Clients | Danilo H.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --light-blue: #E6F3FF;
+        --sky-blue: #87CEEB;
+        --steel-blue: #4682B4;
+        --gold: #DAA520;
+        --dark-gray: #2C3E50;
+        --slate-gray: #708090;
+        --white-translucent: rgba(255,255,255,0.9);
+        --white-semi: rgba(255,255,255,0.6);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
+        color: var(--dark-gray);
+        line-height: 1.7;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .top-nav {
+        background-color: var(--white-translucent);
+        padding: 10px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--slate-gray);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+
+      .nav-buttons button, .nav-buttons a {
+        padding: 8px 15px;
+        background-color: transparent;
+        color: var(--sky-blue);
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 500;
+        border: 1px solid var(--sky-blue);
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+      }
+
+      .nav-buttons button:hover, .nav-buttons a:hover {
+        background-color: var(--gold);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
+      }
+
+      .blog-container {
+        max-width: 800px;
+        width: 90%;
+        margin: 40px auto;
+        padding: 30px 40px;
+        background-color: var(--white-semi);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+
+      .blog-header h1 {
+        color: var(--gold);
+        font-size: 2.3em;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      article h2 {
+        color: var(--gold);
+        font-size: 1.8em;
+        font-weight: 500;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--slate-gray);
+        position: relative;
+      }
+
+      article h2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--gold);
+      }
+
+      article p {
+        margin-bottom: 18px;
+        color: var(--steel-blue);
+        font-size: 1.05em;
+      }
+
+      article ul {
+        margin-left: 20px;
+        margin-bottom: 18px;
+        list-style: none;
+      }
+
+      article li {
+        margin-bottom: 10px;
+        padding-left: 20px;
+        position: relative;
+      }
+
+      article li::before {
+        content: '▹';
+        color: var(--gold);
+        font-weight: bold;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 1.2em;
+      }
+
+      article strong {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      article a {
+        color: var(--sky-blue);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      article a:hover {
+        color: var(--steel-blue);
+        text-decoration: underline;
+      }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div></div>
+        <div class="nav-buttons">
+            <a href="/main/blog.html">← Blog Archive</a>
+            <a href="/main/index.html">Home</a>
+        </div>
+    </nav>
+
+    <main class="blog-container">
+        <header class="blog-header">
+            <h1>How to Build a Freelance Portfolio With No Clients (Yet)</h1>
+        </header>
+
+        <article>
+            <p>You’ve got the skills, the motivation, and a shiny new freelancer profile — but there’s one problem: you have no clients yet. Don’t panic. Every successful freelancer started from zero. The trick is to <strong>build a portfolio that looks like you’ve already worked with clients</strong>. Here’s how to do it smartly and fast.</p>
+
+            <h2>1. Create “Mock” Projects</h2>
+            <p>If no one has hired you yet, hire yourself. Pick a few imaginary clients and build real-looking projects for them. Make a brand redesign, translate a sample document, edit a fake commercial — whatever fits your niche. The goal isn’t to fool anyone, but to <strong>show what you can do</strong>.</p>
+            <p><em>Example:</em> If you’re a video editor, edit a short ad for a local restaurant — even if they never asked for it. It shows initiative and creativity.</p>
+
+            <h2>2. Redo Existing Work (Better)</h2>
+            <p>Find real companies or creators with work that could be improved — and redo it. Revise their copy, redesign their logo, or re-edit their content. Add a note: “Personal redesign concept for practice.” This builds your portfolio fast and shows your eye for improvement.</p>
+
+            <h2>3. Use Your Own Projects</h2>
+            <p>Your personal brand counts too. A landing page for yourself, a blog, or even your <a href="/main/index.html">portfolio site</a> can serve as proof of skill. If you designed it, wrote it, or produced it — it belongs in your portfolio.</p>
+
+            <h2>4. Offer One-Time Free or Discounted Jobs</h2>
+            <p>This strategy is powerful if used sparingly. Offer a free or discounted first project to 1–2 clients — but only in exchange for a testimonial or permission to showcase the work. The key is to be clear: it’s a <strong>limited, professional offer</strong>, not unpaid labor.</p>
+
+            <ul>
+              <li>Choose clients who can give you visibility or strong reviews.</li>
+              <li>Set clear boundaries — scope, timeline, and deliverables.</li>
+              <li>Make sure they understand it’s a special deal, not your standard rate.</li>
+            </ul>
+
+            <h2>5. Present Your Portfolio Professionally</h2>
+            <p>Even the best projects lose impact if presented poorly. Use clean visuals, describe your role, the tools you used, and the problem you solved. Structure each project like a story — <strong>challenge → process → result</strong>.</p>
+            <p><em>Bonus tip:</em> Create a simple, elegant website instead of just linking to Google Drive. It instantly upgrades your image.</p>
+
+            <h2>Final Thoughts</h2>
+            <p>You don’t need clients to start looking like a professional. You just need initiative, creativity, and presentation. Once clients see what you can do, they’ll stop asking for “experience” — because your work will speak for itself.</p>
+        </article>
+    </main>
+
+</body>
+</html>
