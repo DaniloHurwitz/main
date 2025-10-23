@@ -14,20 +14,17 @@
     --text-color: #2C3E50;      /* Gris-azulado oscuro */
     --link-color: #4682B4;      /* Azul medio para links */
     --summary-color: #708090;   /* Slate gray para resúmenes */
-    --bg-color: #E6F3FF;        /* Fondo principal celeste muy suave */
-    --container-bg: #ffffff;    /* Fondo del contenedor */
+    --bg-color: #E6F3FF;       /* Fondo principal celeste muy suave */
+    --container-bg: #ffffff;   /* Fondo del contenedor */
     --border-color: #B3E5FC;    /* Celeste suave para bordes */
     --shadow-color: rgba(0,0,0,0.08);
     --highlight-bg: rgba(255,215,0,0.2); /* Amarillo pálido para resaltar */
     --highlight-text: #2C3E50;
+    --control-bg: #f0f8ff; /* Fondo para controles */
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-
+  /* --- Estilos base (iguales que antes) --- */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Roboto', Arial, sans-serif;
     background-color: var(--bg-color);
@@ -38,7 +35,6 @@
     min-height: 100vh;
     padding-top: 20px;
   }
-
   .container {
     max-width: 800px;
     margin: 20px auto;
@@ -48,7 +44,6 @@
     box-shadow: 0 2px 10px var(--shadow-color);
     flex-grow: 1;
   }
-
   header {
     display: flex;
     justify-content: space-between;
@@ -57,7 +52,6 @@
     padding-bottom: 15px;
     border-bottom: 1px solid var(--border-color);
   }
-
   .main-title {
     color: var(--primary-color);
     text-align: center;
@@ -66,7 +60,6 @@
     margin: 0;
     flex-grow: 1;
   }
-
   .back-button {
     display: inline-block;
     padding: 9px 18px;
@@ -79,20 +72,33 @@
     border: none;
     cursor: pointer;
   }
-
   .back-button:hover {
     background-color: var(--accent-dark);
     transform: translateY(-2px);
   }
 
-  .search-container {
+  /* --- Controles (NUEVO) --- */
+  .controls-container {
+    display: flex;
+    justify-content: space-between; /* Alinea buscador y controles */
+    align-items: center;
+    gap: 20px; /* Espacio entre elementos */
     margin-bottom: 30px;
+    padding: 15px;
+    background-color: var(--control-bg); /* Fondo sutil para controles */
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+  }
+
+  .search-container {
+    flex-grow: 1; /* Ocupa el espacio disponible */
     position: relative;
+    margin-bottom: 0; /* Ya no necesita margen inferior */
   }
 
   #search-input {
     width: 100%;
-    padding: 14px 22px 14px 50px;
+    padding: 12px 20px 12px 45px; /* Ajuste padding */
     background-color: var(--container-bg);
     color: var(--text-color);
     border: 1px solid var(--border-color);
@@ -101,16 +107,14 @@
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
-
   #search-input:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 5px var(--primary-color);
   }
-
   .search-container::before {
     content: '🔍';
     position: absolute;
-    left: 18px;
+    left: 15px; /* Ajuste posición icono */
     top: 50%;
     transform: translateY(-50%);
     font-size: 18px;
@@ -118,184 +122,183 @@
     pointer-events: none;
   }
 
-  #results-container {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+  .sort-filter-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre dropdowns */
   }
 
-  .blog-result {
-    margin-bottom: 25px;
-    padding-bottom: 15px;
-    border-bottom: 1px dashed var(--border-color);
-    animation: fadeIn 0.5s ease-out forwards;
-  }
-
-  .blog-result:last-child {
-    border-bottom: none;
-  }
-
-  .blog-title {
-    color: var(--link-color);
-    font-size: 19px;
+  .sort-filter-controls label {
     font-weight: 500;
-    text-decoration: none;
-    display: inline-block;
-    transition: transform 0.2s ease;
+    color: var(--text-color);
+    margin-right: 5px; /* Espacio entre label y select */
   }
 
-  .blog-title:hover {
-    text-decoration: underline;
-    transform: translateX(3px);
-  }
-
-  .blog-link {
-    color: var(--primary-color);
-    font-size: 14px;
-    display: block;
-    margin-top: 3px;
-    word-break: break-all;
-  }
-
-  .blog-summary {
-    color: var(--summary-color);
-    font-size: 14px;
-    margin-top: 5px;
-  }
-
-  #pagination-container {
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-color);
-  }
-
-  .pagination-button {
-    display: inline-block;
+  .sort-filter-controls select {
     padding: 8px 12px;
-    margin: 0 5px;
-    background-color: var(--container-bg);
-    color: var(--link-color);
+    border-radius: 5px;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    text-decoration: none;
+    background-color: var(--container-bg);
+    color: var(--text-color);
+    font-size: 14px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    transition: border-color 0.3s ease;
+  }
+  .sort-filter-controls select:focus {
+     outline: none;
+     border-color: var(--primary-color);
+     box-shadow: 0 0 3px var(--primary-color);
   }
 
-  .pagination-button:hover:not(.disabled) {
-    background-color: var(--primary-color);
-    color: #fff;
-    border-color: var(--primary-color);
-  }
-
-  .pagination-button.active {
-    background-color: var(--link-color);
-    color: #fff;
-    border-color: var(--link-color);
-    font-weight: bold;
-    cursor: default;
-  }
-
-  .pagination-button.disabled {
-    color: #ccc;
-    border-color: #eee;
-    cursor: not-allowed;
-    background-color: #f9f9f9;
-  }
-
-  .no-results {
-    text-align: center;
-    color: var(--summary-color);
-    font-style: italic;
-    margin-top: 20px;
-  }
-
-  mark {
-    background-color: var(--highlight-bg);
-    color: var(--highlight-text);
-    padding: 0.1em 0.2em;
-    border-radius: 3px;
-    font-weight: 500;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  /* --- Estilos de resultados y paginación (iguales que antes) --- */
+  #results-container { opacity: 0; transition: opacity 0.5s ease-in-out; }
+  .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
+  .blog-result:last-child { border-bottom: none; }
+  .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
+  .blog-title:hover { text-decoration: underline; transform: translateX(3px); }
+  .blog-link { color: var(--primary-color); font-size: 14px; display: block; margin-top: 3px; word-break: break-all; }
+  .blog-summary { color: var(--summary-color); font-size: 14px; margin-top: 5px; }
+  #pagination-container { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border-color); }
+  .pagination-button { display: inline-block; padding: 8px 12px; margin: 0 5px; background-color: var(--container-bg); color: var(--link-color); border: 1px solid var(--border-color); border-radius: 4px; text-decoration: none; cursor: pointer; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+  .pagination-button:hover:not(.disabled) { background-color: var(--primary-color); color: #fff; border-color: var(--primary-color); }
+  .pagination-button.active { background-color: var(--link-color); color: #fff; border-color: var(--link-color); font-weight: bold; cursor: default; }
+  .pagination-button.disabled { color: #ccc; border-color: #eee; cursor: not-allowed; background-color: #f9f9f9; }
+  .no-results { text-align: center; color: var(--summary-color); font-style: italic; margin-top: 20px; }
+  mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
-</body>
-<div class="container">
+<body> <div class="container">
   <header>
     <a href="index.html" class="back-button" title="Back to Main Menu">← Back</a>
     <h1 class="main-title">Blog Archive</h1>
     <span style="visibility: hidden;" class="back-button">← Back</span>
   </header>
 
-  <div class="search-container">
-    <input type="text" id="search-input" placeholder="Search by title or content...">
+  <div class="controls-container">
+    <div class="search-container">
+      <input type="text" id="search-input" placeholder="Search by title or content...">
+    </div>
+    <div class="sort-filter-controls">
+      <label for="sort-select">Order by:</label>
+      <select id="sort-select">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="title-asc">Title (A-Z)</option>
+        <option value="title-desc">Title (Z-A)</option>
+      </select>
+      </div>
   </div>
 
   <div id="results-container">
-  </div>
+    </div>
 
   <div id="pagination-container">
-  </div>
+    </div>
 </div>
 
 <script>
   const resultsContainer = document.getElementById('results-container');
   const searchInput = document.getElementById('search-input');
   const paginationContainer = document.getElementById('pagination-container');
+  const sortSelect = document.getElementById('sort-select');
+  // const categorySelect = document.getElementById('category-select'); // Si añades filtro por categoría
 
   let allBlogs = []; // Stores all original blogs
-  let filteredBlogs = []; // Stores filtered blogs by search
+  let processedBlogs = []; // Stores blogs after search, filter, and sort
   const itemsPerPage = 5;
   let currentPage = 1;
+  let currentSort = 'newest'; // Valor inicial de ordenación
+  // let currentCategory = 'all'; // Si añades filtro por categoría
 
-  // Function to display blogs of a specific page
-  function displayBlogs(blogsToShow, page) {
-    resultsContainer.innerHTML = ''; // Clear previous results
-    resultsContainer.style.opacity = 0; // Reset animation
+  // **NUEVA FUNCIÓN:** Aplica búsqueda, filtro y ordenación
+  function processBlogs() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    // const selectedCategory = categorySelect.value; // Si añades filtro por categoría
 
-    page = page || 1; // Default page is 1
+    // 1. Filtrar por búsqueda
+    let tempBlogs = allBlogs.filter(blog =>
+      (searchTerm === '') ||
+      blog.title.toLowerCase().includes(searchTerm) ||
+      blog.summary.toLowerCase().includes(searchTerm)
+    );
+
+    // 2. Filtrar por categoría (si se implementa)
+    /*
+    if (selectedCategory !== 'all') {
+      tempBlogs = tempBlogs.filter(blog => blog.category === selectedCategory);
+    }
+    */
+
+    // 3. Ordenar
+    currentSort = sortSelect.value; // Actualizar el valor actual
+    switch (currentSort) {
+      case 'newest':
+        // Asumiendo que los blogs vienen ordenados por fecha en el JSON o añadir campo 'date'
+        // Si no hay fecha, esta opción podría no funcionar como se espera o revertir al orden original
+         tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)); // Requiere campo 'date' en JSON
+        break;
+      case 'oldest':
+         tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0)); // Requiere campo 'date' en JSON
+        break;
+      case 'title-asc':
+        tempBlogs.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'title-desc':
+        tempBlogs.sort((a, b) => b.title.localeCompare(a.title));
+        break;
+      default:
+        // Mantener el orden de filtrado si no hay sort válido
+        break;
+    }
+
+    processedBlogs = tempBlogs; // Guardar el resultado procesado
+    displayBlogs(processedBlogs, 1); // Mostrar la página 1 del resultado
+  }
+
+
+  // Modificado: displayBlogs ahora recibe los blogs ya procesados
+  function displayBlogs(blogsToDisplay, page) {
+    resultsContainer.innerHTML = '';
+    resultsContainer.style.opacity = 0;
+
+    page = page || 1;
     currentPage = page;
 
     const startIndex = (page - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
-    const paginatedItems = blogsToShow.slice(startIndex, endIndex);
+    const paginatedItems = blogsToDisplay.slice(startIndex, endIndex);
 
     if (paginatedItems.length === 0) {
-        resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search.</p>';
+      resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search or filters.</p>';
     } else {
-        paginatedItems.forEach((blog, index) => {
-            const div = document.createElement('div');
-            div.className = 'blog-result';
-            div.style.animationDelay = `${index * 0.05}s`;
-            div.innerHTML = `
-                <a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a>
-                <span class="blog-link">${blog.link}</span>
-                <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>
-            `;
-            resultsContainer.appendChild(div);
-        });
+      paginatedItems.forEach((blog, index) => {
+        const div = document.createElement('div');
+        div.className = 'blog-result';
+        div.style.animationDelay = `${index * 0.05}s`;
+        div.innerHTML = `
+          <a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a>
+          <span class="blog-link">${blog.link}</span>
+          <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>
+        `;
+        resultsContainer.appendChild(div);
+      });
     }
 
     setTimeout(() => {
-        resultsContainer.style.opacity = 1;
+      resultsContainer.style.opacity = 1;
     }, 50);
 
-    setupPagination(blogsToShow);
+    setupPagination(blogsToDisplay); // Paginación sobre los blogs procesados
   }
 
-  // Function to setup pagination buttons
-  function setupPagination(blogsToShow) {
+  // Modificado: setupPagination ahora recibe los blogs ya procesados
+  function setupPagination(blogsToDisplay) {
     paginationContainer.innerHTML = '';
-    const pageCount = Math.ceil(blogsToShow.length / itemsPerPage);
+    const pageCount = Math.ceil(blogsToDisplay.length / itemsPerPage);
 
     if (pageCount <= 1) return;
 
-    // "Previous" button
     const prevButton = document.createElement('button');
     prevButton.textContent = '« Previous';
     prevButton.className = 'pagination-button';
@@ -305,7 +308,7 @@
     }
     prevButton.addEventListener('click', () => {
       if (currentPage > 1) {
-        displayBlogs(blogsToShow, currentPage - 1);
+        displayBlogs(blogsToDisplay, currentPage - 1); // Pasa los blogs procesados
         window.scrollTo(0, 0);
       }
     });
@@ -320,7 +323,7 @@
         const firstPageButton = document.createElement('button');
         firstPageButton.textContent = '1';
         firstPageButton.className = 'pagination-button';
-        firstPageButton.addEventListener('click', () => { displayBlogs(blogsToShow, 1); window.scrollTo(0, 0); });
+        firstPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, 1); window.scrollTo(0, 0); }); // Pasa blogs procesados
         paginationContainer.appendChild(firstPageButton);
         if (startPage > 2) {
             const ellipsis = document.createElement('span');
@@ -336,7 +339,7 @@
       pageButton.textContent = i;
       pageButton.className = 'pagination-button';
       if (i === currentPage) pageButton.classList.add('active');
-      pageButton.addEventListener('click', () => { displayBlogs(blogsToShow, i); window.scrollTo(0, 0); });
+      pageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, i); window.scrollTo(0, 0); }); // Pasa blogs procesados
       paginationContainer.appendChild(pageButton);
     }
 
@@ -351,11 +354,10 @@
         const lastPageButton = document.createElement('button');
         lastPageButton.textContent = pageCount;
         lastPageButton.className = 'pagination-button';
-        lastPageButton.addEventListener('click', () => { displayBlogs(blogsToShow, pageCount); window.scrollTo(0, 0); });
+        lastPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, pageCount); window.scrollTo(0, 0); }); // Pasa blogs procesados
         paginationContainer.appendChild(lastPageButton);
     }
 
-    // "Next" button
     const nextButton = document.createElement('button');
     nextButton.textContent = 'Next »';
     nextButton.className = 'pagination-button';
@@ -364,45 +366,40 @@
       nextButton.disabled = true;
     }
     nextButton.addEventListener('click', () => {
-      if (currentPage < pageCount) displayBlogs(blogsToShow, currentPage + 1);
-      window.scrollTo(0, 0);
+      if (currentPage < pageCount) {
+         displayBlogs(blogsToDisplay, currentPage + 1); // Pasa blogs procesados
+         window.scrollTo(0, 0);
+      }
     });
     paginationContainer.appendChild(nextButton);
   }
 
-  function handleSearch() {
-    const searchTerm = searchInput.value.toLowerCase().trim();
-
-    if (searchTerm === '') {
-      filteredBlogs = [...allBlogs];
-    } else {
-      filteredBlogs = allBlogs.filter(blog =>
-        blog.title.toLowerCase().includes(searchTerm) ||
-        blog.summary.toLowerCase().includes(searchTerm)
-      );
-    }
-    displayBlogs(filteredBlogs, 1);
-  }
-
+  // highlightMatch (igual que antes)
   function highlightMatch(text, term) {
-    if (!term || term.trim() === '') return text;
-    const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(${escapedTerm})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+      if (!term || term.trim() === '') return text;
+      const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escapedTerm})`, 'gi');
+      return text.replace(regex, '<mark>$1</mark>');
   }
 
+  // Carga inicial y configuración de listeners
   fetch('blogs.json')
     .then(response => {
        if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); }
        const contentType = response.headers.get("content-type");
-       if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, we didn't receive JSON!"); }
+       if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); }
        return response.json();
     })
     .then(blogs => {
-       if (!Array.isArray(blogs)) { throw new TypeError("The JSON file does not contain an array of blogs."); }
-      allBlogs = blogs;
-      filteredBlogs = [...allBlogs];
-      displayBlogs(filteredBlogs, 1);
+       if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
+       // **IMPORTANTE:** Añadir fechas si quieres ordenar por fecha
+       // Simulación si no tienes fechas: añadir fecha inversa basada en el índice
+       allBlogs = blogs.map((blog, index) => ({
+           ...blog,
+           // Añade una fecha inventada si no existe en tu JSON para que 'newest'/'oldest' funcionen
+           date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0] // Fecha inventada decreciente
+       }));
+       processBlogs(); // Llamar a la función que procesa y muestra
     })
     .catch(error => {
        console.error('Error loading or processing blogs:', error);
@@ -410,5 +407,12 @@
        resultsContainer.style.opacity = 1;
     });
 
-  searchInput.addEventListener('input', handleSearch);
+  // Listeners para los controles
+  searchInput.addEventListener('input', processBlogs); // Llama a processBlogs en lugar de handleSearch
+  sortSelect.addEventListener('change', processBlogs);
+  // categorySelect.addEventListener('change', processBlogs); // Si añades filtro por categoría
+
 </script>
+
+</body>
+</html>
