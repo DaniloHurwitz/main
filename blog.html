@@ -15,12 +15,12 @@
     --text-color: #2C3E50;
     --link-color: #4682B4;
     --summary-color: #708090;
-    --container-bg: rgba(255, 255, 255, 0.9);
+    --container-bg: rgba(255, 255, 255, 0.92); /* Ligeramente más opaco */
     --border-color: #B3E5FC;
-    --shadow-color: rgba(0,0,0,0.15);
+    --shadow-color: rgba(0,0,0,0.12); /* Sombra un poco más definida */
     --highlight-bg: rgba(255,215,0,0.3);
     --highlight-text: #2C3E50;
-    --control-bg: rgba(240, 248, 255, 0.85);
+    --control-bg: rgba(240, 248, 255, 0.9); /* Controles más opacos */
     /* Colores Blackjack */
     --bj-bg: #006400; /* Verde mesa */
     --bj-card-bg: #ffffff;
@@ -33,8 +33,9 @@
     --bj-black: #333;
   }
 
-  /* --- Estilos base, body, nubes (igual que antes) --- */
+  /* --- Estilos base, body, nubes --- */
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: 'Roboto', Arial, sans-serif;
     background: linear-gradient(to bottom, #a1d4f4 40%, #e6f3ff 100%);
@@ -46,6 +47,7 @@
     position: relative;
     overflow-x: hidden;
     transition: background 0.5s ease;
+    padding-top: 80px; /* Espacio para el botón Back fijo */
   }
   body::before, body::after { /* Nubes */
     content: ''; position: fixed; top: 0; left: 0; width: 200%; height: 100%;
@@ -59,7 +61,7 @@
   @keyframes moveClouds { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
   body:hover::before, body:hover::after { transition: transform 2s ease-out; }
 
-  /* --- Botón Back Fijo (igual que antes) --- */
+  /* --- BOTÓN BACK GLOBAL FIJO --- */
   #global-back-button {
     display: inline-block; padding: 10px 20px; background-color: var(--accent-color);
     color: var(--text-color); text-decoration: none; border-radius: 8px; font-weight: 500;
@@ -69,19 +71,30 @@
   }
   #global-back-button:hover { background-color: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
 
-  /* --- Contenedor Principal (igual que antes) --- */
+  /* --- Contenedor Principal --- */
   .container {
-    max-width: 800px; margin: 60px auto 20px auto; /* Aumentado margen superior */
+    max-width: 800px;
+    margin: 0 auto 40px auto; /* Margen superior 0, el padding del body da espacio */
     padding: 25px 35px; background-color: var(--container-bg); border-radius: 10px;
     box-shadow: 0 4px 15px var(--shadow-color); flex-grow: 1; border: 1px solid rgba(179, 229, 252, 0.5);
     z-index: 1; position: relative;
   }
 
-  /* --- Header (igual que antes) --- */
-  header { display: flex; align-items: center; justify-content: center; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); min-height: 50px; }
-  .main-title { color: var(--primary-color); text-align: center; font-size: 2.3em; font-weight: 700; margin: 0; line-height: 1.2; }
+  /* --- Header --- */
+  header {
+    display: flex; align-items: center; justify-content: center; /* Centra el título */
+    margin-bottom: 30px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
+    min-height: 50px; position: relative; /* Mantenido relativo */
+  }
+  .main-title {
+    color: var(--primary-color); text-align: center; font-size: 2.3em;
+    font-weight: 700; margin: 0; line-height: 1.2;
+    /* Ya no necesita padding lateral */
+  }
+  /* La regla .back-button ya no aplica aquí */
 
-  /* --- Controles (igual que antes) --- */
+
+  /* --- Controles --- */
   .controls-container { display: flex; flex-direction: column; gap: 15px; margin-bottom: 30px; padding: 15px; background-color: var(--control-bg); border-radius: 8px; border: 1px solid var(--border-color); }
   .search-sort-wrapper { display: flex; justify-content: space-between; align-items: center; gap: 20px; width: 100%; }
   .search-container { flex-grow: 1; position: relative; margin-bottom: 0; }
@@ -98,8 +111,8 @@
   .checkbox-label:hover { color: var(--text-color); }
   .checkbox-label input[type="checkbox"] { margin-right: 6px; cursor: pointer; accent-color: var(--primary-color); transform: scale(1.1); }
 
-  /* --- Estilos Resultados y Paginación (igual que antes) --- */
-  #results-container { opacity: 1; transition: opacity 0.3s ease-out; } /* Opacidad inicial 1 */
+  /* --- Resultados y Paginación --- */
+  #results-container { opacity: 1; transition: opacity 0.3s ease-out; }
   .blog-result { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed var(--border-color); animation: fadeIn 0.5s ease-out forwards; }
   .blog-result:last-child { border-bottom: none; }
   .blog-title { color: var(--link-color); font-size: 19px; font-weight: 500; text-decoration: none; display: inline-block; transition: transform 0.2s ease; }
@@ -115,86 +128,19 @@
   mark { background-color: var(--highlight-bg); color: var(--highlight-text); padding: 0.1em 0.2em; border-radius: 3px; font-weight: 500; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-  /* --- *** NUEVOS ESTILOS PARA BLACKJACK *** --- */
-  #blackjack-game {
-    display: none; /* Oculto por defecto */
-    background-color: var(--bj-bg);
-    color: var(--bj-text-light);
-    padding: 25px;
-    border-radius: 10px;
-    margin-top: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border: 3px solid var(--accent-dark);
-    animation: fadeIn 0.5s ease-out; /* Animación al aparecer */
-    text-align: center;
-  }
-  #blackjack-game h2 {
-    color: var(--accent-color);
-    margin-bottom: 20px;
-    font-size: 1.8em;
-  }
-  .hand {
-    margin: 15px 0;
-    min-height: 80px; /* Espacio para cartas */
-  }
-  .hand h3 {
-    margin-bottom: 10px;
-    font-size: 1.1em;
-    color: var(--bj-text-light);
-  }
-  .cards {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap; /* Por si hay muchas cartas */
-  }
-  .card {
-    background-color: var(--bj-card-bg);
-    color: var(--bj-black);
-    border: 1px solid var(--bj-card-border);
-    border-radius: 5px;
-    padding: 10px 8px;
-    font-size: 1.4em;
-    min-width: 40px; /* Ancho mínimo */
-    text-align: center;
-    font-weight: bold;
-    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-    display: inline-block; /* Para que estén en línea */
-  }
+  /* --- Estilos Blackjack --- */
+  #blackjack-game { display: none; background-color: var(--bj-bg); color: var(--bj-text-light); padding: 25px; border-radius: 10px; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 3px solid var(--accent-dark); animation: fadeIn 0.5s ease-out; text-align: center; }
+  #blackjack-game h2 { color: var(--accent-color); margin-bottom: 20px; font-size: 1.8em; }
+  .hand { margin: 15px 0; min-height: 80px; }
+  .hand h3 { margin-bottom: 10px; font-size: 1.1em; color: var(--bj-text-light); }
+  .cards { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+  .card { background-color: var(--bj-card-bg); color: var(--bj-black); border: 1px solid var(--bj-card-border); border-radius: 5px; padding: 10px 8px; font-size: 1.4em; min-width: 40px; text-align: center; font-weight: bold; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); display: inline-block; }
   .card.red { color: var(--bj-red); }
-  .card.hidden {
-      background-color: #B00; /* Dorso rojo */
-      color: transparent; /* Oculta el texto */
-       border: 1px solid #800;
-  }
-  #blackjack-message {
-    margin: 20px 0;
-    font-size: 1.2em;
-    font-weight: bold;
-    min-height: 1.5em; /* Evita saltos de layout */
-    color: var(--accent-color); /* Mensajes en dorado */
-  }
-  .blackjack-buttons button {
-    padding: 12px 25px;
-    margin: 0 10px;
-    background-color: var(--bj-button-bg);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  .blackjack-buttons button:hover:not(:disabled) {
-    background-color: var(--bj-button-hover);
-    transform: translateY(-2px);
-  }
-   .blackjack-buttons button:disabled {
-      background-color: var(--bj-button-disabled);
-      cursor: not-allowed;
-      opacity: 0.7;
-   }
+  .card.hidden { background-color: #B00; color: transparent; border: 1px solid #800; }
+  #blackjack-message { margin: 20px 0; font-size: 1.2em; font-weight: bold; min-height: 1.5em; color: var(--accent-color); }
+  .blackjack-buttons button { padding: 12px 25px; margin: 0 10px; background-color: var(--bj-button-bg); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 1em; font-weight: bold; transition: background-color 0.3s ease, transform 0.2s ease; }
+  .blackjack-buttons button:hover:not(:disabled) { background-color: var(--bj-button-hover); transform: translateY(-2px); }
+  .blackjack-buttons button:disabled { background-color: var(--bj-button-disabled); cursor: not-allowed; opacity: 0.7; }
 
 </style>
 </head>
@@ -232,29 +178,27 @@
   </div>
 
   <div id="results-container">
-     </div>
+    </div>
+
   <div id="pagination-container">
-     </div>
+    </div>
 
   <div id="blackjack-game">
       <h2><i class="fas fa-cards-blank"></i> Blackjack Easter Egg! <i class="fas fa-spade"></i></h2>
-
       <div class="hand">
           <h3>Dealer's Hand (<span id="dealer-score">0</span>):</h3>
           <div id="dealer-cards" class="cards"></div>
       </div>
-
       <div class="hand">
           <h3>Your Hand (<span id="player-score">0</span>):</h3>
           <div id="player-cards" class="cards"></div>
       </div>
-
-      <div id="blackjack-message">Place your bets... Just kidding, click Deal!</div>
-
+      <div id="blackjack-message">Click Deal to start!</div>
       <div class="blackjack-buttons">
-          <button id="bj-hit">Hit (Pedir)</button>
-          <button id="bj-stand">Stand (Plantarse)</button>
-          <button id="bj-deal">Deal (Repartir)</button> </div>
+          <button id="bj-hit" disabled>Hit (Pedir)</button>
+          <button id="bj-stand" disabled>Stand (Plantarse)</button>
+          <button id="bj-deal">Deal (Repartir)</button>
+      </div>
   </div>
 
 </div>
@@ -266,7 +210,7 @@
   const paginationContainer = document.getElementById('pagination-container');
   const sortSelect = document.getElementById('sort-select');
   const quickFilterCheckboxes = document.querySelectorAll('input[name="quickFilter"]');
-  const blackjackGameDiv = document.getElementById('blackjack-game'); // Div del juego
+  const blackjackGameDiv = document.getElementById('blackjack-game');
 
   let allBlogs = [];
   let processedBlogs = [];
@@ -274,56 +218,44 @@
   let currentPage = 1;
   let currentSort = 'newest';
 
-  // --- Lógica del Blog (Búsqueda, Filtro, Orden, Paginación) ---
-
+  // --- Lógica del Blog ---
   function processBlogs() {
     const searchTerm = searchInput.value.toLowerCase().trim();
 
-    // *** EASTER EGG CHECK ***
     if (searchTerm === 'blackjack') {
-        showBlackjack();
-        return; // Detiene el procesamiento normal del blog
+      showBlackjack();
+      return;
     } else {
-        hideBlackjack(); // Asegura que el juego esté oculto si no es la búsqueda
+      hideBlackjack(); // Asegura ocultar si no es la búsqueda
     }
 
-    // --- Continúa procesamiento normal del blog ---
     const selectedFilters = [];
-    quickFilterCheckboxes.forEach(checkbox => { /* ... (igual que antes) ... */
-         if (checkbox.checked) selectedFilters.push(checkbox.value.toLowerCase());
-    });
+    quickFilterCheckboxes.forEach(checkbox => { if (checkbox.checked) selectedFilters.push(checkbox.value.toLowerCase()); });
 
-    let tempBlogs = allBlogs.filter(blog => /* ... (igual que antes) ... */
-      (searchTerm === '') ||
-      blog.title.toLowerCase().includes(searchTerm) ||
-      blog.summary.toLowerCase().includes(searchTerm)
-    );
+    let tempBlogs = allBlogs.filter(blog => (searchTerm === '') || blog.title.toLowerCase().includes(searchTerm) || blog.summary.toLowerCase().includes(searchTerm));
 
-    if (selectedFilters.length > 0) { /* ... (igual que antes) ... */
-       tempBlogs = tempBlogs.filter(blog => {
-         const blogContent = (blog.title + ' ' + blog.summary).toLowerCase();
-         return selectedFilters.some(filterTerm => blogContent.includes(filterTerm));
-       });
+    if (selectedFilters.length > 0) {
+      tempBlogs = tempBlogs.filter(blog => { const blogContent = (blog.title + ' ' + blog.summary).toLowerCase(); return selectedFilters.some(filterTerm => blogContent.includes(filterTerm)); });
     }
 
     currentSort = sortSelect.value;
-    switch (currentSort) { /* ... (igual que antes) ... */
-       case 'newest': tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)); break;
-       case 'oldest': tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0)); break;
-       case 'title-asc': tempBlogs.sort((a, b) => a.title.localeCompare(b.title)); break;
-       case 'title-desc': tempBlogs.sort((a, b) => b.title.localeCompare(a.title)); break;
-       default: break;
+    switch (currentSort) {
+      case 'newest': tempBlogs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0)); break;
+      case 'oldest': tempBlogs.sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0)); break;
+      case 'title-asc': tempBlogs.sort((a, b) => a.title.localeCompare(b.title)); break;
+      case 'title-desc': tempBlogs.sort((a, b) => b.title.localeCompare(a.title)); break;
+      default: break;
     }
 
     processedBlogs = tempBlogs;
     displayBlogs(processedBlogs, 1);
   }
 
-  function displayBlogs(blogsToDisplay, page) { /* ... (igual que antes) ... */
+  function displayBlogs(blogsToDisplay, page) {
     resultsContainer.innerHTML = ''; resultsContainer.style.opacity = 0; page = page || 1; currentPage = page;
     const startIndex = (page - 1) * itemsPerPage; const endIndex = startIndex + itemsPerPage; const paginatedItems = blogsToDisplay.slice(startIndex, endIndex);
     if (paginatedItems.length === 0) { resultsContainer.innerHTML = '<p class="no-results">No blogs matched your search or filters.</p>'; }
-    else { paginatedItems.forEach((blog, index) => { /* ... (crear y añadir divs blog-result) ... */
+    else { paginatedItems.forEach((blog, index) => {
         const div = document.createElement('div'); div.className = 'blog-result'; div.style.animationDelay = `${index * 0.05}s`;
         div.innerHTML = `<a href="${blog.link}" target="_blank" class="blog-title">${highlightMatch(blog.title, searchInput.value)}</a> <span class="blog-link">${blog.link}</span> <p class="blog-summary">${highlightMatch(blog.summary, searchInput.value)}</p>`;
         resultsContainer.appendChild(div); });
@@ -331,20 +263,20 @@
     setTimeout(() => { resultsContainer.style.opacity = 1; }, 50); setupPagination(blogsToDisplay);
   }
 
-  function setupPagination(blogsToDisplay) { /* ... (igual que antes) ... */
+  function setupPagination(blogsToDisplay) {
     paginationContainer.innerHTML = ''; const pageCount = Math.ceil(blogsToDisplay.length / itemsPerPage); if (pageCount <= 1) return;
     const prevButton = document.createElement('button'); prevButton.textContent = '« Previous'; prevButton.className = 'pagination-button'; if (currentPage === 1) { prevButton.classList.add('disabled'); prevButton.disabled = true; }
     prevButton.addEventListener('click', () => { if (currentPage > 1) { displayBlogs(blogsToDisplay, currentPage - 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(prevButton);
     const maxPagesToShow = 5; let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2)); let endPage = Math.min(pageCount, startPage + maxPagesToShow - 1); if (endPage - startPage + 1 < maxPagesToShow) startPage = Math.max(1, endPage - maxPagesToShow + 1);
-    if (startPage > 1) { /* ... (botón '1' y '...') ... */
+    if (startPage > 1) {
         const firstPageButton = document.createElement('button'); firstPageButton.textContent = '1'; firstPageButton.className = 'pagination-button'; firstPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, 1); window.scrollTo(0, 0); }); paginationContainer.appendChild(firstPageButton);
         if (startPage > 2) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); }
     }
-    for (let i = startPage; i <= endPage; i++) { /* ... (botones numéricos) ... */
+    for (let i = startPage; i <= endPage; i++) {
         const pageButton = document.createElement('button'); pageButton.textContent = i; pageButton.className = 'pagination-button'; if (i === currentPage) pageButton.classList.add('active');
         pageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, i); window.scrollTo(0, 0); }); paginationContainer.appendChild(pageButton);
     }
-    if (endPage < pageCount) { /* ... (botón última pág y '...') ... */
+    if (endPage < pageCount) {
         if (endPage < pageCount - 1) { const ellipsis = document.createElement('span'); ellipsis.textContent = '...'; ellipsis.style.margin = '0 8px'; ellipsis.style.color = 'var(--summary-color)'; paginationContainer.appendChild(ellipsis); }
         const lastPageButton = document.createElement('button'); lastPageButton.textContent = pageCount; lastPageButton.className = 'pagination-button'; lastPageButton.addEventListener('click', () => { displayBlogs(blogsToDisplay, pageCount); window.scrollTo(0, 0); }); paginationContainer.appendChild(lastPageButton);
     }
@@ -352,40 +284,24 @@
     nextButton.addEventListener('click', () => { if (currentPage < pageCount) { displayBlogs(blogsToDisplay, currentPage + 1); window.scrollTo(0, 0); } }); paginationContainer.appendChild(nextButton);
   }
 
-  function highlightMatch(text, term) { /* ... (igual que antes) ... */
+  function highlightMatch(text, term) {
     if (!term || term.trim() === '') return text; const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); const regex = new RegExp(`(${escapedTerm})`, 'gi'); return text.replace(regex, '<mark>$1</mark>');
   }
 
-  // --- Fetch inicial de Blogs ---
   fetch('blogs.json')
-    .then(response => { /* ... (igual que antes) ... */
-       if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } const contentType = response.headers.get("content-type"); if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); } return response.json();
+    .then(response => { if (!response.ok) { throw new Error(`HTTP error! status: ${response.status}`); } const contentType = response.headers.get("content-type"); if (!contentType || !contentType.includes("application/json")) { throw new TypeError("Oops, no recibimos JSON!"); } return response.json(); })
+    .then(blogs => { if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
+      allBlogs = blogs.map((blog, index) => ({ ...blog, date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0] }));
+      processBlogs();
     })
-    .then(blogs => { /* ... (igual que antes) ... */
-       if (!Array.isArray(blogs)) { throw new TypeError("El archivo JSON no contiene un array de blogs."); }
-       allBlogs = blogs.map((blog, index) => ({ ...blog, date: blog.date || new Date(Date.now() - index * 86400000).toISOString().split('T')[0] }));
-       processBlogs(); // Llama a la función que procesa y muestra inicialmente
-    })
-    .catch(error => { /* ... (igual que antes) ... */
-       console.error('Error loading or processing blogs:', error); resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Make sure 'blogs.json' exists, is in the same folder, and has the correct JSON format (an array [...] of objects {...}).</p>`; resultsContainer.style.opacity = 1;
-    });
+    .catch(error => { console.error('Error loading or processing blogs:', error); resultsContainer.innerHTML = `<p class="no-results" style="color: red;">${error.message}. Make sure 'blogs.json' exists, is in the same folder, and has the correct JSON format (an array [...] of objects {...}).</p>`; resultsContainer.style.opacity = 1; });
 
-  // --- Listeners para controles del Blog ---
   searchInput.addEventListener('input', processBlogs);
   sortSelect.addEventListener('change', processBlogs);
   quickFilterCheckboxes.forEach(checkbox => { checkbox.addEventListener('change', processBlogs); });
 
-  // --- *** NUEVA LÓGICA PARA BLACKJACK *** ---
-
-  // Variables del juego
-  let deck = [];
-  let playerCards = [];
-  let dealerCards = [];
-  let playerScore = 0;
-  let dealerScore = 0;
-  let gameOver = true; // Empieza como terminado hasta que se reparte
-
-  // Elementos del DOM del juego
+  // --- Lógica Blackjack ---
+  let deck = [], playerCards = [], dealerCards = [], playerScore = 0, dealerScore = 0, gameOver = true, dealerTurnTimeout; // Timeout para turno dealer
   const dealerCardsDiv = document.getElementById('dealer-cards');
   const playerCardsDiv = document.getElementById('player-cards');
   const dealerScoreSpan = document.getElementById('dealer-score');
@@ -395,194 +311,105 @@
   const standButton = document.getElementById('bj-stand');
   const dealButton = document.getElementById('bj-deal');
 
-  // Funciones de utilidad Blackjack
-  function createDeck() {
-    const suits = ['♥', '♦', '♣', '♠']; // Corazones, Diamantes, Tréboles, Picas
-    const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-    deck = [];
-    for (const suit of suits) {
-      for (const rank of ranks) {
-        deck.push({ suit, rank });
-      }
-    }
+  function createDeck() { /* ... (igual que antes) ... */
+      const suits = ['♥', '♦', '♣', '♠']; const ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']; deck = [];
+      for (const suit of suits) { for (const rank of ranks) { deck.push({ suit, rank }); } }
+  }
+  function shuffleDeck() { /* ... (igual que antes) ... */
+      for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+  }
+  function getCardValue(card) { /* ... (igual que antes) ... */
+      if (['K', 'Q', 'J'].includes(card.rank)) return 10; if (card.rank === 'A') return 11; return parseInt(card.rank);
+  }
+  function calculateHandValue(hand) { /* ... (igual que antes) ... */
+      let sum = 0; let aceCount = 0; for (const card of hand) { sum += getCardValue(card); if (card.rank === 'A') aceCount++; }
+      while (sum > 21 && aceCount > 0) { sum -= 10; aceCount--; } return sum;
+  }
+  function renderCard(card, targetDiv, isHidden = false) { /* ... (igual que antes) ... */
+      const cardDiv = document.createElement('div'); cardDiv.className = 'card'; if (isHidden) { cardDiv.classList.add('hidden'); cardDiv.textContent = '?'; }
+      else { cardDiv.textContent = `${card.rank}${card.suit}`; if (['♥', '♦'].includes(card.suit)) cardDiv.classList.add('red'); }
+      targetDiv.appendChild(cardDiv);
+  }
+  function renderHands(hideDealerCard = true) { /* ... (igual que antes) ... */
+      dealerCardsDiv.innerHTML = ''; playerCardsDiv.innerHTML = ''; dealerCards.forEach((card, index) => renderCard(card, dealerCardsDiv, hideDealerCard && index === 0)); playerCards.forEach(card => renderCard(card, playerCardsDiv));
+      playerScore = calculateHandValue(playerCards); dealerScore = hideDealerCard ? calculateHandValue(dealerCards.slice(1)) : calculateHandValue(dealerCards);
+      playerScoreSpan.textContent = playerScore; dealerScoreSpan.textContent = hideDealerCard ? `${dealerScore} + ?` : dealerScore;
   }
 
-  function shuffleDeck() {
-    for (let i = deck.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [deck[i], deck[j]] = [deck[j], deck[i]]; // Intercambio
-    }
+  function playerHit() { /* ... (igual que antes) ... */
+    if (gameOver) return; playerCards.push(deck.pop()); renderHands(); if (playerScore > 21) endGame("You busted! Dealer wins.");
   }
 
-  function getCardValue(card) {
-    if (['K', 'Q', 'J'].includes(card.rank)) return 10;
-    if (card.rank === 'A') return 11; // Se maneja el 1 más tarde si es necesario
-    return parseInt(card.rank);
-  }
-
-  function calculateHandValue(hand) {
-    let sum = 0;
-    let aceCount = 0;
-    for (const card of hand) {
-      sum += getCardValue(card);
-      if (card.rank === 'A') aceCount++;
-    }
-    // Ajustar valor de Ases si la suma es > 21
-    while (sum > 21 && aceCount > 0) {
-      sum -= 10;
-      aceCount--;
-    }
-    return sum;
-  }
-
-  // Funciones para renderizar el juego
-  function renderCard(card, targetDiv, isHidden = false) {
-    const cardDiv = document.createElement('div');
-    cardDiv.className = 'card';
-    if (isHidden) {
-      cardDiv.classList.add('hidden');
-      cardDiv.textContent = '?'; // O dejar vacío
-    } else {
-      cardDiv.textContent = `${card.rank}${card.suit}`;
-      if (['♥', '♦'].includes(card.suit)) {
-        cardDiv.classList.add('red');
-      }
-    }
-    targetDiv.appendChild(cardDiv);
-  }
-
-  function renderHands(hideDealerCard = true) {
-    dealerCardsDiv.innerHTML = '';
-    playerCardsDiv.innerHTML = '';
-
-    dealerCards.forEach((card, index) => {
-      renderCard(card, dealerCardsDiv, hideDealerCard && index === 0); // Oculta la primera del dealer
-    });
-    playerCards.forEach(card => renderCard(card, playerCardsDiv));
-
-    playerScore = calculateHandValue(playerCards);
-    // Calcula el score visible del dealer (si una está oculta, no cuenta esa)
-    dealerScore = hideDealerCard
-        ? calculateHandValue(dealerCards.slice(1)) // Solo la segunda carta visible
-        : calculateHandValue(dealerCards); // Todas visibles
-
-    playerScoreSpan.textContent = playerScore;
-    dealerScoreSpan.textContent = hideDealerCard ? `${dealerScore} + ?` : dealerScore;
-  }
-
-  // Acciones del juego
-  function playerHit() {
-    if (gameOver) return;
-    playerCards.push(deck.pop());
-    renderHands();
-    if (playerScore > 21) {
-      endGame("You busted! Dealer wins.");
-    }
-  }
-
+  // --- FUNCIÓN playerStand CORREGIDA ---
   function playerStand() {
-    if (gameOver) return;
-    // Revelar carta oculta del dealer y calcular score real
-    dealerScore = calculateHandValue(dealerCards);
-    renderHands(false); // Mostrar todas las cartas del dealer
+      if (gameOver) return;
+      gameOver = true; // El jugador ya no puede hacer más acciones
+      hitButton.disabled = true;
+      standButton.disabled = true;
 
-    // Lógica del dealer: pedir carta hasta 17 o más
-    while (dealerScore < 17) {
-        messageDiv.textContent = "Dealer hits...";
-        // Pequeño delay para simular pensamiento
-        setTimeout(() => { // Necesitaríamos manejar esto mejor si hacemos delays largos
-           dealerCards.push(deck.pop());
-           dealerScore = calculateHandValue(dealerCards);
-           renderHands(false);
-        }, 500); // Espera medio segundo (simplificado)
-    }
+      // Revelar carta oculta y mostrar score real
+      dealerScore = calculateHandValue(dealerCards);
+      renderHands(false); // Mostrar todas las cartas del dealer
 
-     // Determinar ganador después de que el dealer termine (simplificado sin manejo de delays complejos)
-     // En una implementación real, esto debería esperar a que terminen los timeouts
-     setTimeout(() => {
-        determineWinner();
-     }, dealerScore < 17 ? 1000 : 100); // Espera un poco más si el dealer pidió cartas
+      // Lógica recursiva y asíncrona del dealer con delays
+      function dealerTurn() {
+          dealerScore = calculateHandValue(dealerCards); // Recalcular por si acaso
+          renderHands(false); // Asegurarse de que esté visible el score correcto
 
-  }
-
-  function determineWinner() {
-      dealerScore = calculateHandValue(dealerCards); // Asegura score final
-      renderHands(false); // Asegura que todo esté visible
-
-      if (playerScore > 21) {
-          messageDiv.textContent = "You busted! Dealer wins.";
-      } else if (dealerScore > 21) {
-          messageDiv.textContent = "Dealer busted! You win!";
-      } else if (playerScore > dealerScore) {
-          messageDiv.textContent = "You win!";
-      } else if (dealerScore > playerScore) {
-          messageDiv.textContent = "Dealer wins.";
-      } else {
-          messageDiv.textContent = "Push! (It's a tie)";
-      }
-      endGame(messageDiv.textContent); // Llama a endGame con el mensaje final
-  }
-
-   function endGame(msg) {
-        gameOver = true;
-        messageDiv.textContent = msg;
-        hitButton.disabled = true;
-        standButton.disabled = true;
-        dealButton.disabled = false; // Habilitar Nuevo Juego
-        dealButton.textContent = "New Game"; // Cambiar texto
-   }
-
-
-  function startBlackjack() {
-    createDeck();
-    shuffleDeck();
-    playerCards = [deck.pop(), deck.pop()];
-    dealerCards = [deck.pop(), deck.pop()];
-    gameOver = false;
-
-    renderHands();
-
-    messageDiv.textContent = "Hit or Stand?";
-    hitButton.disabled = false;
-    standButton.disabled = false;
-    dealButton.disabled = true; // Deshabilitar Deal hasta que termine
-    dealButton.textContent = "Deal"; // Texto original
-
-     // Check inicial por Blackjack
-     playerScore = calculateHandValue(playerCards);
-     const dealerVisibleScore = calculateHandValue(dealerCards.slice(1)); // Score inicial visible
-     if (playerScore === 21) {
-          // Si el dealer muestra un 10 o As, esperar a ver si tiene Blackjack también
-          if (dealerVisibleScore >= 10) {
-              playerStand(); // Forzar stand para revelar carta del dealer
+          if (dealerScore < 17) {
+              messageDiv.textContent = "Dealer hits...";
+              dealerTurnTimeout = setTimeout(() => { // Guardar el timeout ID
+                  if (deck.length > 0) { // Asegurarse que haya cartas
+                      dealerCards.push(deck.pop());
+                      dealerTurn(); // Llamada recursiva para el próximo turno/delay
+                  } else {
+                      // No quedan cartas, determinar ganador con lo que hay
+                      determineWinner();
+                  }
+              }, 800); // Delay más largo para ver la acción
           } else {
-             endGame("Blackjack! You win!");
+              // El dealer se planta (>= 17)
+              determineWinner();
           }
-     }
-  }
-
-  // --- Funciones para mostrar/ocultar juego ---
-  function showBlackjack() {
-      resultsContainer.style.display = 'none'; // Ocultar resultados blog
-      paginationContainer.style.display = 'none'; // Ocultar paginación blog
-      blackjackGameDiv.style.display = 'block'; // Mostrar juego
-      if(gameOver) { // Solo inicia un juego nuevo si el anterior terminó o es la primera vez
-        startBlackjack();
       }
+      dealerTurn(); // Iniciar el turno del dealer
   }
 
-  function hideBlackjack() {
-      resultsContainer.style.display = 'block'; // Mostrar resultados blog
-      paginationContainer.style.display = 'block'; // Mostrar paginación blog
-      blackjackGameDiv.style.display = 'none'; // Ocultar juego
-       // Opcional: Pausar o resetear el juego si estaba activo
-      // if (!gameOver) pauseTimer(); // Si tuvieras pausa
+
+  function determineWinner() { /* ... (igual que antes) ... */
+    clearTimeout(dealerTurnTimeout); // Limpiar timeout por si acaso
+    dealerScore = calculateHandValue(dealerCards); renderHands(false); // Asegura score final y cartas visibles
+    let msg = "";
+    if (playerScore > 21) { msg = "You busted! Dealer wins."; }
+    else if (dealerScore > 21) { msg = "Dealer busted! You win!"; }
+    else if (playerScore > dealerScore) { msg = "You win!"; }
+    else if (dealerScore > playerScore) { msg = "Dealer wins."; }
+    else { msg = "Push! (It's a tie)"; }
+    endGame(msg);
   }
 
-  // --- Listeners para botones Blackjack ---
+  function endGame(msg) { /* ... (igual que antes) ... */
+    gameOver = true; messageDiv.textContent = msg; hitButton.disabled = true; standButton.disabled = true;
+    dealButton.disabled = false; dealButton.textContent = "New Game";
+    clearTimeout(dealerTurnTimeout); // Limpiar cualquier timeout pendiente del dealer
+  }
+
+  function startBlackjack() { /* ... (igual que antes) ... */
+    clearTimeout(dealerTurnTimeout); // Limpiar timeout de juegos anteriores
+    createDeck(); shuffleDeck(); playerCards = [deck.pop(), deck.pop()]; dealerCards = [deck.pop(), deck.pop()]; gameOver = false;
+    renderHands(); messageDiv.textContent = "Hit or Stand?"; hitButton.disabled = false; standButton.disabled = false; dealButton.disabled = true; dealButton.textContent = "Deal";
+    playerScore = calculateHandValue(playerCards); const dealerVisibleScore = calculateHandValue(dealerCards.slice(1));
+    if (playerScore === 21) { if (dealerVisibleScore >= 10) { playerStand(); } else { endGame("Blackjack! You win!"); } }
+  }
+
+  // --- Funciones show/hide (igual que antes) ---
+  function showBlackjack() { resultsContainer.style.display = 'none'; paginationContainer.style.display = 'none'; blackjackGameDiv.style.display = 'block'; if(gameOver) startBlackjack(); }
+  function hideBlackjack() { resultsContainer.style.display = 'block'; paginationContainer.style.display = 'block'; blackjackGameDiv.style.display = 'none'; }
+
+  // --- Listeners Blackjack ---
   hitButton.addEventListener('click', playerHit);
   standButton.addEventListener('click', playerStand);
-  dealButton.addEventListener('click', startBlackjack); // Deal y New Game usan la misma función
+  dealButton.addEventListener('click', startBlackjack);
 
 </script>
 
