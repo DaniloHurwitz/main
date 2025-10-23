@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelancer Utilities | Danilo H.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Paleta consistente con index.html */
+        --primary-color: #87CEEB;   /* Celeste cielo */
+        --accent-color: #FFD700;    /* Dorado */
+        --accent-dark: #e6c300;     /* Dorado oscuro hover */
+        --text-color: #2C3E50;      /* Gris-azulado oscuro */
+        --link-color: #4682B4;      /* Azul medio para links */
+        --summary-color: #708090;   /* Slate gray */
+        --bg-color: #E6F3FF;       /* Fondo principal celeste muy suave */
+        --container-bg: #ffffff;   /* Fondo del contenedor */
+        --border-color: #B3E5FC;    /* Celeste suave para bordes */
+        --shadow-color: rgba(0,0,0,0.08);
+        --white-translucent: rgba(255,255,255,0.9);
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: linear-gradient(135deg, var(--light-blue, #E6F3FF) 0%, #B3E5FC 100%); /* Usar fallback si variable no existe */
+        color: var(--text-color);
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        /* Fondo cielo/nubes opcional (si lo implementaste en index): */
+        position: relative;
+        overflow-x: hidden;
+      }
+        /* ... (Opcional: Añadir aquí los estilos de body::before, body::after y @keyframes moveClouds si quieres el fondo animado) ... */
+
+
+      /* Navegación Superior (similar a blog.html) */
+      .top-nav {
+         background-color: var(--white-translucent);
+         padding: 10px 5%;
+         display: flex;
+         justify-content: flex-end; /* Alinea botones a la derecha */
+         align-items: center;
+         border-bottom: 1px solid var(--border-color);
+         position: sticky;
+         top: 0;
+         z-index: 1000;
+         margin-bottom: 20px; /* Separación del contenido */
+       }
+
+       .nav-buttons button, .nav-buttons a {
+         padding: 8px 15px;
+         background-color: transparent;
+         color: var(--primary-color);
+         text-decoration: none;
+         border-radius: 5px;
+         font-weight: 500;
+         border: 1px solid var(--primary-color);
+         cursor: pointer;
+         margin-left: 10px;
+         font-size: 0.9em;
+         transition: all 0.3s ease;
+       }
+
+       .nav-buttons button:hover, .nav-buttons a:hover {
+         background-color: var(--accent-color); /* Dorado hover */
+         color: var(--text-color); /* Texto oscuro */
+         border-color: var(--accent-color);
+         transform: translateY(-2px);
+         box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
+       }
+
+
+      .container {
+        max-width: 800px; /* Ancho consistente */
+        margin: 20px auto 40px auto;
+        padding: 25px 35px;
+        background-color: var(--container-bg);
+        border-radius: 10px;
+        box-shadow: 0 4px 15px var(--shadow-color);
+        flex-grow: 1;
+        z-index: 1; /* Encima de nubes (si las hay) */
+        position: relative;
+      }
+
+      .page-title {
+        color: var(--primary-color);
+        text-align: center;
+        font-size: 2.3em;
+        font-weight: 700;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      /* --- Estilos del Acordeón --- */
+      .utilities-accordion {
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        overflow: hidden; /* Para que los bordes redondeados funcionen */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      .utility-item {
+        border-bottom: 1px solid var(--border-color);
+      }
+      .utility-item:last-child {
+        border-bottom: none;
+      }
+
+      .utility-header {
+        background-color: #f8fcff; /* Fondo celeste muy pálido */
+        padding: 15px 20px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: background-color 0.3s ease;
+        user-select: none; /* Evita seleccionar texto del título */
+      }
+
+      .utility-header:hover {
+        background-color: #eaf6ff; /* Celeste un poco más oscuro al pasar */
+      }
+
+      .utility-header h3 {
+        color: var(--link-color); /* Azul medio */
+        font-weight: 500;
+        font-size: 1.1em;
+        margin: 0;
+      }
+
+      .utility-header .icon {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: var(--primary-color);
+        transition: transform 0.3s ease;
+        transform-origin: center;
+      }
+
+      /* Estilo cuando está activo/abierto */
+      .utility-header.active {
+         background-color: #eaf6ff;
+      }
+      .utility-header.active .icon {
+        transform: rotate(45deg); /* Cambia '+' a 'x' */
+      }
+
+      .utility-content {
+        max-height: 0; /* Oculto por defecto */
+        overflow: hidden;
+        transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Animación suave */
+        background-color: var(--container-bg); /* Fondo blanco */
+        padding: 0 20px; /* Sin padding vertical inicial */
+      }
+
+      .utility-content.active {
+        /* Altura máxima suficientemente grande, ajusta si tienes contenido muy alto */
+        max-height: 1000px;
+        padding: 20px 20px; /* Padding cuando está abierto */
+        border-top: 1px dashed var(--border-color);
+      }
+
+      /* --- Estilos específicos para las herramientas --- */
+      .utility-content label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        color: var(--text-color);
+      }
+      .utility-content input[type="number"],
+      .utility-content input[type="text"],
+      .utility-content textarea,
+      .utility-content select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        font-size: 1em;
+        background-color: #fdfdfd;
+      }
+       .utility-content input[type="number"]:focus,
+       .utility-content input[type="text"]:focus,
+       .utility-content textarea:focus,
+       .utility-content select:focus {
+           outline: none;
+           border-color: var(--primary-color);
+           box-shadow: 0 0 3px var(--primary-color);
+       }
+
+
+      .utility-content button {
+        padding: 10px 20px;
+        background-color: var(--accent-color);
+        color: var(--text-color);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        margin-top: 5px;
+      }
+      .utility-content button:hover {
+        background-color: var(--accent-dark);
+      }
+
+      .utility-content .result {
+        margin-top: 15px;
+        font-weight: bold;
+        color: var(--link-color);
+        background-color: #f0f8ff;
+        padding: 10px;
+        border-radius: 5px;
+        border-left: 3px solid var(--accent-color);
+      }
+
+      /* Checklist */
+      .checklist label {
+        display: flex; /* Alinea checkbox y texto */
+        align-items: center;
+        margin-bottom: 10px;
+        cursor: pointer;
+        font-weight: normal; /* Labels normales */
+      }
+      .checklist input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.2); /* Checkbox un poco más grande */
+        accent-color: var(--primary-color);
+      }
+       .checklist label:has(input:checked) { /* Tachar texto si está marcado */
+           text-decoration: line-through;
+           color: var(--summary-color);
+       }
+
+
+      /* Zonas Horarias */
+      .timezone-list {
+          list-style: none;
+          padding: 0;
+      }
+      .timezone-list li {
+          margin-bottom: 8px;
+          display: flex;
+          justify-content: space-between;
+          padding: 5px 0;
+          border-bottom: 1px dotted var(--border-color);
+      }
+       .timezone-list li:last-child {
+           border-bottom: none;
+       }
+      .timezone-list .zone { font-weight: 500; }
+      .timezone-list .time { color: var(--link-color); }
+
+      /* Enlaces Útiles */
+      .useful-links ul {
+          list-style: none;
+          padding: 0;
+      }
+      .useful-links li {
+          margin-bottom: 10px;
+          padding-left: 20px;
+          position: relative;
+      }
+      .useful-links li::before {
+          content: '🔗'; /* Icono de enlace */
+          position: absolute;
+          left: 0;
+          top: 0;
+          color: var(--primary-color);
+      }
+      .useful-links a {
+          color: var(--link-color);
+          text-decoration: none;
+          transition: color 0.3s ease;
+      }
+       .useful-links a:hover {
+           color: var(--accent-dark);
+           text-decoration: underline;
+       }
+
+      /* Responsive (Opcional, pero recomendado) */
+        @media (max-width: 768px) {
+            body { font-size: 15px; }
+            .container { width: 95%; padding: 20px 15px; margin: 15px auto 30px auto; }
+            .page-title { font-size: 1.8em; }
+            .utility-header h3 { font-size: 1em; }
+            .top-nav { padding: 8px 3%; }
+            .nav-buttons button, .nav-buttons a { padding: 6px 10px; font-size: 0.8em; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div></div> <div class="nav-buttons">
+            <a href="blog.html">Blog Archive</a> <a href="index.html">Home</a> </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="page-title">Freelancer Utilities</h1>
+
+        <div class="utilities-accordion">
+
+            <div class="utility-item">
+                <button class="utility-header">
+                    <h3>Calculadora de Tarifa Horaria Inversa</h3>
+                    <span class="icon">+</span>
+                </button>
+                <div class="utility-content">
+                    <p>Calcula cuánto cobrar por hora para alcanzar tu meta de ingresos mensuales.</p>
+                    <label for="target-income">Ingreso Mensual Deseado (USD):</label>
+                    <input type="number" id="target-income" placeholder="Ej: 1000">
+
+                    <label for="workable-hours">Horas Trabajables por Semana:</label>
+                    <input type="number" id="workable-hours" placeholder="Ej: 20">
+
+                    <label for="monthly-expenses">Gastos Fijos Mensuales (USD, opcional):</label>
+                    <input type="number" id="monthly-expenses" placeholder="Ej: 50" value="0">
+
+                    <button onclick="calculateInverseRate()">Calcular Tarifa</button>
+                    <div id="inverse-rate-result" class="result" style="display: none;"></div>
+                </div>
+            </div>
+
+            <div class="utility-item">
+                <button class="utility-header">
+                    <h3>Checklist: Primeros Pasos en Upwork</h3>
+                    <span class="icon">+</span>
+                </button>
+                <div class="utility-content checklist">
+                    <p>Marca las tareas esenciales para empezar con buen pie:</p>
+                    <label><input type="checkbox"> Crear perfil 100% completo.</label>
+                    <label><input type="checkbox"> Añadir foto de perfil profesional.</label>
+                    <label><input type="checkbox"> Escribir título y resumen específicos (¡No genérico!).</label>
+                    <label><input type="checkbox"> Subir 2-3 muestras de trabajo al portfolio.</label>
+                    <label><input type="checkbox"> Definir tarifa inicial (¡Investigar mercado!).</label>
+                    <label><input type="checkbox"> Verificar identidad.</label>
+                    <label><input type="checkbox"> Buscar trabajos pequeños (<$100) para primer review.</label>
+                    <label><input type="checkbox"> Escribir propuesta CORTA y PERSONALIZADA (¡No plantillas!).</label>
+                    <label><input type="checkbox"> Responder rápido a mensajes de clientes.</label>
+                    <label><input type="checkbox"> Entregar trabajo impecable y a tiempo.</label>
+                    <label><input type="checkbox"> Pedir feedback amablemente al finalizar.</label>
+                </div>
+            </div>
+
+             <div class="utility-item">
+                <button class="utility-header">
+                    <h3>Horarios Clave de Clientes</h3>
+                    <span class="icon">+</span>
+                </button>
+                <div class="utility-content">
+                    <p>Horas actuales aproximadas en zonas comunes (respecto a Argentina):</p>
+                    <ul class="timezone-list" id="timezone-display">
+                        <li>Cargando horarios...</li>
+                    </ul>
+                    <small>Nota: Las horas pueden variar por horarios de verano (DST).</small>
+                </div>
+            </div>
+
+            <div class="utility-item">
+                <button class="utility-header">
+                    <h3>Generador Rápido de Propuesta</h3>
+                    <span class="icon">+</span>
+                </button>
+                <div class="utility-content">
+                    <p>Completa los campos para generar un texto base (¡Personalízalo siempre!).</p>
+                    <label for="client-name">Nombre del Cliente (si lo sabes):</label>
+                    <input type="text" id="client-name" placeholder="Ej: John Doe">
+
+                    <label for="client-need">¿Qué necesita el cliente? (Resumen corto):</label>
+                    <input type="text" id="client-need" placeholder="Ej: traducir un manual técnico HE>EN">
+
+                    <label for="why-me">¿Por qué eres ideal TÚ para ESTO? (1 frase clave):</label>
+                    <input type="text" id="why-me" placeholder="Ej: mi experiencia en MedTech y dominio nativo de Hebreo">
+
+                    <label for="call-to-action">Siguiente paso sugerido:</label>
+                    <input type="text" id="call-to-action" placeholder="Ej: discutir los detalles en una llamada rápida" value="discutir los detalles en una llamada rápida">
+
+                    <button onclick="generateProposal()">Generar Plantilla</button>
+                    <textarea id="proposal-output" rows="6" style="margin-top: 15px; display: none;" placeholder="Aquí aparecerá tu plantilla..."></textarea>
+                </div>
+            </div>
+
+            <div class="utility-item">
+                <button class="utility-header">
+                    <h3>Calculadora de Rentabilidad (Precio Fijo)</h3>
+                    <span class="icon">+</span>
+                </button>
+                <div class="utility-content">
+                    <p>Calcula tu tarifa horaria real para un proyecto de precio fijo.</p>
+                    <label for="fixed-price">Precio Fijo Ofertado (USD):</label>
+                    <input type="number" id="fixed-price" placeholder="Ej: 300">
+
+                    <label for="estimated-hours">Horas Estimadas de Trabajo:</label>
+                    <input type="number" id="estimated-hours" placeholder="Ej: 8">
+
+                    <label for="platform-commission">Comisión Plataforma (%):</label>
+                    <select id="platform-commission">
+                        <option value="10">10% (Upwork Estándar)</option>
+                        <option value="20">20% (Upwork Primeros $500)</option>
+                        <option value="5">5% (Upwork +$10k)</option>
+                        <option value="0">0% (Directo)</option>
+                    </select>
+
+                    <button onclick="calculateProfitability()">Calcular Tarifa Real</button>
+                    <div id="profitability-result" class="result" style="display: none;"></div>
+                </div>
+            </div>
+
+             <div class="utility-item">
+                <button class="utility-header">
+                    <h3>Enlaces Útiles para Freelancers</h3>
+                    <span class="icon">+</span>
+                </button>
+                <div class="utility-content useful-links">
+                    <ul>
+                        <li><a href="https://support.upwork.com/hc/en-us" target="_blank">Centro de Ayuda Upwork (Oficial)</a></li>
+                        <li><a href="https://www.fiverr.com/support" target="_blank">Centro de Ayuda Fiverr (Oficial)</a></li>
+                        <li><a href="https://www.wordreference.com/" target="_blank">WordReference (Diccionario Multi-idioma)</a></li>
+                        <li><a href="https://www.merriam-webster.com/medical" target="_blank">Merriam-Webster Medical Dictionary</a></li>
+                         <li><a href="https://www.pealim.com/" target="_blank">Pealim (Conjugador Verbos Hebreo)</a></li>
+                        <li><a href="https://toggl.com/track/" target="_blank">Toggl Track (Gestión de Tiempo - Plan Gratis)</a></li>
+                        <li><a href="https://clockify.me/" target="_blank">Clockify (Gestión de Tiempo - Plan Gratis)</a></li>
+                        <li><a href="https://www.reddit.com/r/Upwork/" target="_blank">r/Upwork (Comunidad Reddit)</a></li>
+                        <li><a href="https://www.reddit.com/r/freelance/" target="_blank">r/freelance (Comunidad Reddit)</a></li>
+                        </ul>
+                </div>
+            </div>
+
+        </div> </div> <script>
+    // --- LÓGICA DEL ACORDEÓN ---
+    const accordionHeaders = document.querySelectorAll('.utility-header');
+
+    accordionHeaders.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const isActive = header.classList.contains('active');
+
+            // Opcional: Cerrar todos los demás items (comenta si quieres múltiples abiertos)
+            // accordionHeaders.forEach(h => {
+            //     if (h !== header) {
+            //         h.classList.remove('active');
+            //         h.nextElementSibling.classList.remove('active');
+            //         h.querySelector('.icon').textContent = '+';
+            //     }
+            // });
+
+            // Abrir/Cerrar el item clickeado
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+            header.querySelector('.icon').textContent = isActive ? '+' : '−'; // Cambia entre + y -
+        });
+    });
+
+    // --- LÓGICA DE LAS CALCULADORAS ---
+
+    // 1. Tarifa Horaria Inversa
+    function calculateInverseRate() {
+        const income = parseFloat(document.getElementById('target-income').value) || 0;
+        const hours = parseFloat(document.getElementById('workable-hours').value) || 0;
+        const expenses = parseFloat(document.getElementById('monthly-expenses').value) || 0;
+        const resultDiv = document.getElementById('inverse-rate-result');
+
+        if (income <= 0 || hours <= 0) {
+            resultDiv.textContent = 'Por favor, ingresa un ingreso deseado y horas trabajables válidos.';
+            resultDiv.style.display = 'block';
+            return;
+        }
+
+        const totalNeeded = income + expenses;
+        const hoursPerMonth = hours * 4; // Aproximación simple
+        const hourlyRate = totalNeeded / hoursPerMonth;
+
+        resultDiv.textContent = `Necesitas cobrar aproximadamente $${hourlyRate.toFixed(2)} USD por hora.`;
+        resultDiv.style.display = 'block';
+    }
+
+    // 4. Generador Propuesta
+    function generateProposal() {
+        const clientName = document.getElementById('client-name').value.trim();
+        const clientNeed = document.getElementById('client-need').value.trim();
+        const whyMe = document.getElementById('why-me').value.trim();
+        const callToAction = document.getElementById('call-to-action').value.trim();
+        const outputTextarea = document.getElementById('proposal-output');
+
+        let proposal = `Hello ${clientName || '[Client Name]'}, \n\nI read your job post and understand you need help with ${clientNeed || '[specific need mentioned in the post]'}. \n\n${whyMe || '[Briefly explain why you are the perfect fit for THIS specific task based on your skills/experience]'}. \n\nI am available to start immediately and confident I can deliver excellent results. \n\nI'd be happy to ${callToAction || 'discuss this further'}. \n\nBest regards, \n[Your Name]`;
+
+        outputTextarea.value = proposal;
+        outputTextarea.style.display = 'block';
+    }
+
+
+    // 5. Rentabilidad Proyecto
+    function calculateProfitability() {
+        const price = parseFloat(document.getElementById('fixed-price').value) || 0;
+        const hours = parseFloat(document.getElementById('estimated-hours').value) || 0;
+        const commission = parseFloat(document.getElementById('platform-commission').value) / 100;
+        const resultDiv = document.getElementById('profitability-result');
+
+         if (price <= 0 || hours <= 0) {
+            resultDiv.textContent = 'Por favor, ingresa un precio y horas estimadas válidos.';
+            resultDiv.style.display = 'block';
+            return;
+        }
+
+        const netIncome = price * (1 - commission);
+        const realHourlyRate = netIncome / hours;
+
+        resultDiv.textContent = `Tu tarifa horaria real para este proyecto es $${realHourlyRate.toFixed(2)} USD/hora (después de comisión).`;
+        resultDiv.style.display = 'block';
+    }
+
+    // 3. Zonas Horarias (Se ejecuta al cargar la página)
+    function displayTimeZones() {
+        const timezoneList = document.getElementById('timezone-display');
+        timezoneList.innerHTML = ''; // Limpiar "Cargando..."
+
+        const zones = [
+            { name: 'Buenos Aires (Tu Hora)', tz: 'America/Argentina/Buenos_Aires' },
+            { name: 'Nueva York (ET)', tz: 'America/New_York' },
+            { name: 'Los Angeles (PT)', tz: 'America/Los_Angeles' },
+            { name: 'Londres (GMT/BST)', tz: 'Europe/London' },
+            { name: 'Madrid (CET/CEST)', tz: 'Europe/Madrid' },
+            { name: 'Tel Aviv (IST/IDT)', tz: 'Asia/Jerusalem' }
+        ];
+
+        zones.forEach(zone => {
+            try {
+                const timeString = new Date().toLocaleTimeString('es-AR', {
+                    timeZone: zone.tz,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                   // hour12: false // Formato 24hs opcional
+                });
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="zone">${zone.name}:</span> <span class="time">${timeString}</span>`;
+                timezoneList.appendChild(li);
+            } catch (e) {
+                console.warn(`Error al obtener la hora para ${zone.tz}:`, e);
+                // Podrías mostrar un mensaje de error o simplemente omitir esta zona
+            }
+        });
+    }
+
+    // Llama a la función de zonas horarias cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', displayTimeZones);
+
+</script>
+
+</body>
+</html>
