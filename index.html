@@ -470,7 +470,7 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns for desktop */
             gap: 15px;
             margin-top: 15px;
         }
@@ -499,6 +499,7 @@
             justify-content: space-around;
             margin-top: 15px;
             flex-wrap: wrap;
+            width: 100%; /* Ensure full width for uniform spacing */
         }
 
         .lang-card {
@@ -509,6 +510,8 @@
             margin: 5px;
             transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-width: 120px;
+            flex: 1 1 30%; /* Uniform flex growth for 3 items */
+            max-width: 200px;
         }
 
         body.dark .lang-card {
@@ -904,7 +907,7 @@
             }
 
             .skills-grid { 
-                grid-template-columns: 1fr; 
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Stack on mobile */
             }
 
             .languages { 
@@ -1109,342 +1112,4 @@
                 <h3 class="job-title">Freelance Translator & Proofreader</h3>
                 <p class="company-dates">Upwork | May 2023 – Present</p>
                 <ul>
-                    <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
-                    <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
-                    <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
-                </ul>
-                <div class="testimonial">
-                    <strong>Hebrew to English Translation Project</strong><br>
-                    Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
-                    "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!"
-                    <button class="toggle-btn">Read More</button>
-                </div>
-            </div>
-            <div class="job" onclick="toggleTestimonial(this)">
-                <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
-                <p class="company-dates">Upwork | May 2023 – Present</p>
-                <ul>
-                    <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
-                    <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
-                </ul>
-                <div class="testimonial">
-                    <strong>Video Editing of a Short Family Video</strong><br>
-                    Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
-                    "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!"
-                    <button class="toggle-btn">Read More</button>
-                </div>
-            </div>
-        </div>
-
-        <div id="skills" class="tab-content">
-            <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Medical Translation</h3>
-                    <ul>
-                        <li>Clinical Documentation, Patient Reports</li>
-                        <li>Informed Consents, MedTech Manuals</li>
-                        <li>Academic Papers, Regulatory Submissions (basic)</li>
-                        <li>Healthcare Marketing Content</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Translation & Editing</h3>
-                    <ul>
-                        <li>Proofreading, Copy Editing, MTPE</li>
-                        <li>Terminology Management, QA</li>
-                        <li>Style Guide Implementation</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Software & Tools</h3>
-                    <ul>
-                        <li>MS Office (Advanced), Google Workspace</li>
-                        <li>CapCut, Subtitle Edit</li>
-                        <li>Basic SEO</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Other</h3>
-                    <ul>
-                        <li>Medical Copywriting, Ghostwriting</li>
-                        <li>Cross-Cultural Communication</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="languages">
-                <div class="lang-card">
-                    <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
-                </div>
-                <div class="lang-card">
-                    <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
-                </div>
-                <div class="lang-card">
-                    <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
-                </div>
-            </div>
-        </div>
-
-        <div id="education" class="tab-content">
-            <h2 class="section-title">Education</h2>
-            <div class="education-item">
-                <h3>Candidate for Doctor of Medicine (MD)</h3>
-                <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
-                <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
-            </div>
-        </div>
-
-        <div id="portfolio" class="tab-content">
-            <h2 class="section-title">Portfolio Highlights</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill.</p>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <h4>Hebrew to English Medical Records</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a>
-                </div>
-                <div class="portfolio-item">
-                    <h4>Hebrew Tutorial Video Adaptation</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a>
-                </div>
-                <div class="portfolio-item">
-                    <h4>Family Video Editing & Subtitling</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a>
-                </div>
-                <div class="portfolio-item">
-                    <h4>Native Hebrew Audio Review</h4>
-                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
-                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a>
-                </div>
-            </div>
-        </div>
-
-        <div id="strengths" class="tab-content">
-            <h2 class="section-title">Key Strengths</h2>
-            <ul class="strengths-list">
-                <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
-                <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
-                <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
-            </ul>
-        </div>
-
-        <div class="rating-choice-section">
-            <h3>How Do You Typically Choose a Freelancer?</h3>
-            <div class="star-rating" id="freelancerRating">
-                <span class="star" data-value="1"><i class="far fa-star"></i></span>
-                <span class="star" data-value="2"><i class="far fa-star"></i></span>
-                <span class="star" data-value="3"><i class="far fa-star"></i></span>
-                <span class="star" data-value="4"><i class="far fa-star"></i></span>
-                <span class="star" data-value="5"><i class="far fa-star"></i></span>
-            </div>
-            <div id="rating-message"></div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="tools-section">
-            <div class="tool-card">
-                <h3 class="tool-title">Quick Quote Calculator</h3>
-                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
-                <div class="quote-tool">
-                    <div class="quote-input">
-                        <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1">
-                        <select id="serviceType">
-                            <option value="0.08">Basic Translation ($0.08/wd)</option>
-                            <option value="0.12">Medical Translation ($0.12/wd)</option>
-                            <option value="0.04">Editing/Proofreading ($0.04/wd)</option>
-                            <option value="5.00">Video Subtitles ($5.00/min)</option>
-                        </select>
-                    </div>
-                    <button onclick="calculateQuote()">Calculate Estimate</button>
-                    <div id="quoteResult" class="quote-result"></div>
-                    <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend on complexity, language pair, and urgency.</p>
-                </div>
-            </div>
-
-            <div class="tool-card">
-                <h3 class="tool-title">Get in Touch</h3>
-                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
-                <form class="contact-form" onsubmit="sendEmail(event)">
-                    <input type="text" id="contactName" placeholder="Your Name" required>
-                    <input type="email" id="contactEmail" placeholder="Your Email" required>
-                    <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-                <div class="newsletter">
-                    <p>Or subscribe for freelance tips:</p>
-                    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
-                        <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
-                        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-                        <button type="submit">Subscribe</button>
-                    </form>
-                    <div id="newsletter-status"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <footer class="footer">
-        <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download>Download Full CV (PDF)</a>
-        <p>&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Utility Functions
-        function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
-            if (clickedButton) {
-                clickedButton.classList.add('active');
-            }
-        }
-
-        function toggleTestimonial(jobElement) {
-            const testimonial = jobElement.querySelector('.testimonial');
-            const btn = jobElement.querySelector('.toggle-btn');
-            if (testimonial && btn) {
-                testimonial.classList.toggle('expanded');
-                btn.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
-            }
-        }
-
-        function calculateQuote() {
-            const wordsInput = document.getElementById('wordCount');
-            const rateSelect = document.getElementById('serviceType');
-            const resultDiv = document.getElementById('quoteResult');
-            const words = parseInt(wordsInput.value) || 0;
-            const rate = parseFloat(rateSelect.value);
-
-            if (words > 0 && rate) {
-                const total = (words * rate).toFixed(2);
-                resultDiv.innerHTML = `Approx. Quote: $${total} USD`;
-            } else {
-                resultDiv.innerHTML = 'Enter word/minute count.';
-            }
-        }
-
-        function sendEmail(event) {
-            event.preventDefault();
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contactMessage').value;
-            const subject = `Project Inquiry from ${name} (Website)`;
-            const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
-            window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        }
-
-        // Form Handling
-        const newsletterForm = document.getElementById("newsletterForm");
-        const newsletterStatus = document.getElementById("newsletter-status");
-
-        async function handleNewsletterSubmit(event) {
-            event.preventDefault();
-            const data = new FormData(event.target);
-            newsletterStatus.innerHTML = "Subscribing...";
-            try {
-                const response = await fetch(event.target.action, {
-                    method: newsletterForm.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    newsletterStatus.innerHTML = "Thanks for subscribing!";
-                    newsletterForm.reset();
-                } else {
-                    const responseData = await response.json();
-                    if (Object.hasOwn(responseData, 'errors')) {
-                        newsletterStatus.innerHTML = responseData["errors"].map(error => error["message"]).join(", ");
-                    } else {
-                        newsletterStatus.innerHTML = "Oops! Problem subscribing.";
-                    }
-                }
-            } catch (error) {
-                newsletterStatus.innerHTML = "Oops! Network error. Try again.";
-            }
-        }
-        newsletterForm.addEventListener("submit", handleNewsletterSubmit);
-
-        // Star Rating
-        const ratingContainerHover = document.getElementById('freelancerRating');
-        const ratingMessageHover = document.getElementById('rating-message');
-        const starsHover = ratingContainerHover.querySelectorAll('.star');
-
-        const ratingMessagesHover = {
-            1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
-            2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
-            3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
-            4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
-            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
-        };
-
-        starsHover.forEach(star => {
-            star.addEventListener('mouseenter', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                highlightStarsHover(rating);
-                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
-                ratingMessageHover.style.display = 'block';
-            });
-        });
-
-        ratingContainerHover.addEventListener('mouseleave', () => {
-            highlightStarsHover(0);
-            ratingMessageHover.style.display = 'none';
-            ratingMessageHover.innerHTML = '';
-        });
-
-        function highlightStarsHover(rating) {
-            starsHover.forEach(star => {
-                const starValue = parseInt(star.getAttribute('data-value'));
-                if (starValue <= rating) {
-                    star.innerHTML = '<i class="fas fa-star"></i>';
-                    star.classList.add('selected');
-                } else {
-                    star.innerHTML = '<i class="far fa-star"></i>';
-                    star.classList.remove('selected');
-                }
-                star.classList.remove('hover');
-            });
-        }
-
-        // Initial State
-        ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
-        ratingMessageHover.style.display = 'block';
-
-        // Initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            openTab('summary');
-
-            document.querySelectorAll('.job .toggle-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const jobElement = e.target.closest('.job');
-                    if (jobElement) toggleTestimonial(jobElement);
-                });
-            });
-
-            // Dark Mode Toggle
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
-
-            const savedTheme = localStorage.getItem('darkMode');
-            if (savedTheme === 'enabled') {
-                body.classList.add('dark');
-                darkModeToggle.checked = true;
-            }
-
-            darkModeToggle.addEventListener('change', () => {
-                if (darkModeToggle.checked) {
-                    body.classList.add('dark');
-                    localStorage.setItem('darkMode', 'enabled');
-                } else {
-                    body.classList.remove('dark');
-                    localStorage.setItem('darkMode', 'disabled');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                    <li>Successfully completed 10+ complex translation projects,
