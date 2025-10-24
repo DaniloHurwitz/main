@@ -329,12 +329,19 @@
             border-radius: 20px;
             box-shadow: 0 8px 32px var(--shadow-color);
             animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: 600px;
-            overflow-y: auto;
+            max-height: none; /* Quita el límite fijo – crece con el contenido */
+            overflow-y: visible; /* No fuerza scroll */
             transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
             backdrop-filter: blur(10px);
         }
-
+        
+        /* Solo en mobile: limita si es muy largo */
+        @media (max-width: 768px) {
+        .tab-content {
+            max-height: 80vh; /* 80% de viewport en mobile */
+            overflow-y: auto;
+        }
+    }
         .tab-content.active {
             display: block;
             margin-bottom: 40px;
