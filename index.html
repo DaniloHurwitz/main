@@ -91,11 +91,24 @@
 
 
         .container {
-            max-width: 1200px; /* Increased from 1000px to better use width */
+            max-width: 1400px;
             margin: 0 auto; /* Centered */
             padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr; /* Base for full width */
+            display: flex;
+            gap: 40px;
+        }
+
+        .sidebar {
+            width: 300px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
         }
 
         /* Dark Mode Toggle */
@@ -161,7 +174,7 @@
             box-shadow: 0 5px 20px var(--shadow-color);
             transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.4s ease;
             position: relative;
-            grid-column: 1 / -1; /* Full width in grid */
+            grid-column: 1 / -1; /* Full width header */
         }
 
         .header:hover {
@@ -236,7 +249,6 @@
             gap: 8px;
             margin-bottom: 15px; /* Reduced margin */
             flex-wrap: wrap;
-            grid-column: 1 / -1; /* Full width */
         }
 
         .tab-btn {
@@ -272,7 +284,6 @@
             max-height: 600px;
             overflow-y: auto;
             transition: background 0.3s ease, box-shadow 0.3s ease;
-            grid-column: 1 / -1; /* Full width */
         }
 
         .tab-content.active {
@@ -545,9 +556,9 @@
         .tools-section {
             margin-top: 10px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 30px;
-            grid-column: 1 / -1; /* Full width */
+            grid-column: 1 / -1; /* Full width for tools */
         }
 
         .tool-card {
@@ -737,7 +748,7 @@
             font-size: 0.9em;
             color: var(--slate-gray);
             transition: background 0.3s ease, color 0.3s ease;
-            grid-column: 1 / -1; /* Full width */
+            grid-column: 1 / -1; /* Full width footer */
         }
 
         .download-cv {
@@ -761,18 +772,12 @@
 
         /* --- BOTONES DE NAVEGACIÓN SECUNDARIA (BLOG Y TOOLS) --- */
         .secondary-nav-container {
-            margin-top: 25px;
-            margin-bottom: 25px;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr; /* Left empty, center buttons, right empty for full width feel */
-            gap: 15px;
-            align-items: center;
-            justify-content: space-between;
-            grid-column: 1 / -1; /* Full width */
-        }
-
-        .secondary-nav-placeholder { /* Empty placeholders for symmetry */
-            visibility: hidden;
+            text-align: left; /* Align left in sidebar */
+            margin-top: 0;
+            margin-bottom: 40px;
+            display: flex; /* Para ponerlos lado a lado */
+            flex-direction: column;
+            gap: 15px; /* Espacio entre los botones */
         }
 
         .secondary-nav-btn { /* Estilo común para ambos botones */
@@ -787,12 +792,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none; /* Asegura que no haya subrayado si se usa <a> */
-            display: inline-block; /* Necesario para padding y centrado */
-            margin: 0 auto; /* Center within their grid cell */
+            display: block; /* Block for sidebar */
+            text-align: left;
         }
 
         body.dark .secondary-nav-btn {
-            color: var(--steel-blue); /* Changed to dark blue for visibility in dark mode */
+            color: var(--steel-blue);
         }
 
         .secondary-nav-btn:hover {
@@ -811,170 +816,6 @@
             transition: color 0.3s ease;
         }
 
-        /* New Cool Feature 1: Instant Medical Translator Tool */
-        .translator-tool {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            margin: 20px 0;
-            grid-column: 1 / -1;
-            transition: background 0.3s ease;
-            text-align: center;
-        }
-
-        .translator-tool h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .translator-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .translator-input-group input,
-        .translator-input-group select {
-            padding: 10px;
-            border: 1px solid var(--sky-blue);
-            border-radius: 8px;
-            font-size: 0.95em;
-        }
-
-        .translator-btn {
-            padding: 10px 20px;
-            background: var(--gold);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .translator-btn:hover {
-            background: var(--gold-dark);
-        }
-
-        #translator-output {
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--highlight-bg);
-            border-radius: 8px;
-            min-height: 50px;
-            transition: background 0.3s ease;
-        }
-
-        /* New Cool Feature 2: Testimonial Carousel */
-        .testimonial-carousel {
-            position: relative;
-            max-width: 800px;
-            margin: 20px auto;
-            overflow: hidden;
-            border-radius: 15px;
-            grid-column: span 2; /* Span two columns for width */
-        }
-
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            padding: 20px;
-            background: var(--card-semi);
-            text-align: center;
-            transition: background 0.3s ease;
-        }
-
-        .carousel-slide blockquote {
-            font-style: italic;
-            color: var(--slate-gray);
-            font-size: 1.1em;
-            margin-bottom: 10px;
-        }
-
-        .carousel-slide cite {
-            font-weight: 600;
-            color: var(--gold);
-        }
-
-        .carousel-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--sky-blue);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .carousel-nav:hover {
-            background: var(--steel-blue);
-        }
-
-        .carousel-nav.prev { left: 10px; }
-        .carousel-nav.next { right: 10px; }
-
-        /* New Cool Feature 3: Freelance Tip Generator */
-        .tip-generator {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            margin: 20px 0;
-            text-align: center;
-            transition: background 0.3s ease;
-            grid-column: 1 / -1;
-        }
-
-        .tip-generator h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .tip-categories {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        .tip-category-btn {
-            padding: 8px 16px;
-            background: var(--white-semi);
-            border: 1px solid var(--sky-blue);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .tip-category-btn.active,
-        .tip-category-btn:hover {
-            background: var(--gold);
-            color: white;
-        }
-
-        #tip-output {
-            padding: 15px;
-            background: var(--highlight-bg);
-            border-radius: 8px;
-            min-height: 60px;
-            transition: background 0.3s ease;
-        }
-
-        body.dark .tip-category-btn {
-            background: var(--card-semi);
-            border-color: var(--sky-blue);
-        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -985,10 +826,15 @@
             /* #global-back-button { ... } */
 
             .container {
+                flex-direction: column;
                 width: 95%;
                 padding: 15px; /* Reduce padding */
                 margin: 10px auto;
-                grid-template-columns: 1fr; /* Stack on mobile */
+                gap: 20px;
+            }
+            .sidebar {
+                width: 100%;
+                position: static;
             }
             .header {
                  padding: 30px 15px;
@@ -1001,15 +847,16 @@
 
              /* Stack secondary nav buttons on mobile */
             .secondary-nav-container {
-                 grid-template-columns: 1fr;
-                 gap: 10px;
-                 text-align: center;
+                 flex-direction: column; /* Apila los botones */
+                 gap: 10px; /* Reduce gap */
+                 align-items: center; /* Centra los botones apilados */
             }
              .secondary-nav-btn {
                  padding: 12px 24px;
                  font-size: 1em;
-                 width: 80%; /* Limit button width */
-                 max-width: 300px; /* Max width */
+                 width: 100%; /* Full width on mobile */
+                 max-width: none;
+                 text-align: center;
              }
 
             .video-container iframe { height: 250px; }
@@ -1023,8 +870,6 @@
             .newsletter form { flex-direction: column; align-items: stretch;}
             .newsletter input { width: 100%; margin-bottom: 5px;}
             .dark-mode-toggle { top: 10px; right: 10px; }
-            .testimonial-carousel { grid-column: 1; }
-            .translator-tool, .tip-generator { grid-column: 1; }
         }
 
         @media (max-width: 480px) {
@@ -1047,7 +892,6 @@
             margin-bottom: 10px;
             text-align: center;
             transition: background 0.3s ease, box-shadow 0.3s ease;
-            grid-column: 1 / -1; /* Full width */
         }
 
         .rating-choice-section h3 {
@@ -1140,254 +984,204 @@
             </div>
         </header>
 
-        <div class="secondary-nav-container">
-            <div class="secondary-nav-placeholder"></div> <!-- Placeholder for left symmetry -->
-            <a href="blog.html" class="secondary-nav-btn"> The Freelancer's Compass Blog
-                <span class="secondary-nav-subtitle">Insights & Guides</span>
-            </a>
-            <a href="tools.html" class="secondary-nav-btn"> Freelancer Utilities
-                <span class="secondary-nav-subtitle">Calculators & Resources</span>
-            </a>
-            <div class="secondary-nav-placeholder"></div> <!-- Placeholder for right symmetry -->
-        </div>
-         
-        <nav class="tabs-nav">
-            <button class="tab-btn active" onclick="openTab('summary')">Summary</button>
-            <button class="tab-btn" onclick="openTab('experience')">Experience</button>
-            <button class="tab-btn" onclick="openTab('skills')">Skills</button>
-            <button class="tab-btn" onclick="openTab('education')">Education</button>
-            <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
-            <button class="tab-btn" onclick="openTab('strengths')">Strengths</button>
-        </nav>
-
-        <!-- New Cool Feature 1: Instant Medical Translator Tool -->
-        <div class="translator-tool">
-            <h3>Quick Medical Term Translator</h3>
-            <p style="color: var(--slate-gray); margin-bottom: 15px;">Enter a term and see it in your languages – powered by my expertise!</p>
-            <div class="translator-input-group">
-                <input type="text" id="termInput" placeholder="e.g., 'Hipoglucemia'">
-                <select id="fromLang">
-                    <option value="es">Spanish</option>
-                    <option value="en">English</option>
-                    <option value="he">Hebrew</option>
-                </select>
-                <select id="toLang">
-                    <option value="en">→ English</option>
-                    <option value="es">→ Spanish</option>
-                    <option value="he">→ Hebrew</option>
-                </select>
-                <button class="translator-btn" onclick="translateTerm()">Translate</button>
+        <div class="sidebar">
+            <div class="secondary-nav-container">
+                <a href="blog.html" class="secondary-nav-btn"> The Freelancer's Compass Blog
+                    <span class="secondary-nav-subtitle">Insights & Guides</span>
+                </a>
+                <a href="tools.html" class="secondary-nav-btn"> Freelancer Utilities
+                    <span class="secondary-nav-subtitle">Calculators & Resources</span>
+                </a>
             </div>
-            <div id="translator-output">Try entering a term above!</div>
         </div>
 
-        <div id="summary" class="tab-content active">
-            <h2 class="section-title">Professional Summary</h2>
-            <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
-        </div>
+        <div class="main-content">
+            <nav class="tabs-nav">
+                <button class="tab-btn active" onclick="openTab('summary')">Summary</button>
+                <button class="tab-btn" onclick="openTab('experience')">Experience</button>
+                <button class="tab-btn" onclick="openTab('skills')">Skills</button>
+                <button class="tab-btn" onclick="openTab('education')">Education</button>
+                <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
+                <button class="tab-btn" onclick="openTab('strengths')">Strengths</button>
+            </nav>
 
-        <div id="experience" class="tab-content">
-            <h2 class="section-title">Professional Experience</h2>
-            <!-- New Cool Feature 2: Testimonial Carousel -->
-            <div class="testimonial-carousel">
-                <div class="carousel-track" id="carouselTrack">
-                    <div class="carousel-slide">
-                        <blockquote>"Danilo's Hebrew to English translations are spot-on – saved our clinical trial deadlines!"</blockquote>
-                        <cite>– Pharma Client, Upwork 5.0</cite>
+            <div id="summary" class="tab-content active">
+                <h2 class="section-title">Professional Summary</h2>
+                <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
+            </div>
+
+            <div id="experience" class="tab-content">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="job" onclick="toggleTestimonial(this)">
+                    <h3 class="job-title">Freelance Translator & Proofreader</h3>
+                    <p class="company-dates">Upwork | May 2023 – Present</p>
+                    <ul>
+                        <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
+                        <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
+                        <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
+                    </ul>
+                    <div class="testimonial">
+                        <strong>Hebrew to English Translation Project</strong><br>
+                        Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
+                        "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!"
+                        <button class="toggle-btn">Read More</button> </div>
+                </div>
+                <div class="job" onclick="toggleTestimonial(this)">
+                    <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
+                    <p class="company-dates">Upwork | May 2023 – Present</p>
+                    <ul>
+                        <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
+                        <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
+                    </ul>
+                    <div class="testimonial">
+                        <strong>Video Editing of a Short Family Video</strong><br>
+                        Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
+                        "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!"
+                        <button class="toggle-btn">Read More</button> </div>
+                </div>
+            </div>
+
+            <div id="skills" class="tab-content">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Medical Translation</h3>
+                        <ul>
+                            <li>Clinical Documentation, Patient Reports</li>
+                            <li>Informed Consents, MedTech Manuals</li>
+                            <li>Academic Papers, Regulatory Submissions (basic)</li>
+                            <li>Healthcare Marketing Content</li>
+                        </ul>
                     </div>
-                    <div class="carousel-slide">
-                        <blockquote>"Professional video edits with multilingual subs – perfect for our e-learning module."</blockquote>
-                        <cite>– MedTech Lead, Oct 2024</cite>
+                    <div class="skill-card">
+                        <h3>Translation & Editing</h3>
+                        <ul>
+                            <li>Proofreading, Copy Editing, MTPE</li>
+                            <li>Terminology Management, QA</li>
+                            <li>Style Guide Implementation</li>
+                        </ul>
                     </div>
-                    <div class="carousel-slide">
-                        <blockquote>"100% accuracy in medical docs; a true bilingual pro."</blockquote>
-                        <cite>– Academic Publisher, 2023</cite>
+                    <div class="skill-card">
+                        <h3>Software & Tools</h3>
+                        <ul>
+                            <li>MS Office (Advanced), Google Workspace</li>
+                            <li>CapCut, Subtitle Edit</li>
+                            <li>Basic SEO</li>
+                        </ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Other</h3>
+                        <ul>
+                            <li>Medical Copywriting, Ghostwriting</li>
+                            <li>Cross-Cultural Communication</li>
+                        </ul>
                     </div>
                 </div>
-                <button class="carousel-nav prev" onclick="moveCarousel(-1)">❮</button>
-                <button class="carousel-nav next" onclick="moveCarousel(1)">❯</button>
+                <div class="languages">
+                    <div class="lang-card">
+                        <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
+                    </div>
+                    <div class="lang-card">
+                        <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
+                    </div>
+                    <div class="lang-card">
+                        <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
+                    </div>
+                </div>
             </div>
-            <div class="job" onclick="toggleTestimonial(this)">
-                <h3 class="job-title">Freelance Translator & Proofreader</h3>
-                <p class="company-dates">Upwork | May 2023 – Present</p>
-                <ul>
-                    <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
-                    <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
-                    <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
+
+            <div id="education" class="tab-content">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <h3>Candidate for Doctor of Medicine (MD)</h3>
+                    <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
+                    <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
+                </div>
+            </div>
+
+            <div id="portfolio" class="tab-content">
+                <h2 class="section-title">Portfolio Highlights</h2>
+                <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill.</p>
+                <div class="portfolio-grid">
+                     <div class="portfolio-item">
+                         <h4>Hebrew to English Medical Records</h4>
+                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
+                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a> </div>
+                     <div class="portfolio-item">
+                         <h4>Hebrew Tutorial Video Adaptation</h4>
+                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
+                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a> </div>
+                     <div class="portfolio-item">
+                         <h4>Family Video Editing & Subtitling</h4>
+                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
+                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a> </div>
+                     <div class="portfolio-item">
+                         <h4>Native Hebrew Audio Review</h4>
+                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
+                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a> </div>
+                     </div>
+            </div>
+
+            <div id="strengths" class="tab-content">
+                <h2 class="section-title">Key Strengths</h2>
+                <ul class="strengths-list">
+                    <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
+                    <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
+                    <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
                 </ul>
-                <div class="testimonial">
-                    <strong>Hebrew to English Translation Project</strong><br>
-                    Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
-                    "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!"
-                    <button class="toggle-btn">Read More</button> </div>
             </div>
-            <div class="job" onclick="toggleTestimonial(this)">
-                <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
-                <p class="company-dates">Upwork | May 2023 – Present</p>
-                <ul>
-                    <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
-                    <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
-                </ul>
-                <div class="testimonial">
-                    <strong>Video Editing of a Short Family Video</strong><br>
-                    Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
-                    "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!"
-                    <button class="toggle-btn">Read More</button> </div>
-            </div>
-        </div>
 
-        <div id="skills" class="tab-content">
-            <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Medical Translation</h3>
-                    <ul>
-                        <li>Clinical Documentation, Patient Reports</li>
-                        <li>Informed Consents, MedTech Manuals</li>
-                        <li>Academic Papers, Regulatory Submissions (basic)</li>
-                        <li>Healthcare Marketing Content</li>
-                    </ul>
+            <div class="rating-choice-section">
+                <h3>How Do You Typically Choose a Freelancer?</h3>
+                <div class="star-rating" id="freelancerRating">
+                    <span class="star" data-value="1"><i class="far fa-star"></i></span>
+                    <span class="star" data-value="2"><i class="far fa-star"></i></span>
+                    <span class="star" data-value="3"><i class="far fa-star"></i></span>
+                    <span class="star" data-value="4"><i class="far fa-star"></i></span>
+                    <span class="star" data-value="5"><i class="far fa-star"></i></span>
                 </div>
-                <div class="skill-card">
-                    <h3>Translation & Editing</h3>
-                    <ul>
-                        <li>Proofreading, Copy Editing, MTPE</li>
-                        <li>Terminology Management, QA</li>
-                        <li>Style Guide Implementation</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Software & Tools</h3>
-                    <ul>
-                        <li>MS Office (Advanced), Google Workspace</li>
-                        <li>CapCut, Subtitle Edit</li>
-                        <li>Basic SEO</li>
-                    </ul>
-                </div>
-                <div class="skill-card">
-                    <h3>Other</h3>
-                    <ul>
-                        <li>Medical Copywriting, Ghostwriting</li>
-                        <li>Cross-Cultural Communication</li>
-                    </ul>
+                <div id="rating-message">
                 </div>
             </div>
-            <div class="languages">
-                <div class="lang-card">
-                    <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
-                </div>
-                <div class="lang-card">
-                    <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
-                </div>
-                <div class="lang-card">
-                    <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
-                </div>
-            </div>
-        </div>
 
-        <div id="education" class="tab-content">
-            <h2 class="section-title">Education</h2>
-            <div class="education-item">
-                <h3>Candidate for Doctor of Medicine (MD)</h3>
-                <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
-                <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
-            </div>
-        </div>
-
-        <div id="portfolio" class="tab-content">
-            <h2 class="section-title">Portfolio Highlights</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill.</p>
-            <div class="portfolio-grid">
-                 <div class="portfolio-item">
-                     <h4>Hebrew to English Medical Records</h4>
-                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
-                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a> </div>
-                 <div class="portfolio-item">
-                     <h4>Hebrew Tutorial Video Adaptation</h4>
-                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
-                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a> </div>
-                 <div class="portfolio-item">
-                     <h4>Family Video Editing & Subtitling</h4>
-                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
-                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a> </div>
-                 <div class="portfolio-item">
-                     <h4>Native Hebrew Audio Review</h4>
-                     <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
-                     <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a> </div>
-                 </div>
-        </div>
-
-        <div id="strengths" class="tab-content">
-            <h2 class="section-title">Key Strengths</h2>
-            <!-- New Cool Feature 3: Freelance Tip Generator -->
-            <div class="tip-generator">
-                <h3>Daily Freelance Tip Generator</h3>
-                <p style="color: var(--slate-gray); margin-bottom: 15px;">Click a category for a quick tip tailored to medical translators like me!</p>
-                <div class="tip-categories">
-                    <button class="tip-category-btn active" data-category="translation">Translation</button>
-                    <button class="tip-category-btn" data-category="medical">Medical</button>
-                    <button class="tip-category-btn" data-category="upwork">Upwork</button>
-                </div>
-                <div id="tip-output">Click a category to get a tip!</div>
-            </div>
-            <ul class="strengths-list">
-                <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
-                <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
-                <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
-            </ul>
-        </div>
-
-        <div class="rating-choice-section">
-            <h3>How Do You Typically Choose a Freelancer?</h3>
-            <div class="star-rating" id="freelancerRating">
-                <span class="star" data-value="1"><i class="far fa-star"></i></span>
-                <span class="star" data-value="2"><i class="far fa-star"></i></span>
-                <span class="star" data-value="3"><i class="far fa-star"></i></span>
-                <span class="star" data-value="4"><i class="far fa-star"></i></span>
-                <span class="star" data-value="5"><i class="far fa-star"></i></span>
-            </div>
-            <div id="rating-message">
-            </div>
-        </div>
-    </div> 
-    <div class="container">
-        <div class="tools-section">
-            <div class="tool-card">
-                <h3 class="tool-title">Quick Quote Calculator</h3>
-                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
-                <div class="quote-tool">
-                    <div class="quote-input">
-                        <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1">
-                        <select id="serviceType">
-                            <option value="0.08">Basic Translation ($0.08/wd)</option>
-                            <option value="0.12">Medical Translation ($0.12/wd)</option>
-                            <option value="0.04">Editing/Proofreading ($0.04/wd)</option>
-                            <option value="5.00">Video Subtitles ($5.00/min)</option>
-                        </select>
+            <div class="tools-section">
+                <div class="tool-card">
+                    <h3 class="tool-title">Quick Quote Calculator</h3>
+                    <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
+                    <div class="quote-tool">
+                        <div class="quote-input">
+                            <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1">
+                            <select id="serviceType">
+                                <option value="0.08">Basic Translation ($0.08/wd)</option>
+                                <option value="0.12">Medical Translation ($0.12/wd)</option>
+                                <option value="0.04">Editing/Proofreading ($0.04/wd)</option>
+                                <option value="5.00">Video Subtitles ($5.00/min)</option>
+                            </select>
+                        </div>
+                        <button onclick="calculateQuote()">Calculate Estimate</button>
+                        <div id="quoteResult" class="quote-result"></div>
+                        <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend on complexity, language pair, and urgency.</p>
                     </div>
-                    <button onclick="calculateQuote()">Calculate Estimate</button>
-                    <div id="quoteResult" class="quote-result"></div>
-                    <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend on complexity, language pair, and urgency.</p>
                 </div>
-            </div>
 
-            <div class="tool-card">
-                <h3 class="tool-title">Get in Touch</h3>
-                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
-                <form class="contact-form" onsubmit="sendEmail(event)">
-                    <input type="text" id="contactName" placeholder="Your Name" required>
-                    <input type="email" id="contactEmail" placeholder="Your Email" required>
-                    <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-                <div class="newsletter">
-                    <p>Or subscribe for freelance tips:</p>
-                    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
-                        <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
-                        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-                        <button type="submit">Subscribe</button>
+                <div class="tool-card">
+                    <h3 class="tool-title">Get in Touch</h3>
+                    <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
+                    <form class="contact-form" onsubmit="sendEmail(event)">
+                        <input type="text" id="contactName" placeholder="Your Name" required>
+                        <input type="email" id="contactEmail" placeholder="Your Email" required>
+                        <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required></textarea>
+                        <button type="submit">Send Message</button>
                     </form>
-                     <div id="newsletter-status"></div>
+                    <div class="newsletter">
+                        <p>Or subscribe for freelance tips:</p>
+                        <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
+                            <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
+                            <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+                            <button type="submit">Subscribe</button>
+                        </form>
+                         <div id="newsletter-status"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1445,73 +1239,39 @@
             // event.target.reset(); // Optional reset
         }
 
-        // New Feature 1: Instant Medical Translator (Simple mock – in real, integrate API like Google Translate)
-        function translateTerm() {
-            const term = document.getElementById('termInput').value;
-            const fromLang = document.getElementById('fromLang').value;
-            const toLang = document.getElementById('toLang').value;
-            const output = document.getElementById('translator-output');
+        // --- Newsletter Form Submission (using Formspree AJAX) ---
+        const newsletterForm = document.getElementById("newsletterForm");
+        const newsletterStatus = document.getElementById("newsletter-status");
 
-            if (!term) {
-                output.innerHTML = 'Enter a term to translate!';
-                return;
-            }
-
-            // Mock translations (expand with real data or API)
-            const translations = {
-                es: { en: 'Hypoglycemia', he: 'היפוגליקמיה' },
-                en: { es: 'Hipoglucemia', he: 'היפוגליקמיה' },
-                he: { es: 'Hipoglucemia', en: 'Hypoglycemia' }
-            };
-
-            const result = translations[fromLang]?.[toLang] || 'Translation not available yet – contact me for custom!';
-            output.innerHTML = `<strong>${term}</strong> (${fromLang.toUpperCase()}) → <strong>${result}</strong> (${toLang.toUpperCase()})<br><small>Pro tip: Always verify cultural nuances!</small>`;
-            output.style.color = 'var(--steel-blue)';
-        }
-
-        // New Feature 2: Testimonial Carousel
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.carousel-slide');
-        const totalSlides = slides.length;
-
-        function moveCarousel(direction) {
-            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
-            const track = document.getElementById('carouselTrack');
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        // Auto-rotate every 5s
-        setInterval(() => moveCarousel(1), 5000);
-
-        // New Feature 3: Freelance Tip Generator
-        const tips = {
-            translation: [
-                'Tip: Use glossaries for consistent terminology – I maintain one for 500+ medical terms!',
-                'Pro: Always double-check cultural idioms in translations to avoid mishaps.'
-            ],
-            medical: [
-                'Medical fact: "Placebo" in Hebrew is "טיפול מדומה" – precision matters in trials!',
-                'Insight: LATAM Spanish varies; I adapt for Argentina vs. Spain seamlessly.'
-            ],
-            upwork: [
-                'Upwork hack: Profile keywords like "MTPE expert" boost visibility – got me 100% JSS!',
-                'Freelance win: Communicate daily; it turned my first gig into a repeat client.'
-            ]
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            // Tip buttons
-            document.querySelectorAll('.tip-category-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.tip-category-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const category = btn.dataset.category;
-                    const randomTip = tips[category][Math.floor(Math.random() * tips[category].length)];
-                    document.getElementById('tip-output').innerHTML = `<em>"${randomTip}"</em><br><small>– Danilo's Tip</small>`;
+        async function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            newsletterStatus.innerHTML = "Subscribing..."; // Provide feedback
+            try {
+                const response = await fetch(event.target.action, {
+                    method: newsletterForm.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
                 });
-            });
+                if (response.ok) {
+                    newsletterStatus.innerHTML = "Thanks for subscribing!";
+                    newsletterForm.reset();
+                } else {
+                    const responseData = await response.json();
+                    if (Object.hasOwn(responseData, 'errors')) {
+                        newsletterStatus.innerHTML = responseData["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        newsletterStatus.innerHTML = "Oops! Problem subscribing.";
+                    }
+                }
+            } catch (error) {
+                newsletterStatus.innerHTML = "Oops! Network error. Try again.";
+            }
+        }
+        newsletterForm.addEventListener("submit", handleNewsletterSubmit);
 
-            // Other init code...
+        // --- Initialize default tab & Testimonial Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
             openTab('summary'); // Open Summary tab by default
 
              // Add event listeners to testimonial toggle buttons
@@ -1544,37 +1304,6 @@
                 }
             });
         });
-
-        // --- Newsletter Form Submission (using Formspree AJAX) ---
-        const newsletterForm = document.getElementById("newsletterForm");
-        const newsletterStatus = document.getElementById("newsletter-status");
-
-        async function handleNewsletterSubmit(event) {
-            event.preventDefault();
-            const data = new FormData(event.target);
-            newsletterStatus.innerHTML = "Subscribing..."; // Provide feedback
-            try {
-                const response = await fetch(event.target.action, {
-                    method: newsletterForm.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    newsletterStatus.innerHTML = "Thanks for subscribing!";
-                    newsletterForm.reset();
-                } else {
-                    const responseData = await response.json();
-                    if (Object.hasOwn(responseData, 'errors')) {
-                        newsletterStatus.innerHTML = responseData["errors"].map(error => error["message"]).join(", ");
-                    } else {
-                        newsletterStatus.innerHTML = "Oops! Problem subscribing.";
-                    }
-                }
-            } catch (error) {
-                newsletterStatus.innerHTML = "Oops! Network error. Try again.";
-            }
-        }
-        newsletterForm.addEventListener("submit", handleNewsletterSubmit);
 
         // --- *** JAVASCRIPT STAR RATING (HOVER VERSION) *** ---
         const ratingContainerHover = document.getElementById('freelancerRating');
