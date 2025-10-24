@@ -1116,13 +1116,25 @@
 
         /* 13. Career Progress Bar Specific */
         .career-progress {
-            margin-top: 20px;
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            z-index: 500;
             text-align: center;
+            backdrop-filter: blur(10px);
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
         }
 
         .career-progress h3 {
             color: var(--gold);
             margin-bottom: 10px;
+            font-size: 1.2em;
         }
 
         .progress-container {
@@ -1160,9 +1172,8 @@
 
         .milestones {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
         .milestone {
@@ -1171,8 +1182,8 @@
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s ease, background 0.3s ease;
-            min-width: 120px;
             text-align: center;
+            font-size: 0.9em;
         }
 
         .milestone:hover {
@@ -1215,6 +1226,20 @@
             cursor: pointer;
             color: var(--slate-gray);
         }
+
+        @media (max-width: 768px) {
+            .career-progress {
+                position: static;
+                width: 100%;
+                margin: 20px 0;
+                transform: none;
+            }
+
+            .milestones {
+                flex-direction: row;
+                justify-content: space-around;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1236,6 +1261,17 @@
         </div>
     </div>
     <div class="powered-badge" id="poweredBadge">Powered by Danilo's Precision</div>
+    <div class="career-progress">
+        <h3 data-i18n="career-progress-title">Career Progress</h3>
+        <div class="progress-container">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="milestones">
+            <div class="milestone" data-milestone="2023" data-i18n="milestone-2023">Medical Student Start</div>
+            <div class="milestone" data-milestone="2024" data-i18n="milestone-2024">10+ Projects Completed</div>
+            <div class="milestone" data-milestone="2025" data-i18n="milestone-2025">Top-Rated Freelancer</div>
+        </div>
+    </div>
     <div class="container">
         <header class="header">
             <h1 class="name">Danilo Hurwitz</h1>
@@ -1361,17 +1397,6 @@
                 <h3 data-i18n="education-md">Candidate for Doctor of Medicine (MD)</h3>
                 <p class="company-dates" data-i18n="education-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
                 <p data-i18n="education-desc">Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
-            </div>
-            <div class="career-progress">
-                <h3 data-i18n="career-progress-title">Career Progress</h3>
-                <div class="progress-container">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <div class="milestones">
-                    <div class="milestone" data-milestone="2023" data-i18n="milestone-2023">Medical Student Start</div>
-                    <div class="milestone" data-milestone="2024" data-i18n="milestone-2024">10+ Projects Completed</div>
-                    <div class="milestone" data-milestone="2025" data-i18n="milestone-2025">Top-Rated Freelancer</div>
-                </div>
             </div>
         </div>
 
@@ -1578,6 +1603,12 @@
                 'strength3-bold': "Proven Reliability:",
                 // Rating
                 'rating-title': "How Do You Typically Choose a Freelancer?",
+                'rating-msg1': "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
+                'rating-msg2': "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
+                'rating-msg3': "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
+                'rating-msg4': "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
+                'rating-msg5': "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind.",
+                'rating-hover': "Hover over stars to see feedback.",
                 // Tools
                 'quote-title': "Quick Quote Calculator",
                 'quote-desc': "Estimate your project cost (USD per word/minute).",
@@ -1602,9 +1633,7 @@
                 'footer': "&copy; 2025 Danilo Hurwitz. All rights reserved.",
                 // Toggles
                 'dark-mode': "Dark Mode",
-                'language': "Language",
-                // Read less
-                'read-less': "Read Less"
+                'language': "Language"
             },
             es: {
                 // Header
@@ -1704,6 +1733,12 @@
                 'strength3-bold': "Confiabilidad Probada:",
                 // Rating
                 'rating-title': "¿Cómo Eliges Típicamente a un Freelancer?",
+                'rating-msg1': "Enfocarse solo en la <strong>puja más baja</strong> a menudo significa más tiempo de gestión, posibles malentendidos y resultados que necesitan revisiones adicionales.",
+                'rating-msg2': "Una elección <strong>consciente del presupuesto</strong>. Podría funcionar para tareas simples, pero podría perder matices cruciales en contenido especializado como la traducción médica.",
+                'rating-msg3': "Haciendo el trabajo. Un enfoque <strong>generalista</strong> entrega resultados estándar para proyectos estándar.",
+                'rating-msg4': "Un <strong>profesional sólido</strong> que entrega buena calidad. Probablemente requiere orientación clara en requisitos altamente especializados o culturalmente específicos.",
+                'rating-msg5': "<strong>¡Invirtiendo en Excelencia!</strong> Elegir un <strong>especialista de Calificación Superior</strong> enfocado en precisión y calidad para proyectos críticos. <strong>Resultado:</strong> Contenido 100% preciso, culturalmente perfecto entregado de manera confiable, dándote tranquilidad.",
+                'rating-hover': "Pasa el mouse sobre las estrellas para ver retroalimentación.",
                 // Tools
                 'quote-title': "Calculadora de Cotización Rápida",
                 'quote-desc': "Estima el costo de tu proyecto (USD por palabra/minuto).",
@@ -1728,8 +1763,7 @@
                 'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
                 // Toggles
                 'dark-mode': "Modo Oscuro",
-                'language': "Idioma",
-                'read-less': "Leer Menos"
+                'language': "Idioma"
             },
             he: {
                 // Header
@@ -1829,6 +1863,12 @@
                 'strength3-bold': "אמינות מוכחת:",
                 // Rating
                 'rating-title': "איך אתה בדרך כלל בוחר פרילנסר?",
+                'rating-msg1': "התמקדות רק ב<strong>ההצעה הנמוכה ביותר</strong> לעיתים קרובות אומרת יותר זמן ניהול, אי הבנות פוטנציאליות ותוצאות שדורשות תיקונים נוספים.",
+                'rating-msg2': "בחירה <strong>מודעת לתקציב</strong>. עשויה לעבוד למשימות פשוטות, אך עלולה לפספס ניואנסים קריטיים בתוכן מתמחה כמו תרגום רפואי.",
+                'rating-msg3': "מבצע את העבודה. גישה <strong>כללית</strong> מספקת תוצאות סטנדרטיות לפרויקטים סטנדרטיים.",
+                'rating-msg4': "מקצוען <strong>מוצק</strong> שמספק איכות טובה. סביר שדורש הדרכה ברורה בדרישות מתמחות גבוהות או ספציפיות תרבותית.",
+                'rating-msg5': "<strong>!השקעה במצוינות</strong> בחירת <strong>מומחה מדורג עליון</strong> המתמקד בדיוק ואיכות לפרויקטים קריטיים. <strong>תוצאה:</strong> תוכן מדויק 100%, מושלם תרבותית המועבר באופן אמין, נותן לך שקט נפשי.",
+                'rating-hover': "העבר עכבר על הכוכבים כדי לראות משוב.",
                 // Tools
                 'quote-title': "מחשבון הצעת מחיר מהיר",
                 'quote-desc': "הערכת עלות הפרויקט שלך (USD למילה/דקה).",
@@ -1853,8 +1893,7 @@
                 'footer': "&copy; 2025 דנilo הורוויץ. כל הזכויות שמורות.",
                 // Toggles
                 'dark-mode': "מצב כהה",
-                'language': "שפה",
-                'read-less': "קרא פחות"
+                'language': "שפה"
             }
         };
 
@@ -1889,6 +1928,8 @@
                     document.body.dir = 'ltr';
                     document.documentElement.lang = lang;
                 }
+                // Update rating messages
+                updateRatingMessages(lang);
                 document.body.classList.remove('translating');
                 // Show badge
                 const badge = document.getElementById('poweredBadge');
@@ -1980,13 +2021,24 @@
         const ratingMessageHover = document.getElementById('rating-message');
         const starsHover = ratingContainerHover.querySelectorAll('.star');
 
-        const ratingMessagesHover = {
+        let ratingMessagesHover = {
             1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
             2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
             3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
             4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
             5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
         };
+
+        function updateRatingMessages(lang) {
+            ratingMessagesHover = {
+                1: translations[lang]['rating-msg1'] || ratingMessagesHover[1],
+                2: translations[lang]['rating-msg2'] || ratingMessagesHover[2],
+                3: translations[lang]['rating-msg3'] || ratingMessagesHover[3],
+                4: translations[lang]['rating-msg4'] || ratingMessagesHover[4],
+                5: translations[lang]['rating-msg5'] || ratingMessagesHover[5]
+            };
+            ratingMessageHover.innerHTML = translations[lang]['rating-hover'] || 'Hover over stars to see feedback.';
+        }
 
         starsHover.forEach(star => {
             star.addEventListener('mouseenter', () => {
@@ -2100,12 +2152,6 @@
             const savedLang = localStorage.getItem('language') || 'en';
             langSelect.value = savedLang;
             changeLanguage(savedLang);
-
-            langSelect.addEventListener('change', (e) => {
-                const lang = e.target.value;
-                localStorage.setItem('language', lang);
-                changeLanguage(lang);
-            });
         });
     </script>
 </body>
