@@ -6,7 +6,6 @@
     <title>Danilo Hurwitz | Trilingual Medical Translator</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         /*
          * CSS ORGANIZATION:
@@ -1113,133 +1112,7 @@
         body.translating [data-i18n] {
             opacity: 0;
         }
-
-        /* 13. Career Progress Bar Specific */
-        .career-progress {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 200px;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            z-index: 500;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
-        }
-
-        .career-progress h3 {
-            color: var(--gold);
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .progress-container {
-            background: var(--card-semi);
-            border-radius: 10px;
-            height: 20px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--sky-blue), var(--gold));
-            width: 0%;
-            transition: width 0.5s ease-out;
-            position: relative;
-        }
-
-        .progress-fill::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        .milestones {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .milestone {
-            padding: 10px;
-            background: var(--card-semi);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s ease;
-            text-align: center;
-            font-size: 0.9em;
-        }
-
-        .milestone:hover {
-            transform: scale(1.05);
-            background: var(--highlight-bg);
-        }
-
-        .milestone-popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px var(--shadow-color);
-            z-index: 2000;
-            max-width: 300px;
-            text-align: center;
-        }
-
-        .milestone-popup.show {
-            display: block;
-            animation: popIn 0.3s ease;
-        }
-
-        @keyframes popIn {
-            from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-
-        .close-popup {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            font-size: 1.5em;
-            cursor: pointer;
-            color: var(--slate-gray);
-        }
-
-        @media (max-width: 768px) {
-            .career-progress {
-                position: static;
-                width: 100%;
-                margin: 20px 0;
-                transform: none;
-            }
-
-            .milestones {
-                flex-direction: row;
-                justify-content: space-around;
-            }
-        }
+        
     </style>
 </head>
 <body>
@@ -1261,17 +1134,7 @@
         </div>
     </div>
     <div class="powered-badge" id="poweredBadge">Powered by Danilo's Precision</div>
-    <div class="career-progress">
-        <h3 data-i18n="career-progress-title">Career Progress</h3>
-        <div class="progress-container">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
-        <div class="milestones">
-            <div class="milestone" data-milestone="2023" data-i18n="milestone-2023">Medical Student Start</div>
-            <div class="milestone" data-milestone="2024" data-i18n="milestone-2024">10+ Projects Completed</div>
-            <div class="milestone" data-milestone="2025" data-i18n="milestone-2025">Top-Rated Freelancer</div>
-        </div>
-    </div>
+    
     <div class="container">
         <header class="header">
             <h1 class="name">Danilo Hurwitz</h1>
@@ -1494,13 +1357,6 @@
         <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download data-i18n="download-cv">Download Full CV (PDF)</a>
         <p data-i18n="footer">&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
     </footer>
-
-    <!-- Milestone Popup -->
-    <div id="milestonePopup" class="milestone-popup">
-        <button class="close-popup" onclick="closePopup()">&times;</button>
-        <h4 id="popupTitle"></h4>
-        <p id="popupDesc"></p>
-    </div>
 
     <script>
         // Translations Object
@@ -2069,42 +1925,6 @@
             });
         }
 
-        // Career Progress Bar
-        function updateProgress() {
-            const scroll = window.scrollY;
-            const height = document.body.scrollHeight - window.innerHeight;
-            const progress = (scroll / height) * 100;
-            const fill = document.getElementById('progressFill');
-            fill.style.width = Math.min(progress, 100) + '%';
-        }
-
-        window.addEventListener('scroll', updateProgress);
-
-        // Milestone Popup
-        const popup = document.getElementById('milestonePopup');
-        const popupTitle = document.getElementById('popupTitle');
-        const popupDesc = document.getElementById('popupDesc');
-
-        const milestoneDetails = {
-            2023: { title: 'Medical Student Start', desc: 'Began medical studies at Universidad Nacional de Mar del Plata.' },
-            2024: { title: '10+ Projects Completed', desc: 'Achieved 100% Job Success Score on Upwork with diverse translation tasks.' },
-            2025: { title: 'Top-Rated Freelancer', desc: 'Established as a top-rated specialist in medical translation and video editing.' }
-        };
-
-        document.querySelectorAll('.milestone').forEach(milestone => {
-            milestone.addEventListener('click', () => {
-                const year = milestone.dataset.milestone;
-                const details = milestoneDetails[year];
-                popupTitle.textContent = details.title;
-                popupDesc.textContent = details.desc;
-                popup.classList.add('show');
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: { y: 0.6 }
-                });
-            });
-        });
 
         function closePopup() {
             popup.classList.remove('show');
@@ -2117,7 +1937,6 @@
         // Initialization
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
-            updateProgress();
 
             document.querySelectorAll('.job .toggle-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -2153,6 +1972,11 @@
             langSelect.value = savedLang;
             changeLanguage(savedLang);
         });
+        langSelect.addEventListener('change', (e) => {
+    const lang = e.target.value;
+    localStorage.setItem('language', lang);
+    changeLanguage(lang);
+});
     </script>
 </body>
 </html>
