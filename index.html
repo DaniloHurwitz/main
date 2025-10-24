@@ -33,6 +33,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth; /* Smooth scroll for anchors if needed */
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%); /* Soft celestes */
@@ -67,169 +71,168 @@
 
         /* --- Secondary Nav Buttons --- */
         .secondary-nav-container { text-align: center; margin-top: 25px; margin-bottom: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .secondary-nav-btn { padding: 14px 28px; font-size: 1.1em; font-weight: 600; background: linear-gradient(45deg, var(--accent-color), var(--accent-dark)); color: #333; border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3); cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+        .secondary-nav-btn { padding: 14px 28px; font-size: 1.1em; font-weight: 600; background: linear-gradient(45deg, var(--accent-color), var(--accent-dark)); color: #333; border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3); cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; /* Use flex for icon alignment */ align-items: center; gap: 8px; /* Space between icon and text */ }
+        .secondary-nav-btn i { font-size: 1em; } /* Icon size */
         .secondary-nav-btn:hover { background: linear-gradient(45deg, var(--accent-dark), var(--accent-color)); transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4); }
         .secondary-nav-subtitle { display: block; font-size: 0.75em; font-weight: 400; margin-top: 4px; opacity: 0.8; color: inherit; }
 
         /* --- Tabs Navigation --- */
-        .tabs-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .tabs-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 25px; /* Increased margin */ flex-wrap: wrap; }
         .tab-btn { background: rgba(135, 206, 235, 0.5); color: var(--dark-gray); border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: 500; font-size: 0.95em; transition: all 0.3s ease; }
         .tab-btn:hover, .tab-btn.active { background: var(--gold); color: white; transform: scale(1.03); }
-        .tab-content { display: none; background: var(--white-translucent); padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px var(--shadow-color); animation: fadeIn 0.4s ease-out; max-height: 600px; overflow-y: auto; }
+        .tab-content { display: none; background: var(--white-translucent); padding: 30px; /* Increased padding */ border-radius: 20px; box-shadow: 0 5px 20px var(--shadow-color); animation: fadeIn 0.4s ease-out; /* max-height: 600px; Removed max-height */ overflow-y: auto; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .section-title { font-family: 'Playfair Display', serif; font-size: 1.8em; color: var(--gold); margin-bottom: 15px; text-align: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 1.8em; color: var(--gold); margin-bottom: 20px; /* Increased margin */ text-align: center; }
 
-        /* --- Section Styles (Summary, Experience, etc.) --- */
-        .summary p { font-size: 1.05em; text-align: center; color: var(--steel-blue); max-width: 700px; margin: 0 auto; padding-bottom: 25px; /* Added padding bottom */}
-        .job { margin-bottom: 20px; padding: 15px; background: var(--white-semi); border-radius: 10px; border-left: 3px solid var(--sky-blue); transition: all 0.3s ease; cursor: default; }
-        .job:hover { transform: translateX(3px); box-shadow: 0 3px 10px rgba(135, 206, 235, 0.15); }
-        .job-title { font-size: 1.2em; color: var(--dark-gray); margin-bottom: 3px; }
-        .company-dates { color: var(--slate-gray); font-style: italic; margin-bottom: 8px; font-size: 0.9em; }
+        /* --- Section Styles --- */
+        .summary p { font-size: 1.05em; text-align: center; color: var(--steel-blue); max-width: 750px; /* Wider */ margin: 0 auto 20px auto; /* Added bottom margin */ }
+        .job { margin-bottom: 20px; padding: 20px; /* Increased padding */ background: var(--white-semi); border-radius: 10px; border-left: 4px solid var(--sky-blue); /* Thicker border */ transition: all 0.3s ease; cursor: default; }
+        .job:hover { transform: translateX(4px); /* Slightly more */ box-shadow: 0 4px 12px rgba(135, 206, 235, 0.2); }
+        .job-title { font-size: 1.2em; color: var(--dark-gray); margin-bottom: 5px; }
+        .company-dates { color: var(--slate-gray); font-style: italic; margin-bottom: 10px; font-size: 0.9em; }
         .job ul { list-style: none; padding: 0; font-size: 0.95em; }
-        .job ul li { padding: 3px 0; position: relative; padding-left: 15px; color: var(--gray-dark); }
-        .job ul li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 0.8em; }
-        .testimonial { margin-top: 10px; padding: 12px; background: var(--highlight-bg); border-radius: 6px; font-style: italic; color: var(--slate-gray); font-size: 0.9em; max-height: 40px; overflow: hidden; transition: max-height 0.4s ease-in-out; }
-        .testimonial.expanded { max-height: 200px; }
-        .toggle-btn { background: none; border: none; color: var(--sky-blue); cursor: pointer; font-size: 0.8em; float: right; }
-        .education-item { text-align: center; padding: 15px; background: var(--white-semi); border-radius: 10px; margin-bottom: 15px; }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
-        .skill-card { padding: 15px; background: var(--white-semi); border-radius: 10px; transition: transform 0.3s ease; }
-        .skill-card:hover { transform: scale(1.01); }
-        .skill-card h3 { color: var(--gold); margin-bottom: 8px; font-size: 1.1em; }
-        .languages { display: flex; justify-content: space-around; margin-top: 15px; flex-wrap: wrap; }
-        .lang-card { text-align: center; padding: 12px; background: rgba(135, 206, 235, 0.3); border-radius: 8px; margin: 5px; transition: background 0.3s ease; min-width: 120px; }
-        .lang-card:hover { background: var(--highlight-bg); }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 15px; }
-        .portfolio-item { padding: 12px; background: var(--white-semi); border-radius: 8px; text-align: center; transition: transform 0.3s ease; }
-        .portfolio-item:hover { transform: translateY(-2px); }
-        .portfolio-item a { color: var(--sky-blue); text-decoration: none; font-weight: 500; }
-        .strengths-list { list-style: none; padding: 0; } /* Reset padding */
-        .strengths-list li { padding: 8px 12px; background: var(--highlight-bg); margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--gold); font-size: 0.95em; }
+        .job ul li { padding: 4px 0; position: relative; padding-left: 20px; color: var(--gray-dark); }
+        .job ul li::before { content: '✦'; position: absolute; left: 0; top: 5px; color: var(--gold); font-size: 0.9em; }
+        .testimonial { margin-top: 15px; padding: 15px; background: var(--highlight-bg); border-radius: 6px; font-style: italic; color: var(--slate-gray); font-size: 0.9em; max-height: 45px; /* Slightly increased initial */ overflow: hidden; transition: max-height 0.4s ease-in-out; }
+        .testimonial.expanded { max-height: 250px; }
+        .toggle-btn { background: none; border: none; color: var(--sky-blue); cursor: pointer; font-size: 0.8em; float: right; margin-top: 5px; }
+        .education-item { text-align: center; padding: 20px; background: var(--white-semi); border-radius: 10px; margin-bottom: 15px; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 20px; }
+        .skill-card { padding: 20px; background: var(--white-semi); border-radius: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .skill-card:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.07); }
+        .skill-card h3 { color: var(--gold); margin-bottom: 10px; font-size: 1.15em; }
+        .skill-card ul { list-style: none; padding-left: 0; }
+        .skill-card li { margin-bottom: 5px; font-size: 0.95em; }
+        .languages { display: flex; justify-content: space-around; margin-top: 20px; flex-wrap: wrap; gap: 10px; }
+        .lang-card { text-align: center; padding: 15px; background: rgba(135, 206, 235, 0.3); border-radius: 8px; margin: 5px; transition: background 0.3s ease, transform 0.3s ease; min-width: 140px; }
+        .lang-card:hover { background: var(--highlight-bg); transform: scale(1.03); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .portfolio-item { padding: 15px; background: var(--white-semi); border-radius: 8px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .portfolio-item:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(135, 206, 235, 0.18); }
+        .portfolio-item h4 { margin-bottom: 5px; font-size: 1.05em; color: var(--dark-gray); }
+        .portfolio-item a { color: var(--sky-blue); text-decoration: none; font-weight: 500; font-size: 0.9em; transition: color 0.3s ease; }
+        .portfolio-item a:hover { color: var(--gold-dark); text-decoration: underline; }
+        .strengths-list { list-style: none; padding: 0; }
+        .strengths-list li { padding: 10px 15px; background: var(--highlight-bg); margin: 10px 0; border-radius: 6px; border-left: 4px solid var(--gold); font-size: 0.95em; transition: background-color 0.3s ease; }
+         .strengths-list li:hover { background-color: rgba(218, 165, 32, 0.15); }
 
-        /* --- STAR RATING SECTION --- */
+        /* --- *** NUEVA SECCIÓN: STAR RATING CHOICE *** --- */
         .rating-choice-section {
-            background: rgba(255, 255, 255, 0.8); /* Slightly less transparent */
-            padding: 25px;
-            border-radius: 15px; /* Consistent rounding */
+            background: rgba(255, 255, 255, 0.85); /* Slightly less transparent */
+            padding: 30px; /* Increased padding */
+            border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-            margin: 30px 0;
+            margin: 35px 0; /* Increased margin */
             text-align: center;
-            border-top: 1px solid var(--border-color); /* Separator */
-            border-bottom: 1px solid var(--border-color); /* Separator */
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
         .rating-choice-section h3 {
-             font-family: 'Inter', sans-serif; /* Use Inter for consistency here */
-             font-size: 1.3em; /* Slightly smaller */
-             color: var(--steel-blue); /* Steel blue for title */
-             margin-bottom: 15px;
+             font-family: 'Inter', sans-serif;
+             font-size: 1.4em; /* Larger title */
+             color: var(--steel-blue);
+             margin-bottom: 20px; /* More space */
              font-weight: 500;
         }
         .star-rating {
             display: inline-block;
-            margin-bottom: 20px;
+            margin-bottom: 25px; /* More space */
         }
         .star-rating .star {
-            font-size: 2em; color: #ccc; cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease;
-            margin: 0 3px; display: inline-block;
+            font-size: 2.2em; /* Larger stars */
+            color: #ddd; /* Lighter gray for empty */
+            cursor: pointer;
+            transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            margin: 0 5px; /* More spacing */
+            display: inline-block;
         }
         /* Style for stars being hovered over UP TO the current one */
-        .star-rating:hover .star:hover ~ .star i.fas, /* Stars after the hovered one */
-        .star-rating .star.selected ~ .star i.fas { /* Stars after the selected one */
-             /* Keep them solid if selected? No, make empty */
-             /* color: #ccc; /* Ensure stars after hover/select are empty */
-        }
-        .star-rating .star i { transition: color 0.2s ease; } /* Transition icon color */
-        .star-rating:hover .star:hover i.far, /* Hovered star icon */
-        .star-rating:hover .star:hover ~ .star i.far { /* Icons after hovered */
-            /* Keep empty */
-        }
+        .star-rating .star i { transition: color 0.2s ease-in-out; }
          /* Apply gold to stars up to the hovered one */
-        .star-rating .star:hover i,
-        .star-rating .star:hover ~ .star i {
-             color: #ccc; /* Reset following stars */
+        .star-rating:hover .star:hover i.fa-star,
+        .star-rating:hover .star:hover ~ .star i.fa-star {
+             color: #ddd !important; /* Reset following stars during hover */
+             transform: scale(1); /* Reset scale */
         }
-        .star-rating .star:hover i.fa-star, /* Target both far and fas */
-        .star-rating .star.hover i.fa-star {
-            color: var(--accent-color); /* Gold on hover */
-            transform: scale(1.15);
-        }
+         .star-rating .star.hover i.fa-star { /* Only up to the hovered one */
+             color: var(--gold);
+             transform: scale(1.15);
+         }
         /* Specific state for selected (persists after hover out) */
         .star-rating .star.selected i.fa-star {
-             color: var(--accent-color); /* Gold */
+             color: var(--gold);
              transform: scale(1.1);
         }
 
         #rating-message {
-            margin-top: 15px; padding: 15px; background-color: var(--light-blue);
-            border-left: 4px solid var(--gold); border-radius: 8px; color: var(--steel-blue);
-            font-size: 1em; text-align: left; min-height: 70px;
-            display: none; /* Start hidden */
-            opacity: 0; max-height: 0; overflow: hidden;
+            margin-top: 20px; padding: 18px; background-color: var(--light-blue);
+            border-left: 5px solid var(--gold); border-radius: 8px; color: var(--steel-blue);
+            font-size: 1em; text-align: left; min-height: 75px;
+            display: block; /* Always visible block */
+            opacity: 0; max-height: 0; overflow: hidden; /* Start hidden */
             transition: opacity 0.4s ease-out, max-height 0.4s ease-out, padding 0.4s ease-out, margin-top 0.4s ease-out;
         }
         #rating-message.visible { /* Class to show message */
-             display: block;
              opacity: 1;
-             max-height: 200px;
-             padding: 15px; /* Ensure padding is reapplied */
-             margin-top: 15px; /* Ensure margin is reapplied */
+             max-height: 250px; /* Increased max */
+             padding: 18px;
+             margin-top: 20px;
         }
-         #rating-message strong { color: var(--gold-dark); }
-        @keyframes fadeInMessage { /* Can be removed if using opacity transition */
-            /* from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } */
-        }
+         #rating-message strong { color: var(--gold-dark); font-weight: 600; }
 
         /* --- Tools Section (Quote + Contact) --- */
-        .tools-section { margin-top: 30px; /* Adjusted margin */ display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .tool-card { background: var(--white-translucent); padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px var(--shadow-color); transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added shadow transition */ }
-        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
-        .tool-title { font-family: 'Playfair Display', serif; font-size: 1.5em; color: var(--gold); margin-bottom: 15px; text-align: center; }
+        .tools-section { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .tool-card { background: var(--white-translucent); padding: 30px; /* Increased padding */ border-radius: 15px; /* Less rounding */ box-shadow: 0 5px 20px var(--shadow-color); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .tool-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+        .tool-title { font-family: 'Playfair Display', serif; font-size: 1.6em; color: var(--gold); margin-bottom: 20px; text-align: center; }
         /* Quote Tool */
         .quote-tool { text-align: center; }
-        .quote-input { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 10px; align-items: center; }
-        .quote-input input, .quote-input select { padding: 10px; border: 1px solid var(--sky-blue); border-radius: 8px; font-size: 0.95em; }
-        .quote-tool button { width: 100%; padding: 10px; background: var(--gold); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background 0.3s ease; margin-top: 10px; }
-        .quote-tool button:hover { background: var(--gold-dark); }
-        .quote-result { font-size: 1.1em; color: var(--gold); font-weight: 600; margin-top: 10px; min-height: 1.5em; }
+        .quote-input { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 15px; align-items: center; }
+        .quote-input input, .quote-input select { padding: 12px; border: 1px solid var(--sky-blue); border-radius: 8px; font-size: 0.95em; }
+        .quote-tool button { width: 100%; padding: 12px; background: linear-gradient(45deg, var(--gold), var(--gold-dark)); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; margin-top: 15px; }
+        .quote-tool button:hover { background: linear-gradient(45deg, var(--gold-dark), var(--gold)); transform: scale(1.02); }
+        .quote-result { font-size: 1.15em; color: var(--gold); font-weight: 600; margin-top: 15px; min-height: 1.5em; }
         /* Contact Form */
         .contact-form { max-width: 400px; margin: 0 auto; }
-        .contact-form input, .contact-form textarea { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid var(--sky-blue); border-radius: 6px; transition: border-color 0.3s ease; font-size: 0.95em; background-color: white; }
-        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); outline: none; }
-        .contact-form button { width: 100%; padding: 10px; background: var(--gold); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.3s ease; }
-        .contact-form button:hover { background: var(--gold-dark); }
-        .newsletter { margin-top: 15px; text-align: center; font-size: 0.9em; color: var(--slate-gray); }
-        .newsletter form { display: flex; justify-content: center; align-items: center; gap: 5px; }
-        .newsletter input { padding: 8px; border: 1px solid var(--sky-blue); border-radius: 4px; flex-grow: 1; max-width: 250px; }
-        .newsletter button { padding: 8px 12px; background: var(--gold); color: white; border: none; border-radius: 4px; cursor: pointer; flex-shrink: 0; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 12px; margin-bottom: 12px; border: 1px solid var(--sky-blue); border-radius: 6px; transition: border-color 0.3s ease, box-shadow 0.3s ease; font-size: 0.95em; background-color: white; }
+        .contact-form input:focus, .contact-form textarea:focus { border-color: var(--gold); outline: none; box-shadow: 0 0 5px rgba(218, 165, 32, 0.5); }
+        .contact-form button { width: 100%; padding: 12px; background: linear-gradient(45deg, var(--gold), var(--gold-dark)); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.3s ease; }
+        .contact-form button:hover { background: linear-gradient(45deg, var(--gold-dark), var(--gold)); transform: scale(1.02); }
+        .newsletter { margin-top: 20px; text-align: center; font-size: 0.9em; color: var(--slate-gray); }
+        .newsletter form { display: flex; justify-content: center; align-items: center; gap: 5px; flex-wrap: wrap; /* Allow wrap */ }
+        .newsletter input { padding: 9px; border: 1px solid var(--sky-blue); border-radius: 4px; flex-grow: 1; max-width: 250px; margin-bottom: 5px; /* Space on wrap */ }
+        .newsletter button { padding: 9px 14px; background: var(--gold); color: white; border: none; border-radius: 4px; cursor: pointer; flex-shrink: 0; transition: background 0.3s ease; }
         .newsletter button:hover { background: var(--gold-dark); }
         #newsletter-status { margin-top: 10px; font-size: 0.9em; color: var(--steel-blue); min-height: 1.2em; }
 
         /* Footer */
-        .footer { text-align: center; padding: 15px; background: var(--white-translucent); border-radius: 10px; margin-top: 25px; font-size: 0.9em; color: var(--slate-gray); }
-        .download-cv { display: inline-block; padding: 8px 16px; background: var(--sky-blue); color: white; text-decoration: none; border-radius: 6px; transition: background 0.3s ease; margin-bottom: 10px; }
-        .download-cv:hover { background: var(--steel-blue); }
+        .footer { text-align: center; padding: 20px; background: var(--white-translucent); border-radius: 10px; margin-top: 30px; font-size: 0.9em; color: var(--slate-gray); }
+        .download-cv { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--sky-blue); color: white; text-decoration: none; border-radius: 6px; transition: background 0.3s ease, transform 0.2s ease; margin-bottom: 15px; }
+        .download-cv:hover { background: var(--steel-blue); transform: translateY(-2px); }
 
         /* Responsive */
         @media (max-width: 768px) {
-            body { padding-top: 20px; }
-            .container { width: 95%; padding: 15px; margin: 10px auto; }
-            .header { padding: 30px 15px; } .name { font-size: 2.2em; } .tagline { font-size: 1.1em; } .contact { font-size: 0.9em; }
-            .tabs-nav { gap: 5px; } .tab-btn { padding: 8px 14px; font-size: 0.9em; }
-            .secondary-nav-container { flex-direction: column; gap: 10px; align-items: center; }
-            .secondary-nav-btn { padding: 12px 24px; font-size: 1em; width: 80%; max-width: 300px; }
-            .rating-choice-section h3 { font-size: 1.4em; } .star-rating .star { font-size: 1.8em; }
-            .video-container iframe { height: 250px; } .section-title { font-size: 1.6em; } .job-title { font-size: 1.1em; }
-            .skills-grid { grid-template-columns: 1fr; } .languages { flex-direction: column; align-items: center;} .lang-card { min-width: 180px; }
-            .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-            .tools-section { grid-template-columns: 1fr; } .newsletter form { flex-direction: column; align-items: stretch;} .newsletter input { width: 100%; margin-bottom: 5px;}
+            body { padding-top: 20px; font-size: 15px; }
+            .container { width: 95%; padding: 20px; margin: 10px auto; }
+            .header { padding: 30px 15px; } .name { font-size: 2.4em; } .tagline { font-size: 1.1em; } .contact { font-size: 0.9em; }
+            .tabs-nav { gap: 6px; } .tab-btn { padding: 9px 16px; font-size: 0.9em; }
+            .secondary-nav-container { flex-direction: column; gap: 12px; align-items: center; }
+            .secondary-nav-btn { padding: 13px 26px; font-size: 1.05em; width: 85%; max-width: 320px; }
+            .rating-choice-section h3 { font-size: 1.3em; } .star-rating .star { font-size: 2em; }
+            .video-container iframe { height: 260px; } .section-title { font-size: 1.7em; } .job-title { font-size: 1.15em; }
+            .skills-grid { grid-template-columns: 1fr; } .languages { flex-direction: column; align-items: center;} .lang-card { min-width: 200px; }
+            .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); } /* Keep grid on smaller tablets */
+            .tools-section { grid-template-columns: 1fr; } .newsletter form { flex-direction: column; align-items: stretch;} .newsletter input { width: 100%; margin-bottom: 8px;}
+            .footer { padding: 15px; } .download-cv { padding: 9px 18px; }
         }
         @media (max-width: 480px) {
-             .name { font-size: 1.8em; } .tagline { font-size: 1em; } .video-container iframe { height: 200px; }
-             .tab-btn { padding: 7px 12px; font-size: 0.85em; } .secondary-nav-btn { padding: 10px 20px; font-size: 0.95em; width: 90%;}
-             .rating-choice-section h3 { font-size: 1.3em; } .star-rating .star { font-size: 1.6em; }
+             .name { font-size: 2em; } .tagline { font-size: 1em; } .video-container iframe { height: 220px; }
+             .tab-btn { padding: 8px 12px; font-size: 0.85em; } .secondary-nav-btn { padding: 11px 22px; font-size: 1em; width: 90%;}
+             .rating-choice-section { padding: 20px; } .rating-choice-section h3 { font-size: 1.2em; } .star-rating .star { font-size: 1.8em; margin: 0 2px; }
+             #rating-message { padding: 12px; font-size: 0.95em; min-height: 60px; }
              .quote-input { grid-template-columns: 1fr; } .portfolio-grid { grid-template-columns: 1fr; }
+             .tool-card { padding: 20px; } .tool-title { font-size: 1.4em; }
         }
 
     </style>
@@ -270,18 +273,16 @@
         </nav>
 
         <div id="summary" class="tab-content active">
-            <h2 class="section-title">Professional Summary</h2>
-            <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
+             <h2 class="section-title">Professional Summary</h2>
+             <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
         </div>
-
         <div id="experience" class="tab-content">
-            <h2 class="section-title">Professional Experience</h2>
-            <div class="job"> <h3 class="job-title">Freelance Translator & Proofreader</h3> <p class="company-dates">Upwork | May 2023 – Present</p> <ul> <li>Successfully completed 10+ complex translation projects...</li> <li>Mastered Machine Translation Post-Editing (MTPE) workflows...</li> <li>Achieved and maintained 100% Client Satisfaction and Job Success Score...</li> </ul> <div class="testimonial"> <strong>Hebrew to English Translation Project</strong><br> Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br> "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience..." <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div> </div>
-            <div class="job"> <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3> <p class="company-dates">Upwork | May 2023 – Present</p> <ul> <li>Contributed to the clarity and accessibility of medical e-learning modules...</li> <li>Received consistent 5-star client feedback...</li> </ul> <div class="testimonial"> <strong>Video Editing of a Short Family Video</strong><br> Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br> "Danilo did a great work! Was very responsive..." <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div> </div>
+             <h2 class="section-title">Professional Experience</h2>
+             <div class="job"> <h3 class="job-title">Freelance Translator & Proofreader</h3> <p class="company-dates">Upwork | May 2023 – Present</p> <ul> <li>Successfully completed 10+ complex translation projects...</li> <li>Mastered Machine Translation Post-Editing (MTPE) workflows...</li> <li>Achieved and maintained 100% Client Satisfaction and Job Success Score...</li> </ul> <div class="testimonial"> <strong>Hebrew to English Translation Project</strong><br> Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br> "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience..." <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div> </div>
+             <div class="job"> <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3> <p class="company-dates">Upwork | May 2023 – Present</p> <ul> <li>Contributed to the clarity and accessibility of medical e-learning modules...</li> <li>Received consistent 5-star client feedback...</li> </ul> <div class="testimonial"> <strong>Video Editing of a Short Family Video</strong><br> Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br> "Danilo did a great work! Was very responsive..." <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div> </div>
         </div>
-
         <div id="skills" class="tab-content">
-            <h2 class="section-title">Skills</h2>
+             <h2 class="section-title">Skills</h2>
              <div class="skills-grid">
                  <div class="skill-card"><h3>Medical Translation</h3><ul><li>Clinical Documentation...</li><li>Informed Consents...</li><li>Academic Papers...</li><li>Healthcare Marketing...</li></ul></div>
                  <div class="skill-card"><h3>Translation & Editing</h3><ul><li>Proofreading, Copy Editing, MTPE</li><li>Terminology Management, QA</li><li>Style Guide Implementation</li></ul></div>
@@ -294,16 +295,14 @@
                  <div class="lang-card"><strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years...)</small></div>
              </div>
         </div>
-
         <div id="education" class="tab-content">
-            <h2 class="section-title">Education</h2>
+             <h2 class="section-title">Education</h2>
             <div class="education-item">
                 <h3>Candidate for Doctor of Medicine (MD)</h3>
                 <p class="company-dates">Universidad Nacional de Mar del Plata | ... | Expected Graduation: 2029</p>
                 <p>Acquiring comprehensive knowledge of anatomy, physiology...</p>
             </div>
         </div>
-
         <div id="portfolio" class="tab-content">
              <h2 class="section-title">Portfolio Highlights</h2>
              <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill. (Samples available upon request due to confidentiality)</p>
@@ -314,7 +313,6 @@
                   <div class="portfolio-item"><h4>Native Hebrew Audio Review</h4><p>...</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
               </div>
         </div>
-
         <div id="strengths" class="tab-content">
              <h2 class="section-title">Key Strengths</h2>
             <ul class="strengths-list">
@@ -323,7 +321,6 @@
                 <li><strong>Proven Reliability:</strong> ...</li>
             </ul>
         </div>
-
         <div class="rating-choice-section">
             <h3>How Do You Typically Choose a Freelancer?</h3>
             <div class="star-rating" id="freelancerRating">
@@ -350,7 +347,7 @@
                             <option value="5.00">Video Subtitles ($5.00/min)</option>
                         </select>
                     </div>
-                    <button onclick="calculateQuote()">Calculate Estimate</button>
+                    <button onclick="calculateQuote()"><i class="fas fa-calculator"></i> Calculate Estimate</button>
                     <div id="quoteResult" class="quote-result"></div>
                     <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend...</p>
                 </div>
@@ -362,14 +359,14 @@
                     <input type="text" id="contactName" placeholder="Your Name" required>
                     <input type="email" id="contactEmail" placeholder="Your Email" required>
                     <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required></textarea>
-                    <button type="submit">Send Message</button>
+                    <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
                 </form>
                 <div class="newsletter">
                     <p>Or subscribe for freelance tips:</p>
                     <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
                         <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
                         <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-                        <button type="submit">Subscribe</button>
+                        <button type="submit"><i class="fas fa-envelope"></i> Subscribe</button>
                     </form>
                     <div id="newsletter-status"></div>
                 </div>
@@ -385,7 +382,14 @@
         // --- Tab Functionality ---
         function openTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
-            document.getElementById(tabName).style.display = 'block';
+            const activeTab = document.getElementById(tabName);
+             if (activeTab) { // Check if element exists
+                 activeTab.style.display = 'block';
+                 // Force reflow for animation restart if needed (might not be necessary with display change)
+                 // void activeTab.offsetWidth;
+                 activeTab.classList.add('active'); // Re-add active class if removed
+             }
+
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
             if (clickedButton) clickedButton.classList.add('active');
@@ -393,7 +397,7 @@
 
         // --- Testimonial Toggle ---
          function toggleTestimonial(buttonElement) {
-            const testimonial = buttonElement.closest('.testimonial'); // Find closest parent with class
+            const testimonial = buttonElement.closest('.testimonial');
              if (testimonial) {
                  testimonial.classList.toggle('expanded');
                  buttonElement.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
@@ -401,21 +405,23 @@
          }
 
         // --- Quote Calculator ---
-        function calculateQuote() { /* ... (igual que antes) ... */
-            const wordsInput = document.getElementById('wordCount'); const rateSelect = document.getElementById('serviceType'); const resultDiv = document.getElementById('quoteResult'); const words = parseInt(wordsInput.value) || 0; const rate = parseFloat(rateSelect.value);
-            if (words > 0 && rate) { const total = (words * rate).toFixed(2); resultDiv.innerHTML = `Approx. Quote: <strong>$${total} USD</strong>`; } else { resultDiv.innerHTML = 'Please enter word/minute count.'; }
+        function calculateQuote() {
+            const wordsInput = document.getElementById('wordCount'); const rateSelect = document.getElementById('serviceType'); const resultDiv = document.getElementById('quoteResult');
+            const words = parseInt(wordsInput.value) || 0; const rate = parseFloat(rateSelect.value);
+            if (words > 0 && rate) { const total = (words * rate).toFixed(2); resultDiv.innerHTML = `Approx. Quote: <strong>$${total} USD</strong>`; }
+            else { resultDiv.innerHTML = 'Please enter word/minute count.'; }
         }
 
         // --- Contact Form (mailto link) ---
-        function sendEmail(event) { /* ... (igual que antes) ... */
+        function sendEmail(event) {
             event.preventDefault(); const name = document.getElementById('contactName').value; const email = document.getElementById('contactEmail').value; const message = document.getElementById('contactMessage').value; const subject = `Project Inquiry from ${name} (Website)`; const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`; window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
 
         // --- Newsletter Form Submission ---
         const newsletterForm = document.getElementById("newsletterForm");
         const newsletterStatus = document.getElementById("newsletter-status");
-        async function handleNewsletterSubmit(event) { /* ... (igual que antes) ... */
-             event.preventDefault(); const data = new FormData(event.target); newsletterStatus.innerHTML = "Subscribing...";
+        async function handleNewsletterSubmit(event) {
+             event.preventDefault(); const data = new FormData(event.target); newsletterStatus.innerHTML = "<i class='fas fa-spinner fa-spin'></i> Subscribing..."; // Loading indicator
              try { const response = await fetch(event.target.action, { method: newsletterForm.method, body: data, headers: { 'Accept': 'application/json' } });
                  if (response.ok) { newsletterStatus.innerHTML = "<i class='fas fa-check-circle' style='color: green;'></i> Thanks for subscribing!"; newsletterForm.reset(); }
                  else { const rd = await response.json(); if (Object.hasOwn(rd, 'errors')) { newsletterStatus.innerHTML = `<i class='fas fa-exclamation-circle' style='color: red;'></i> ${rd["errors"].map(e => e["message"]).join(", ")}`; } else { newsletterStatus.innerHTML = "<i class='fas fa-exclamation-circle' style='color: red;'></i> Oops! Problem subscribing."; } }
@@ -429,7 +435,7 @@
         const ratingMessageHover = document.getElementById('rating-message');
         const starsHover = ratingContainerHover.querySelectorAll('.star');
 
-        const ratingMessagesHover = { // Using the refined messages (Option A modified)
+        const ratingMessagesHover = {
             1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
             2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
             3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
@@ -442,40 +448,40 @@
                 const rating = parseInt(star.getAttribute('data-value'));
                 highlightStarsHover(rating);
                 ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
-                ratingMessageHover.classList.add('visible'); // Add class to show message
+                ratingMessageHover.classList.add('visible');
             });
         });
 
         ratingContainerHover.addEventListener('mouseleave', () => {
-            highlightStarsHover(0); // Turn off all stars
-            ratingMessageHover.classList.remove('visible'); // Remove class to hide
-            // Optional: Delay clearing the text slightly for smoother transition out
-            // setTimeout(() => { ratingMessageHover.innerHTML = ''; }, 400);
-            ratingMessageHover.innerHTML = 'Hover over stars to see feedback.'; // Reset to initial text or empty
+            highlightStarsHover(0); // Turn off all stars based on visual state, not stored rating
+            ratingMessageHover.classList.remove('visible');
+            ratingMessageHover.innerHTML = 'Hover over stars to see feedback.'; // Reset text
         });
 
         function highlightStarsHover(rating) {
              starsHover.forEach(star => {
                  const starValue = parseInt(star.getAttribute('data-value'));
-                 const starIcon = star.querySelector('i'); // Get the icon element
+                 const starIcon = star.querySelector('i');
                  if (starValue <= rating) {
-                     starIcon.classList.remove('far'); // Remove empty class
-                     starIcon.classList.add('fas'); // Add solid class
-                     star.classList.add('selected'); // Use 'selected' for gold color + scale
+                     starIcon.classList.remove('far'); // Empty
+                     starIcon.classList.add('fas'); // Solid
+                     star.classList.add('selected'); // Adds gold color + scale
                  } else {
-                     starIcon.classList.remove('fas'); // Remove solid class
-                     starIcon.classList.add('far'); // Add empty class
-                     star.classList.remove('selected'); // Remove gold + scale
+                     starIcon.classList.remove('fas'); // Solid
+                     starIcon.classList.add('far'); // Empty
+                     star.classList.remove('selected'); // Removes gold + scale
                  }
-                 // Always remove 'hover' class itself, rely on parent hover if needed
+                 // Remove separate hover class if any
                  star.classList.remove('hover');
              });
         }
 
-        // Set initial icon state (all empty) and message
-        highlightStarsHover(0);
-        ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
-        ratingMessageHover.classList.add('visible'); // Show initial message
+        // Initialize stars and message
+        document.addEventListener('DOMContentLoaded', () => {
+             highlightStarsHover(0); // Ensure stars start empty
+             ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
+             ratingMessageHover.classList.add('visible'); // Make the initial message visible
+        });
         // --- FIN JAVASCRIPT STAR RATING (HOVER VERSION) ---
 
 
@@ -483,11 +489,16 @@
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
 
-            document.querySelectorAll('.testimonial .toggle-btn').forEach(btn => {
+             document.querySelectorAll('.testimonial .toggle-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     toggleTestimonial(e.target);
                 });
             });
+
+             // Ensure star rating initialization runs after DOM ready
+             highlightStarsHover(0);
+             ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
+             ratingMessageHover.classList.add('visible');
         });
 
     </script>
