@@ -7,24 +7,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap');
+        /*
+         * CSS ORGANIZATION:
+         * 1. Root Variables (Light/Dark Modes)
+         * 2. Global Styles
+         * 3. Dark Mode Toggle
+         * 4. Layout & Structure (Container, Header, Navigation)
+         * 5. Interactive Elements (Tabs, Buttons, Cards)
+         * 6. Content Sections (Tabs, Jobs, Skills, etc.)
+         * 7. Tools & Forms
+         * 8. Footer
+         * 9. Animations & Transitions (Global)
+         * 10. Responsive Design
+         * 11. Star Rating Specific
+         */
 
+        /* 1. Root Variables */
         :root { /* Light mode colors */
             --light-blue: #E6F3FF;
             --sky-blue: #87CEEB;
             --steel-blue: #4682B4;
-            --gold: #DAA520; /* Gold color for highlights */
-            --gold-dark: #B8860B; /* Darker gold for hover */
+            --gold: #DAA520;
+            --gold-dark: #B8860B;
             --dark-gray: #2C3E50;
             --slate-gray: #708090;
             --gray-dark: #555;
             --white-translucent: rgba(255,255,255,0.9);
             --white-semi: rgba(255,255,255,0.6);
-            --border-color: #B3E5FC; /* Celeste suave para bordes */
+            --border-color: #B3E5FC;
             --shadow-color: rgba(0, 0, 0, 0.05);
-            --highlight-bg: rgba(218, 165, 32, 0.08); /* Gold highlight */
-            --accent-color: #FFD700;    /* Dorado */
-            --accent-dark: #e6c300;     /* Dorado oscuro hover */
+            --highlight-bg: rgba(218, 165, 32, 0.08);
+            --accent-color: #FFD700;
+            --accent-dark: #e6c300;
             --body-bg: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
             --body-text: var(--dark-gray);
             --card-bg: var(--white-translucent);
@@ -37,7 +51,7 @@
             --light-blue: #1e3c72;
             --sky-blue: #4a90e2;
             --steel-blue: #2c5aa0;
-            --gold: #FFD700; /* Keep gold prominent */
+            --gold: #FFD700;
             --gold-dark: #e6c300;
             --dark-gray: #f0f0f0;
             --slate-gray: #d0d0d0;
@@ -57,6 +71,7 @@
                          radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
         }
 
+        /* 2. Global Styles */
         * {
             margin: 0;
             padding: 0;
@@ -69,8 +84,8 @@
             color: var(--body-text);
             line-height: 1.6;
             overflow-x: hidden;
-            padding-top: 20px; /* Adjusted padding, removed fixed button padding */
-            transition: background 0.3s ease, color 0.3s ease;
+            padding-top: 20px;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body::before {
@@ -83,35 +98,16 @@
             background: var(--pseudo-bg);
             z-index: -1;
             opacity: 0.7;
-            transition: background 0.3s ease;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        /* --- GLOBAL BACK BUTTON REMOVED --- */
-        /* #global-back-button { ... } */
-
 
         .container {
-            max-width: 1400px;
-            margin: 0 auto; /* Centered */
+            max-width: 1000px;
+            margin: 0 auto;
             padding: 20px;
-            display: flex;
-            gap: 40px;
         }
 
-        .sidebar {
-            width: 300px;
-            flex-shrink: 0;
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-
-        .main-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        /* Dark Mode Toggle */
+        /* 3. Dark Mode Toggle */
         .dark-mode-toggle {
             position: absolute;
             top: 20px;
@@ -129,7 +125,7 @@
             background: var(--white-semi);
             border-radius: 30px;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out;
         }
 
         body.dark .dark-mode-switch {
@@ -150,7 +146,8 @@
             height: 24px;
             background: var(--sky-blue);
             border-radius: 50%;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         input:checked + .slider {
@@ -161,57 +158,61 @@
         .toggle-label {
             font-size: 0.9em;
             color: var(--body-text);
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
-        /* Header */
+        /* 4. Layout & Structure */
         .header {
             text-align: center;
-            padding: 40px 20px; /* Added horizontal padding */
+            padding: 40px 20px;
             background: var(--card-bg);
             border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.4s ease;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            grid-column: 1 / -1; /* Full width header */
+            backdrop-filter: blur(10px);
         }
 
         .header:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow-color);
         }
 
         .name {
             font-family: 'Playfair Display', serif;
             font-size: 3em;
-            color: var(--gold); /* Golden */
+            color: var(--gold);
             margin-bottom: 10px;
             letter-spacing: 1px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .tagline {
             font-size: 1.2em;
-            color: var(--steel-blue); /* Steel blue */
+            color: var(--steel-blue);
             margin-bottom: 20px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
+            font-weight: 300;
         }
 
         .contact {
             font-size: 0.95em;
             color: var(--slate-gray);
             margin-bottom: 20px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .contact a {
-            color: var(--sky-blue); /* Sky blue */
+            color: var(--sky-blue);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .contact a:hover {
             color: var(--gold);
+            text-decoration: underline;
         }
 
         .video-container {
@@ -220,34 +221,79 @@
             margin: 0 auto;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.4s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .video-container:hover {
-            box-shadow: 0 12px 35px rgba(135, 206, 235, 0.25);
+            box-shadow: 0 16px 48px rgba(135, 206, 235, 0.3);
+            transform: scale(1.02);
         }
 
-        /* Ensure iframe adapts */
         .video-container iframe {
-            display: block; /* Remove extra space below */
+            display: block;
             width: 100%;
             height: 315px;
             border: none;
-            max-width: 100%; /* Make iframe responsive */
-        }
-        img { /* General responsive image rule */
-             max-width: 100%;
-             height: auto;
-             display: block;
         }
 
-        /* Tabs for core content */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Secondary Navigation */
+        .secondary-nav-container {
+            text-align: center;
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .secondary-nav-btn {
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: 600;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-dark));
+            color: #333;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        body.dark .secondary-nav-btn {
+            color: var(--steel-blue); /* Dark blue text for better contrast on gold bg */
+        }
+
+        .secondary-nav-btn:hover {
+            background: linear-gradient(45deg, var(--accent-dark), var(--accent-color));
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        .secondary-nav-subtitle {
+            display: block;
+            font-size: 0.75em;
+            font-weight: 400;
+            margin-top: 4px;
+            opacity: 0.8;
+            color: inherit;
+            transition: color 0.3s ease-out;
+        }
+
+        /* Tabs Navigation */
         .tabs-nav {
             display: flex;
             justify-content: center;
             gap: 8px;
-            margin-bottom: 15px; /* Reduced margin */
+            margin-bottom: 15px;
             flex-wrap: wrap;
         }
 
@@ -255,12 +301,12 @@
             background: rgba(135, 206, 235, 0.5);
             color: var(--dark-gray);
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: 500;
             font-size: 0.95em;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body.dark .tab-btn {
@@ -271,19 +317,22 @@
         .tab-btn:hover, .tab-btn.active {
             background: var(--gold);
             color: white;
-            transform: scale(1.03);
+            transform: scale(1.05) translateY(-1px);
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
         }
 
+        /* 5. Interactive Elements */
         .tab-content {
             display: none;
             background: var(--card-bg);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             max-height: 600px;
             overflow-y: auto;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
         }
 
         .tab-content.active {
@@ -291,39 +340,40 @@
             margin-bottom: 40px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* 6. Content Sections */
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.8em;
             color: var(--gold);
             margin-bottom: 15px;
             text-align: center;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Summary */
         .summary p {
             font-size: 1.05em;
             text-align: center;
             color: var(--steel-blue);
             max-width: 700px;
             margin: 0 auto;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
-        /* Experience - Compact */
         .job {
             margin-bottom: 20px;
             padding: 15px;
             background: var(--card-semi);
-            border-radius: 10px;
-            border-left: 3px solid var(--sky-blue);
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            border-left: 4px solid var(--sky-blue);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            backdrop-filter: blur(5px);
         }
 
         body.dark .job {
@@ -331,19 +381,19 @@
         }
 
         .job:hover {
-            transform: translateX(3px);
-            box-shadow: 0 3px 10px rgba(135, 206, 235, 0.15);
+            transform: translateX(5px) scale(1.01);
+            box-shadow: 0 8px 24px rgba(135, 206, 235, 0.2);
         }
 
         body.dark .job:hover {
-            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.2);
+            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
         }
 
         .job-title {
             font-size: 1.2em;
             color: var(--body-text);
             margin-bottom: 3px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .company-dates {
@@ -351,7 +401,7 @@
             font-style: italic;
             margin-bottom: 8px;
             font-size: 0.9em;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .job ul {
@@ -365,7 +415,7 @@
             position: relative;
             padding-left: 15px;
             color: var(--gray-dark);
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .job ul li::before {
@@ -374,19 +424,20 @@
             left: 0;
             color: var(--gold);
             font-size: 0.8em;
+            transition: color 0.3s ease-out;
         }
 
         .testimonial {
             margin-top: 10px;
             padding: 12px;
             background: var(--highlight-bg);
-            border-radius: 6px;
+            border-radius: 8px;
             font-style: italic;
             color: var(--slate-gray);
             font-size: 0.9em;
             max-height: 40px;
             overflow: hidden;
-            transition: max-height 0.3s ease, background 0.3s ease, color 0.3s ease;
+            transition: max-height 0.4s ease-out, background 0.3s ease-out, color 0.3s ease-out;
         }
 
         body.dark .testimonial {
@@ -404,20 +455,19 @@
             cursor: pointer;
             font-size: 0.8em;
             float: right;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
-        /* Education */
         .education-item {
             text-align: center;
             padding: 15px;
             background: var(--card-semi);
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 15px;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out;
+            backdrop-filter: blur(5px);
         }
 
-        /* Skills - Compact grid */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -428,19 +478,20 @@
         .skill-card {
             padding: 15px;
             background: var(--card-semi);
-            border-radius: 10px;
-            transition: transform 0.3s ease, background 0.3s ease;
+            border-radius: 12px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
         }
 
         .skill-card:hover {
-            transform: scale(1.01);
+            transform: scale(1.02) translateY(-2px);
         }
 
         .skill-card h3 {
             color: var(--gold);
             margin-bottom: 8px;
             font-size: 1.1em;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .languages {
@@ -456,7 +507,7 @@
             background: rgba(135, 206, 235, 0.3);
             border-radius: 8px;
             margin: 5px;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-width: 120px;
         }
 
@@ -466,9 +517,9 @@
 
         .lang-card:hover {
             background: var(--highlight-bg);
+            transform: scale(1.05);
         }
 
-        /* Portfolio */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -481,21 +532,21 @@
             background: var(--card-semi);
             border-radius: 8px;
             text-align: center;
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
         }
 
         .portfolio-item:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px) scale(1.02);
         }
 
         .portfolio-item a {
             color: var(--sky-blue);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
-        /* Insights - Compact */
         .insights {
             margin-top: 15px;
         }
@@ -505,39 +556,39 @@
             background: var(--card-semi);
             border-radius: 8px;
             margin-bottom: 12px;
-            transition: box-shadow 0.3s ease, background 0.3s ease;
+            transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
         }
 
         .insight-item:hover {
-            box-shadow: 0 3px 10px rgba(135, 206, 235, 0.15);
+            box-shadow: 0 8px 24px rgba(135, 206, 235, 0.2);
         }
 
         body.dark .insight-item:hover {
-            box-shadow: 0 3px 10px rgba(74, 144, 226, 0.2);
+            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
         }
 
         .insight-item h4 {
             color: var(--gold);
             margin-bottom: 5px;
             font-size: 1em;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .insight-item p {
             font-size: 0.9em;
             color: var(--gray-dark);
             margin-bottom: 5px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .insight-item a {
             color: var(--sky-blue);
             font-size: 0.85em;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
-        /* Strengths - Compact */
         .strengths-list {
             list-style: none;
         }
@@ -546,31 +597,36 @@
             padding: 8px;
             background: var(--highlight-bg);
             margin: 8px 0;
-            border-radius: 6px;
-            border-left: 2px solid var(--gold);
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
             font-size: 0.95em;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Separate Quote Tool Below Tabs */
+        .strengths-list li:hover {
+            transform: translateX(3px);
+        }
+
+        /* 7. Tools & Forms */
         .tools-section {
             margin-top: 10px;
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 30px;
-            grid-column: 1 / -1; /* Full width for tools */
         }
 
         .tool-card {
             background: var(--card-bg);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
         }
 
         .tool-card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px var(--shadow-color);
         }
 
         .tool-title {
@@ -579,10 +635,9 @@
             color: var(--gold);
             margin-bottom: 15px;
             text-align: center;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
-        /* Quote Tool */
         .quote-tool {
             text-align: center;
         }
@@ -600,10 +655,10 @@
             padding: 10px;
             border: 1px solid var(--sky-blue);
             border-radius: 8px;
-            font-size: 0.95em; /* Added for consistency */
+            font-size: 0.95em;
             background: white;
             color: var(--body-text);
-            transition: border-color 0.3s ease, background 0.3s ease;
+            transition: border-color 0.3s ease-out, background 0.3s ease-out, box-shadow 0.3s ease-out;
         }
 
         body.dark .quote-input input,
@@ -612,21 +667,29 @@
             color: var(--body-text);
         }
 
+        .quote-input input:focus,
+        .quote-input select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+            outline: none;
+        }
+
         .quote-tool button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: var(--gold);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-top: 10px;
         }
 
         .quote-tool button:hover {
             background: var(--gold-dark);
+            transform: translateY(-1px);
         }
 
         .quote-result {
@@ -634,27 +697,26 @@
             color: var(--gold);
             font-weight: 600;
             margin-top: 10px;
-            min-height: 1.5em; /* Prevent layout shift */
-            transition: color 0.3s ease;
+            min-height: 1.5em;
+            transition: color 0.3s ease-out;
         }
 
-        /* Contact Form */
         .contact-form {
             max-width: 400px;
             margin: 0 auto;
         }
 
-        .contact-form input, .contact-form textarea {
+        .contact-form input, 
+        .contact-form textarea {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: 1px solid var(--sky-blue);
             border-radius: 6px;
-            transition: border-color 0.3s ease;
+            transition: border-color 0.3s ease-out, background 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
             font-size: 0.95em;
-            background-color: white; /* Ensure background is white */
+            background-color: white;
             color: var(--body-text);
-            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body.dark .contact-form input, 
@@ -663,25 +725,28 @@
             color: var(--body-text);
         }
 
-        .contact-form input:focus, .contact-form textarea:focus {
+        .contact-form input:focus, 
+        .contact-form textarea:focus {
             border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
             outline: none;
         }
 
         .contact-form button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: var(--gold);
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 500;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .contact-form button:hover {
             background: var(--gold-dark);
+            transform: translateY(-1px);
         }
 
         .newsletter {
@@ -689,27 +754,25 @@
             text-align: center;
             font-size: 0.9em;
             color: var(--slate-gray);
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .newsletter form {
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             gap: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
         }
 
         .newsletter input {
-            /* width: 60%; Removed, flex handles width */
             padding: 8px;
             border: 1px solid var(--sky-blue);
             border-radius: 4px;
-            /* margin-right: 5px; Removed, gap handles spacing */
-             flex-grow: 1; /* Allow input to grow */
-             max-width: 250px; /* Limit input width */
+            flex-grow: 1;
+            max-width: 250px;
             background: white;
             color: var(--body-text);
-            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: background 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
         }
 
         body.dark .newsletter input {
@@ -724,21 +787,24 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            flex-shrink: 0; /* Prevent button shrinking */
+            flex-shrink: 0;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-         .newsletter button:hover {
+
+        .newsletter button:hover {
             background: var(--gold-dark);
-         }
+            transform: translateY(-1px);
+        }
 
         #newsletter-status {
-             margin-top: 10px;
-             font-size: 0.9em;
-             color: var(--steel-blue);
-             min-height: 1.2em; /* Prevent layout shift */
-             transition: color 0.3s ease;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: var(--steel-blue);
+            min-height: 1.2em;
+            transition: color 0.3s ease-out;
         }
 
-        /* Footer */
+        /* 8. Footer */
         .footer {
             text-align: center;
             padding: 15px;
@@ -747,8 +813,8 @@
             margin-top: 25px;
             font-size: 0.9em;
             color: var(--slate-gray);
-            transition: background 0.3s ease, color 0.3s ease;
-            grid-column: 1 / -1; /* Full width footer */
+            transition: background 0.3s ease-out, color 0.3s ease-out;
+            backdrop-filter: blur(10px);
         }
 
         .download-cv {
@@ -758,8 +824,9 @@
             color: white;
             text-decoration: none;
             border-radius: 6px;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin-bottom: 10px;
+            font-weight: 500;
         }
 
         body.dark .download-cv {
@@ -768,130 +835,154 @@
 
         .download-cv:hover {
             background: var(--steel-blue);
+            transform: translateY(-1px);
         }
 
-        /* --- BOTONES DE NAVEGACIÓN SECUNDARIA (BLOG Y TOOLS) --- */
-        .secondary-nav-container {
-            text-align: left; /* Align left in sidebar */
-            margin-top: 0;
-            margin-bottom: 40px;
-            display: flex; /* Para ponerlos lado a lado */
-            flex-direction: column;
-            gap: 15px; /* Espacio entre los botones */
-        }
+        /* 9. Animations & Transitions (Global Enhancements) */
+        /* Already integrated smoother cubic-bezier transitions throughout for modern feel */
 
-        .secondary-nav-btn { /* Estilo común para ambos botones */
-            padding: 14px 28px;
-            font-size: 1.1em;
-            font-weight: 600;
-            background: linear-gradient(45deg, var(--accent-color), var(--accent-dark));
-            color: #333;
-            border: none;
-            border-radius: 20px; /* Match tab style */
-            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none; /* Asegura que no haya subrayado si se usa <a> */
-            display: block; /* Block for sidebar */
-            text-align: left;
-        }
-
-        body.dark .secondary-nav-btn {
-            color: var(--steel-blue);
-        }
-
-        .secondary-nav-btn:hover {
-            background: linear-gradient(45deg, var(--accent-dark), var(--accent-color));
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4);
-        }
-
-        .secondary-nav-subtitle { /* Estilo para el subtítulo de los botones */
-            display: block;
-            font-size: 0.75em;
-            font-weight: 400;
-            margin-top: 4px;
-            opacity: 0.8;
-            color: inherit;
-            transition: color 0.3s ease;
-        }
-
-
-        /* Responsive */
+        /* 10. Responsive Design */
         @media (max-width: 768px) {
-             body {
-                 padding-top: 20px; /* Reset padding for smaller screens if back button isn't fixed */
+            body {
+                padding-top: 20px;
             }
-            /* Remove fixed back button styles if not needed globally */
-            /* #global-back-button { ... } */
 
             .container {
-                flex-direction: column;
                 width: 95%;
-                padding: 15px; /* Reduce padding */
+                padding: 15px;
                 margin: 10px auto;
-                gap: 20px;
             }
-            .sidebar {
-                width: 100%;
-                position: static;
-            }
+
             .header {
-                 padding: 30px 15px;
+                padding: 30px 15px;
             }
-            .name { font-size: 2.2em; }
-            .tagline { font-size: 1.1em; }
-            .contact { font-size: 0.9em; }
-            .tabs-nav { gap: 5px; }
-            .tab-btn { padding: 8px 14px; font-size: 0.9em; } /* Smaller tabs */
 
-             /* Stack secondary nav buttons on mobile */
+            .name { 
+                font-size: 2.2em; 
+            }
+
+            .tagline { 
+                font-size: 1.1em; 
+            }
+
+            .contact { 
+                font-size: 0.9em; 
+            }
+
+            .tabs-nav { 
+                gap: 5px; 
+            }
+
+            .tab-btn { 
+                padding: 8px 14px; 
+                font-size: 0.9em; 
+            }
+
             .secondary-nav-container {
-                 flex-direction: column; /* Apila los botones */
-                 gap: 10px; /* Reduce gap */
-                 align-items: center; /* Centra los botones apilados */
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
             }
-             .secondary-nav-btn {
-                 padding: 12px 24px;
-                 font-size: 1em;
-                 width: 100%; /* Full width on mobile */
-                 max-width: none;
-                 text-align: center;
-             }
 
-            .video-container iframe { height: 250px; }
-            .section-title { font-size: 1.6em; }
-            .job-title { font-size: 1.1em; }
-            .skills-grid { grid-template-columns: 1fr; }
-            .languages { flex-direction: column; align-items: center;}
-            .lang-card { min-width: 180px; }
-            .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
-            .tools-section { grid-template-columns: 1fr; }
-            .newsletter form { flex-direction: column; align-items: stretch;}
-            .newsletter input { width: 100%; margin-bottom: 5px;}
-            .dark-mode-toggle { top: 10px; right: 10px; }
+            .secondary-nav-btn {
+                padding: 12px 24px;
+                font-size: 1em;
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .video-container iframe { 
+                height: 250px; 
+            }
+
+            .section-title { 
+                font-size: 1.6em; 
+            }
+
+            .job-title { 
+                font-size: 1.1em; 
+            }
+
+            .skills-grid { 
+                grid-template-columns: 1fr; 
+            }
+
+            .languages { 
+                flex-direction: column; 
+                align-items: center;
+            }
+
+            .lang-card { 
+                min-width: 180px; 
+            }
+
+            .portfolio-grid { 
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            }
+
+            .tools-section { 
+                grid-template-columns: 1fr; 
+            }
+
+            .newsletter form { 
+                flex-direction: column; 
+                align-items: stretch;
+            }
+
+            .newsletter input { 
+                width: 100%; 
+                margin-bottom: 5px;
+            }
+
+            .dark-mode-toggle { 
+                top: 10px; 
+                right: 10px; 
+            }
         }
 
         @media (max-width: 480px) {
-             .name { font-size: 1.8em; }
-             .tagline { font-size: 1em; }
-             .video-container iframe { height: 200px; }
-             .tab-btn { padding: 7px 12px; font-size: 0.85em; }
-             .secondary-nav-btn { padding: 10px 20px; font-size: 0.95em; width: 90%;}
-             .quote-input { grid-template-columns: 1fr; }
-             .portfolio-grid { grid-template-columns: 1fr; }
+            .name { 
+                font-size: 1.8em; 
+            }
+
+            .tagline { 
+                font-size: 1em; 
+            }
+
+            .video-container iframe { 
+                height: 200px; 
+            }
+
+            .tab-btn { 
+                padding: 7px 12px; 
+                font-size: 0.85em; 
+            }
+
+            .secondary-nav-btn { 
+                padding: 10px 20px; 
+                font-size: 0.95em; 
+                width: 90%;
+            }
+
+            .quote-input { 
+                grid-template-columns: 1fr; 
+            }
+
+            .portfolio-grid { 
+                grid-template-columns: 1fr; 
+            }
         }
 
-        /* Star Rating Section Styles */
+        /* 11. Star Rating Section Styles */
         .rating-choice-section {
             background: var(--card-bg);
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            margin-top: 40px;
-            margin-bottom: 10px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin: 40px 0 10px;
             text-align: center;
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
         }
 
         .rating-choice-section h3 {
@@ -899,7 +990,7 @@
             font-size: 1.5em;
             color: var(--gold);
             margin-bottom: 15px;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-out;
         }
 
         .star-rating {
@@ -911,27 +1002,35 @@
             font-size: 2em;
             color: #ccc;
             cursor: pointer;
-            transition: color 0.2s ease, transform 0.2s ease; /* Keep basic transition */
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             margin: 0 3px;
-            display: inline-block; /* Ensure inline-block */
+            display: inline-block;
         }
+
         body.dark .star-rating .star {
             color: #666;
         }
-        /* Style for hovered/selected stars */
-        .star-rating .star.selected, /* Combined hover/selected state visual */
-        .star-rating:hover .star:hover { /* Target stars only when hovering container */
-            color: var(--accent-color); /* Gold */
-            transform: scale(1.15); /* Keep scale effect */
+
+        .star-rating .star.selected,
+        .star-rating:hover .star:hover {
+            color: var(--accent-color);
+            transform: scale(1.15) rotate(5deg);
         }
-         /* Ensure empty star style */
-        .star-rating .star i.far { color: #ccc; }
-        body.dark .star-rating .star i.far { color: #666; }
-        /* Ensure filled star style */
-        .star-rating .star i.fas { color: var(--accent-color); }
+
+        .star-rating .star i.far { 
+            color: #ccc; 
+        }
+
+        body.dark .star-rating .star i.far { 
+            color: #666; 
+        }
+
+        .star-rating .star i.fas { 
+            color: var(--accent-color); 
+        }
 
         #rating-message {
-            margin-top: 20px; /* Increased margin */
+            margin-top: 20px;
             padding: 15px;
             background-color: var(--light-blue);
             border-left: 4px solid var(--gold);
@@ -939,12 +1038,12 @@
             color: var(--steel-blue);
             font-size: 1em;
             text-align: left;
-            min-height: 70px; /* Adjusted min-height */
-            display: none; /* Start hidden */
-            opacity: 0; /* Start invisible for transition */
-            max-height: 0; /* Start collapsed for transition */
+            min-height: 70px;
+            display: none;
+            opacity: 0;
+            max-height: 0;
             overflow: hidden;
-            transition: opacity 0.4s ease-out, max-height 0.4s ease-out, padding 0.4s ease-out, margin-top 0.4s ease-out, background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body.dark #rating-message {
@@ -953,13 +1052,10 @@
             color: #f0f0f0;
         }
 
-        /* Style for when message is shown */
-        #rating-message[style*="display: block"] { /* More specific selector */
-             opacity: 1;
-             max-height: 200px; /* Allow space to expand */
-             /* Padding is handled inline by JS now or kept static */
+        #rating-message[style*="display: block"] {
+            opacity: 1;
+            max-height: 200px;
         }
-
     </style>
 </head>
 <body>
@@ -984,230 +1080,232 @@
             </div>
         </header>
 
-        <div class="sidebar">
-            <div class="secondary-nav-container">
-                <a href="blog.html" class="secondary-nav-btn"> The Freelancer's Compass Blog
-                    <span class="secondary-nav-subtitle">Insights & Guides</span>
-                </a>
-                <a href="tools.html" class="secondary-nav-btn"> Freelancer Utilities
-                    <span class="secondary-nav-subtitle">Calculators & Resources</span>
-                </a>
-            </div>
+        <div class="secondary-nav-container">
+            <a href="blog.html" class="secondary-nav-btn">The Freelancer's Compass Blog
+                <span class="secondary-nav-subtitle">Insights & Guides</span>
+            </a>
+            <a href="tools.html" class="secondary-nav-btn">Freelancer Utilities
+                <span class="secondary-nav-subtitle">Calculators & Resources</span>
+            </a>
+        </div>
+         
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab('summary')">Summary</button>
+            <button class="tab-btn" onclick="openTab('experience')">Experience</button>
+            <button class="tab-btn" onclick="openTab('skills')">Skills</button>
+            <button class="tab-btn" onclick="openTab('education')">Education</button>
+            <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
+            <button class="tab-btn" onclick="openTab('strengths')">Strengths</button>
+        </nav>
+
+        <div id="summary" class="tab-content active">
+            <h2 class="section-title">Professional Summary</h2>
+            <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
         </div>
 
-        <div class="main-content">
-            <nav class="tabs-nav">
-                <button class="tab-btn active" onclick="openTab('summary')">Summary</button>
-                <button class="tab-btn" onclick="openTab('experience')">Experience</button>
-                <button class="tab-btn" onclick="openTab('skills')">Skills</button>
-                <button class="tab-btn" onclick="openTab('education')">Education</button>
-                <button class="tab-btn" onclick="openTab('portfolio')">Portfolio</button>
-                <button class="tab-btn" onclick="openTab('strengths')">Strengths</button>
-            </nav>
-
-            <div id="summary" class="tab-content active">
-                <h2 class="section-title">Professional Summary</h2>
-                <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
-            </div>
-
-            <div id="experience" class="tab-content">
-                <h2 class="section-title">Professional Experience</h2>
-                <div class="job" onclick="toggleTestimonial(this)">
-                    <h3 class="job-title">Freelance Translator & Proofreader</h3>
-                    <p class="company-dates">Upwork | May 2023 – Present</p>
-                    <ul>
-                        <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
-                        <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
-                        <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
-                    </ul>
-                    <div class="testimonial">
-                        <strong>Hebrew to English Translation Project</strong><br>
-                        Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
-                        "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!"
-                        <button class="toggle-btn">Read More</button> </div>
-                </div>
-                <div class="job" onclick="toggleTestimonial(this)">
-                    <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
-                    <p class="company-dates">Upwork | May 2023 – Present</p>
-                    <ul>
-                        <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
-                        <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
-                    </ul>
-                    <div class="testimonial">
-                        <strong>Video Editing of a Short Family Video</strong><br>
-                        Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
-                        "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!"
-                        <button class="toggle-btn">Read More</button> </div>
-                </div>
-            </div>
-
-            <div id="skills" class="tab-content">
-                <h2 class="section-title">Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h3>Medical Translation</h3>
-                        <ul>
-                            <li>Clinical Documentation, Patient Reports</li>
-                            <li>Informed Consents, MedTech Manuals</li>
-                            <li>Academic Papers, Regulatory Submissions (basic)</li>
-                            <li>Healthcare Marketing Content</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Translation & Editing</h3>
-                        <ul>
-                            <li>Proofreading, Copy Editing, MTPE</li>
-                            <li>Terminology Management, QA</li>
-                            <li>Style Guide Implementation</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Software & Tools</h3>
-                        <ul>
-                            <li>MS Office (Advanced), Google Workspace</li>
-                            <li>CapCut, Subtitle Edit</li>
-                            <li>Basic SEO</li>
-                        </ul>
-                    </div>
-                    <div class="skill-card">
-                        <h3>Other</h3>
-                        <ul>
-                            <li>Medical Copywriting, Ghostwriting</li>
-                            <li>Cross-Cultural Communication</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="languages">
-                    <div class="lang-card">
-                        <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
-                    </div>
-                    <div class="lang-card">
-                        <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
-                    </div>
-                    <div class="lang-card">
-                        <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
-                    </div>
-                </div>
-            </div>
-
-            <div id="education" class="tab-content">
-                <h2 class="section-title">Education</h2>
-                <div class="education-item">
-                    <h3>Candidate for Doctor of Medicine (MD)</h3>
-                    <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
-                    <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
-                </div>
-            </div>
-
-            <div id="portfolio" class="tab-content">
-                <h2 class="section-title">Portfolio Highlights</h2>
-                <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill.</p>
-                <div class="portfolio-grid">
-                     <div class="portfolio-item">
-                         <h4>Hebrew to English Medical Records</h4>
-                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
-                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a> </div>
-                     <div class="portfolio-item">
-                         <h4>Hebrew Tutorial Video Adaptation</h4>
-                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
-                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a> </div>
-                     <div class="portfolio-item">
-                         <h4>Family Video Editing & Subtitling</h4>
-                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
-                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a> </div>
-                     <div class="portfolio-item">
-                         <h4>Native Hebrew Audio Review</h4>
-                         <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
-                         <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a> </div>
-                     </div>
-            </div>
-
-            <div id="strengths" class="tab-content">
-                <h2 class="section-title">Key Strengths</h2>
-                <ul class="strengths-list">
-                    <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
-                    <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
-                    <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
+        <div id="experience" class="tab-content">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="job" onclick="toggleTestimonial(this)">
+                <h3 class="job-title">Freelance Translator & Proofreader</h3>
+                <p class="company-dates">Upwork | May 2023 – Present</p>
+                <ul>
+                    <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
+                    <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
+                    <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
                 </ul>
-            </div>
-
-            <div class="rating-choice-section">
-                <h3>How Do You Typically Choose a Freelancer?</h3>
-                <div class="star-rating" id="freelancerRating">
-                    <span class="star" data-value="1"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="2"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="3"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="4"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="5"><i class="far fa-star"></i></span>
-                </div>
-                <div id="rating-message">
+                <div class="testimonial">
+                    <strong>Hebrew to English Translation Project</strong><br>
+                    Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
+                    "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!"
+                    <button class="toggle-btn">Read More</button>
                 </div>
             </div>
-
-            <div class="tools-section">
-                <div class="tool-card">
-                    <h3 class="tool-title">Quick Quote Calculator</h3>
-                    <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
-                    <div class="quote-tool">
-                        <div class="quote-input">
-                            <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1">
-                            <select id="serviceType">
-                                <option value="0.08">Basic Translation ($0.08/wd)</option>
-                                <option value="0.12">Medical Translation ($0.12/wd)</option>
-                                <option value="0.04">Editing/Proofreading ($0.04/wd)</option>
-                                <option value="5.00">Video Subtitles ($5.00/min)</option>
-                            </select>
-                        </div>
-                        <button onclick="calculateQuote()">Calculate Estimate</button>
-                        <div id="quoteResult" class="quote-result"></div>
-                        <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend on complexity, language pair, and urgency.</p>
-                    </div>
-                </div>
-
-                <div class="tool-card">
-                    <h3 class="tool-title">Get in Touch</h3>
-                    <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
-                    <form class="contact-form" onsubmit="sendEmail(event)">
-                        <input type="text" id="contactName" placeholder="Your Name" required>
-                        <input type="email" id="contactEmail" placeholder="Your Email" required>
-                        <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required></textarea>
-                        <button type="submit">Send Message</button>
-                    </form>
-                    <div class="newsletter">
-                        <p>Or subscribe for freelance tips:</p>
-                        <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
-                            <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
-                            <input type="hidden" name="_subject" value="New Newsletter Subscriber">
-                            <button type="submit">Subscribe</button>
-                        </form>
-                         <div id="newsletter-status"></div>
-                    </div>
+            <div class="job" onclick="toggleTestimonial(this)">
+                <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
+                <p class="company-dates">Upwork | May 2023 – Present</p>
+                <ul>
+                    <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
+                    <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
+                </ul>
+                <div class="testimonial">
+                    <strong>Video Editing of a Short Family Video</strong><br>
+                    Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
+                    "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!"
+                    <button class="toggle-btn">Read More</button>
                 </div>
             </div>
         </div>
-    </div> 
+
+        <div id="skills" class="tab-content">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Medical Translation</h3>
+                    <ul>
+                        <li>Clinical Documentation, Patient Reports</li>
+                        <li>Informed Consents, MedTech Manuals</li>
+                        <li>Academic Papers, Regulatory Submissions (basic)</li>
+                        <li>Healthcare Marketing Content</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Translation & Editing</h3>
+                    <ul>
+                        <li>Proofreading, Copy Editing, MTPE</li>
+                        <li>Terminology Management, QA</li>
+                        <li>Style Guide Implementation</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Software & Tools</h3>
+                    <ul>
+                        <li>MS Office (Advanced), Google Workspace</li>
+                        <li>CapCut, Subtitle Edit</li>
+                        <li>Basic SEO</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Other</h3>
+                    <ul>
+                        <li>Medical Copywriting, Ghostwriting</li>
+                        <li>Cross-Cultural Communication</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="languages">
+                <div class="lang-card">
+                    <strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
+                </div>
+                <div class="lang-card">
+                    <strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small>
+                </div>
+                <div class="lang-card">
+                    <strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small>
+                </div>
+            </div>
+        </div>
+
+        <div id="education" class="tab-content">
+            <h2 class="section-title">Education</h2>
+            <div class="education-item">
+                <h3>Candidate for Doctor of Medicine (MD)</h3>
+                <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
+                <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
+            </div>
+        </div>
+
+        <div id="portfolio" class="tab-content">
+            <h2 class="section-title">Portfolio Highlights</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <h4>Hebrew to English Medical Records</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">View Sample (PDF)</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4>Hebrew Tutorial Video Adaptation</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Video</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4>Family Video Editing & Subtitling</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Watch Demo</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4>Native Hebrew Audio Review</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')">Listen Sample</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="strengths" class="tab-content">
+            <h2 class="section-title">Key Strengths</h2>
+            <ul class="strengths-list">
+                <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
+                <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
+                <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
+            </ul>
+        </div>
+
+        <div class="rating-choice-section">
+            <h3>How Do You Typically Choose a Freelancer?</h3>
+            <div class="star-rating" id="freelancerRating">
+                <span class="star" data-value="1"><i class="far fa-star"></i></span>
+                <span class="star" data-value="2"><i class="far fa-star"></i></span>
+                <span class="star" data-value="3"><i class="far fa-star"></i></span>
+                <span class="star" data-value="4"><i class="far fa-star"></i></span>
+                <span class="star" data-value="5"><i class="far fa-star"></i></span>
+            </div>
+            <div id="rating-message"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tools-section">
+            <div class="tool-card">
+                <h3 class="tool-title">Quick Quote Calculator</h3>
+                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
+                <div class="quote-tool">
+                    <div class="quote-input">
+                        <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1">
+                        <select id="serviceType">
+                            <option value="0.08">Basic Translation ($0.08/wd)</option>
+                            <option value="0.12">Medical Translation ($0.12/wd)</option>
+                            <option value="0.04">Editing/Proofreading ($0.04/wd)</option>
+                            <option value="5.00">Video Subtitles ($5.00/min)</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateQuote()">Calculate Estimate</button>
+                    <div id="quoteResult" class="quote-result"></div>
+                    <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend on complexity, language pair, and urgency.</p>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3 class="tool-title">Get in Touch</h3>
+                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
+                <form class="contact-form" onsubmit="sendEmail(event)">
+                    <input type="text" id="contactName" placeholder="Your Name" required>
+                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                    <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <div class="newsletter">
+                    <p>Or subscribe for freelance tips:</p>
+                    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
+                        <input type="email" name="email" placeholder="Email" id="newsletterEmail" required>
+                        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <div id="newsletter-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <footer class="footer">
         <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download>Download Full CV (PDF)</a>
         <p>&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
     </footer>
 
     <script>
+        // Utility Functions
         function openTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
 
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            // Find the button associated with the tabName
-             const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
-             if (clickedButton) {
-                 clickedButton.classList.add('active');
-             }
+            const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
         }
 
         function toggleTestimonial(jobElement) {
             const testimonial = jobElement.querySelector('.testimonial');
             const btn = jobElement.querySelector('.toggle-btn');
-            if (testimonial && btn) { // Check if elements exist
+            if (testimonial && btn) {
                 testimonial.classList.toggle('expanded');
                 btn.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
             }
@@ -1224,7 +1322,7 @@
                 const total = (words * rate).toFixed(2);
                 resultDiv.innerHTML = `Approx. Quote: $${total} USD`;
             } else {
-                 resultDiv.innerHTML = 'Enter word/minute count.';
+                resultDiv.innerHTML = 'Enter word/minute count.';
             }
         }
 
@@ -1236,17 +1334,16 @@
             const subject = `Project Inquiry from ${name} (Website)`;
             const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
             window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            // event.target.reset(); // Optional reset
         }
 
-        // --- Newsletter Form Submission (using Formspree AJAX) ---
+        // Form Handling
         const newsletterForm = document.getElementById("newsletterForm");
         const newsletterStatus = document.getElementById("newsletter-status");
 
         async function handleNewsletterSubmit(event) {
             event.preventDefault();
             const data = new FormData(event.target);
-            newsletterStatus.innerHTML = "Subscribing..."; // Provide feedback
+            newsletterStatus.innerHTML = "Subscribing...";
             try {
                 const response = await fetch(event.target.action, {
                     method: newsletterForm.method,
@@ -1270,24 +1367,68 @@
         }
         newsletterForm.addEventListener("submit", handleNewsletterSubmit);
 
-        // --- Initialize default tab & Testimonial Listeners ---
-        document.addEventListener('DOMContentLoaded', () => {
-            openTab('summary'); // Open Summary tab by default
+        // Star Rating
+        const ratingContainerHover = document.getElementById('freelancerRating');
+        const ratingMessageHover = document.getElementById('rating-message');
+        const starsHover = ratingContainerHover.querySelectorAll('.star');
 
-             // Add event listeners to testimonial toggle buttons
-             document.querySelectorAll('.job .toggle-btn').forEach(btn => {
-                 btn.addEventListener('click', (e) => {
-                     e.stopPropagation(); // Prevent job click event
-                     const jobElement = e.target.closest('.job');
-                     if(jobElement) toggleTestimonial(jobElement);
-                 });
-             });
+        const ratingMessagesHover = {
+            1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
+            2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
+            3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
+            4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
+            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
+        };
+
+        starsHover.forEach(star => {
+            star.addEventListener('mouseenter', () => {
+                const rating = parseInt(star.getAttribute('data-value'));
+                highlightStarsHover(rating);
+                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
+                ratingMessageHover.style.display = 'block';
+            });
+        });
+
+        ratingContainerHover.addEventListener('mouseleave', () => {
+            highlightStarsHover(0);
+            ratingMessageHover.style.display = 'none';
+            ratingMessageHover.innerHTML = '';
+        });
+
+        function highlightStarsHover(rating) {
+            starsHover.forEach(star => {
+                const starValue = parseInt(star.getAttribute('data-value'));
+                if (starValue <= rating) {
+                    star.innerHTML = '<i class="fas fa-star"></i>';
+                    star.classList.add('selected');
+                } else {
+                    star.innerHTML = '<i class="far fa-star"></i>';
+                    star.classList.remove('selected');
+                }
+                star.classList.remove('hover');
+            });
+        }
+
+        // Initial State
+        ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
+        ratingMessageHover.style.display = 'block';
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('summary');
+
+            document.querySelectorAll('.job .toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const jobElement = e.target.closest('.job');
+                    if (jobElement) toggleTestimonial(jobElement);
+                });
+            });
 
             // Dark Mode Toggle
             const darkModeToggle = document.getElementById('darkModeToggle');
             const body = document.body;
 
-            // Check localStorage for saved preference
             const savedTheme = localStorage.getItem('darkMode');
             if (savedTheme === 'enabled') {
                 body.classList.add('dark');
@@ -1304,58 +1445,6 @@
                 }
             });
         });
-
-        // --- *** JAVASCRIPT STAR RATING (HOVER VERSION) *** ---
-        const ratingContainerHover = document.getElementById('freelancerRating');
-        const ratingMessageHover = document.getElementById('rating-message');
-        const starsHover = ratingContainerHover.querySelectorAll('.star');
-
-        const ratingMessagesHover = { // Using the refined messages
-            1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
-            2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
-            3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
-            4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
-            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
-        };
-
-        starsHover.forEach(star => {
-            // Mouse Enter: Highlight stars AND show message
-            star.addEventListener('mouseenter', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                highlightStarsHover(rating); // Highlight stars up to the hovered one
-                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.'; // Show message
-                ratingMessageHover.style.display = 'block'; // Make message visible
-            });
-        });
-
-        // Mouse Leave from the CONTAINER: Reset stars and hide message
-        ratingContainerHover.addEventListener('mouseleave', () => {
-            highlightStarsHover(0); // Turn off all stars
-            ratingMessageHover.style.display = 'none'; // Hide message
-            ratingMessageHover.innerHTML = ''; // Clear message content
-        });
-
-        // Function to highlight stars up to a certain rating
-        function highlightStarsHover(rating) {
-             starsHover.forEach(star => {
-                 const starValue = parseInt(star.getAttribute('data-value'));
-                 if (starValue <= rating) {
-                     star.innerHTML = '<i class="fas fa-star"></i>'; // Solid star
-                     star.classList.add('selected'); // Use 'selected' class for gold color
-                 } else {
-                     star.innerHTML = '<i class="far fa-star"></i>'; // Empty star
-                     star.classList.remove('selected');
-                 }
-                 // Remove hover effect class explicitly on leave
-                 star.classList.remove('hover');
-             });
-        }
-
-        // Initial state message (optional, shown before first hover)
-         ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
-         ratingMessageHover.style.display = 'block'; // Show initial message
-         // --- FIN JAVASCRIPT STAR RATING (HOVER VERSION) ---
-
     </script>
 </body>
 </html>
