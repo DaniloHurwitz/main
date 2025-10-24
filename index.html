@@ -66,7 +66,7 @@
         img { max-width: 100%; height: auto; display: block; }
 
         /* --- Secondary Nav Buttons --- */
-        .secondary-nav-container { text-align: center; margin-top: 25px; margin-bottom: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; /* Added wrap */ }
+        .secondary-nav-container { text-align: center; margin-top: 25px; margin-bottom: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
         .secondary-nav-btn { padding: 14px 28px; font-size: 1.1em; font-weight: 600; background: linear-gradient(45deg, var(--accent-color), var(--accent-dark)); color: #333; border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3); cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
         .secondary-nav-btn:hover { background: linear-gradient(45deg, var(--accent-dark), var(--accent-color)); transform: scale(1.05) translateY(-2px); box-shadow: 0 6px 20px rgba(218, 165, 32, 0.4); }
         .secondary-nav-subtitle { display: block; font-size: 0.75em; font-weight: 400; margin-top: 4px; opacity: 0.8; color: inherit; }
@@ -81,16 +81,16 @@
         .section-title { font-family: 'Playfair Display', serif; font-size: 1.8em; color: var(--gold); margin-bottom: 15px; text-align: center; }
 
         /* --- Section Styles (Summary, Experience, etc.) --- */
-        .summary p { font-size: 1.05em; text-align: center; color: var(--steel-blue); max-width: 700px; margin: 0 auto; }
-        .job { margin-bottom: 20px; padding: 15px; background: var(--white-semi); border-radius: 10px; border-left: 3px solid var(--sky-blue); transition: all 0.3s ease; cursor: default; /* Changed cursor */ }
+        .summary p { font-size: 1.05em; text-align: center; color: var(--steel-blue); max-width: 700px; margin: 0 auto; padding-bottom: 25px; /* Added padding bottom */}
+        .job { margin-bottom: 20px; padding: 15px; background: var(--white-semi); border-radius: 10px; border-left: 3px solid var(--sky-blue); transition: all 0.3s ease; cursor: default; }
         .job:hover { transform: translateX(3px); box-shadow: 0 3px 10px rgba(135, 206, 235, 0.15); }
         .job-title { font-size: 1.2em; color: var(--dark-gray); margin-bottom: 3px; }
         .company-dates { color: var(--slate-gray); font-style: italic; margin-bottom: 8px; font-size: 0.9em; }
         .job ul { list-style: none; padding: 0; font-size: 0.95em; }
         .job ul li { padding: 3px 0; position: relative; padding-left: 15px; color: var(--gray-dark); }
         .job ul li::before { content: '✦'; position: absolute; left: 0; color: var(--gold); font-size: 0.8em; }
-        .testimonial { margin-top: 10px; padding: 12px; background: var(--highlight-bg); border-radius: 6px; font-style: italic; color: var(--slate-gray); font-size: 0.9em; max-height: 40px; overflow: hidden; transition: max-height 0.4s ease-in-out; /* Smoother transition */ }
-        .testimonial.expanded { max-height: 200px; /* Increased max height */ }
+        .testimonial { margin-top: 10px; padding: 12px; background: var(--highlight-bg); border-radius: 6px; font-style: italic; color: var(--slate-gray); font-size: 0.9em; max-height: 40px; overflow: hidden; transition: max-height 0.4s ease-in-out; }
+        .testimonial.expanded { max-height: 200px; }
         .toggle-btn { background: none; border: none; color: var(--sky-blue); cursor: pointer; font-size: 0.8em; float: right; }
         .education-item { text-align: center; padding: 15px; background: var(--white-semi); border-radius: 10px; margin-bottom: 15px; }
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 15px; }
@@ -104,70 +104,87 @@
         .portfolio-item { padding: 12px; background: var(--white-semi); border-radius: 8px; text-align: center; transition: transform 0.3s ease; }
         .portfolio-item:hover { transform: translateY(-2px); }
         .portfolio-item a { color: var(--sky-blue); text-decoration: none; font-weight: 500; }
-        .strengths-list { list-style: none; }
-        .strengths-list li { padding: 8px 12px; /* Adjusted padding */ background: var(--highlight-bg); margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--gold); /* Thicker border */ font-size: 0.95em; }
+        .strengths-list { list-style: none; padding: 0; } /* Reset padding */
+        .strengths-list li { padding: 8px 12px; background: var(--highlight-bg); margin: 8px 0; border-radius: 6px; border-left: 3px solid var(--gold); font-size: 0.95em; }
 
-        /* --- *** NUEVA SECCIÓN: STAR RATING CHOICE *** --- */
+        /* --- STAR RATING SECTION --- */
         .rating-choice-section {
-            background: var(--white-translucent);
+            background: rgba(255, 255, 255, 0.8); /* Slightly less transparent */
             padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 5px 20px var(--shadow-color);
-            margin: 30px 0; /* Espacio arriba y abajo */
+            border-radius: 15px; /* Consistent rounding */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            margin: 30px 0;
             text-align: center;
+            border-top: 1px solid var(--border-color); /* Separator */
+            border-bottom: 1px solid var(--border-color); /* Separator */
         }
         .rating-choice-section h3 {
-             font-family: 'Playfair Display', serif;
-             font-size: 1.6em; /* Slightly smaller than section titles */
-             color: var(--gold);
+             font-family: 'Inter', sans-serif; /* Use Inter for consistency here */
+             font-size: 1.3em; /* Slightly smaller */
+             color: var(--steel-blue); /* Steel blue for title */
              margin-bottom: 15px;
+             font-weight: 500;
         }
         .star-rating {
-            display: inline-block; /* Center the stars */
+            display: inline-block;
             margin-bottom: 20px;
         }
         .star-rating .star {
-            font-size: 2em; /* Tamaño de las estrellas */
-            color: #ccc; /* Color estrellas apagadas */
-            cursor: pointer;
+            font-size: 2em; color: #ccc; cursor: pointer;
             transition: color 0.2s ease, transform 0.2s ease;
-            margin: 0 3px;
+            margin: 0 3px; display: inline-block;
         }
-        .star-rating .star:hover,
-        .star-rating .star.hover { /* Estrellas al pasar el mouse por encima (hasta la seleccionada) */
-            color: var(--accent-dark); /* Dorado oscuro hover */
+        /* Style for stars being hovered over UP TO the current one */
+        .star-rating:hover .star:hover ~ .star i.fas, /* Stars after the hovered one */
+        .star-rating .star.selected ~ .star i.fas { /* Stars after the selected one */
+             /* Keep them solid if selected? No, make empty */
+             /* color: #ccc; /* Ensure stars after hover/select are empty */
+        }
+        .star-rating .star i { transition: color 0.2s ease; } /* Transition icon color */
+        .star-rating:hover .star:hover i.far, /* Hovered star icon */
+        .star-rating:hover .star:hover ~ .star i.far { /* Icons after hovered */
+            /* Keep empty */
+        }
+         /* Apply gold to stars up to the hovered one */
+        .star-rating .star:hover i,
+        .star-rating .star:hover ~ .star i {
+             color: #ccc; /* Reset following stars */
+        }
+        .star-rating .star:hover i.fa-star, /* Target both far and fas */
+        .star-rating .star.hover i.fa-star {
+            color: var(--accent-color); /* Gold on hover */
             transform: scale(1.15);
         }
-        .star-rating .star.selected { /* Estrellas seleccionadas */
-            color: var(--accent-color); /* Dorado */
-            transform: scale(1.1);
-        }
-        #rating-message {
-            margin-top: 15px;
-            padding: 15px;
-            background-color: var(--light-blue); /* Fondo celeste suave */
-            border-left: 4px solid var(--gold); /* Borde dorado */
-            border-radius: 8px;
-            color: var(--steel-blue); /* Texto azul acero */
-            font-size: 1em;
-            text-align: left; /* Alineado a la izquierda para mejor lectura */
-            min-height: 60px; /* Evita saltos */
-            display: none; /* Oculto hasta seleccionar */
-            animation: fadeInMessage 0.5s ease-out;
-        }
-         #rating-message strong {
-             color: var(--gold-dark);
-         }
-        @keyframes fadeInMessage {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Specific state for selected (persists after hover out) */
+        .star-rating .star.selected i.fa-star {
+             color: var(--accent-color); /* Gold */
+             transform: scale(1.1);
         }
 
+        #rating-message {
+            margin-top: 15px; padding: 15px; background-color: var(--light-blue);
+            border-left: 4px solid var(--gold); border-radius: 8px; color: var(--steel-blue);
+            font-size: 1em; text-align: left; min-height: 70px;
+            display: none; /* Start hidden */
+            opacity: 0; max-height: 0; overflow: hidden;
+            transition: opacity 0.4s ease-out, max-height 0.4s ease-out, padding 0.4s ease-out, margin-top 0.4s ease-out;
+        }
+        #rating-message.visible { /* Class to show message */
+             display: block;
+             opacity: 1;
+             max-height: 200px;
+             padding: 15px; /* Ensure padding is reapplied */
+             margin-top: 15px; /* Ensure margin is reapplied */
+        }
+         #rating-message strong { color: var(--gold-dark); }
+        @keyframes fadeInMessage { /* Can be removed if using opacity transition */
+            /* from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } */
+        }
 
         /* --- Tools Section (Quote + Contact) --- */
-        .tools-section { margin-top: 0; /* Ya no necesita margen superior si va después de rating */ display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .tool-card { background: var(--white-translucent); padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px var(--shadow-color); transition: transform 0.3s ease; }
-        .tool-card:hover { transform: translateY(-3px); }
+        .tools-section { margin-top: 30px; /* Adjusted margin */ display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .tool-card { background: var(--white-translucent); padding: 25px; border-radius: 20px; box-shadow: 0 5px 20px var(--shadow-color); transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added shadow transition */ }
+        .tool-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
         .tool-title { font-family: 'Playfair Display', serif; font-size: 1.5em; color: var(--gold); margin-bottom: 15px; text-align: center; }
         /* Quote Tool */
         .quote-tool { text-align: center; }
@@ -196,16 +213,13 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            body { padding-top: 20px; } /* Reset padding */
+            body { padding-top: 20px; }
             .container { width: 95%; padding: 15px; margin: 10px auto; }
-            .header { padding: 30px 15px; }
-            .name { font-size: 2.2em; } .tagline { font-size: 1.1em; } .contact { font-size: 0.9em; }
+            .header { padding: 30px 15px; } .name { font-size: 2.2em; } .tagline { font-size: 1.1em; } .contact { font-size: 0.9em; }
             .tabs-nav { gap: 5px; } .tab-btn { padding: 8px 14px; font-size: 0.9em; }
             .secondary-nav-container { flex-direction: column; gap: 10px; align-items: center; }
             .secondary-nav-btn { padding: 12px 24px; font-size: 1em; width: 80%; max-width: 300px; }
-             /* Stack rating section */
-             .rating-choice-section h3 { font-size: 1.4em; }
-             .star-rating .star { font-size: 1.8em; }
+            .rating-choice-section h3 { font-size: 1.4em; } .star-rating .star { font-size: 1.8em; }
             .video-container iframe { height: 250px; } .section-title { font-size: 1.6em; } .job-title { font-size: 1.1em; }
             .skills-grid { grid-template-columns: 1fr; } .languages { flex-direction: column; align-items: center;} .lang-card { min-width: 180px; }
             .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
@@ -258,62 +272,26 @@
         <div id="summary" class="tab-content active">
             <h2 class="section-title">Professional Summary</h2>
             <p>Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
-
-             <div class="rating-choice-section">
-                <h3>How Do You Typically Choose a Freelancer?</h3>
-                <div class="star-rating" id="freelancerRating">
-                    <span class="star" data-value="1"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="2"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="3"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="4"><i class="far fa-star"></i></span>
-                    <span class="star" data-value="5"><i class="far fa-star"></i></span>
-                </div>
-                <div id="rating-message">
-                    </div>
-            </div>
-            </div>
+        </div>
 
         <div id="experience" class="tab-content">
             <h2 class="section-title">Professional Experience</h2>
-            <div class="job"> <h3 class="job-title">Freelance Translator & Proofreader</h3>
-                <p class="company-dates">Upwork | May 2023 – Present</p>
-                <ul>
-                    <li>Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
-                    <li>Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
-                    <li>Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
-                </ul>
-                <div class="testimonial">
-                    <strong>Hebrew to English Translation Project</strong><br>
-                    Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br>
-                    "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency... [...] Five stars!"
-                    <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div>
-            </div>
-            <div class="job"> <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3>
-                <p class="company-dates">Upwork | May 2023 – Present</p>
-                <ul>
-                    <li>Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
-                    <li>Received consistent 5-star client feedback for technical quality and attention to detail.</li>
-                </ul>
-                <div class="testimonial">
-                    <strong>Video Editing of a Short Family Video</strong><br>
-                    Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br>
-                    "Danilo did a great work! Was very responsive, created a great, professional video... [...] I'd fully recommend working with him!"
-                    <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div>
-            </div>
+            <div class="job"> <h3 class="job-title">Freelance Translator & Proofreader</h3> <p class="company-dates">Upwork | May 2023 – Present</p> <ul> <li>Successfully completed 10+ complex translation projects...</li> <li>Mastered Machine Translation Post-Editing (MTPE) workflows...</li> <li>Achieved and maintained 100% Client Satisfaction and Job Success Score...</li> </ul> <div class="testimonial"> <strong>Hebrew to English Translation Project</strong><br> Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)<br> "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience..." <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div> </div>
+            <div class="job"> <h3 class="job-title">Freelance Video Editor & Subtitle Creator</h3> <p class="company-dates">Upwork | May 2023 – Present</p> <ul> <li>Contributed to the clarity and accessibility of medical e-learning modules...</li> <li>Received consistent 5-star client feedback...</li> </ul> <div class="testimonial"> <strong>Video Editing of a Short Family Video</strong><br> Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)<br> "Danilo did a great work! Was very responsive..." <button class="toggle-btn" onclick="toggleTestimonial(this)">Read More</button> </div> </div>
         </div>
 
         <div id="skills" class="tab-content">
-             <h2 class="section-title">Skills</h2>
+            <h2 class="section-title">Skills</h2>
              <div class="skills-grid">
-                 <div class="skill-card"><h3>Medical Translation</h3><ul><li>Clinical Documentation, Patient Reports</li><li>Informed Consents, MedTech Manuals</li><li>Academic Papers, Regulatory Submissions (basic)</li><li>Healthcare Marketing Content</li></ul></div>
+                 <div class="skill-card"><h3>Medical Translation</h3><ul><li>Clinical Documentation...</li><li>Informed Consents...</li><li>Academic Papers...</li><li>Healthcare Marketing...</li></ul></div>
                  <div class="skill-card"><h3>Translation & Editing</h3><ul><li>Proofreading, Copy Editing, MTPE</li><li>Terminology Management, QA</li><li>Style Guide Implementation</li></ul></div>
                  <div class="skill-card"><h3>Software & Tools</h3><ul><li>MS Office (Advanced), Google Workspace</li><li>CapCut, Subtitle Edit</li><li>Basic SEO</li></ul></div>
                  <div class="skill-card"><h3>Other</h3><ul><li>Medical Copywriting, Ghostwriting</li><li>Cross-Cultural Communication</li></ul></div>
              </div>
              <div class="languages">
-                 <div class="lang-card"><strong>Spanish</strong><br><small>Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small></div>
+                 <div class="lang-card"><strong>Spanish</strong><br><small>Native (Born in Málaga, Spain...)</small></div>
                  <div class="lang-card"><strong>English</strong><br><small>Fluent (C1 Equivalent, 15+ years)</small></div>
-                 <div class="lang-card"><strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years daily immersion)</small></div>
+                 <div class="lang-card"><strong>Hebrew</strong><br><small>Fluent (C1 Equivalent, 10+ years...)</small></div>
              </div>
         </div>
 
@@ -321,34 +299,47 @@
             <h2 class="section-title">Education</h2>
             <div class="education-item">
                 <h3>Candidate for Doctor of Medicine (MD)</h3>
-                <p class="company-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
-                <p>Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
+                <p class="company-dates">Universidad Nacional de Mar del Plata | ... | Expected Graduation: 2029</p>
+                <p>Acquiring comprehensive knowledge of anatomy, physiology...</p>
             </div>
         </div>
 
         <div id="portfolio" class="tab-content">
              <h2 class="section-title">Portfolio Highlights</h2>
-             <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill. (Samples available upon request due to confidentiality)</p> <div class="portfolio-grid">
-                  <div class="portfolio-item"><h4>Hebrew to English Medical Records</h4><p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$270 Fixed | Jul 2025</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
-                  <div class="portfolio-item"><h4>Hebrew Tutorial Video Adaptation</h4><p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$242 Fixed | Jun 2025</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
-                  <div class="portfolio-item"><h4>Family Video Editing & Subtitling</h4><p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">5.0 Rating | $150 Fixed | Oct 2024</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
-                  <div class="portfolio-item"><h4>Native Hebrew Audio Review</h4><p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;">$370 Fixed | Jul 2025</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
+             <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;">Selected projects showcasing translation accuracy and technical skill. (Samples available upon request due to confidentiality)</p>
+             <div class="portfolio-grid">
+                  <div class="portfolio-item"><h4>Hebrew to English Medical Records</h4><p>...</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
+                  <div class="portfolio-item"><h4>Hebrew Tutorial Video Adaptation</h4><p>...</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
+                  <div class="portfolio-item"><h4>Family Video Editing & Subtitling</h4><p>...</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
+                  <div class="portfolio-item"><h4>Native Hebrew Audio Review</h4><p>...</p><a href="#" onclick="alert('Portfolio samples available upon request due to NDAs.')">Details</a></div>
               </div>
         </div>
 
         <div id="strengths" class="tab-content">
-            <h2 class="section-title">Key Strengths</h2>
+             <h2 class="section-title">Key Strengths</h2>
             <ul class="strengths-list">
-                <li><strong>Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
-                <li><strong>Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
-                <li><strong>Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
+                <li><strong>Elite Trilingual Medical Acumen:</strong> ...</li>
+                <li><strong>Cross-Cultural Precision:</strong> ...</li>
+                <li><strong>Proven Reliability:</strong> ...</li>
             </ul>
         </div>
 
+        <div class="rating-choice-section">
+            <h3>How Do You Typically Choose a Freelancer?</h3>
+            <div class="star-rating" id="freelancerRating">
+                <span class="star" data-value="1"><i class="far fa-star"></i></span>
+                <span class="star" data-value="2"><i class="far fa-star"></i></span>
+                <span class="star" data-value="3"><i class="far fa-star"></i></span>
+                <span class="star" data-value="4"><i class="far fa-star"></i></span>
+                <span class="star" data-value="5"><i class="far fa-star"></i></span>
+            </div>
+            <div id="rating-message">
+                 Hover over stars to see feedback. </div>
+        </div>
         <div class="tools-section">
             <div class="tool-card">
                 <h3 class="tool-title">Quick Quote Calculator</h3>
-                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Estimate your project cost (USD per word/minute).</p>
+                <p>...</p>
                 <div class="quote-tool">
                     <div class="quote-input">
                         <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1">
@@ -361,12 +352,12 @@
                     </div>
                     <button onclick="calculateQuote()">Calculate Estimate</button>
                     <div id="quoteResult" class="quote-result"></div>
-                    <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend on complexity, language pair, and urgency.</p>
+                    <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;">Note: Final quotes depend...</p>
                 </div>
             </div>
             <div class="tool-card">
                 <h3 class="tool-title">Get in Touch</h3>
-                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;">Ready to collaborate? Tell me about your project.</p>
+                <p>...</p>
                 <form class="contact-form" onsubmit="sendEmail(event)">
                     <input type="text" id="contactName" placeholder="Your Name" required>
                     <input type="email" id="contactEmail" placeholder="Your Email" required>
@@ -393,17 +384,16 @@
     <script>
         // --- Tab Functionality ---
         function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none'); // Use display none/block
+            document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
             document.getElementById(tabName).style.display = 'block';
-
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
             if (clickedButton) clickedButton.classList.add('active');
         }
 
         // --- Testimonial Toggle ---
-         function toggleTestimonial(buttonElement) { // Changed parameter to button
-            const testimonial = buttonElement.parentElement; // Get the parent .testimonial div
+         function toggleTestimonial(buttonElement) {
+            const testimonial = buttonElement.closest('.testimonial'); // Find closest parent with class
              if (testimonial) {
                  testimonial.classList.toggle('expanded');
                  buttonElement.textContent = testimonial.classList.contains('expanded') ? 'Read Less' : 'Read More';
@@ -411,30 +401,14 @@
          }
 
         // --- Quote Calculator ---
-        function calculateQuote() {
-            const wordsInput = document.getElementById('wordCount');
-            const rateSelect = document.getElementById('serviceType');
-            const resultDiv = document.getElementById('quoteResult');
-            const words = parseInt(wordsInput.value) || 0;
-            const rate = parseFloat(rateSelect.value);
-            if (words > 0 && rate) {
-                const total = (words * rate).toFixed(2);
-                resultDiv.innerHTML = `Approx. Quote: <strong>$${total} USD</strong>`; // Added strong tag
-            } else {
-                resultDiv.innerHTML = 'Please enter word/minute count.';
-            }
+        function calculateQuote() { /* ... (igual que antes) ... */
+            const wordsInput = document.getElementById('wordCount'); const rateSelect = document.getElementById('serviceType'); const resultDiv = document.getElementById('quoteResult'); const words = parseInt(wordsInput.value) || 0; const rate = parseFloat(rateSelect.value);
+            if (words > 0 && rate) { const total = (words * rate).toFixed(2); resultDiv.innerHTML = `Approx. Quote: <strong>$${total} USD</strong>`; } else { resultDiv.innerHTML = 'Please enter word/minute count.'; }
         }
 
         // --- Contact Form (mailto link) ---
-        function sendEmail(event) {
-            event.preventDefault();
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contactMessage').value;
-            const subject = `Project Inquiry from ${name} (Website)`;
-            const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
-            window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            // event.target.reset(); // Consider adding a success message instead of auto-reset
+        function sendEmail(event) { /* ... (igual que antes) ... */
+            event.preventDefault(); const name = document.getElementById('contactName').value; const email = document.getElementById('contactEmail').value; const message = document.getElementById('contactMessage').value; const subject = `Project Inquiry from ${name} (Website)`; const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`; window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         }
 
         // --- Newsletter Form Submission ---
@@ -450,69 +424,68 @@
         newsletterForm.addEventListener("submit", handleNewsletterSubmit);
 
 
-         // --- *** NUEVO JAVASCRIPT: STAR RATING *** ---
-        const ratingContainer = document.getElementById('freelancerRating');
-        const ratingMessage = document.getElementById('rating-message');
-        const stars = ratingContainer.querySelectorAll('.star');
+         // --- *** JAVASCRIPT STAR RATING (HOVER VERSION) *** ---
+        const ratingContainerHover = document.getElementById('freelancerRating');
+        const ratingMessageHover = document.getElementById('rating-message');
+        const starsHover = ratingContainerHover.querySelectorAll('.star');
 
-        const ratingMessages = {
+        const ratingMessagesHover = { // Using the refined messages (Option A modified)
             1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
             2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
             3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
             4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
-            5: "<strong>Investing in Excellence!</strong> You chose a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind." // Option A modified slightly
+            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
         };
 
-        let currentRating = 0; // Guarda la selección actual
-
-        stars.forEach(star => {
-            // Mouse Enter: Ilumina hasta la estrella actual
+        starsHover.forEach(star => {
             star.addEventListener('mouseenter', () => {
                 const rating = parseInt(star.getAttribute('data-value'));
-                highlightStars(rating, 'hover');
-            });
-
-            // Mouse Leave: Vuelve al estado seleccionado (o apagado)
-            star.addEventListener('mouseleave', () => {
-                highlightStars(currentRating, 'selected'); // Vuelve a la selección actual
-            });
-
-            // Click: Selecciona la calificación y muestra el mensaje
-            star.addEventListener('click', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                currentRating = rating; // Guarda la selección
-                highlightStars(rating, 'selected'); // Marca como seleccionado
-                ratingMessage.innerHTML = ratingMessages[rating] || ''; // Muestra mensaje
-                ratingMessage.style.display = 'block'; // Asegura que sea visible
+                highlightStarsHover(rating);
+                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
+                ratingMessageHover.classList.add('visible'); // Add class to show message
             });
         });
 
-        // Función para iluminar/seleccionar estrellas
-        function highlightStars(rating, stateClass) {
-             stars.forEach(star => {
-                 const starValue = parseInt(star.getAttribute('data-value'));
-                 // Limpiar clases anteriores
-                 star.classList.remove('hover', 'selected');
-                 star.innerHTML = '<i class="far fa-star"></i>'; // Reset icon to empty
+        ratingContainerHover.addEventListener('mouseleave', () => {
+            highlightStarsHover(0); // Turn off all stars
+            ratingMessageHover.classList.remove('visible'); // Remove class to hide
+            // Optional: Delay clearing the text slightly for smoother transition out
+            // setTimeout(() => { ratingMessageHover.innerHTML = ''; }, 400);
+            ratingMessageHover.innerHTML = 'Hover over stars to see feedback.'; // Reset to initial text or empty
+        });
 
+        function highlightStarsHover(rating) {
+             starsHover.forEach(star => {
+                 const starValue = parseInt(star.getAttribute('data-value'));
+                 const starIcon = star.querySelector('i'); // Get the icon element
                  if (starValue <= rating) {
-                     star.classList.add(stateClass); // Añade 'hover' o 'selected'
-                     star.innerHTML = '<i class="fas fa-star"></i>'; // Change icon to solid
+                     starIcon.classList.remove('far'); // Remove empty class
+                     starIcon.classList.add('fas'); // Add solid class
+                     star.classList.add('selected'); // Use 'selected' for gold color + scale
+                 } else {
+                     starIcon.classList.remove('fas'); // Remove solid class
+                     starIcon.classList.add('far'); // Add empty class
+                     star.classList.remove('selected'); // Remove gold + scale
                  }
+                 // Always remove 'hover' class itself, rely on parent hover if needed
+                 star.classList.remove('hover');
              });
         }
-        // --- FIN JAVASCRIPT STAR RATING ---
+
+        // Set initial icon state (all empty) and message
+        highlightStarsHover(0);
+        ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
+        ratingMessageHover.classList.add('visible'); // Show initial message
+        // --- FIN JAVASCRIPT STAR RATING (HOVER VERSION) ---
 
 
         // --- Initialize default tab & Fix Testimonial Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
-            openTab('summary'); // Abre 'Summary' por defecto
+            openTab('summary');
 
-             // Corrección: El listener debe estar en el botón, no en el div .job
-             document.querySelectorAll('.testimonial .toggle-btn').forEach(btn => {
+            document.querySelectorAll('.testimonial .toggle-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
-                    // e.stopPropagation(); // No necesita stopPropagation si está en el botón
-                    toggleTestimonial(e.target); // Pasa el botón a la función
+                    toggleTestimonial(e.target);
                 });
             });
         });
