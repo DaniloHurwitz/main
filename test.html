@@ -6,7 +6,6 @@
     <title>Danilo Hurwitz | Trilingual Medical Translator</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
     <style>
         /*
          * CSS ORGANIZATION:
@@ -177,18 +176,6 @@
             align-items: center;
             gap: 5px;
         }
-        
-        /* Selector de tema personalizado */
-        .theme-switcher select {
-            padding: 5px;
-            background: var(--white-semi);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--body-text);
-            font-size: 0.9em;
-            cursor: pointer;
-            transition: background 0.3s ease-out, border-color 0.3s ease-out;
-        }
 
         .lang-switcher label {
             font-size: 0.9em;
@@ -211,6 +198,26 @@
             background: var(--card-semi);
             border-color: var(--border-color);
         }
+        
+        /* New welcome banner CSS */
+        #welcome-banner {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            background: var(--gold); 
+            color: white; 
+            padding: 10px; 
+            text-align: center; 
+            z-index: 1000; 
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            transform: translateY(-100%); /* Start hidden */
+        }
+        
+        #welcome-banner.show-it {
+            transform: translateY(0%); /* Show on load */
+        }
 
         .powered-badge {
             position: fixed;
@@ -230,53 +237,53 @@
             opacity: 1;
         }
         
-        /* CHATBOT STYLES (Función 6) */
+        /* Chatbot Button */
         #chat-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gold);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            z-index: 1000;
-            transition: background 0.3s ease-out;
+            position:fixed; 
+            bottom:20px; 
+            right:20px; 
+            background:var(--gold); 
+            color:white; 
+            border:none; 
+            border-radius:50%; 
+            width:60px; 
+            height:60px; 
+            cursor:pointer;
+            z-index: 1002;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        #chat-btn:hover {
+            transform: scale(1.1);
         }
         
+        /* Chatbot Window */
         #chat-window {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            background: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 4px 12px var(--shadow-color);
-            display: flex;
-            flex-direction: column;
-            z-index: 1000;
+            position:fixed; 
+            bottom:90px; 
+            right:20px; 
+            width:300px; 
+            height:400px; 
+            background:var(--card-bg); 
+            border-radius:10px; 
+            box-shadow:0 4px 12px var(--shadow-color); 
+            display:flex; 
+            flex-direction:column;
+            z-index: 1002;
         }
-        
         #chat-messages {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
+            flex:1; 
+            padding:10px; 
+            overflow-y:auto;
         }
-        
         #chat-input {
-            border-top: 1px solid var(--border-color);
-            padding: 10px;
+            border: none;
+            border-top:1px solid var(--border-color); 
+            padding:10px;
             width: 100%;
             box-sizing: border-box;
-            border-radius: 0 0 10px 10px;
-            border: none;
-            outline: none;
-            background: var(--card-bg);
-            color: var(--body-text);
         }
+
 
         /* 4. Layout & Structure */
         .header {
@@ -539,23 +546,6 @@
             font-size: 0.95em;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        /* Progress Bar (Función 2) */
-        #tab-progress {
-            width: 100%; 
-            height: 4px; 
-            background: var(--sky-blue); 
-            margin: 10px 0;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        #tab-progress div {
-            width: 0%; 
-            height: 100%; 
-            background: var(--gold); 
-            transition: width 0.3s;
-        }
-
 
         body.dark .tab-btn {
             background: rgba(74, 144, 226, 0.3);
@@ -749,20 +739,6 @@
             transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
             backdrop-filter: blur(5px);
         }
-        
-        /* Progress Bar Styles (Función 8) */
-        .progress-bar { 
-            height: 4px; 
-            background: var(--slate-gray); 
-            margin-top: 5px; 
-            overflow: hidden; 
-            border-radius: 2px; 
-        } 
-        .fill { 
-            height: 100%; 
-            background: var(--gold); 
-            transition: width 1s ease; 
-        }
 
         .skill-card:hover {
             transform: scale(1.02) translateY(-2px);
@@ -894,20 +870,6 @@
         .quote-tool {
             text-align: center;
         }
-        
-        /* Estilos para el botón del Quiz (Función 3) */
-        #start-quiz-btn {
-            padding: 8px 12px;
-            background: var(--sky-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 10px;
-        }
-
 
         .quote-input {
             display: grid;
@@ -1165,7 +1127,7 @@
             }
 
             .portfolio-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
 
             .tools-section {
@@ -1319,16 +1281,7 @@
     </style>
 </head>
 <body>
-    <button id="chat-btn" title="Ask a quick question"><i class="fas fa-comments"></i></button>
-
     <div class="toggles-container">
-        <div class="theme-switcher">
-            <select id="themeSelect" title="Select Theme">
-                <option value="default">Default</option>
-                <option value="medical">Medical Blue</option>
-            </select>
-        </div>
-        
         <div class="dark-mode-toggle">
             <label class="toggle-label" data-i18n="dark-mode">Dark Mode</label>
             <label class="dark-mode-switch">
@@ -1359,6 +1312,7 @@
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/KjFjam4KmCU?si=RKffDr3whfKj3MIi&controls=0" title="Presentation Video" frameborder="0" allowfullscreen></iframe>
             </div>
+             <button id="share-btn" onclick="sharePersonalized()" style="margin-top: 10px; padding: 5px 10px; background: var(--sky-blue); color: white; border: none; border-radius: 5px; cursor: pointer;"><i class="fas fa-share"></i> Share</button>
         </header>
 
         <div class="career-status-bar">
@@ -1374,45 +1328,48 @@
             <a href="tools.html" class="secondary-nav-btn" data-i18n="tools-title">Freelancer Utilities
                 <span class="secondary-nav-subtitle" data-i18n="tools-subtitle">Calculators & Resources</span>
             </a>
+            <button class="secondary-nav-btn" onclick="startProjectQuiz()" data-i18n="start-quiz">¿Proyecto Ideal?
+                <span class="secondary-nav-subtitle" data-i18n="quiz-subtitle">Encuentra tu servicio</span>
+            </button>
         </div>
         
-       <div class="micro-carousel-container">
-  <div class="micro-samples" id="micro-samples">
+       <div class="micro-carousel-container" id="rec-carousel">
+            <div class="micro-samples" id="micro-samples">
 
-    <div class="sample-card">
-      <h4>Medical Records Translation (HE > EN)</h4>
-      <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>Medical Records Translation (HE > EN)</h4>
+                  <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
+                </div>
 
-    <div class="sample-card">
-      <h4>MTPE – Medical Hebrew to English</h4>
-      <p>Post-editing of machine-translated content for medical use, achieving native-level fluency and consistency.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>MTPE – Medical Hebrew to English</h4>
+                  <p>Post-editing of machine-translated content for medical use, achieving native-level fluency and consistency.</p>
+                </div>
 
-    <div class="sample-card">
-      <h4>Audio Review & Transcription (HE)</h4>
-      <p>Specialized review of spoken Hebrew medical terminology for AI dataset accuracy.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>Audio Review & Transcription (HE)</h4>
+                  <p>Specialized review of spoken Hebrew medical terminology for AI dataset accuracy.</p>
+                </div>
 
-    <div class="sample-card">
-      <h4>Tutorial Video Adaptation (HE > EN Subtitles)</h4>
-      <p>Localization and subtitle synchronization of Hebrew medical training modules.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>Tutorial Video Adaptation (HE > EN Subtitles)</h4>
+                  <p>Localization and subtitle synchronization of Hebrew medical training modules.</p>
+                </div>
 
-    <div class="sample-card">
-      <h4>Video Subtitling & Orientation Adjustment</h4>
-      <p>High-quality audiovisual editing with synchronized multilingual subtitles and format optimization.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>Video Subtitling & Orientation Adjustment</h4>
+                  <p>High-quality audiovisual editing with synchronized multilingual subtitles and format optimization.</p>
+                </div>
 
-    <div class="sample-card">
-      <h4>Medical Records Translation (HE > EN)</h4>
-      <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>Medical Records Translation (HE > EN)</h4>
+                  <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
+                </div>
 
-    <div class="sample-card">
-      <h4>Tutorial Video Adaptation (HE > EN Subtitles)</h4>
-      <p>Localization and subtitle synchronization of Hebrew medical training modules.</p>
-    </div>
+                <div class="sample-card">
+                  <h4>Tutorial Video Adaptation (HE > EN Subtitles)</h4>
+                  <p>Localization and subtitle synchronization of Hebrew medical training modules.</p>
+                </div>
             </div>
         </div>
         <nav class="tabs-nav">
@@ -1422,7 +1379,6 @@
             <button class="tab-btn" onclick="openTab('education')" data-i18n="tab-education">Education</button>
             <button class="tab-btn" onclick="openTab('portfolio')" data-i18n="tab-portfolio">Portfolio</button>
             <button class="tab-btn" onclick="openTab('strengths')" data-i18n="tab-strengths">Strengths</button>
-            <div id="tab-progress"><div></div></div>
         </nav>
 
         <div id="summary" class="tab-content active">
@@ -1510,7 +1466,7 @@
                     <strong data-i18n="lang-hebrew">Hebrew</strong><br><small data-i18n="lang-hebrew-desc">Fluent (C1 Equivalent, 10+ years daily immersion)</small>
                 </div>
             </div>
-            </div>
+        </div>
 
         <div id="education" class="tab-content">
             <h2 class="section-title" data-i18n="education-title">Education</h2>
@@ -1585,9 +1541,9 @@
                         </select>
                     </div>
                     <button onclick="calculateQuote()" data-i18n="calculate">Calculate Estimate</button>
-                    <button id="start-quiz-btn" onclick="startProjectQuiz()" data-i18n="start-quiz">Project Quiz?</button>
                     <div id="quoteResult" class="quote-result"></div>
                     <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;" data-i18n="quote-note">Note: Final quotes depend on complexity, language pair, and urgency.</p>
+                     <button onclick="startProjectQuiz()" data-i18n="start-quiz">¿Proyecto Ideal?</button>
                 </div>
             </div>
 
@@ -1613,9 +1569,11 @@
         </div>
     </div>
     <footer class="footer">
-        <a onclick="generateCustomPDF()" class="download-cv" data-i18n="download-cv">Download Full CV (PDF)</a> 
+        <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download data-i18n="download-cv">Download Full CV (PDF)</a>
         <p data-i18n="footer">&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
     </footer>
+
+    <button id="chat-btn" style="position:fixed; bottom:20px; right:20px; background:var(--gold); color:white; border:none; border-radius:50%; width:60px; height:60px; cursor:pointer; z-index: 1002; box-shadow: 0 4px 8px rgba(0,0,0,0.2);"><i class="fas fa-comments"></i></button>
 
     <script>
         // Array de frases dinámicas para el tagline (en inglés y español)
@@ -1629,17 +1587,28 @@
                 "100% Precisión Garantizada: Especialista en Traducción Médica",
                 "Estudiante de Medicina: Conocimiento Clínico Activo y Fluidez Trilingüe",
                 "Precisión Calificada Superior para Sectores HealthTech, Pharma y Académico"
-            ],
-            he: [
-                "100% דיוק מובטח: מומחה לתרגום רפואי",
-                "סטודנט לרפואה: ידע קליני פעיל ושטף תלת-לשוני",
-                "דיוק בדירוג גבוה למגזרי HealthTech, פארמה ואקדמיה"
             ]
         };
         
         let taglineIndex = 0;
         const taglineElement = document.getElementById('dynamicTagline');
         const intervalTime = 4000; // 4 segundos
+        
+        // --- CHATBOT QA PAIRS ---
+        const qaPairs = {
+            en: { 
+                "rates": "Medical translations: $0.12/word. Use the quote tool above! Editing: $0.04/word.", 
+                "delivery times": "Standard: 3-5 days/1k words. Rush available +20%." 
+            },
+            es: { 
+                "tarifas": "Traducciones médicas: $0.12/palabra. ¡Usa la herramienta de cotización arriba! Edición: $0.04/palabra.", 
+                "tiempos de entrega": "Estándar: 3-5 días/1k palabras. Urgente disponible +20%." 
+            },
+            he: { 
+                "תעריפים": "תרגומים רפואיים: $0.12/מילה. השתמש בכלי הציטוט למעלה! עריכה: $0.04/מילה.", 
+                "זמני אספקה": "סטנדרטי: 3-5 ימים/1k מילים. מהיר זמין +20%." 
+            }
+        };
 
         function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
             const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
@@ -1660,7 +1629,7 @@
         setInterval(updateDynamicTagline, intervalTime);
 
 
-        // Translations Object (CORREGIDO Y COMPLETO PARA HEBREO)
+        // Translations Object (Corregido el HE)
         const translations = {
             en: {
                 tagline: "Trilingual Medical Translator & Medical Student",
@@ -1675,7 +1644,6 @@
                 'blog-subtitle': "Insights & Guides",
                 'tools-title': "Freelancer Utilities",
                 'tools-subtitle': "Calculators & Resources",
-                'start-quiz': "Project Quiz?",
                 'tab-summary': "Summary",
                 'tab-experience': "Experience",
                 'tab-skills': "Skills",
@@ -1782,7 +1750,9 @@
                 'download-cv': "Download Full CV (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. All rights reserved.",
                 'dark-mode': "Dark Mode",
-                'language': "Language"
+                'language': "Language",
+                'start-quiz': "Find Your Ideal Service?",
+                'quiz-subtitle': "Match your needs",
             },
             es: {
                  tagline: "Traductor Médico Trilingüe y Estudiante de Medicina",
@@ -1797,7 +1767,6 @@
                 'blog-subtitle': "Perspectivas y Guías",
                 'tools-title': "Utilidades para Freelancers",
                 'tools-subtitle': "Calculadoras y Recursos",
-                'start-quiz': "¿Proyecto Ideal?",
                 'tab-summary': "Resumen",
                 'tab-experience': "Experiencia",
                 'tab-skills': "Habilidades",
@@ -1904,10 +1873,11 @@
                 'download-cv': "Descargar CV Completo (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
                 'dark-mode': "Modo Oscuro",
-                'language': "Idioma"
+                'language': "Idioma",
+                'start-quiz': "¿Proyecto Ideal?",
+                'quiz-subtitle': "Encuentra tu servicio",
             },
             he: {
-                // CORRECCIONES APLICADAS AQUÍ:
                 tagline: "מתרגם רפואי טרילינגואלי וסטודנט לרפואה",
                 contact: "מר דל פלאטה, ארגנטינה | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>לינקדאין</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>אפוורק</a>",
                 linkedin: "לינקדאין",
@@ -1920,7 +1890,6 @@
                 'blog-subtitle': "תובנות ומדריכים",
                 'tools-title': "כלי עזר לפרילנסרים",
                 'tools-subtitle': "מחשבונים ומשאבים",
-                'start-quiz': "שאלון פרוייקט?",
                 'tab-summary': "סיכום",
                 'tab-experience': "ניסיון",
                 'tab-skills': "כישורים",
@@ -1944,7 +1913,7 @@
                 'job2-li2': "קיבלתי משוב עקבי של 5 כוכבים מלקוחות על איכות טכנית ותשומת לב לפרטים.",
                 'testimonial2-title': "עריכת וידאו משפחתי קצר",
                 'testimonial2-rating': "דירוג: 5.0 (9 אוק 2024 - 28 אוק 2024)",
-                'testimonial2-text': "דנילו עשה עבודה נהדרת! היה מגיב מאוד, יצר וידאו מקצועי נהדר והבטיח שכל מה שהייתי צריך נעשה בצורה מושלמת. [...] אני ממליץ לחלוטין לעבוד איתו!",
+                'testimonial2-text': "דנilo עשה עבודה נהדרת! היה מגיב מאוד, יצר וידאו מקצועי נהדר והבטיח שכל מה שהייתי צריך נעשה בצורה מושלמת. [...] אני ממליץ לחלוטין לעבוד איתו!",
                 'read-more': "קרא עוד",
                 'read-less': "קרא פחות",
                 'skills-title': "כישורים",
@@ -1967,7 +1936,7 @@
                 'lang-spanish': "ספרדית",
                 'lang-spanish-desc': "אמהרית (נולד במלאגה, ספרד - מומחיות בגרסאות קסטיליאני ו-LATAM)",
                 'lang-english': "אנגלית",
-                'lang-english-desc': "שוטף (מקביל C1, 15+ שנים)",
+                'lang-english-desc': "שוטף (מקביל C1, 12+ שנים)",
                 'lang-hebrew': "עברית",
                 'lang-hebrew-desc': "שוטף (מקביל C1, 10+ שנים טבילה יומית)",
                 'education-title': "חינוך",
@@ -2027,159 +1996,152 @@
                 'download-cv': "הורד קורות חיים מלאים (PDF)",
                 'footer': "© 2025 דנילו הורוויץ. כל הזכויות שמורות.",
                 'dark-mode': "מצב כהה",
-                'language': "שפה"
+                'language': "שפה",
+                'start-quiz': "מצא את השירות האידיאלי?",
+                'quiz-subtitle': "התאם את הצרכים שלך",
             }
         };
 
-        // Array de los Micro-samples para el carrusel (Función 13 - En HEBREO)
-        const microSampleData = [
-            { en: "Medical Records Translation (HE > EN)", he: "תרגום רשומות רפואיות (עב' > אנג')" },
-            { en: "MTPE – Medical Hebrew to English", he: "MTPE – עריכה לאחר תרגום מכונה (רפואי)" },
-            { en: "Audio Review & Transcription (HE)", he: "סקירת אודיו ותמלול (עברית) למונחים רפואיים" },
-            { en: "Tutorial Video Adaptation (HE > EN Subtitles)", he: "התאמת וידאו הדרכה (כתוביות עב' > אנג')" },
-            { en: "Video Subtitling & Orientation Adjustment", he: "כתוביות וידאו והתאמת כיוון (רב לשוני)" },
-            // Duplicados para el carrusel infinito (Función 13)
-            { en: "Medical Records Translation (HE > EN)", he: "תרגום רשומות רפואיות (עב' > אנג')" },
-            { en: "Tutorial Video Adaptation (HE > EN Subtitles)", he: "התאמת וידאו הדרכה (כתוביות עב' > אנג')" }
-        ];
-
-        // --- FUNCIONES ADICIONALES (1-10) ---
-
-        // Función 1: Bienvenida Personalizada
-        function showPersonalizedWelcome() {
-            const now = new Date();
-            const hour = now.getHours();
-            const lang = document.getElementById('langSelect').value;
-            let greeting = '';
-            
-            if (hour < 12) greeting = lang === 'es' ? '¡Buenos días!' : (lang === 'he' ? 'בוקר טוב!' : 'Good morning!');
-            else if (hour < 18) greeting = lang === 'es' ? '¡Buenas tardes!' : (lang === 'he' ? 'ערב טוב!' : 'Good afternoon!');
-            else greeting = lang === 'es' ? '¡Buenas noches!' : (lang === 'he' ? 'לילה טוב!' : 'Good evening!');
-            
-            const userName = localStorage.getItem('userName');
-            
-            let message;
-            if (userName) {
-                if (lang === 'es') message = `${greeting} ${userName}, bienvenido de vuelta.`;
-                else if (lang === 'he') message = `${greeting} ${userName}, ברוך הבא חזרה.`;
-                else message = `${greeting} ${userName}, welcome back.`;
-            } else {
-                if (lang === 'es') message = `${greeting} Explora mi portafolio.`;
-                else if (lang === 'he') message = `${greeting} חקור את תיק העבודות שלי.`;
-                else message = `${greeting} Explore my portfolio.`;
-            }
-
-            const banner = document.createElement('div');
-            banner.id = 'welcome-banner';
-            banner.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; background: var(--gold); color: white; padding: 10px; text-align: center; z-index: 1000; transform: translateY(-100%); transition: transform 0.3s ease; font-family: "Inter", sans-serif;';
-            banner.textContent = message;
-            
-            // Añadir al DOM y animar la entrada/salida
-            document.body.appendChild(banner);
-            setTimeout(() => banner.style.transform = 'translateY(0)', 100);
-            setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000);
-            
-            // Función 9: Recordatorios de Visita Recurrente
-            let visits = parseInt(localStorage.getItem('visits')) || 0;
-            visits++;
-            localStorage.setItem('visits', visits);
-            
-            let extraMsg = '';
-            if (visits > 3 && !userName) {
-                extraMsg = lang === 'es' ? '¡Fan recurrente! Mira mi último proyecto.' : (lang === 'he' ? 'מבקר חוזר! בדוק את הפרויקט האחרון שלי.' : "Returning fan! Check my latest project.");
-                if (banner.textContent.includes('Explora') || banner.textContent.includes('חקור')) {
-                    banner.textContent = `${greeting} ${extraMsg}`;
-                    setTimeout(() => banner.style.transform = 'translateY(0)', 100);
-                    setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000);
+        // Language Change Function
+        function changeLanguage(lang) {
+            document.body.classList.add('translating');
+            setTimeout(() => {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.dataset.i18n;
+                    if (translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                });
+                // Update placeholders and options
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                    const key = el.dataset.i18nPlaceholder;
+                    if (translations[lang][key]) {
+                        el.placeholder = translations[lang][key];
+                    }
+                });
+                document.querySelectorAll('[data-i18n-options] option').forEach(opt => {
+                    const key = opt.dataset.i18n;
+                    if (translations[lang][key]) {
+                        opt.innerHTML = translations[lang][key];
+                    }
+                });
+                // RTL for Hebrew
+                if (lang === 'he') {
+                    document.body.dir = 'rtl';
+                    document.documentElement.lang = 'he';
+                } else {
+                    document.body.dir = 'ltr';
+                    document.documentElement.lang = lang;
                 }
-            }
+                // Update rating messages
+                updateRatingMessages(lang);
+                
+                // --- UPDATE DYNAMIC TAGLINE ON LANGUAGE CHANGE ---
+                updateDynamicTagline(lang);
+                
+                document.body.classList.remove('translating');
+                // Show badge
+                const badge = document.getElementById('poweredBadge');
+                badge.classList.add('show');
+                setTimeout(() => badge.classList.remove('show'), 3000);
+            }, 300);
         }
-        
-        // Función 2: Progreso de Lectura en Tabs (Parte 1)
-        let visitedTabs = JSON.parse(localStorage.getItem('visitedTabs')) || [];
-        const totalTabs = 6;
-        
-        function updateTabProgress(tabName) {
-            if (!visitedTabs.includes(tabName)) {
-                visitedTabs.push(tabName);
-                localStorage.setItem('visitedTabs', JSON.stringify(visitedTabs));
-            }
-            
-            const progress = (visitedTabs.length / totalTabs) * 100;
-            const progressBar = document.getElementById('tab-progress');
-            
-            if (progressBar) {
-                progressBar.querySelector('div').style.width = progress + '%';
-            }
-            
-            // Desbloqueo de Bonus (Función 2, parte 2)
-            if (progress >= 100 && localStorage.getItem('bonusGiven') !== 'true') {
-                const lang = document.getElementById('langSelect').value;
-                const message = lang === 'es' ? '¡Felicidades! Has explorado todo. Usa código "FULLTOUR" en la cotizadora para 10% off.' : (lang === 'he' ? 'מזל טוב! חקרת הכל. השתמש בקוד "FULLTOUR" בכלי הציטוט ל-10% הנחה.' : 'Congrats! You completed the tour. Use code "FULLTOUR" in the quote tool for 10% off.');
-                alert(message); 
-                localStorage.setItem('bonusGiven', 'true');
-            }
-            
-            // Resalta tabs no visitados
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                const btnTab = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
-                btn.style.opacity = visitedTabs.includes(btnTab) ? '1' : '0.6';
-            });
-        }
-        
-        // Función 3: Quiz Interactivo (Datos)
-        const quizQuestions = [
-            { q_en: 'What type of content is your project? (Medical/General)', q_es: '¿Qué tipo de contenido necesita? (Médico/General)', q_he: 'מה סוג התוכן שאתה צריך? (רפואי/כללי)', options: ['Medical', 'General'] },
-            { q_en: 'Language Pair? (HE>EN, ES>EN, Other)', q_es: 'Idiomas: ¿De/Para?', q_he: 'זוג שפות? (עב">אנג", ספר">אנג", אחר)', options: ['HE>EN', 'ES>EN', 'Other'] },
-            { q_en: 'Urgency: What is your timeframe?', q_es: 'Urgencia: ¿Cuál es el plazo?', q_he: 'דחיפות: מה מסגרת הזמן שלך?', options: ['Fast (<1 week)', 'Normal'] }
-        ];
 
+        // --- FUNCION DYNAMIC TAGLINE ---
+        function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
+            const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
+            
+            // Re-apply the cycle based on the new language's array size
+            taglineIndex = taglineIndex % slogans.length;
+            
+            taglineElement.classList.remove('animate-tagline'); // Reset animation
+            void taglineElement.offsetWidth; // Trigger reflow
+            
+            taglineElement.textContent = slogans[taglineIndex];
+            taglineElement.classList.add('animate-tagline'); // Start animation
+            
+            taglineIndex = (taglineIndex + 1) % slogans.length;
+        }
+
+        // --- QUIZ INTERACTIVO ---
         function startProjectQuiz() {
+            const lang = document.getElementById('langSelect').value;
+            const quizData = {
+                en: [
+                    { q: 'What kind of content is it?', options: ['Medical/Pharma', 'General/Marketing', 'Academic/Scientific'] },
+                    { q: 'Languages: From/To?', options: ['HE>EN', 'ES>EN', 'EN>ES', 'Other'] },
+                    { q: 'Urgency: Deadline?', options: ['Rush (<1 week)', 'Normal'] }
+                ],
+                es: [
+                    { q: '¿Qué tipo de contenido?', options: ['Médico/Farma', 'General/Marketing', 'Académico/Científico'] },
+                    { q: 'Idiomas: ¿De/Para?', options: ['HE>EN', 'ES>EN', 'EN>ES', 'Otro'] },
+                    { q: 'Urgencia: ¿Plazo?', options: ['Rápido (<1 semana)', 'Normal'] }
+                ],
+                he: [
+                    { q: 'מהו סוג התוכן?', options: ['רפואי/פרמצבטי', 'כללי/שיווקי', 'אקדמי/מדעי'] },
+                    { q: 'שפות: מ/אל?', options: ['עב>אנג', 'ספ>אנג', 'אנג>ספ', 'אחר'] },
+                    { q: 'דחיפות: דד ליין?', options: ['דחוף (<שבוע)', 'רגיל'] }
+                ]
+            };
+            
+            const quiz = quizData[lang] || quizData.en;
             let currentQ = 0;
             let answers = [];
-            const lang = document.getElementById('langSelect').value;
-
-            const overlay = document.createElement('div');
-            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:flex; align-items:center; justify-content:center;';
-            const quizDiv = document.createElement('div');
-            quizDiv.style.cssText = 'background:var(--card-bg); padding:20px; border-radius:10px; max-width:400px; width:90%; text-align:center;';
             
-            function getQuestionText(q, lang) {
-                if (lang === 'es') return q.q_es;
-                if (lang === 'he') return q.q_he;
-                return q.q_en;
-            }
+            const overlay = document.createElement('div');
+            overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:10000; display:flex; align-items:center; justify-content:center;';
+            const quizDiv = document.createElement('div');
+            quizDiv.style.cssText = 'background:var(--card-bg); padding:20px; border-radius:10px; max-width:400px; text-align:center; box-shadow: 0 0 20px rgba(0,0,0,0.5); position: relative;';
             
             function showQuestion() {
-                if (currentQ >= quizQuestions.length) {
-                    const rec = answers[0] === 'Medical' || answers[0] === 'Médico' || answers[0] === 'רפואי' 
-                        ? (lang === 'es' ? 'Recomendación: Medical Translation ($0.12/wd)' : (lang === 'he' ? 'המלצה: תרגום רפואי (0.12$/מילה)' : 'Recommendation: Medical Translation ($0.12/wd)'))
-                        : (lang === 'es' ? 'Recomendación: Basic Translation ($0.08/wd)' : (lang === 'he' ? 'המלצה: תרגום בסיסי (0.08$/מילה)' : 'Recommendation: Basic Translation ($0.08/wd)'));
-                    
-                    const buttonText = lang === 'es' ? 'Aplicar a Cotizadora' : (lang === 'he' ? 'החל על כלי הציטוט' : 'Apply to Quote Tool');
-                    
-                    quizDiv.innerHTML = `<p style="margin-bottom:15px;">${rec}</p><button onclick="overlay.remove(); document.getElementById('serviceType').value = (answers[0] === 'Medical' || answers[0] === 'Médico' || answers[0] === 'רפואי') ? '0.12' : '0.08'; localStorage.setItem('quizPrefs', JSON.stringify(answers));" class="secondary-nav-btn" style="margin:0; width:100%;">${buttonText}</button>`;
-                    return;
-                }
+                // Generar contenido de la pregunta y el botón de cerrar
+                let questionContent = `<button onclick="overlay.remove();" style="position:absolute; top:10px; right:10px; background:var(--gold); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-weight:bold;">X</button>`;
+                questionContent += `<h3 style="color:var(--gold); margin: 10px 0 20px 0;">${quiz[currentQ].q}</h3>`;
                 
-                const q = quizQuestions[currentQ];
-                const qText = getQuestionText(q, lang);
-                
-                quizDiv.innerHTML = `
-                    <h3 style="color:var(--gold); margin-bottom:15px;">${qText}</h3>
-                    <button onclick="overlay.remove();" style="position:absolute; top:10px; right:10px; background:none; border:none; color:var(--dark-gray); cursor:pointer;">X</button>
-                `;
-                
-                q.options.forEach(opt => {
+                quizDiv.innerHTML = questionContent;
+
+                quiz[currentQ].options.forEach(opt => {
                     const btn = document.createElement('button');
                     btn.textContent = opt;
-                    btn.classList.add('secondary-nav-btn');
-                    btn.style.cssText = 'display:block; margin:10px auto; padding:10px; width:80%; background:var(--sky-blue); color:white; border:none; border-radius:5px; cursor:pointer;';
+                    btn.style.cssText = 'display:block; width:80%; margin:10px auto; padding:10px; background:var(--sky-blue); color:white; border:none; border-radius:5px; cursor:pointer; transition: background 0.3s ease;';
+                    btn.onmouseover = () => btn.style.backgroundColor = 'var(--steel-blue)';
+                    btn.onmouseout = () => btn.style.backgroundColor = 'var(--sky-blue)';
+                    
                     btn.onclick = () => {
                         answers.push(opt);
                         currentQ++;
-                        quizDiv.innerHTML = ''; // Clear for next question
-                        showQuestion();
+                        if (currentQ < quiz.length) {
+                            showQuestion();
+                        } else {
+                            // Resultados y CTA
+                            const isMedical = answers[0].includes('Médico') || answers[0].includes('Medical') || answers[0].includes('רפואי');
+                            const baseRate = isMedical ? '0.12' : '0.08';
+                            const rateLabel = isMedical ? translations[lang]['medical-trans'] : translations[lang]['basic-trans'];
+                            
+                            let recMsg = '';
+                            if (lang === 'es') recMsg = isMedical ? '¡Usted necesita precisión médica! Servicio recomendado:' : 'Servicio recomendado:';
+                            else if (lang === 'he') recMsg = isMedical ? 'אתה זקוק לדיוק רפואי! שירות מומלץ:' : 'שירות מומלץ:';
+                            else recMsg = isMedical ? 'You need medical precision! Recommended Service:' : 'Recommended Service:';
+                            
+                            quizDiv.innerHTML = `<button onclick="overlay.remove();" style="position:absolute; top:10px; right:10px; background:var(--gold); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-weight:bold;">X</button>`;
+                            quizDiv.innerHTML += `<p style="color: var(--steel-blue); margin-bottom: 15px;">${recMsg}</p>`;
+                            quizDiv.innerHTML += `<p style="font-weight: bold; color: var(--gold); margin-bottom: 20px;">${rateLabel}</p>`;
+                            
+                            const ctaBtn = document.createElement('button');
+                            if (lang === 'es') ctaBtn.textContent = 'Aplicar a Cotizadora';
+                            else if (lang === 'he') ctaBtn.textContent = 'החל על מחשבון הצעות מחיר';
+                            else ctaBtn.textContent = 'Apply to Quote Calculator';
+                            
+                            ctaBtn.style.cssText = 'display:block; width:80%; margin:10px auto; padding:10px; background:var(--gold); color:white; border:none; border-radius:5px; cursor:pointer;';
+                            ctaBtn.onclick = () => {
+                                overlay.remove(); 
+                                // Selecciona la opción correcta en la cotizadora
+                                document.getElementById('serviceType').value = baseRate;
+                                localStorage.setItem('quizPrefs', JSON.stringify(answers)); // Guarda preferencias para futuras visitas
+                            };
+                            quizDiv.appendChild(ctaBtn);
+                            launchConfetti(); // Lanza confetti al terminar
+                        }
                     };
                     quizDiv.appendChild(btn);
                 });
@@ -2191,262 +2153,403 @@
         }
 
 
-        // Función 4: Animación de Confetti
-        function launchConfetti(rating = 0) {
-            if (rating !== 0 && rating !== 5) return;
-            // Código de la IA para Confetti
-        }
-        
-        // Función 5: Guardado de Preferencias en Cotizadora (Parte 2)
-        function loadQuotePrefs() {
-            const savedWords = localStorage.getItem('savedWords');
-            const savedType = localStorage.getItem('savedType');
-            if (savedWords) document.getElementById('wordCount').value = savedWords;
-            if (savedType) document.getElementById('serviceType').value = savedType;
-            
-            // Aplica MTPE si se dio el código de FULLTOUR (Función 2)
-            if (localStorage.getItem('bonusGiven') === 'true') {
-                 const currentRate = parseFloat(document.getElementById('serviceType').value);
-                 if (currentRate === 0.12) { // Asume que solo se aplica al medical rate
-                     document.getElementById('serviceType').value = '0.108'; // 10% off
-                 }
-            }
-        }
-        
-        // Función 6: Chatbot Simple (Inicialización)
-        const qaPairs = {
-            en: { "cost": "Medical translations: $0.12/word. Use the quote tool above!", "turnaround": "Standard: 3-5 days/1k words. Rush available +20%." },
-            es: { "costo": "Traducciones médicas: $0.12/palabra. ¡Usa la herramienta de cotización arriba!", "plazo": "Estándar: 3-5 días/1k palabras. Urgente disponible +20%." },
-            he: { "עלות": "תרגומים רפואיים: $0.12/מילה. השתמש בכלי הציטוט למעלה!", "זמן": "סטנדרטי: 3-5 ימים/1k מילים. מהיר זמין +20%." }
-        };
-        
+        // --- CHATBOT SIMPLE ---
         function initChatbot() {
             const chatBtn = document.getElementById('chat-btn');
-            const chatBtnIcon = chatBtn.querySelector('i');
+            let isChatOpen = false;
+
+            // Chatbot con burbujas (Solo opciones, no input)
+            const chatPairs = {
+                en: { 
+                    'welcome': 'Hi! I’m Danilo’s quick assistant. What can I help you find?',
+                    'options': [ 'Rates', 'Delivery Times', 'My Experience', 'Contact Info', 'Close Chat' ],
+                    'response': {
+                        'Rates': 'Medical translation is $0.12/word. Use the Quoting tool for total estimates.',
+                        'Delivery Times': 'Standard: 3-5 days per 1k words. Rush options are available (+20%).',
+                        'My Experience': 'Check the "Summary" and "Experience" tabs for my background as an MD student and Top-Rated linguist.',
+                        'Contact Info': 'You can reach Danilo directly via the form below or at dhurwitzbecerra@mdp.edu.ar',
+                        'Close Chat': 'Thank you! Let me know if you need anything else.'
+                    }
+                },
+                es: { 
+                    'welcome': '¡Hola! Soy el asistente rápido de Danilo. ¿Qué necesitas saber?',
+                    'options': [ 'Tarifas', 'Tiempos de Entrega', 'Mi Experiencia', 'Contacto', 'Cerrar Chat' ],
+                    'response': {
+                        'Tarifas': 'La traducción médica cuesta $0.12/palabra. Usa la Calculadora de Cotización para estimados totales.',
+                        'Tiempos de Entrega': 'Estándar: 3-5 días por cada 1k palabras. Hay opción Urgente (+20%).',
+                        'Mi Experiencia': 'Revisa las pestañas "Resumen" y "Experiencia" para ver mi formación como estudiante de medicina y lingüista Top-Rated.',
+                        'Contacto': 'Puedes contactar a Danilo directamente usando el formulario abajo o a dhurwitzbecerra@mdp.edu.ar',
+                        'Cerrar Chat': '¡Gracias! Avísame si tienes otra pregunta.'
+                    }
+                },
+                he: { 
+                    'welcome': 'שלום! אני העוזר המהיר של דנילו. במה אוכל לעזור?',
+                    'options': [ 'תעריפים', 'זמני אספקה', 'הניסיון שלי', 'פרטי קשר', 'סגור צ\'אט' ],
+                    'response': {
+                        'תעריפים': 'תרגום רפואי הוא $0.12/מילה. השתמש בכלי הצעת המחיר להערכה כוללת.',
+                        'זמני אספקה': 'סטנדרטי: 3-5 ימים ל-1k מילים. ניתן לקבל שירות מהיר (+20%).',
+                        'הניסיון שלי': 'בדוק את לשוניות "סיכום" ו"ניסיון" לקבלת רקע על הלימודים הרפואיים שלי והתרגום המדורג גבוה.',
+                        'פרטי קשר': 'ניתן ליצור קשר ישיר עם דנילו דרך הטופס למטה או בכתובת dhurwitzbecerra@mdp.edu.ar',
+                        'סגור צ\'אט': 'תודה! ספר לי אם אתה צריך משהו אחר.'
+                    }
+                }
+            };
             
-            // Agrega un evento de clic genérico para mostrar el chat
-            chatBtn.onclick = () => {
-                let chatWindow = document.getElementById('chat-window');
-                if (chatWindow) {
-                    chatWindow.remove();
-                    chatBtnIcon.className = 'fas fa-comments';
+            const langData = chatPairs[lang] || chatPairs.en;
+            const chatDiv = document.createElement('div');
+            chatDiv.id = 'chat-window';
+            chatDiv.style.cssText = 'position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:var(--card-bg); border-radius:10px; box-shadow:0 4px 12px var(--shadow-color); display:none; flex-direction:column; z-index: 1002;';
+            document.body.appendChild(chatDiv);
+
+            const messagesDiv = document.createElement('div');
+            messagesDiv.id = 'chat-messages';
+            messagesDiv.style.cssText = 'flex:1; padding:10px; overflow-y:auto; border-bottom: 1px solid var(--border-color);';
+            
+            const headerDiv = document.createElement('div');
+            headerDiv.style.cssText = 'padding:10px; background:var(--sky-blue); color:white; border-top-left-radius: 10px; border-top-right-radius: 10px; display: flex; justify-content: space-between; align-items: center;';
+            headerDiv.innerHTML = `<span>${langData.welcome}</span><button id="close-chat-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2em;">X</button>`;
+            
+            chatDiv.appendChild(headerDiv);
+            chatDiv.appendChild(messagesDiv);
+
+            const bubbleContainer = document.createElement('div');
+            bubbleContainer.style.cssText = 'padding: 10px; text-align: center;';
+            chatDiv.appendChild(bubbleContainer);
+
+            const displayMessage = (sender, text) => {
+                const p = document.createElement('p');
+                p.innerHTML = `<strong style="color: ${sender === 'Danilo' ? 'var(--gold)' : 'var(--steel-blue)'};">${sender}:</strong> ${text}`;
+                messagesDiv.appendChild(p);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            };
+
+            const showBubbles = () => {
+                bubbleContainer.innerHTML = '';
+                langData.options.forEach(option => {
+                    const bubble = document.createElement('button');
+                    bubble.textContent = option;
+                    bubble.style.cssText = 'margin: 5px; padding: 8px; border: 1px solid var(--sky-blue); background: var(--card-bg); color: var(--steel-blue); border-radius: 15px; cursor: pointer; font-size: 0.9em;';
+                    bubble.onclick = () => handleChat(option);
+                    bubbleContainer.appendChild(bubble);
+                });
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            };
+
+            const handleChat = (input) => {
+                displayMessage('User', input);
+                
+                if (input === langData.options[4] || input === langData.options[4]) { // Cierra chat
+                    displayMessage('Danilo', langData.response[input]);
+                    setTimeout(() => chatDiv.style.display = 'none', 1500);
                     return;
                 }
                 
-                const lang = document.getElementById('langSelect').value;
-                const pairs = qaPairs[lang] || qaPairs.en;
+                const responseKey = Object.keys(langData.response).find(key => key.toLowerCase() === input.toLowerCase());
+                const response = langData.response[responseKey] || langData.response[input] || "Please select an option or use the contact form.";
                 
-                chatBtnIcon.className = 'fas fa-times'; // Cambiar icono a 'X'
-                
-                chatWindow = document.createElement('div');
-                chatWindow.id = 'chat-window';
-                chatWindow.style.cssText = 'position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:var(--card-bg); border-radius:10px; box-shadow:0 4px 12px var(--shadow-color); display:flex; flex-direction:column; z-index:1000;';
-                
-                const titleText = lang === 'es' ? 'Chat: ¿Pregunta?' : (lang === 'he' ? 'צ\'אט: שאלה?' : 'Chat: Question?');
-                chatWindow.innerHTML = `<div style="padding:10px; border-bottom:1px solid var(--border-color); color:var(--body-text); font-weight:bold;">${titleText}</div><div id="chat-messages" style="flex:1; padding:10px; overflow-y:auto; color:var(--body-text);"></div><input id="chat-input" placeholder="${lang === 'es' ? 'Escribe...' : (lang === 'he' ? 'כתוב...' : 'Type...')}" style="border-top:1px solid var(--border-color); padding:10px;">`;
-                document.body.appendChild(chatWindow);
-                
-                const messages = document.getElementById('chat-messages');
-                const inputElement = document.getElementById('chat-input');
-                
-                // Mostrar opciones de ayuda
-                messages.innerHTML = `<p style="color:var(--steel-blue);">Quick Help: ${Object.keys(pairs).join(', ')}</p>`;
-
-
-                inputElement.onkeypress = (e) => {
-                    if (e.key === 'Enter') {
-                        const input = e.target.value.toLowerCase();
-                        messages.innerHTML += `<p style="text-align:right;"><strong>You:</strong> ${input}</p>`;
-                        
-                        let bestMatch = Object.keys(pairs).find(q => input.includes(q.toLowerCase()));
-                        
-                        setTimeout(() => {
-                            const response = bestMatch ? pairs[bestMatch] : (lang === 'es' ? "¡Excelente pregunta! Contáctame para detalles personalizados." : (lang === 'he' ? "שאלה מעולה! צור איתי קשר לפרטים מותאמים אישית." : "Excellent question! Contact me for personalized details."));
-                            messages.innerHTML += `<p><strong>Danilo:</strong> ${response}</p>`;
-                            messages.scrollTop = messages.scrollHeight;
-                        }, 1000);
-                        e.target.value = '';
-                    }
-                };
+                setTimeout(() => {
+                    displayMessage('Danilo', response);
+                    showBubbles(); // Muestra las burbujas de nuevo para seleccionar
+                }, 1000);
             };
-        }
 
-        // Función 7: Personalización de Tema por Usuario
-        function applyCustomTheme(theme) {
-            const root = document.documentElement;
-            let savedTheme = localStorage.getItem('customTheme') || 'default';
-            if (theme) savedTheme = theme;
-            
-            if (savedTheme === 'medical') {
-                root.style.setProperty('--sky-blue', '#00BFFF'); // Azul médico
-                root.style.setProperty('--steel-blue', '#008B8B');
-            } else {
-                root.style.setProperty('--sky-blue', '#87CEEB');
-                root.style.setProperty('--steel-blue', '#4682B4');
-            }
-            localStorage.setItem('customTheme', savedTheme);
-            
-            // Vuelve a aplicar Dark Mode si está activo para asegurar la coherencia
-            const body = document.body;
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            if (darkModeToggle.checked) {
-                body.classList.add('dark');
-            }
-        }
-
-        // Función 8: Animación de Progreso en Habilidades
-        const skillLevels = { 'Medical Translation': 95, 'Hebrew': 95, 'English': 90, 'Spanish': 100, 'Translation & Editing': 90, 'Software & Tools': 85, 'Other': 80 }; // % por habilidad
-
-        function animateSkills() {
-            document.querySelectorAll('.skill-card').forEach(card => {
-                let h3 = card.querySelector('h3');
-                if (!h3) return;
-                
-                // Asegurarse de que el progress bar exista
-                let bar = card.querySelector('.progress-bar');
-                if (!bar) {
-                    bar = document.createElement('div');
-                    bar.className = 'progress-bar';
-                    bar.innerHTML = '<div class="fill" style="width:0%;"></div>';
-                    card.appendChild(bar);
+            // Inicializar chat
+            chatBtn.onclick = () => {
+                if (!isChatOpen) {
+                    chatDiv.style.display = 'flex';
+                    messagesDiv.innerHTML = ''; // Limpia mensajes
+                    displayMessage('Danilo', langData.welcome);
+                    showBubbles();
+                    isChatOpen = true;
+                } else {
+                    chatDiv.style.display = 'none';
+                    isChatOpen = false;
                 }
-                let fill = bar.querySelector('.fill');
-                
-                const updateBar = () => {
-                    const skillName = h3.textContent;
-                    const level = skillLevels[skillName] || 80;
-                    fill.style.width = level + '%';
-                    fill.title = `Level: ${level}%`;
-                };
-
-                const resetBar = () => {
-                    fill.style.width = '0%';
-                };
-
-                card.onmouseenter = updateBar;
-                card.onmouseleave = resetBar;
-                
-                // Aplicar a carga inicial (si está en la pantalla)
-                // Se omite por ser complejo con intersection observer
-            });
-        }
-        
-        // Función 10: Generador de PDF Personalizado
-        function generateCustomPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            const lang = document.getElementById('langSelect').value;
-            const title = lang === 'es' ? 'CV Personalizado - Danilo Hurwitz' : (lang === 'he' ? 'קורות חיים מותאמים אישית - דנילו הורוויץ' : 'Custom CV - Danilo Hurwitz');
-            const sectionsTitle = lang === 'es' ? 'Secciones Incluidas:' : (lang === 'he' ? 'מדורים כלולים:' : 'Included Sections:');
-            
-            doc.text(title, 10, 10);
-            doc.text(sectionsTitle, 10, 20);
-            
-            const sectionMap = {
-                'summary': 'Resumen Profesional', 'experience': 'Experiencia', 'skills': 'Habilidades', 
-                'education': 'Educación', 'portfolio': 'Portafolio', 'strengths': 'Fortalezas'
             };
-
-            visitedTabs.forEach((tab, i) => {
-                let sectionName = sectionMap[tab] || tab;
-                doc.text(`- ${sectionName}`, 10, 30 + i * 10);
-            });
             
-            doc.save('CV-Custom-Danilo-Hurwitz.pdf');
-            // launchConfetti(); // Asume que la función 4 (Confetti) está implementada
-        }
-
-        // Función de inicialización modificada para incluir las 10 funciones
-        function initializeAllFunctions() {
-            // Inicializar Tabs y Tagline
-            openTab('summary');
-            updateDynamicTagline();
-            
-            // Función 1/9: Bienvenida Personalizada + Contador de Visitas
-            showPersonalizedWelcome();
-            
-            // Función 7: Aplicar Tema Personalizado
-            const themeSelect = document.getElementById('themeSelect');
-            themeSelect.value = localStorage.getItem('customTheme') || 'default';
-            applyCustomTheme();
-            themeSelect.onchange = (e) => applyCustomTheme(e.target.value);
-            
-            // Función 5: Cargar Preferencias de Cotizadora
-            loadQuotePrefs();
-            
-            // Función 6: Inicializar Chatbot
-            initChatbot();
-            
-            // Función 8: Animar Barras de Habilidad
-            animateSkills();
-        }
-
-
-        // Funciones originales y de soporte
-        
-        function openTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
-            if (clickedButton) {
-                clickedButton.classList.add('active');
-            }
-            // Función 2: Progreso de Tabs (llamada aquí)
-            updateTabProgress(tabName);
+            document.getElementById('close-chat-btn').onclick = () => {
+                 chatDiv.style.display = 'none';
+                 isChatOpen = false;
+            };
         }
         
-        function calculateQuote() {
-            const wordsInput = document.getElementById('wordCount');
-            const rateSelect = document.getElementById('serviceType');
-            const resultDiv = document.getElementById('quoteResult');
-            const words = parseInt(wordsInput.value) || 0;
-            let rate = parseFloat(rateSelect.value);
 
-            // Función 5: Guardar preferencias
-            localStorage.setItem('savedWords', words);
-            localStorage.setItem('savedType', rateSelect.value);
-
-            // Aplicar descuento por FULLTOUR (Función 2) si está activo y es tarifa médica
-            if (localStorage.getItem('bonusGiven') === 'true' && rateSelect.value === '0.12') {
-                 rate = rate * 0.90; // 10% off
-            }
-
-            if (words > 0 && rate) {
-                const total = (words * rate).toFixed(2);
-                resultDiv.innerHTML = `Approx. Quote: $${total} USD`;
-                // launchConfetti(); // Función 4: Confetti
-            } else {
-                resultDiv.innerHTML = 'Enter word/minute count.';
-            }
+        // --- FUNCIÓN DE BIENVENIDA PERSONALIZADA ---
+        function showPersonalizedWelcome() {
+           const now = new Date();
+           const hour = now.getHours();
+           const lang = document.getElementById('langSelect').value;
+           let greeting = '';
+           
+           if (hour < 12) greeting = lang === 'es' ? '¡Buenos días!' : (lang === 'he' ? 'בוקר טוב' : 'Good morning!');
+           else if (hour < 18) greeting = lang === 'es' ? '¡Buenas tardes!' : (lang === 'he' ? 'צהריים טובים' : 'Good afternoon!');
+           else greeting = lang === 'es' ? '¡Buenas noches!' : (lang === 'he' ? 'ערב טוב' : 'Good evening!');
+           
+           const userName = localStorage.getItem('userName');
+           let message = '';
+           
+           if (lang === 'es') message = userName ? `${greeting} ${userName}, bienvenido de vuelta.` : `${greeting} Explora mi portafolio.`;
+           else if (lang === 'he') message = userName ? `${greeting} ${userName}, ברוך השב.` : `${greeting} חקור את תיק העבודות שלי.`;
+           else message = userName ? `${greeting} ${userName}, welcome back.` : `${greeting} Explore my portfolio.`;
+           
+           // Crea un banner temporal
+           const banner = document.createElement('div');
+           banner.id = 'welcome-banner';
+           banner.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; background: var(--gold); color: white; padding: 10px; text-align: center; z-index: 10000; transition: transform 0.3s ease; transform: translateY(-100%); cursor: pointer;';
+           banner.textContent = message;
+           document.body.appendChild(banner);
+           
+           setTimeout(() => {
+                banner.style.transform = 'translateY(0%)';
+           }, 50); // Muestra el banner
+           
+           banner.onclick = () => banner.style.transform = 'translateY(-100%)';
+           setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000); // Esconde después de 5 segundos
         }
         
-        function sendEmail(event) {
-            event.preventDefault();
+        // --- MEJORA: GUARDAR NOMBRE EN sendEmail ---
+        const originalSendEmail = sendEmail;
+        sendEmail = function(event) {
             const name = document.getElementById('contactName').value;
-            // Función 1/9: Guardar nombre para bienvenida recurrente
-            localStorage.setItem('userName', name);
+            if (name) localStorage.setItem('userName', name.split(' ')[0]); // Solo guarda el primer nombre
+            originalSendEmail(event);
+        };
+        
+        
+        // --- ANIMACIÓN DE CONFETTI ---
+        function launchConfetti() {
+            const canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.style.cssText = 'position:fixed; top:0; left:0; pointer-events:none; z-index:9999;';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            const colors = document.body.classList.contains('dark') ? ['#FFD700', '#87CEEB'] : ['#DAA520', '#4682B4'];
+            let particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, vx: (Math.random() - 0.5) * 10, vy: Math.random() * 5 + 5, color: colors[Math.floor(Math.random() * colors.length)], size: Math.random() * 5 + 5 });
+            }
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.2; // Gravedad
+                    if (p.y > canvas.height) p.y = -p.size;
+                });
+                // Verifica si todas las partículas están fuera de la vista (debajo de la pantalla)
+                if (particles.some(p => p.y < canvas.height && p.y > -p.size)) requestAnimationFrame(animate);
+                else canvas.remove();
+            }
+            animate();
+        }
+
+        // --- SHARE SOCIAL PERSONALIZADO ---
+        function sharePersonalized() {
+            const userName = localStorage.getItem('userName') || 'an expert';
+            const lang = document.getElementById('langSelect').value;
+            let shareText;
             
-            const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contactMessage').value;
-            const subject = `Project Inquiry from ${name} (Website)`;
-            const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
-            window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            // launchConfetti(); // Función 4: Confetti
+            if (lang === 'es') shareText = `¡${userName} recomienda a Danilo Hurwitz, traductor médico trilingüe! 100% precisión. #TraduccionMedica #HealthTech`;
+            else if (lang === 'he') shareText = `אני, ${userName}, ממליץ על דנילו הורוויץ, מתרגם רפואי טרילינגואלי! 100% דיוק. #תרגום_רפואי #HealthTech`;
+            else shareText = `I, ${userName}, recommend Danilo Hurwitz, trilingual medical translator! 100% accuracy. #MedicalTranslation #HealthTech`;
+            
+            if (navigator.share) {
+                navigator.share({ title: 'Danilo Hurwitz Portfolio', text: shareText, url: window.location.href });
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => alert(lang === 'es' ? '¡Texto copiado! Compártelo en redes.' : (lang === 'he' ? 'הטקסט הועתק! שתף ברשתות.' : 'Text copied! Share on social media.')));
+            }
         }
         
-        // El resto de funciones (toggleTestimonial, newsletterForm, rating) se dejan sin modificar aquí.
+        // --- CARRUSEL INFINITO ---
+        function infiniteScrollCarousel(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return; 
 
-        // Initialization
-        document.addEventListener('DOMContentLoaded', initializeAllFunctions);
+            // Clonar solo el contenido para el loop
+            const content = container.querySelector('.micro-samples');
+            const clone = content.cloneNode(true);
+            container.appendChild(clone);
+
+            let isPaused = false;
+            
+            // Pausa en hover
+            container.onmouseenter = () => isPaused = true;
+            container.onmouseleave = () => isPaused = false;
+            
+            // La animación real se maneja en CSS (keyframes), solo aseguramos la existencia.
+            // Si el carrusel se rompe, esta función puede ser reemplazada por JS más complejo para controlar el scroll programáticamente,
+            // pero para esta implementación, confiamos en los keyframes CSS.
+        }
         
-        document.getElementById('langSelect').addEventListener('change', (e) => {
+        // --- MODIFICAR calculateQuote y Star Rating para Confetti ---
+        const originalCalculateQuote = calculateQuote;
+        calculateQuote = function() {
+            originalCalculateQuote();
+            const resultDiv = document.getElementById('quoteResult');
+            if (resultDiv.textContent.includes('Approx. Quote')) {
+                launchConfetti();
+            }
+        };
+
+        starsHover.forEach(star => {
+             star.addEventListener('mouseenter', () => {
+                const rating = parseInt(star.getAttribute('data-value'));
+                highlightStarsHover(rating);
+                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
+                ratingMessageHover.style.display = 'block';
+                
+                if (rating === 5) launchConfetti(); // Confetti on 5 stars hover
+            });
+        });
+        
+        // --- INICIALIZACIÓN ---
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('summary');
+            showPersonalizedWelcome(); // Llamada a la nueva función de bienvenida
+            updateDynamicTagline(); 
+
+            document.querySelectorAll('.job .toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const jobElement = e.target.closest('.job');
+                    if (jobElement) toggleTestimonial(jobElement);
+                });
+            });
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'enabled') {
+                body.classList.add('dark');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    body.classList.add('dark');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    body.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+
+            // Language Switcher
+            const langSelect = document.getElementById('langSelect');
+            const savedLang = localStorage.getItem('language') || 'en';
+            langSelect.value = savedLang;
+            changeLanguage(savedLang);
+            
+            initChatbot(); // Inicializar el chatbot
+            infiniteScrollCarousel('rec-carousel'); // Inicializar el carrusel
+        });
+        
+        langSelect.addEventListener('change', (e) => {
             const lang = e.target.value;
             localStorage.setItem('language', lang);
             changeLanguage(lang);
         });
+        
+        // --- FUNCION CHATBOT MOVIDA FUERA DE DOMContentLoaded ---
+        function initChatbot() {
+            const chatBtn = document.getElementById('chat-btn');
+            let isChatOpen = false;
+
+            const lang = document.getElementById('langSelect').value;
+            const langData = qaPairs[lang] || qaPairs.en;
+            const chatDiv = document.createElement('div');
+            chatDiv.id = 'chat-window';
+            chatDiv.style.cssText = 'position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:var(--card-bg); border-radius:10px; box-shadow:0 4px 12px var(--shadow-color); display:none; flex-direction:column; z-index: 1002;';
+            document.body.appendChild(chatDiv);
+
+            const messagesDiv = document.createElement('div');
+            messagesDiv.id = 'chat-messages';
+            messagesDiv.style.cssText = 'flex:1; padding:10px; overflow-y:auto; border-bottom: 1px solid var(--border-color);';
+            
+            const headerDiv = document.createElement('div');
+            headerDiv.style.cssText = 'padding:10px; background:var(--sky-blue); color:white; border-top-left-radius: 10px; border-top-right-radius: 10px; display: flex; justify-content: space-between; align-items: center;';
+            headerDiv.innerHTML = `<span>${langData.welcome}</span><button id="close-chat-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2em;">X</button>`;
+            
+            chatDiv.appendChild(headerDiv);
+            chatDiv.appendChild(messagesDiv);
+
+            const bubbleContainer = document.createElement('div');
+            bubbleContainer.style.cssText = 'padding: 10px; text-align: center;';
+            chatDiv.appendChild(bubbleContainer);
+
+            const displayMessage = (sender, text) => {
+                const p = document.createElement('p');
+                p.innerHTML = `<strong style="color: ${sender === 'Danilo' ? 'var(--gold)' : 'var(--steel-blue)'};">${sender}:</strong> ${text}`;
+                messagesDiv.appendChild(p);
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            };
+
+            const showBubbles = () => {
+                bubbleContainer.innerHTML = '';
+                // Se reajusta para usar el array de options y las respuestas
+                const options = chatPairs[document.getElementById('langSelect').value].options;
+                const responses = chatPairs[document.getElementById('langSelect').value].response;
+                
+                options.forEach(option => {
+                    const bubble = document.createElement('button');
+                    bubble.textContent = option;
+                    bubble.style.cssText = 'margin: 5px; padding: 8px; border: 1px solid var(--sky-blue); background: var(--card-bg); color: var(--steel-blue); border-radius: 15px; cursor: pointer; font-size: 0.9em;';
+                    bubble.onclick = () => handleChat(option);
+                    bubbleContainer.appendChild(bubble);
+                });
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            };
+
+            const handleChat = (input) => {
+                displayMessage('User', input);
+                
+                const lang = document.getElementById('langSelect').value;
+                const langOptions = chatPairs[lang].options;
+                const langResponses = chatPairs[lang].response;
+                
+                // Buscar si el input coincide con alguna opción
+                const responseKey = langOptions.find(key => key.toLowerCase() === input.toLowerCase());
+                
+                if (responseKey === langOptions[4]) { // Asumiendo que la quinta opción es 'Close Chat' / 'Cerrar Chat' / 'סגור צ\'אט'
+                    displayMessage('Danilo', langResponses[responseKey]);
+                    setTimeout(() => chatDiv.style.display = 'none', 1500);
+                    return;
+                }
+                
+                const response = langResponses[responseKey] || "¡Excelente pregunta! Contáctame para detalles personalizados.";
+                
+                setTimeout(() => {
+                    displayMessage('Danilo', response);
+                    showBubbles(); 
+                }, 1000);
+            };
+
+            // Toggle chat
+            chatBtn.onclick = () => {
+                if (!isChatOpen) {
+                    chatDiv.style.display = 'flex';
+                    messagesDiv.innerHTML = ''; 
+                    const lang = document.getElementById('langSelect').value;
+                    const welcomeMsg = chatPairs[lang].welcome;
+                    displayMessage('Danilo', welcomeMsg);
+                    showBubbles();
+                    isChatOpen = true;
+                } else {
+                    chatDiv.style.display = 'none';
+                    isChatOpen = false;
+                }
+            };
+            
+            document.getElementById('close-chat-btn').onclick = () => {
+                 chatDiv.style.display = 'none';
+                 isChatOpen = false;
+            };
+        }
         
     </script>
 </body>
