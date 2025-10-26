@@ -7,116 +7,1290 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 1. Root Variables & Dark Mode */
-        :root {
-            --light-blue: #E6F3FF; --sky-blue: #87CEEB; --steel-blue: #4682B4; --gold: #DAA520; --gold-dark: #B8860B;
-            --dark-gray: #2C3E50; --slate-gray: #708090; --gray-dark: #555;
-            --white-translucent: rgba(255,255,255,0.9); --white-semi: rgba(255,255,255,0.6);
-            --border-color: #B3E5FC; --shadow-color: rgba(0, 0, 0, 0.05);
-            --highlight-bg: rgba(218, 165, 32, 0.08); --accent-color: #FFD700; --accent-dark: #e6c300;
+        /*
+         * CSS ORGANIZATION:
+         * 1. Root Variables (Light/Dark Modes)
+         * 2. Global Styles
+         * 3. Dark Mode Toggle & Language Switcher
+         * 4. Layout & Structure (Container, Header, Navigation)
+         * 5. Interactive Elements (Tabs, Buttons, Cards)
+         * 6. Content Sections (Tabs, Jobs, Skills, etc.)
+         * 7. Tools & Forms
+         * 8. Footer
+         * 9. Animations & Transitions (Global)
+         * 10. Responsive Design
+         * 11. Star Rating Specific
+         * 12. Language Switcher Specific
+         * 13. Career Progress Bar Specific
+         */
+
+        /* 1. Root Variables */
+        :root { /* Light mode colors */
+            --light-blue: #E6F3FF;
+            --sky-blue: #87CEEB;
+            --steel-blue: #4682B4;
+            --gold: #DAA520;
+            --gold-dark: #B8860B;
+            --dark-gray: #2C3E50; /* Corregido para uso en CSS */
+            --slate-gray: #708090;
+            --gray-dark: #555;
+            --white-translucent: rgba(255,255,255,0.9);
+            --white-semi: rgba(255,255,255,0.6);
+            --border-color: #B3E5FC;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --highlight-bg: rgba(218, 165, 32, 0.08);
+            --accent-color: #FFD700;
+            --accent-dark: #e6c300;
             --body-bg: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
-            --body-text: var(--dark-gray); --card-bg: var(--white-translucent); --card-semi: var(--white-semi);
+            --body-text: var(--dark-gray);
+            --card-bg: var(--white-translucent);
+            --card-semi: var(--white-semi);
+            --pseudo-bg: radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.08) 0%, transparent 50%),
+                         radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
         }
+
         body.dark {
-            --light-blue: #1e3c72; --sky-blue: #4a90e2; --steel-blue: #2c5aa0; --gold: #FFD700; --gold-dark: #e6c300;
-            --dark-gray: #f0f0f0; --slate-gray: #d0d0d0; --gray-dark: #b0b0b0;
-            --white-translucent: rgba(0,0,0,0.9); --white-semi: rgba(0,0,0,0.6);
-            --border-color: #2a5298; --shadow-color: rgba(255, 255, 255, 0.05);
-            --highlight-bg: rgba(255, 215, 0, 0.1); --body-bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            --body-text: #f0f0f0; --card-bg: rgba(0,0,0,0.8); --card-semi: rgba(0,0,0,0.5);
+            --light-blue: #1e3c72;
+            --sky-blue: #4a90e2;
+            --steel-blue: #2c5aa0;
+            --gold: #FFD700;
+            --gold-dark: #e6c300;
+            --dark-gray: #f0f0f0;
+            --slate-gray: #d0d0d0;
+            --gray-dark: #b0b0b0;
+            --white-translucent: rgba(0,0,0,0.9);
+            --white-semi: rgba(0,0,0,0.6);
+            --border-color: #2a5298;
+            --shadow-color: rgba(255, 255, 255, 0.05);
+            --highlight-bg: rgba(255, 215, 0, 0.1);
+            --accent-color: #FFD700;
+            --accent-dark: #e6c300;
+            --body-bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --body-text: #f0f0f0;
+            --card-bg: rgba(0,0,0,0.8);
+            --card-semi: rgba(0,0,0,0.5);
+            --pseudo-bg: radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                         radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
         }
 
         /* 2. Global Styles */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif; background: var(--body-bg); color: var(--body-text);
-            line-height: 1.6; overflow-x: hidden; padding-top: 20px; transition: all 0.4s ease;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
 
-        /* 3. Toggles & Chatbot */
-        .toggles-container { position: absolute; top: 20px; right: 20px; display: flex; align-items: center; gap: 20px; z-index: 1000; }
-        .dark-mode-toggle { display: flex; align-items: center; gap: 10px; }
-        .dark-mode-switch { position: relative; width: 60px; height: 30px; background: var(--white-semi); border-radius: 30px; cursor: pointer; }
-        .slider { position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; background: var(--sky-blue); border-radius: 50%; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        input:checked + .slider { transform: translateX(30px); background: var(--gold); }
-        .toggle-label { font-size: 0.9em; color: var(--body-text); }
-        .lang-select { padding: 5px; background: var(--white-semi); border: 1px solid var(--border-color); border-radius: 8px; color: var(--body-text); font-size: 0.9em; cursor: pointer; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--body-bg);
+            color: var(--body-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 20px;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--pseudo-bg);
+            z-index: -1;
+            opacity: 0.7;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 3. Dark Mode Toggle & Language Switcher */
+        .toggles-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dark-mode-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--white-semi);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease-out;
+        }
+
+        body.dark .dark-mode-switch {
+            background: var(--gray-dark);
+        }
+
+        .dark-mode-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: var(--sky-blue);
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:checked + .slider {
+            transform: translateX(30px);
+            background: var(--gold);
+        }
+
+        .toggle-label {
+            font-size: 0.9em;
+            color: var(--body-text);
+            transition: color 0.3s ease-out;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .lang-switcher label {
+            font-size: 0.9em;
+            color: var(--body-text);
+            transition: color 0.3s ease-out;
+        }
+
+        .lang-select {
+            padding: 5px;
+            background: var(--white-semi);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--body-text);
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background 0.3s ease-out, border-color 0.3s ease-out;
+        }
+
+        body.dark .lang-select {
+            background: var(--card-semi);
+            border-color: var(--border-color);
+        }
         
-        /* Chatbot & Confetti Styling */
-        #chat-btn { position:fixed; bottom:20px; right:20px; background:var(--gold); color:white; border:none; border-radius:50%; width:60px; height:60px; cursor:pointer; z-index: 1002; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: transform 0.3s ease; }
-        #chat-window { position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:var(--card-bg); border-radius:10px; box-shadow:0 4px 12px var(--shadow-color); display:none; flex-direction:column; z-index: 1002; }
-        #chat-messages { flex:1; padding:10px; overflow-y:auto; border-bottom: 1px solid var(--border-color); }
-        #chat-window h3 { color: var(--gold); margin: 0; padding: 5px 0; }
-        .quiz-option-btn { display:block; width:80%; margin:10px auto; padding:10px; background:var(--sky-blue); color:white; border:none; border-radius:5px; cursor:pointer; transition: all 0.3s ease; }
-        .quiz-option-btn:hover { background:var(--steel-blue); }
+        /* New welcome banner CSS */
+        #welcome-banner {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            background: var(--gold); 
+            color: white; 
+            padding: 10px; 
+            text-align: center; 
+            z-index: 10000; 
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            transform: translateY(-100%); /* Start hidden */
+        }
         
-        /* Welcome Banner */
-        #welcome-banner { position: fixed; top: 0; left: 0; width: 100%; background: var(--gold); color: white; padding: 10px; text-align: center; z-index: 10000; transition: transform 0.3s ease; transform: translateY(-100%); cursor: pointer; }
-        #welcome-banner.show-it { transform: translateY(0%); }
+        #welcome-banner.show-it {
+            transform: translateY(0%); /* Show on load */
+        }
+
+        .powered-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+        }
+
+        .powered-badge.show {
+            opacity: 1;
+        }
+        
+        /* Chatbot Button */
+        #chat-btn {
+            position:fixed; 
+            bottom:20px; 
+            right:20px; 
+            background:var(--gold); 
+            color:white; 
+            border:none; 
+            border-radius:50%; 
+            width:60px; 
+            height:60px; 
+            cursor:pointer;
+            z-index: 1002;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        #chat-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Chatbot Window */
+        #chat-window {
+            position:fixed; 
+            bottom:90px; 
+            right:20px; 
+            width:300px; 
+            height:400px; 
+            background:var(--card-bg); 
+            border-radius:10px; 
+            box-shadow:0 4px 12px var(--shadow-color); 
+            display:none; 
+            flex-direction:column;
+            z-index: 1002;
+        }
+        #chat-messages {
+            flex:1; 
+            padding:10px; 
+            overflow-y:auto;
+            border-bottom: 1px solid var(--border-color);
+        }
+        #chat-input {
+            border: none;
+            border-top:1px solid var(--border-color); 
+            padding:10px;
+            width: 100%;
+            box-sizing: border-box;
+            background: var(--card-bg);
+            color: var(--body-text);
+        }
+        
+        /* Confetti Canvas CSS */
+        .confetti-canvas {
+            position:fixed; 
+            top:0; 
+            left:0; 
+            pointer-events:none; 
+            z-index:9999;
+        }
+
 
         /* 4. Layout & Structure */
-        .header { text-align: center; padding: 40px 20px; background: var(--card-bg); border-radius: 20px; margin-bottom: 30px; box-shadow: 0 8px 32px var(--shadow-color); backdrop-filter: blur(10px); transition: all 0.4s ease; }
-        .header:hover { transform: translateY(-5px); box-shadow: 0 12px 40px var(--shadow-color); }
-        .name { font-family: 'Playfair Display', serif; font-size: 3em; color: var(--gold); margin-bottom: 10px; transition: color 0.3s ease-out; }
-        .tagline { font-size: 1.2em; color: var(--steel-blue); margin-bottom: 20px; font-weight: 300; min-height: 1.2em; }
-        @keyframes fadeInOut { 0%, 100% { opacity: 0; transform: translateY(-10px); } 10%, 90% { opacity: 1; transform: translateY(0); } }
-        .animate-tagline { animation: fadeInOut 4s infinite; }
-        .contact a { color: var(--sky-blue); text-decoration: none; transition: color 0.3s ease-out; }
-        .contact a:hover { color: var(--gold); text-decoration: underline; }
-        .video-container { max-width: 560px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); }
-        .video-container iframe { display: block; width: 100%; height: 315px; border: none; }
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow-color);
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: var(--steel-blue);
+            margin-bottom: 20px;
+            transition: color 0.3s ease-out;
+            font-weight: 300;
+            min-height: 1.2em;
+        }
+
+        /* KEYFRAME for Tagline Animation */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(-10px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
         
-        /* Status Bar */
-        .career-status-bar { background: var(--highlight-bg); border-radius: 12px; padding: 15px 25px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 15px; border: 1px solid rgba(218, 165, 32, 0.3); }
-        .status-item { color: var(--dark-gray); font-weight: 500; }
-        .status-item i { color: var(--gold); margin-right: 5px; }
-
-        /* Secondary Nav & Tabs */
-        .secondary-nav-container { text-align: center; margin: 25px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
-        .secondary-nav-btn { padding: 14px 28px; font-size: 1.1em; font-weight: 600; background: linear-gradient(45deg, var(--accent-color), var(--accent-dark)); color: #333; border: none; border-radius: 20px; box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3); cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; display: inline-block; }
-        body.dark .secondary-nav-btn { color: var(--steel-blue); }
-        .secondary-nav-btn:hover { background: linear-gradient(45deg, var(--accent-dark), var(--accent-color)); transform: scale(1.05) translateY(-2px); box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4); }
-        .tabs-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-        .tab-btn { background: rgba(135, 206, 235, 0.5); color: var(--dark-gray); border: none; padding: 12px 24px; border-radius: 20px; cursor: pointer; transition: all 0.3s ease; }
-        .tab-btn.active, .tab-btn:hover { background: var(--gold); color: white; transform: scale(1.05) translateY(-1px); }
-        .tab-content { display: none; background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 8px 32px var(--shadow-color); animation: fadeInUp 0.5s ease; backdrop-filter: blur(10px); }
-        .tab-content.active { display: block; margin-bottom: 40px; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Content Sections & Details (Minimal) */
-        .section-title { font-family: 'Playfair Display', serif; font-size: 1.8em; color: var(--gold); text-align: center; margin-bottom: 15px; }
-        .job { margin-bottom: 20px; padding: 15px; background: var(--card-semi); border-left: 4px solid var(--sky-blue); border-radius: 12px; }
-        .job-title { font-size: 1.2em; color: var(--body-text); }
-        .job ul { list-style: none; padding: 0; }
-        .job ul li::before { content: '✦'; color: var(--gold); position: absolute; left: 0; }
-        .testimonial { margin-top: 10px; padding: 12px; background: var(--highlight-bg); border-radius: 8px; font-style: italic; max-height: 40px; overflow: hidden; transition: max-height 0.4s ease-out; }
-        .testimonial.expanded { max-height: 150px; }
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 15px; }
-        .lang-card { text-align: center; padding: 12px; background: rgba(135, 206, 235, 0.3); border-radius: 8px; }
+        /* Apply to the dynamic element */
+        .animate-tagline {
+            animation: fadeInOut 4s infinite;
+        }
         
-        /* Tools Section */
-        .tools-section { margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        .tool-card { background: var(--card-bg); padding: 25px; border-radius: 20px; box-shadow: 0 8px 32px var(--shadow-color); }
-        .quote-input { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-bottom: 10px; align-items: center; }
+        .contact {
+            font-size: 0.95em;
+            color: var(--slate-gray);
+            margin-bottom: 20px;
+            transition: color 0.3s ease-out;
+        }
 
-        /* Footer */
-        .footer { text-align: center; padding: 15px; background: var(--card-bg); border-radius: 10px; margin-top: 25px; font-size: 0.9em; }
+        .contact a {
+            color: var(--sky-blue);
+            text-decoration: none;
+            transition: color 0.3s ease-out;
+        }
 
-        /* Responsive Adjustments */
+        .contact a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-container:hover {
+            box-shadow: 0 16px 48px rgba(135, 206, 235, 0.3);
+            transform: scale(1.02);
+        }
+
+        .video-container iframe {
+            display: block;
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- NUEVO CSS: Career Status Bar --- */
+        .career-status-bar {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-item {
+            color: var(--dark-gray);
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .status-item i {
+            color: var(--gold);
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
+        
+        body.dark .status-item {
+             color: var(--body-text);
+        }
+
+        /* --- NUEVO CSS: Micro Sample Carousel --- */
+        .micro-carousel-container {
+            padding: 20px 0;
+            margin: 20px auto;
+            overflow: hidden;
+            max-width: 1000px; /* Igual al container */
+            position: relative;
+        }
+
+        .micro-samples {
+            display: flex;
+            animation: carousel-slide 20s infinite linear;
+            width: max-content;
+            gap: 20px;
+            /* Duplicar el contenido para un scroll infinito suave */
+        }
+        
+        /* Clonar para el efecto infinito */
+        .micro-samples > .sample-card:nth-child(n+1):nth-child(-n+4) {
+            /* Los primeros 4 se duplican para el efecto.
+               Asegúrate de que haya suficientes tarjetas en el HTML para llenar el espacio antes de que el carrusel se repita. */
+        }
+
+        .sample-card {
+            min-width: 300px;
+            background: var(--card-semi);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease-out;
+            border-left: 3px solid var(--sky-blue);
+        }
+
+        .sample-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sample-card h4 {
+            color: var(--steel-blue);
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        
+        .sample-card p {
+            font-size: 0.9em;
+            color: var(--slate-gray);
+        }
+
+        @keyframes carousel-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-320px * 4)); } /* Ajustar valor: (Ancho de tarjeta + gap) * número de tarjetas únicas */
+        }
+        
+        /* Ajustar el tamaño en móvil para que solo se vea una tarjeta o menos */
+        @media (max-width: 650px) {
+             .micro-samples {
+                 gap: 15px;
+             }
+             .sample-card {
+                 min-width: 250px;
+             }
+             
+             @keyframes carousel-slide {
+                 0% { transform: translateX(0); }
+                 100% { transform: translateX(calc(-265px * 4)); } /* (250px + 15px) * 4 */
+             }
+        }
+
+
+        /* Secondary Navigation */
+        .secondary-nav-container {
+            text-align: center;
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .secondary-nav-btn {
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: 600;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-dark));
+            color: #333;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        body.dark .secondary-nav-btn {
+            color: var(--steel-blue);
+        }
+
+        .secondary-nav-btn:hover {
+            background: linear-gradient(45deg, var(--accent-dark), var(--accent-color));
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        .secondary-nav-subtitle {
+            display: block;
+            font-size: 0.75em;
+            font-weight: 400;
+            margin-top: 4px;
+            opacity: 0.8;
+            color: inherit;
+            transition: color 0.3s ease-out;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(135, 206, 235, 0.5);
+            color: var(--dark-gray);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark .tab-btn {
+            background: rgba(74, 144, 226, 0.3);
+            color: var(--body-text);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--gold);
+            color: white;
+            transform: scale(1.05) translateY(-1px);
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+        }
+
+        /* 5. Interactive Elements */
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: none;
+            overflow-y: visible;
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+        
         @media (max-width: 768px) {
-            .container { width: 95%; padding: 15px; }
-            .header { padding: 30px 15px; }
-            .name { font-size: 2.2em; }
-            .tools-section { grid-template-columns: 1fr; }
-            .toggles-container { top: 10px; right: 10px; flex-direction: column; gap: 10px; }
+            .tab-content {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
+        .tab-content.active {
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 6. Content Sections */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-align: center;
+            transition: color 0.3s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary p {
+            font-size: 1.05em;
+            text-align: center;
+            color: var(--steel-blue);
+            max-width: 700px;
+            margin: 0 auto;
+            transition: color 0.3s ease-out;
+        }
+
+        .job {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--card-semi);
+            border-radius: 12px;
+            border-left: 4px solid var(--sky-blue);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        body.dark .job {
+            border-left-color: var(--sky-blue);
+        }
+
+        .job:hover {
+            transform: translateX(5px) scale(1.01);
+            box-shadow: 0 8px 24px rgba(135, 206, 235, 0.2);
+        }
+
+        body.dark .job:hover {
+            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            color: var(--body-text);
+            margin-bottom: 3px;
+            transition: color 0.3s ease-out;
+        }
+
+        .company-dates {
+            color: var(--slate-gray);
+            font-style: italic;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            transition: color 0.3s ease-out;
+        }
+
+        .job ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.95em;
+        }
+
+        .job ul li {
+            padding: 3px 0;
+            position: relative;
+            padding-left: 15px;
+            color: var(--gray-dark);
+            transition: color 0.3s ease-out;
+        }
+
+        .job ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 0.8em;
+            transition: color 0.3s ease-out;
+        }
+
+        .testimonial {
+            margin-top: 10px;
+            padding: 12px;
+            background: var(--highlight-bg);
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--slate-gray);
+            font-size: 0.9em;
+            max-height: 40px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, background 0.3s ease-out, color 0.3s ease-out;
+        }
+
+        body.dark .testimonial {
+            background: var(--highlight-bg);
+        }
+
+        .testimonial.expanded {
+            max-height: 150px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--sky-blue);
+            cursor: pointer;
+            font-size: 0.8em;
+            float: right;
+            transition: color 0.3s ease-out;
+        }
+
+        .education-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--card-semi);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: background 0.3s ease-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .skill-card {
+            padding: 15px;
+            background: var(--card-semi);
+            border-radius: 12px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .skill-card:hover {
+            transform: scale(1.02) translateY(-2px);
+        }
+
+        .skill-card h3 {
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            transition: color 0.3s ease-out;
+        }
+
+        .languages {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .languages {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .lang-card {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        .lang-card {
+            text-align: center;
+            padding: 12px;
+            background: rgba(135, 206, 235, 0.3);
+            border-radius: 8px;
+            margin: 5px;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 120px;
+        }
+
+        body.dark .lang-card {
+            background: rgba(74, 144, 226, 0.2);
+        }
+
+        .lang-card:hover {
+            background: var(--highlight-bg);
+            transform: scale(1.05);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .portfolio-item {
+            padding: 12px;
+            background: var(--card-semi);
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .portfolio-item a {
+            color: var(--sky-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .strengths-list {
+            list-style: none;
+        }
+
+        .strengths-list li {
+            padding: 8px;
+            background: var(--highlight-bg);
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
+            font-size: 0.95em;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .strengths-list li:hover {
+            transform: translateX(3px);
+        }
+
+        /* 7. Tools & Forms */
+        .tools-section {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px var(--shadow-color);
+        }
+
+        .tool-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-align: center;
+            transition: color 0.3s ease-out;
+        }
+
+        .quote-tool {
+            text-align: center;
+        }
+
+        .quote-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .quote-input input,
+        .quote-input select {
+            padding: 10px;
+            border: 1px solid var(--sky-blue);
+            border-radius: 8px;
+            font-size: 0.95em;
+            background: white;
+            color: var(--body-text);
+            transition: border-color 0.3s ease-out, background 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        body.dark .quote-input input,
+        body.dark .quote-input select {
+            background: var(--card-semi);
+            color: var(--body-text);
+        }
+
+        .quote-input input:focus,
+        body.dark .contact-form input:focus,
+        .quote-input select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+            outline: none;
+        }
+
+        .contact-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--sky-blue);
+            border-radius: 6px;
+            transition: border-color 0.3s ease-out, background 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+            font-size: 0.95em;
+            background-color: white;
+            color: var(--body-text);
+        }
+
+        body.dark .contact-form input,
+        body.dark .contact-form textarea {
+            background-color: var(--card-semi);
+            color: var(--body-text);
+        }
+
+        body.dark .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+            outline: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-form button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        .newsletter {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--slate-gray);
+            transition: color 0.3s ease-out;
+        }
+
+        .newsletter form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .newsletter input {
+            padding: 8px;
+            border: 1px solid var(--sky-blue);
+            border-radius: 4px;
+            flex-grow: 1;
+            max-width: 250px;
+            background: white;
+            color: var(--body-text);
+            transition: background 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+        }
+
+        body.dark .newsletter input {
+            background: var(--card-semi);
+            color: var(--body-text);
+        }
+
+        .newsletter button {
+            padding: 8px 12px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .newsletter button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        #newsletter-status {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: var(--steel-blue);
+            min-height: 1.2em;
+            transition: color 0.3s ease-out;
+        }
+
+        /* 8. Footer */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: var(--slate-gray);
+            transition: background 0.3s ease-out, color 0.3s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .download-cv {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--sky-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        body.dark .download-cv {
+            background: var(--sky-blue);
+        }
+
+        .download-cv:hover {
+            background: var(--steel-blue);
+            transform: translateY(-1px);
+        }
+
+        /* 9. Animations & Transitions (Global Enhancements) */
+        /* Already integrated smoother cubic-bezier transitions throughout for modern feel */
+
+        /* 10. Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 20px;
+            }
+
+            .container {
+                width: 95%;
+                padding: 15px;
+                margin: 10px auto;
+            }
+            
+            /* Ajuste para la barra de estado en móvil */
+            .career-status-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .name {
+                font-size: 2.2em;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+            }
+
+            .contact {
+                font-size: 0.9em;
+            }
+
+            .tabs-nav {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.9em;
+            }
+
+            .secondary-nav-container {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .secondary-nav-btn {
+                padding: 12px 24px;
+                font-size: 1em;
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .video-container iframe {
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .job-title {
+                font-size: 1.1em;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .languages {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .lang-card {
+                min-width: 180px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .tools-section {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .newsletter input {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .toggles-container {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name {
+                font-size: 1.8em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            .video-container iframe {
+                height: 200px;
+            }
+
+            .tab-btn {
+                padding: 7px 12px;
+                font-size: 0.85em;
+            }
+
+            .secondary-nav-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+                width: 90%;
+            }
+
+            .quote-input {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 11. Star Rating Specific */
+        .rating-choice-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin: 40px 0 10px;
+            text-align: center;
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .rating-choice-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            transition: color 0.3s ease-out;
+        }
+
+        .star-rating {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .star-rating .star {
+            font-size: 2em;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 3px;
+            display: inline-block;
+        }
+
+        body.dark .star-rating .star {
+            color: #666;
+        }
+
+        .star-rating .star.selected,
+        .star-rating:hover .star:hover {
+            color: var(--accent-color);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .star-rating .star i.far {
+            color: #ccc;
+        }
+
+        body.dark .star-rating .star i.far {
+            color: #666;
+        }
+
+        .star-rating .star i.fas {
+            color: var(--accent-color);
+        }
+
+        #rating-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-blue);
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            color: var(--steel-blue);
+            font-size: 1em;
+            text-align: left;
+            min-height: 70px;
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark #rating-message {
+            background-color: var(--light-blue);
+            border-left-color: var(--gold);
+            color: #f0f0f0;
+        }
+
+        #rating-message[style*="display: block"] {
+            opacity: 1;
+            max-height: 200px;
+        }
+
+        /* 12. Language Switcher Specific */
+        [data-i18n] {
+            transition: opacity 0.3s ease;
+        }
+
+        body.translating [data-i18n] {
+            opacity: 0;
         }
         
     </style>
 </head>
 <body>
-    <div id="welcome-banner" class="show-it"></div>
-
     <div class="toggles-container">
         <div class="dark-mode-toggle">
             <label class="toggle-label" data-i18n="dark-mode">Dark Mode</label>
@@ -135,8 +1309,7 @@
         </div>
     </div>
     <div class="powered-badge" id="poweredBadge">Powered by Danilo's Precision</div>
-    
-    <div class="container">
+    <div id="welcome-banner" class="show-it">Welcome Message</div> <div class="container">
         <header class="header">
             <h1 class="name">Danilo Hurwitz</h1>
             <p class="tagline" id="dynamicTagline" data-i18n="tagline">Trilingual Medical Translator & Medical Student</p>
@@ -148,7 +1321,7 @@
             <div class="video-container">
                 <iframe src="https://www.youtube.com/embed/KjFjam4KmCU?si=RKffDr3whfKj3MIi&controls=0" title="Presentation Video" frameborder="0" allowfullscreen></iframe>
             </div>
-             <button id="share-btn" onclick="sharePersonalized()" style="margin-top: 10px; padding: 5px 10px; background: var(--sky-blue); color: white; border: none; border-radius: 5px; cursor: pointer;"><i class="fas fa-share"></i> <span data-i18n="share-btn">Share</span></button>
+             <button id="share-btn" onclick="sharePersonalized()" style="margin-top: 10px; padding: 5px 10px; background: var(--sky-blue); color: white; border: none; border-radius: 5px; cursor: pointer;"><i class="fas fa-share"></i> Share</button>
         </header>
 
         <div class="career-status-bar">
@@ -430,7 +1603,7 @@
         const taglineElement = document.getElementById('dynamicTagline');
         const intervalTime = 4000; // 4 segundos
         
-        // --- CHATBOT QA PAIRS (CORREGIDO EL HEBREO) ---
+        // --- CHATBOT QA PAIRS ---
         const qaPairs = {
             en: { 
                 'welcome': 'Hi! I’m Danilo’s quick assistant. What can I help you find?',
@@ -458,7 +1631,7 @@
                 'welcome': 'שלום! אני העוזר המהיר של דנילו. במה אוכל לעזור?',
                 'options': [ 'תעריפים', 'זמני אספקה', 'הניסיון שלי', 'פרטי קשר', 'סגור צ\'אט' ],
                 'response': {
-                    'תעריפים': 'תרגום רפואי הוא $0.12/מילה. השתמש בכלי הצעת המחיר להערכה כוללת. עריכה: $0.04/מילה.',
+                    'תעריפים': 'תרגום רפואי הוא 0.12$/מילה. השתמש בכלי הצעת המחיר להערכה כוללת. עריכה: 0.04$/מילה.',
                     'זמני אספקה': 'סטנדרטי: 3-5 ימים ל-1k מילים. מהיר זמין +20%.',
                     'הניסיון שלי': 'בדוק את לשוניות "סיכום" ו"ניסיון" לקבלת רקע על הלימודים הרפואיים שלי והתרגום המדורג גבוה.',
                     'פרטי קשר': 'ניתן ליצור קשר ישיר עם דנילו דרך הטופס למטה או בכתובת dhurwitzbecerra@mdp.edu.ar',
@@ -467,21 +1640,22 @@
             }
         };
 
-
         function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
             const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
             
+            // Re-apply the cycle based on the new language's array size
             taglineIndex = taglineIndex % slogans.length;
             
-            taglineElement.classList.remove('animate-tagline');
-            void taglineElement.offsetWidth;
+            taglineElement.classList.remove('animate-tagline'); // Reset animation
+            void taglineElement.offsetWidth; // Trigger reflow
             
             taglineElement.textContent = slogans[taglineIndex];
-            taglineElement.classList.add('animate-tagline');
+            taglineElement.classList.add('animate-tagline'); // Start animation
             
             taglineIndex = (taglineIndex + 1) % slogans.length;
         }
 
+        // Inicializar el carrusel de taglines
         setInterval(updateDynamicTagline, intervalTime);
 
 
@@ -492,9 +1666,6 @@
                 contact: "Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>LinkedIn</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>Upwork</a>",
                 linkedin: "LinkedIn",
                 upwork: "Upwork",
-                'share-btn': "Share",
-                'start-quiz': "Find Your Ideal Service?",
-                'quiz-subtitle': "Match your needs",
                 'status-toprated': "Upwork Top Rated",
                 'status-jss': "100% Job Success",
                 'status-md': "Active Medical Training",
@@ -556,7 +1727,7 @@
                 'education-md': "Candidate for Doctor of Medicine (MD)",
                 'education-dates': "Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029",
                 'education-desc': "Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.",
-                'career-progress-title': "Career Progress",
+                'career-progress-title': "Progreso de Carrera",
                 'milestone-2023': "Medical Student Start",
                 'milestone-2024': "10+ Projects Completed",
                 'milestone-2025': "Top-Rated Freelancer",
@@ -612,16 +1783,12 @@
                 'language': "Language",
                 'start-quiz': "Find Your Ideal Service?",
                 'quiz-subtitle': "Match your needs",
-                'share-btn': "Share",
             },
             es: {
                  tagline: "Traductor Médico Trilingüe y Estudiante de Medicina",
                 contact: "Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>LinkedIn</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>Upwork</a>",
                 linkedin: "LinkedIn",
                 upwork: "Upwork",
-                'share-btn': "Compartir",
-                'start-quiz': "¿Proyecto Ideal?",
-                'quiz-subtitle': "Encuentra tu servicio",
                 'status-toprated': "Calificado Superior (Upwork)",
                 'status-jss': "100% Éxito Laboral",
                 'status-md': "Entrenamiento Médico Activo",
@@ -736,16 +1903,15 @@
                 'download-cv': "Descargar CV Completo (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
                 'dark-mode': "Modo Oscuro",
-                'language': "Idioma"
+                'language': "Idioma",
+                'start-quiz': "¿Proyecto Ideal?",
+                'quiz-subtitle': "Encuentra tu servicio",
             },
             he: {
                 tagline: "מתרגם רפואי טרילינגואלי וסטודנט לרפואה",
                 contact: "מר דל פלאטה, ארגנטינה | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>לינקדאין</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>אפוורק</a>",
                 linkedin: "לינקדאין",
                 upwork: "אפוורק",
-                'share-btn': "שתף",
-                'start-quiz': "מצא את השירות האידיאלי?",
-                'quiz-subtitle': "התאם את הצרכים שלך",
                 'status-toprated': "פרילנסר מדורג עליון",
                 'status-jss': "100% הצלחה בעבודה",
                 'status-md': "אימון רפואי פעיל",
@@ -800,7 +1966,7 @@
                 'lang-spanish': "ספרדית",
                 'lang-spanish-desc': "אמהרית (נולד במלאגה, ספרד - מומחיות בגרסאות קסטיליאני ו-LATAM)",
                 'lang-english': "אנגלית",
-                'lang-english-desc': "שוטף (מקביל C1, 15+ שנים)",
+                'lang-english-desc': "שוטף (מקביל C1, 12+ שנים)",
                 'lang-hebrew': "עברית",
                 'lang-hebrew-desc': "שוטף (מקביל C1, 10+ שנים טבילה יומית)",
                 'education-title': "חינוך",
@@ -909,13 +2075,11 @@
                 badge.classList.add('show');
                 setTimeout(() => badge.classList.remove('show'), 3000);
                 
-                // Re-initialize chatbot with correct language
+                // --- CHATBOT: RE-INITIALIZE BUBBLES ---
                 const chatWindow = document.getElementById('chat-window');
                 if(chatWindow && chatWindow.style.display !== 'none') {
-                    chatWindow.remove();
-                    // initChatbot() will be called next time button is clicked
+                    initChatbot(); // Re-calls to update language of the bubbles
                 }
-
             }, 300);
         }
 
@@ -923,13 +2087,14 @@
         function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
             const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
             
+            // Re-apply the cycle based on the new language's array size
             taglineIndex = taglineIndex % slogans.length;
             
-            taglineElement.classList.remove('animate-tagline');
-            void taglineElement.offsetWidth;
+            taglineElement.classList.remove('animate-tagline'); // Reset animation
+            void taglineElement.offsetWidth; // Trigger reflow
             
             taglineElement.textContent = slogans[taglineIndex];
-            taglineElement.classList.add('animate-tagline');
+            taglineElement.classList.add('animate-tagline'); // Start animation
             
             taglineIndex = (taglineIndex + 1) % slogans.length;
         }
@@ -966,106 +2131,10 @@
             if (words > 0 && rate) {
                 const total = (words * rate).toFixed(2);
                 resultDiv.innerHTML = `Approx. Quote: $${total} USD`;
-                launchConfetti(); // Confetti on success
+                launchConfetti(); // Lanza Confetti
             } else {
                 resultDiv.innerHTML = 'Enter word/minute count.';
             }
-        }
-
-        // --- MEJORA: GUARDAR NOMBRE EN sendEmail ---
-        const originalSendEmail = sendEmail;
-        function sendEmail(event) {
-            const name = document.getElementById('contactName').value;
-            if (name) localStorage.setItem('userName', name.split(' ')[0]); 
-            originalSendEmail(event);
-        };
-        
-        // Form Handling
-        const newsletterForm = document.getElementById("newsletterForm");
-        const newsletterStatus = document.getElementById("newsletter-status");
-
-        async function handleNewsletterSubmit(event) {
-            event.preventDefault();
-            const data = new FormData(event.target);
-            newsletterStatus.innerHTML = "Subscribing...";
-            try {
-                const response = await fetch(event.target.action, {
-                    method: newsletterForm.method,
-                    body: data,
-                    headers: { 'Accept': 'application/json' }
-                });
-                if (response.ok) {
-                    newsletterStatus.innerHTML = "Thanks for subscribing!";
-                    newsletterForm.reset();
-                    launchConfetti(); // Confetti on success
-                } else {
-                    const responseData = await response.json();
-                    if (Object.hasOwn(responseData, 'errors')) {
-                        newsletterStatus.innerHTML = responseData["errors"].map(error => error["message"]).join(", ");
-                    } else {
-                        newsletterStatus.innerHTML = "Oops! Problem subscribing.";
-                    }
-                }
-            } catch (error) {
-                newsletterStatus.innerHTML = "Oops! Network error. Try again.";
-            }
-        }
-        newsletterForm.addEventListener("submit", handleNewsletterSubmit);
-
-        // Star Rating
-        const ratingContainerHover = document.getElementById('freelancerRating');
-        const ratingMessageHover = document.getElementById('rating-message');
-        const starsHover = ratingContainerHover.querySelectorAll('.star');
-
-        let ratingMessagesHover = {
-            1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
-            2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
-            3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
-            4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
-            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
-        };
-
-        function updateRatingMessages(lang) {
-            ratingMessagesHover = {
-                1: translations[lang]['rating-msg1'] || ratingMessagesHover[1],
-                2: translations[lang]['rating-msg2'] || ratingMessagesHover[2],
-                3: translations[lang]['rating-msg3'] || ratingMessagesHover[3],
-                4: translations[lang]['rating-msg4'] || ratingMessagesHover[4],
-                5: translations[lang]['rating-msg5'] || ratingMessagesHover[5]
-            };
-            ratingMessageHover.innerHTML = translations[lang]['rating-hover'] || 'Hover over stars to see feedback.';
-        }
-        
-        // Función para actualizar las estrellas al pasar el ratón
-        starsHover.forEach(star => {
-             star.addEventListener('mouseenter', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                highlightStarsHover(rating);
-                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
-                ratingMessageHover.style.display = 'block';
-                
-                if (rating === 5) launchConfetti(); // Confetti on 5 stars hover
-            });
-        });
-
-        ratingContainerHover.addEventListener('mouseleave', () => {
-            highlightStarsHover(0);
-            ratingMessageHover.style.display = 'none';
-            ratingMessageHover.innerHTML = '';
-        });
-
-        function highlightStarsHover(rating) {
-            starsHover.forEach(star => {
-                const starValue = parseInt(star.getAttribute('data-value'));
-                if (starValue <= rating) {
-                    star.innerHTML = '<i class="fas fa-star"></i>';
-                    star.classList.add('selected');
-                } else {
-                    star.innerHTML = '<i class="far fa-star"></i>';
-                    star.classList.remove('selected');
-                }
-                star.classList.remove('hover');
-            });
         }
         
         // --- FUNCIÓN DE BIENVENIDA PERSONALIZADA ---
@@ -1086,24 +2155,87 @@
            else if (lang === 'he') message = userName ? `${greeting} ${userName}, ברוך השב.` : `${greeting} חקור את תיק העבודות שלי.`;
            else message = userName ? `${greeting} ${userName}, welcome back.` : `${greeting} Explore my portfolio.`;
            
-           const banner = document.getElementById('welcome-banner');
+           // Crea un banner temporal
+           const banner = document.createElement('div');
+           banner.id = 'welcome-banner';
+           banner.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; background: var(--gold); color: white; padding: 10px; text-align: center; z-index: 10000; transition: transform 0.3s ease; transform: translateY(-100%); cursor: pointer;';
            banner.textContent = message;
+           document.body.appendChild(banner);
            
            setTimeout(() => {
-                banner.classList.add('show-it');
-           }, 50); 
+                banner.style.transform = 'translateY(0%)';
+           }, 50); // Muestra el banner
            
            banner.onclick = () => banner.style.transform = 'translateY(-100%)';
-           setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000); 
+           setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000); // Esconde después de 5 segundos
         }
         
-        // --- QUIZ INTERACTIVO (SIMPLIFICADO) ---
+        // --- MEJORA: GUARDAR NOMBRE EN sendEmail ---
+        const originalSendEmail = sendEmail;
+        sendEmail = function(event) {
+            const name = document.getElementById('contactName').value;
+            if (name) localStorage.setItem('userName', name.split(' ')[0]); // Solo guarda el primer nombre
+            originalSendEmail(event);
+            launchConfetti(); // Lanza Confetti al enviar form
+        };
+        
+        // --- ANIMACIÓN DE CONFETTI ---
+        function launchConfetti() {
+            const canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.className = 'confetti-canvas';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            const colors = document.body.classList.contains('dark') ? ['#FFD700', '#87CEEB'] : ['#DAA520', '#4682B4'];
+            let particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, vx: (Math.random() - 0.5) * 10, vy: Math.random() * 5 + 5, color: colors[Math.floor(Math.random() * colors.length)], size: Math.random() * 5 + 5 });
+            }
+            
+            let frameCount = 0;
+            const duration = 150; // Duración de los frames (aprox 2.5 segundos a 60fps)
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.2; // Gravedad
+                });
+                
+                frameCount++;
+                if (frameCount < duration) {
+                    requestAnimationFrame(animate);
+                } else {
+                    canvas.remove();
+                }
+            }
+            animate();
+        }
+
+
+        // --- QUIZ INTERACTIVO ---
         function startProjectQuiz() {
             const lang = document.getElementById('langSelect').value;
-            const quizData = { /* Mismos datos quiz que en el chatPairs pero estructurados para el quiz */
-                en: [{ q: 'What kind of content is it?', options: ['Medical/Pharma', 'General/Marketing'] }],
-                es: [{ q: '¿Qué tipo de contenido?', options: ['Médico/Farma', 'General/Marketing'] }],
-                he: [{ q: 'מהו סוג התוכן?', options: ['רפואי/פרמצבטי', 'כללי/שיווקי'] }]
+            const quizData = {
+                en: [
+                    { q: 'What kind of content is it?', options: ['Medical/Pharma', 'General/Marketing', 'Academic/Scientific'] },
+                    { q: 'Languages: From/To?', options: ['HE>EN', 'ES>EN', 'EN>ES', 'Other'] },
+                    { q: 'Urgency: Deadline?', options: ['Rush (<1 week)', 'Normal'] }
+                ],
+                es: [
+                    { q: '¿Qué tipo de contenido?', options: ['Médico/Farma', 'General/Marketing', 'Académico/Científico'] },
+                    { q: 'Idiomas: ¿De/Para?', options: ['HE>EN', 'ES>EN', 'EN>ES', 'Otro'] },
+                    { q: 'Urgencia: ¿Plazo?', options: ['Rápido (<1 semana)', 'Normal'] }
+                ],
+                he: [
+                    { q: 'מהו סוג התוכן?', options: ['רפואי/פרמצבטי', 'כללי/שיווקי', 'אקדמי/מדעי'] },
+                    { q: 'שפות: מ/אל?', options: ['עב>אנג', 'ספ>אנג', 'אנג>ספ', 'אחר'] },
+                    { q: 'דחיפות: דד ליין?', options: ['דחוף (<שבוע)', 'רגיל'] }
+                ]
             };
             
             const quiz = quizData[lang] || quizData.en;
@@ -1111,48 +2243,68 @@
             let answers = [];
             
             const overlay = document.createElement('div');
+            overlay.id = 'quiz-overlay';
             overlay.style.cssText = 'position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:10000; display:flex; align-items:center; justify-content:center;';
             const quizDiv = document.createElement('div');
-            quizDiv.style.cssText = 'background:var(--card-bg); padding:20px; border-radius:10px; max-width:400px; text-align:center; box-shadow: 0 0 20px rgba(0,0,0,0.5); position: relative;';
+            quizDiv.style.cssText = 'background:var(--card-bg); padding:20px; border-radius:10px; max-width:400px; width:90%; text-align:center; box-shadow: 0 0 20px rgba(0,0,0,0.5); position: relative;';
             
             function showQuestion() {
-                // Título y botón de cerrar
+                // Función para cerrar el quiz
                 const closeBtnText = lang === 'es' ? 'X' : (lang === 'he' ? 'X' : 'X');
-                let questionContent = `<button onclick="overlay.remove();" style="position:absolute; top:10px; right:10px; background:var(--gold); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-weight:bold;">${closeBtnText}</button>`;
-                questionContent += `<h3 style="color:var(--gold); margin: 10px 0 20px 0;">${quiz[currentQ].q}</h3>`;
+                const closeBtn = `<button onclick="overlay.remove();" style="position:absolute; top:10px; right:10px; background:var(--gold); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-weight:bold;">${closeBtnText}</button>`;
                 
-                quizDiv.innerHTML = questionContent;
-
+                quizDiv.innerHTML = closeBtn;
+                quizDiv.innerHTML += `<h3 style="color:var(--gold); margin: 10px 0 20px 0;">${quiz[currentQ].q}</h3>`;
+                
                 quiz[currentQ].options.forEach(opt => {
                     const btn = document.createElement('button');
                     btn.textContent = opt;
-                    btn.className = 'quiz-option-btn';
+                    btn.style.cssText = 'display:block; width:80%; margin:10px auto; padding:10px; background:var(--sky-blue); color:white; border:none; border-radius:5px; cursor:pointer; transition: all 0.3s ease;';
+                    btn.onmouseover = () => btn.style.backgroundColor = 'var(--steel-blue)';
+                    btn.onmouseout = () => btn.style.backgroundColor = 'var(--sky-blue)';
                     
                     btn.onclick = () => {
                         answers.push(opt);
-                        const isMedical = answers[0].includes('Médico') || answers[0].includes('Medical') || answers[0].includes('רפואי');
-                        const baseRate = isMedical ? '0.12' : '0.08';
-                        const rateLabel = isMedical ? translations[lang]['medical-trans'] : translations[lang]['basic-trans'];
-                        
-                        let recMsg;
-                        if (lang === 'es') recMsg = isMedical ? '¡Usted necesita precisión médica! Servicio recomendado:' : 'Servicio recomendado:';
-                        else if (lang === 'he') recMsg = isMedical ? 'אתה זקוק לדיוק רפואי! שירות מומלץ:' : 'שירות מומלץ:';
-                        else recMsg = isMedical ? 'You need medical precision! Recommended Service:' : 'Recommended Service:';
-                        
-                        // Mostrar resultado
-                        quizDiv.innerHTML = `<button onclick="overlay.remove();" style="position:absolute; top:10px; right:10px; background:var(--gold); color:white; border:none; border-radius:50%; width:30px; height:30px; cursor:pointer; font-weight:bold;">X</button>`;
-                        quizDiv.innerHTML += `<p style="color: var(--steel-blue); margin-bottom: 15px;">${recMsg}</p>`;
-                        quizDiv.innerHTML += `<p style="font-weight: bold; color: var(--gold); margin-bottom: 20px;">${rateLabel}</p>`;
-                        
-                        const ctaBtn = document.createElement('button');
-                        ctaBtn.textContent = lang === 'es' ? 'Aplicar a Cotizadora' : (lang === 'he' ? 'החל על מחשבון הצעות מחיר' : 'Apply to Quote Calculator');
-                        ctaBtn.style.cssText = 'display:block; width:80%; margin:10px auto; padding:10px; background:var(--gold); color:white; border:none; border-radius:5px; cursor:pointer;';
-                        ctaBtn.onclick = () => {
-                            overlay.remove(); 
-                            document.getElementById('serviceType').value = baseRate;
-                        };
-                        quizDiv.appendChild(ctaBtn);
-                        launchConfetti();
+                        currentQ++;
+                        if (currentQ < quiz.length) {
+                            showQuestion();
+                        } else {
+                            // Resultados y CTA
+                            const isMedical = answers[0].includes('Médico') || answers[0].includes('Medical') || answers[0].includes('רפואי');
+                            const baseRate = isMedical ? '0.12' : '0.08';
+                            const rateLabel = isMedical ? translations[lang]['medical-trans'] : translations[lang]['basic-trans'];
+                            
+                            let recMsg;
+                            let ctaBtnText;
+
+                            if (lang === 'es') {
+                                recMsg = isMedical ? '¡Usted necesita precisión médica! Servicio recomendado:' : 'Servicio recomendado:';
+                                ctaBtnText = 'Aplicar a Cotizadora';
+                            } else if (lang === 'he') {
+                                recMsg = isMedical ? 'אתה זקוק לדיוק רפואי! שירות מומלץ:' : 'שירות מומלץ:';
+                                ctaBtnText = 'החל על מחשבון הצעות מחיר';
+                            } else {
+                                recMsg = isMedical ? 'You need medical precision! Recommended Service:' : 'Recommended Service:';
+                                ctaBtnText = 'Apply to Quote Calculator';
+                            }
+                            
+                            quizDiv.innerHTML = closeBtn; // Reañadir botón de cerrar
+                            quizDiv.innerHTML += `<p style="color: var(--steel-blue); margin-bottom: 15px;">${recMsg}</p>`;
+                            quizDiv.innerHTML += `<p style="font-weight: bold; color: var(--gold); margin-bottom: 20px;">${rateLabel}</p>`;
+                            
+                            const ctaBtn = document.createElement('button');
+                            ctaBtn.textContent = ctaBtnText;
+                            
+                            ctaBtn.style.cssText = 'display:block; width:80%; margin:10px auto; padding:10px; background:var(--gold); color:white; border:none; border-radius:5px; cursor:pointer;';
+                            ctaBtn.onclick = () => {
+                                overlay.remove(); 
+                                // Selecciona la opción correcta en la cotizadora
+                                document.getElementById('serviceType').value = baseRate;
+                                localStorage.setItem('quizPrefs', JSON.stringify(answers)); 
+                            };
+                            quizDiv.appendChild(ctaBtn);
+                            launchConfetti(); // Lanza confetti al terminar
+                        }
                     };
                     quizDiv.appendChild(btn);
                 });
@@ -1162,74 +2314,30 @@
             }
             showQuestion();
         }
-
         
-        // --- ANIMACIÓN DE CONFETTI ---
-        function launchConfetti() {
-            const canvas = document.createElement('canvas');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            canvas.style.cssText = 'position:fixed; top:0; left:0; pointer-events:none; z-index:9999;';
-            document.body.appendChild(canvas);
-            const ctx = canvas.getContext('2d');
-            const colors = document.body.classList.contains('dark') ? ['#FFD700', '#87CEEB'] : ['#DAA520', '#4682B4'];
-            let particles = [];
-            
-            // Genera más partículas con alta velocidad inicial para un efecto de "explosión"
-            for (let i = 0; i < 150; i++) {
-                particles.push({ 
-                    x: canvas.width / 2, 
-                    y: canvas.height / 2, 
-                    vx: (Math.random() - 0.5) * 15, 
-                    vy: (Math.random() - 1) * 15, 
-                    color: colors[Math.floor(Math.random() * colors.length)], 
-                    size: Math.random() * 5 + 3,
-                    ttl: 120 // Time to live (frames)
-                });
-            }
-            
-            function animate() {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
-                // Filtra las partículas que han expirado
-                particles = particles.filter(p => p.ttl > 0);
-                
-                particles.forEach(p => {
-                    ctx.fillStyle = p.color;
-                    ctx.fillRect(p.x, p.y, p.size, p.size);
-                    
-                    p.x += p.vx;
-                    p.y += p.vy;
-                    p.vy += 0.5; // Gravedad más fuerte
-                    p.ttl--;
-                });
-                
-                // Si aún hay partículas, sigue animando
-                if (particles.length > 0) {
-                    requestAnimationFrame(animate);
-                } else {
-                    canvas.remove(); // Elimina el canvas cuando el confeti desaparece
-                }
-            }
-            animate();
-        }
-
-
-        // --- CHATBOT SIMPLE ---
+        // --- CHATBOT MOVIDA FUERA DE DOMContentLoaded ---
         function initChatbot() {
             const chatBtn = document.getElementById('chat-btn');
             let isChatOpen = false;
 
+            // La lógica de idioma debe usarse aquí, pero la re-inicialización del botón se hace una vez al inicio
+            // Lo importante es que la lógica de las burbujas use el idioma actual.
+            
             const lang = document.getElementById('langSelect').value;
             const langData = qaPairs[lang] || qaPairs.en;
-            const chatDiv = document.createElement('div');
+            
+            // Check if window already exists (e.g., from a language switch)
+            let chatDiv = document.getElementById('chat-window');
+            if(chatDiv) chatDiv.remove();
+
+            chatDiv = document.createElement('div');
             chatDiv.id = 'chat-window';
             chatDiv.style.cssText = 'position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:var(--card-bg); border-radius:10px; box-shadow:0 4px 12px var(--shadow-color); display:none; flex-direction:column; z-index: 1002;';
             document.body.appendChild(chatDiv);
 
             const messagesDiv = document.createElement('div');
             messagesDiv.id = 'chat-messages';
-            messagesDiv.style.cssText = 'flex:1; padding:10px; overflow-y:auto;';
+            messagesDiv.style.cssText = 'flex:1; padding:10px; overflow-y:auto; border-bottom: 1px solid var(--border-color);';
             
             const headerDiv = document.createElement('div');
             headerDiv.style.cssText = 'padding:10px; background:var(--sky-blue); color:white; border-top-left-radius: 10px; border-top-right-radius: 10px; display: flex; justify-content: space-between; align-items: center;';
@@ -1251,14 +2359,13 @@
 
             const showBubbles = () => {
                 bubbleContainer.innerHTML = '';
-                const options = langData.options;
+                const currentLang = document.getElementById('langSelect').value;
+                const options = chatPairs[currentLang].options;
                 
                 options.forEach(option => {
                     const bubble = document.createElement('button');
                     bubble.textContent = option;
                     bubble.style.cssText = 'margin: 5px; padding: 8px; border: 1px solid var(--sky-blue); background: var(--card-bg); color: var(--steel-blue); border-radius: 15px; cursor: pointer; font-size: 0.9em;';
-                    
-                    // Manejar clics de burbuja
                     bubble.onclick = () => handleChat(option);
                     bubbleContainer.appendChild(bubble);
                 });
@@ -1268,29 +2375,35 @@
             const handleChat = (input) => {
                 displayMessage('User', input);
                 
-                const responseKey = input;
-                const response = langData.response[responseKey] || langData.response[input] || "Please select an option or use the contact form.";
+                const currentLang = document.getElementById('langSelect').value;
+                const langResponses = chatPairs[currentLang].response;
+                const langOptions = chatPairs[currentLang].options;
+                
+                // Find the option text to get the response key
+                const responseKey = langOptions.find(key => key === input);
+                
+                if (responseKey === langOptions[4]) { // Assuming the fifth option is 'Close Chat'
+                    displayMessage('Danilo', langResponses[responseKey]);
+                    setTimeout(() => chatDiv.style.display = 'none', 1500);
+                    return;
+                }
+                
+                const response = langResponses[responseKey] || langResponses['default'] || "Please select an option or use the contact form.";
                 
                 setTimeout(() => {
                     displayMessage('Danilo', response);
-                    
-                    // Si es 'Close Chat', lo cierra
-                    if (input === langData.options[4]) {
-                        setTimeout(() => chatDiv.style.display = 'none', 1500);
-                        return;
-                    }
                     showBubbles(); 
                 }, 1000);
             };
 
             // Toggle chat
             chatBtn.onclick = () => {
+                isChatOpen = chatDiv.style.display !== 'none';
                 if (!isChatOpen) {
                     chatDiv.style.display = 'flex';
                     messagesDiv.innerHTML = ''; 
-                    const lang = document.getElementById('langSelect').value;
-                    const langData = qaPairs[lang] || qaPairs.en;
-                    const welcomeMsg = langData.welcome;
+                    const currentLang = document.getElementById('langSelect').value;
+                    const welcomeMsg = chatPairs[currentLang].welcome;
                     displayMessage('Danilo', welcomeMsg);
                     showBubbles();
                     isChatOpen = true;
