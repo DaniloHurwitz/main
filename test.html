@@ -22,8 +22,6 @@
          * 11. Star Rating Specific
          * 12. Language Switcher Specific
          * 13. Career Progress Bar Specific
-         *
-         * -- NUEVOS ESTILOS AÑADIDOS --
          */
 
         /* 1. Root Variables */
@@ -33,7 +31,7 @@
             --steel-blue: #4682B4;
             --gold: #DAA520;
             --gold-dark: #B8860B;
-            --dark-gray: #2C3E50; /* Corregido para uso en CSS */
+            --dark-gray: #2C3E50; 
             --slate-gray: #708090;
             --gray-dark: #555;
             --white-translucent: rgba(255,255,255,0.9);
@@ -198,8 +196,8 @@
             background: var(--card-semi);
             border-color: var(--border-color);
         }
-        
-        /* New welcome banner CSS */
+
+        /* NEW CUSTOM STYLES FOR JS FEATURES */
         #welcome-banner {
             position: fixed; 
             top: 0; 
@@ -218,26 +216,15 @@
         #welcome-banner.show-it {
             transform: translateY(0%); /* Show on load */
         }
-
-        .powered-badge {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--gold);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1001;
-        }
-
-        .powered-badge.show {
-            opacity: 1;
+        
+        .confetti-canvas {
+            position:fixed; 
+            top:0; 
+            left:0; 
+            pointer-events:none; 
+            z-index:9999;
         }
         
-        /* Chatbot Button */
         #chat-btn {
             position:fixed; 
             bottom:20px; 
@@ -257,7 +244,6 @@
             transform: scale(1.1);
         }
         
-        /* Chatbot Window */
         #chat-window {
             position:fixed; 
             bottom:90px; 
@@ -287,15 +273,47 @@
             color: var(--body-text);
         }
         
-        /* Confetti Canvas CSS */
-        .confetti-canvas {
+        /* Quiz Styles */
+        #quiz-overlay {
             position:fixed; 
             top:0; 
             left:0; 
-            pointer-events:none; 
-            z-index:9999;
+            width:100%; 
+            height:100%; 
+            background:rgba(0,0,0,0.7); 
+            z-index:10000; 
+            display:flex; 
+            align-items:center; 
+            justify-content:center;
+        }
+        #quiz-overlay button {
+            background: var(--sky-blue);
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        #quiz-overlay button:hover {
+            background: var(--steel-blue);
         }
 
+
+        .powered-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+        }
+
+        .powered-badge.show {
+            opacity: 1;
+        }
 
         /* 4. Layout & Structure */
         .header {
@@ -1139,7 +1157,7 @@
             }
 
             .portfolio-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: 1fr;
             }
 
             .tools-section {
@@ -1266,6 +1284,7 @@
             display: none;
             opacity: 0;
             max-height: 0;
+            overflow: hidden;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -1553,7 +1572,7 @@
                     <button onclick="calculateQuote()" data-i18n="calculate">Calculate Estimate</button>
                     <div id="quoteResult" class="quote-result"></div>
                     <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;" data-i18n="quote-note">Note: Final quotes depend on complexity, language pair, and urgency.</p>
-                     <button onclick="startProjectQuiz()" data-i18n="start-quiz">Find Your Ideal Service?</button>
+                     <button class="secondary-nav-btn" onclick="startProjectQuiz()" data-i18n="start-quiz">Find Your Ideal Service?</button>
                 </div>
             </div>
 
@@ -1597,6 +1616,11 @@
                 "100% Precisión Garantizada: Especialista en Traducción Médica",
                 "Estudiante de Medicina: Conocimiento Clínico Activo y Fluidez Trilingüe",
                 "Precisión Calificada Superior para Sectores HealthTech, Pharma y Académico"
+            ],
+            he: [
+                "100% דיוק מובטח: מומחה לתרגום רפואי",
+                "סטודנט לרפואה: ידע קליני פעיל פוגש שטף טרילינגואלי",
+                "דיוק מדורג עליון למגזרי HealthTech, פארמה ואקדמיה"
             ]
         };
         
@@ -1698,7 +1722,7 @@
                 'job2-li2': "Received consistent 5-star client feedback for technical quality and attention to detail.",
                 'testimonial2-title': "Video Editing of a Short Family Video",
                 'testimonial2-rating': "Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)",
-                'testimonial2-text': "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!",
+                'testimonial2-text': "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!" ,
                 'read-more': "Read More",
                 'read-less': "Read Less",
                 'skills-title': "Skills",
@@ -1728,7 +1752,7 @@
                 'education-md': "Candidate for Doctor of Medicine (MD)",
                 'education-dates': "Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029",
                 'education-desc': "Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.",
-                'career-progress-title': "Progreso de Carrera",
+                'career-progress-title': "Career Progress",
                 'milestone-2023': "Medical Student Start",
                 'milestone-2024': "10+ Projects Completed",
                 'milestone-2025': "Top-Rated Freelancer",
@@ -1781,9 +1805,7 @@
                 'download-cv': "Download Full CV (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. All rights reserved.",
                 'dark-mode': "Dark Mode",
-                'language': "Language",
-                'start-quiz': "Find Your Ideal Service?",
-                'quiz-subtitle': "Match your needs",
+                'language': "Language"
             },
             es: {
                  tagline: "Traductor Médico Trilingüe y Estudiante de Medicina",
@@ -1904,9 +1926,128 @@
                 'download-cv': "Descargar CV Completo (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
                 'dark-mode': "Modo Oscuro",
-                'language': "Idioma",
-                'start-quiz': "¿Proyecto Ideal?",
-                'quiz-subtitle': "Encuentra tu servicio",
+                'language': "Idioma"
+            },
+            he: {
+                tagline: "מתרגם רפואי טרילינגואלי וסטודנט לרפואה",
+                contact: "מר דל פלאטה, ארגנטינה | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>לינקדאין</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>אפוורק</a>",
+                linkedin: "לינקדאין",
+                upwork: "אפוורק",
+                'status-toprated': "פרילנסר מדורג עליון",
+                'status-jss': "100% הצלחה בעבודה",
+                'status-md': "אימון רפואי פעיל",
+                'status-tri': "3 שפות שוטפות",
+                'blog-title': "בלוג מצפן הפרילנסר",
+                'blog-subtitle': "תובנות ומדריכים",
+                'tools-title': "כלי עזר לפרילנסרים",
+                'tools-subtitle': "מחשבונים ומשאבים",
+                'tab-summary': "סיכום",
+                'tab-experience': "ניסיון",
+                'tab-skills': "כישורים",
+                'tab-education': "חינוך",
+                'tab-portfolio': "תיק עבודות",
+                'tab-strengths': "חוזקות",
+                'summary-title': "סיכום מקצועי",
+                'summary-text': "מתרגם רפואי טרילינגואלי מדורג גבוה (עברית/אנגלית/ספרדית) וסטודנט לרפואה נוכחי המנצל ידע רפואי עמוק ודיוק לשוני עבור המגזרים HealthTech, פרמצבטי ואקדמי. יכולת מוכחת לספק תרגומים מדויקים ב-100% של תיעוד קליני וטכני מורכב. ציון הצלחה בעבודה של 100% באפוורק משקף אמינות יוצאת דופן, שביעות רצון לקוחות ומחויבות למועדים בפרויקטים בינלאומיים.",
+                'experience-title': "ניסיון מקצועי",
+                'job1-title': "מתרגם ומוער פרילנס",
+                'job1-dates': "אפוורק | מאי 2023 – הווה",
+                'job1-li1': "השלמת בהצלחה 10+ פרויקטי תרגום מורכבים, כולל סקירות תיעוד קליני והתאמות מדריכים טכניים, תוך שמירה על דיוק מושלם.",
+                'job1-li2': "שלטתי בזרימות עבודה של עריכה לאחר תרגום מכונה (MTPE), שיפור יעילות תוך הבטחת שטף ברמה טבעית ורלוונטיות תרבותית במסמכים הסופיים.",
+                'job1-li3': "השגתי ושמרתי על 100% שביעות רצון לקוחות וציון הצלחה בעבודה באמצעות תקשורת יזומה, בקרת איכות מדוקדקת והגשה בזמן עקבית, אפילו תחת לחצי זמן.",
+                'testimonial1-title': "פרויקט תרגום עברית לאנגלית",
+                'testimonial1-rating': "דירוג: 5.0 (18 נוב 2023 - 5 פבר 2024)",
+                'testimonial1-text': "העבודה עם דנilo הורוויץ בפרויקט MTPE מעברית לאנגלית הייתה חוויה יוצאת דופן. המיומנות של דנilo בשתי השפות זרחה, והבטיחה תרגום מדויק ומעודן מאוד. [...] חמש כוכבים!",
+                'job2-title': "עורך וידאו ויוצר כתוביות פרילנס",
+                'job2-dates': "אפוורק | מאי 2023 – הווה",
+                'job2-li1': "תרמתי לבהירות ונגישות של מודולים של למידה מקוונת רפואית ווידאו חינוכי למטופלים באמצעות אופטימיזציה אודיו-ויזואלית מדויקת.",
+                'job2-li2': "קיבלתי משוב עקבי של 5 כוכבים מלקוחות על איכות טכנית ותשומת לב לפרטים.",
+                'testimonial2-title': "עריכת וידאו משפחתי קצר",
+                'testimonial2-rating': "דירוג: 5.0 (9 אוק 2024 - 28 אוק 2024)",
+                'testimonial2-text': "דנilo עשה עבודה נהדרת! היה מגיב מאוד, יצר וידאו מקצועי נהדר והבטיח שכל מה שהייתי צריך נעשה בצורה מושלמת. [...] אני ממליץ לחלוטין לעבוד איתו!",
+                'read-more': "קרא עוד",
+                'read-less': "קרא פחות",
+                'skills-title': "כישורים",
+                'skills-medical': "תרגום רפואי",
+                'skills-medical-li1': "תיעוד קליני, דוחות מטופלים",
+                'skills-medical-li2': "הסכמות מודעות, מדריכי MedTech",
+                'skills-medical-li3': "מאמרים אקדמיים, הגשות רגולטוריות (בסיסי)",
+                'skills-medical-li4': "תוכן שיווקי בריאות",
+                'skills-translation': "תרגום ועריכה",
+                'skills-translation-li1': "הגהה, עריכת העתק, MTPE",
+                'skills-translation-li2': "ניהול מונחים, QA",
+                'skills-translation-li3': "יישום מדריך סגנון",
+                'skills-software': "תוכנה וכלים",
+                'skills-software-li1': "MS Office (מתקדם), Google Workspace",
+                'skills-software-li2': "CapCut, Subtitle Edit",
+                'skills-software-li3': "SEO בסיסי",
+                'skills-other': "אחר",
+                'skills-other-li1': "כתיבה רפואית, כתיבה רפאים",
+                'skills-other-li2': "תקשורת בין-תרבותית",
+                'lang-spanish': "ספרדית",
+                'lang-spanish-desc': "אמהרית (נולד במלאגה, ספרד - מומחיות בגרסאות קסטיליאני ו-LATAM)",
+                'lang-english': "אנגלית",
+                'lang-english-desc': "שוטף (מקביל C1, 12+ שנים)",
+                'lang-hebrew': "עברית",
+                'lang-hebrew-desc': "שוטף (מקביל C1, 10+ שנים טבילה יומית)",
+                'education-title': "חינוך",
+                'education-md': "מועמד לדוקטור ברפואה (MD)",
+                'education-dates': "אוניברסיטת נשיונל דה מר דל פלאטה | מר דל פלאטה, ארגנטינה | סיום צפוי: 2029",
+                'education-desc': "רכישת ידע מקיף באנטומיה, פיזיולוגיה, מונחים קליניים ומתודולוגיות מחקר – מיושם ישירות להבטחת דיוק בפרויקטי תרגום רפואי.",
+                'career-progress-title': "התקדמות קריירה",
+                'milestone-2023': "תחילת לימודי רפואה",
+                'milestone-2024': "10+ פרויקטים הושלמו",
+                'milestone-2025': "פרילנסר מדורג עליון",
+                'portfolio-title': "תיק עבודות מובלט",
+                'portfolio-desc': "פרויקטים נבחרים המציגים דיוק תרגום ומיומנות טכנית.",
+                'portfolio-item1': "רשומות רפואיות עברית לאנגלית",
+                'portfolio-item1-price': "270$ קבוע | יולי 2025",
+                'view-sample': "צפה בדוגמה (PDF)",
+                'portfolio-item2': "התאמת וידאו הדרכה עברית",
+                'portfolio-item2-price': "242$ קבוע | יוני 2025",
+                'watch-video': "צפה בווידאו",
+                'portfolio-item3': "עריכת וידאו משפחתי וכתוביות",
+                'portfolio-item3-price': "דירוג 5.0 | 150$ קבוע | אוק 2024",
+                'watch-demo': "צפה בהדגמה",
+                'portfolio-item4': "סקירת אודיו עברית טבעית",
+                'portfolio-item4-price': "370$ קבוע | יולי 2025",
+                'listen-sample': "האזן לדוגמה",
+                'strengths-title': "חוזקות מרכזיות",
+                'strength1': "אקומן רפואי טרילינגואלי עלית: משלב אימון רפואי פעיל עם עברית, אנגלית, ספרדית אמהרית/שוטפת לדיוק ללא תקדים.",
+                'strength1-bold': "אקומן רפואי טרילינגואלי עלית:",
+                'strength2': "דיוק בין-תרבותי: ניואנסים ספרדית אמהרית (ספרד) + ניסיון בישראל/ארגנטינה לתקשורת מושלמת.",
+                'strength2-bold': "דיוק בין-תרבותי:",
+                'strength3': "אמינות מוכחת: עולה על ציפיות בפרויקטים מורכבים ומונעי מועדים עבור לקוחות בינלאומיים דרך אפוורק (100% JSS).",
+                'strength3-bold': "אמינות מוכחת:",
+                'rating-title': "איך אתה בדרך כלל בוחר פרילנסר?",
+                'rating-msg1': "התמקדות רק ב<strong>ההצעה הנמוכה ביותר</strong> לעיתים קרובות אומרת יותר זמן ניהול, אי הבנות פוטנציאליות ותוצאות שדורשות תיקונים נוספים.",
+                'rating-msg2': "בחירה <strong>מודעת לתקציב</strong>. עשויה לעבוד למשימות פשוטות, אך עלולה לפספס ניואנסים קריטיים בתוכן מתמחה כמו תרגום רפואי.",
+                'rating-msg3': "מבצע את העבודה. גישה <strong>כללית</strong> מספקת תוצאות סטנדרטיות לפרויקטים סטנדרטיים.",
+                'rating-msg4': "מקצוען <strong>מוצק</strong> שמספק איכות טובה. סביר שדורש הדרכה ברורה בדרישות מתמחות גבוהות או ספציפיות תרבותית.",
+                'rating-msg5': "<strong>!השקעה במצוינות</strong> בחירת <strong>מומחה מדורג עליון</strong> המתמקד בדיוק ואיכות לפרויקטים קריטיים. <strong>תוצאה:</strong> תוכן מדויק 100%, מושלם תרבותית המועבר באופן אמין, נותן לך שקט נפשי.",
+                'rating-hover': "העבר עכבר על הכוכבים כדי לראות משוב.",
+                'quote-title': "מחשבון הצעת מחיר מהיר",
+                'quote-desc': "הערכת עלות הפרויקט שלך (USD למילה/דקה).",
+                'word-count': "ספירת מילים/דקות",
+                'basic-trans': "תרגום בסיסי (0.08$/מילה)",
+                'medical-trans': "תרגום רפואי (0.12$/מילה)",
+                'editing': "עריכה/הגהה (0.04$/מילה)",
+                'subtitles': "כתוביות וידאו (5.00$/דקה)",
+                'calculate': "חשב הערכה",
+                'quote-note': "הערה: הצעות מחיר סופיות תלויות במורכבות, זוג שפות ודחיפות.",
+                'contact-title': "צור קשר",
+                'contact-desc': "מוכן לשתף פעולה? ספר לי על הפרויקט שלך.",
+                'name': "שמך",
+                'email': "האימייל שלך",
+                'message': "תאר את הפרויקט שלך...",
+                'send': "שלח הודעה",
+                'newsletter-text': "או הרשם לטיפים פרילנס:",
+                'newsletter-email': "אימייל",
+                'subscribe': "הירשם",
+                'download-cv': "הורד קורות חיים מלאים (PDF)",
+                'footer': "© 2025 דנילו הורוויץ. כל הזכויות שמורות.",
+                'dark-mode': "מצב כהה",
+                'language': "שפה"
             }
         };
 
@@ -1954,9 +2095,10 @@
                 setTimeout(() => badge.classList.remove('show'), 3000);
                 
                 // --- CHATBOT: RE-INITIALIZE BUBBLES ---
-                // Re-inicializa el chatbot para actualizar los mensajes y burbujas al cambiar de idioma
-                initChatbot();
-                
+                const chatWindow = document.getElementById('chat-window');
+                if(chatWindow && chatWindow.style.display !== 'none') {
+                    initChatbot(); // Re-calls to update language of the bubbles
+                }
             }, 300);
         }
 
@@ -2021,7 +2163,6 @@
            const lang = document.getElementById('langSelect').value;
            let greeting = '';
            
-           // Determinar saludo basado en la hora y el idioma
            if (hour < 12) greeting = lang === 'es' ? '¡Buenos días!' : (lang === 'he' ? 'בוקר טוב' : 'Good morning!');
            else if (hour < 18) greeting = lang === 'es' ? '¡Buenas tardes!' : (lang === 'he' ? 'צהריים טובים' : 'Good afternoon!');
            else greeting = lang === 'es' ? '¡Buenas noches!' : (lang === 'he' ? 'ערב טוב' : 'Good evening!');
@@ -2033,6 +2174,7 @@
            else if (lang === 'he') message = userName ? `${greeting} ${userName}, ברוך השב.` : `${greeting} חקור את תיק העבודות שלי.`;
            else message = userName ? `${greeting} ${userName}, welcome back.` : `${greeting} Explore my portfolio.`;
            
+           // Crea un banner temporal
            const banner = document.createElement('div');
            banner.id = 'welcome-banner';
            banner.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; background: var(--gold); color: white; padding: 10px; text-align: center; z-index: 10000; transition: transform 0.3s ease; transform: translateY(-100%); cursor: pointer;';
@@ -2041,13 +2183,61 @@
            
            setTimeout(() => {
                 banner.style.transform = 'translateY(0%)';
-           }, 50);
+           }, 50); // Muestra el banner
            
            banner.onclick = () => banner.style.transform = 'translateY(-100%)';
-           setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000);
+           setTimeout(() => banner.style.transform = 'translateY(-100%)', 5000); // Esconde después de 5 segundos
         }
         
-        // --- FUNCIÓN DE QUIZ INTERACTIVO ---
+        // --- MEJORA: GUARDAR NOMBRE EN sendEmail ---
+        const originalSendEmail = sendEmail;
+        sendEmail = function(event) {
+            const name = document.getElementById('contactName').value;
+            if (name) localStorage.setItem('userName', name.split(' ')[0]); // Solo guarda el primer nombre
+            originalSendEmail(event);
+            launchConfetti(); // Lanza Confetti al enviar form
+        };
+        
+        // --- ANIMACIÓN DE CONFETTI ---
+        function launchConfetti() {
+            const canvas = document.createElement('canvas');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            canvas.className = 'confetti-canvas';
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+            const colors = document.body.classList.contains('dark') ? ['#FFD700', '#87CEEB'] : ['#DAA520', '#4682B4'];
+            let particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height, vx: (Math.random() - 0.5) * 10, vy: Math.random() * 5 + 5, color: colors[Math.floor(Math.random() * colors.length)], size: Math.random() * 5 + 5 });
+            }
+            
+            let frameCount = 0;
+            const duration = 150; // Duración de los frames (aprox 2.5 segundos a 60fps)
+            
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(p.x, p.y, p.size, p.size);
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.2; // Gravedad
+                });
+                
+                frameCount++;
+                // Verifica si todas las partículas están fuera de la vista (debajo de la pantalla)
+                if (frameCount < duration) {
+                    requestAnimationFrame(animate);
+                } else {
+                    canvas.remove();
+                }
+            }
+            animate();
+        }
+
+
+        // --- QUIZ INTERACTIVO ---
         function startProjectQuiz() {
             const lang = document.getElementById('langSelect').value;
             const quizData = {
@@ -2106,16 +2296,20 @@
                             
                             let recMsg;
                             let ctaBtnText;
+                            let alertText;
 
                             if (lang === 'es') {
                                 recMsg = isMedical ? '¡Usted necesita precisión médica! Servicio recomendado:' : 'Servicio recomendado:';
                                 ctaBtnText = 'Aplicar a Cotizadora';
+                                alertText = 'El quiz ha seleccionado la tarifa más relevante. ¡Revísala en la calculadora!';
                             } else if (lang === 'he') {
                                 recMsg = isMedical ? 'אתה זקוק לדיוק רפואי! שירות מומלץ:' : 'שירות מומלץ:';
                                 ctaBtnText = 'החל על מחשבון הצעות מחיר';
+                                alertText = 'השאלון בחר את התעריף הרלוונטי ביותר. בדוק אותו במחשבון!';
                             } else {
                                 recMsg = isMedical ? 'You need medical precision! Recommended Service:' : 'Recommended Service:';
                                 ctaBtnText = 'Apply to Quote Calculator';
+                                alertText = 'The quiz has selected the most relevant rate. Check it in the calculator!';
                             }
                             
                             quizDiv.innerHTML = closeBtn; // Reañadir botón de cerrar
@@ -2131,6 +2325,7 @@
                                 // Selecciona la opción correcta en la cotizadora
                                 document.getElementById('serviceType').value = baseRate;
                                 localStorage.setItem('quizPrefs', JSON.stringify(answers)); 
+                                alert(alertText); // Mostrar alerta de éxito
                             };
                             quizDiv.appendChild(ctaBtn);
                             launchConfetti(); // Lanza confetti al terminar
@@ -2144,17 +2339,18 @@
             }
             showQuestion();
         }
-        
-        // --- CHATBOT FLOTANTE ---
+
+        // --- CHATBOT MOVIDA FUERA DE DOMContentLoaded ---
         function initChatbot() {
             const chatBtn = document.getElementById('chat-btn');
-            
-            // Check if window already exists (e.g., from a language switch)
-            let chatDiv = document.getElementById('chat-window');
-            if(chatDiv) chatDiv.remove(); // Remove old window
+            let isChatOpen = false;
 
             const lang = document.getElementById('langSelect').value;
             const langData = qaPairs[lang] || qaPairs.en;
+            
+            // Check if window already exists (e.g., from a language switch)
+            let chatDiv = document.getElementById('chat-window');
+            if(chatDiv) chatDiv.remove();
 
             chatDiv = document.createElement('div');
             chatDiv.id = 'chat-window';
@@ -2166,25 +2362,22 @@
             messagesDiv.style.cssText = 'flex:1; padding:10px; overflow-y:auto; border-bottom: 1px solid var(--border-color);';
             
             const headerDiv = document.createElement('div');
+            headerDiv.id = 'chat-header';
             headerDiv.style.cssText = 'padding:10px; background:var(--sky-blue); color:white; border-top-left-radius: 10px; border-top-right-radius: 10px; display: flex; justify-content: space-between; align-items: center;';
-            headerDiv.innerHTML = `<span>${langData.welcome}</span><button id="close-chat-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2em;">X</button>`;
+            
+            const closeBtnText = lang === 'es' ? 'Cerrar' : (lang === 'he' ? 'סגור' : 'Close');
+            headerDiv.innerHTML = `<span>${langData.welcome}</span><button id="close-chat-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2em;">${closeBtnText}</button>`;
             
             chatDiv.appendChild(headerDiv);
             chatDiv.appendChild(messagesDiv);
 
             const bubbleContainer = document.createElement('div');
-            bubbleContainer.id = 'chat-bubbles';
             bubbleContainer.style.cssText = 'padding: 10px; text-align: center;';
             chatDiv.appendChild(bubbleContainer);
-            
-            // Re-enlace del botón de cerrar
-            document.getElementById('close-chat-btn').onclick = () => {
-                 chatDiv.style.display = 'none';
-            };
-
 
             const displayMessage = (sender, text) => {
                 const p = document.createElement('p');
+                p.style.cssText = `text-align: ${sender === 'Danilo' ? 'left' : 'right'}; margin: 5px 0;`;
                 p.innerHTML = `<strong style="color: ${sender === 'Danilo' ? 'var(--gold)' : 'var(--steel-blue)'};">${sender}:</strong> ${text}`;
                 messagesDiv.appendChild(p);
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
@@ -2193,7 +2386,7 @@
             const showBubbles = () => {
                 bubbleContainer.innerHTML = '';
                 const currentLang = document.getElementById('langSelect').value;
-                const options = qaPairs[currentLang].options;
+                const options = chatPairs[currentLang].options;
                 
                 options.forEach(option => {
                     const bubble = document.createElement('button');
@@ -2210,11 +2403,17 @@
                 
                 const currentLang = document.getElementById('langSelect').value;
                 const langResponses = chatPairs[currentLang].response;
+                const langOptions = chatPairs[currentLang].options;
                 
-                // Find the response key based on the input text
-                const responseKey = Object.keys(langResponses).find(key => langResponses[key] === input) || input; 
+                const responseKey = langOptions.find(key => key === input);
                 
-                const response = langResponses[input] || "Please select an option or use the contact form.";
+                if (responseKey === langOptions[4]) { // Asumiendo que la quinta opción es 'Close Chat'
+                    displayMessage('Danilo', langResponses[responseKey]);
+                    setTimeout(() => chatDiv.style.display = 'none', 1500);
+                    return;
+                }
+                
+                const response = langResponses[responseKey] || langResponses['default'] || "¡Excelente pregunta! Contáctame para detalles personalizados.";
                 
                 setTimeout(() => {
                     displayMessage('Danilo', response);
@@ -2224,7 +2423,7 @@
 
             // Toggle chat
             chatBtn.onclick = () => {
-                const isChatOpen = chatDiv.style.display !== 'none';
+                isChatOpen = chatDiv.style.display !== 'none';
                 if (!isChatOpen) {
                     chatDiv.style.display = 'flex';
                     messagesDiv.innerHTML = ''; 
@@ -2232,16 +2431,71 @@
                     const welcomeMsg = chatPairs[currentLang].welcome;
                     displayMessage('Danilo', welcomeMsg);
                     showBubbles();
+                    isChatOpen = true;
                 } else {
                     chatDiv.style.display = 'none';
+                    isChatOpen = false;
                 }
             };
+            
+            document.getElementById('close-chat-btn').onclick = () => {
+                 chatDiv.style.display = 'none';
+                 isChatOpen = false;
+            };
+            
+            // Si el idioma cambia mientras el chat está abierto, reajustar encabezado y burbujas
+            langSelect.addEventListener('change', () => {
+                 if(chatDiv.style.display !== 'none') {
+                     const currentLang = document.getElementById('langSelect').value;
+                     const newWelcomeMsg = chatPairs[currentLang].welcome;
+                     document.getElementById('chat-header').querySelector('span').textContent = newWelcomeMsg;
+                     document.getElementById('close-chat-btn').textContent = currentLang === 'es' ? 'Cerrar' : (currentLang === 'he' ? 'סגור' : 'Close');
+                     showBubbles();
+                 }
+            });
         }
 
+        // --- FUNCION PARA ACTUALIZAR EL QUIZ AL CAMBIO DE IDIOMA (Para que los botones funcionen al recargar) ---
+        function updateQuizButtonLanguage() {
+             const quizButton = document.querySelector('.quote-tool button[onclick="startProjectQuiz()"]');
+             if (quizButton) {
+                 const currentLang = document.getElementById('langSelect').value;
+                 quizButton.textContent = translations[currentLang]['start-quiz'];
+             }
+        }
+        
+        // --- MODIFICAR calculateQuote y Star Rating para Confetti ---
+        const originalCalculateQuote = calculateQuote;
+        calculateQuote = function() {
+            originalCalculateQuote();
+            const resultDiv = document.getElementById('quoteResult');
+            if (resultDiv.textContent.includes('Approx. Quote')) {
+                launchConfetti();
+            }
+        };
 
+
+        // Función para actualizar las estrellas al pasar el ratón (Integración de Confetti en 5 estrellas)
+        const originalStarMouseEnter = (function() {
+            const tempStarsHover = document.querySelectorAll('#freelancerRating .star');
+            return function() {
+                tempStarsHover.forEach(star => {
+                    star.addEventListener('mouseenter', function() {
+                        const rating = parseInt(this.getAttribute('data-value'));
+                        highlightStarsHover(rating);
+                        ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
+                        ratingMessageHover.style.display = 'block';
+                        
+                        if (rating === 5) launchConfetti(); // Confetti on 5 stars hover
+                    });
+                });
+            };
+        })();
+
+        
         // --- SHARE SOCIAL PERSONALIZADO ---
         function sharePersonalized() {
-            const userName = localStorage.getItem('userName') || (document.getElementById('langSelect').value === 'es' ? 'un experto' : 'an expert');
+            const userName = localStorage.getItem('userName') || 'an expert';
             const lang = document.getElementById('langSelect').value;
             let shareText;
             
@@ -2264,77 +2518,22 @@
             const content = container.querySelector('.micro-samples');
             const clone = content.cloneNode(true);
             container.appendChild(clone);
+
+            let isPaused = false;
             
-            // La animación en este caso se deja en el CSS keyframes.
-            // Esta función solo asegura que el contenido esté duplicado.
+            container.onmouseenter = () => isPaused = true;
+            container.onmouseleave = () => isPaused = false;
+            
+            // La animación real se maneja en CSS (keyframes), solo aseguramos la existencia.
         }
         
-        // --- STAR RATING ---
-        function updateRatingMessages(lang) {
-            ratingMessagesHover = {
-                1: translations[lang]['rating-msg1'] || ratingMessagesHover[1],
-                2: translations[lang]['rating-msg2'] || ratingMessagesHover[2],
-                3: translations[lang]['rating-msg3'] || ratingMessagesHover[3],
-                4: translations[lang]['rating-msg4'] || ratingMessagesHover[4],
-                5: translations[lang]['rating-msg5'] || ratingMessagesHover[5]
-            };
-            ratingMessageHover.innerHTML = translations[lang]['rating-hover'] || 'Hover over stars to see feedback.';
-        }
-
-        starsHover.forEach(star => {
-             star.addEventListener('mouseenter', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                highlightStarsHover(rating);
-                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
-                ratingMessageHover.style.display = 'block';
-                
-                if (rating === 5) launchConfetti(); // Confetti on 5 stars hover
-            });
-        });
-
-        ratingContainerHover.addEventListener('mouseleave', () => {
-            highlightStarsHover(0);
-            ratingMessageHover.style.display = 'none';
-            ratingMessageHover.innerHTML = '';
-        });
-
-        function highlightStarsHover(rating) {
-            starsHover.forEach(star => {
-                const starValue = parseInt(star.getAttribute('data-value'));
-                if (starValue <= rating) {
-                    star.innerHTML = '<i class="fas fa-star"></i>';
-                    star.classList.add('selected');
-                } else {
-                    star.innerHTML = '<i class="far fa-star"></i>';
-                    star.classList.remove('selected');
-                }
-                star.classList.remove('hover');
-            });
-        }
         
-        function updateRatingMessages(lang) {
-            // Lógica duplicada pero necesaria para que el compilador me deje ponerla al final
-        }
-
-
-        function closePopup() {
-            popup.classList.remove('show');
-        }
-
-        // Initial State
-        const ratingContainerHover = document.getElementById('freelancerRating');
-        const ratingMessageHover = document.getElementById('rating-message');
-        const starsHover = ratingContainerHover.querySelectorAll('.star');
-        // El estado inicial del rating se setea en DOMContentLoaded
-        
-        
-        // --- INICIALIZACIÓN ---
+        // --- INICIALIZACIÓN FINAL ---
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
-            showPersonalizedWelcome(); // Llamada a la nueva función de bienvenida
-            updateDynamicTagline(); 
+            showPersonalizedWelcome(); 
+            originalStarMouseEnter(); // Vuelve a enlazar el mouseenter después de cargar DOM
 
-            // Re-enlace de eventos a elementos con IDs fijos y on-click handlers
             document.querySelectorAll('.job .toggle-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -2369,12 +2568,9 @@
             langSelect.value = savedLang;
             changeLanguage(savedLang);
             
-            // Lógica inicial de Rating
-            ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
-            ratingMessageHover.style.display = 'block';
-
             initChatbot(); // Inicializar el chatbot
             infiniteScrollCarousel('rec-carousel'); // Inicializar el carrusel
+            updateQuizButtonLanguage(); // Asegurar que el botón del quiz tenga el idioma correcto
         });
         
         langSelect.addEventListener('change', (e) => {
@@ -2382,101 +2578,6 @@
             localStorage.setItem('language', lang);
             changeLanguage(lang);
         });
-        
-        // --- FUNCION CHATBOT MOVIDA FUERA DE DOMContentLoaded ---
-        function initChatbot() {
-            const chatBtn = document.getElementById('chat-btn');
-            
-            // Check if window already exists (e.g., from a language switch)
-            let chatDiv = document.getElementById('chat-window');
-            if(chatDiv) chatDiv.remove(); // Remove old window
-
-            const lang = document.getElementById('langSelect').value;
-            const langData = qaPairs[lang] || qaPairs.en;
-
-            chatDiv = document.createElement('div');
-            chatDiv.id = 'chat-window';
-            chatDiv.style.cssText = 'position:fixed; bottom:90px; right:20px; width:300px; height:400px; background:var(--card-bg); border-radius:10px; box-shadow:0 4px 12px var(--shadow-color); display:none; flex-direction:column; z-index: 1002;';
-            document.body.appendChild(chatDiv);
-
-            const messagesDiv = document.createElement('div');
-            messagesDiv.id = 'chat-messages';
-            messagesDiv.style.cssText = 'flex:1; padding:10px; overflow-y:auto; border-bottom: 1px solid var(--border-color);';
-            
-            const headerDiv = document.createElement('div');
-            headerDiv.style.cssText = 'padding:10px; background:var(--sky-blue); color:white; border-top-left-radius: 10px; border-top-right-radius: 10px; display: flex; justify-content: space-between; align-items: center;';
-            headerDiv.innerHTML = `<span>${langData.welcome}</span><button id="close-chat-btn" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2em;">X</button>`;
-            
-            chatDiv.appendChild(headerDiv);
-            chatDiv.appendChild(messagesDiv);
-
-            const bubbleContainer = document.createElement('div');
-            bubbleContainer.id = 'chat-bubbles';
-            bubbleContainer.style.cssText = 'padding: 10px; text-align: center;';
-            chatDiv.appendChild(bubbleContainer);
-            
-            // Re-enlace del botón de cerrar
-            document.getElementById('close-chat-btn').onclick = () => {
-                 chatDiv.style.display = 'none';
-            };
-
-
-            const displayMessage = (sender, text) => {
-                const p = document.createElement('p');
-                p.innerHTML = `<strong style="color: ${sender === 'Danilo' ? 'var(--gold)' : 'var(--steel-blue)'};">${sender}:</strong> ${text}`;
-                messagesDiv.appendChild(p);
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            };
-
-            const showBubbles = () => {
-                bubbleContainer.innerHTML = '';
-                const currentLang = document.getElementById('langSelect').value;
-                const options = qaPairs[currentLang].options;
-                
-                options.forEach(option => {
-                    const bubble = document.createElement('button');
-                    bubble.textContent = option;
-                    bubble.style.cssText = 'margin: 5px; padding: 8px; border: 1px solid var(--sky-blue); background: var(--card-bg); color: var(--steel-blue); border-radius: 15px; cursor: pointer; font-size: 0.9em;';
-                    // Usamos closure para pasar la opción a handleChat
-                    bubble.onclick = (function(opt) {
-                        return function() { handleChat(opt); };
-                    })(option);
-                    
-                    bubbleContainer.appendChild(bubble);
-                });
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            };
-
-            const handleChat = (input) => {
-                displayMessage('User', input);
-                
-                const currentLang = document.getElementById('langSelect').value;
-                const langResponses = chatPairs[currentLang].response;
-                
-                // Find the response text directly using the bubble text as the key
-                const response = langResponses[input] || langResponses['default'] || "Please select an option or use the contact form.";
-                
-                setTimeout(() => {
-                    displayMessage('Danilo', response);
-                    showBubbles(); 
-                }, 1000);
-            };
-
-            // Toggle chat
-            chatBtn.onclick = () => {
-                const isChatOpen = chatDiv.style.display !== 'none';
-                if (!isChatOpen) {
-                    chatDiv.style.display = 'flex';
-                    messagesDiv.innerHTML = ''; 
-                    const currentLang = document.getElementById('langSelect').value;
-                    const welcomeMsg = chatPairs[currentLang].welcome;
-                    displayMessage('Danilo', welcomeMsg);
-                    showBubbles();
-                } else {
-                    chatDiv.style.display = 'none';
-                }
-            };
-        }
         
     </script>
 </body>
