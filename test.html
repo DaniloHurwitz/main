@@ -1,1 +1,2257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danilo Hurwitz | Trilingual Medical Translator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /*
+         * CSS ORGANIZATION:
+         * 1. Root Variables (Light/Dark Modes)
+         * 2. Global Styles
+         * 3. Dark Mode Toggle & Language Switcher
+         * 4. Layout & Structure (Container, Header, Navigation)
+         * 5. Interactive Elements (Tabs, Buttons, Cards)
+         * 6. Content Sections (Tabs, Jobs, Skills, etc.)
+         * 7. Tools & Forms
+         * 8. Footer
+         * 9. Animations & Transitions (Global)
+         * 10. Responsive Design
+         * 11. Star Rating Specific
+         * 12. Language Switcher Specific
+         * 13. Career Progress Bar Specific
+         *
+         * -- NUEVOS ESTILOS AÑADIDOS --
+         */
 
+        /* 1. Root Variables */
+        :root { /* Light mode colors */
+            --light-blue: #E6F3FF;
+            --sky-blue: #87CEEB;
+            --steel-blue: #4682B4;
+            --gold: #DAA520;
+            --gold-dark: #B8860B;
+            --dark-gray: #2C3E50; /* Corregido para uso en CSS */
+            --slate-gray: #708090;
+            --gray-dark: #555;
+            --white-translucent: rgba(255,255,255,0.9);
+            --white-semi: rgba(255,255,255,0.6);
+            --border-color: #B3E5FC;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --highlight-bg: rgba(218, 165, 32, 0.08);
+            --accent-color: #FFD700;
+            --accent-dark: #e6c300;
+            --body-bg: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
+            --body-text: var(--dark-gray);
+            --card-bg: var(--white-translucent);
+            --card-semi: var(--white-semi);
+            --pseudo-bg: radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.08) 0%, transparent 50%),
+                         radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
+        }
+
+        body.dark {
+            --light-blue: #1e3c72;
+            --sky-blue: #4a90e2;
+            --steel-blue: #2c5aa0;
+            --gold: #FFD700;
+            --gold-dark: #e6c300;
+            --dark-gray: #f0f0f0;
+            --slate-gray: #d0d0d0;
+            --gray-dark: #b0b0b0;
+            --white-translucent: rgba(0,0,0,0.9);
+            --white-semi: rgba(0,0,0,0.6);
+            --border-color: #2a5298;
+            --shadow-color: rgba(255, 255, 255, 0.05);
+            --highlight-bg: rgba(255, 215, 0, 0.1);
+            --accent-color: #FFD700;
+            --accent-dark: #e6c300;
+            --body-bg: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --body-text: #f0f0f0;
+            --card-bg: rgba(0,0,0,0.8);
+            --card-semi: rgba(0,0,0,0.5);
+            --pseudo-bg: radial-gradient(circle at 20% 80%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                         radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+        }
+
+        /* 2. Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--body-bg);
+            color: var(--body-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-top: 20px;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1), color 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--pseudo-bg);
+            z-index: -1;
+            opacity: 0.7;
+            transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 3. Dark Mode Toggle & Language Switcher */
+        .toggles-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 1000;
+        }
+
+        .dark-mode-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dark-mode-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: var(--white-semi);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s ease-out;
+        }
+
+        body.dark .dark-mode-switch {
+            background: var(--gray-dark);
+        }
+
+        .dark-mode-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: var(--sky-blue);
+            border-radius: 50%;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input:checked + .slider {
+            transform: translateX(30px);
+            background: var(--gold);
+        }
+
+        .toggle-label {
+            font-size: 0.9em;
+            color: var(--body-text);
+            transition: color 0.3s ease-out;
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .lang-switcher label {
+            font-size: 0.9em;
+            color: var(--body-text);
+            transition: color 0.3s ease-out;
+        }
+
+        .lang-select {
+            padding: 5px;
+            background: var(--white-semi);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--body-text);
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: background 0.3s ease-out, border-color 0.3s ease-out;
+        }
+
+        body.dark .lang-select {
+            background: var(--card-semi);
+            border-color: var(--border-color);
+        }
+
+        .powered-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1001;
+        }
+
+        .powered-badge.show {
+            opacity: 1;
+        }
+
+        /* 4. Layout & Structure */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .header:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px var(--shadow-color);
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            transition: color 0.3s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: var(--steel-blue);
+            margin-bottom: 20px;
+            transition: color 0.3s ease-out;
+            font-weight: 300;
+            min-height: 1.2em; /* Added for dynamic text */
+        }
+
+        /* KEYFRAME for Tagline Animation */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(-10px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        
+        .contact {
+            font-size: 0.95em;
+            color: var(--slate-gray);
+            margin-bottom: 20px;
+            transition: color 0.3s ease-out;
+        }
+
+        .contact a {
+            color: var(--sky-blue);
+            text-decoration: none;
+            transition: color 0.3s ease-out;
+        }
+
+        .contact a:hover {
+            color: var(--gold);
+            text-decoration: underline;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .video-container:hover {
+            box-shadow: 0 16px 48px rgba(135, 206, 235, 0.3);
+            transform: scale(1.02);
+        }
+
+        .video-container iframe {
+            display: block;
+            width: 100%;
+            height: 315px;
+            border: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- NUEVO CSS: Career Status Bar --- */
+        .career-status-bar {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-item {
+            color: var(--dark-gray);
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .status-item i {
+            color: var(--gold);
+            margin-right: 5px;
+        }
+        
+        body.dark .status-item {
+             color: var(--body-text);
+        }
+        
+        /* --- NUEVO CSS: Micro Sample Carousel --- */
+        .micro-carousel-container {
+            padding: 20px 0;
+            margin: 20px auto;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .micro-samples {
+            display: flex;
+            animation: carousel-slide 20s infinite linear;
+            width: max-content; /* Asegura que el contenedor se expanda */
+            gap: 20px;
+        }
+
+        .sample-card {
+            min-width: 300px;
+            background: var(--card-semi);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease-out;
+        }
+
+        .sample-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sample-card h4 {
+            color: var(--sky-blue);
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        
+        .sample-card p {
+            font-size: 0.9em;
+            color: var(--slate-gray);
+        }
+
+        @keyframes carousel-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+
+        /* Secondary Navigation */
+        .secondary-nav-container {
+            text-align: center;
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .secondary-nav-btn {
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: 600;
+            background: linear-gradient(45deg, var(--accent-color), var(--accent-dark));
+            color: #333;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        body.dark .secondary-nav-btn {
+            color: var(--steel-blue);
+        }
+
+        .secondary-nav-btn:hover {
+            background: linear-gradient(45deg, var(--accent-dark), var(--accent-color));
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 8px 25px rgba(218, 165, 32, 0.4);
+        }
+
+        .secondary-nav-subtitle {
+            display: block;
+            font-size: 0.75em;
+            font-weight: 400;
+            margin-top: 4px;
+            opacity: 0.8;
+            color: inherit;
+            transition: color 0.3s ease-out;
+        }
+
+        /* Tabs Navigation */
+        .tabs-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(135, 206, 235, 0.5);
+            color: var(--dark-gray);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark .tab-btn {
+            background: rgba(74, 144, 226, 0.3);
+            color: var(--body-text);
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: var(--gold);
+            color: white;
+            transform: scale(1.05) translateY(-1px);
+            box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+        }
+
+        /* 5. Interactive Elements */
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: none;
+            overflow-y: visible;
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+        
+        @media (max-width: 768px) {
+            .tab-content {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
+        .tab-content.active {
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 6. Content Sections */
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-align: center;
+            transition: color 0.3s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary p {
+            font-size: 1.05em;
+            text-align: center;
+            color: var(--steel-blue);
+            max-width: 700px;
+            margin: 0 auto;
+            transition: color 0.3s ease-out;
+        }
+
+        .job {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--card-semi);
+            border-radius: 12px;
+            border-left: 4px solid var(--sky-blue);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        body.dark .job {
+            border-left-color: var(--sky-blue);
+        }
+
+        .job:hover {
+            transform: translateX(5px) scale(1.01);
+            box-shadow: 0 8px 24px rgba(135, 206, 235, 0.2);
+        }
+
+        body.dark .job:hover {
+            box-shadow: 0 8px 24px rgba(74, 144, 226, 0.3);
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            color: var(--body-text);
+            margin-bottom: 3px;
+            transition: color 0.3s ease-out;
+        }
+
+        .company-dates {
+            color: var(--slate-gray);
+            font-style: italic;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            transition: color 0.3s ease-out;
+        }
+
+        .job ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.95em;
+        }
+
+        .job ul li {
+            padding: 3px 0;
+            position: relative;
+            padding-left: 15px;
+            color: var(--gray-dark);
+            transition: color 0.3s ease-out;
+        }
+
+        .job ul li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 0.8em;
+            transition: color 0.3s ease-out;
+        }
+
+        .testimonial {
+            margin-top: 10px;
+            padding: 12px;
+            background: var(--highlight-bg);
+            border-radius: 8px;
+            font-style: italic;
+            color: var(--slate-gray);
+            font-size: 0.9em;
+            max-height: 40px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out, background 0.3s ease-out, color 0.3s ease-out;
+        }
+
+        body.dark .testimonial {
+            background: var(--highlight-bg);
+        }
+
+        .testimonial.expanded {
+            max-height: 150px;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: var(--sky-blue);
+            cursor: pointer;
+            font-size: 0.8em;
+            float: right;
+            transition: color 0.3s ease-out;
+        }
+
+        .education-item {
+            text-align: center;
+            padding: 15px;
+            background: var(--card-semi);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: background 0.3s ease-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        .skill-card {
+            padding: 15px;
+            background: var(--card-semi);
+            border-radius: 12px;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .skill-card:hover {
+            transform: scale(1.02) translateY(-2px);
+        }
+
+        .skill-card h3 {
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            transition: color 0.3s ease-out;
+        }
+
+        .languages {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .languages {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .lang-card {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+
+        .lang-card {
+            text-align: center;
+            padding: 12px;
+            background: rgba(135, 206, 235, 0.3);
+            border-radius: 8px;
+            margin: 5px;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-width: 120px;
+        }
+
+        body.dark .lang-card {
+            background: rgba(74, 144, 226, 0.2);
+        }
+
+        .lang-card:hover {
+            background: var(--highlight-bg);
+            transform: scale(1.05);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .portfolio-item {
+            padding: 12px;
+            background: var(--card-semi);
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease-out;
+            backdrop-filter: blur(5px);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .portfolio-item a {
+            color: var(--sky-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .strengths-list {
+            list-style: none;
+        }
+
+        .strengths-list li {
+            padding: 8px;
+            background: var(--highlight-bg);
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
+            font-size: 0.95em;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .strengths-list li:hover {
+            transform: translateX(3px);
+        }
+
+        /* 7. Tools & Forms */
+        .tools-section {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 48px var(--shadow-color);
+        }
+
+        .tool-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            text-align: center;
+            transition: color 0.3s ease-out;
+        }
+
+        .quote-tool {
+            text-align: center;
+        }
+
+        .quote-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .quote-input input,
+        .quote-input select {
+            padding: 10px;
+            border: 1px solid var(--sky-blue);
+            border-radius: 8px;
+            font-size: 0.95em;
+            background: white;
+            color: var(--body-text);
+            transition: border-color 0.3s ease-out, background 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+
+        body.dark .quote-input input,
+        body.dark .quote-input select {
+            background: var(--card-semi);
+            color: var(--body-text);
+        }
+
+        .quote-input input:focus,
+        .quote-input select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+            outline: none;
+        }
+
+        .quote-tool button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 10px;
+        }
+
+        .quote-tool button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        .quote-result {
+            font-size: 1.1em;
+            color: var(--gold);
+            font-weight: 600;
+            margin-top: 10px;
+            min-height: 1.5em;
+            transition: color 0.3s ease-out;
+        }
+
+        .contact-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid var(--sky-blue);
+            border-radius: 6px;
+            transition: border-color 0.3s ease-out, background 0.3s ease-out, color 0.3s ease-out, box-shadow 0.3s ease-out;
+            font-size: 0.95em;
+            background-color: white;
+            color: var(--body-text);
+        }
+
+        body.dark .contact-form input,
+        body.dark .contact-form textarea {
+            background-color: var(--card-semi);
+            color: var(--body-text);
+        }
+
+        .contact-form input:focus,
+        body.dark .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
+            outline: none;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 12px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-form button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        .newsletter {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 0.9em;
+            color: var(--slate-gray);
+            transition: color 0.3s ease-out;
+        }
+
+        .newsletter form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .newsletter input {
+            padding: 8px;
+            border: 1px solid var(--sky-blue);
+            border-radius: 4px;
+            flex-grow: 1;
+            max-width: 250px;
+            background: white;
+            color: var(--body-text);
+            transition: background 0.3s ease-out, color 0.3s ease-out, border-color 0.3s ease-out;
+        }
+
+        body.dark .newsletter input {
+            background: var(--card-semi);
+            color: var(--body-text);
+        }
+
+        .newsletter button {
+            padding: 8px 12px;
+            background: var(--gold);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .newsletter button:hover {
+            background: var(--gold-dark);
+            transform: translateY(-1px);
+        }
+
+        #newsletter-status {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: var(--steel-blue);
+            min-height: 1.2em;
+            transition: color 0.3s ease-out;
+        }
+
+        /* 8. Footer */
+        .footer {
+            text-align: center;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            margin-top: 25px;
+            font-size: 0.9em;
+            color: var(--slate-gray);
+            transition: background 0.3s ease-out, color 0.3s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .download-cv {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--sky-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        body.dark .download-cv {
+            background: var(--sky-blue);
+        }
+
+        .download-cv:hover {
+            background: var(--steel-blue);
+            transform: translateY(-1px);
+        }
+
+        /* 9. Animations & Transitions (Global Enhancements) */
+        /* Already integrated smoother cubic-bezier transitions throughout for modern feel */
+
+        /* 10. Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 20px;
+            }
+
+            .container {
+                width: 95%;
+                padding: 15px;
+                margin: 10px auto;
+            }
+            
+            /* Ajuste para la barra de estado en móvil */
+            .career-status-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+
+
+            .header {
+                padding: 30px 15px;
+            }
+
+            .name {
+                font-size: 2.2em;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+            }
+
+            .contact {
+                font-size: 0.9em;
+            }
+
+            .tabs-nav {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.9em;
+            }
+
+            .secondary-nav-container {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .secondary-nav-btn {
+                padding: 12px 24px;
+                font-size: 1em;
+                width: 80%;
+                max-width: 300px;
+            }
+
+            .video-container iframe {
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 1.6em;
+            }
+
+            .job-title {
+                font-size: 1.1em;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .languages {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .lang-card {
+                min-width: 180px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+
+            .tools-section {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .newsletter input {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+
+            .toggles-container {
+                top: 10px;
+                right: 10px;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name {
+                font-size: 1.8em;
+            }
+
+            .tagline {
+                font-size: 1em;
+            }
+
+            .video-container iframe {
+                height: 200px;
+            }
+
+            .tab-btn {
+                padding: 7px 12px;
+                font-size: 0.85em;
+            }
+
+            .secondary-nav-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+                width: 90%;
+            }
+
+            .quote-input {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 11. Star Rating Specific */
+        .rating-choice-section {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px var(--shadow-color);
+            margin: 40px 0 10px;
+            text-align: center;
+            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .rating-choice-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5em;
+            color: var(--gold);
+            margin-bottom: 15px;
+            transition: color 0.3s ease-out;
+        }
+
+        .star-rating {
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .star-rating .star {
+            font-size: 2em;
+            color: #ccc;
+            cursor: pointer;
+            transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 3px;
+            display: inline-block;
+        }
+
+        body.dark .star-rating .star {
+            color: #666;
+        }
+
+        .star-rating .star.selected,
+        .star-rating:hover .star:hover {
+            color: var(--accent-color);
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        .star-rating .star i.far {
+            color: #ccc;
+        }
+
+        body.dark .star-rating .star i.far {
+            color: #666;
+        }
+
+        .star-rating .star i.fas {
+            color: var(--accent-color);
+        }
+
+        #rating-message {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--light-blue);
+            border-left: 4px solid var(--gold);
+            border-radius: 8px;
+            color: var(--steel-blue);
+            font-size: 1em;
+            text-align: left;
+            min-height: 70px;
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body.dark #rating-message {
+            background-color: var(--light-blue);
+            border-left-color: var(--gold);
+            color: #f0f0f0;
+        }
+
+        #rating-message[style*="display: block"] {
+            opacity: 1;
+            max-height: 200px;
+        }
+
+        /* 12. Language Switcher Specific */
+        [data-i18n] {
+            transition: opacity 0.3s ease;
+        }
+
+        body.translating [data-i18n] {
+            opacity: 0;
+        }
+        
+        /* --- NUEVO CSS: Career Status Bar --- */
+        .career-status-bar {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-item {
+            color: var(--dark-gray);
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .status-item i {
+            color: var(--gold);
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
+        
+        body.dark .status-item {
+             color: var(--body-text);
+        }
+
+        /* --- NUEVO CSS: Micro Sample Carousel --- */
+        .micro-carousel-container {
+            padding: 20px 0;
+            margin: 20px auto;
+            overflow: hidden;
+            max-width: 1000px; /* Igual al container */
+            position: relative;
+        }
+
+        .micro-samples {
+            display: flex;
+            animation: carousel-slide 20s infinite linear;
+            width: max-content;
+            gap: 20px;
+            /* Duplicar el contenido para un scroll infinito suave */
+        }
+        
+        /* Clonar para el efecto infinito */
+        .micro-samples > .sample-card:nth-child(n+1):nth-child(-n+4) {
+            /* Los primeros 4 se duplican para el efecto.
+               Asegúrate de que haya suficientes tarjetas en el HTML para llenar el espacio antes de que el carrusel se repita. */
+        }
+
+        .sample-card {
+            min-width: 300px;
+            background: var(--card-semi);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease-out;
+            border-left: 3px solid var(--sky-blue);
+        }
+
+        .sample-card h4 {
+            color: var(--steel-blue);
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        
+        .sample-card p {
+            font-size: 0.9em;
+            color: var(--slate-gray);
+        }
+
+        @keyframes carousel-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-320px * 4)); } /* Ajustar valor: (Ancho de tarjeta + gap) * número de tarjetas únicas */
+        }
+        
+        /* Ajustar el tamaño en móvil para que solo se vea una tarjeta o menos */
+        @media (max-width: 650px) {
+             .micro-samples {
+                 gap: 15px;
+             }
+             .sample-card {
+                 min-width: 250px;
+             }
+             
+             @keyframes carousel-slide {
+                 0% { transform: translateX(0); }
+                 100% { transform: translateX(calc(-265px * 4)); } /* (250px + 15px) * 4 */
+             }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="toggles-container">
+        <div class="dark-mode-toggle">
+            <label class="toggle-label" data-i18n="dark-mode">Dark Mode</label>
+            <label class="dark-mode-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="lang-switcher">
+            <label data-i18n="language">Language</label>
+            <select id="langSelect" class="lang-select">
+                <option value="en">EN</option>
+                <option value="es">ES</option>
+                <option value="he">HE</option>
+            </select>
+        </div>
+    </div>
+    <div class="powered-badge" id="poweredBadge">Powered by Danilo's Precision</div>
+    
+    <div class="container">
+        <header class="header">
+            <h1 class="name">Danilo Hurwitz</h1>
+            <p class="tagline" id="dynamicTagline" data-i18n="tagline">Trilingual Medical Translator & Medical Student</p>
+            <p class="contact" data-i18n="contact">
+                Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br>
+                <a href="https://linkedin.com/in/danilo-hurwitz/" target="_blank" data-i18n="linkedin">LinkedIn</a> |
+                <a href="https://upwork.com/freelancers/danilohurwitz" target="_blank" data-i18n="upwork">Upwork</a>
+            </p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/KjFjam4KmCU?si=RKffDr3whfKj3MIi&controls=0" title="Presentation Video" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </header>
+
+        <div class="career-status-bar">
+            <div class="status-item"><i class="fas fa-medal"></i> <span data-i18n="status-toprated">Upwork Top Rated</span></div>
+            <div class="status-item"><i class="fas fa-check-circle"></i> <span data-i18n="status-jss">100% Job Success</span></div>
+            <div class="status-item"><i class="fas fa-user-md"></i> <span data-i18n="status-md">Active Medical Training</span></div>
+            <div class="status-item"><i class="fas fa-language"></i> <span data-i18n="status-tri">3 Fluent Languages</span></div>
+        </div>
+        <div class="secondary-nav-container">
+            <a href="blog.html" class="secondary-nav-btn" data-i18n="blog-title">The Freelancer's Compass Blog
+                <span class="secondary-nav-subtitle" data-i18n="blog-subtitle">Insights & Guides</span>
+            </a>
+            <a href="tools.html" class="secondary-nav-btn" data-i18n="tools-title">Freelancer Utilities
+                <span class="secondary-nav-subtitle" data-i18n="tools-subtitle">Calculators & Resources</span>
+            </a>
+        </div>
+        
+        <div class="micro-carousel-container">
+            <div class="micro-samples" id="micro-samples">
+                <div class="sample-card">
+                    <h4>Medical Summary (HE > EN)</h4>
+                    <p>Precise translation of clinical reports ensuring terminological accuracy.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>MedTech Manual (EN > ES)</h4>
+                    <p>Localization for LATAM markets, preserving technical safety standards.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>Academic Paper (ES > EN)</h4>
+                    <p>Adaptation for peer-review publication using formal academic tone.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>E-Learning Module (HE Subtitles)</h4>
+                    <p>Audiovisual optimization of complex patient education videos.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>Medical Summary (HE > EN)</h4>
+                    <p>Precise translation of clinical reports ensuring terminological accuracy.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>MedTech Manual (EN > ES)</h4>
+                    <p>Localization for LATAM markets, preserving technical safety standards.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>Academic Paper (ES > EN)</h4>
+                    <p>Adaptation for peer-review publication using formal academic tone.</p>
+                </div>
+                <div class="sample-card">
+                    <h4>E-Learning Module (HE Subtitles)</h4>
+                    <p>Audiovisual optimization of complex patient education videos.</p>
+                </div>
+            </div>
+        </div>
+        <nav class="tabs-nav">
+            <button class="tab-btn active" onclick="openTab('summary')" data-i18n="tab-summary">Summary</button>
+            <button class="tab-btn" onclick="openTab('experience')" data-i18n="tab-experience">Experience</button>
+            <button class="tab-btn" onclick="openTab('skills')" data-i18n="tab-skills">Skills</button>
+            <button class="tab-btn" onclick="openTab('education')" data-i18n="tab-education">Education</button>
+            <button class="tab-btn" onclick="openTab('portfolio')" data-i18n="tab-portfolio">Portfolio</button>
+            <button class="tab-btn" onclick="openTab('strengths')" data-i18n="tab-strengths">Strengths</button>
+        </nav>
+
+        <div id="summary" class="tab-content active">
+            <h2 class="section-title" data-i18n="summary-title">Professional Summary</h2>
+            <p data-i18n="summary-text">Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.</p>
+        </div>
+
+        <div id="experience" class="tab-content">
+            <h2 class="section-title" data-i18n="experience-title">Professional Experience</h2>
+            <div class="job" onclick="toggleTestimonial(this)">
+                <h3 class="job-title" data-i18n="job1-title">Freelance Translator & Proofreader</h3>
+                <p class="company-dates" data-i18n="job1-dates">Upwork | May 2023 – Present</p>
+                <ul>
+                    <li data-i18n="job1-li1">Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.</li>
+                    <li data-i18n="job1-li2">Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.</li>
+                    <li data-i18n="job1-li3">Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.</li>
+                </ul>
+                <div class="testimonial">
+                    <strong data-i18n="testimonial1-title">Hebrew to English Translation Project</strong><br>
+                    <span data-i18n="testimonial1-rating">Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)</span><br>
+                    <span data-i18n="testimonial1-text">"Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!"</span>
+                    <button class="toggle-btn" data-i18n="read-more">Read More</button>
+                </div>
+            </div>
+            <div class="job" onclick="toggleTestimonial(this)">
+                <h3 class="job-title" data-i18n="job2-title">Freelance Video Editor & Subtitle Creator</h3>
+                <p class="company-dates" data-i18n="job2-dates">Upwork | May 2023 – Present</p>
+                <ul>
+                    <li data-i18n="job2-li1">Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
+                    <li data-i18n="job2-li2">Received consistent 5-star client feedback for technical quality and attention to detail.</li>
+                </ul>
+                <div class="testimonial">
+                    <strong data-i18n="testimonial2-title">Video Editing of a Short Family Video</strong><br>
+                    <span data-i18n="testimonial2-rating">Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)</span><br>
+                    <span data-i18n="testimonial2-text">"Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!"</span>
+                    <button class="toggle-btn" data-i18n="read-more">Read More</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="skills" class="tab-content">
+            <h2 class="section-title" data-i18n="skills-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3 data-i18n="skills-medical">Medical Translation</h3>
+                    <ul>
+                        <li data-i18n="skills-medical-li1">Clinical Documentation, Patient Reports</li>
+                        <li data-i18n="skills-medical-li2">Informed Consents, MedTech Manuals</li>
+                        <li data-i18n="skills-medical-li3">Academic Papers, Regulatory Submissions (basic)</li>
+                        <li data-i18n="skills-medical-li4">Healthcare Marketing Content</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 data-i18n="skills-translation">Translation & Editing</h3>
+                    <ul>
+                        <li data-i18n="skills-translation-li1">Proofreading, Copy Editing, MTPE</li>
+                        <li data-i18n="skills-translation-li2">Terminology Management, QA</li>
+                        <li data-i18n="skills-translation-li3">Style Guide Implementation</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 data-i18n="skills-software">Software & Tools</h3>
+                    <ul>
+                        <li data-i18n="skills-software-li1">MS Office (Advanced), Google Workspace</li>
+                        <li data-i18n="skills-software-li2">CapCut, Subtitle Edit</li>
+                        <li data-i18n="skills-software-li3">Basic SEO</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 data-i18n="skills-other">Other</h3>
+                    <ul>
+                        <li data-i18n="skills-other-li1">Medical Copywriting, Ghostwriting</li>
+                        <li data-i18n="skills-other-li2">Cross-Cultural Communication</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="languages">
+                <div class="lang-card">
+                    <strong data-i18n="lang-spanish">Spanish</strong><br><small data-i18n="lang-spanish-desc">Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)</small>
+                </div>
+                <div class="lang-card">
+                    <strong data-i18n="lang-english">English</strong><br><small data-i18n="lang-english-desc">Fluent (C1 Equivalent, 15+ years)</small>
+                </div>
+                <div class="lang-card">
+                    <strong data-i18n="lang-hebrew">Hebrew</strong><br><small data-i18n="lang-hebrew-desc">Fluent (C1 Equivalent, 10+ years daily immersion)</small>
+                </div>
+            </div>
+        </div>
+
+        <div id="education" class="tab-content">
+            <h2 class="section-title" data-i18n="education-title">Education</h2>
+            <div class="education-item">
+                <h3 data-i18n="education-md">Candidate for Doctor of Medicine (MD)</h3>
+                <p class="company-dates" data-i18n="education-dates">Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029</p>
+                <p data-i18n="education-desc">Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.</p>
+            </div>
+        </div>
+
+        <div id="portfolio" class="tab-content">
+            <h2 class="section-title" data-i18n="portfolio-title">Portfolio Highlights</h2>
+            <p style="text-align: center; margin-bottom: 20px; color: var(--steel-blue); font-size: 0.95em;" data-i18n="portfolio-desc">Selected projects showcasing translation accuracy and technical skill.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <h4 data-i18n="portfolio-item1">Hebrew to English Medical Records</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;" data-i18n="portfolio-item1-price">$270 Fixed | Jul 2025</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')" data-i18n="view-sample">View Sample (PDF)</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4 data-i18n="portfolio-item2">Hebrew Tutorial Video Adaptation</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;" data-i18n="portfolio-item2-price">$242 Fixed | Jun 2025</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')" data-i18n="watch-video">Watch Video</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4 data-i18n="portfolio-item3">Family Video Editing & Subtitling</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;" data-i18n="portfolio-item3-price">5.0 Rating | $150 Fixed | Oct 2024</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')" data-i18n="watch-demo">Watch Demo</a>
+                </div>
+                <div class="portfolio-item">
+                    <h4 data-i18n="portfolio-item4">Native Hebrew Audio Review</h4>
+                    <p style="font-size: 0.85em; color: var(--slate-gray); margin-bottom: 5px;" data-i18n="portfolio-item4-price">$370 Fixed | Jul 2025</p>
+                    <a href="#" target="_blank" onclick="alert('Sample link placeholder')" data-i18n="listen-sample">Listen Sample</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="strengths" class="tab-content">
+            <h2 class="section-title" data-i18n="strengths-title">Key Strengths</h2>
+            <ul class="strengths-list">
+                <li data-i18n="strength1"><strong data-i18n="strength1-bold">Elite Trilingual Medical Acumen:</strong> Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.</li>
+                <li data-i18n="strength2"><strong data-i18n="strength2-bold">Cross-Cultural Precision:</strong> Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.</li>
+                <li data-i18n="strength3"><strong data-i18n="strength3-bold">Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
+            </ul>
+        </div>
+
+        <div class="rating-choice-section">
+            <h3 data-i18n="rating-title">How Do You Typically Choose a Freelancer?</h3>
+            <div class="star-rating" id="freelancerRating">
+                <span class="star" data-value="1"><i class="far fa-star"></i></span>
+                <span class="star" data-value="2"><i class="far fa-star"></i></span>
+                <span class="star" data-value="3"><i class="far fa-star"></i></span>
+                <span class="star" data-value="4"><i class="far fa-star"></i></span>
+                <span class="star" data-value="5"><i class="far fa-star"></i></span>
+            </div>
+            <div id="rating-message"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="tools-section">
+            <div class="tool-card">
+                <h3 class="tool-title" data-i18n="quote-title">Quick Quote Calculator</h3>
+                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;" data-i18n="quote-desc">Estimate your project cost (USD per word/minute).</p>
+                <div class="quote-tool">
+                    <div class="quote-input">
+                        <input type="number" id="wordCount" placeholder="Word/Minute Count" min="1" data-i18n-placeholder="word-count">
+                        <select id="serviceType" data-i18n-options>
+                            <option value="0.08" data-i18n="basic-trans">Basic Translation ($0.08/wd)</option>
+                            <option value="0.12" data-i18n="medical-trans">Medical Translation ($0.12/wd)</option>
+                            <option value="0.04" data-i18n="editing">Editing/Proofreading ($0.04/wd)</option>
+                            <option value="5.00" data-i18n="subtitles">Video Subtitles ($5.00/min)</option>
+                        </select>
+                    </div>
+                    <button onclick="calculateQuote()" data-i18n="calculate">Calculate Estimate</button>
+                    <div id="quoteResult" class="quote-result"></div>
+                    <p style="font-size: 0.8em; color: var(--slate-gray); margin-top: 10px;" data-i18n="quote-note">Note: Final quotes depend on complexity, language pair, and urgency.</p>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h3 class="tool-title" data-i18n="contact-title">Get in Touch</h3>
+                <p style="text-align: center; margin-bottom: 15px; color: var(--steel-blue); font-size: 0.95em;" data-i18n="contact-desc">Ready to collaborate? Tell me about your project.</p>
+                <form class="contact-form" onsubmit="sendEmail(event)">
+                    <input type="text" id="contactName" placeholder="Your Name" required data-i18n-placeholder="name">
+                    <input type="email" id="contactEmail" placeholder="Your Email" required data-i18n-placeholder="email">
+                    <textarea rows="3" id="contactMessage" placeholder="Describe your project..." required data-i18n-placeholder="message"></textarea>
+                    <button type="submit" data-i18n="send">Send Message</button>
+                </form>
+                <div class="newsletter">
+                    <p data-i18n="newsletter-text">Or subscribe for freelance tips:</p>
+                    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST">
+                        <input type="email" name="email" placeholder="Email" id="newsletterEmail" required data-i18n-placeholder="newsletter-email">
+                        <input type="hidden" name="_subject" value="New Newsletter Subscriber">
+                        <button type="submit" data-i18n="subscribe">Subscribe</button>
+                    </form>
+                    <div id="newsletter-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <a href="Curriculum Vitae - Danilo Hurwitz.pdf" class="download-cv" download data-i18n="download-cv">Download Full CV (PDF)</a>
+        <p data-i18n="footer">&copy; 2025 Danilo Hurwitz. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Array de frases dinámicas para el tagline (en inglés y español)
+        const dynamicTaglines = {
+            en: [
+                "100% Accuracy Guaranteed: Medical Translation Specialist",
+                "MD Student: Active Clinical Knowledge Meets Trilingual Fluency",
+                "Top-Rated Precision for HealthTech, Pharma & Academic Sectors"
+            ],
+            es: [
+                "100% Precisión Garantizada: Especialista en Traducción Médica",
+                "Estudiante de Medicina: Conocimiento Clínico Activo y Fluidez Trilingüe",
+                "Precisión Calificada Superior para Sectores HealthTech, Pharma y Académico"
+            ]
+        };
+        
+        let taglineIndex = 0;
+        const taglineElement = document.getElementById('dynamicTagline');
+        const intervalTime = 4000; // 4 segundos
+
+        function updateDynamicTagline() {
+            const currentLang = document.getElementById('langSelect').value;
+            const slogans = dynamicTaglines[currentLang] || dynamicTaglines['en'];
+            
+            taglineElement.classList.remove('animate-tagline'); // Reset animation
+            void taglineElement.offsetWidth; // Trigger reflow
+            
+            taglineElement.textContent = slogans[taglineIndex];
+            taglineElement.classList.add('animate-tagline'); // Start animation
+            
+            taglineIndex = (taglineIndex + 1) % slogans.length;
+        }
+
+        // Inicializar el carrusel de taglines
+        setInterval(updateDynamicTagline, intervalTime);
+
+
+        // Translations Object (Mantenido)
+        const translations = {
+            en: {
+                tagline: "Trilingual Medical Translator & Medical Student",
+                contact: "Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>LinkedIn</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>Upwork</a>",
+                linkedin: "LinkedIn",
+                upwork: "Upwork",
+                'status-toprated': "Upwork Top Rated",
+                'status-jss': "100% Job Success",
+                'status-md': "Active Medical Training",
+                'status-tri': "3 Fluent Languages",
+                'blog-title': "The Freelancer's Compass Blog",
+                'blog-subtitle': "Insights & Guides",
+                'tools-title': "Freelancer Utilities",
+                'tools-subtitle': "Calculators & Resources",
+                'tab-summary': "Summary",
+                'tab-experience': "Experience",
+                'tab-skills': "Skills",
+                'tab-education': "Education",
+                'tab-portfolio': "Portfolio",
+                'tab-strengths': "Strengths",
+                'summary-title': "Professional Summary",
+                'summary-text': "Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.",
+                'experience-title': "Professional Experience",
+                'job1-title': "Freelance Translator & Proofreader",
+                'job1-dates': "Upwork | May 2023 – Present",
+                'job1-li1': "Successfully completed 10+ complex translation projects, including clinical documentation reviews and technical manual adaptations, maintaining flawless accuracy.",
+                'job1-li2': "Mastered Machine Translation Post-Editing (MTPE) workflows, enhancing efficiency while ensuring native-level fluency and cultural relevance in final deliverables.",
+                'job1-li3': "Achieved and maintained 100% Client Satisfaction and Job Success Score through proactive communication, meticulous quality control, and consistent on-time delivery, even under tight deadlines.",
+                'testimonial1-title': "Hebrew to English Translation Project",
+                'testimonial1-rating': "Rating: 5.0 (Nov 18, 2023 - Feb 5, 2024)",
+                'testimonial1-text': "Working with Danilo Hurwitz on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency in both languages shone through, ensuring a highly accurate and polished translation. [...] Five stars!",
+                'job2-title': "Freelance Video Editor & Subtitle Creator",
+                'job2-dates': "Upwork | May 2023 – Present",
+                'job2-li1': "Contributed to the clarity and accessibility of medical e-learning modules and patient education videos through precise audiovisual optimization.",
+                'job2-li2': "Received consistent 5-star client feedback for technical quality and attention to detail.",
+                'testimonial2-title': "Video Editing of a Short Family Video",
+                'testimonial2-rating': "Rating: 5.0 (Oct 9, 2024 - Oct 28, 2024)",
+                'testimonial2-text': "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!",
+                'read-more': "Read More",
+                'read-less': "Read Less",
+                'skills-title': "Skills",
+                'skills-medical': "Medical Translation",
+                'skills-medical-li1': "Clinical Documentation, Patient Reports",
+                'skills-medical-li2': "Informed Consents, MedTech Manuals",
+                'skills-medical-li3': "Academic Papers, Regulatory Submissions (basic)",
+                'skills-medical-li4': "Healthcare Marketing Content",
+                'skills-translation': "Translation & Editing",
+                'skills-translation-li1': "Proofreading, Copy Editing, MTPE",
+                'skills-translation-li2': "Terminology Management, QA",
+                'skills-translation-li3': "Style Guide Implementation",
+                'skills-software': "Software & Tools",
+                'skills-software-li1': "MS Office (Advanced), Google Workspace",
+                'skills-software-li2': "CapCut, Subtitle Edit",
+                'skills-software-li3': "Basic SEO",
+                'skills-other': "Other",
+                'skills-other-li1': "Medical Copywriting, Ghostwriting",
+                'skills-other-li2': "Cross-Cultural Communication",
+                'lang-spanish': "Spanish",
+                'lang-spanish-desc': "Native (Born in Málaga, Spain - Expertise in Castilian & LATAM variants)",
+                'lang-english': "English",
+                'lang-english-desc': "Fluent (C1 Equivalent, 15+ years)",
+                'lang-hebrew': "Hebrew",
+                'lang-hebrew-desc': "Fluent (C1 Equivalent, 10+ years daily immersion)",
+                'education-title': "Education",
+                'education-md': "Candidate for Doctor of Medicine (MD)",
+                'education-dates': "Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029",
+                'education-desc': "Acquiring comprehensive knowledge of anatomy, physiology, clinical terminology, and research methodologies – directly applied to ensure accuracy in medical translation projects.",
+                'career-progress-title': "Career Progress",
+                'milestone-2023': "Medical Student Start",
+                'milestone-2024': "10+ Projects Completed",
+                'milestone-2025': "Top-Rated Freelancer",
+                'portfolio-title': "Portfolio Highlights",
+                'portfolio-desc': "Selected projects showcasing translation accuracy and technical skill.",
+                'portfolio-item1': "Hebrew to English Medical Records",
+                'portfolio-item1-price': "$270 Fixed | Jul 2025",
+                'view-sample': "View Sample (PDF)",
+                'portfolio-item2': "Hebrew Tutorial Video Adaptation",
+                'portfolio-item2-price': "$242 Fixed | Jun 2025",
+                'watch-video': "Watch Video",
+                'portfolio-item3': "Family Video Editing & Subtitling",
+                'portfolio-item3-price': "5.0 Rating | $150 Fixed | Oct 2024",
+                'watch-demo': "Watch Demo",
+                'portfolio-item4': "Native Hebrew Audio Review",
+                'portfolio-item4-price': "$370 Fixed | Jul 2025",
+                'listen-sample': "Listen Sample",
+                'strengths-title': "Key Strengths",
+                'strength1': "Elite Trilingual Medical Acumen: Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.",
+                'strength1-bold': "Elite Trilingual Medical Acumen:",
+                'strength2': "Cross-Cultural Precision: Native Spanish (Spain) nuances + experience in Israel/Argentina for flawless communication.",
+                'strength2-bold': "Cross-Cultural Precision:",
+                'strength3': "Proven Reliability: Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).",
+                'strength3-bold': "Proven Reliability:",
+                'rating-title': "How Do You Typically Choose a Freelancer?",
+                'rating-msg1': "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
+                'rating-msg2': "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
+                'rating-msg3': "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
+                'rating-msg4': "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
+                'rating-msg5': "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind.",
+                'rating-hover': "Hover over stars to see feedback.",
+                'quote-title': "Quick Quote Calculator",
+                'quote-desc': "Estimate your project cost (USD per word/minute).",
+                'word-count': "Word/Minute Count",
+                'basic-trans': "Basic Translation ($0.08/wd)",
+                'medical-trans': "Medical Translation ($0.12/wd)",
+                'editing': "Editing/Proofreading ($0.04/wd)",
+                'subtitles': "Video Subtitles ($5.00/min)",
+                'calculate': "Calculate Estimate",
+                'quote-note': "Note: Final quotes depend on complexity, language pair, and urgency.",
+                'contact-title': "Get in Touch",
+                'contact-desc': "Ready to collaborate? Tell me about your project.",
+                'name': "Your Name",
+                'email': "Your Email",
+                'message': "Describe your project...",
+                'send': "Send Message",
+                'newsletter-text': "Or subscribe for freelance tips:",
+                'newsletter-email': "Email",
+                'subscribe': "Subscribe",
+                'download-cv': "Download Full CV (PDF)",
+                'footer': "&copy; 2025 Danilo Hurwitz. All rights reserved.",
+                'dark-mode': "Dark Mode",
+                'language': "Language"
+            },
+            es: {
+                 tagline: "Traductor Médico Trilingüe y Estudiante de Medicina",
+                contact: "Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>LinkedIn</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>Upwork</a>",
+                linkedin: "LinkedIn",
+                upwork: "Upwork",
+                'status-toprated': "Calificado Superior (Upwork)",
+                'status-jss': "100% Éxito Laboral",
+                'status-md': "Entrenamiento Médico Activo",
+                'status-tri': "3 Idiomas Fluidos",
+                'blog-title': "Blog - La Brújula del Freelancer",
+                'blog-subtitle': "Perspectivas y Guías",
+                'tools-title': "Utilidades para Freelancers",
+                'tools-subtitle': "Calculadoras y Recursos",
+                'tab-summary': "Resumen",
+                'tab-experience': "Experiencia",
+                'tab-skills': "Habilidades",
+                'tab-education': "Educación",
+                'tab-portfolio': "Portafolio",
+                'tab-strengths': "Fortalezas",
+                'summary-title': "Resumen Profesional",
+                'summary-text': "Traductor Médico Trilingüe Calificado (Hebreo/Inglés/Español) y Estudiante de Medicina, aprovechando conocimientos médicos profundos y precisión lingüística para los sectores HealthTech, Farmacéutico y Académico. Capacidad comprobada para realizar traducciones 100% precisas de documentación clínica y técnica compleja. La Puntuación de Éxito Laboral del 100% en Upwork refleja una confiabilidad excepcional, satisfacción del cliente y compromiso con plazos en proyectos internacionales.",
+                'experience-title': "Experiencia Profesional",
+                'job1-title': "Traductor y Corrector Freelance",
+                'job1-dates': "Upwork | Mayo 2023 – Presente",
+                'job1-li1': "Completé con éxito más de 10 proyectos de traducción complejos, incluyendo revisiones de documentación clínica y adaptaciones de manuales técnicos, manteniendo precisión impecable.",
+                'job1-li2': "Manejé de forma experta procesos de Edición Posterior de Traducción Automática (MTPE), mejorando la eficiencia mientras aseguraba fluidez nativa y relevancia cultural en los entregables finales.",
+                'job1-li3': "Logré y mantuve 100% de Satisfacción del Cliente y Puntuación de Éxito Laboral a través de comunicación proactiva, control de calidad meticuloso y entrega puntual consistente, incluso con plazos ajustados.",
+                'testimonial1-title': "Proyecto de Traducción Hebreo a Inglés",
+                'testimonial1-rating': "Calificación: 5.0 (18 Nov 2023 - 5 Feb 2024)",
+                'testimonial1-text': "Trabajar con Danilo Hurwitz en un proyecto de MTPE de hebreo a inglés fue una experiencia excepcional. La proficiencia de Danilo en ambos idiomas brilló, asegurando una traducción altamente precisa y pulida. [...] ¡Cinco estrellas!",
+                'job2-title': "Editor de Video y Creador de Subtítulos Freelance",
+                'job2-dates': "Upwork | Mayo 2023 – Presente",
+                'job2-li1': "Contribuí a la claridad y accesibilidad de módulos de e-learning médico y videos educativos para pacientes a través de optimización audiovisual precisa.",
+                'job2-li2': "Recibí retroalimentación consistente de 5 estrellas de clientes por calidad técnica y atención al detalle.",
+                'testimonial2-title': "Edición de Video de una Familia Corta",
+                'testimonial2-rating': "Calificación: 5.0 (9 Oct 2024 - 28 Oct 2024)",
+                'testimonial2-text': "¡Danilo hizo un gran trabajo! Fue muy receptivo, creó un video profesional genial y se aseguró de que todo lo que necesitaba se hiciera perfectamente. [...] ¡Totalmente recomiendo trabajar con él!",
+                'read-more': "Leer Más",
+                'read-less': "Leer Menos",
+                'skills-title': "Habilidades",
+                'skills-medical': "Traducción Médica",
+                'skills-medical-li1': "Documentación Clínica, Informes de Pacientes",
+                'skills-medical-li2': "Consentimientos Informados, Manuales MedTech",
+                'skills-medical-li3': "Artículos Académicos, Presentaciones Regulatorias (básico)",
+                'skills-medical-li4': "Contenido de Marketing en Salud",
+                'skills-translation': "Traducción y Edición",
+                'skills-translation-li1': "Corrección, Edición de Copia, MTPE",
+                'skills-translation-li2': "Gestión de Terminología, QA",
+                'skills-translation-li3': "Implementación de Guía de Estilo",
+                'skills-software': "Software y Herramientas",
+                'skills-software-li1': "MS Office (Avanzado), Google Workspace",
+                'skills-software-li2': "CapCut, Subtitle Edit",
+                'skills-software-li3': "SEO Básico",
+                'skills-other': "Otros",
+                'skills-other-li1': "Redacción Médica, Escritura Fantasma",
+                'skills-other-li2': "Comunicación Intercultural",
+                'lang-spanish': "Español",
+                'lang-spanish-desc': "Nativo (Nacido en Málaga, España - Experticia en variantes Castellano y LATAM)",
+                'lang-english': "Inglés",
+                'lang-english-desc': "Fluido (Equivalente C1, 15+ años)",
+                'lang-hebrew': "Hebreo",
+                'lang-hebrew-desc': "Fluido (Equivalente C1, 10+ años de inmersión diaria)",
+                'education-title': "Educación",
+                'education-md': "Estudiante de Medicina (MD en curso)",
+                'education-dates': "Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Graduación Esperada: 2029",
+                'education-desc': "Adquiriendo conocimientos integrales de anatomía, fisiología, terminología clínica y metodologías de investigación – aplicado directamente para asegurar precisión en proyectos de traducción médica.",
+                'career-progress-title': "Progreso de Carrera",
+                'milestone-2023': "Inicio como Estudiante de Medicina",
+                'milestone-2024': "10+ Proyectos Completados",
+                'milestone-2025': "Freelancer Calificado Superior",
+                'portfolio-title': "Destacados de Portafolio",
+                'portfolio-desc': "Proyectos seleccionados que muestran precisión en traducción y habilidad técnica.",
+                'portfolio-item1': "Registros Médicos Hebreo a Inglés",
+                'portfolio-item1-price': "$270 Fijo | Jul 2025",
+                'view-sample': "Ver Muestra (PDF)",
+                'portfolio-item2': "Adaptación de Video Tutorial Hebreo",
+                'portfolio-item2-price': "$242 Fijo | Jun 2025",
+                'watch-video': "Ver Video",
+                'portfolio-item3': "Edición y Subtítulos de Video Familiar",
+                'portfolio-item3-price': "Calificación 5.0 | $150 Fijo | Oct 2024",
+                'watch-demo': "Ver Demo",
+                'portfolio-item4': "Revisión de Audio Hebreo Nativo",
+                'portfolio-item4-price': "$370 Fijo | Jul 2025",
+                'listen-sample': "Escuchar Muestra",
+                'strengths-title': "Fortalezas Clave",
+                'strength1': "Experiencia Médica Trilingüe de Élite: Combina entrenamiento médico activo con hebreo, inglés, español nativo/fluido para precisión inigualable.",
+                'strength1-bold': "Acumen Médico Trilingüe Elite:",
+                'strength2': "Precisión Intercultural: Matices nativos del español (España) + experiencia en Israel/Argentina para comunicación impecable.",
+                'strength2-bold': "Precisión Intercultural:",
+                'strength3': "Confiabilidad Probada: Supera expectativas en proyectos complejos y con plazos ajustados para clientes internacionales vía Upwork (100% JSS).",
+                'strength3-bold': "Confiabilidad Probada:",
+                'rating-title': "¿Cómo Eliges Típicamente a un Freelancer?",
+                'rating-msg1': "Centrarse solo en la <strong>oferta más baja</strong> a menudo significa más tiempo de gestión, posibles malentendidos y resultados que necesitan revisiones adicionales.",
+                'rating-msg2': "Una elección <strong>consciente del presupuesto</strong>. Podría funcionar para tareas simples, pero podría perder matices cruciales en contenido especializado como la traducción médica.",
+                'rating-msg3': "Haciendo el trabajo. Un enfoque <strong>generalista</strong> entrega resultados estándar para proyectos estándar.",
+                'rating-msg4': "Un <strong>profesional sólido</strong> que entrega buena calidad. Probablemente requiere orientación clara en requisitos altamente especializados o culturalmente específicos.",
+                'rating-msg5': "<strong>¡Invirtiendo en Excelencia!</strong> Elegir un <strong>especialista de Calificación Superior</strong> enfocado en precisión y calidad para proyectos críticos. <strong>Resultado:</strong> Contenido 100% preciso, culturalmente perfecto entregado de manera confiable, dándote tranquilidad.",
+                'rating-hover': "Pasa el mouse sobre las estrellas para ver retroalimentación.",
+                'quote-title': "Calculadora de Cotización Rápida",
+                'quote-desc': "Estima el costo de tu proyecto (USD por palabra/minuto).",
+                'word-count': "Conteo de Palabras/Minutos",
+                'basic-trans': "Traducción Básica ($0.08/pal)",
+                'medical-trans': "Traducción Médica ($0.12/pal)",
+                'editing': "Edición/Corrección ($0.04/pal)",
+                'subtitles': "Subtítulos de Video ($5.00/min)",
+                'calculate': "Calcular Estimado",
+                'quote-note': "Nota: Las cotizaciones finales dependen de la complejidad, par de idiomas y urgencia.",
+                'contact-title': "Contacto",
+                'contact-desc': "¿Listo para colaborar? Cuéntame sobre tu proyecto.",
+                'name': "Tu Nombre",
+                'email': "Tu Email",
+                'message': "Describe tu proyecto...",
+                'send': "Enviar Mensaje",
+                'newsletter-text': "Suscríbete para recibir consejos sobre trabajo freelance:",
+                'newsletter-email': "Email",
+                'subscribe': "Suscribirse",
+                'download-cv': "Descargar CV Completo (PDF)",
+                'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
+                'dark-mode': "Modo Oscuro",
+                'language': "Idioma"
+            },
+            he: {
+                tagline: "מתרגם רפואי טרילינגואלי וסטודנט לרפואה",
+                contact: "מר דל פלאטה, ארגנטינה | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>לינקדאין</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>אפוורק</a>",
+                linkedin: "לינקדאין",
+                upwork: "אפוורק",
+                'status-toprated': "פרילנסר מדורג עליון",
+                'status-jss': "100% הצלחה בעבודה",
+                'status-md': "אימון רפואי פעיל",
+                'status-tri': "3 שפות שוטפות",
+                'blog-title': "בלוג מצפן הפרילנסר",
+                'blog-subtitle': "תובנות ומדריכים",
+                'tools-title': "כלי עזר לפרילנסרים",
+                'tools-subtitle': "מחשבונים ומשאבים",
+                'tab-summary': "סיכום",
+                'tab-experience': "ניסיון",
+                'tab-skills': "כישורים",
+                'tab-education': "חינוך",
+                'tab-portfolio': "תיק עבודות",
+                'tab-strengths': "חוזקות",
+                'summary-title': "סיכום מקצועי",
+                'summary-text': "מתרגם רפואי טרילינגואלי מדורג גבוה (עברית/אנגלית/ספרדית) וסטודנט לרפואה נוכחי המנצל ידע רפואי עמוק ודיוק לשוני עבור המגזרים HealthTech, פרמצבטי ואקדמי. יכולת מוכחת לספק תרגומים מדויקים ב-100% של תיעוד קליני וטכני מורכב. ציון הצלחה בעבודה של 100% באפוורק משקף אמינות יוצאת דופן, שביעות רצון לקוחות ומחויבות למועדים בפרויקטים בינלאומיים.",
+                'experience-title': "ניסיון מקצועי",
+                'job1-title': "מתרגם ומוער פרילנס",
+                'job1-dates': "אפוורק | מאי 2023 – הווה",
+                'job1-li1': "השלמת בהצלחה 10+ פרויקטי תרגום מורכבים, כולל סקירות תיעוד קליני והתאמות מדריכים טכניים, תוך שמירה על דיוק מושלם.",
+                'job1-li2': "שלטתי בזרימות עבודה של עריכה לאחר תרגום מכונה (MTPE), שיפור יעילות תוך הבטחת שטף ברמה טבעית ורלוונטיות תרבותית במסמכים הסופיים.",
+                'job1-li3': "השגתי ושמרתי על 100% שביעות רצון לקוחות וציון הצלחה בעבודה באמצעות תקשורת יזומה, בקרת איכות מדוקדקת והגשה בזמן עקבית, אפילו תחת לחצי זמן.",
+                'testimonial1-title': "פרויקט תרגום עברית לאנגלית",
+                'testimonial1-rating': "דירוג: 5.0 (18 נוב 2023 - 5 פבר 2024)",
+                'testimonial1-text': "העבודה עם דנilo הורוויץ בפרויקט MTPE מעברית לאנגלית הייתה חוויה יוצאת דופן. המיומנות של דנilo בשתי השפות זרחה, והבטיחה תרגום מדויק ומעודן מאוד. [...] חמש כוכבים!",
+                'job2-title': "עורך וידאו ויוצר כתוביות פרילנס",
+                'job2-dates': "אפוורק | מאי 2023 – הווה",
+                'job2-li1': "תרמתי לבהירות ונגישות של מודולים של למידה מקוונת רפואית ווידאו חינוכי למטופלים באמצעות אופטימיזציה אודיו-ויזואלית מדויקת.",
+                'job2-li2': "קיבלתי משוב עקבי של 5 כוכבים מלקוחות על איכות טכנית ותשומת לב לפרטים.",
+                'testimonial2-title': "עריכת וידאו משפחתי קצר",
+                'testimonial2-rating': "דירוג: 5.0 (9 אוק 2024 - 28 אוק 2024)",
+                'testimonial2-text': "דנilo עשה עבודה נהדרת! היה מגיב מאוד, יצר וידאו מקצועי נהדר והבטיח שכל מה שהייתי צריך נעשה בצורה מושלמת. [...] אני ממליץ לחלוטין לעבוד איתו!",
+                'read-more': "קרא עוד",
+                'read-less': "קרא פחות",
+                'skills-title': "כישורים",
+                'skills-medical': "תרגום רפואי",
+                'skills-medical-li1': "תיעוד קליני, דוחות מטופלים",
+                'skills-medical-li2': "הסכמות מודעות, מדריכי MedTech",
+                'skills-medical-li3': "מאמרים אקדמיים, הגשות רגולטוריות (בסיסי)",
+                'skills-medical-li4': "תוכן שיווקי בריאות",
+                'skills-translation': "תרגום ועריכה",
+                'skills-translation-li1': "הגהה, עריכת העתק, MTPE",
+                'skills-translation-li2': "ניהול מונחים, QA",
+                'skills-translation-li3': "יישום מדריך סגנון",
+                'skills-software': "תוכנה וכלים",
+                'skills-software-li1': "MS Office (מתקדם), Google Workspace",
+                'skills-software-li2': "CapCut, Subtitle Edit",
+                'skills-software-li3': "SEO בסיסי",
+                'skills-other': "אחר",
+                'skills-other-li1': "כתיבה רפואית, כתיבה רפאים",
+                'skills-other-li2': "תקשורת בין-תרבותית",
+                'lang-spanish': "ספרדית",
+                'lang-spanish-desc': "אמהרית (נולד במלאגה, ספרד - מומחיות בגרסאות קסטיליאני ו-LATAM)",
+                'lang-english': "אנגלית",
+                'lang-english-desc': "שוטף (מקביל C1, 15+ שנים)",
+                'lang-hebrew': "עברית",
+                'lang-hebrew-desc': "שוטף (מקביל C1, 10+ שנים טבילה יומית)",
+                'education-title': "חינוך",
+                'education-md': "מועמד לדוקטור ברפואה (MD)",
+                'education-dates': "אוניברסיטת נשיונל דה מר דל פלאטה | מר דל פלאטה, ארגנטינה | סיום צפוי: 2029",
+                'education-desc': "רכישת ידע מקיף באנטומיה, פיזיולוגיה, מונחים קליניים ומתודולוגיות מחקר – מיושם ישירות להבטחת דיוק בפרויקטי תרגום רפואי.",
+                'career-progress-title': "התקדמות קריירה",
+                'milestone-2023': "תחילת לימודי רפואה",
+                'milestone-2024': "10+ פרויקטים הושלמו",
+                'milestone-2025': "פרילנסר מדורג עליון",
+                'portfolio-title': "תיק עבודות מובלט",
+                'portfolio-desc': "פרויקטים נבחרים המציגים דיוק תרגום ומיומנות טכנית.",
+                'portfolio-item1': "רשומות רפואיות עברית לאנגלית",
+                'portfolio-item1-price': "$270 קבוע | יולי 2025",
+                'view-sample': "צפה בדוגמה (PDF)",
+                'portfolio-item2': "התאמת וידאו הדרכה עברית",
+                'portfolio-item2-price': "$242 קבוע | יוני 2025",
+                'watch-video': "צפה בווידאו",
+                'portfolio-item3': "עריכת וידאו משפחתי וכתוביות",
+                'portfolio-item3-price': "דירוג 5.0 | $150 קבוע | אוק 2024",
+                'watch-demo': "צפה בהדגמה",
+                'portfolio-item4': "סקירת אודיו עברית טבעית",
+                'portfolio-item4-price': "$370 קבוע | יולי 2025",
+                'listen-sample': "האזן לדוגמה",
+                'strengths-title': "חוזקות מרכזיות",
+                'strength1': "אקומן רפואי טרילינגואלי עלית: משלב אימון רפואי פעיל עם עברית, אנגלית, ספרדית אמהרית/שוטפת לדיוק ללא תקדים.",
+                'strength1-bold': "אקומן רפואי טרילינגואלי עלית:",
+                'strength2': "דיוק בין-תרבותי: ניואנסים ספרדית אמהרית (ספרד) + ניסיון בישראל/ארגנטינה לתקשורת מושלמת.",
+                'strength2-bold': "דיוק בין-תרבותי:",
+                'strength3': "אמינות מוכחת: עולה על ציפיות בפרויקטים מורכבים ומונעי מועדים עבור לקוחות בינלאומיים דרך אפוורק (100% JSS).",
+                'strength3-bold': "אמינות מוכחת:",
+                'rating-title': "¿Cómo Eliges Típicamente a un Freelancer?",
+                'rating-msg1': "Centrarse solo en la <strong>oferta más baja</strong> a menudo significa más tiempo de gestión, posibles malentendidos y resultados que necesitan revisiones adicionales.",
+                'rating-msg2': "Una elección <strong>consciente del presupuesto</strong>. Podría funcionar para tareas simples, pero podría perder matices cruciales en contenido especializado como la traducción médica.",
+                'rating-msg3': "Haciendo el trabajo. Un enfoque <strong>generalista</strong> entrega resultados estándar para proyectos estándar.",
+                'rating-msg4': "Un <strong>profesional sólido</strong> que entrega buena calidad. Probablemente requiere orientación clara en requisitos altamente especializados o culturalmente específicos.",
+                'rating-msg5': "<strong>¡Invirtiendo en Excelencia!</strong> Elegir un <strong>especialista de Calificación Superior</strong> enfocado en precisión y calidad para proyectos críticos. <strong>Resultado:</strong> Contenido 100% preciso, culturalmente perfecto entregado de manera confiable, dándote tranquilidad.",
+                'rating-hover': "Pasa el mouse sobre las estrellas para ver retroalimentación.",
+                'quote-title': "Calculadora de Cotización Rápida",
+                'quote-desc': "Estima el costo de tu proyecto (USD por palabra/minuto).",
+                'word-count': "Conteo de Palabras/Minutos",
+                'basic-trans': "Traducción Básica ($0.08/pal)",
+                'medical-trans': "Traducción Médica ($0.12/pal)",
+                'editing': "Edición/Corrección ($0.04/pal)",
+                'subtitles': "Subtítulos de Video ($5.00/min)",
+                'calculate': "Calcular Estimado",
+                'quote-note': "Nota: Las cotizaciones finales dependen de la complejidad, par de idiomas y urgencia.",
+                'contact-title': "Contacto",
+                'contact-desc': "¿Listo para colaborar? Cuéntame sobre tu proyecto.",
+                'name': "Tu Nombre",
+                'email': "Tu Email",
+                'message': "Describe tu proyecto...",
+                'send': "Enviar Mensaje",
+                'newsletter-text': "Suscríbete para recibir consejos sobre trabajo freelance:",
+                'newsletter-email': "Email",
+                'subscribe': "Suscribirse",
+                'download-cv': "Descargar CV Completo (PDF)",
+                'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
+                'dark-mode': "Modo Oscuro",
+                'language': "Idioma"
+            }
+        };
+
+        // Language Change Function
+        function changeLanguage(lang) {
+            document.body.classList.add('translating');
+            setTimeout(() => {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.dataset.i18n;
+                    if (translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
+                });
+                // Update placeholders and options
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                    const key = el.dataset.i18nPlaceholder;
+                    if (translations[lang][key]) {
+                        el.placeholder = translations[lang][key];
+                    }
+                });
+                document.querySelectorAll('[data-i18n-options] option').forEach(opt => {
+                    const key = opt.dataset.i18n;
+                    if (translations[lang][key]) {
+                        opt.innerHTML = translations[lang][key];
+                    }
+                });
+                // RTL for Hebrew
+                if (lang === 'he') {
+                    document.body.dir = 'rtl';
+                    document.documentElement.lang = 'he';
+                } else {
+                    document.body.dir = 'ltr';
+                    document.documentElement.lang = lang;
+                }
+                // Update rating messages
+                updateRatingMessages(lang);
+                
+                // --- UPDATE DYNAMIC TAGLINE ON LANGUAGE CHANGE ---
+                updateDynamicTagline(lang);
+                
+                document.body.classList.remove('translating');
+                // Show badge
+                const badge = document.getElementById('poweredBadge');
+                badge.classList.add('show');
+                setTimeout(() => badge.classList.remove('show'), 3000);
+            }, 300);
+        }
+
+        // --- FUNCION DYNAMIC TAGLINE ---
+        function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
+            const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
+            
+            // Re-apply the cycle based on the new language's array size
+            taglineIndex = taglineIndex % slogans.length;
+            
+            taglineElement.classList.remove('animate-tagline');
+            void taglineElement.offsetWidth;
+            
+            taglineElement.textContent = slogans[taglineIndex];
+            taglineElement.classList.add('animate-tagline');
+            
+            taglineIndex = (taglineIndex + 1) % slogans.length;
+        }
+
+        // Utility Functions
+        function openTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            const clickedButton = Array.from(document.querySelectorAll('.tab-btn')).find(btn => btn.getAttribute('onclick') === `openTab('${tabName}')`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+        }
+
+        function toggleTestimonial(jobElement) {
+            const testimonial = jobElement.querySelector('.testimonial');
+            const btn = jobElement.querySelector('.toggle-btn');
+            if (testimonial && btn) {
+                testimonial.classList.toggle('expanded');
+                const currentLang = document.getElementById('langSelect').value;
+                btn.textContent = testimonial.classList.contains('expanded') ? translations[currentLang]['read-less'] : translations[currentLang]['read-more'];
+            }
+        }
+
+        function calculateQuote() {
+            const wordsInput = document.getElementById('wordCount');
+            const rateSelect = document.getElementById('serviceType');
+            const resultDiv = document.getElementById('quoteResult');
+            const words = parseInt(wordsInput.value) || 0;
+            const rate = parseFloat(rateSelect.value);
+
+            if (words > 0 && rate) {
+                const total = (words * rate).toFixed(2);
+                resultDiv.innerHTML = `Approx. Quote: $${total} USD`;
+            } else {
+                resultDiv.innerHTML = 'Enter word/minute count.';
+            }
+        }
+
+        function sendEmail(event) {
+            event.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+            const subject = `Project Inquiry from ${name} (Website)`;
+            const body = `Hi Danilo,\n\n${message}\n\nBest regards,\n${name}\n${email}`;
+            window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // Form Handling
+        const newsletterForm = document.getElementById("newsletterForm");
+        const newsletterStatus = document.getElementById("newsletter-status");
+
+        async function handleNewsletterSubmit(event) {
+            event.preventDefault();
+            const data = new FormData(event.target);
+            newsletterStatus.innerHTML = "Subscribing...";
+            try {
+                const response = await fetch(event.target.action, {
+                    method: newsletterForm.method,
+                    body: data,
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (response.ok) {
+                    newsletterStatus.innerHTML = "Thanks for subscribing!";
+                    newsletterForm.reset();
+                } else {
+                    const responseData = await response.json();
+                    if (Object.hasOwn(responseData, 'errors')) {
+                        newsletterStatus.innerHTML = responseData["errors"].map(error => error["message"]).join(", ");
+                    } else {
+                        newsletterStatus.innerHTML = "Oops! Problem subscribing.";
+                    }
+                }
+            } catch (error) {
+                newsletterStatus.innerHTML = "Oops! Network error. Try again.";
+            }
+        }
+        newsletterForm.addEventListener("submit", handleNewsletterSubmit);
+
+        // Star Rating
+        const ratingContainerHover = document.getElementById('freelancerRating');
+        const ratingMessageHover = document.getElementById('rating-message');
+        const starsHover = ratingContainerHover.querySelectorAll('.star');
+
+        let ratingMessagesHover = {
+            1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
+            2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
+            3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
+            4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
+            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
+        };
+
+        function updateRatingMessages(lang) {
+            ratingMessagesHover = {
+                1: translations[lang]['rating-msg1'] || ratingMessagesHover[1],
+                2: translations[lang]['rating-msg2'] || ratingMessagesHover[2],
+                3: translations[lang]['rating-msg3'] || ratingMessagesHover[3],
+                4: translations[lang]['rating-msg4'] || ratingMessagesHover[4],
+                5: translations[lang]['rating-msg5'] || ratingMessagesHover[5]
+            };
+            ratingMessageHover.innerHTML = translations[lang]['rating-hover'] || 'Hover over stars to see feedback.';
+        }
+        
+        // Función para actualizar las estrellas al pasar el ratón
+        starsHover.forEach(star => {
+            star.addEventListener('mouseenter', () => {
+                const rating = parseInt(star.getAttribute('data-value'));
+                highlightStarsHover(rating);
+                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
+                ratingMessageHover.style.display = 'block';
+            });
+        });
+
+        ratingContainerHover.addEventListener('mouseleave', () => {
+            highlightStarsHover(0);
+            ratingMessageHover.style.display = 'none';
+            ratingMessageHover.innerHTML = '';
+        });
+
+        function highlightStarsHover(rating) {
+            starsHover.forEach(star => {
+                const starValue = parseInt(star.getAttribute('data-value'));
+                if (starValue <= rating) {
+                    star.innerHTML = '<i class="fas fa-star"></i>';
+                    star.classList.add('selected');
+                } else {
+                    star.innerHTML = '<i class="far fa-star"></i>';
+                    star.classList.remove('selected');
+                }
+                star.classList.remove('hover');
+            });
+        }
+
+
+        function closePopup() {
+            popup.classList.remove('show');
+        }
+
+        // Initial State
+        ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
+        ratingMessageHover.style.display = 'block';
+        
+        // --- CARRUSEL JS ---
+        const microSamplesContainer = document.getElementById('micro-samples');
+        const sampleCards = microSamplesContainer.querySelectorAll('.sample-card');
+        const numSamples = sampleCards.length / 2; // Asumiendo que has duplicado las 4 tarjetas en HTML
+
+        // Función para duplicar el contenido del carrusel (si no está duplicado en HTML)
+        // Ya está duplicado en el HTML, por lo que esta función se omite.
+        
+        // Ajustar la animación CSS dinámicamente si fuera necesario, pero la dejamos estática por simplicidad.
+
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab('summary');
+            updateDynamicTagline(); // Call to initialize the dynamic tagline
+
+            document.querySelectorAll('.job .toggle-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const jobElement = e.target.closest('.job');
+                    if (jobElement) toggleTestimonial(jobElement);
+                });
+            });
+
+            // Dark Mode Toggle
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            const savedTheme = localStorage.getItem('darkMode');
+            if (savedTheme === 'enabled') {
+                body.classList.add('dark');
+                darkModeToggle.checked = true;
+            }
+
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) {
+                    body.classList.add('dark');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    body.classList.remove('dark');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+
+            // Language Switcher
+            const langSelect = document.getElementById('langSelect');
+            const savedLang = localStorage.getItem('language') || 'en';
+            langSelect.value = savedLang;
+            changeLanguage(savedLang);
+        });
+        
+        langSelect.addEventListener('change', (e) => {
+            const lang = e.target.value;
+            localStorage.setItem('language', lang);
+            changeLanguage(lang);
+        });
+    </script>
+</body>
+</html>
