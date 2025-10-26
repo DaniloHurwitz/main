@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Medical Degree is Your Price Justification | Danilo H.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Palette */
+        --light-blue: #E6F3FF;
+        --sky-blue: #87CEEB;
+        --steel-blue: #4682B4;
+        --gold: #DAA520;
+        --dark-gray: #2C3E50;
+        --slate-gray: #708090;
+        --gray-dark: #555;
+        --white-translucent: rgba(255,255,255,0.9);
+        --white-semi: rgba(255,255,255,0.85);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
+        color: var(--dark-gray);
+        line-height: 1.7;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        font-size: 16px;
+      }
+
+      /* Top Navigation */
+      .top-nav {
+        background-color: var(--white-translucent);
+        padding: 10px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--slate-gray);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .nav-buttons button, .nav-buttons a {
+        padding: 8px 15px;
+        background-color: transparent;
+        color: var(--sky-blue);
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 500;
+        border: 1px solid var(--sky-blue);
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .nav-buttons button:hover, .nav-buttons a:hover {
+        background-color: var(--gold);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
+      }
+
+      /* Main Content & Comments Container Styles */
+      .blog-container {
+        max-width: 1200px;
+        width: 95%;
+        margin: 20px auto 40px auto;
+        padding: 30px 40px;
+        background-color: var(--white-semi);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+
+      .blog-header h1 {
+        color: var(--gold);
+        font-size: 2.3em;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      article h2 {
+        color: var(--gold);
+        font-size: 1.8em;
+        font-weight: 500;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--slate-gray);
+        position: relative;
+      }
+
+      article h2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--gold);
+      }
+
+      article p {
+        margin-bottom: 18px;
+        color: var(--steel-blue);
+        font-size: 1.05em;
+      }
+
+      article ul {
+        margin-left: 20px;
+        margin-bottom: 18px;
+        list-style: none;
+        padding-left: 0;
+      }
+
+      article li {
+        margin-bottom: 10px;
+        padding-left: 20px;
+        position: relative;
+        font-size: 1em;
+      }
+
+      article li::before {
+        content: '▹';
+        color: var(--gold);
+        font-weight: bold;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 1.2em;
+      }
+
+      article strong {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      article a {
+        color: var(--sky-blue);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      article a:hover {
+        color: var(--steel-blue);
+        text-decoration: underline;
+      }
+
+      /* --- CUSDIS COMMENTS SECTION STYLES --- */
+      .comments-section {
+        margin-top: 30px;
+      }
+
+      .comments-section h2 {
+         color: var(--gold);
+         font-size: 1.8em;
+         margin-bottom: 20px;
+         text-align: center;
+         border: none;
+         padding-bottom: 0;
+      }
+       .comments-section h2::after {
+           display: none;
+       }
+
+      #cusdis_thread {
+        background-color: transparent;
+      }
+
+      /* --- MEDIA QUERIES FOR MOBILE (Unificado) --- */
+      @media (max-width: 768px) {
+        body {
+          font-size: 15px;
+          padding-top: 0;
+        }
+
+        .top-nav {
+          padding: 8px 3%;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .nav-buttons button, .nav-buttons a {
+          padding: 6px 10px;
+          font-size: 0.8em;
+          margin: 3px;
+        }
+
+        .blog-container {
+          width: 95%;
+          margin: 15px auto 30px auto;
+          padding: 20px 15px;
+        }
+
+         .comments-section {
+             margin-top: 20px;
+         }
+
+        .blog-header h1 {
+          font-size: 1.8em;
+          margin-bottom: 20px;
+        }
+
+        article h2, .comments-section h2 {
+          font-size: 1.5em;
+          margin-top: 25px;
+        }
+
+        article p {
+          font-size: 1em;
+        }
+
+        article ul {
+          margin-left: 10px;
+        }
+
+        article li {
+          font-size: 0.95em;
+          padding-left: 15px;
+        }
+        article li::before {
+          font-size: 1.1em;
+        }
+
+      }
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div></div>
+        <div class="nav-buttons">
+            <a href="/main/blog.html">← Blog Archive</a>
+            <a href="/main/index.html">Home</a>
+        </div>
+    </nav>
+
+    <main class="blog-container">
+        <header class="blog-header">
+            <h1>Your Medical Degree is Your Price Justification</h1>
+        </header>
+
+        <article>
+            <p>You’re not just a translator; you’re a **Medical Linguist**. This is the distinction that allows you to charge premium rates, especially on platforms like Upwork and ProZ. For technical and life-critical content—like clinical trial documents, MedTech manuals, and patient safety data—clients need more than linguistic skill; they need domain expertise.</p>
+
+            <h2>1. Accuracy: Reducing the Cost of Error</h2>
+            <p>A single mistranslated term in a clinical report can compromise patient care or cost a pharmaceutical company millions in regulatory delays. When you pitch your $45/hr rate, you aren't charging for speed; you are charging for **risk reduction**. Your medical background allows you to translate context, not just words, which eliminates those costly errors.</p>
+
+            <h2>2. The Student Advantage: Current Knowledge</h2>
+            <p>Being a Medical Student is a powerful selling point. Unlike retired doctors who translate on the side, your knowledge of anatomy, physiology, and current clinical terminology is **fresh and actively used**. This unique advantage is what clients in HealthTech and Pharma are paying for—assurance that the terminology is up-to-date.</p>
+
+            <h2>3. Using Your Degree in Proposals</h2>
+            <p>Never let a client forget this differentiator. Every proposal should start by leveraging your medical status:</p>
+            <ul>
+                <li>**Old Pitch:** "I am an experienced Spanish/English translator."</li>
+                <li>**New Pitch:** "As a Trilingual Medical Linguist (HE/EN/ES) and current MD student, I guarantee the terminological precision your clinical trial reports require. My rate reflects zero risk."</li>
+            </ul>
+
+            <h2>4. Trilingual Edge in Niche Markets</h2>
+            <p>Your Hebrew, English, and Spanish fluency is rare, especially when combined with a medical background. This makes you indispensable for global teams needing translation across different markets (e.g., Israel and LATAM). Highlight this cross-cultural, specialized capacity in every communication.</p>
+
+            <h2>Final Thoughts</h2>
+            <p>Don't let the thought of being "just a student" minimize your value. Your MD journey is your **competitive edge** and the sole justification for commanding a premium rate in the specialized medical market. Own that title, pitch the value of risk reduction, and the right clients will pay it.</p>
+        </article>
+    </main>
+
+    <div class="comments-section blog-container">
+        <hr style="border: none; border-top: 1px solid var(--slate-gray); margin: 30px 0;">
+        <h2>Comments</h2>
+        <div id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="c311c394-dd8d-43b6-8bea-b913be5b9752"
+          data-page-id="blog-post-013"
+          data-page-url="FULL_URL_OF_POST_13"
+          data-page-title="Your Medical Degree is Your Price Justification | Danilo H."
+          data-theme="light"
+          data-lang="en"
+        ></div>
+    </div>
+
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+</body>
+</html>
