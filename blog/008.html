@@ -3,21 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Freelancing Tools I Use Every Day | Danilo H.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>Freelancing Tools I Use Every Day | Danilo H.</title> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
+      /* Palette */
       --light-blue: #E6F3FF;
       --sky-blue: #87CEEB;
       --steel-blue: #4682B4;
       --gold: #DAA520;
       --dark-gray: #2C3E50;
       --slate-gray: #708090;
+      --gray-dark: #555;
       --white-translucent: rgba(255,255,255,0.9);
-      --white-semi: rgba(255,255,255,0.6);
+      --white-semi: rgba(255,255,255,0.85);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: 'Roboto', Arial, sans-serif;
@@ -27,8 +32,10 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
+      font-size: 16px; /* Tamaño base escritorio */
     }
 
+    /* Top Navigation */
     .top-nav {
       background-color: var(--white-translucent);
       padding: 10px 5%;
@@ -39,11 +46,9 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      border-radius: 10px;
-      margin-bottom: 20px;
     }
 
-    .nav-buttons a {
+    .nav-buttons button, .nav-buttons a {
       padding: 8px 15px;
       background-color: transparent;
       color: var(--sky-blue);
@@ -55,19 +60,21 @@
       margin-left: 10px;
       font-size: 0.9em;
       transition: all 0.3s ease;
+      white-space: nowrap;
     }
 
-    .nav-buttons a:hover {
+    .nav-buttons button:hover, .nav-buttons a:hover {
       background-color: var(--gold);
       color: white;
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
     }
 
-    .blog-container {
-      max-width: 800px;
-      width: 90%;
-      margin: 40px auto;
+    /* Main Content & Comments Container Styles */
+    .blog-container { /* Aplica a <main> y a .comments-section */
+      max-width: 1200px; /* ANCHO MÁXIMO */
+      width: 95%;      /* Ancho por defecto con márgenes */
+      margin: 20px auto 40px auto;
       padding: 30px 40px;
       background-color: var(--white-semi);
       border-radius: 12px;
@@ -114,12 +121,14 @@
       margin-left: 20px;
       margin-bottom: 18px;
       list-style: none;
+      padding-left: 0;
     }
 
     article li {
       margin-bottom: 10px;
       padding-left: 20px;
       position: relative;
+      font-size: 1em;
     }
 
     article li::before {
@@ -148,13 +157,93 @@
       color: var(--steel-blue);
       text-decoration: underline;
     }
+
+    /* --- ESTILOS PARA SECCIÓN DE COMENTARIOS CUSDIS --- */
+    .comments-section {
+      /* Hereda max-width, width, margin, box-shadow de .blog-container */
+      margin-top: 30px; /* Espacio extra arriba */
+    }
+
+    .comments-section h2 { /* Estilo específico para el título "Comentarios" */
+       color: var(--gold);
+       font-size: 1.8em;
+       margin-bottom: 20px;
+       text-align: center;
+       border: none; /* Sin borde inferior */
+       padding-bottom: 0;
+    }
+     .comments-section h2::after {
+         display: none; /* Sin la línea decorativa */
+     }
+
+    #cusdis_thread {
+      /* NO establecer height, max-height u overflow aquí */
+      background-color: transparent;
+    }
+
+    /* --- MEDIA QUERIES PARA MÓVILES (Unificado) --- */
+    @media (max-width: 768px) {
+      body {
+        font-size: 15px;
+        padding-top: 0;
+      }
+
+      .top-nav {
+        padding: 8px 3%;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-buttons button, .nav-buttons a {
+        padding: 6px 10px;
+        font-size: 0.8em;
+        margin: 3px;
+      }
+
+      .blog-container { /* Aplica a <main> y a .comments-section en móviles */
+        width: 95%;
+        margin: 15px auto 30px auto;
+        padding: 20px 15px;
+      }
+
+       .comments-section {
+           margin-top: 20px; /* Ajustar margen superior en móvil */
+       }
+
+      .blog-header h1 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+      }
+
+      article h2, .comments-section h2 { /* Aplica a subtítulos y título de comentarios */
+        font-size: 1.5em;
+        margin-top: 25px;
+      }
+
+      article p {
+        font-size: 1em;
+      }
+
+      article ul {
+        margin-left: 10px;
+      }
+
+      article li {
+        font-size: 0.95em;
+        padding-left: 15px;
+      }
+      article li::before {
+        font-size: 1.1em;
+      }
+
+    } /* Fin de Media Query */
+
   </style>
 </head>
 <body>
 
   <nav class="top-nav">
-    <div></div>
-    <div class="nav-buttons">
+    <div></div> <div class="nav-buttons">
       <a href="/main/blog.html">← Blog Archive</a>
       <a href="/main/index.html">Home</a>
     </div>
@@ -210,7 +299,18 @@
       <h2>Final Thoughts</h2>
       <p>Having the right tools doesn’t just make you more efficient — it makes you look professional and prepared. Start with a few essentials, master them, and expand as your workflow grows. These are the daily tools that help me deliver my best work consistently.</p>
     </article>
-  </main>
+  </main> <div class="comments-section blog-container">
+        <hr style="border: none; border-top: 1px solid var(--slate-gray); margin: 30px 0;">
+        <h2>Comentarios</h2>
+        <div id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="c311c394-dd8d-43b6-8bea-b913be5b9752"
+          data-page-id="blog-post-008" data-page-url="FULL_URL_OF_POST_8" data-page-title="Freelancing Tools I Use Every Day | Danilo H." data-theme="light"
+          data-lang="es"
+        ></div>
+    </div>
 
-</body>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+    </body>
 </html>
