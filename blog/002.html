@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelancing Tips for Beginners | Danilo H.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Freelancing Tips for Beginners | Danilo H.</title> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
       :root {
+        /* Palette */
         --light-blue: #E6F3FF;
         --sky-blue: #87CEEB;
         --steel-blue: #4682B4;
         --gold: #DAA520;
         --dark-gray: #2C3E50;
         --slate-gray: #708090;
+        --gray-dark: #555;
         --white-translucent: rgba(255,255,255,0.9);
-        --white-semi: rgba(255,255,255,0.6);
+        --white-semi: rgba(255,255,255,0.85); /* Un poco menos transparente para legibilidad */
       }
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
       body {
         font-family: 'Roboto', Arial, sans-serif;
@@ -27,8 +32,10 @@
         display: flex;
         flex-direction: column;
         min-height: 100vh;
+        font-size: 16px; /* Tamaño base escritorio */
       }
 
+      /* Top Navigation */
       .top-nav {
         background-color: var(--white-translucent);
         padding: 10px 5%;
@@ -39,8 +46,7 @@
         position: sticky;
         top: 0;
         z-index: 1000;
-        border-radius: 10px;
-        margin-bottom: 20px;
+        /* Quitamos border-radius y margin-bottom del código original */
       }
 
       .nav-buttons button, .nav-buttons a {
@@ -55,6 +61,7 @@
         margin-left: 10px;
         font-size: 0.9em;
         transition: all 0.3s ease;
+        white-space: nowrap;
       }
 
       .nav-buttons button:hover, .nav-buttons a:hover {
@@ -64,10 +71,11 @@
         box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
       }
 
-      .blog-container {
-        max-width: 1200px;
-        width: 90%;
-        margin: 40px auto;
+      /* Main Content & Comments Container Styles */
+      .blog-container { /* Aplica a <main> y a .comments-section */
+        max-width: 1200px; /* ANCHO MÁXIMO */
+        width: 95%;      /* Ancho por defecto con márgenes */
+        margin: 20px auto 40px auto; /* Margen reducido arriba */
         padding: 30px 40px;
         background-color: var(--white-semi);
         border-radius: 12px;
@@ -111,18 +119,21 @@
       }
 
       article ul {
-        margin-left: 20px;
+        margin-left: 20px; /* Sangría base lista */
         margin-bottom: 18px;
-        list-style: none;
+        list-style: none; /* Quitamos viñetas por defecto */
+        padding-left: 0; /* Quitamos padding por defecto */
       }
 
       article li {
         margin-bottom: 10px;
-        padding-left: 20px;
+        padding-left: 20px; /* Espacio para el marcador personalizado */
         position: relative;
+        font-size: 1em; /* Tamaño base item lista */
+        color: var(--steel-blue); /* Color del texto de la lista */
       }
 
-      article li::before {
+      article li::before { /* Marcador personalizado */
         content: '▹';
         color: var(--gold);
         font-weight: bold;
@@ -133,8 +144,8 @@
         font-size: 1.2em;
       }
 
-      article strong {
-        color: var(--gold);
+      article strong { /* Para el texto dentro de <strong> en las listas */
+        color: var(--gold); /* Mantenemos el color dorado */
         font-weight: 600;
       }
 
@@ -148,16 +159,95 @@
         color: var(--steel-blue);
         text-decoration: underline;
       }
+
+      /* --- ESTILOS PARA SECCIÓN DE COMENTARIOS CUSDIS --- */
+      .comments-section {
+        /* Hereda max-width, width, margin, box-shadow, background, border-radius de .blog-container */
+        margin-top: 30px; /* Espacio extra arriba */
+      }
+
+      .comments-section h2 { /* Estilo específico para el título "Comentarios" */
+         color: var(--gold);
+         font-size: 1.8em;
+         margin-bottom: 20px;
+         text-align: center;
+         border: none; /* Sin borde inferior */
+         padding-bottom: 0;
+      }
+       .comments-section h2::after { /* Quitar la línea decorativa */
+           display: none;
+       }
+
+      #cusdis_thread {
+        /* NO establecer height, max-height u overflow aquí */
+        background-color: transparent;
+        /* min-height: 150px;  Puedes añadir si quieres que ocupe espacio al cargar */
+      }
+
+      /* --- MEDIA QUERIES PARA MÓVILES (Unificado) --- */
+      @media (max-width: 768px) {
+        body {
+          font-size: 15px; /* Reducir tamaño base general */
+          padding-top: 0; /* Quitar padding superior si nav es sticky */
+        }
+
+        .top-nav {
+          padding: 8px 3%; /* Menos padding en nav */
+          flex-wrap: wrap; /* Permitir que los botones bajen si no caben */
+          justify-content: center; /* Centrar si se envuelven */
+        }
+
+        .nav-buttons button, .nav-buttons a {
+          padding: 6px 10px; /* Botones más pequeños */
+          font-size: 0.8em; /* Texto botones más pequeño */
+          margin: 3px; /* Añadir margen vertical si se envuelven */
+        }
+
+        .blog-container { /* Aplica a <main> y a .comments-section en móviles */
+          width: 95%; /* Usar más ancho */
+          margin: 15px auto 30px auto; /* Reducir márgenes */
+          padding: 20px 15px; /* Reducir padding interno */
+        }
+
+         .comments-section {
+             margin-top: 20px; /* Ajustar margen superior en móvil */
+         }
+
+        .blog-header h1 {
+          font-size: 1.8em; /* Título más pequeño */
+          margin-bottom: 20px;
+        }
+
+        article h2, .comments-section h2 { /* Aplica a subtítulos y título de comentarios */
+          font-size: 1.5em; /* Más pequeños en móvil */
+          margin-top: 25px;
+        }
+
+        article p {
+          font-size: 1em; /* Párrafos tamaño normal */
+        }
+
+        article ul {
+          margin-left: 10px; /* Menos sangría en listas */
+        }
+
+        article li {
+          font-size: 0.95em; /* Items lista ligeramente más pequeños */
+          padding-left: 15px; /* Menos espacio para el marcador */
+        }
+        article li::before {
+          font-size: 1.1em;
+        }
+
+      } /* Fin de Media Query */
+
     </style>
 </head>
 <body>
 
     <nav class="top-nav">
-        <div></div>
-        <div class="nav-buttons">
-            <a href="/main/blog.html">← Blog Archive</a>
-            <a href="/main/index.html">Home</a>
-        </div>
+        <div></div> <div class="nav-buttons">
+            <a href="/main/blog.html">← Blog Archive</a> <a href="/main/index.html">Home</a> </div>
     </nav>
 
     <main class="blog-container">
@@ -193,18 +283,18 @@
             <h2>Final Thoughts</h2>
             <p>Starting as a freelancer is a journey of growth and self-discovery. By focusing on your strengths, building credibility, and delivering value, you can transform your passion into a sustainable income. Begin small, stay consistent, and remember: every project is an opportunity to learn and grow.</p>
         </article>
-    </main>
-</article>
-</main> <div class="comments-section blog-container"> <hr style="border: none; border-top: 1px solid var(--slate-gray); margin: 30px 0;"> <h2 style="color: var(--gold); font-size: 1.8em; margin-bottom: 20px; text-align: center; border: none;">Comentarios</h2> <div id="cusdis_thread"
-      data-host="https://cusdis.com"
-      data-app-id="c311c394-dd8d-43b6-8bea-b913be5b9752"
-      data-page-id="UNIQUE_ID_FOR_THIS_POST" data-page-url="FULL_URL_OF_THIS_POST" data-page-title="TITLE_OF_THIS_POST" data-theme="light" data-lang="es"
-    ></div>
-</div>
+    </main> <div class="comments-section blog-container">
+        <hr style="border: none; border-top: 1px solid var(--slate-gray); margin: 30px 0;">
+        <h2>Comentarios</h2>
+        <div id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="c311c394-dd8d-43b6-8bea-b913be5b9752"
+          data-page-id="freelancing-tips-beginners-002" data-page-url="https://danilohurwitz.github.io/main/blog/002.html" data-page-title="Freelancing Tips for Beginners | Danilo H." data-theme="light"
+          data-lang="es"
+        ></div>
+    </div>
 
-<script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
 
-</body>
-</html>
-</body>
+    </body>
 </html>
