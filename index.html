@@ -251,13 +251,18 @@
             margin-bottom: 20px;
             transition: color 0.3s ease-out;
             font-weight: 300;
-            min-height: 1.2em; /* Added for dynamic text */
+            min-height: 1.2em;
         }
 
         /* KEYFRAME for Tagline Animation */
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; transform: translateY(-10px); }
             10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Apply to the dynamic element */
+        .animate-tagline {
+            animation: fadeInOut 4s infinite;
         }
         
         .contact {
@@ -331,25 +336,34 @@
         .status-item i {
             color: var(--gold);
             margin-right: 5px;
+            font-size: 1.2em;
         }
         
         body.dark .status-item {
              color: var(--body-text);
         }
-        
+
         /* --- NUEVO CSS: Micro Sample Carousel --- */
         .micro-carousel-container {
             padding: 20px 0;
             margin: 20px auto;
             overflow: hidden;
-            text-align: center;
+            max-width: 1000px; /* Igual al container */
+            position: relative;
         }
 
         .micro-samples {
             display: flex;
             animation: carousel-slide 20s infinite linear;
-            width: max-content; /* Asegura que el contenedor se expanda */
+            width: max-content;
             gap: 20px;
+            /* Duplicar el contenido para un scroll infinito suave */
+        }
+        
+        /* Clonar para el efecto infinito */
+        .micro-samples > .sample-card:nth-child(n+1):nth-child(-n+4) {
+            /* Los primeros 4 se duplican para el efecto.
+               Asegúrate de que haya suficientes tarjetas en el HTML para llenar el espacio antes de que el carrusel se repita. */
         }
 
         .sample-card {
@@ -360,6 +374,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: left;
             transition: transform 0.3s ease-out;
+            border-left: 3px solid var(--sky-blue);
         }
 
         .sample-card:hover {
@@ -367,7 +382,7 @@
         }
         
         .sample-card h4 {
-            color: var(--sky-blue);
+            color: var(--steel-blue);
             font-size: 1em;
             margin-bottom: 5px;
         }
@@ -379,7 +394,22 @@
 
         @keyframes carousel-slide {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            100% { transform: translateX(calc(-320px * 4)); } /* Ajustar valor: (Ancho de tarjeta + gap) * número de tarjetas únicas */
+        }
+        
+        /* Ajustar el tamaño en móvil para que solo se vea una tarjeta o menos */
+        @media (max-width: 650px) {
+             .micro-samples {
+                 gap: 15px;
+             }
+             .sample-card {
+                 min-width: 250px;
+             }
+             
+             @keyframes carousel-slide {
+                 0% { transform: translateX(0); }
+                 100% { transform: translateX(calc(-265px * 4)); } /* (250px + 15px) * 4 */
+             }
         }
 
 
@@ -799,37 +829,11 @@
         }
 
         .quote-input input:focus,
+        body.dark .contact-form input:focus,
         .quote-input select:focus {
             border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
             outline: none;
-        }
-
-        .quote-tool button {
-            width: 100%;
-            padding: 12px;
-            background: var(--gold);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: background 0.3s ease-out, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 10px;
-        }
-
-        .quote-tool button:hover {
-            background: var(--gold-dark);
-            transform: translateY(-1px);
-        }
-
-        .quote-result {
-            font-size: 1.1em;
-            color: var(--gold);
-            font-weight: 600;
-            margin-top: 10px;
-            min-height: 1.5em;
-            transition: color 0.3s ease-out;
         }
 
         .contact-form {
@@ -856,7 +860,6 @@
             color: var(--body-text);
         }
 
-        .contact-form input:focus,
         body.dark .contact-form input:focus,
         .contact-form textarea:focus {
             border-color: var(--gold);
@@ -1207,103 +1210,6 @@
             opacity: 0;
         }
         
-        /* --- NUEVO CSS: Career Status Bar --- */
-        .career-status-bar {
-            background: var(--highlight-bg);
-            border-radius: 12px;
-            padding: 15px 25px;
-            text-align: center;
-            margin-bottom: 20px;
-            border: 1px solid rgba(218, 165, 32, 0.3);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .status-item {
-            color: var(--dark-gray);
-            font-size: 1em;
-            font-weight: 500;
-            transition: color 0.3s ease-out;
-        }
-
-        .status-item i {
-            color: var(--gold);
-            margin-right: 5px;
-            font-size: 1.2em;
-        }
-        
-        body.dark .status-item {
-             color: var(--body-text);
-        }
-
-        /* --- NUEVO CSS: Micro Sample Carousel --- */
-        .micro-carousel-container {
-            padding: 20px 0;
-            margin: 20px auto;
-            overflow: hidden;
-            max-width: 1000px; /* Igual al container */
-            position: relative;
-        }
-
-        .micro-samples {
-            display: flex;
-            animation: carousel-slide 20s infinite linear;
-            width: max-content;
-            gap: 20px;
-            /* Duplicar el contenido para un scroll infinito suave */
-        }
-        
-        /* Clonar para el efecto infinito */
-        .micro-samples > .sample-card:nth-child(n+1):nth-child(-n+4) {
-            /* Los primeros 4 se duplican para el efecto.
-               Asegúrate de que haya suficientes tarjetas en el HTML para llenar el espacio antes de que el carrusel se repita. */
-        }
-
-        .sample-card {
-            min-width: 300px;
-            background: var(--card-semi);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            transition: transform 0.3s ease-out;
-            border-left: 3px solid var(--sky-blue);
-        }
-
-        .sample-card h4 {
-            color: var(--steel-blue);
-            font-size: 1em;
-            margin-bottom: 5px;
-        }
-        
-        .sample-card p {
-            font-size: 0.9em;
-            color: var(--slate-gray);
-        }
-
-        @keyframes carousel-slide {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-320px * 4)); } /* Ajustar valor: (Ancho de tarjeta + gap) * número de tarjetas únicas */
-        }
-        
-        /* Ajustar el tamaño en móvil para que solo se vea una tarjeta o menos */
-        @media (max-width: 650px) {
-             .micro-samples {
-                 gap: 15px;
-             }
-             .sample-card {
-                 min-width: 250px;
-             }
-             
-             @keyframes carousel-slide {
-                 0% { transform: translateX(0); }
-                 100% { transform: translateX(calc(-265px * 4)); } /* (250px + 15px) * 4 */
-             }
-        }
-        
     </style>
 </head>
 <body>
@@ -1383,7 +1289,6 @@
       <p>High-quality audiovisual editing with synchronized multilingual subtitles and format optimization.</p>
     </div>
 
-    <!-- puedes duplicar los mismos para dar efecto de loop -->
     <div class="sample-card">
       <h4>Medical Records Translation (HE > EN)</h4>
       <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
@@ -1614,9 +1519,11 @@
         const taglineElement = document.getElementById('dynamicTagline');
         const intervalTime = 4000; // 4 segundos
 
-        function updateDynamicTagline() {
-            const currentLang = document.getElementById('langSelect').value;
-            const slogans = dynamicTaglines[currentLang] || dynamicTaglines['en'];
+        function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
+            const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
+            
+            // Re-apply the cycle based on the new language's array size
+            taglineIndex = taglineIndex % slogans.length;
             
             taglineElement.classList.remove('animate-tagline'); // Reset animation
             void taglineElement.offsetWidth; // Trigger reflow
@@ -1934,7 +1841,7 @@
                 'lang-spanish': "ספרדית",
                 'lang-spanish-desc': "אמהרית (נולד במלאגה, ספרד - מומחיות בגרסאות קסטיליאני ו-LATAM)",
                 'lang-english': "אנגלית",
-                'lang-english-desc': "שוטף (מקביל C1, 15+ שנים)",
+                'lang-english-desc': "שוטף (מקביל C1, 12+ שנים)",
                 'lang-hebrew': "עברית",
                 'lang-hebrew-desc': "שוטף (מקביל C1, 10+ שנים טבילה יומית)",
                 'education-title': "חינוך",
@@ -1948,16 +1855,16 @@
                 'portfolio-title': "תיק עבודות מובלט",
                 'portfolio-desc': "פרויקטים נבחרים המציגים דיוק תרגום ומיומנות טכנית.",
                 'portfolio-item1': "רשומות רפואיות עברית לאנגלית",
-                'portfolio-item1-price': "$270 קבוע | יולי 2025",
+                'portfolio-item1-price': "270$ קבוע | יולי 2025",
                 'view-sample': "צפה בדוגמה (PDF)",
                 'portfolio-item2': "התאמת וידאו הדרכה עברית",
-                'portfolio-item2-price': "$242 קבוע | יוני 2025",
+                'portfolio-item2-price': "242$ קבוע | יוני 2025",
                 'watch-video': "צפה בווידאו",
                 'portfolio-item3': "עריכת וידאו משפחתי וכתוביות",
-                'portfolio-item3-price': "דירוג 5.0 | $150 קבוע | אוק 2024",
+                'portfolio-item3-price': "דירוג 5.0 | 150$ קבוע | אוק 2024",
                 'watch-demo': "צפה בהדגמה",
                 'portfolio-item4': "סקירת אודיו עברית טבעית",
-                'portfolio-item4-price': "$370 קבוע | יולי 2025",
+                'portfolio-item4-price': "370$ קבוע | יולי 2025",
                 'listen-sample': "האזן לדוגמה",
                 'strengths-title': "חוזקות מרכזיות",
                 'strength1': "אקומן רפואי טרילינגואלי עלית: משלב אימון רפואי פעיל עם עברית, אנגלית, ספרדית אמהרית/שוטפת לדיוק ללא תקדים.",
@@ -1966,35 +1873,35 @@
                 'strength2-bold': "דיוק בין-תרבותי:",
                 'strength3': "אמינות מוכחת: עולה על ציפיות בפרויקטים מורכבים ומונעי מועדים עבור לקוחות בינלאומיים דרך אפוורק (100% JSS).",
                 'strength3-bold': "אמינות מוכחת:",
-                'rating-title': "¿Cómo Eliges Típicamente a un Freelancer?",
-                'rating-msg1': "Centrarse solo en la <strong>oferta más baja</strong> a menudo significa más tiempo de gestión, posibles malentendidos y resultados que necesitan revisiones adicionales.",
-                'rating-msg2': "Una elección <strong>consciente del presupuesto</strong>. Podría funcionar para tareas simples, pero podría perder matices cruciales en contenido especializado como la traducción médica.",
-                'rating-msg3': "Haciendo el trabajo. Un enfoque <strong>generalista</strong> entrega resultados estándar para proyectos estándar.",
-                'rating-msg4': "Un <strong>profesional sólido</strong> que entrega buena calidad. Probablemente requiere orientación clara en requisitos altamente especializados o culturalmente específicos.",
-                'rating-msg5': "<strong>¡Invirtiendo en Excelencia!</strong> Elegir un <strong>especialista de Calificación Superior</strong> enfocado en precisión y calidad para proyectos críticos. <strong>Resultado:</strong> Contenido 100% preciso, culturalmente perfecto entregado de manera confiable, dándote tranquilidad.",
-                'rating-hover': "Pasa el mouse sobre las estrellas para ver retroalimentación.",
-                'quote-title': "Calculadora de Cotización Rápida",
-                'quote-desc': "Estima el costo de tu proyecto (USD por palabra/minuto).",
-                'word-count': "Conteo de Palabras/Minutos",
-                'basic-trans': "Traducción Básica ($0.08/pal)",
-                'medical-trans': "Traducción Médica ($0.12/pal)",
-                'editing': "Edición/Corrección ($0.04/pal)",
-                'subtitles': "Subtítulos de Video ($5.00/min)",
-                'calculate': "Calcular Estimado",
-                'quote-note': "Nota: Las cotizaciones finales dependen de la complejidad, par de idiomas y urgencia.",
-                'contact-title': "Contacto",
-                'contact-desc': "¿Listo para colaborar? Cuéntame sobre tu proyecto.",
-                'name': "Tu Nombre",
-                'email': "Tu Email",
-                'message': "Describe tu proyecto...",
-                'send': "Enviar Mensaje",
-                'newsletter-text': "Suscríbete para recibir consejos sobre trabajo freelance:",
-                'newsletter-email': "Email",
-                'subscribe': "Suscribirse",
-                'download-cv': "Descargar CV Completo (PDF)",
-                'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
-                'dark-mode': "Modo Oscuro",
-                'language': "Idioma"
+                'rating-title': "איך אתה בדרך כלל בוחר פרילנסר?",
+                'rating-msg1': "התמקדות רק ב<strong>ההצעה הנמוכה ביותר</strong> לעיתים קרובות אומרת יותר זמן ניהול, אי הבנות פוטנציאליות ותוצאות שדורשות תיקונים נוספים.",
+                'rating-msg2': "בחירה <strong>מודעת לתקציב</strong>. עשויה לעבוד למשימות פשוטות, אך עלולה לפספס ניואנסים קריטיים בתוכן מתמחה כמו תרגום רפואי.",
+                'rating-msg3': "מבצע את העבודה. גישה <strong>כללית</strong> מספקת תוצאות סטנדרטיות לפרויקטים סטנדרטיים.",
+                'rating-msg4': "מקצוען <strong>מוצק</strong> שמספק איכות טובה. סביר שדורש הדרכה ברורה בדרישות מתמחות גבוהות או ספציפיות תרבותית.",
+                'rating-msg5': "<strong>!השקעה במצוינות</strong> בחירת <strong>מומחה מדורג עליון</strong> המתמקד בדיוק ואיכות לפרויקטים קריטיים. <strong>תוצאה:</strong> תוכן מדויק 100%, מושלם תרבותית המועבר באופן אמין, נותן לך שקט נפשי.",
+                'rating-hover': "העבר עכבר על הכוכבים כדי לראות משוב.",
+                'quote-title': "מחשבון הצעת מחיר מהיר",
+                'quote-desc': "הערכת עלות הפרויקט שלך (USD למילה/דקה).",
+                'word-count': "ספירת מילים/דקות",
+                'basic-trans': "תרגום בסיסי (0.08$/מילה)",
+                'medical-trans': "תרגום רפואי (0.12$/מילה)",
+                'editing': "עריכה/הגהה (0.04$/מילה)",
+                'subtitles': "כתוביות וידאו (5.00$/דקה)",
+                'calculate': "חשב הערכה",
+                'quote-note': "הערה: הצעות מחיר סופיות תלויות במורכבות, זוג שפות ודחיפות.",
+                'contact-title': "צור קשר",
+                'contact-desc': "מוכן לשתף פעולה? ספר לי על הפרויקט שלך.",
+                'name': "שמך",
+                'email': "האימייל שלך",
+                'message': "תאר את הפרויקט שלך...",
+                'send': "שלח הודעה",
+                'newsletter-text': "או הרשם לטיפים פרילנס:",
+                'newsletter-email': "אימייל",
+                'subscribe': "הירשם",
+                'download-cv': "הורד קורות חיים מלאים (PDF)",
+                'footer': "© 2025 דנילו הורוויץ. כל הזכויות שמורות.",
+                'dark-mode': "מצב כהה",
+                'language': "שפה"
             }
         };
 
@@ -2050,11 +1957,11 @@
             // Re-apply the cycle based on the new language's array size
             taglineIndex = taglineIndex % slogans.length;
             
-            taglineElement.classList.remove('animate-tagline');
-            void taglineElement.offsetWidth;
+            taglineElement.classList.remove('animate-tagline'); // Reset animation
+            void taglineElement.offsetWidth; // Trigger reflow
             
             taglineElement.textContent = slogans[taglineIndex];
-            taglineElement.classList.add('animate-tagline');
+            taglineElement.classList.add('animate-tagline'); // Start animation
             
             taglineIndex = (taglineIndex + 1) % slogans.length;
         }
@@ -2202,14 +2109,8 @@
         
         // --- CARRUSEL JS ---
         const microSamplesContainer = document.getElementById('micro-samples');
-        const sampleCards = microSamplesContainer.querySelectorAll('.sample-card');
-        const numSamples = sampleCards.length / 2; // Asumiendo que has duplicado las 4 tarjetas en HTML
-
-        // Función para duplicar el contenido del carrusel (si no está duplicado en HTML)
-        // Ya está duplicado en el HTML, por lo que esta función se omite.
+        // Initialization of interval is done above the function definition
         
-        // Ajustar la animación CSS dinámicamente si fuera necesario, pero la dejamos estática por simplicidad.
-
 
         // Initialization
         document.addEventListener('DOMContentLoaded', () => {
