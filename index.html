@@ -22,6 +22,8 @@
          * 11. Star Rating Specific
          * 12. Language Switcher Specific
          * 13. Career Progress Bar Specific
+         *
+         * -- NUEVOS ESTILOS AÑADIDOS --
          */
 
         /* 1. Root Variables */
@@ -31,7 +33,7 @@
             --steel-blue: #4682B4;
             --gold: #DAA520;
             --gold-dark: #B8860B;
-            --dark-gray: 2C3E50;
+            --dark-gray: #2C3E50; /* Corregido para uso en CSS */
             --slate-gray: #708090;
             --gray-dark: #555;
             --white-translucent: rgba(255,255,255,0.9);
@@ -249,8 +251,15 @@
             margin-bottom: 20px;
             transition: color 0.3s ease-out;
             font-weight: 300;
+            min-height: 1.2em; /* Added for dynamic text */
         }
 
+        /* KEYFRAME for Tagline Animation */
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; transform: translateY(-10px); }
+            10%, 90% { opacity: 1; transform: translateY(0); }
+        }
+        
         .contact {
             font-size: 0.95em;
             color: var(--slate-gray);
@@ -296,6 +305,83 @@
             height: auto;
             display: block;
         }
+
+        /* --- NUEVO CSS: Career Status Bar --- */
+        .career-status-bar {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-item {
+            color: var(--dark-gray);
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .status-item i {
+            color: var(--gold);
+            margin-right: 5px;
+        }
+        
+        body.dark .status-item {
+             color: var(--body-text);
+        }
+        
+        /* --- NUEVO CSS: Micro Sample Carousel --- */
+        .micro-carousel-container {
+            padding: 20px 0;
+            margin: 20px auto;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .micro-samples {
+            display: flex;
+            animation: carousel-slide 20s infinite linear;
+            width: max-content; /* Asegura que el contenedor se expanda */
+            gap: 20px;
+        }
+
+        .sample-card {
+            min-width: 300px;
+            background: var(--card-semi);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease-out;
+        }
+
+        .sample-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sample-card h4 {
+            color: var(--sky-blue);
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        
+        .sample-card p {
+            font-size: 0.9em;
+            color: var(--slate-gray);
+        }
+
+        @keyframes carousel-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
 
         /* Secondary Navigation */
         .secondary-nav-container {
@@ -751,7 +837,7 @@
             margin: 0 auto;
         }
 
-        .contact-form input, 
+        .contact-form input,
         .contact-form textarea {
             width: 100%;
             padding: 10px;
@@ -764,13 +850,14 @@
             color: var(--body-text);
         }
 
-        body.dark .contact-form input, 
+        body.dark .contact-form input,
         body.dark .contact-form textarea {
             background-color: var(--card-semi);
             color: var(--body-text);
         }
 
-        .contact-form input:focus, 
+        .contact-form input:focus,
+        body.dark .contact-form input:focus,
         .contact-form textarea:focus {
             border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(218, 165, 32, 0.1);
@@ -897,30 +984,37 @@
                 padding: 15px;
                 margin: 10px auto;
             }
+            
+            /* Ajuste para la barra de estado en móvil */
+            .career-status-bar {
+                flex-direction: column;
+                padding: 15px;
+            }
+
 
             .header {
                 padding: 30px 15px;
             }
 
-            .name { 
-                font-size: 2.2em; 
+            .name {
+                font-size: 2.2em;
             }
 
-            .tagline { 
-                font-size: 1.1em; 
+            .tagline {
+                font-size: 1.1em;
             }
 
-            .contact { 
-                font-size: 0.9em; 
+            .contact {
+                font-size: 0.9em;
             }
 
-            .tabs-nav { 
-                gap: 5px; 
+            .tabs-nav {
+                gap: 5px;
             }
 
-            .tab-btn { 
-                padding: 8px 14px; 
-                font-size: 0.9em; 
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.9em;
             }
 
             .secondary-nav-container {
@@ -936,91 +1030,91 @@
                 max-width: 300px;
             }
 
-            .video-container iframe { 
-                height: 250px; 
+            .video-container iframe {
+                height: 250px;
             }
 
-            .section-title { 
-                font-size: 1.6em; 
+            .section-title {
+                font-size: 1.6em;
             }
 
-            .job-title { 
-                font-size: 1.1em; 
+            .job-title {
+                font-size: 1.1em;
             }
 
-            .skills-grid { 
-                grid-template-columns: 1fr; 
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
 
-            .languages { 
-                flex-direction: column; 
+            .languages {
+                flex-direction: column;
                 align-items: center;
             }
 
-            .lang-card { 
-                min-width: 180px; 
+            .lang-card {
+                min-width: 180px;
             }
 
-            .portfolio-grid { 
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             }
 
-            .tools-section { 
-                grid-template-columns: 1fr; 
+            .tools-section {
+                grid-template-columns: 1fr;
             }
 
-            .newsletter form { 
-                flex-direction: column; 
+            .newsletter form {
+                flex-direction: column;
                 align-items: stretch;
             }
 
-            .newsletter input { 
-                width: 100%; 
+            .newsletter input {
+                width: 100%;
                 margin-bottom: 5px;
             }
 
-            .toggles-container { 
-                top: 10px; 
-                right: 10px; 
+            .toggles-container {
+                top: 10px;
+                right: 10px;
                 flex-direction: column;
                 gap: 10px;
             }
         }
 
         @media (max-width: 480px) {
-            .name { 
-                font-size: 1.8em; 
+            .name {
+                font-size: 1.8em;
             }
 
-            .tagline { 
-                font-size: 1em; 
+            .tagline {
+                font-size: 1em;
             }
 
-            .video-container iframe { 
-                height: 200px; 
+            .video-container iframe {
+                height: 200px;
             }
 
-            .tab-btn { 
-                padding: 7px 12px; 
-                font-size: 0.85em; 
+            .tab-btn {
+                padding: 7px 12px;
+                font-size: 0.85em;
             }
 
-            .secondary-nav-btn { 
-                padding: 10px 20px; 
-                font-size: 0.95em; 
+            .secondary-nav-btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
                 width: 90%;
             }
 
-            .quote-input { 
-                grid-template-columns: 1fr; 
+            .quote-input {
+                grid-template-columns: 1fr;
             }
 
-            .portfolio-grid { 
-                grid-template-columns: 1fr; 
+            .portfolio-grid {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* 11. Star Rating Section Styles */
+        /* 11. Star Rating Specific */
         .rating-choice-section {
             background: var(--card-bg);
             padding: 25px;
@@ -1064,16 +1158,16 @@
             transform: scale(1.15) rotate(5deg);
         }
 
-        .star-rating .star i.far { 
-            color: #ccc; 
+        .star-rating .star i.far {
+            color: #ccc;
         }
 
-        body.dark .star-rating .star i.far { 
-            color: #666; 
+        body.dark .star-rating .star i.far {
+            color: #666;
         }
 
-        .star-rating .star i.fas { 
-            color: var(--accent-color); 
+        .star-rating .star i.fas {
+            color: var(--accent-color);
         }
 
         #rating-message {
@@ -1113,6 +1207,103 @@
             opacity: 0;
         }
         
+        /* --- NUEVO CSS: Career Status Bar --- */
+        .career-status-bar {
+            background: var(--highlight-bg);
+            border-radius: 12px;
+            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .status-item {
+            color: var(--dark-gray);
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s ease-out;
+        }
+
+        .status-item i {
+            color: var(--gold);
+            margin-right: 5px;
+            font-size: 1.2em;
+        }
+        
+        body.dark .status-item {
+             color: var(--body-text);
+        }
+
+        /* --- NUEVO CSS: Micro Sample Carousel --- */
+        .micro-carousel-container {
+            padding: 20px 0;
+            margin: 20px auto;
+            overflow: hidden;
+            max-width: 1000px; /* Igual al container */
+            position: relative;
+        }
+
+        .micro-samples {
+            display: flex;
+            animation: carousel-slide 20s infinite linear;
+            width: max-content;
+            gap: 20px;
+            /* Duplicar el contenido para un scroll infinito suave */
+        }
+        
+        /* Clonar para el efecto infinito */
+        .micro-samples > .sample-card:nth-child(n+1):nth-child(-n+4) {
+            /* Los primeros 4 se duplican para el efecto.
+               Asegúrate de que haya suficientes tarjetas en el HTML para llenar el espacio antes de que el carrusel se repita. */
+        }
+
+        .sample-card {
+            min-width: 300px;
+            background: var(--card-semi);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            transition: transform 0.3s ease-out;
+            border-left: 3px solid var(--sky-blue);
+        }
+
+        .sample-card h4 {
+            color: var(--steel-blue);
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+        
+        .sample-card p {
+            font-size: 0.9em;
+            color: var(--slate-gray);
+        }
+
+        @keyframes carousel-slide {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-320px * 4)); } /* Ajustar valor: (Ancho de tarjeta + gap) * número de tarjetas únicas */
+        }
+        
+        /* Ajustar el tamaño en móvil para que solo se vea una tarjeta o menos */
+        @media (max-width: 650px) {
+             .micro-samples {
+                 gap: 15px;
+             }
+             .sample-card {
+                 min-width: 250px;
+             }
+             
+             @keyframes carousel-slide {
+                 0% { transform: translateX(0); }
+                 100% { transform: translateX(calc(-265px * 4)); } /* (250px + 15px) * 4 */
+             }
+        }
+        
     </style>
 </head>
 <body>
@@ -1138,7 +1329,7 @@
     <div class="container">
         <header class="header">
             <h1 class="name">Danilo Hurwitz</h1>
-            <p class="tagline" data-i18n="tagline">Trilingual Medical Translator & Medical Student</p>
+            <p class="tagline" id="dynamicTagline" data-i18n="tagline">Trilingual Medical Translator & Medical Student</p>
             <p class="contact" data-i18n="contact">
                 Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br>
                 <a href="https://linkedin.com/in/danilo-hurwitz/" target="_blank" data-i18n="linkedin">LinkedIn</a> |
@@ -1149,6 +1340,12 @@
             </div>
         </header>
 
+        <div class="career-status-bar">
+            <div class="status-item"><i class="fas fa-medal"></i> <span data-i18n="status-toprated">Upwork Top Rated</span></div>
+            <div class="status-item"><i class="fas fa-check-circle"></i> <span data-i18n="status-jss">100% Job Success</span></div>
+            <div class="status-item"><i class="fas fa-user-md"></i> <span data-i18n="status-md">Active Medical Training</span></div>
+            <div class="status-item"><i class="fas fa-language"></i> <span data-i18n="status-tri">3 Fluent Languages</span></div>
+        </div>
         <div class="secondary-nav-container">
             <a href="blog.html" class="secondary-nav-btn" data-i18n="blog-title">The Freelancer's Compass Blog
                 <span class="secondary-nav-subtitle" data-i18n="blog-subtitle">Insights & Guides</span>
@@ -1157,7 +1354,47 @@
                 <span class="secondary-nav-subtitle" data-i18n="tools-subtitle">Calculators & Resources</span>
             </a>
         </div>
-         
+        
+       <div class="micro-carousel-container">
+  <div class="micro-samples" id="micro-samples">
+
+    <div class="sample-card">
+      <h4>Medical Records Translation (HE > EN)</h4>
+      <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
+    </div>
+
+    <div class="sample-card">
+      <h4>MTPE – Medical Hebrew to English</h4>
+      <p>Post-editing of machine-translated content for medical use, achieving native-level fluency and consistency.</p>
+    </div>
+
+    <div class="sample-card">
+      <h4>Audio Review & Transcription (HE)</h4>
+      <p>Specialized review of spoken Hebrew medical terminology for AI dataset accuracy.</p>
+    </div>
+
+    <div class="sample-card">
+      <h4>Tutorial Video Adaptation (HE > EN Subtitles)</h4>
+      <p>Localization and subtitle synchronization of Hebrew medical training modules.</p>
+    </div>
+
+    <div class="sample-card">
+      <h4>Video Subtitling & Orientation Adjustment</h4>
+      <p>High-quality audiovisual editing with synchronized multilingual subtitles and format optimization.</p>
+    </div>
+
+    <!-- puedes duplicar los mismos para dar efecto de loop -->
+    <div class="sample-card">
+      <h4>Medical Records Translation (HE > EN)</h4>
+      <p>Accurate translation of patient medical files ensuring clinical and terminological precision.</p>
+    </div>
+
+    <div class="sample-card">
+      <h4>Tutorial Video Adaptation (HE > EN Subtitles)</h4>
+      <p>Localization and subtitle synchronization of Hebrew medical training modules.</p>
+    </div>
+            </div>
+        </div>
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="openTab('summary')" data-i18n="tab-summary">Summary</button>
             <button class="tab-btn" onclick="openTab('experience')" data-i18n="tab-experience">Experience</button>
@@ -1359,30 +1596,64 @@
     </footer>
 
     <script>
-        // Translations Object
+        // Array de frases dinámicas para el tagline (en inglés y español)
+        const dynamicTaglines = {
+            en: [
+                "100% Accuracy Guaranteed: Medical Translation Specialist",
+                "MD Student: Active Clinical Knowledge Meets Trilingual Fluency",
+                "Top-Rated Precision for HealthTech, Pharma & Academic Sectors"
+            ],
+            es: [
+                "100% Precisión Garantizada: Especialista en Traducción Médica",
+                "Estudiante de Medicina: Conocimiento Clínico Activo y Fluidez Trilingüe",
+                "Precisión Calificada Superior para Sectores HealthTech, Pharma y Académico"
+            ]
+        };
+        
+        let taglineIndex = 0;
+        const taglineElement = document.getElementById('dynamicTagline');
+        const intervalTime = 4000; // 4 segundos
+
+        function updateDynamicTagline() {
+            const currentLang = document.getElementById('langSelect').value;
+            const slogans = dynamicTaglines[currentLang] || dynamicTaglines['en'];
+            
+            taglineElement.classList.remove('animate-tagline'); // Reset animation
+            void taglineElement.offsetWidth; // Trigger reflow
+            
+            taglineElement.textContent = slogans[taglineIndex];
+            taglineElement.classList.add('animate-tagline'); // Start animation
+            
+            taglineIndex = (taglineIndex + 1) % slogans.length;
+        }
+
+        // Inicializar el carrusel de taglines
+        setInterval(updateDynamicTagline, intervalTime);
+
+
+        // Translations Object (Mantenido)
         const translations = {
             en: {
-                // Header
                 tagline: "Trilingual Medical Translator & Medical Student",
                 contact: "Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>LinkedIn</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>Upwork</a>",
                 linkedin: "LinkedIn",
                 upwork: "Upwork",
-                // Secondary Nav
+                'status-toprated': "Upwork Top Rated",
+                'status-jss': "100% Job Success",
+                'status-md': "Active Medical Training",
+                'status-tri': "3 Fluent Languages",
                 'blog-title': "The Freelancer's Compass Blog",
                 'blog-subtitle': "Insights & Guides",
                 'tools-title': "Freelancer Utilities",
                 'tools-subtitle': "Calculators & Resources",
-                // Tabs
                 'tab-summary': "Summary",
                 'tab-experience': "Experience",
                 'tab-skills': "Skills",
                 'tab-education': "Education",
                 'tab-portfolio': "Portfolio",
                 'tab-strengths': "Strengths",
-                // Summary
                 'summary-title': "Professional Summary",
                 'summary-text': "Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge and linguistic precision for the HealthTech, Pharmaceutical, and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical and technical documentation. 100% Job Success Score on Upwork reflects exceptional reliability, client satisfaction, and commitment to deadlines on international projects.",
-                // Experience
                 'experience-title': "Professional Experience",
                 'job1-title': "Freelance Translator & Proofreader",
                 'job1-dates': "Upwork | May 2023 – Present",
@@ -1401,7 +1672,6 @@
                 'testimonial2-text': "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. [...] I'd fully recommend working with him!",
                 'read-more': "Read More",
                 'read-less': "Read Less",
-                // Skills
                 'skills-title': "Skills",
                 'skills-medical': "Medical Translation",
                 'skills-medical-li1': "Clinical Documentation, Patient Reports",
@@ -1425,7 +1695,6 @@
                 'lang-english-desc': "Fluent (C1 Equivalent, 15+ years)",
                 'lang-hebrew': "Hebrew",
                 'lang-hebrew-desc': "Fluent (C1 Equivalent, 10+ years daily immersion)",
-                // Education
                 'education-title': "Education",
                 'education-md': "Candidate for Doctor of Medicine (MD)",
                 'education-dates': "Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Expected Graduation: 2029",
@@ -1434,7 +1703,6 @@
                 'milestone-2023': "Medical Student Start",
                 'milestone-2024': "10+ Projects Completed",
                 'milestone-2025': "Top-Rated Freelancer",
-                // Portfolio
                 'portfolio-title': "Portfolio Highlights",
                 'portfolio-desc': "Selected projects showcasing translation accuracy and technical skill.",
                 'portfolio-item1': "Hebrew to English Medical Records",
@@ -1449,7 +1717,6 @@
                 'portfolio-item4': "Native Hebrew Audio Review",
                 'portfolio-item4-price': "$370 Fixed | Jul 2025",
                 'listen-sample': "Listen Sample",
-                // Strengths
                 'strengths-title': "Key Strengths",
                 'strength1': "Elite Trilingual Medical Acumen: Combines active medical training with native/fluent Hebrew, English, Spanish for unparalleled accuracy.",
                 'strength1-bold': "Elite Trilingual Medical Acumen:",
@@ -1457,7 +1724,6 @@
                 'strength2-bold': "Cross-Cultural Precision:",
                 'strength3': "Proven Reliability: Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).",
                 'strength3-bold': "Proven Reliability:",
-                // Rating
                 'rating-title': "How Do You Typically Choose a Freelancer?",
                 'rating-msg1': "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
                 'rating-msg2': "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
@@ -1465,7 +1731,6 @@
                 'rating-msg4': "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
                 'rating-msg5': "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind.",
                 'rating-hover': "Hover over stars to see feedback.",
-                // Tools
                 'quote-title': "Quick Quote Calculator",
                 'quote-desc': "Estimate your project cost (USD per word/minute).",
                 'word-count': "Word/Minute Count",
@@ -1484,35 +1749,32 @@
                 'newsletter-text': "Or subscribe for freelance tips:",
                 'newsletter-email': "Email",
                 'subscribe': "Subscribe",
-                // Footer
                 'download-cv': "Download Full CV (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. All rights reserved.",
-                // Toggles
                 'dark-mode': "Dark Mode",
                 'language': "Language"
             },
             es: {
-                // Header
-                tagline: "Traductor Médico Trilingüe y Estudiante de Medicina",
+                 tagline: "Traductor Médico Trilingüe y Estudiante de Medicina",
                 contact: "Mar del Plata, Argentina | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>LinkedIn</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>Upwork</a>",
                 linkedin: "LinkedIn",
                 upwork: "Upwork",
-                // Secondary Nav
+                'status-toprated': "Calificado Superior (Upwork)",
+                'status-jss': "100% Éxito Laboral",
+                'status-md': "Entrenamiento Médico Activo",
+                'status-tri': "3 Idiomas Fluidos",
                 'blog-title': "Blog - La Brújula del Freelancer",
                 'blog-subtitle': "Perspectivas y Guías",
                 'tools-title': "Utilidades para Freelancers",
                 'tools-subtitle': "Calculadoras y Recursos",
-                // Tabs
                 'tab-summary': "Resumen",
                 'tab-experience': "Experiencia",
                 'tab-skills': "Habilidades",
                 'tab-education': "Educación",
                 'tab-portfolio': "Portafolio",
                 'tab-strengths': "Fortalezas",
-                // Summary
                 'summary-title': "Resumen Profesional",
                 'summary-text': "Traductor Médico Trilingüe Calificado (Hebreo/Inglés/Español) y Estudiante de Medicina, aprovechando conocimientos médicos profundos y precisión lingüística para los sectores HealthTech, Farmacéutico y Académico. Capacidad comprobada para realizar traducciones 100% precisas de documentación clínica y técnica compleja. La Puntuación de Éxito Laboral del 100% en Upwork refleja una confiabilidad excepcional, satisfacción del cliente y compromiso con plazos en proyectos internacionales.",
-                // Experience
                 'experience-title': "Experiencia Profesional",
                 'job1-title': "Traductor y Corrector Freelance",
                 'job1-dates': "Upwork | Mayo 2023 – Presente",
@@ -1531,7 +1793,6 @@
                 'testimonial2-text': "¡Danilo hizo un gran trabajo! Fue muy receptivo, creó un video profesional genial y se aseguró de que todo lo que necesitaba se hiciera perfectamente. [...] ¡Totalmente recomiendo trabajar con él!",
                 'read-more': "Leer Más",
                 'read-less': "Leer Menos",
-                // Skills
                 'skills-title': "Habilidades",
                 'skills-medical': "Traducción Médica",
                 'skills-medical-li1': "Documentación Clínica, Informes de Pacientes",
@@ -1555,7 +1816,6 @@
                 'lang-english-desc': "Fluido (Equivalente C1, 15+ años)",
                 'lang-hebrew': "Hebreo",
                 'lang-hebrew-desc': "Fluido (Equivalente C1, 10+ años de inmersión diaria)",
-                // Education
                 'education-title': "Educación",
                 'education-md': "Estudiante de Medicina (MD en curso)",
                 'education-dates': "Universidad Nacional de Mar del Plata | Mar del Plata, Argentina | Graduación Esperada: 2029",
@@ -1564,7 +1824,6 @@
                 'milestone-2023': "Inicio como Estudiante de Medicina",
                 'milestone-2024': "10+ Proyectos Completados",
                 'milestone-2025': "Freelancer Calificado Superior",
-                // Portfolio
                 'portfolio-title': "Destacados de Portafolio",
                 'portfolio-desc': "Proyectos seleccionados que muestran precisión en traducción y habilidad técnica.",
                 'portfolio-item1': "Registros Médicos Hebreo a Inglés",
@@ -1579,7 +1838,6 @@
                 'portfolio-item4': "Revisión de Audio Hebreo Nativo",
                 'portfolio-item4-price': "$370 Fijo | Jul 2025",
                 'listen-sample': "Escuchar Muestra",
-                // Strengths
                 'strengths-title': "Fortalezas Clave",
                 'strength1': "Experiencia Médica Trilingüe de Élite: Combina entrenamiento médico activo con hebreo, inglés, español nativo/fluido para precisión inigualable.",
                 'strength1-bold': "Acumen Médico Trilingüe Elite:",
@@ -1587,7 +1845,6 @@
                 'strength2-bold': "Precisión Intercultural:",
                 'strength3': "Confiabilidad Probada: Supera expectativas en proyectos complejos y con plazos ajustados para clientes internacionales vía Upwork (100% JSS).",
                 'strength3-bold': "Confiabilidad Probada:",
-                // Rating
                 'rating-title': "¿Cómo Eliges Típicamente a un Freelancer?",
                 'rating-msg1': "Centrarse solo en la <strong>oferta más baja</strong> a menudo significa más tiempo de gestión, posibles malentendidos y resultados que necesitan revisiones adicionales.",
                 'rating-msg2': "Una elección <strong>consciente del presupuesto</strong>. Podría funcionar para tareas simples, pero podría perder matices cruciales en contenido especializado como la traducción médica.",
@@ -1595,7 +1852,6 @@
                 'rating-msg4': "Un <strong>profesional sólido</strong> que entrega buena calidad. Probablemente requiere orientación clara en requisitos altamente especializados o culturalmente específicos.",
                 'rating-msg5': "<strong>¡Invirtiendo en Excelencia!</strong> Elegir un <strong>especialista de Calificación Superior</strong> enfocado en precisión y calidad para proyectos críticos. <strong>Resultado:</strong> Contenido 100% preciso, culturalmente perfecto entregado de manera confiable, dándote tranquilidad.",
                 'rating-hover': "Pasa el mouse sobre las estrellas para ver retroalimentación.",
-                // Tools
                 'quote-title': "Calculadora de Cotización Rápida",
                 'quote-desc': "Estima el costo de tu proyecto (USD por palabra/minuto).",
                 'word-count': "Conteo de Palabras/Minutos",
@@ -1614,35 +1870,32 @@
                 'newsletter-text': "Suscríbete para recibir consejos sobre trabajo freelance:",
                 'newsletter-email': "Email",
                 'subscribe': "Suscribirse",
-                // Footer
                 'download-cv': "Descargar CV Completo (PDF)",
                 'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
-                // Toggles
                 'dark-mode': "Modo Oscuro",
                 'language': "Idioma"
             },
             he: {
-                // Header
                 tagline: "מתרגם רפואי טרילינגואלי וסטודנט לרפואה",
                 contact: "מר דל פלאטה, ארגנטינה | dhurwitzbecerra@mdp.edu.ar<br><a href='https://linkedin.com/in/danilo-hurwitz/' target='_blank'>לינקדאין</a> | <a href='https://upwork.com/freelancers/danilohurwitz' target='_blank'>אפוורק</a>",
                 linkedin: "לינקדאין",
                 upwork: "אפוורק",
-                // Secondary Nav
+                'status-toprated': "פרילנסר מדורג עליון",
+                'status-jss': "100% הצלחה בעבודה",
+                'status-md': "אימון רפואי פעיל",
+                'status-tri': "3 שפות שוטפות",
                 'blog-title': "בלוג מצפן הפרילנסר",
                 'blog-subtitle': "תובנות ומדריכים",
                 'tools-title': "כלי עזר לפרילנסרים",
                 'tools-subtitle': "מחשבונים ומשאבים",
-                // Tabs
                 'tab-summary': "סיכום",
                 'tab-experience': "ניסיון",
                 'tab-skills': "כישורים",
                 'tab-education': "חינוך",
                 'tab-portfolio': "תיק עבודות",
                 'tab-strengths': "חוזקות",
-                // Summary
                 'summary-title': "סיכום מקצועי",
                 'summary-text': "מתרגם רפואי טרילינגואלי מדורג גבוה (עברית/אנגלית/ספרדית) וסטודנט לרפואה נוכחי המנצל ידע רפואי עמוק ודיוק לשוני עבור המגזרים HealthTech, פרמצבטי ואקדמי. יכולת מוכחת לספק תרגומים מדויקים ב-100% של תיעוד קליני וטכני מורכב. ציון הצלחה בעבודה של 100% באפוורק משקף אמינות יוצאת דופן, שביעות רצון לקוחות ומחויבות למועדים בפרויקטים בינלאומיים.",
-                // Experience
                 'experience-title': "ניסיון מקצועי",
                 'job1-title': "מתרגם ומוער פרילנס",
                 'job1-dates': "אפוורק | מאי 2023 – הווה",
@@ -1661,7 +1914,6 @@
                 'testimonial2-text': "דנilo עשה עבודה נהדרת! היה מגיב מאוד, יצר וידאו מקצועי נהדר והבטיח שכל מה שהייתי צריך נעשה בצורה מושלמת. [...] אני ממליץ לחלוטין לעבוד איתו!",
                 'read-more': "קרא עוד",
                 'read-less': "קרא פחות",
-                // Skills
                 'skills-title': "כישורים",
                 'skills-medical': "תרגום רפואי",
                 'skills-medical-li1': "תיעוד קליני, דוחות מטופלים",
@@ -1685,7 +1937,6 @@
                 'lang-english-desc': "שוטף (מקביל C1, 15+ שנים)",
                 'lang-hebrew': "עברית",
                 'lang-hebrew-desc': "שוטף (מקביל C1, 10+ שנים טבילה יומית)",
-                // Education
                 'education-title': "חינוך",
                 'education-md': "מועמד לדוקטור ברפואה (MD)",
                 'education-dates': "אוניברסיטת נשיונל דה מר דל פלאטה | מר דל פלאטה, ארגנטינה | סיום צפוי: 2029",
@@ -1694,7 +1945,6 @@
                 'milestone-2023': "תחילת לימודי רפואה",
                 'milestone-2024': "10+ פרויקטים הושלמו",
                 'milestone-2025': "פרילנסר מדורג עליון",
-                // Portfolio
                 'portfolio-title': "תיק עבודות מובלט",
                 'portfolio-desc': "פרויקטים נבחרים המציגים דיוק תרגום ומיומנות טכנית.",
                 'portfolio-item1': "רשומות רפואיות עברית לאנגלית",
@@ -1709,7 +1959,6 @@
                 'portfolio-item4': "סקירת אודיו עברית טבעית",
                 'portfolio-item4-price': "$370 קבוע | יולי 2025",
                 'listen-sample': "האזן לדוגמה",
-                // Strengths
                 'strengths-title': "חוזקות מרכזיות",
                 'strength1': "אקומן רפואי טרילינגואלי עלית: משלב אימון רפואי פעיל עם עברית, אנגלית, ספרדית אמהרית/שוטפת לדיוק ללא תקדים.",
                 'strength1-bold': "אקומן רפואי טרילינגואלי עלית:",
@@ -1717,39 +1966,35 @@
                 'strength2-bold': "דיוק בין-תרבותי:",
                 'strength3': "אמינות מוכחת: עולה על ציפיות בפרויקטים מורכבים ומונעי מועדים עבור לקוחות בינלאומיים דרך אפוורק (100% JSS).",
                 'strength3-bold': "אמינות מוכחת:",
-                // Rating
-                'rating-title': "איך אתה בדרך כלל בוחר פרילנסר?",
-                'rating-msg1': "התמקדות רק ב<strong>ההצעה הנמוכה ביותר</strong> לעיתים קרובות אומרת יותר זמן ניהול, אי הבנות פוטנציאליות ותוצאות שדורשות תיקונים נוספים.",
-                'rating-msg2': "בחירה <strong>מודעת לתקציב</strong>. עשויה לעבוד למשימות פשוטות, אך עלולה לפספס ניואנסים קריטיים בתוכן מתמחה כמו תרגום רפואי.",
-                'rating-msg3': "מבצע את העבודה. גישה <strong>כללית</strong> מספקת תוצאות סטנדרטיות לפרויקטים סטנדרטיים.",
-                'rating-msg4': "מקצוען <strong>מוצק</strong> שמספק איכות טובה. סביר שדורש הדרכה ברורה בדרישות מתמחות גבוהות או ספציפיות תרבותית.",
-                'rating-msg5': "<strong>!השקעה במצוינות</strong> בחירת <strong>מומחה מדורג עליון</strong> המתמקד בדיוק ואיכות לפרויקטים קריטיים. <strong>תוצאה:</strong> תוכן מדויק 100%, מושלם תרבותית המועבר באופן אמין, נותן לך שקט נפשי.",
-                'rating-hover': "העבר עכבר על הכוכבים כדי לראות משוב.",
-                // Tools
-                'quote-title': "מחשבון הצעת מחיר מהיר",
-                'quote-desc': "הערכת עלות הפרויקט שלך (USD למילה/דקה).",
-                'word-count': "ספירת מילים/דקות",
-                'basic-trans': "תרגום בסיסי ($0.08/מילה)",
-                'medical-trans': "תרגום רפואי ($0.12/מילה)",
-                'editing': "עריכה/הגהה ($0.04/מילה)",
-                'subtitles': "כתוביות וידאו ($5.00/דקה)",
-                'calculate': "חשב הערכה",
-                'quote-note': "הערה: הצעות מחיר סופיות תלויות במורכבות, זוג שפות ודחיפות.",
-                'contact-title': "צור קשר",
-                'contact-desc': "מוכן לשתף פעולה? ספר לי על הפרויקט שלך.",
-                'name': "שמך",
-                'email': "האימייל שלך",
-                'message': "תאר את הפרויקט שלך...",
-                'send': "שלח הודעה",
-                'newsletter-text': "או הרשם לטיפים פרילנס:",
-                'newsletter-email': "אימייל",
-                'subscribe': "הירשם",
-                // Footer
-                'download-cv': "הורד CV מלא (PDF)",
-                'footer': "&copy; 2025 דנilo הורוויץ. כל הזכויות שמורות.",
-                // Toggles
-                'dark-mode': "מצב כהה",
-                'language': "שפה"
+                'rating-title': "¿Cómo Eliges Típicamente a un Freelancer?",
+                'rating-msg1': "Centrarse solo en la <strong>oferta más baja</strong> a menudo significa más tiempo de gestión, posibles malentendidos y resultados que necesitan revisiones adicionales.",
+                'rating-msg2': "Una elección <strong>consciente del presupuesto</strong>. Podría funcionar para tareas simples, pero podría perder matices cruciales en contenido especializado como la traducción médica.",
+                'rating-msg3': "Haciendo el trabajo. Un enfoque <strong>generalista</strong> entrega resultados estándar para proyectos estándar.",
+                'rating-msg4': "Un <strong>profesional sólido</strong> que entrega buena calidad. Probablemente requiere orientación clara en requisitos altamente especializados o culturalmente específicos.",
+                'rating-msg5': "<strong>¡Invirtiendo en Excelencia!</strong> Elegir un <strong>especialista de Calificación Superior</strong> enfocado en precisión y calidad para proyectos críticos. <strong>Resultado:</strong> Contenido 100% preciso, culturalmente perfecto entregado de manera confiable, dándote tranquilidad.",
+                'rating-hover': "Pasa el mouse sobre las estrellas para ver retroalimentación.",
+                'quote-title': "Calculadora de Cotización Rápida",
+                'quote-desc': "Estima el costo de tu proyecto (USD por palabra/minuto).",
+                'word-count': "Conteo de Palabras/Minutos",
+                'basic-trans': "Traducción Básica ($0.08/pal)",
+                'medical-trans': "Traducción Médica ($0.12/pal)",
+                'editing': "Edición/Corrección ($0.04/pal)",
+                'subtitles': "Subtítulos de Video ($5.00/min)",
+                'calculate': "Calcular Estimado",
+                'quote-note': "Nota: Las cotizaciones finales dependen de la complejidad, par de idiomas y urgencia.",
+                'contact-title': "Contacto",
+                'contact-desc': "¿Listo para colaborar? Cuéntame sobre tu proyecto.",
+                'name': "Tu Nombre",
+                'email': "Tu Email",
+                'message': "Describe tu proyecto...",
+                'send': "Enviar Mensaje",
+                'newsletter-text': "Suscríbete para recibir consejos sobre trabajo freelance:",
+                'newsletter-email': "Email",
+                'subscribe': "Suscribirse",
+                'download-cv': "Descargar CV Completo (PDF)",
+                'footer': "&copy; 2025 Danilo Hurwitz. Todos los derechos reservados.",
+                'dark-mode': "Modo Oscuro",
+                'language': "Idioma"
             }
         };
 
@@ -1786,12 +2031,32 @@
                 }
                 // Update rating messages
                 updateRatingMessages(lang);
+                
+                // --- UPDATE DYNAMIC TAGLINE ON LANGUAGE CHANGE ---
+                updateDynamicTagline(lang);
+                
                 document.body.classList.remove('translating');
                 // Show badge
                 const badge = document.getElementById('poweredBadge');
                 badge.classList.add('show');
                 setTimeout(() => badge.classList.remove('show'), 3000);
             }, 300);
+        }
+
+        // --- FUNCION DYNAMIC TAGLINE ---
+        function updateDynamicTagline(lang = document.getElementById('langSelect').value) {
+            const slogans = dynamicTaglines[lang] || dynamicTaglines['en'];
+            
+            // Re-apply the cycle based on the new language's array size
+            taglineIndex = taglineIndex % slogans.length;
+            
+            taglineElement.classList.remove('animate-tagline');
+            void taglineElement.offsetWidth;
+            
+            taglineElement.textContent = slogans[taglineIndex];
+            taglineElement.classList.add('animate-tagline');
+            
+            taglineIndex = (taglineIndex + 1) % slogans.length;
         }
 
         // Utility Functions
@@ -1895,7 +2160,8 @@
             };
             ratingMessageHover.innerHTML = translations[lang]['rating-hover'] || 'Hover over stars to see feedback.';
         }
-
+        
+        // Función para actualizar las estrellas al pasar el ratón
         starsHover.forEach(star => {
             star.addEventListener('mouseenter', () => {
                 const rating = parseInt(star.getAttribute('data-value'));
@@ -1933,10 +2199,22 @@
         // Initial State
         ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
         ratingMessageHover.style.display = 'block';
+        
+        // --- CARRUSEL JS ---
+        const microSamplesContainer = document.getElementById('micro-samples');
+        const sampleCards = microSamplesContainer.querySelectorAll('.sample-card');
+        const numSamples = sampleCards.length / 2; // Asumiendo que has duplicado las 4 tarjetas en HTML
+
+        // Función para duplicar el contenido del carrusel (si no está duplicado en HTML)
+        // Ya está duplicado en el HTML, por lo que esta función se omite.
+        
+        // Ajustar la animación CSS dinámicamente si fuera necesario, pero la dejamos estática por simplicidad.
+
 
         // Initialization
         document.addEventListener('DOMContentLoaded', () => {
             openTab('summary');
+            updateDynamicTagline(); // Call to initialize the dynamic tagline
 
             document.querySelectorAll('.job .toggle-btn').forEach(btn => {
                 btn.addEventListener('click', (e) => {
@@ -1972,11 +2250,12 @@
             langSelect.value = savedLang;
             changeLanguage(savedLang);
         });
+        
         langSelect.addEventListener('change', (e) => {
-    const lang = e.target.value;
-    localStorage.setItem('language', lang);
-    changeLanguage(lang);
-});
+            const lang = e.target.value;
+            localStorage.setItem('language', lang);
+            changeLanguage(lang);
+        });
     </script>
 </body>
 </html>
