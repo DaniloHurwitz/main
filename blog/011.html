@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Freelancer's Lull: What To Do (and What NOT To Do) When Work Dries Up | Danilo H.</title> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Palette */
+        --light-blue: #E6F3FF;
+        --sky-blue: #87CEEB;
+        --steel-blue: #4682B4;
+        --gold: #DAA520;
+        --dark-gray: #2C3E50;
+        --slate-gray: #708090;
+        --gray-dark: #555;
+        --white-translucent: rgba(255,255,255,0.9);
+        --white-semi: rgba(255,255,255,0.85);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
+        color: var(--dark-gray);
+        line-height: 1.7;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        font-size: 16px; /* Desktop base size */
+      }
+
+      /* Top Navigation */
+      .top-nav {
+        background-color: var(--white-translucent);
+        padding: 10px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--slate-gray);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .nav-buttons button, .nav-buttons a {
+        padding: 8px 15px;
+        background-color: transparent;
+        color: var(--sky-blue);
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 500;
+        border: 1px solid var(--sky-blue);
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 0.9em;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .nav-buttons button:hover, .nav-buttons a:hover {
+        background-color: var(--gold);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(135, 206, 235, 0.2);
+      }
+
+      /* Main Content & Comments Container Styles */
+      .blog-container { /* Applies to <main> and .comments-section */
+        max-width: 1200px; /* MAX WIDTH */
+        width: 95%;      /* Default width with margins */
+        margin: 20px auto 40px auto;
+        padding: 30px 40px;
+        background-color: var(--white-semi);
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+
+      .blog-header h1 {
+        color: var(--gold);
+        font-size: 2.3em;
+        font-weight: 700;
+        margin-bottom: 25px;
+        text-align: center;
+        line-height: 1.3;
+      }
+
+      article h2 {
+        color: var(--gold);
+        font-size: 1.8em;
+        font-weight: 500;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid var(--slate-gray);
+        position: relative;
+      }
+
+      article h2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--gold);
+      }
+
+      article p {
+        margin-bottom: 18px;
+        color: var(--steel-blue);
+        font-size: 1.05em;
+      }
+
+      article ul {
+        margin-left: 20px;
+        margin-bottom: 18px;
+        list-style: none;
+        padding-left: 0;
+      }
+
+      article li {
+        margin-bottom: 10px;
+        padding-left: 20px;
+        position: relative;
+        font-size: 1em;
+      }
+
+      article li::before {
+        content: '▹';
+        color: var(--gold);
+        font-weight: bold;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-size: 1.2em;
+      }
+
+      article strong {
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      article a {
+        color: var(--sky-blue);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      article a:hover {
+        color: var(--steel-blue);
+        text-decoration: underline;
+      }
+
+      /* --- CUSDIS COMMENTS SECTION STYLES --- */
+      .comments-section {
+        /* Inherits max-width, width, margin, box-shadow from .blog-container */
+        margin-top: 30px; /* Extra top space */
+      }
+
+      .comments-section h2 { /* Specific style for "Comments" title */
+         color: var(--gold);
+         font-size: 1.8em;
+         margin-bottom: 20px;
+         text-align: center;
+         border: none; /* No bottom border */
+         padding-bottom: 0;
+      }
+       .comments-section h2::after {
+           display: none; /* No decorative line */
+       }
+
+      #cusdis_thread {
+        /* DO NOT set height, max-height, or overflow here */
+        background-color: transparent;
+      }
+
+      /* --- MEDIA QUERIES FOR MOBILE (Unified) --- */
+      @media (max-width: 768px) {
+        body {
+          font-size: 15px;
+          padding-top: 0;
+        }
+
+        .top-nav {
+          padding: 8px 3%;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+
+        .nav-buttons button, .nav-buttons a {
+          padding: 6px 10px;
+          font-size: 0.8em;
+          margin: 3px;
+        }
+
+        .blog-container { /* Applies to <main> and .comments-section on mobile */
+          width: 95%;
+          margin: 15px auto 30px auto;
+          padding: 20px 15px;
+        }
+
+         .comments-section {
+             margin-top: 20px; /* Adjust top margin on mobile */
+         }
+
+        .blog-header h1 {
+          font-size: 1.8em;
+          margin-bottom: 20px;
+        }
+
+        article h2, .comments-section h2 { /* Applies to subheadings and comments title */
+          font-size: 1.5em;
+          margin-top: 25px;
+        }
+
+        article p {
+          font-size: 1em;
+        }
+
+        article ul {
+          margin-left: 10px;
+        }
+
+        article li {
+          font-size: 0.95em;
+          padding-left: 15px;
+        }
+        article li::before {
+          font-size: 1.1em;
+        }
+
+      } /* End Media Query */
+
+    </style>
+</head>
+<body>
+
+    <nav class="top-nav">
+        <div></div> <div class="nav-buttons">
+            <a href="/main/blog.html">← Blog Archive</a>
+            <a href="/main/index.html">Home</a>
+        </div>
+    </nav>
+
+    <main class="blog-container">
+        <header class="blog-header">
+            <h1>The Freelancer's Lull: What To Do (and What NOT To Do) When Work Dries Up</h1>
+        </header>
+
+        <article>
+            <p>Let's be honest. There are days (or weeks...) in the freelance world that feel like the doldrums in the middle of the ocean. You've adjusted the sails (maybe changed your niche, raised your rates), the ship is ready (your profile optimized, your portfolio polished), but... there's no wind. Zero messages. Zero invites. Zero new projects in sight.</p>
+
+            <p>And the feeling is awful. Doubt creeps in: "Did I specialize too much?", "Are my rates too high?", "Maybe this freelancing thing isn't for me?". Anxiety spikes, you glance at your bank account, patience wears thin. You feel like throwing everything overboard and going back to shooting at anything that moves ("shotgun mode," as I call it).</p>
+
+            <p>I know because I'm feeling it *right now*. After a push to focus more on my niche (medical translation), these last few days have been... quiet. Too quiet. And yes, it's stressful.</p>
+
+            <p>But amidst the frustration, I remembered some things we CAN control when the market seems to have forgotten us. And also, some things we definitely should NOT do:</p>
+
+            <h2>What DOESN'T Help (Resist the Urge!)</h2>
+            <ul>
+                <li><strong>Panicking and Drastically Lowering Prices:</strong> It's tempting to revert to old rates just to get *something*, but that pulls you out of your strategy and devalues your expertise long-term. It's a quick fix today for hunger tomorrow.</li>
+                <li><strong>Applying to EVERYTHING You See:</strong> Abandoning your niche and returning to "shotgun mode" will only bring you jobs you don't enjoy, are poorly paid, and push you further from clients who *do* value your specialization.</li>
+                <li><strong>Refreshing the Page Every 5 Minutes:</strong> It increases anxiety and doesn't make jobs appear faster (trust me, I've tried!).</li>
+                <li><strong>Taking it Personally:</strong> The market fluctuates. Sometimes, there just aren't suitable projects *at that moment*. It doesn't mean you're a bad professional.</li>
+            </ul>
+
+            <h2>What You CAN Do (Action vs. Anxiety)</h2>
+            <ul>
+                <li><strong>Optimize "Behind the Scenes":</strong> Use this time. Review your profile with fresh eyes. Is there a keyword you can add? Can you polish a service description? Update your portfolio with that project you're proud of. Prepare that perfect sample they'll ask for.</li>
+                <li><strong>Learn Something New:</strong> That software you always wanted to master (hello, Trados)? A new editing technique in CapCut? Reading about trends in your industry (MedTech, Pharma)? Invest in yourself.</li>
+                <li><strong>Connect (Genuinely):</strong> It's not selling, it's chatting. Comment on LinkedIn, write to that colleague you admire, offer help to someone starting out (like I did the other day with a fellow freelancer in need). Building relationships is planting seeds for the future.</li>
+                <li><strong>Work ON Your Business, Not Just IN It:</strong> Write that blog post! (Yes, this is very meta). Create proposal templates. Organize your finances. Think about your long-term strategy.</li>
+                <li><strong>Take Care of Yourself:</strong> The stress is real. Go for a walk, exercise, talk to someone, *disconnect* for a bit. A burnt-out mind isn't creative or productive.</li>
+            </ul>
+
+            <h2>Take a Deep Breath...</h2>
+            <p>Work lulls are part (the ugliest part, yes) of freelance life. They're scary, frustrating, and make us doubt. But they're also opportunities to sharpen tools, connect, and remember why we chose this path.</p>
+            <p>I'm still waiting for the wind to change. In the meantime, I'm focusing on adjusting my sails and making sure the ship is impeccable for when the next wave comes.</p>
+
+            <p><strong>How do you handle these project droughts? Share your strategies in the comments!</strong></p>
+        </article>
+    </main> <div class="comments-section blog-container">
+        <hr style="border: none; border-top: 1px solid var(--slate-gray); margin: 30px 0;">
+        <h2>Comments</h2>
+        <div id="cusdis_thread"
+          data-host="https://cusdis.com"
+          data-app-id="c311c394-dd8d-43b6-8bea-b913be5b9752"
+          data-page-id="blog-post-011" data-page-url="FULL_URL_OF_POST_11" data-page-title="The Freelancer's Lull: What To Do (and What NOT To Do) When Work Dries Up | Danilo H." data-theme="light"
+          data-lang="en" ></div>
+    </div>
+
+    <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+
+    </body>
+</html>
