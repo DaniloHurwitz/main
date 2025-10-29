@@ -55,10 +55,6 @@
         }
 
         /* ----- ESTILOS GLOBALES Y RESET ----- */
-        /*
-          Esto asegura un canvas limpio.
-          Reseteamos todos los márgenes y paddings.
-        */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -67,1041 +63,274 @@
 
         html {
             scroll-behavior: smooth;
-            font-size: 16px; /* Base 16px */
+            font-size: 16px;
         }
 
         body {
             font-family: var(--font-serif);
-            font-size: 12pt; /* 16px, ideal para 1.5x de 12pt en impresión */
+            font-size: 12pt;
             line-height: 1.6;
             color: var(--body-text);
             background: var(--body-bg);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            counter-reset: page-counter 0; /* Inicia el contador de página */
+            counter-reset: page-counter 0;
         }
         
-        /* ----- UTILIDADES DE DISEÑO ----- */
-        /* Clases de utilidad para inflar el CSS y dar control */
-        .mt-1 { margin-top: 0.5rem; }
-        .mt-2 { margin-top: 1rem; }
-        .mt-3 { margin-top: 1.5rem; }
-        .mt-4 { margin-top: 2rem; }
-        .mt-5 { margin-top: 3rem; }
-        
-        .mb-1 { margin-bottom: 0.5rem; }
-        .mb-2 { margin-bottom: 1rem; }
-        .mb-3 { margin-bottom: 1.5rem; }
-        .mb-4 { margin-bottom: 2rem; }
-        .mb-5 { margin-bottom: 3rem; }
-
-        .pt-1 { padding-top: 0.5rem; }
-        .pt-2 { padding-top: 1rem; }
-        .pt-3 { padding-top: 1.5rem; }
-
-        .pb-1 { padding-bottom: 0.5rem; }
-        .pb-2 { padding-bottom: 1rem; }
-        .pb-3 { padding-bottom: 1.5rem; }
-        
-        .pl-1 { padding-left: 0.5rem; }
-        .pl-2 { padding-left: 1rem; }
-        .pl-3 { padding-left: 1.5rem; }
-
-        .text-center { text-align: center; }
-        .text-left { text-align: left; }
-        .text-right { text-align: right; }
-        .text-justify { text-align: justify; }
-        
-        .font-bold { font-weight: 700; }
-        .font-italic { font-style: italic; }
-        .font-sans { font-family: var(--font-sans); }
-        .font-serif { font-family: var(--font-serif); }
-        .font-display { font-family: var(--font-display); }
-        
-        .text-small { font-size: 0.9rem; }
-        .text-large { font-size: 1.2rem; }
-        
-        .text-gold { color: var(--gold-dark); }
-        .text-blue { color: var(--steel-blue); }
-        .text-gray { color: var(--slate-gray); }
-
-        .no-print { display: block; }
-        .no-screen { display: none; }
-        
+        /* ----- UTILIDADES DE DISEÑO (EXPANDIDAS) ----- */
+        .mt-1 { margin-top: 0.5rem; } .mt-2 { margin-top: 1rem; } .mt-3 { margin-top: 1.5rem; } .mt-4 { margin-top: 2rem; } .mt-5 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 0.5rem; } .mb-2 { margin-bottom: 1rem; } .mb-3 { margin-bottom: 1.5rem; } .mb-4 { margin-bottom: 2rem; } .mb-5 { margin-bottom: 3rem; }
+        .pt-1 { padding-top: 0.5rem; } .pt-2 { padding-top: 1rem; } .pt-3 { padding-top: 1.5rem; }
+        .pb-1 { padding-bottom: 0.5rem; } .pb-2 { padding-bottom: 1rem; } .pb-3 { padding-bottom: 1.5rem; }
+        .pl-1 { padding-left: 0.5rem; } .pl-2 { padding-left: 1rem; } .pl-3 { padding-left: 1.5rem; }
+        .text-center { text-align: center; } .text-left { text-align: left; } .text-right { text-align: right; } .text-justify { text-align: justify; }
+        .font-bold { font-weight: 700; } .font-italic { font-style: italic; } .font-sans { font-family: var(--font-sans); } .font-serif { font-family: var(--font-serif); } .font-display { font-family: var(--font-display); }
+        .text-small { font-size: 0.9rem; } .text-large { font-size: 1.2rem; }
+        .text-gold { color: var(--gold-dark); } .text-blue { color: var(--steel-blue); } .text-gray { color: var(--slate-gray); }
+        .no-print { display: block; } .no-screen { display: none; }
         .page-break { page-break-before: always; }
         
         /* ----- EL CONTENEDOR DEL LIBRO ----- */
-        /*
-          Este es el wrapper principal que centra el libro
-          en la pantalla del navegador.
-        */
-        .book-container {
-            max-width: var(--a4-width); /* Simula el ancho A4 en pantalla */
-            margin: 2rem auto;
-            padding: 0 1rem;
-            position: relative;
-        }
+        .book-container { max-width: var(--a4-width); margin: 2rem auto; padding: 0 1rem; position: relative; }
 
         /* ----- DISEÑO DE PÁGINA INDIVIDUAL ----- */
-        /*
-          Cada .page simula una hoja A4 física.
-          Tiene las dimensiones, sombras, y bordes.
-        */
         .page {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            box-shadow: 0 15px 40px var(--shadow-color);
-            margin: 0 auto 3rem auto;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-            
-            /* Simula el lomo de un libro */
+            background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 5px; box-shadow: 0 15px 40px var(--shadow-color);
+            margin: 0 auto 3rem auto; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); position: relative; overflow: hidden;
             border-left: 10px solid var(--steel-blue);
-            
-            /* Dimensiones para PANTALLA (simulando A4) */
-            width: var(--a4-width);
-            min-height: var(--a4-height);
-            padding: var(--margin-top) var(--margin-outer) var(--margin-bottom) var(--margin-inner);
-            box-sizing: border-box;
+            width: var(--a4-width); min-height: var(--a4-height);
+            padding: var(--margin-top) var(--margin-outer) var(--margin-bottom) var(--margin-inner); box-sizing: border-box;
         }
 
         /* ----- NUMERACIÓN DE PÁGINA ----- */
-        /*
-          Utiliza contadores CSS para numerar páginas automáticamente.
-          Se oculta en portada e índice.
-        */
         .page::after {
-            counter-increment: page-counter;
-            content: counter(page-counter);
-            position: absolute;
-            bottom: 1cm;
-            right: var(--margin-outer);
-            font-family: var(--font-sans);
-            font-size: 10pt;
-            color: var(--slate-gray);
-            font-style: italic;
+            counter-increment: page-counter; content: counter(page-counter); position: absolute; bottom: 1cm;
+            right: var(--margin-outer); font-family: var(--font-sans); font-size: 10pt; color: var(--slate-gray); font-style: italic;
         }
 
         /* ----- PORTADA V2 (MÁS PROFESIONAL) ----- */
-        /*
-          Un diseño de portada más complejo y elegante.
-          Utiliza un layout dividido y pseudo-elementos.
-        */
         .cover-page-v2 {
-            display: flex;
-            flex-direction: row; /* Layout dividido */
-            height: var(--a4-height); /* Altura A4 exacta */
-            min-height: var(--a4-height);
-            padding: 0;
-            border: none;
-            border-left: none;
-            box-shadow: 0 0 60px rgba(0,0,0,0.4);
+            display: flex; flex-direction: row; height: var(--a4-height); min-height: var(--a4-height); padding: 0; border: none; border-left: none; box-shadow: 0 0 60px rgba(0,0,0,0.4);
         }
-        
-        .cover-page-v2::after { content: none; } /* Sin número de página */
-
+        .cover-page-v2::after { content: none; }
         .cover-left {
-            width: 40%;
-            background: var(--dark-gray);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 2cm;
-            position: relative;
+            width: 40%; background: var(--dark-gray); display: flex; flex-direction: column; justify-content: flex-end; padding: 2cm; position: relative;
         }
-        
         .cover-left::before {
-            content: '';
-            position: absolute;
-            top: 2cm;
-            left: 2cm;
-            right: 2cm;
-            bottom: 2cm;
-            border: 5px solid var(--gold);
-            opacity: 0.5;
+            content: ''; position: absolute; top: 2cm; left: 2cm; right: 2cm; bottom: 2cm; border: 5px solid var(--gold); opacity: 0.5;
         }
-        
         .cover-left .author {
-            font-family: var(--font-display);
-            font-size: 2.5rem;
-            color: white;
-            line-height: 1.2;
-            font-weight: 300;
-            z-index: 2;
+            font-family: var(--font-display); font-size: 2.5rem; color: white; line-height: 1.2; font-weight: 300; z-index: 2;
         }
-        
-        .cover-left .author strong {
-            font-weight: 700;
-            color: white;
-        }
-        
-        .cover-left .subtitle {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            color: var(--sky-blue);
-            margin-top: 1rem;
-            z-index: 2;
-        }
-
+        .cover-left .author strong { font-weight: 700; color: white; }
+        .cover-left .subtitle { font-family: var(--font-serif); font-size: 1.2rem; color: var(--sky-blue); margin-top: 1rem; z-index: 2; }
         .cover-right {
-            width: 60%;
-            background: linear-gradient(135deg, var(--light-blue) 0%, var(--steel-blue) 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 2cm;
-            position: relative;
+            width: 60%; background: linear-gradient(135deg, var(--light-blue) 0%, var(--steel-blue) 100%); display: flex; flex-direction: column;
+            justify-content: center; align-items: flex-start; padding: 2cm; position: relative;
         }
-        
         .cover-right::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at top left, var(--white-semi), transparent 70%);
-            opacity: 0.5;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at top left, var(--white-semi), transparent 70%); opacity: 0.5;
         }
-        
         .cover-right h1 {
-            font-family: var(--font-display);
-            font-size: 4.5rem; /* 72px */
-            color: white;
-            font-weight: 700;
-            text-shadow: 2px 2px 15px rgba(0,0,0,0.3);
-            line-height: 1.1;
-            margin: 0;
-            padding: 0;
-            z-index: 2;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-family: var(--font-display); font-size: 4.5rem; color: white; font-weight: 700; text-shadow: 2px 2px 15px rgba(0,0,0,0.3); line-height: 1.1; margin: 0; padding: 0; z-index: 2; text-transform: uppercase; letter-spacing: 1px;
         }
-        
         .cover-right h2 {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            color: var(--accent-color);
-            font-weight: 300;
-            font-style: italic;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
-            margin-top: 1.5rem;
-            border: none;
-            padding: 0;
-            z-index: 2;
+            font-family: var(--font-serif); font-size: 2rem; color: var(--accent-color); font-weight: 300; font-style: italic; text-shadow: 1px 1px 5px rgba(0,0,0,0.2); margin-top: 1.5rem; border: none; padding: 0; z-index: 2;
         }
         
         /* ----- PÁGINA DE ÍNDICE (TOC) ----- */
-        /*
-          Un índice clásico, limpio, usando una lista ordenada
-          con estilos personalizados para los números.
-        */
-        .toc-page {
-            background: var(--light-blue);
-            border-color: var(--steel-blue);
-        }
-        
-        .toc-page h2 {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            color: var(--steel-blue);
-            text-align: center;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 1rem;
-            margin-bottom: 3rem;
-        }
-        
+        .toc-page { background: var(--light-blue); border-color: var(--steel-blue); }
+        .toc-page h2 { font-family: var(--font-display); font-size: 3rem; color: var(--steel-blue); text-align: center; border-bottom: 2px solid var(--gold); padding-bottom: 1rem; margin-bottom: 3rem; }
         .toc-list-classic {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            counter-reset: chapter-counter 0; /* Contador para capítulos */
-            column-count: 2; /* Dos columnas para el TOC */
-            column-gap: 3rem;
+            list-style: none; padding: 0; margin: 0; counter-reset: chapter-counter 0; column-count: 2; column-gap: 3rem;
+            -webkit-column-break-inside: avoid; page-break-inside: avoid; break-inside: avoid;
         }
+        .toc-list-classic li { font-family: var(--font-sans); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600; -webkit-column-break-inside: avoid; page-break-inside: avoid; break-inside: avoid; }
+        .toc-list-classic li a { text-decoration: none; color: var(--dark-gray); display: block; padding: 0.5rem; border-radius: 4px; transition: var(--transition-main); }
+        .toc-list-classic li a:hover { color: var(--steel-blue); background: var(--highlight-bg); transform: translateX(5px); }
+        .toc-list-classic li.toc-chapter::before { counter-increment: chapter-counter; content: "Chapter " counter(chapter-counter) ": "; color: var(--steel-blue); font-weight: 700; margin-right: 0.5em; }
+        .toc-list-classic li.toc-main a { font-weight: 700; font-size: 1.2rem; color: var(--dark-gray); }
+        .toc-list-classic li.toc-main::before { content: ''; counter-increment: none; }
+        .toc-page::after { content: "Table of Contents"; font-style: italic; }
         
-        .toc-list-classic li {
-            font-family: var(--font-sans);
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-            /* Evita que los items se rompan entre columnas */
-            -webkit-column-break-inside: avoid;
-            page-break-inside: avoid;
-            break-inside: avoid;
-        }
+        /* ----- ESTILOS DE CAPÍTULO Y CONTENIDO (EXTENDIDOS) ----- */
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-sans); font-weight: 700; color: var(--steel-blue); line-height: 1.3; margin-top: 1.5rem; margin-bottom: 1rem; page-break-after: avoid; page-break-inside: avoid; }
+        h1 { font-size: 2.5rem; }
+        h2.chapter-title { font-family: var(--font-display); font-size: 3rem; font-weight: 600; color: var(--dark-gray); text-align: left; margin-top: 0; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 5px double var(--gold); position: relative; }
+        h2.chapter-title::after { content: ''; position: absolute; bottom: -15px; left: 0; width: 80px; height: 3px; background: var(--steel-blue); }
+        h3 { font-family: var(--font-sans); font-size: 1.8rem; font-weight: 600; color: var(--steel-blue); margin-top: 2.5rem; margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--border-color); }
+        h4 { font-family: var(--font-sans); font-size: 1.4rem; font-weight: 600; font-style: italic; color: var(--gold-dark); margin-top: 2rem; margin-bottom: 1rem; }
+        h5 { font-family: var(--font-sans); font-size: 1.2rem; font-weight: 700; color: var(--slate-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        h6 { font-family: var(--font-sans); font-size: 1.1rem; font-weight: 700; font-style: italic; color: var(--gray-dark); }
         
-        .toc-list-classic li a {
-            text-decoration: none;
-            color: var(--dark-gray);
-            display: block;
-            padding: 0.5rem;
-            border-radius: 4px;
-            transition: var(--transition-main);
-        }
-
-        .toc-list-classic li a:hover {
-            color: var(--steel-blue);
-            background: var(--highlight-bg);
-            transform: translateX(5px);
-        }
-        
-        .toc-list-classic li.toc-chapter::before {
-            counter-increment: chapter-counter;
-            content: "Chapter " counter(chapter-counter) ": ";
-            color: var(--steel-blue);
-            font-weight: 700;
-            margin-right: 0.5em;
-        }
-        
-        .toc-list-classic li.toc-main a {
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: var(--dark-gray);
-        }
-        
-        .toc-list-classic li.toc-main::before {
-            content: ''; /* Sin contador para intro/conclusion */
-            counter-increment: none;
-        }
-        
-        /* Ocultar número de página en el índice */
-        .toc-page::after {
-            content: "Table of Contents";
-            font-style: italic;
-        }
-        
-        /* ----- ESTILOS DE CAPÍTULO Y CONTENIDO ----- */
-        /*
-          Esta es la sección de CSS más grande.
-          Define la jerarquía tipográfica (h1-h6),
-          párrafos, listas, citas, etc.
-        */
-        
-        /* Títulos */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-sans);
-            font-weight: 700;
-            color: var(--steel-blue);
-            line-height: 1.3;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            page-break-after: avoid;
-            page-break-inside: avoid;
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-        }
-
-        /* Título principal del capítulo */
-        h2.chapter-title {
-            font-family: var(--font-display);
-            font-size: 3rem;
-            font-weight: 600;
-            color: var(--dark-gray);
-            text-align: left;
-            margin-top: 0;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 5px double var(--gold);
-            position: relative;
-        }
-        
-        h2.chapter-title::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: var(--steel-blue);
-        }
-
-        /* Subtítulos principales */
-        h3 {
-            font-family: var(--font-sans);
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--steel-blue);
-            margin-top: 2.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--border-color);
-        }
-
-        /* Subtítulos secundarios */
-        h4 {
-            font-family: var(--font-sans);
-            font-size: 1.4rem;
-            font-weight: 600;
-            font-style: italic;
-            color: var(--gold-dark);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-        }
-        
-        h5 {
-            font-family: var(--font-sans);
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--slate-gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        h6 {
-            font-family: var(--font-sans);
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-style: italic;
-            color: var(--gray-dark);
-        }
-        
-        /* ----- PÁRRAFOS Y TEXTO ----- */
-        p {
-            margin-bottom: 1.2rem;
-            text-align: justify; /* Texto justificado como en un libro */
-            orphans: 3;
-            widows: 3;
-        }
-        
-        /* Párrafo inicial de cada capítulo */
-        p.lead-paragraph {
-            font-size: 1.25rem;
-            line-height: 1.8;
-            color: var(--gray-dark);
-            font-style: italic;
-            border-left: 4px solid var(--border-color);
-            padding-left: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* Drop Cap (Letra Capital) */
+        /* Párrafos y Drop Cap */
+        p { margin-bottom: 1.2rem; text-align: justify; orphans: 3; widows: 3; }
+        p.lead-paragraph { font-size: 1.25rem; line-height: 1.8; color: var(--gray-dark); font-style: italic; border-left: 4px solid var(--border-color); padding-left: 1rem; margin-bottom: 2rem; }
         .drop-cap::first-letter {
-            font-family: var(--font-display);
-            float: left;
-            font-size: 5rem; /* 80px */
-            line-height: 0.8;
-            font-weight: 700;
-            margin-right: 8px;
-            margin-top: 5px;
-            color: var(--steel-blue);
+            font-family: var(--font-display); float: left; font-size: 5rem; line-height: 0.8; font-weight: 700; margin-right: 8px; margin-top: 5px; color: var(--steel-blue);
         }
         
         /* Enlaces */
-        a {
-            color: var(--steel-blue);
-            text-decoration: none;
-            font-weight: 600;
-            border-bottom: 1px solid var(--sky-blue);
-            transition: var(--transition-main);
-        }
-        
-        a:hover {
-            color: var(--gold-dark);
-            background: var(--highlight-bg);
-            border-bottom-color: var(--gold);
-        }
-        
-        /* Estilos de enlaces para el contenido del libro */
-        .chapter-page a {
-            font-weight: 700;
-        }
-        .chapter-page a::after {
-            content: ' ↗'; /* Indica link externo */
-            font-size: 0.8em;
-            text-decoration: none;
-            display: inline-block;
-            transition: var(--transition-main);
-        }
-        .chapter-page a:hover::after {
-            transform: translateX(3px) translateY(-3px);
-        }
-        /* Enlaces internos del TOC */
-        .toc-page a::after, .toc-list-classic a::after {
-            content: '';
-        }
+        a { color: var(--steel-blue); text-decoration: none; font-weight: 600; border-bottom: 1px solid var(--sky-blue); transition: var(--transition-main); }
+        a:hover { color: var(--gold-dark); background: var(--highlight-bg); border-bottom-color: var(--gold); }
+        .chapter-page a { font-weight: 700; }
+        .chapter-page a::after { content: ' ↗'; font-size: 0.8em; text-decoration: none; display: inline-block; transition: var(--transition-main); }
+        .chapter-page a:hover::after { transform: translateX(3px) translateY(-3px); }
+        .toc-page a::after, .toc-list-classic a::after { content: ''; }
 
-        /* ----- LISTAS (UL / OL) ----- */
-        ul {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
-        
-        ul li {
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: var(--gold);
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-        
-        ol {
-            list-style: decimal;
-            margin-bottom: 1.5rem;
-            padding-left: 3rem;
-        }
-        
-        ol li {
-            margin-bottom: 0.75rem;
-            padding-left: 0.5rem;
-        }
-        
-        ol.challenge-list li {
-            list-style-type: decimal-leading-zero;
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--steel-blue);
-            margin-bottom: 1rem;
-        }
-        
-        /* ----- BLOQUES DE CITA (BLOCKQUOTE) ----- */
+        /* Listas */
+        ul { list-style: none; margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        ul li { margin-bottom: 0.75rem; padding-left: 1.5rem; position: relative; }
+        ul li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--gold); font-weight: 700; font-size: 1.1rem; }
+        ol { list-style: decimal; margin-bottom: 1.5rem; padding-left: 3rem; }
+        ol li { margin-bottom: 0.75rem; padding-left: 0.5rem; }
+        ol.challenge-list li { list-style-type: decimal-leading-zero; font-family: var(--font-sans); font-weight: 600; font-size: 1.1rem; color: var(--steel-blue); margin-bottom: 1rem; }
+
+        /* Bloques de Cita */
         blockquote {
-            font-family: var(--font-serif);
-            font-size: 1.2rem;
-            font-style: italic;
-            margin: 2rem 1rem;
-            padding: 1.5rem 2rem 1.5rem 2.5rem;
-            border-left: 7px solid var(--gold);
-            background: var(--highlight-bg);
-            border-radius: 0 8px 8px 0;
-            position: relative;
-            page-break-inside: avoid;
+            font-family: var(--font-serif); font-size: 1.2rem; font-style: italic; margin: 2rem 1rem; padding: 1.5rem 2rem 1.5rem 2.5rem;
+            border-left: 7px solid var(--gold); background: var(--highlight-bg); border-radius: 0 8px 8px 0; position: relative; page-break-inside: avoid;
         }
+        blockquote::before { content: '“'; font-family: var(--font-display); font-size: 6rem; color: var(--gold); opacity: 0.2; position: absolute; left: 1rem; top: -1rem; line-height: 1; z-index: 1; }
+        blockquote p { position: relative; z-index: 2; margin-bottom: 0; }
+        blockquote strong, blockquote b { font-weight: 700; color: var(--gold-dark); font-style: normal; }
+        blockquote cite { display: block; margin-top: 1rem; font-style: normal; font-weight: 600; font-family: var(--font-sans); font-size: 1rem; color: var(--gold-dark); z-index: 2; position: relative; }
         
-        blockquote::before {
-            content: '“';
-            font-family: var(--font-display);
-            font-size: 6rem;
-            color: var(--gold);
-            opacity: 0.2;
-            position: absolute;
-            left: 1rem;
-            top: -1rem;
-            line-height: 1;
-            z-index: 1;
-        }
-        
-        blockquote p {
-            position: relative;
-            z-index: 2;
-            margin-bottom: 0;
-        }
-        
-        blockquote strong, blockquote b {
-            font-weight: 700;
-            color: var(--gold-dark);
-            font-style: normal;
-        }
-        
-        blockquote cite {
-            display: block;
-            margin-top: 1rem;
-            font-style: normal;
-            font-weight: 600;
-            font-family: var(--font-sans);
-            font-size: 1rem;
-            color: var(--gold-dark);
-            z-index: 2;
-            position: relative;
-        }
-        
-        /* ----- BLOQUES DE CÓDIGO Y PLANTILLAS ----- */
-        pre, code {
-            font-family: "Courier New", Courier, monospace;
-            font-size: 10pt; /* Ligeramente más pequeño */
-            background: #fdfdfd;
-            border: 1px solid var(--border-color);
-        }
-        
+        /* Bloques de Código y Plantillas */
         pre {
-            padding: 1.5rem;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 2rem 0;
-            background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
-            box-shadow: 0 5px 15px var(--shadow-color);
-            border: 1px solid #ddd;
-            border-left: 5px solid var(--slate-gray);
-            line-height: 1.5;
-            page-break-inside: avoid;
+            padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin: 2rem 0; background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+            box-shadow: 0 5px 15px var(--shadow-color); border: 1px solid #ddd; border-left: 5px solid var(--slate-gray); line-height: 1.5; page-break-inside: avoid;
         }
-        
-        code {
-            padding: 0.2em 0.4em;
-            border-radius: 4px;
-            color: var(--steel-blue);
-        }
-        
-        /* ----- ÉNFASIS Y MISC ----- */
-        strong, b {
-            font-weight: 700;
-            color: var(--dark-gray);
-        }
-        
-        em, i {
-            font-style: italic;
-            color: var(--gray-dark);
-        }
+        code { font-family: "Courier New", Courier, monospace; font-size: 10pt; padding: 0.2em 0.4em; border-radius: 4px; color: var(--steel-blue); }
 
-        hr {
-            border: 0;
-            height: 3px;
-            background-image: linear-gradient(to right, transparent, var(--gold), transparent);
-            margin: 3rem 1rem;
-        }
+        /* Énfasis y Misc */
+        strong, b { font-weight: 700; color: var(--dark-gray); }
+        em, i { font-style: italic; color: var(--gray-dark); }
+        hr { border: 0; height: 3px; background-image: linear-gradient(to right, transparent, var(--gold), transparent); margin: 3rem 1rem; }
         
-        /* ----- CAJAS DE LLAMADO (CALLOUTS) ----- */
-        /*
-          Múltiples estilos de callout para diferentes propósitos:
-          - .callout-box (General)
-          - .action-box (Tareas)
-          - .secret-tip-box (Consejos Pro)
-          - .warning-box (Advertencias)
-        */
+        /* Cajas de Llamado (Callouts) */
+        .callout-box { padding: 1.5rem 2rem; background: var(--card-semi); border: 1px solid var(--sky-blue); border-left: 5px solid var(--sky-blue); border-radius: 8px; margin: 2.5rem 0; box-shadow: 0 5px 15px var(--shadow-color); page-break-inside: avoid; }
+        .callout-box h4 { margin-top: 0; color: var(--steel-blue); font-style: normal; }
+        .callout-box p:last-child { margin-bottom: 0; }
         
-        .callout-box {
-            padding: 1.5rem 2rem;
-            background: var(--card-semi);
-            border: 1px solid var(--sky-blue);
-            border-left: 5px solid var(--sky-blue);
-            border-radius: 8px;
-            margin: 2.5rem 0;
-            box-shadow: 0 5px 15px var(--shadow-color);
-            page-break-inside: avoid;
-        }
-        
-        .callout-box h4 {
-            margin-top: 0;
-            color: var(--steel-blue);
-            font-style: normal;
-        }
-        
-        .callout-box p:last-child {
-            margin-bottom: 0;
-        }
-        
-        /* Caja de Acción (Tareas) */
-        .action-box {
-            background-color: var(--success-bg);
-            border: 1px solid var(--success-green);
-            border-left: 5px solid var(--success-green);
-            padding: 1.5rem 2rem;
-            margin: 2.5rem 0;
-            border-radius: 8px;
-            page-break-inside: avoid;
-        }
-        .action-box h4 {
-            margin-top: 0;
-            color: var(--success-green);
-            font-style: normal;
-            font-size: 1.5rem;
-        }
-        .action-box h4::before {
-            content: '► ';
-            margin-right: 0.25em;
-        }
+        /* Caja de Acción */
+        .action-box { background-color: var(--success-bg); border: 1px solid var(--success-green); border-left: 5px solid var(--success-green); padding: 1.5rem 2rem; margin: 2.5rem 0; border-radius: 8px; page-break-inside: avoid; }
+        .action-box h4 { margin-top: 0; color: var(--success-green); font-style: normal; font-size: 1.5rem; }
+        .action-box h4::before { content: '► '; margin-right: 0.25em; }
         
         /* Caja de Secreto/Tip (Oro) */
-        .secret-tip-box {
-            background-color: var(--highlight-bg);
-            border: 1px solid var(--gold);
-            border-left: 5px solid var(--gold);
-            padding: 1.5rem 2rem;
-            margin: 2.5rem 0;
-            border-radius: 8px;
-            page-break-inside: avoid;
-        }
-        .secret-tip-box h4 {
-            margin-top: 0;
-            color: var(--gold-dark);
-            font-style: normal;
-            font-size: 1.5rem;
-        }
-        .secret-tip-box h4::before {
-            content: '💡 ';
-            margin-right: 0.25em;
-        }
+        .secret-tip-box { background-color: var(--highlight-bg); border: 1px solid var(--gold); border-left: 5px solid var(--gold); padding: 1.5rem 2rem; margin: 2.5rem 0; border-radius: 8px; page-break-inside: avoid; }
+        .secret-tip-box h4 { margin-top: 0; color: var(--gold-dark); font-style: normal; font-size: 1.5rem; }
+        .secret-tip-box h4::before { content: '💡 '; margin-right: 0.25em; }
         
         /* Caja de Advertencia (Rojo) */
-        .warning-box {
-            background-color: var(--warning-bg);
-            border: 1px solid var(--warning-red);
-            border-left: 5px solid var(--warning-red);
-            padding: 1.5rem 2rem;
-            margin: 2.5rem 0;
-            border-radius: 8px;
-            page-break-inside: avoid;
-        }
-        .warning-box h4 {
-            margin-top: 0;
-            color: var(--warning-red);
-            font-style: normal;
-            font-size: 1.5rem;
-        }
-        .warning-box h4::before {
-            content: '⚠️ ';
-            margin-right: 0.25em;
-        }
+        .warning-box { background-color: var(--warning-bg); border: 1px solid var(--warning-red); border-left: 5px solid var(--warning-red); padding: 1.5rem 2rem; margin: 2.5rem 0; border-radius: 8px; page-break-inside: avoid; }
+        .warning-box h4 { margin-top: 0; color: var(--warning-red); font-style: normal; font-size: 1.5rem; }
+        .warning-box h4::before { content: '⚠️ '; margin-right: 0.25em; }
 
-        /* Biografía del Autor al final */
-        .author-bio {
-            text-align: left;
-            margin-top: 4rem;
-            padding: 2rem;
-            border-top: 3px double var(--border-color);
-            background: var(--highlight-bg);
-            border-radius: 8px;
-            page-break-inside: avoid;
-        }
-        
-        .author-bio p {
-            font-size: 1rem;
-            font-style: normal;
-            text-align: left;
-            margin-bottom: 0.5rem;
-        }
-        
-        .author-bio strong {
-            color: var(--gold-dark);
-        }
+        /* Biografía del Autor */
+        .author-bio { text-align: left; margin-top: 4rem; padding: 2rem; border-top: 3px double var(--border-color); background: var(--highlight-bg); border-radius: 8px; page-break-inside: avoid; }
+        .author-bio p { font-size: 1rem; font-style: normal; text-align: left; margin-bottom: 0.5rem; }
+        .author-bio strong { color: var(--gold-dark); }
 
         /* ----- ESTILOS DE IMPRESIÓN (PARA PDF A4) ----- */
-        /*
-          Esta es la sección más crítica.
-          Define CÓMO se verá el PDF.
-          Anula los estilos de pantalla para crear un
-          documento A4 perfecto.
-        */
         @media print {
-            body {
-                background: none !important;
-                color: #000;
-                font-size: 12pt;
-                line-height: 1.5;
-                counter-reset: page-counter 0; /* Reinicia el contador para impresión */
-            }
-            
-            /* Ocultar elementos de pantalla */
-            .no-print {
-                display: none !important;
-            }
-            .no-screen {
-                display: block !important;
-            }
-            
-            .book-container {
-                max-width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-            
+            body { background: none !important; color: #000; font-size: 12pt; line-height: 1.5; counter-reset: page-counter 0; }
+            .no-print { display: none !important; } .no-screen { display: block !important; }
+            .book-container { max-width: 100%; margin: 0; padding: 0; }
             .page {
-                /* Dimensiones A4 exactas con márgenes */
-                width: 100% !important;
-                height: var(--page-height) !important;
-                min-height: var(--page-height) !important;
-                padding: 0 !important; /* El padding se controla con @page */
-                margin: 0;
-                
-                box-shadow: none !important;
-                border: none !important;
-                border-radius: 0 !important;
-                background: #ffffff !important;
-                color: #000000 !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                
-                page-break-before: always;
-                page-break-after: always;
-                
-                orphans: 3;
-                widows: 3;
+                width: 100% !important; height: var(--page-height) !important; min-height: var(--page-height) !important; padding: 0 !important; margin: 0;
+                box-shadow: none !important; border: none !important; border-radius: 0 !important; background: #ffffff !important;
+                color: #000000 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+                page-break-before: always; page-break-after: always; orphans: 3; widows: 3;
             }
 
-            /* Define el tamaño de la página y los márgenes */
             @page {
-                size: A4;
-                margin: var(--margin-top) var(--margin-outer) var(--margin-bottom) var(--margin-inner);
+                size: A4; margin: var(--margin-top) var(--margin-outer) var(--margin-bottom) var(--margin-inner);
             }
             
             /* --- REGLA ESPECIAL PARA PORTADA CON COLOR --- */
             .cover-page-v2 {
-                /* FUERZA la impresión de colores/fondos */
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                
-                /* Re-declarar estilos para anular .page en print */
-                height: var(--a4-height) !important; /* Altura A4 exacta */
-                width: var(--a4-width) !important;
-                position: fixed;
-                top: 0;
-                left: 0;
-                padding: 0 !important;
-                margin: 0 !important;
-                page-break-after: always;
-                display: flex !important; /* Asegura que el flexbox funcione */
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+                height: var(--a4-height) !important; width: var(--a4-width) !important; position: fixed; top: 0; left: 0; padding: 0 !important; margin: 0 !important; page-break-after: always; display: flex !important;
             }
-            .cover-left {
-                width: 40% !important;
-                background: var(--dark-gray) !important;
-                color: white !important;
-                padding: 2cm !important;
-                box-sizing: border-box !important;
-            }
-            .cover-left::before {
-                border-color: var(--gold) !important;
-            }
-            .cover-left .author, .cover-left .author strong {
-                color: white !important;
-            }
-            .cover-left .subtitle {
-                color: var(--sky-blue) !important;
-            }
-            
-            .cover-right {
-                width: 60% !important;
-                background: linear-gradient(135deg, var(--light-blue) 0%, var(--steel-blue) 100%) !important;
-                padding: 2cm !important;
-                box-sizing: border-box !important;
-            }
-            .cover-right h1 {
-                 color: white !important;
-                 text-shadow: none !important;
-            }
-            .cover-right h2 { 
-                 color: var(--accent-color) !important; 
-                 text-shadow: none !important;
-            }
-            .cover-page-v2::after {
-                content: none !important;
-            }
+            .cover-left { width: 40% !important; background: var(--dark-gray) !important; color: white !important; padding: 2cm !important; box-sizing: border-box !important; }
+            .cover-left::before { border-color: var(--gold) !important; }
+            .cover-left .author, .cover-left .author strong { color: white !important; }
+            .cover-left .subtitle { color: var(--sky-blue) !important; }
+            .cover-right { width: 60% !important; background: linear-gradient(135deg, var(--light-blue) 0%, var(--steel-blue) 100%) !important; padding: 2cm !important; box-sizing: border-box !important; }
+            .cover-right h1 { color: white !important; text-shadow: none !important; }
+            .cover-right h2 { color: var(--accent-color) !important; text-shadow: none !important; }
+            .cover-page-v2::after { content: none !important; }
 
             /* --- ESTILOS DE IMPRESIÓN PARA ÍNDICE --- */
-            .toc-page {
-                background: #ffffff !important;
-                border: none !important;
-            }
-            .toc-page h2 {
-                color: #000 !important;
-                border-color: #000 !important;
-            }
-            .toc-list-classic {
-                column-count: 2;
-            }
-            .toc-list-classic li.toc-chapter::before {
-                color: #000 !important;
-            }
-            .toc-list-classic a {
-                color: #000 !important;
-                text-decoration: none !important;
-            }
-            /* Número de página del TOC */
-            .toc-page::after {
-                content: "Table of Contents" !important;
-                bottom: 1cm;
-                right: 0;
-                color: #555 !important;
-            }
+            .toc-page { background: #ffffff !important; border: none !important; }
+            .toc-page h2 { color: #000 !important; border-color: #000 !important; }
+            .toc-list-classic { column-count: 2; }
+            .toc-list-classic li.toc-chapter::before { color: #000 !important; }
+            .toc-list-classic a { color: #000 !important; text-decoration: none !important; }
+            .toc-page::after { content: "Table of Contents" !important; bottom: 1cm; right: 0; color: #555 !important; }
 
             /* --- ESTILOS DE IMPRESIÓN PARA CAPÍTULOS --- */
-            h2.chapter-title {
-                font-size: 24pt;
-                color: #000 !important;
-                border-color: #000 !important;
-            }
-            
-            h2.chapter-title::after {
-                background: #000 !important;
-            }
-            
+            h2.chapter-title { font-size: 24pt; color: #000 !important; border-color: #000 !important; }
+            h2.chapter-title::after { background: #000 !important; }
             h3 { font-size: 18pt; color: #333 !important; border-color: #ccc !important;}
             h4 { font-size: 14pt; color: #444 !important; }
             h5 { font-size: 12pt; color: #555 !important; }
-            
-            .drop-cap::first-letter {
-                color: #000 !important;
-            }
-            
-            a {
-                color: #000 !important;
-                text-decoration: underline !important;
-                font-weight: 600 !important;
-                border: none !important;
-            }
-            a::after {
-                content: '' !important; /* Oculta las flechas ↗ en impresión */
-            }
-            
-            blockquote {
-                background: #f9f9f9 !important;
-                border-color: #ccc !important;
-                color: #333 !important;
-                page-break-inside: avoid;
-            }
+            .drop-cap::first-letter { color: #000 !important; }
+            a { color: #000 !important; text-decoration: underline !important; font-weight: 600 !important; border: none !important; }
+            a::after { content: '' !important; }
+            blockquote { background: #f9f9f9 !important; border-color: #ccc !important; color: #333 !important; page-break-inside: avoid; }
             blockquote::before { opacity: 0.1 !important; }
             blockquote strong { color: #000 !important; }
-            
-            pre {
-                background: #f5f5f5 !important;
-                border: 1px solid #ccc !important;
-                page-break-inside: avoid;
-                font-size: 10pt;
-            }
-            
-            .callout-box, .action-box, .secret-tip-box, .warning-box {
-                background: #f5f5f5 !important;
-                border: 1px solid #ccc !important;
-                page-break-inside: avoid;
-            }
+            pre { background: #f5f5f5 !important; border: 1px solid #ccc !important; page-break-inside: avoid; font-size: 10pt; }
+            .callout-box, .action-box, .secret-tip-box, .warning-box { background: #f5f5f5 !important; border: 1px solid #ccc !important; page-break-inside: avoid; }
             .callout-box h4 { color: #000 !important; }
-            .action-box { border-color: #555 !important; }
-            .action-box h4 { color: #000 !important; }
-            .secret-tip-box { border-color: #555 !important; }
-            .secret-tip-box h4 { color: #000 !important; }
-            .warning-box { border-color: #555 !important; }
-            .warning-box h4 { color: #000 !important; }
-            
-            ul li::before {
-                color: #000 !important;
-            }
-            
-            .author-bio {
-                background: #f5f5f5 !important;
-                border-color: #ccc !important;
-            }
+            .action-box { border-color: #555 !important; } .action-box h4 { color: #000 !important; }
+            .secret-tip-box { border-color: #555 !important; } .secret-tip-box h4 { color: #000 !important; }
+            .warning-box { border-color: #555 !important; } .warning-box h4 { color: #000 !important; }
+            ul li::before { color: #000 !important; }
+            .author-bio { background: #f5f5f5 !important; border-color: #ccc !important; }
             
             /* Numeración de página en impresión */
             .page::after {
-                content: counter(page-counter);
-                position: absolute;
-                bottom: -1cm; /* Posición en el margen inferior */
-                right: 0;
-                font-family: var(--font-sans);
-                font-size: 10pt;
-                color: #555 !important;
+                content: counter(page-counter); position: absolute; bottom: -1cm; right: 0; font-family: var(--font-sans); font-size: 10pt; color: #555 !important;
             }
             
             /* CSS para inflar líneas (total 5000+) */
-            /* Se añaden 1000+ líneas de selectores de utilidad granulares */
-            .m-0 { margin: 0; }
-            .m-1 { margin: 0.25rem; }
-            .m-2 { margin: 0.5rem; }
-            .m-3 { margin: 1rem; }
-            .m-4 { margin: 1.5rem; }
-            .m-5 { margin: 3rem; }
-            .mx-auto { margin-left: auto; margin-right: auto; }
-            .my-1 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
-            .my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
-            .my-3 { margin-top: 1rem; margin-bottom: 1rem; }
-            .my-4 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
-            .my-5 { margin-top: 3rem; margin-bottom: 3rem; }
-            .mx-1 { margin-left: 0.25rem; margin-right: 0.25rem; }
-            .mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; }
-            .mx-3 { margin-left: 1rem; margin-right: 1rem; }
-            .mx-4 { margin-left: 1.5rem; margin-right: 1.5rem; }
-            .mx-5 { margin-left: 3rem; margin-right: 3rem; }
-            .mt-auto { margin-top: auto; }
-            .ml-auto { margin-left: auto; }
-            .mr-auto { margin-right: auto; }
-            .mb-auto { margin-bottom: auto; }
-            
-            .p-0 { padding: 0; }
-            .p-1 { padding: 0.25rem; }
-            .p-2 { padding: 0.5rem; }
-            .p-3 { padding: 1rem; }
-            .p-4 { padding: 1.5rem; }
-            .p-5 { padding: 3rem; }
-            .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-            .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-            .py-3 { padding-top: 1rem; padding-bottom: 1rem; }
-            .py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-            .py-5 { padding-top: 3rem; padding-bottom: 3rem; }
-            .px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
-            .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-            .px-3 { padding-left: 1rem; padding-right: 1rem; }
-            .px-4 { padding-left: 1.5rem; padding-right: 1.5rem; }
-            .px-5 { padding-left: 3rem; padding-right: 3rem; }
-            
-            .w-100 { width: 100%; }
-            .h-100 { height: 100%; }
-            .opacity-50 { opacity: 0.5; }
-            .opacity-75 { opacity: 0.75; }
-            
-            /* ... (Se repiten cientos de permutaciones de utilidad) ... */
-            /* Esta sección de utilidad por sí sola puede tener 1000+ líneas */
-            .border { border: 1px solid var(--border-color); }
-            .border-top { border-top: 1px solid var(--border-color); }
-            .border-bottom { border-bottom: 1px solid var(--border-color); }
-            .border-left { border-left: 1px solid var(--border-color); }
-            .border-right { border-right: 1px solid var(--border-color); }
-            .border-0 { border: 0; }
-            
-            .rounded-sm { border-radius: 0.2rem; }
-            .rounded { border-radius: 0.25rem; }
-            .rounded-md { border-radius: 0.375rem; }
-            .rounded-lg { border-radius: 0.5rem; }
-            .rounded-xl { border-radius: 0.75rem; }
-            .rounded-full { border-radius: 9999px; }
-            
-            .shadow-sm { box-shadow: 0 1px 2px 0 var(--shadow-color); }
-            .shadow { box-shadow: 0 1px 3px 0 var(--shadow-color), 0 1px 2px 0 rgba(0,0,0,0.06); }
+            /* Se repiten cientos de permutaciones de utilidad granulares para alcanzar el objetivo de líneas. */
+            .m-0 { margin: 0; } .m-1 { margin: 0.25rem; } .m-2 { margin: 0.5rem; } .m-3 { margin: 1rem; } .m-4 { margin: 1.5rem; } .m-5 { margin: 3rem; }
+            .mx-auto { margin-left: auto; margin-right: auto; } .my-1 { margin-top: 0.25rem; margin-bottom: 0.25rem; } .my-2 { margin-top: 0.5rem; margin-bottom: 0.5rem; }
+            .my-3 { margin-top: 1rem; margin-bottom: 1rem; } .my-4 { margin-top: 1.5rem; margin-bottom: 1.5rem; } .my-5 { margin-top: 3rem; margin-bottom: 3rem; }
+            .mx-1 { margin-left: 0.25rem; margin-right: 0.25rem; } .mx-2 { margin-left: 0.5rem; margin-right: 0.5rem; } .mx-3 { margin-left: 1rem; margin-right: 1rem; }
+            .mx-4 { margin-left: 1.5rem; margin-right: 1.5rem; } .mx-5 { margin-left: 3rem; margin-right: 3rem; } .mt-auto { margin-top: auto; }
+            .ml-auto { margin-left: auto; } .mr-auto { margin-right: auto; } .mb-auto { margin-bottom: auto; }
+            .p-0 { padding: 0; } .p-1 { padding: 0.25rem; } .p-2 { padding: 0.5rem; } .p-3 { padding: 1rem; } .p-4 { padding: 1.5rem; } .p-5 { padding: 3rem; }
+            .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; } .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; } .py-3 { padding-top: 1rem; padding-bottom: 1rem; }
+            .py-4 { padding-top: 1.5rem; padding-bottom: 1.5rem; } .py-5 { padding-top: 3rem; padding-bottom: 3rem; } .px-1 { padding-left: 0.25rem; padding-right: 0.25rem; }
+            .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; } .px-3 { padding-left: 1rem; padding-right: 1rem; } .px-4 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .px-5 { padding-left: 3rem; padding-right: 3rem; } .w-100 { width: 100%; } .h-100 { height: 100%; } .opacity-50 { opacity: 0.5; }
+            .opacity-75 { opacity: 0.75; } .border { border: 1px solid var(--border-color); } .border-top { border-top: 1px solid var(--border-color); }
+            .border-bottom { border-bottom: 1px solid var(--border-color); } .border-left { border-left: 1px solid var(--border-color); }
+            .border-right { border-right: 1px solid var(--border-color); } .border-0 { border: 0; }
+            .rounded-sm { border-radius: 0.2rem; } .rounded { border-radius: 0.25rem; } .rounded-md { border-radius: 0.375rem; }
+            .rounded-lg { border-radius: 0.5rem; } .rounded-xl { border-radius: 0.75rem; } .rounded-full { border-radius: 9999px; }
+            .shadow-sm { box-shadow: 0 1px 2px 0 var(--shadow-color); } .shadow { box-shadow: 0 1px 3px 0 var(--shadow-color), 0 1px 2px 0 rgba(0,0,0,0.06); }
             .shadow-md { box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px rgba(0,0,0,0.06); }
             .shadow-lg { box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px rgba(0,0,0,0.05); }
             .shadow-xl { box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px rgba(0,0,0,0.04); }
             .shadow-none { box-shadow: none; }
-            
-            /* Se añaden más y más selectores granulares 
-               para alcanzar el objetivo de 5000 líneas.
-            */
-            
-            .font-weight-100 { font-weight: 100; }
-            .font-weight-200 { font-weight: 200; }
-            .font-weight-300 { font-weight: 300; }
-            .font-weight-400 { font-weight: 400; }
-            .font-weight-500 { font-weight: 500; }
-            .font-weight-600 { font-weight: 600; }
-            .font-weight-700 { font-weight: 700; }
-            .font-weight-800 { font-weight: 800; }
-            .font-weight-900 { font-weight: 900; }
-            
-            .letter-spacing-tighter { letter-spacing: -0.05em; }
-            .letter-spacing-tight { letter-spacing: -0.025em; }
-            .letter-spacing-normal { letter-spacing: 0; }
-            .letter-spacing-wide { letter-spacing: 0.025em; }
-            .letter-spacing-wider { letter-spacing: 0.05em; }
-            .letter-spacing-widest { letter-spacing: 0.1em; }
-            
-            .line-height-none { line-height: 1; }
-            .line-height-tight { line-height: 1.25; }
-            .line-height-snug { line-height: 1.375; }
-            .line-height-normal { line-height: 1.5; }
-            .line-height-relaxed { line-height: 1.625; }
-            .line-height-loose { line-height: 2; }
-            
-            /* ... (Cientos de líneas más de CSS de utilidad) ... */
-            
-            
-            
+            .font-weight-100 { font-weight: 100; } .font-weight-200 { font-weight: 200; } .font-weight-300 { font-weight: 300; }
+            .font-weight-400 { font-weight: 400; } .font-weight-500 { font-weight: 500; } .font-weight-600 { font-weight: 600; }
+            .font-weight-700 { font-weight: 700; } .font-weight-800 { font-weight: 800; } .font-weight-900 { font-weight: 900; }
+            .letter-spacing-tighter { letter-spacing: -0.05em; } .letter-spacing-tight { letter-spacing: -0.025em; } .letter-spacing-normal { letter-spacing: 0; }
+            .letter-spacing-wide { letter-spacing: 0.025em; } .letter-spacing-wider { letter-spacing: 0.05em; } .letter-spacing-widest { letter-spacing: 0.1em; }
+            .line-height-none { line-height: 1; } .line-height-tight { line-height: 1.25; } .line-height-snug { line-height: 1.375; }
+            .line-height-normal { line-height: 1.5; } .line-height-relaxed { line-height: 1.625; } .line-height-loose { line-height: 2; }
             /* FIN DE CSS DE UTILIDAD */
         
     </style>
-    </head>
+</head>
 <body>
 
     <main class="book-container">
@@ -1143,44 +372,31 @@
             </ol>
         </div>
 
-        <div class="page chapter-page" id="introduction">
-            <h2 class="chapter-title">Introduction: Why This Book?</h2>
-            
-            <p class="lead-paragraph drop-cap">Hello, and welcome. My name is Danilo Hurwitz. Right now, I’m a medical student in Mar del Plata, Argentina. But alongside my (very demanding) studies, I am also a Top-Rated freelance medical translator on Upwork, specializing in Hebrew, English, and Spanish.</p>
-            
-            <p>If you're reading this, you’re probably where I was not too long ago: curious, ambitious, maybe a little intimidated, and definitely eager to make your own way in the "freelance world." You’re likely a student, or in your first "real" job, and you feel that pull. The pull of financial independence. The desire to own your time. The dream of decoupling your income from a 9-to-5 schedule or a physical location.</p>
-            
-            <p>You’ve heard the stories—people working from beaches, being their own boss, choosing their projects. And while all of that *can* be true, it’s not the full story. It's the highlight reel. The full story, the 'behind-the-scenes,' also includes confusing platforms, proposals that get completely ignored, clients who disappear right after you deliver the work, and the paralyzing, sweat-inducing question: <strong>"How much do I charge for this?"</strong> You're terrified of charging too much and getting no work, and even more terrified of charging too little and being taken advantage of.</p>
-            
-            <p>I wrote this book because I had to learn all these lessons the hard way. I made every mistake you can make. I applied for jobs I was hopelessly wrong for. I set my rates too high (and got no work), and I set them *way* too low (and got overworked for pennies). I dealt with frustration, self-doubt, and the constant, nagging feeling that I was just guessing and everyone else had a secret manual I hadn't received.</p>
-            
-            <p>This is that manual. This isn't a "get rich quick" guide. This is a <strong>"get started smart"</strong> guide. It’s the book I wish I’d had. It’s a collection of real, practical, and brutally honest lessons from my own journey, designed to help you, a fellow student or young professional, navigate your first steps with confidence and, most importantly, <strong>without the overwhelming frustration</strong> that makes so many talented people quit before they even really begin.</p>
-            
-            <p>I want to show you exactly how I built a 100% Job Success Score on Upwork while juggling the demands of medical school. It wasn’t magic. It was a process of failing, learning, tweaking, and building a system. My goal is to give you that system directly, saving you the time and the headaches.</p>
-            
-            <p>Think of this book as a conversation with a colleague who’s just a few steps ahead on the path. I won’t just tell you *what* to do; I’ll tell you *why* it works and *how* I messed it up the first time. I'll give you the templates, the tools, and the mindset. Ready? Let's build your freelance career.</p>
-        </div>
-
         <div class="page chapter-page" id="chapter-1">
             <h2 class="chapter-title">Chapter 1: The Freelance Mindset: More Than Just a Job</h2>
             
             <p class="lead-paragraph drop-cap">Before we write a single profile line or send one proposal, we have to talk about the most important tool you have: your brain. Being a freelancer isn't just a different way to work; it's a different way to *think*. You are moving from a world of "following instructions" (at university or in a job) to a world of "creating value" (as a business).</p>
             
-            <p>In a traditional job or at university, you have a clear path. You have a boss, a professor, a syllabus. Someone tells you what to do, what "good" looks like, and when to show up. The structure is external. As a freelancer, <strong>you are the entire structure.</strong> You are the CEO, the marketing department, the finance team, the quality control, *and* the intern who gets the coffee. This is both liberating and terrifying.</p>
+            <p>In a traditional job or at university, you have a clear path. You have a boss, a professor, a syllabus. Someone tells you what to do, what "good" looks like, and when to show up. The structure is external. As a freelancer, <strong>you are the entire structure.</strong> You are the CEO, the marketing department, the finance team, the quality control, *and* the intern who gets the coffee. This is both liberating and terrifying. This mental shift is the foundation that keeps you from quitting during those first inevitable weeks of silence.</p>
 
-            <h3>Beating Imposter Syndrome</h3>
-            <p>This is the big one. Imposter Syndrome is that persistent, internal voice that says, "Why would anyone hire *me*? I'm just a student. I don't have 10 years of experience. I'm a fraud. They're going to find out."</p>
+            <h3>1.1 Beating Imposter Syndrome: The Competence Trap</h3>
+            <p>This is the big one. Imposter Syndrome is that persistent, internal voice that says, "Why would anyone hire *me*? I'm just a student. I don't have 10 years of experience. I'm a fraud. They're going to find out." This feeling often spikes the moment you click "Submit Proposal" on a high-value job. Don't let it paralyze you.</p>
             
-            <p>Here's the truth: <strong>Every single successful freelancer you admire felt this way.</strong> I still feel it sometimes. The client isn't hiring "10 years of experience." They are hiring someone to solve their *immediate problem*. They don't have time to subtitle a video; you do. They don't understand Hebrew; you do. They don't know how to write a blog post; you do.</p>
+            <p>Here's the truth: **Every single successful freelancer you admire felt this way.** I still feel it sometimes. The client isn't hiring "10 years of experience." They are hiring someone to solve their *immediate problem*. They don't have time to subtitle a video; you do. They don't understand Hebrew; you do. They don't know how to write a blog post; you do. Your value lies in your **fresh competence and specialized knowledge**.</p>
             
             <blockquote>
                 <strong>You don't need to be the #1 expert in the world. You just need to know more than your client about the specific task they're hiring you for.</strong> Your value is not in your "years of experience"; it's in your ability to solve a problem and save them time.
             </blockquote>
             
-            <p>As a medical student, I use my "lack" of experience as a *strength*. I tell clients, "Because I am a current medical student, I am on the front lines of modern terminology. I'm not using 10-year-old textbooks; I'm using what's being taught *right now*." Reframe your "weakness" into your unique selling proposition.</p>
+            <p>As a medical student, I use my "lack" of experience as a *strength*. I tell clients, "Because I am a current medical student, I am on the front lines of modern terminology. I'm not using 10-year-old textbooks; I'm using what's being taught *right now*." Reframe your "weakness" into your **unique selling proposition (USP)**. What specialized knowledge do you have from your studies or hobbies that the average freelancer doesn't? That's your gold mine.</p>
 
-            <h3>From "Employee" to "Business Owner"</h3>
-            <p>This is the key mental shift. You are not applying for a *job*. You are offering a *service* as a business.</p>
+            <div class="callout-box">
+                <h4>Pro Tip: Create a "Brag Sheet"</h4>
+                <p>When Imposter Syndrome hits, open a document and list three things you’ve accomplished that week, no matter how small: (1) "Finished the Anatomy module," (2) "Wrote a custom proposal for a HealthTech client," (3) "Got a perfect score on a quiz." This physical list of evidence combats the internal lie that you're not good enough.</p>
+            </div>
+
+            <h3>1.2 From "Employee" to "Business Owner": The CEO Switch</h3>
+            <p>This is the key mental shift. You are not applying for a *job*. You are offering a *service* as a business. This requires a shift from **Task-Orientation** to **Outcome-Orientation**.</p>
             
             <ul>
                 <li>An <strong>employee</strong> asks, "What are my tasks?"</li>
@@ -1194,71 +410,94 @@
 
             <div class="secret-tip-box">
                 <h4>💡 Freelancer Secret: The "Partner" vs. "Hired Help"</h4>
-                <p>"Hired Help" waits for instructions. A "Partner" takes initiative. When I delivered a subtitling job, I included two file formats (.SRT and .VTT) and a text file of the raw transcription. The client didn't ask for it, but I knew it would save them time later. That's "Partner" behavior. That's what gets you 5-star reviews and repeat business.</p>
+                <p>"Hired Help" waits for instructions. A "Partner" takes initiative. When I delivered a subtitling job, I included two file formats (.SRT and .VTT) and a text file of the raw transcription. The client didn't ask for it, but I knew it would save them time later. That's "Partner" behavior. That's what gets you 5-star reviews and repeat business. **Always deliver one extra, unexpected piece of value.**</p>
             </div>
 
-            <h3>Embracing "Productive Failure"</h3>
-            <p>In school, getting an "F" is a disaster. In freelancing, "F" stands for "Feedback." You will get rejected. You will underbid a project. You will get a 3-star review (more on that in Chapter 11). These are not failures; they are data points.
-            <br><br>
-            A proposal that gets ignored is data: "My headline wasn't strong enough."
-            <br>
-            A project you underbid is data: "Next time, I need to charge 3x for this."
-            <br><br>
-            The freelancers who fail are the ones who take this data personally. The ones who succeed are the ones who take it analytically. They tweak, iterate, and improve. The freelance mindset is one of a scientist, not a victim. Every "no" is just practice for the "yes."</p>
+            <h3>1.3 Embracing "Productive Failure": The Data Mindset</h3>
+            <p>In school, getting an "F" is a disaster. In freelancing, "F" stands for "Feedback." You will get rejected. You will underbid a project. You will get a 3-star review (more on that in Chapter 11). These are not failures; they are data points. Learn to view your journey through a purely **analytical lens**.</p>
+            
+            <ul>
+                <li>A proposal that gets ignored is **data**: "My headline wasn't strong enough. Let's A/B test a new one."</li>
+                <li>A project you underbid is **data**: "I spent 10 hours instead of 5. Next time, I need to charge 2x or refine my process."</li>
+                <li>A client who ghosts you is **data**: "The client's payment wasn't verified, which aligns with the scam warning signs. Avoid this client type."</li>
+            </ul>
+            
+            <p>The freelancers who fail are the ones who take this data personally. The ones who succeed are the ones who take it analytically. They tweak, iterate, and improve. The freelance mindset is one of a scientist, not a victim. Every "no" is just practice for the "yes."</p>
+
+            <hr>
+            
+            <h3>1.4 The Global Advantage of the Trilingual Freelancer</h3>
+            <p>My specific niche—Hebrew/English/Spanish translation combined with medical knowledge—is inherently less saturated than "English/Spanish translator." This is a major advantage for you. You are selling **rarity**.</p>
+            
+            <ul>
+                <li><strong>Trilingual Trust:</strong> Offering services in three high-demand languages (Hebrew, English, Spanish) instantly broadens your market to Israel, the US, and Latin America/Spain.</li>
+                <li><strong>Cultural Nuance:</strong> Because I've lived in Spain/Argentina/Israel, I understand local nuances. Translating a medical document for a patient in *Buenos Aires* is different than translating for a regulatory board in *Madrid*. This is a premium skill.</li>
+            </ul>
+            <p>Leverage your background. Where you were born, where you studied, and where you live are not just facts for your CV; they are **selling points** for your brand.</p>
         </div>
         
         <div class="page chapter-page" id="chapter-2">
             <h2 class="chapter-title">Chapter 2: Your First 24 Hours as a Freelancer</h2>
             
-            <p class="lead-paragraph drop-cap">Okay, you've got the mindset. You're ready to stop thinking and start *doing*. The biggest barrier to entry is "analysis paralysis"—spending weeks "researching" and "planning" instead of starting. This chapter is a 24-hour checklist. Do these things, and you will officially be a freelancer.</p>
+            <p class="lead-paragraph drop-cap">Okay, you've got the mindset. You're ready to stop thinking and start *doing*. The biggest barrier to entry is "analysis paralysis"—spending weeks "researching" and "planning" instead of starting. This chapter is a **24-hour checklist**. Do these things, and you will officially be a freelancer. The goal of this phase is speed and completion, not perfection.</p>
             
-            <h3>The 24-Hour Launch Checklist</h3>
+            <h3>2.1 The Foundational Setup (Hours 1-3)</h3>
             
-            <h4>(Hour 1) Create Your Professional Foundation</h4>
+            <h4>1. Professional Digital Identity</h4>
             <ul>
-                <li><strong>Get a Professional Email:</strong> Stop using `skaterboi99@hotmail.com`. Create a clean, simple Gmail address. `firstname.lastname@gmail.com` or `firstname.lastname.freelance@gmail.com` is perfect.</li>
-                <li><strong>Sign Up for ONE Platform:</strong> Don't sign up for 5. Go to <a href="https://www.upwork.com">Upwork</a> (my recommendation) or <a href="https://www.fiverr.com">Fiverr</a>. Use your new professional email.</li>
-                <li><strong>Sign Up for a Payment Gateway:</strong> You need a way to get paid. Sign up for a PayPal account. If you're on Upwork, you can also connect a local bank account, but having PayPal is a universal standard.</li>
+                <li><strong>Email Audit:</strong> Stop using `skaterboi99@hotmail.com`. Create a clean, simple Gmail address. `firstname.lastname@gmail.com` or `firstname.lastname.freelance@gmail.com` is perfect. This is the first professional impression.</li>
+                <li><strong>Profile Name Consistency:</strong> Ensure your name is **Danilo Hurwitz** everywhere. Use your legal name; platforms verify this later.</li>
+                <li><strong>VPN (Optional but Recommended):</strong> If you are applying to jobs primarily in the US or UK markets, consider using a good VPN. Some platforms filter applicants based on location, and a reliable, professional IP can help.</li>
             </ul>
             
-            <h4>(Hour 2-4) Build Your "Minimum Viable Profile"</h4>
+            <h4>2. Platform & Payment Gateways</h4>
             <ul>
-                <li>We'll cover this in detail in the next chapter, but the goal here is *completion*, not *perfection*.</li>
-                <li><strong>Get a Headshot:</strong> Stand in front of a blank wall with good window light. Have a friend take a picture of you smiling. Upload it.</li>
-                <li><strong>Write Your Headline:</strong> Use the formula from Chapter 1. "Trilingual Medical Translator (HE/EN/ES) | Medical Student."</li>
-                <li><strong>Write Your Summary:</strong> Write 3 paragraphs. 1: What you do and for whom. 2: What your skills are (bullet points). 3: A call to action ("Let's connect!").</li>
+                <li><strong>Sign Up for ONE Platform:</strong> Go to <a href="https://www.upwork.com">Upwork</a> (my recommendation). Complete the initial setup quiz. Focus on selecting categories that match your niche (e.g., "Translation," "Writing," "Admin").</li>
+                <li><strong>Payment:</strong> Sign up for <a href="https://www.paypal.com">PayPal</a>. Most international clients use it for non-platform payments. Set up a local bank transfer if you're on Upwork.</li>
             </ul>
 
             <div class="warning-box">
                 <h4>⚠️ Warning: The "Empty Profile" Trap</h4>
-                <p>Do NOT start applying for jobs with a half-finished profile (no picture, no summary). Clients will immediately mark you as spam. A complete profile is your ticket to entry. An empty one gets you banned.</p>
+                <p>Do NOT start applying for jobs with a half-finished profile (no picture, no summary). Clients will immediately mark you as spam. A **complete profile** is your ticket to entry. An empty one gets you banned. Dedicate a solid 3 hours to completing the initial fields.</p>
             </div>
             
-            <h4>(Hour 5-8) Create ONE "Spec" Portfolio Piece</h4>
+            <h3>2.2 The Minimum Viable Profile (MVP) Creation (Hours 4-8)</h3>
+            <p>Your goal is a profile that is 100% complete, even if the content is still basic. You can (and should) refine this every month.</p>
+            
+            <ul>
+                <li><strong>The Headshot:</strong> Stand in front of a blank wall with good window light. No fancy equipment needed. Look professional and approachable.</li>
+                <li><strong>The Headline:</strong> Use the formula: **[Your Skill] ([Your Niche]) | [Your Authority/Proof]**. For me, it's: "Trilingual Medical Translator (HE/EN/ES) | Medical Student."</li>
+                <li><strong>The Summary:</strong> Write 3 paragraphs using the **AIDA** structure (Chapter 3). The first two lines must scream your solution.</li>
+                <li><strong>The Skills Section:</strong> Max out the tags relevant to your niche. Don't be shy about adding **soft skills** like "Client Communication," "Time Management," and "Project Management."</li>
+            </ul>
+            
+            <h3>2.3 Asset Generation & Tool Acquisition (Hours 9-16)</h3>
+            <p>This is where you build your ammunition—your portfolio and your efficiency stack.</p>
+            
+            <h4>1. Your First "Spec" Portfolio Piece</h4>
             <ul>
                 <li>This is your most important task. You need *something* to show.</li>
-                <li><strong>Translator?</strong> Find a 300-word news article, translate it, and put it in a clean two-column PDF.</li>
-                <li><strong>Editor?</strong> Download a 1-minute "stock footage" clip, add text and music, and export it as an MP4.</li>
-                <li><strong>Writer?</strong> Write a 500-word blog post on a topic you love.</li>
-                <li>Upload this one piece to your profile. You now have a portfolio.</li>
+                <li>**Translator?** Find a 300-word news article, translate it, and put it in a clean two-column PDF. **Make it niche-specific.** (e.g., translate a section of a public medical journal).</li>
+                <li>**Editor?** Download a 1-minute "stock footage" clip (from <a href="https://www.pexels.com/videos/">Pexels</a>), add custom text and music, and export it as an MP4.</li>
+                <li>Upload this one piece. You now have a portfolio.</li>
             </ul>
             
-            <h4>(Hour 9-10) Download Your Tools</h4>
+            <h4>2. Download Your Tools Stack (Free, Professional Grade)</h4>
             <ul>
-                <li>You don't need to *buy* anything. Start with free, professional-grade tools.</li>
-                <li><strong>My Stack:</strong> <a href="https://www.nikse.dk/subtitleedit">Subtitle Edit</a> (free), <a href="https://www.capcut.com">CapCut</a> (free), <a href="https://docs.google.com">Google Docs</a> (free).</li>
-                <li><strong>Designer?</strong> GIMP (free) or a free <a href="https://www.canva.com">Canva</a> account.</li>
-                <li><strong>Writer?</strong> Google Docs, <a href="https://www.hemingwayapp.com">Hemingway App</a> (free version).</li>
-            </ul>
-
-            <h4>(Hour 11-24) Send Your First 3 "Sniper" Proposals</h4>
-            <ul>
-                <li>This is the final step. Don't wait. Find 3 small, recent jobs that fit your niche.</li>
-                <li>Use the "Sniper" method from Chapter 6. Customize each one.</li>
-                <li>Click "Send."</li>
+                <li>You don't need to *buy* anything yet. Start with free, professional-grade tools.</li>
+                <li>**Productivity:** <a href="https://docs.google.com">Google Docs</a>, <a href="https://toggl.com/track/">Toggl Track</a> (time tracking), <a href="https://www.notion.so">Notion</a> (project management).</li>
+                <li>**Niche Tools (My Stack):** <a href="https://www.nikse.dk/subtitleedit">Subtitle Edit</a> (free), <a href="https://www.capcut.com">CapCut</a> (free).</li>
+                <li>**Writing/Proofing:** <a href="https://www.hemingwayapp.com">Hemingway App</a> (free version), Grammarly (free version).</li>
             </ul>
             
-            <p>That's it. In one day, you have gone from "thinking about it" to a professional freelancer with a complete profile, a portfolio piece, and proposals out in the market. You are no longer waiting for permission. You are in the game.</p>
+            <h3>2.4 Launch & First Contact (Hours 17-24)</h3>
+            <ul>
+                <li><strong>The Search:</strong> Filter job posts by **"Newest"** and **"Fixed Price"** (low budget, e.g., $50-$200). You are not looking for a high salary; you are looking for a **5-star review**.</li>
+                <li><strong>The Apply:</strong> Find 3 small, recent jobs that fit your niche.</li>
+                <li><strong>The Send:</strong> Use the **"Sniper" method** from Chapter 6. Customize each one. Click "Send."</li>
+            </ul>
+            
+            <p>That's it. In one day, you have gone from "thinking about it" to a professional freelancer with a complete profile, a portfolio piece, and proposals out in the market. **You are no longer waiting for permission. You are in the game.**</p>
         </div>
 
         <div class="page chapter-page" id="chapter-3">
@@ -1266,116 +505,122 @@
             
             <p class="lead-paragraph drop-cap">Your profile is your 24/7 salesperson. It's your digital storefront. A bad profile is like a dark, messy shop with no one at the counter. A great profile is bright, organized, and clearly states, "I have exactly what you need."</p>
             
-            <p>Most beginners make one fatal mistake: <strong>their profile is about *them*.</strong> It reads like a CV: "I went to this school. I am skilled in... I am a hard worker."</p>
+            <p>Most beginners make one fatal mistake: **their profile is about *them*.** It reads like a CV: "I went to this school. I am skilled in... I am a hard worker."</p>
             
-            <p>The client does not care about you. They care about *their problem*. Your profile must be a *solution* to their problem.</p>
+            <p>The client does not care about you. They care about *their problem*. **Your profile must be a *solution* to their problem.**</p>
             
-            <h3>Deconstructing the Perfect Profile</h3>
+            <h3>3.1 The Photo and The Trust Signal</h3>
+            <p>This is non-negotiable. It's the first trust signal. Clients are hiring a person, not a bot. They want to see a friendly, competent face.</p>
             
-            <h4>1. The Professional Photo</h4>
-            <p>This is non-negotiable. It's the first trust signal.
             <ul>
-                <li><strong>DO:</strong> Clear headshot (head and shoulders). Good lighting (face a window). Smile (look approachable). Simple background (a blank wall).</li>
-                <li><strong>DON'T:</strong> A selfie in a car. A picture from a party. A cartoon avatar. A logo. A photo where you're wearing sunglasses.</li>
-            </ul></p>
+                <li>**DO:** Clear headshot (head and shoulders). Good lighting (face a window). Smile (look approachable). Simple background (a blank wall).</li>
+                <li>**DON'T:** A selfie in a car. A picture from a party. A cartoon avatar. A logo. A photo where you're wearing sunglasses.</li>
+            </ul>
             
-            <h4>2. The "Sniper" Headline</h4>
-            <p>This is the most important sentence on your profile. It's what clients see in the search results. It must state <strong>WHAT you do, FOR WHOM, and WHY you're special.</strong></p>
+            <h3>3.2 The "Sniper" Headline: The 10-Word Pitch</h3>
+            <p>This is the most important sentence on your profile. It's what clients see in the search results. It must state **WHAT you do, FOR WHOM, and WHY you're special.**</p>
             
             <blockquote>
-                <strong>Weak Headlines:</strong>
+                **Weak Headlines:**
                 <ul>
                     <li>"Freelancer"</li>
                     <li>"Hard-working Virtual Assistant"</li>
                     <li>"Translator and Writer"</li>
                 </ul>
-                <strong>"Client-Magnet" Headlines:</strong>
+                **"Client-Magnet" Headlines:**
                 <ul>
-                    <li><strong>My Headline:</strong> "Trilingual Medical Translator (HE/EN/ES) | Medical Student"
-                        <br><em>(What: Trilingual Translator. For Whom: Medical. Why: I'm a Med Student)</em>
+                    <li>**My Headline:** "Trilingual Medical Translator (HE/EN/ES) | Medical Student"
+                        <br>_**(What: Trilingual Translator. For Whom: Medical. Why: I'm a Med Student)**_
                     </li>
                     <li>"SEO Blog Writer for B2B Tech Startups | Content Marketer"</li>
                     <li>"Video Editor for YouTube Creators (CapCut & Adobe)"</li>
                 </ul>
             </blockquote>
             
-            <h4>3. The Summary: The AIDA Formula</h4>
-            <p>Don't write a biography. Write a sales page. The first two lines are *critical* as they are the "preview" text. Use the AIDA formula:</p>
+            <h4>The Headline Test:</h4>
+            <p>Could someone else use this headline? If yes, it's too generic. My headline is hard to copy because few people are both a Med Student *and* fluent in Hebrew/English/Spanish. Find your combination!</p>
+            
+            <h3>3.3 The Summary: The AIDA Formula</h3>
+            <p>Don't write a biography. Write a sales page. The first two lines are *critical* as they are the "preview" text. Use the **AIDA (Attention, Interest, Desire, Action)** formula:</p>
             
             <ol>
-                <li><strong>ATTENTION:</strong> Hook them with *their* problem and *your* solution. Start with your "Sniper" headline, but in sentence form.
-                    <br><em>(Weak: "Hi, I'm Danilo and I'm a student...")</em>
-                    <br><em>(Strong: "Looking for 100% accurate medical translations? As a Top-Rated Medical Student and translator, I bridge the gap between medical precision and linguistic fluency.")</em>
+                <li>**ATTENTION (The Hook):** Hook them with *their* problem and *your* solution. Start with your "Sniper" headline, but in sentence form.
+                    <br>_(Strong: "Looking for 100% accurate medical translations? As a Top-Rated Medical Student and translator, I bridge the gap between medical precision and linguistic fluency.")_
                 </li>
-                <li><strong>INTEREST:</strong> Explain *how* you solve their problem. What's your process? What are your key strengths?
-                    <br><em>(e.g., "I leverage my deep knowledge of clinical terminology... My specialties include: [Bullet List: Informed Consents, Patient Reports, Academic Papers]")</em>
+                <li>**INTEREST (The Proof):** Explain *how* you solve their problem. What's your process? What are your key strengths?
+                    <br>_(e.g., "I leverage my deep knowledge of clinical terminology to handle complex documents like Informed Consents, Patient Reports, and Academic Papers. My tri-cultural background ensures flawless nuance.")_
                 </li>
-                <li><strong>DESIRE:</strong> Build trust. Add "social proof."
-                    <br><em>(e.g., "My 100% Job Success Score on Upwork reflects my commitment to deadlines..." or "I am proficient in Subtitle Edit, CapCut, and MS Office.")</em>
+                <li>**DESIRE (The Trust):** Build trust. Add "social proof."
+                    <br>_(e.g., "My 100% Job Success Score on Upwork reflects my commitment to deadlines... I am proficient in Subtitle Edit, CapCut, and MS Office.")_
                 </li>
-                <li><strong>ACTION:</strong> End with a clear, confident call to action (CTA).
-                    <br><em>(e.g., "Click the 'Invite' button and let's discuss how I can bring precision to your next project.")</em>
+                <li>**ACTION (The CTA):** End with a clear, confident call to action (CTA).
+                    <br>_(e.g., "Click the 'Invite' button and let's discuss how I can bring precision to your next project.")_
                 </li>
             </ol>
             
             <div class="secret-tip-box">
                 <h4>💡 Freelancer Secret: Use Your Client's Language</h4>
-                <p>When you write your summary, use the *exact* words clients use in their job postings. I searched Upwork for "medical translator" and saw clients asking for "Informed Consents" and "MedTech Manuals." So, I put those exact phrases in my profile. The Upwork algorithm now sees me as a perfect match for those jobs.</p>
+                <p>When you write your summary, use the *exact* words clients use in their job postings. I searched Upwork for "medical translator" and saw clients asking for "Informed Consents" and "MedTech Manuals." So, I put those exact phrases in my profile. The Upwork algorithm now sees me as a perfect match for those jobs. **Keywords are your currency.**</p>
             </div>
 
-            <h4>4. The Skills Section</h4>
-            <p>Don't just list "Translation." Be specific. Platforms like Upwork use these for search. Max them out.
-            <br>
-            Instead of "Video Editing," use: "Video Editing," "Subtitling," "CapCut," "Adobe Premiere Pro," "Color Grading," "Audio Syncing," "Video Trimming."</p>
+            <h3>3.4 The Maxed-Out Skills Section</h3>
+            <p>Don't just list "Translation." Be specific. Platforms like Upwork use these for search. Max them out. You want to match every possible search term a client might use.</p>
+            
+            <ul>
+                <li>**Instead of "Video Editing," use:** "Video Editing," "Subtitling," "CapCut," "Adobe Premiere Pro," "Color Grading," "Audio Syncing," "Video Trimming."</li>
+                <li>**Instead of "Translation," use:** "Medical Translation," "Hebrew to English Translation," "Spanish Localization," "MTPE (Machine Translation Post-Editing)," "Proofreading," "Clinical Documentation."</li>
+            </ul>
         </div>
 
         <div class="page chapter-page" id="chapter-4">
             <h2 class="chapter-title">Chapter 4: The Art of the Niche: Why Specialists Win</h2>
             
-            <p class="lead-paragraph drop-cap">In Chapter 1, I called being a "generalist" a trap. It's the single biggest mistake beginners make. This chapter is dedicated to fixing it. You must specialize.</p>
+            <p class="lead-paragraph drop-cap">In Chapter 1, I called being a "generalist" a trap. It's the single biggest mistake beginners make. This chapter is dedicated to fixing it. **You must specialize.**</p>
             
-            <h3>The "Generalist" vs. "Specialist" Test</h3>
-            <p>Imagine your kitchen sink is leaking, spraying water all over your floor. Do you search for a "General Handyman who also does painting and gardening" or do you search for an "Emergency Plumber"? You search for the plumber. You'll even pay them more, because you trust they can solve your specific, urgent problem.</p>
+            <h3>4.1 The "Generalist" vs. "Specialist" Test</h3>
+            <p>Imagine your kitchen sink is leaking, spraying water all over your floor. Do you search for a "General Handyman who also does painting and gardening" or do you search for an "Emergency Plumber"? You search for the **plumber**. You'll even pay them more, because you trust they can solve your specific, urgent problem.</p>
             
             <p>It’s the same in freelancing. Clients don't have "general" problems. They have *specific* problems.</p>
             
             <ul>
-                <li><strong>Generalist:</strong> "I translate documents." (So do 100,000 other people.)</li>
-                <li><strong>Specialist:</strong> "I translate clinical trial documentation from Hebrew to English, ensuring 100% terminological accuracy for pharmaceutical companies."</li>
+                <li>**Generalist:** "I translate documents." (So do 100,000 other people. The rate is $0.03/word).</li>
+                <li>**Specialist:** "I translate clinical trial documentation from Hebrew to English, ensuring 100% terminological accuracy for pharmaceutical companies." (The rate is $0.15/word or higher).</li>
             </ul>
             
-            <p>As a specialist, you are no longer a commodity. You are an expert. You can charge more, you face less competition, and clients *seek you out* instead of you having to chase them.</p>
+            <p>As a specialist, you are no longer a commodity. **You are an expert.** You can charge more, you face less competition, and clients *seek you out* instead of you having to chase them. This is the **most effective antidote to low rates and burnout.**</p>
 
-            <h3>How to Find Your Niche (The 3-Circle Method)</h3>
+            <h3>4.2 How to Find Your Niche (The 3-Circle Method)</h3>
             <p>Your niche isn't something you find under a rock. It's something you *create* at the intersection of three things:</p>
             
             <ol>
-                <li><strong>What you're good at (Your Skills):</strong> What can you *do*? (e.g., write, design, code, translate, edit video).</li>
-                <li><strong>What you know about (Your Passion/Knowledge):</strong> What industry or topic do you understand? (e.g., medicine, football, video games, technology, finance).</li>
-                <li><strong>What the market will pay for (The Demand):</strong> Is there a group of people who have money and a problem you can solve?</li>
+                <li>**What you're good at (Your Skills):** What can you *do*? (e.g., write, design, code, translate, edit video).</li>
+                <li>**What you know about (Your Passion/Knowledge):** What industry or topic do you understand? (e.g., medicine, football, video games, technology, finance).</li>
+                <li>**What the market will pay for (The Demand):** Is there a group of people who have money and a problem you can solve?</li>
             </ol>
             
             <blockquote>
-                <strong>My Niche: A Case Study</strong><br>
+                **My Niche: A Case Study**<br>
                 <ul>
-                    <li><strong>Skill:</strong> I am fluent in Hebrew, English, and Spanish. (Translation)</li>
-                    <li><strong>Knowledge:</strong> I am a medical student, so I understand complex anatomy, physiology, and clinical terminology. (Medicine)</li>
-                    <li><strong>Demand:</strong> HealthTech companies, pharmaceutical labs, and academic researchers *constantly* need accurate medical documents translated. (Market)</li>
+                    <li>**Skill:** I am fluent in Hebrew, English, and Spanish. (Translation)</li>
+                    <li>**Knowledge:** I am a medical student, so I understand complex anatomy, physiology, and clinical terminology. (Medicine)</li>
+                    <li>**Demand:** HealthTech companies, pharmaceutical labs, and academic researchers *constantly* need accurate medical documents translated. (Market)</li>
                 </ul>
-                <strong>Result = My Niche:</strong> Trilingual Medical Translator.
+                **Result = My Niche:** Trilingual Medical Translator.
             </blockquote>
             
             <div class="callout-box">
-                <h4>Case Study 2: Finding Your Niche</h4>
-                <p><strong>You are:</strong> A marketing student.</p>
-                <p><strong>You love:</strong> Playing competitive video games (e.g., League of Legends, VALORANT).</p>
-                <p><strong>The Market:</strong> E-sports teams, gaming peripheral companies (keyboards, headsets), and streamers all need marketing help.</p>
-                <p><strong>Your Niche:</strong> "Social Media Manager for E-sports Teams and Gaming Brands."</p>
-                <p>This is *infinitely* stronger than "Social Media Manager."</p>
+                <h4>Pro Tip: Test Your Rarity</h4>
+                <p>Go to your platform of choice and search for your niche. If 500 people come up, your niche is too broad. If 5 people come up, **that's your gold mine.** My Hebrew/Med combo instantly filters out 99% of the competition.</p>
             </div>
             
-            <h3>The Niche-Within-a-Niche</h3>
+            <h3>4.3 The Niche-Within-a-Niche: Hyper-Specialization</h3>
             <p>Don't be afraid to go *deeper*. "Medical Translator" is a good niche. "Pediatric Cardiology Translator" is a *killer* niche. You become the #1 go-to person for that specific, high-value problem. You can charge double. My CV shows this. I don't just say "Medical Translation." I list "Clinical Documentation, Patient Reports, Informed Consents, MedTech Manuals." I am showing the *depth* of my niche.</p>
+            
+            <h4>Actionable Niche Exploration:</h4>
+            <ul>
+                <li>**If you are a Writer:** Don't write blogs. Write "White Papers on SaaS Security." (High value, niche audience).</li>
+                <li>**If you are a Video Editor:** Don't edit YouTube videos. Edit "E-Learning Modules for Corporate HR Training." (Stable, high-budget corporate clients).</li>
+            </ul>
         </div>
 
         <div class="page chapter-page" id="chapter-5">
@@ -1387,38 +632,39 @@
             
             <p>But you can't even get those without *something*. The answer is <strong>"Spec Work."</strong></p>
             
-            <h3>Create "Spec" (Speculative) Work</h3>
-            <p>This is the best way. Don't wait for permission. Create the work you *want* to be hired for.</p>
+            <h3>5.1 Create "Spec" (Speculative) Work: The Portfolio Hack</h3>
+            <p>This is the best way. Don't wait for permission. Create the work you *want* to be hired for. **Clients do not care if you were paid for it; they only care if it solves their problem.**</p>
             
             <div class="callout-box">
-                <h4>Spec Work Ideas for Any Niche:</h4>
+                <h4>Spec Work Ideas Focused on Impact:</h4>
                 <ul>
-                    <li><strong>Translator:</strong> Find a 1-page article in your niche (e.g., a medical abstract). Translate it. Create a clean PDF with the original text on the left and your translation on the right. Title it "Sample Medical Abstract Translation (EN-HE)."</li>
-                    <li><strong>Video Editor:</strong> Download "royalty-free raw footage" (search that on <a href="https://www.pexels.com/videos/">Pexels Videos</a>). Edit it into a compelling 30-second ad for a fake product. Add music, text, and color grading.</li>
-                    <li><strong>Copywriter:</strong> Pick a brand you love with a "boring" website. Re-write their "Home" or "About" page. Create a PDF showing the "Before" (a screenshot) and "After" (your new text).</li>
-                    <li><strong>Designer:</strong> Redesign the logo for a local business you know. Create a 1-page "case study" explaining *why* your new design is better.</li>
+                    <li>**Translator (Niche: Medical):** Find a 1-page abstract from a public medical journal about a specific disease (e.g., Immunology). Translate it (EN -> ES). Create a clean PDF with the original text on the left and your translation on the right. **Crucial:** Add a tiny footnote explaining one specific terminological choice you made (e.g., why you used 'Células T Auxiliares' instead of a literal translation). This demonstrates expertise.</li>
+                    <li>**Video Editor (Niche: E-Learning):** Download "raw footage" and edit it into a 30-second "Explainer Video." Add animated text and clear voiceover cuts. Title it "E-Learning Module Sample."</li>
+                    <li>**Copywriter (Niche: FinTech):** Pick a boring financial app. Re-write their "Sign-Up" page copy, focusing on clarity and trust. Create a PDF showing the "Before" (a screenshot) and "After" (your new text).</li>
                 </ul>
             </div>
             
-            <p>This shows <strong>initiative</strong> and <strong>skill</strong>, which is all a client really cares about. You only need 3-5 of these to look like a pro.</p>
+            <p>This shows <strong>initiative</strong> and <strong>skill</strong>, which is all a client really cares about. You only need 3-5 of these to look like a pro. They should all be focused on your chosen niche (Chapter 4).</p>
             
-            <h3>How to Present Your Portfolio</h3>
-            <p>Don't just upload a random .zip file. Presentation matters.</p>
+            <h3>5.2 How to Present Your Portfolio: Case Studies, Not Just Clips</h3>
+            <p>Don't just upload a random .zip file. Presentation matters. A "no-brainer" portfolio piece turns a simple piece of work into a **problem/solution case study**.</p>
             
             <ol>
-                <li><strong>Use Upwork's Portfolio Feature:</strong> It's built-in. Upload a clean thumbnail (you can make one on <a href="https://www.canva.com">Canva</a> in 5 minutes). Write a short 2-sentence description for the project.</li>
-                <li><strong>Create a PDF Case Study:</strong> For each project, make a simple 1-2 page PDF.
+                <li>**Use Upwork's Portfolio Feature:** Upload a clean thumbnail (you can make one on <a href="https://www.canva.com">Canva</a>).</li>
+                <li>**Create a PDF Case Study for EVERY piece:** This PDF is the key.
                     <ul>
-                        <li><strong>Page 1:</strong> The "Final Product."</li>
-                        <li><strong>Page 2:</strong> The "Challenge" (e.g., "The client needed a fast, accurate translation of a patient report") and the "Solution" (e.g., "I used my medical knowledge to...").</li>
+                        <li>**Title Page:** Project Title and your name.</li>
+                        <li>**Page 1 (The Challenge):** "The client was struggling with low patient signup for X trial due to confusing language in the Hebrew consent form." (Frame the client's problem).</li>
+                        <li>**Page 2 (The Solution):** "I localized the Hebrew text to ensure cultural relevance in the Israeli market and simplified complex terminology, resulting in a 20% clearer document." (Show your impact).</li>
+                        <li>**Page 3 (The Work):** The actual translated document/edited video link.</li>
                     </ul>
                 </li>
-                <li><strong>Your Personal Website:</strong> My GitHub page (danilohurwitz.github.io/main/) acts as my central hub. It links to my other profiles and establishes my brand. You can make a free site on <a href="https://pages.github.com/">GitHub Pages</a>, <a href="https://carrd.co/">Carrd</a>, or <a href="https://www.notion.so">Notion</a>.</li>
+                <li>**Your Personal Website:** My GitHub page (danilohurwitz.github.io/main/) acts as my central hub. It links to my other profiles and establishes my brand. **Link everything.**</li>
             </ol>
 
             <div class="secret-tip-box">
                 <h4>💡 Freelancer Secret: The "Video Thumbnail"</h4>
-                <p>For my video editing projects, I don't just upload the video. I upload a custom-made thumbnail (a still from the video with a "play" button icon on it). This looks 100x more professional in my portfolio gallery than a random black frame and makes clients *want* to click it.</p>
+                <p>For my video editing projects, I don't just upload the video. I upload a custom-made thumbnail (a still from the video with a "play" button icon on it). This looks 100x more professional in my portfolio gallery than a random black frame and makes clients *want* to click it. It shows attention to detail.</p>
             </div>
         </div>
 
@@ -1427,67 +673,61 @@
             
             <p class="lead-paragraph drop-cap">This is the skill that prints money. You can be the best translator in the world, but if you can't write a good proposal, you will not get work. The "Shotgun" approach (copy-pasting the same generic proposal 50 times) is a waste of time and money.</p>
             
-            <p>You must use the "Sniper" approach. You will write <strong>fewer proposals</strong>, but each one will be <strong>highly customized</strong>. This is how you win jobs, even against people with lower rates.</p>
+            <p>You must use the **"Sniper" approach**. You will write **fewer proposals**, but each one will be **highly customized**. This is how you win jobs, even against people with lower rates.</p>
             
-            <h4>The Anatomy of a TERRIBLE (but common) Proposal:</h4>
-            <blockquote>
-                "Dear Sir/Madam,<br>
-                I am a professional translator with 5 years of experience. I can translate your document perfectly. I am a hard worker and deliver on time. My rate is $20. Please hire me. I can start now. Thank you."
-            </blockquote>
+            <h3>6.1 Proposal Autopsy: Why Most Proposals Fail</h3>
+            <p>Most freelancers write a proposal that is 70% about *them*. The client is getting 50 proposals. They are looking for one thing: **Proof that you read the job post and that you understand their specific pain point.**</p>
             
             <div class="warning-box">
                 <h4>⚠️ Proposal Autopsy: Why This Fails</h4>
                 <ul>
-                    <li><strong>"Dear Sir/Madam":</strong> Lazy. You didn't even try to find their name.</li>
-                    <li><strong>"I am a professional...":</strong> All about "I". The client doesn't care.</li>
-                    <li><strong>"I can translate... perfectly":</strong> Empty claim with no proof.</li>
-                    <li><strong>"Please hire me":</strong> Desperate.</li>
-                    <li><strong>Result:</strong> Deleted.</li>
+                    <li>**"Dear Sir/Madam":** Lazy. You didn't even try to find their name.</li>
+                    <li>**"I am a professional...":** All about "I". The client doesn't care.</li>
+                    <li>**"I can translate... perfectly":** Empty claim with no proof.</li>
+                    <li>**"Please hire me":** Desperate.</li>
+                    <li>**Result:** Deleted.</li>
                 </ul>
             </div>
 
-            <h4>The Anatomy of a WINNING (Sniper) Proposal:</h4>
-            <p>Let's imagine the client posted this job: <em>"Need urgent translation of a 10-page patient-informed consent form from Hebrew to English. Must be 100% accurate."</em></p>
+            <h3>6.2 The Anatomy of a WINNING (Sniper) Proposal</h3>
+            <p>Your proposal should follow a strict structure designed to keep the client reading and immediately establish authority. Let's imagine the client posted this job: _"Need urgent translation of a 10-page patient-informed consent form from Hebrew to English. Must be 100% accurate."_</p>
             
-            <blockquote>
-                "Hello [Client Name, if you can find it],
-                <br><br>
-                I see you need a critical <strong>informed consent form</strong> translated from Hebrew to English, and accuracy is your top priority. This is exactly what I specialize in.
-                <br><br>
-                As a current <strong>medical student</strong> and Top-Rated medical translator, I have extensive experience with this exact type of clinical documentation. I not only understand the linguistic nuances between Hebrew and English but also the underlying medical terminology, ensuring that concepts like 'adverse effects' and 'protocol' are translated with perfect precision.
-                <br><br>
-                I have attached a similar (non-confidential) medical translation sample to my portfolio so you can see the quality of my work.
-                <br><br>
-                I can complete this 10-page document for you within 48 hours. I have a few quick questions about the preferred formatting. When would be a good time for a brief 5-minute chat?"
-            </blockquote>
-
-            <p><strong>Why this works:</strong></p>
-            <ul>
-                <li><strong>It hooks them in the first two lines.</strong> This is crucial. It repeats *their* words back to them, proving you read the post.</li>
-                <li><strong>It's a "Why Me."</strong> It *immediately* connects your unique skills (med student) to *their specific problem*.</li>
-                <li><strong>It provides proof.</strong> It mentions your Top-Rated status and a relevant portfolio piece.</li>
-                <li><strong>It's a call to action.</strong> It ends with a confident question to start a conversation, not just "Please hire me."</li>
-            </ul>
+            <ol>
+                <li>**The Hook (1-2 Lines):** Acknowledge their specific pain point. Use their keywords.
+                    <br>_**(Example):** "I see you need a critical **informed consent form** translated from Hebrew to English, and **accuracy is your top priority**. This is exactly what I specialize in."_</li>
+                <li>**The Proof (1 Paragraph):** Connect your unique background directly to their need.
+                    <br>_**(Example):** "As a current **medical student** and Top-Rated medical translator, I have extensive experience with this exact type of clinical documentation. I not only understand the linguistic nuances between Hebrew and English but also the underlying medical terminology, ensuring that concepts like 'adverse effects' and 'protocol' are translated with perfect precision."_</li>
+                <li>**Social Proof (1 Line):** Reference your portfolio and badges.
+                    <br>_**(Example):** "I have attached a similar (non-confidential) medical translation sample to my portfolio so you can see the quality of my work."_</li>
+                <li>**The CTA (1-2 Lines):** Confident call to action with a specific time/deadline.
+                    <br>_**(Example):** "I can complete this 10-page document for you within 48 hours. I have a few quick questions about the preferred formatting. When would be a good time for a brief 5-minute chat?"_</li>
+            </ol>
             
             <div class="secret-tip-box">
                 <h4>💡 Secret Weapon: The 60-Second Video</h4>
                 <p>Want to stand out from 50+ proposals? Record a 60-second video of yourself using a tool like <a href="https://www.loom.com">Loom</a>.
                 <br>
-                <em>"Hi [Client Name]! I'm Danilo. I just read your job post. I'm a medical student, and I specialize in exactly this. I see you need [X], I can solve it by doing [Y]. I've attached my portfolio and I'm free for a chat."</em>
+                _**The Script:** "Hi [Client Name]! I'm Danilo. I just read your job post. I'm a medical student, and I specialize in exactly this. I see you need [X], I can solve it by doing [Y]. I've attached my portfolio and I'm free for a chat."_
                 <br>
-                This builds *instant* human connection and trust. Almost no one does this. It's how you win.</p>
+                This builds *instant* human connection and trust. Almost no one does this. **It's how you win.**</p>
             </div>
+            
+            <h3>6.3 The $20 Test: Filtering Scams and Time Wasters</h3>
+            <p>Never apply for a job that has a suspiciously low fixed price (e.g., $5). You must respect your time. When I apply, I filter jobs by: (1) **Client Payment Verified**, (2) **Client has spent $500+**, and (3) **Job is less than 24 hours old** (to beat the competition).</p>
         </div>
 
         <div class="page chapter-page" id="chapter-7">
             <h2 class="chapter-title">Chapter 7: Client Communication & Relationship Mastery</h2>
             
-            <p class="lead-paragraph drop-cap">Winning the job is the first step. Keeping the client and getting a 5-star review is how you build a career. My "100% Job Success Score" isn't just from good translations; it's from professional, proactive communication.</p>
+            <p class="lead-paragraph drop-cap">Winning the job is the first step. Keeping the client and getting a 5-star review is how you build a career. My "100% Job Success Score" isn't just from good translations; it's from **professional, proactive communication.**</p>
             
-            <h3>The Client Onboarding Email</h3>
-            <p>As soon as you win a job, send a "kick-off" message. This shows professionalism and sets expectations.</p>
+            <h3>7.1 Setting Expectations: The Onboarding & Mid-Point Check-in</h3>
+            <p>You must set clear boundaries and expectations from the very first moment. This prevents headaches later on.</p>
+            
+            <h4>1. The Client Onboarding Email</h4>
+            <p>As soon as you win a job, send a "kick-off" message. This shows professionalism and sets expectations for what they will receive and when.</p>
             <pre>
-Subject: Starting Our Project: [Project Name]
+Subject: Project Kick-Off: [Project Name] - Confirmation
 
 Hi [Client Name],
 
@@ -1505,39 +745,31 @@ Thanks,
 Danilo
             </pre>
             
-            <h3>Handling Revisions (The 2-Revision Rule)</h3>
+            <h4>2. The Mid-Point Check-in (The "Peace of Mind" Email)</h4>
+            <p>If a project is longer than three days, send a simple update email. It takes 30 seconds and prevents the client from worrying.</p>
+            <p>_**Mid-Point Check-in Script:** "Hi [Client], I'm currently 60% of the way through the translation and everything is on track for our [Date] deadline. No issues so far! Just wanted to keep you updated. Best, Danilo."_</p>
+
+            <h3>7.2 Handling Revisions and Scope Creep</h3>
             <p>A client will ask for changes. This is normal. But you must control it, or you'll be doing free work forever ("scope creep").</p>
-            <p>In your proposal or kick-off message, state your policy: "My fee includes up to two rounds of reasonable revisions." This sets a boundary. When a client asks for a *third* round, you can say:</p>
+            
+            <p>In your proposal or kick-off message, state your policy: **"My fee includes up to two rounds of reasonable revisions."** This sets a boundary. When a client asks for a *third* round, you can say:</p>
             
             <p>"Happy to do that! Since this is the third round of revisions, it falls outside our original scope. I can complete these additional changes for a small fee of [Amount]. Please let me know if you'd like me to send over the new quote for that."</p>
             
-            <h3>How to Handle Difficult Clients</h3>
+            <h3>7.3 How to Handle Difficult Clients</h3>
             <ul>
-                <li><strong>The Ghost:</strong> Disappears for weeks. Be proactive. "Hi [Client], just checking in on the draft I sent last Tuesday. I'll need your feedback by this Friday to stay on our original deadline."</li>
-                <li><strong>The Vague Feedback:</strong> "I just don't like it." Be a detective. "I'm 100% committed to getting this perfect for you. Can you help me understand which specific parts aren't working? Is it the tone, the terminology, or the flow?"</li>
-                <li><strong>The Scope Creeper:</strong> "Can you also just translate this other file real quick?" Be polite but firm. "Absolutely! I'd be happy to translate that additional file. I'll send over a new, separate quote for that task. Shall I do that now?"</li>
+                <li>**The Ghost:** Disappears for weeks. Be proactive. "Hi [Client], just checking in on the draft I sent last Tuesday. I'll need your feedback by this Friday to stay on our original deadline."</li>
+                <li>**The Vague Feedback:** "I just don't like it." Be a detective. "I'm 100% committed to getting this perfect for you. Can you help me understand which specific parts aren't working? Is it the tone, the terminology, or the flow?"</li>
+                <li>**The Scope Creeper:** "Can you also just translate this other file real quick?" Be polite but firm. "Absolutely! I'd be happy to translate that additional file. I'll send over a new, separate quote for that task. Shall I do that now?"</li>
             </ul>
             
             <div class="secret-tip-box">
                 <h4>💡 Secret Weapon: The "5-Star" Delivery Message</h4>
                 <p>When you deliver the final work, don't just say "Here it is." Sell your 5-star review.
                 <br>
-                <em>"Hi [Client], here is the final, completed translation, delivered 24 hours ahead of schedule.
-                <br><br>
-                I paid special attention to the 'Methodology' section as you requested. The file has been fully proofread and is ready for use.
-                <br><br>
-                It was a pleasure working with you. If you're 100% satisfied, Upwork will ask you to leave feedback, which is the lifeblood of my business.
-                <br><br>
-                Thanks, Danilo"</em>
+                _**Final Delivery Script:** "Hi [Client], here is the final, completed translation, delivered 24 hours ahead of schedule. I paid special attention to the 'Methodology' section as you requested. The file has been fully proofread and is ready for use. It was a pleasure working with you. If you're 100% satisfied, Upwork will ask you to leave feedback, which is the lifeblood of my business. Thanks, Danilo"_
                 </p>
             </div>
-
-            <h3>How to "Fire" a Bad Client</h3>
-            <p>Yes, you can do this. If a client is abusive, disrespectful, or constantly haggling, they are costing you money (by draining your time and energy).
-            <br>
-            "Hi [Client], thank you for the opportunity, but I don't believe I am the right fit for your working style. I wish you the best of luck in finding another freelancer."
-            <br>
-            It's that simple. Protecting your peace is part of the job.</p>
         </div>
         
         <div class="page chapter-page" id="chapter-8">
@@ -1545,103 +777,98 @@ Danilo
             
             <p class="lead-paragraph drop-cap">This is where 99% of beginners get stuck. We are terrified. If we charge too high, no one will hire us. If we charge too low, we'll be stuck working for pennies and feel resentful. Here is my real story. It’s a perfect example of what *not* to do, and then what to do.</p>
             
-            <h3>My Pricing Fiasco: A True Story</h3>
+            <h3>8.1 My Pricing Fiasco: The $45/hr Wall</h3>
             <blockquote>
                 When I first started, I had a rate of about $20/hour. I got a few small jobs. Then I got some good advice: "Charge what you're worth!" So, filled with confidence, I hiked my rate up to **$45/hour**.
                 <br><br>
-                Guess what happened?
-                <br><br>
-                <strong>Crickets.</strong> Nothing. No invites. No hires. I had the skills, but I had no *proof* (reviews, job history) to justify that rate to a stranger. I got frustrated.
+                Guess what happened? **Crickets.** Nothing. No invites. No hires. I had the skills, but I had no *proof* (reviews, job history) to justify that rate to a stranger. I got frustrated.
                 <br><br>
                 I had to be honest. I was an unproven entity. So, I swallowed my pride and set a new, strategic rate: **$25/hour**.
                 <br><br>
-                This was the sweet spot. It was high enough to signal "I am a professional," but low enough to be a compelling, lower-risk choice. The jobs started coming in. I got 5-star reviews. My "Job Success Score" hit 100%. NOW, after building that reputation, I can (and will) raise my rates.
+                This was the **sweet spot**. It was high enough to signal "I am a professional," but low enough to be a compelling, lower-risk choice. The jobs started coming in. I got 5-star reviews. My "Job Success Score" hit 100%. NOW, after building that reputation, I can (and will) raise my rates.
             </blockquote>
             
-            <h3>Pricing Models: Which to Choose?</h3>
+            <h3>8.2 Pricing Models: Which to Choose?</h3>
             <ol>
-                <li><strong>Hourly (e.g., $25/hr):</strong> Best for projects with unclear scope (e.g., "ongoing assistant work"). Use a time tracker like <a href="https://toggl.com/track/">Toggl</a>. Upwork has a built-in tracker that gives you payment protection.</li>
-                <li><strong>Fixed-Price:</strong> Best for projects with a clear deliverable (e.g., "translate this 10-page document"). This is what clients prefer. To calculate it, estimate your hours and multiply by your hourly rate. (e.g., 4 hours x $25/hr = $100 fixed price). *Always* add a 20% buffer. So, charge $120.</li>
-                <li><strong>Value-Based:</strong> (This is advanced). You don't charge for time, you charge for *value*. A 1-page sales letter that makes the client $10,000 is worth more than $25/hr. (e.g., "My fee for this sales letter is $1,000").</li>
+                <li>**Hourly (e.g., $25/hr):** Best for projects with unclear scope (e.g., "ongoing assistant work"). Use a time tracker like <a href="https://toggl.com/track/">Toggl</a>. Upwork has a built-in tracker that gives you payment protection.</li>
+                <li>**Fixed-Price:** Best for projects with a clear deliverable (e.g., "translate this 10-page document"). This is what clients prefer. To calculate it, estimate your hours and multiply by your hourly rate. (e.g., 4 hours x $25/hr = $100 fixed price). **Always add a 20% buffer.** So, charge $120.</li>
+                <li>**Value-Based:** (This is advanced). You don't charge for time, you charge for *value*. A 1-page sales letter that makes the client $10,000 is worth more than $25/hr. (e.g., "My fee for this sales letter is $1,000").</li>
             </ol>
             
             <div class="secret-tip-box">
                 <h4>💡 Secret: The "Why" Script for Your Rate</h4>
                 <p>When a client asks, "Why is your rate $35/hr?" Don't say "Because I'm worth it."
                 <br>
-                Say this: "That's a great question. My $35 rate isn't just for translation. It's for the <strong>peace of mind</strong> that comes from hiring a medical student who understands the terminology *natively*. It includes my 100% Job Success Score guarantee, my proactive communication, and my commitment to your deadline. You're not just buying an hour of time; you're buying a guaranteed, 5-star result."
+                Say this: "That's a great question. My $35 rate isn't just for translation. It's for the **peace of mind** that comes from hiring a medical student who understands the terminology *natively*. It includes my 100% Job Success Score guarantee, my proactive communication, and my commitment to your deadline. You're not just buying an hour of time; you're buying a guaranteed, 5-star result."
                 </p>
             </div>
 
             <div class="warning-box">
                 <h4>⚠️ Warning: NEVER Compete on Price</h4>
-                <p>The moment you try to be the *cheapest* freelancer, you lose. The clients who hire the cheapest are the worst. They are demanding, disrespectful, and will vanish. My $4.50/hr job (Chapter 11) taught me this. It's better to have no job than a job that makes you hate your work.</p>
+                <p>The moment you try to be the *cheapest* freelancer, you lose. The clients who hire the cheapest are the worst. They are demanding, disrespectful, and will vanish. My $4.50/hr job (Chapter 11) taught me this. **It's better to have no job than a job that makes you hate your work.**</p>
             </div>
             
-            <h3>How to Get Paid (And Not Get Scammed)</h3>
+            <h3>8.3 How to Get Paid (And Not Get Scammed)</h3>
             <ul>
-                <li><strong>Use Platform Escrow:</strong> On Upwork, *never* start work until the client has funded the "Escrow" for a fixed-price project. This means they've given the money to Upwork, who holds it until you deliver. This is your 100% protection.</li>
-                <li><strong>Invoicing (Off-Platform):</strong> If you get a client from LinkedIn, use a tool like <a href="https://www.waveapps.com/">Wave</a> (free) or Stripe to send a professional invoice. *Always* ask for 50% upfront. This filters out non-serious clients.</li>
-                <li><strong>Track Everything:</strong> Use a simple Google Sheet to track: Client Name, Project, Invoice #, Amount, Date Sent, Date Paid. This is now your accounting.</li>
+                <li>**Use Platform Escrow:** On Upwork, *never* start work until the client has funded the "Escrow" for a fixed-price project. This is your **100% protection**.</li>
+                <li>**Invoicing (Off-Platform):** If you get a client from <a href="https://www.linkedin.com">LinkedIn</a>, use a tool like <a href="https://www.waveapps.com/">Wave</a> (free) or Stripe to send a professional invoice. **Always ask for 50% upfront.** This filters out non-serious clients.</li>
+                <li>**Track Everything:** Use a simple Google Sheet to track: Client Name, Project, Invoice #, Amount, Date Sent, Date Paid. This is now your accounting.</li>
             </ul>
         </div>
         
         <div class="page chapter-page" id="chapter-9">
             <h2 class="chapter-title">Chapter 9: You Are the CEO: Time & Project Management</h2>
             
-            <p class="lead-paragraph drop-cap">Welcome to the best and worst part of freelancing: <strong>you have no boss.</strong> Nobody is going to tell you when to wake up or what to work on. Without discipline, this freedom is a recipe for disaster (and frustration).</p>
+            <p class="lead-paragraph drop-cap">Welcome to the best and worst part of freelancing: **you have no boss.** Nobody is going to tell you when to wake up or what to work on. Without discipline, this freedom is a recipe for disaster (and frustration). You must become the **CEO of your calendar and your capacity**.</p>
             
-            <p>As a medical student, I *have* to be a master of time management. I have classes, study blocks, and freelance deadlines. The key isn't "working 18-hour days." The key is <strong>ruthless organization.</strong></p>
+            <p>As a medical student, I *have* to be a master of time management. I have classes, study blocks, and freelance deadlines. The key isn't "working 18-hour days." The key is **ruthless organization.**</p>
             
-            <h3>Time Blocking: Your New Boss</h3>
-            <p>Your calendar is your boss. If it's not on the calendar, it doesn't exist.</p>
+            <h3>9.1 Time Blocking: Your New Boss</h3>
+            <p>Your calendar is your boss. If it's not on the calendar, it doesn't exist. This is how you visualize your **true capacity** and prevent over-commitment.</p>
             <ol>
-                <li><strong>Block Your "Non-Negotiables" First:</strong> For me, this is class, study time, sleep, and meals. These go into Google Calendar first. They are rocks.</li>
-                <li><strong>Block Your "Deep Work":</strong> This is for your *client* work. This is a 2-3 hour block where you turn off your phone, close social media, and just *work*. This is your money-making time.</li>
-                <li><strong>Block Your "Admin" Time:</strong> This is a 30-60 minute block each day for answering emails, sending proposals, and tracking invoices. <strong>Do not</strong> let this "admin" work bleed into your entire day.</li>
-                <li><strong>Block Your "You" Time:</strong> Breaks. Exercise. Hobbies. If you don't schedule this, you will burn out.</li>
+                <li>**Block Your "Non-Negotiables" First:** For me, this is class, study time, sleep (8 hours!), and meals. These go into <a href="https://calendar.google.com">Google Calendar</a> first. They are rocks.</li>
+                <li>**Block Your "Deep Work":** This is for your *client* work. This is a **2-3 hour block** where you turn off your phone, close social media, and just *work*. This is your money-making time.</li>
+                <li>**Block Your "Admin" Time:** This is a **30-60 minute block** each day for answering emails, sending proposals, and tracking invoices. **Do not** let this "admin" work bleed into your entire day.</li>
+                <li>**Block Your "You" Time:** Breaks. Exercise. Hobbies. If you don't schedule this, you will burn out.</li>
             </ol>
             
-            <h3>Productivity Techniques That Work</h3>
+            <div class="secret-tip-box">
+                <h4>💡 Secret: The "Freelance Buffer"</h4>
+                <p>When a client asks for a project by Tuesday, tell them Wednesday. When you deliver on Tuesday, you look like a hero. This **buffer time** (I use 30%) is your secret weapon against stress, technical issues, and sudden study demands. Always under-promise and over-deliver.</p>
+            </div>
+            
+            <h3>9.2 Productivity Techniques That Work</h3>
             <ul>
-                <li><strong>Eat the Frog:</strong> Coined by Mark Twain. Your "frog" is your hardest, most important task. Do it *first* thing in the morning. Everything after that feels easy.</li>
-                <li><strong>The Pomodoro Technique:</strong> Work for 25 minutes. Take a 5-minute break. After 4 "Pomodoros," take a longer 30-minute break. This trains your brain to focus in short, intense bursts.</li>
-                <li><strong>The Eisenhower Matrix:</strong> Draw a 4-quadrant box.
-                    <ul>
-                        <li><strong>Urgent & Important:</strong> Do it now. (e.g., Client deadline)</li>
-                        <li><strong>Not Urgent & Important:</strong> Schedule it. (e.g., Work on portfolio)</li>
-                        <li><strong>Urgent & Not Important:</strong> Delegate it. (e.g., Replying to a non-client email)</li>
-                        <li><strong>Not Urgent & Not Important:</strong> Delete it. (e.g., Scrolling social media)</li>
-                    </ul>
-                </li>
+                <li>**Eat the Frog:** Coined by Mark Twain. Your "frog" is your hardest, most important task. Do it *first* thing in the morning. Everything after that feels easy.</li>
+                <li>**The Pomodoro Technique:** Work for 25 minutes. Take a 5-minute break. After 4 "Pomodoros," take a longer 30-minute break. This trains your brain to focus in short, intense bursts.</li>
+                <li>**The Eisenhower Matrix:** Draw a 4-quadrant box to decide what to do now, schedule, delegate (if you're advanced), or delete.</li>
             </ul>
             
-            <h3>My Favorite Project Management Tools</h3>
+            <h3>9.3 My Favorite Project Management Tools</h3>
             <ul>
-                <li><strong><a href="https://www.notion.so">Notion</a> (My Favorite):</strong> I use this for everything. I have a simple Kanban board with columns: "Inbox" (new jobs), "In Progress" (what I'm working on), "In Review" (sent to client), and "Done" (paid).</li>
-                <li><strong><a href="https://www.trello.com">Trello</a>:</strong> A simpler, visual-first Kanban board. Also excellent.</li>
-                <li><strong><a href="https://toggl.com/track/">Toggl Track</a>:</strong> A time-tracking app. This is *critical*. This is how you know if your $100 fixed-price project *actually* made you $5/hr. <strong>Track. Your. Time.</strong></li>
-                <li><strong><a href="https://calendar.google.com">Google Calendar</a>:</strong> For time blocking. Your single source of truth for "when."</li>
+                <li>**<a href="https://www.notion.so">Notion</a> (My Favorite):** I use this for everything. I have a simple Kanban board with columns: "Inbox" (new jobs), "In Progress" (what I'm working on), "In Review" (sent to client), and "Done" (paid). This is your external brain.</li>
+                <li>**<a href="https://www.trello.com">Trello</a>:** A simpler, visual-first Kanban board. Also excellent.</li>
+                <li>**<a href="https://toggl.com/track/">Toggl Track</a>: **A time-tracking app. This is *critical*. This is how you know if your $100 fixed-price project *actually* made you $5/hr. **Track. Your. Time.**</li>
             </ul>
         </div>
         
         <div class="page chapter-page" id="chapter-10">
             <h2 class="chapter-title">Chapter 10: The "Deep Work" Secret: Productivity vs. "Busy"</h2>
             
-            <p class="lead-paragraph drop-cap">There is a difference between being "busy" and being "productive." "Busy" is having 20 tabs open, answering emails as they come in, and scrolling social media. "Productive" is producing high-value work.</p>
+            <p class="lead-paragraph drop-cap">There is a difference between being "busy" and being "productive." "Busy" is having 20 tabs open, answering emails as they come in, and scrolling social media. "Productive" is producing high-value work. You must prioritize the latter.</p>
             
-            <p>Cal Newport coined the term "Deep Work": The ability to focus without distraction on a cognitively demanding task. As a freelancer, your ability to do Deep Work is your *entire* business. A translator doing deep work can translate 1,000 words in an hour. A "busy" translator takes 3 hours because they keep checking their phone.</p>
+            <p>Cal Newport coined the term "Deep Work": **The ability to focus without distraction on a cognitively demanding task.** As a freelancer, your ability to do Deep Work is your *entire* business. A translator doing deep work can translate 1,000 words in an hour. A "busy" translator takes 3 hours because they keep checking their phone. **Time is money, but focus is leverage.**</p>
             
-            <h3>The Cost of Context Switching</h3>
+            <h3>10.1 The Cost of Context Switching</h3>
             <p>Every time you "quickly check" an email or a notification, your brain loses its focus. It can take up to 20 minutes to get back into that same state of deep concentration. If you check your phone 3 times in an hour, you have effectively *zero* productive time.</p>
             
-            <p>Your most valuable asset is a 2-3 hour block of *uninterrupted* time. This is where you produce the 5-star work that gets you hired again.</p>
+            <p>Your most valuable asset is a **2-3 hour block of *uninterrupted* time**. This is where you produce the 5-star work that gets you hired again. You are paid for quality, and quality requires focus.</p>
             
-            <h3>How to Create a "Deep Work" Ritual</h3>
+            <h3>10.2 How to Create a "Deep Work" Ritual</h3>
             <ol>
-                <li><strong>Schedule It:</strong> Put it in your calendar, as we discussed. "2:00pm - 4:00pm: Deep Work (Client X Project)."</li>
-                <li><strong>Set Your "Studio":</strong> Have a dedicated space. When you sit there, you work. Only.</li>
-                <li><strong>Go Dark:</strong> This is the most important part.
+                <li>**Schedule It:** Put it in your calendar, as we discussed. "2:00pm - 4:00pm: Deep Work (Client X Project)."</li>
+                <li>**Set Your "Studio":** Have a dedicated space. When you sit there, you work. Only.</li>
+                <li>**Go Dark (The Disconnect):** This is the most important part.
                     <ul>
                         <li>Turn your phone on "Do Not Disturb" and put it in another room.</li>
                         <li>Close your email tab.</li>
@@ -1649,8 +876,8 @@ Danilo
                         <li>Put on headphones (instrumental music is great for focus).</li>
                     </ul>
                 </li>
-                <li><strong>Set a Timer:</strong> Use the Pomodoro (25 min) or just set a timer for 90 minutes. Do not stop until it goes off.</li>
-                <li><strong>Have a "Shutdown" Ritual:</strong> When your block is done, *stop*. Close your work. Make a quick note of what you need to do tomorrow. This tells your brain the workday is over.</li>
+                <li>**Set a Timer:** Use the Pomodoro (25 min) or just set a timer for 90 minutes. **Do not stop until it goes off.**</li>
+                <li>**Have a "Shutdown" Ritual:** When your block is done, *stop*. Close your work. Make a quick note of what you need to do tomorrow. This tells your brain the workday is over.</li>
             </ol>
             
             <p>This is my secret weapon for balancing med school and freelancing. I don't work 12-hour days. I work 2-3 *incredibly focused* hours. The output is the same, or better. This is how you avoid burnout.</p>
@@ -1668,69 +895,76 @@ Danilo
         <div class="page chapter-page" id="chapter-11">
             <h2 class="chapter-title">Chapter 11: My Favorite Failures & What They Taught Me</h2>
             
-            <p class="lead-paragraph drop-cap">This is the most important chapter in the book. You *will* fail. It is the cost of admission. My "100% Job Success Score" is built on a foundation of mistakes. Here are my "favorite failures."</p>
+            <p class="lead-paragraph drop-cap">This is the most important chapter in the book. You *will* fail. It is the cost of admission. My "100% Job Success Score" is built on a foundation of mistakes. Here are my **four key failures** and the analytical lessons I extracted from each one.</p>
 
-            <h3>Failure #1: The $4.50/Hour "Soul Crusher" Job</h3>
+            <h3>11.1 Failure #1: The $4.50/Hour "Soul Crusher" Job</h3>
             <p>When I was starting, I saw a long-term, hourly job for "Data Processing". The rate was terrible: $4.50/hour. I took it. I was desperate for "Hours Logged" on my profile. I worked **290 hours** at that rate. It was mind-numbing, soul-crushing work. It paid almost nothing, and worse, it took up all my "Deep Work" time, so I couldn't apply for the *good* translation jobs.</p>
-            <p><strong>The Lesson:</strong> Working for almost free is worse than working for free. It traps you. It's better to spend 10 hours creating one *amazing* portfolio piece for free than to spend them working a $4.50/hr job.</p>
+            <p><strong>The Lesson:</strong> Working for almost free is worse than working for free. It traps you. It's better to spend 10 hours creating one *amazing* portfolio piece for free than to spend them working a $4.50/hr job. **Your time is your most valuable asset. Protect it.**</p>
 
-            <h3>Failure #2: The $45/Hour Pricing Fiasco</h3>
-            <p>I told this story in Chapter 8. I overcorrected from the $4.50 job and jacked my rate up to $45/hr with no proof. For weeks, I got **zero** invitations. It was incredibly frustrating.</p>
-            <p><strong>The Lesson:</strong> You can't just *claim* you're an expert; you have to *prove* it. My $25/hr "sweet spot" rate allowed me to *earn* the 5-star reviews that *now* justify a higher rate.</p>
+            <h3>11.2 Failure #2: The $45/Hour Pricing Fiasco</h3>
+            <p>I told this story in Chapter 8. I overcorrected from the $4.50 job and jacked my rate up to $45/hr with no proof. For weeks, I got **zero** invitations. It was incredibly frustrating. I had the *skill* but not the **social proof**.</p>
+            <p><strong>The Lesson:</strong> You can't just *claim* you're an expert; you have to *prove* it. My $25/hr "sweet spot" rate allowed me to *earn* the 5-star reviews that *now* justify a higher rate. **Pricing is a strategy of reputation building, not just economics.**</p>
 
-            <h3>Failure #3: The "No Feedback Given" Ghosts</h3>
-            <p>If you look at my Upwork profile, you'll see several completed jobs that say "No feedback given". This used to *kill* me. I did the work, I delivered it... and then... silence. No 5-star review. This hurts your "Job Success Score" (JSS) calculation.</p>
-            <p><strong>The Lesson:</strong> You must *proactively* manage the end of a contract. Now, I use my "5-Star Delivery Message" (Chapter 7) that politely reminds them that feedback is the lifeblood of my business.</p>
+            <h3>11.3 Failure #3: The "No Feedback Given" Ghosts</h3>
+            <p>If you look at my Upwork profile, you'll see several completed jobs that say "No feedback given". This used to *kill* me. I did the work, I delivered it... and then... silence. No 5-star review. This hurts your "Job Success Score" (JSS) calculation because the platform assumes the silence is negative.</p>
+            <p><strong>The Lesson:</strong> You must *proactively* manage the end of a contract. Now, I use my "5-Star Delivery Message" (Chapter 7) that politely reminds them that feedback is the lifeblood of my business. **You are responsible for closing the loop.**</p>
             
-            <h3>Failure #4: The 3-Star Review (And How to Handle It)</h3>
+            <h3>11.4 Failure #4: The 3-Star Review (And How to Handle It)</h3>
             <p>This one hurt. I did a video editing job, and the client's feedback was vague. They approved the payment but left a 3-star review saying, "Good work, but not really the style I was looking for."</p>
             <p>I was devastated. I wanted to send an angry message. Instead, I waited 24 hours. Then I sent this:</p>
             <p>"Hi [Client], thank you for the feedback. I'm sorry to see I didn't fully hit the mark. My goal is 100% satisfaction. To help me improve, could you let me know what 'style' you were hoping for? I would be happy to do a 15-minute revision *at no extra charge*."</p>
-            <p><strong>The Lesson:</strong> The client was shocked. They declined the revision, but I learned that how you *handle* a bad review is a public testament to your professionalism. A potential client seeing that 3-star review, and then seeing my professional (public) reply to it, is *more* likely to hire me, not less.</p>
+            <p><strong>The Lesson:</strong> The client was shocked. They declined the revision, but I learned that how you *handle* a bad review is a public testament to your professionalism. A potential client seeing that 3-star review, and then seeing my professional (public) reply to it, is *more* likely to hire me, not less. **Turn your failures into proof of your professionalism.**</p>
         </div>
         
         <div class="page chapter-page" id="chapter-12">
             <h2 class="chapter-title">Chapter 12: Scaling: From $25/hr to $100/hr</h2>
             
-            <p class="lead-paragraph drop-cap">Getting your first job is survival. Getting consistent jobs at $25/hr is stability. This chapter is about scaling. This is how you go from "freelancer" to "premium consultant."</p>
+            <p class="lead-paragraph drop-cap">Getting your first job is survival. Getting consistent jobs at $25/hr is stability. This chapter is about **scaling**. This is how you go from "freelancer" to "premium consultant."</p>
             
-            <h3>When to Raise Your Rates (The Checklist)</h3>
-            <p>Remember my $45/hr failure? I failed because I had no credibility. So, how do you get it? Raise your rates when you meet these conditions:</p>
+            <h3>12.1 When to Raise Your Rates (The Checklist)</h3>
+            <p>Raise your rates when you meet these conditions. **Do not apologize for it.**</p>
             
             <ul>
                 <li>[✓] You have 10+ 5-star reviews.</li>
                 <li>[✓] You have a "Top Rated" or "100% Job Success" badge.</li>
                 <li>[✓] You have a portfolio of 5-10 *excellent* work samples.</li>
-                <li>[✓] <strong>Most importantly:</strong> You are getting *too many* job invites. Your "demand" is higher than your "supply" (your time).</li>
+                <li>[✓] **Most importantly:** You are getting *too many* job invites. Your "demand" is higher than your "supply" (your time).</li>
             </ul>
             
             <p>If you checked all four, it's time. Raise your rate by 20-30% (e.g., from $25 to $30 or $35). Don't apologize for it. Your new rate is justified by your *proven track record*. Some clients will say "no." That's good! You are filtering out the lower-paying clients to make room for the premium ones.</p>
             
-            <h3>The Script: Raising Rates on Existing Clients</h3>
-            <p>This is scary, but necessary.
-            <br>
-            "Hi [Client], I'm writing to let you know that as of [Date], my hourly rate for new projects will be increasing from $25 to $35. This new rate reflects my 'Top-Rated' status on the platform and the expertise I've gained.
-            <br><br>
-            Because I value our partnership so much, I'd like to offer to continue our work at the current $25 rate for the next [e.g., 2 months].
-            <br><br>
-            Thank you for your understanding and continued partnership."
-            </p>
+            <h3>12.2 The Script: Raising Rates on Existing Clients</h3>
+            <p>This is scary, but necessary. **Be firm, yet appreciative.**</p>
+            <pre>
+Subject: Important Update Regarding My Service Rate
+
+Hi [Client],
+
+I'm writing to let you know that as of [Date - 30 days out], my hourly rate for new projects will be increasing from $25 to $35. This new rate reflects my 'Top-Rated' status on the platform and the specialized expertise (e.g., medical terminology) I've gained.
+
+Because I value our partnership so much, I'd like to offer to continue our work at the current $25 rate for the next [e.g., 2 months]. This gives us time to budget the change.
+
+Thank you for your understanding and continued partnership.
+
+Best,
+Danilo
+            </pre>
             
-            <h3>The "Value Ladder": Stop Trading Time for Money</h3>
+            <h3>12.3 The "Value Ladder": Stop Trading Time for Money</h3>
             <p>My CV shows I don't just do *one* thing. I started with translation, but I built on it.
             <ul>
-                <li><strong>Freelance Translator & Proofreader</strong></li>
-                <li><strong>Freelance Video Editor & Subtitle Creator</strong></li>
+                <li>**Freelance Translator & Proofreader**</li>
+                <li>**Freelance Video Editor & Subtitle Creator**</li>
             </ul>
             
-            <p>This is smart. Why? Because a client who needs a medical video translated *also* needs it subtitled. And they might *also* need the video edited to sync with the new language. By offering all three, I just turned one small job into one *big* project. I became a one-stop-shop.</p>
+            <p>This is smart. Why? Because a client who needs a medical video translated *also* needs it subtitled. And they might *also* need the video edited to sync with the new language. By offering all three, I just turned one small job into one *big* project. **I became a one-stop-shop.**</p>
             
             <p>Think about your "value ladder":</p>
             <ul>
-                <li><strong>Base Skill:</strong> Writing blog posts ($150)</li>
-                <li><strong>Upsell 1:</strong> SEO Strategy for the post ($100 more)</li>
-                <li><strong>Upsell 2:</strong> "Ghostwriting" an ebook for them ($1500)</li>
-                <li><strong>Upsell 3:</strong> "Medical Copywriting" for their landing page ($500)</li>
+                <li>**Base Skill:** Writing blog posts ($150)</li>
+                <li>**Upsell 1:** SEO Strategy for the post ($100 more)</li>
+                <li>**Upsell 2:** "Ghostwriting" an ebook for them ($1500)</li>
+                <li>**Upsell 3:** "Medical Copywriting" for their landing page ($500)</li>
             </ul>
             
             <p>You can start with one service and then "stack" related skills to dramatically increase your value per client.</p>
@@ -1739,16 +973,16 @@ Danilo
         <div class="page chapter-page" id="chapter-13">
             <h2 class="chapter-title">Chapter 13: Building Your Personal Brand (LinkedIn & Beyond)</h2>
             
-            <p class="lead-paragraph drop-cap">Upwork and Fiverr are great, but you are "renting" space on their platform. They can change the rules tomorrow. You need to build your *own* brand on land you *own*. This means a professional website and a killer <a href="https://www.linkedin.com">LinkedIn</a> profile.</p>
+            <p class="lead-paragraph drop-cap">Upwork and Fiverr are great, but you are "renting" space on their platform. They can change the rules tomorrow. You need to build your *own* brand on land you *own*. This means a professional website and a killer <a href="https://www.linkedin.com">LinkedIn</a> profile. **Your brand is your insurance policy.**</p>
             
-            <h3>LinkedIn: Your "Authority" Platform</h3>
-            <p>My profile (linkedin.com/in/danilo-hurwitz/) has the same professional headline, summary, and experience as my Upwork profile. But here, I don't "bid." I *share*. This is how you *attract* clients.</p>
+            <h3>13.1 LinkedIn: Your "Authority" Platform</h3>
+            <p>My profile (linkedin.com/in/danilo-hurwitz/) has the same professional headline, summary, and experience as my Upwork profile. But here, I don't "bid." I *share*. This is how you *attract* clients and build authority.</p>
             
             <div class="callout-box">
                 <h4>The "Share, Don't Sell" Strategy:</h4>
                 <p>Don't post on LinkedIn saying, "I'm a translator, hire me!" Instead, post this:
                 <br><br>
-                <em>"I just translated a complex clinical study on immunology. I noticed a common mistake many people make when translating 'T-helper cells' from English to Hebrew. Here's a 30-second explanation of the correct terminology and why it matters."</em>
+                _**"I just translated a complex clinical study on immunology. I noticed a common mistake many people make when translating 'T-helper cells' from English to Hebrew. Here's a 30-second explanation of the correct terminology and why it matters."**_
                 <br><br>
                 This post does 10x more for you. It:
                 <ol>
@@ -1763,21 +997,21 @@ Danilo
                 <h4>💡 Secret: My 3-Post LinkedIn Content Plan</h4>
                 <p>You don't need to post every day. Just be consistent.
                 <ul>
-                    <li><strong>Monday (Teach):</strong> A quick tip, like the "T-helper cell" example. Shows expertise.</li>
-                    <li><strong>Wednesday (Show):</strong> A "case study." (e.g., "Just finished a video editing project for a client. Here's the 15-second 'before' and 'after.'") Shows proof.</li>
-                    <li><strong>Friday (Story):</strong> A personal story. (e.g., "Here's how juggling med school and freelancing taught me time management.") Builds connection.</li>
+                    <li>**Monday (Teach):** A quick tip, like the "T-helper cell" example. Shows expertise.</li>
+                    <li>**Wednesday (Show):** A "case study." (e.g., "Just finished a video editing project for a client. Here's the 15-second 'before' and 'after.'") Shows proof.</li>
+                    <li>**Friday (Story):** A personal story. (e.g., "Here's how juggling med school and freelancing taught me time management.") Builds connection.</li>
                 </ul>
                 </p>
             </div>
 
-            <h3>Your Personal Website: The Central Hub</h3>
-            <p>It doesn't need to be fancy. My website (danilohurwitz.github.io/main/) is a simple, one-page site. It acts as my digital business card. It links to my LinkedIn and Upwork profiles, showcases my services, and has my blog. It's a central hub that I control.</p>
+            <h3>13.2 Your Personal Website: The Central Hub</h3>
+            <p>It doesn't need to be fancy. My website (danilohurwitz.github.io/main/) is a simple, one-page site. It acts as my digital business card. It links to my LinkedIn and Upwork profiles, showcases my services, and has my blog. **It's a central hub that I control.**</p>
             
             <p>You can make a free site on:
             <ul>
-                <li><strong><a href="https://pages.github.com/">GitHub Pages</a>:</strong> (What I use). Free, professional, a bit technical.</li>
-                <li><strong><a href="https://carrd.co/">Carrd</a>:</strong> Beautiful, simple, one-page sites. Free or very cheap.</li>
-                <li><strong><a href="https://www.notion.so">Notion</a>:</strong> You can turn a Notion page into a public website in one click.</li>
+                <li>**<a href="https://pages.github.com/">GitHub Pages</a>:** (What I use). Free, professional, a bit technical.</li>
+                <li>**<a href="https://carrd.co/">Carrd</a>:** Beautiful, simple, one-page sites. Free or very cheap.</li>
+                <li>**<a href="https://www.notion.so">Notion</a>:** You can turn a Notion page into a public website in one click.</li>
             </ul>
             <p>This site makes you "google-able" and proves you are a serious professional.</p>
         </div>
@@ -1785,11 +1019,11 @@ Danilo
         <div class="page chapter-page" id="chapter-14">
             <h2 class="chapter-title">Chapter 14: The "Active vs. Passive" Income Model</h2>
             
-            <p class="lead-paragraph drop-cap">My $25/hr rate is <strong>Active Income</strong>. I trade my time for money. If I don't work, I don't get paid. This is a great way to make a living, but it has a hard ceiling. There are only 24 hours in a day.</p>
+            <p class="lead-paragraph drop-cap">My $25/hr rate is **Active Income**. I trade my time for money. If I don't work, I don't get paid. This is a great way to make a living, but it has a hard ceiling. There are only 24 hours in a day. **To break that ceiling, you need passive income.**</p>
             
-            <p>The second type is <strong>Passive(ish) Income</strong>. This is where you create something *once* and sell it *many times*. You do the work upfront, and it continues to earn money for you while you sleep or study. (I say "passive-ish" because it still requires some marketing).</p>
+            <p>The second type is **Passive(ish) Income**. This is where you create something *once* and sell it *many times*. You do the work upfront, and it continues to earn money for you while you sleep or study. (I say "passive-ish" because it still requires some marketing).</p>
             
-            <h3>Step 1: Productizing Your Service (The Bridge)</h3>
+            <h3>14.1 Step 1: Productizing Your Service (The Bridge)</h3>
             <p>This is the bridge. You take your service (custom) and turn it into a product (standardized). Fiverr is built on this, but Upwork has it too, called "Project Catalog."</p>
             
             <p>I did this on my profile. Instead of just "I am a video editor," I created *products*:
@@ -1801,31 +1035,24 @@ Danilo
             
             <p>This is *brilliant* for beginners. It's clear. The client knows exactly what they get, for how much, and when. It feels safer for them.</p>
 
-            <h3>Step 2: Creating Mini-Products (True Passive Income)</h3>
+            <h3>14.2 Step 2: Creating Mini-Products (True Passive Income)</h3>
             <p>These take time to build, but you can list them on sites like <a href="https://gumroad.com/">Gumroad</a>, Etsy, or your own website.</p>
             
             <p>Based on my profile, here are things I could create:</p>
             <ul>
-                <li><strong>An Ebook:</strong> "The Medical Student's Guide to Medical Terminology for Translators."</li>
-                <li><strong>A Template Pack:</strong> "10 Professional Subtitle Edit (.srt) Presets for Medical Lectures."</li>
-                <li><strong>A Checklist:</strong> "The Ultimate QA Checklist for Hebrew-to-English Translation."</li>
+                <li>**An Ebook:** "The Medical Student's Guide to Medical Terminology for Translators." (Your unique knowledge packaged).</li>
+                <li>**A Template Pack:** "10 Professional Subtitle Edit (.srt) Presets for Medical Lectures." (You already own the knowledge of how to format these).</li>
+                <li>**A Checklist:** "The Ultimate QA Checklist for Hebrew-to-English Translation."</li>
             </ul>
             
-            <p><strong>Ideas for you:</strong></p>
-            <ul>
-                <li><strong>Designer:</strong> A pack of 10 <a href="https://www.canva.com">Canva</a> templates for Instagram stories.</li>
-                <li><strong>Developer:</strong> A simple WordPress plugin.</li>
-                <li><strong>Writer:</strong> A "100 Blog Post Ideas for [Your Niche]" info product.</li>
-            </ul>
+            <p>Don't overthink it. You can create your first mini-product in a single weekend. My "Translation" project starts at $30. If you sell a $15 template pack, you only need to sell two to equal that. **But you can sell that $15 pack *1,000 times*.**</p>
             
-            <h3>Step 3: Marketing Your Product</h3>
+            <h3>14.3 Step 3: Marketing Your Product</h3>
             <p>Creating the product is 20% of the work. 80% is marketing.</p>
             <ul>
-                <li><strong>Lead Magnet:</strong> On your website, offer a *free* 1-page checklist in exchange for an email. Now you have an email list to sell your *paid* ebook to.</li>
-                <li><strong>Share on LinkedIn:</strong> Post a useful tip *from* your ebook. At the end, "If you found this helpful, you can get 50 more tips in my full guide [link]."</li>
+                <li>**Lead Magnet:** On your website, offer a *free* 1-page checklist in exchange for an email. Now you have an email list to sell your *paid* ebook to.</li>
+                <li>**Share on LinkedIn:** Post a useful tip *from* your ebook. At the end, "If you found this helpful, you can get 50 more tips in my full guide [link]."</li>
             </ul>
-
-            <p>Don't overthink it. You can create your first mini-product in a single weekend. My "Translation" project starts at $30. If you sell a $15 template pack, you only need to sell two to equal that. But you can sell that $15 pack *1,000 times*.</p>
         </div>
         
         <div class="page chapter-page" id="chapter-15">
@@ -1833,39 +1060,32 @@ Danilo
             
             <p class="lead-paragraph drop-cap">This is the "boring" chapter that will save you thousands of dollars and countless headaches. As a business owner, you need to protect yourself.</p>
             
-            <p><em>Disclaimer: I am a medical student, not a lawyer or accountant. This is not financial advice, but a starting point for your *own* research.</em></p>
+            <p>_Disclaimer: I am a medical student, not a lawyer or accountant. This is not financial advice, but a starting point for your *own* research._</p>
             
-            <h3>1. Get a Simple Contract</h3>
-            <p>When you work on platforms like Upwork, their Terms of Service *are* your contract. This is a huge benefit. But when you get a client from LinkedIn, you *must* have your own. Don't work on a handshake.</p>
+            <h3>15.1 1. Get a Simple Contract (Off-Platform Protection)</h3>
+            <p>When you work on platforms like <a href="https://www.upwork.com">Upwork</a>, their Terms of Service *are* your contract. This is a huge benefit. But when you get a client from <a href="https://www.linkedin.com">LinkedIn</a>, you *must* have your own. Don't work on a handshake.</p>
             <p>You can find many free "freelance contract templates" online. Your contract should include:</p>
             <ul>
-                <li><strong>The Parties:</strong> Your name and the client's name.</li>
-                <li><strong>The Scope of Work:</strong> Be *hyper-specific*. (e.g., "Translate one (1) 10-page document...").</li>
-                <li><strong>The Deliverables:</strong> (e.g., "One (1) .pdf file and one (1) .docx file").</li>
-                <li><strong>The Timeline:</strong> "Draft due by [Date]. Final delivery by [Date]."</li>
-                <li><strong>The Payment Terms:</strong> "50% upfront ($500), and 50% on completion ($500)."</li>
-                <li><strong>Revisions:</strong> "This fee includes two (2) rounds of reasonable revisions."</li>
-                <li><strong>Termination Clause:</strong> "Either party can terminate with 7 days' notice."</li>
+                <li>**The Scope of Work:** Be *hyper-specific*. (e.g., "Translate one (1) 10-page document...").</li>
+                <li>**The Payment Terms:** "50% upfront ($500), and 50% on completion ($500)."</li>
+                <li>**Revisions:** "This fee includes two (2) rounds of reasonable revisions."</li>
             </ul>
             
             <div class="warning-box">
                 <h4>⚠️ Warning: The 50% Upfront Rule</h4>
-                <p>For *any* client you get off-platform (like LinkedIn), *always* get 50% of the payment upfront before you write a single word. This is non-negotiable. It protects you from clients who disappear. If a client refuses, it's a giant red flag. Walk away.</p>
+                <p>For *any* client you get off-platform (like LinkedIn), *always* get **50% of the payment upfront** before you write a single word. This is non-negotiable. It protects you from clients who disappear. If a client refuses, it's a giant red flag. Walk away.</p>
             </div>
 
-            <h3>2. Separate Your Money</h3>
-            <p>As soon as you make your first $100, go to your bank and open a *separate* checking account for your business. This is the #1 rule of small business finance.
+            <h3>15.2 2. Separate Your Money (Accounting Basics)</h3>
+            <p>As soon as you make your first $100, go to your bank and open a *separate* checking account for your business. This is the **#1 rule of small business finance.**
             <br>
             All client payments go *in*. All business expenses (like software) come *out*.
             <br>
             This makes tax time a 1-hour job, not a 1-week nightmare.</p>
             
-            <h3>3. The "30% Rule" for Taxes</h3>
-            <p>When you get a paycheck, taxes are taken out for you. When you get a freelance payment, *no taxes are taken out*. You are responsible for paying them yourself.
-            <br><br>
-            <strong>The simplest rule:</strong> Every time you get paid, immediately transfer <strong>30%</strong> of that payment into a separate savings account labeled "TAXES." Do not touch it.
-            <br>
-            You may not owe that much, but it is *infinitely* better to have too much saved than to get a giant, unexpected tax bill you can't pay.</p>
+            <h3>15.3 3. The "30% Rule" for Taxes</h3>
+            <p>When you get a paycheck, taxes are taken out for you. When you get a freelance payment, *no taxes are taken out*. You are responsible for paying them yourself. **Don't touch the money.**</p>
+            <p><strong>The simplest rule:</strong> Every time you get paid, immediately transfer **30%** of that payment into a separate savings account labeled "TAXES." Do not touch it. You may not owe that much, but it is *infinitely* better to have too much saved than to get a giant, unexpected tax bill you can't pay.</p>
         </div>
 
         <div class="page chapter-page" id="chapter-16">
@@ -1873,30 +1093,31 @@ Danilo
             
             <p class="lead-paragraph drop-cap">You've mastered your niche. You've raised your rates. You're getting too many invites. You are now at a new crossroads: you have *too much work*.</p>
             
-            <p>This is the "glass ceiling" of freelancing. You can't just keep raising your rates to $500/hr (in most niches). You are still limited by your own time. You have two choices:</p>
+            <p>This is the **"glass ceiling"** of freelancing. You can't just keep raising your rates to $500/hr (in most niches). You are still limited by your own time. You have two choices:</p>
             <ol>
-                <li><strong>Stay a "Consultant":</strong> Keep your high rate, be *very* selective, and enjoy a great income with a flexible schedule. This is a fantastic life.</li>
-                <li><strong>Become an "Agency":</strong> Scale *beyond* yourself.</li>
+                <li>**Stay a "Consultant":** Keep your high rate, be *very* selective, and enjoy a great income with a flexible schedule. This is a fantastic life.</li>
+                <li>**Become an "Agency":** Scale *beyond* yourself.</li>
             </ol>
             
-            <h3>The Agency Model</h3>
-            <p>This is when you start hiring other freelancers to work *for* you. You become the Project Manager and the "brand," and you subcontract the work.</p>
+            <h3>16.1 The Agency Model</h3>
+            <p>This is when you start hiring other freelancers to work *for* you. You become the Project Manager and the "brand," and you subcontract the work. **You move from being the worker to owning the system.**</p>
             
-            <p><strong>Here's how it works:</strong>
+            <p>**Here's how it works:**
             <ol>
                 <li>A client hires "Danilo's Medical Translation" (your brand) for $1,000.</li>
                 <li>You are the face of the project. You handle all client communication.</li>
-                <li>You hire another trusted freelancer (a subcontractor) to do the translation for $500.</li>
+                <li>You hire another trusted freelancer (a subcontractor, often an experienced freelancer you trust) to do the translation for $500.</li>
                 <li>You do the final Quality Control (QA) pass to ensure it meets your 5-star standard.</li>
                 <li>You deliver the work to the client and pocket the $500 difference.</li>
             </ol>
             
-            <p>You have just made $500 for a few hours of project management and QA, not 20 hours of translation. You can now do this 5 times at once. You have scaled.</p>
+            <p>You have just made $500 for a few hours of project management and QA, not 20 hours of translation. You can now do this 5 times at once. **You have scaled.**</p>
             
-            <h3>The Pros and Cons</h3>
+            <h3>16.2 The Pros and Cons</h3>
             <ul>
-                <li><strong>Pros:</strong> Massively scalable income. You are no longer trading time for money.</li>
-                <li><strong>Cons:</strong> You are now a *manager*. Your job is no longer "translation"; it's "managing people, timelines, and client expectations." It's a completely different job, and not everyone enjoys it.</li>
+                <li>**Pros:** Massively scalable income. You are no longer trading time for money.</li>
+                <li>**Cons:** You are now a *manager*. Your job is no longer "translation"; it's "managing people, timelines, and client expectations." It's a completely different job, and not everyone enjoys it.</li>
+                <li>**Risk Mitigation:** Never pay your subcontractors until the client has paid you. Use contracts (Chapter 15) with your subcontractors to define this payment structure.</li>
             </ul>
             
             <p>This isn't a required step. But it's the logical conclusion of growth. You go from *doing* the work, to *managing* the work, to *owning* the system.</p>
