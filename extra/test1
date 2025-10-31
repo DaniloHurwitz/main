@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sniper Proposal Template</title>
+    <style>
+        /* --- General Styles --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1E2A3B;
+            color: #FFFFFF;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #2a3a50; /* Slightly lighter blue */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #FBC02D;
+            border-bottom: 2px solid #FBC02D;
+            padding-bottom: 10px;
+            font-weight: 700;
+        }
+
+        p.intro {
+            font-size: 1.1em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* --- Template Content --- */
+        .template-box {
+            background-color: #FFFFFF;
+            color: #333333;
+            border-radius: 5px;
+            padding: 30px;
+            margin-top: 25px;
+            border: 1px solid #ddd;
+        }
+
+        .template-box h2 {
+            color: #1E2A3B;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .template-box p {
+            line-height: 1.7;
+            margin-bottom: 1.5em;
+        }
+
+        /* --- Placeholder Styles --- */
+        .placeholder {
+            color: #B00020; /* Reddish for emphasis on what to change */
+            font-weight: 700;
+            background-color: #fcf8e3;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        .guidance {
+            color: #005f73; /* Teal for guidance */
+            font-style: italic;
+            font-size: 0.95em;
+            border-left: 3px solid #4A90E2;
+            padding-left: 10px;
+            margin-top: -10px;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            body {
+                background-color: #FFFFFF;
+                color: #000000;
+                padding: 0;
+                margin: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                background-color: #FFFFFF;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+            
+            h1, .intro {
+                /* Hide the intro block when printing */
+                display: none;
+            }
+
+            .template-box {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+                color: #000000;
+            }
+
+            .template-box h2 {
+                color: #000000;
+            }
+
+            .placeholder, .guidance {
+                color: #333333 !important;
+                background-color: #f4f4f4 !important;
+                border: 1px dashed #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Template 1: The "Sniper" Proposal</h1>
+        <p class="intro">
+            Based on Chapter 6, this is not a generic "shotgun" template. It's a "sniper" framework. 
+            Replace every <span class="placeholder">[placeholder]</span> with hyper-specific details 
+            from the client's job post before sending.
+        </p>
+
+        <div class="template-box">
+            <h2>Subject: Questions regarding your <span class="placeholder">[Project Title]</span></h2>
+            
+            <p>Hi <span class="placeholder">[Client Name, if found in job history]</span>,</p>
+
+            <p>
+                I just read your job post and see you're looking for an urgent and 100% accurate translation of a 
+                <span class="placeholder">[# of pages/words] [Document Type, e.g., 'patient informed consent form']</span> 
+                from <span class="placeholder">[Source Language]</span> to <span class="placeholder">[Target Language]</span>, 
+                specifically for <span class="placeholder">[Specific Goal, e.g., 'IRB submission']</span>.
+            </p>
+
+            <p>
+                My background aligns perfectly with this. As a <span class="placeholder">[Your Title, e.g., 'current medical student']</span> 
+                and <span class="placeholder">[Your Badge, e.g., 'Top-Rated translator']</span> specializing in 
+                <span class="placeholder">[Your Niche, e.g., 'medical documents (HE/EN/ES)']</span>, I'm 
+                deeply familiar with the precise terminology required for <span class="placeholder">[Their Industry/Need, e.g., 'clinical trials and regulatory bodies']</span>. 
+                I don't just translate the words; I ensure the <span class="placeholder">[Specific Value, e.g., 'tone and context are perfectly adapted for the patient audience']</span>.
+            </p>
+            <p class="guidance">
+                <em>Guidance: This is your 'Why Me' paragraph. Connect your unique background (Chapter 4) directly to their problem.</em>
+            </p>
+
+            <p>
+                I know you need this done right the first time. My <span class="placeholder">[Your Proof, e.g., '100% Job Success Score']</span> 
+                on Upwork reflects my commitment to reliability and deadlines. I've also attached a portfolio sample 
+                of a <span class="placeholder">[Specific Relevant Project, e.g., 'similar ICF translation']</span> 
+                that showcases the level of accuracy you can expect.
+            </p>
+
+            <p>
+                I can prioritize this and deliver the complete <span class="placeholder">[Deliverable]</span> within 
+                <span class="placeholder">[Your Realistic Timeline, e.g., '48 hours']</span>.
+            </p>
+            <p>
+                I have one quick question before I start: <span class="placeholder">[Insert Smart, Clarifying Question, e.g., 'Do you have a specific glossary or style guide I should adhere to for this IRB submission?']</span>
+            </p>
+            <p>
+                Would you be available for a brief 5-10 minute chat tomorrow to confirm the details?
+            </p>
+            <p>
+                Best regards,<br>
+                Danilo Hurwitz
+            </p>
+        </div>
+    </div>
+</body>
+</html>
