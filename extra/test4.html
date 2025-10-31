@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study Template</title>
+    <style>
+        /* --- General Styles --- */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #1E2A3B;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #2a3a50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            color: #FBC02D;
+            border-bottom: 2px solid #FBC02D;
+            padding-bottom: 10px;
+            font-weight: 700;
+        }
+
+        p.intro {
+            font-size: 1.1em;
+            font-style: italic;
+            opacity: 0.9;
+            color: #FFFFFF;
+        }
+        
+        /* --- Case Study Styles --- */
+        .case-study {
+            background-color: #FFFFFF;
+            color: #333333;
+            border-radius: 5px;
+            padding: 40px;
+            margin-top: 25px;
+            border: 1px solid #ddd;
+            /* Simulates an A4 page */
+            max-width: 210mm; /* A4 width */
+        }
+        
+        .cs-header h2 {
+            font-size: 2.5em;
+            color: #1E2A3B;
+            margin-bottom: 10px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+        
+        .cs-header .subtitle {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #FBC02D;
+            text-transform: uppercase;
+        }
+
+        .visual-hook {
+            width: 100%;
+            height: 250px;
+            background-color: #f4f4f4;
+            border: 2px dashed #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 25px 0;
+            border-radius: 4px;
+        }
+        
+        .cs-body {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .cs-sidebar {
+            flex: 1;
+        }
+        
+        .cs-main {
+            flex: 2;
+        }
+        
+        .cs-sidebar h3 {
+            color: #1E2A3B;
+            border-bottom: 2px solid #FBC02D;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 1px;
+        }
+        
+        .cs-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .cs-sidebar li {
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        
+        .cs-sidebar li strong {
+            color: #1E2A3B;
+            display: block;
+        }
+        
+        .cs-main h3 {
+            color: #1E2A3B;
+            font-size: 1.6em;
+            margin-top: 0;
+        }
+        
+        .cs-main p {
+            line-height: 1.7;
+            margin-bottom: 1.5em;
+        }
+        
+        .testimonial {
+            font-size: 1.1em;
+            font-style: italic;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-left: 5px solid #FBC02D;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+        
+        .testimonial-cite {
+            font-weight: 600;
+            font-style: normal;
+            display: block;
+            margin-top: 10px;
+            color: #1E2A3B;
+        }
+
+        /* --- Print Styles --- */
+        @media print {
+            body {
+                background-color: #FFFFFF;
+                color: #000000;
+                padding: 0;
+                margin: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                background-color: #FFFFFF;
+                padding: 0;
+                margin: 0;
+                max-width: 100%;
+            }
+            
+            h1, .intro {
+                display: none;
+            }
+
+            .case-study {
+                box-shadow: none;
+                border: none;
+                padding: 0;
+                margin: 0;
+                color: #000000;
+                max-width: 100%;
+            }
+
+            .cs-header h2, .cs-sidebar h3, .cs-main h3, .testimonial-cite {
+                color: #000000;
+            }
+            
+            .cs-header .subtitle {
+                color: #555555; /* Gold won't print well */
+            }
+            
+            .cs-body {
+                display: block; /* Stack on print */
+            }
+
+            .visual-hook {
+                border: 2px solid #000;
+                background-color: #f4f4f4;
+                color: #000;
+                height: 200px;
+            }
+            
+            .testimonial {
+                background-color: #f4f4f4;
+                border-left: 5px solid #ccc;
+            }
+            
+            .cs-sidebar {
+                 page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Template 4: The 1-Page Case Study</h1>
+        <p class="intro">
+            Based on Chapter 5, this template turns your "spec work" or paid projects into a powerful sales tool. 
+            Upload this as a PDF to your portfolio.
+        </p>
+
+        <div class="case-study">
+            <div class="cs-header">
+                <div class="subtitle">Case Study: Medical Translation</div>
+                <h2>Accurate Translation of Patient-Facing Clinical Trial Documents</h2>
+            </div>
+            
+            <div class="visual-hook">
+                [ Your Visual Hook Here ]
+                <br>
+                (e.g., Screenshot of side-by-side translation)
+            </div>
+            
+            <div class="cs-body">
+                <aside class="cs-sidebar">
+                    <h3>Project Details</h3>
+                    <ul>
+                        <li>
+                            <strong>Client</strong>
+                            [Fictional Client or "Confidential HealthTech Startup"]
+                        </li>
+                        <li>
+                            <strong>Service</strong>
+                            [e.g., "Medical Translation (HE > EN)"]
+                        </li>
+                        <li>
+                            <strong>Deliverable</strong>
+                            [e.g., "10-Page Informed Consent Form (.docx)"]
+                        </li>
+                        <li>
+                            <strong>Tools Used</strong>
+                            [e.g., "Subtitle Edit, Google Workspace, Medical Glossaries"]
+                        </li>
+                    </ul>
+                </aside>
+                
+                <main class="cs-main">
+                    <h3>The Challenge</h3>
+                    <p>
+                        The client, a HealthTech startup, needed to translate their patient-facing Informed Consent Form 
+                        (ICF) from Hebrew to English for an upcoming international clinical trial. The translation 
+                        needed to be 100% accurate, culturally sensitive, and use precise clinical terminology 
+                        to ensure full patient comprehension and meet strict IRB (Institutional Review Board) compliance.
+                    </p>
+                    
+                    <h3>The Solution</h3>
+                    <p>
+                        Leveraging my background as a medical student, I performed a multi-stage translation process. 
+                        This involved:
+                        <ol>
+                            <li>Initial translation focusing on semantic accuracy.</li>
+                            <li>Rigorous terminology research to align with FDA/EMA guidelines.</li>
+                            <li>A "cultural nuance" pass to ensure the tone was reassuring and clear for patients, not just technical.</li>
+                            <li>A final QA pass to check for consistency and formatting.</li>
+                        </ol>
+                    </p>
+
+                    <h3>The Result</h3>
+                    <p>
+                        The final translated ICF was delivered two days ahead of schedule. The client reported 
+                        that the document passed their legal and regulatory review with zero terminology errors, 
+                        allowing them to proceed with their IRB submission without delay.
+                    </p>
+                    
+                    <div class="testimonial">
+                        "Danilo's medical background was a game-changer. His translation was not only accurate but 
+                        showed a deep understanding of the clinical context. We will be using him for all our 
+                        regulatory documents."
+                        <span class="testimonial-cite">
+                            — [Client Name], [Client Title]
+                        </span>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
