@@ -27,29 +27,29 @@
          */
 
         /* 1. Root Variables */
-        :root { /* Light mode colors */
-            --light-blue: #E6F3FF;
-            --sky-blue: #87CEEB;
-            --steel-blue: #4682B4;
-            --gold: #DAA520;
-            --gold-dark: #B8860B;
-            --dark-gray: #2C3E50; /* Corregido para uso en CSS */
-            --slate-gray: #708090;
-            --gray-dark: #555;
-            --white-translucent: rgba(255,255,255,0.9);
-            --white-semi: rgba(255,255,255,0.6);
-            --border-color: #B3E5FC;
-            --shadow-color: rgba(0, 0, 0, 0.05);
-            --highlight-bg: rgba(218, 165, 32, 0.08);
-            --accent-color: #FFD700;
-            --accent-dark: #e6c300;
-            --body-bg: linear-gradient(135deg, var(--light-blue) 0%, #B3E5FC 100%);
-            --body-text: var(--dark-gray);
-            --card-bg: var(--white-translucent);
-            --card-semi: var(--white-semi);
-            --pseudo-bg: radial-gradient(circle at 20% 80%, rgba(135, 206, 235, 0.08) 0%, transparent 50%),
-                         radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.03) 0%, transparent 50%);
-        }
+       :root { /* Modern Light Mode Colors */
+    --light-blue: #D0E8FF;       /* azul suave, más limpio */
+    --sky-blue: #5DADE2;         /* azul cielo moderno */
+    --steel-blue: #2874A6;       /* azul profundo para acentos */
+    --gold: #FFC107;             /* dorado vibrante, solo detalles */
+    --gold-dark: #E0A800;        /* dorado oscuro */
+    --dark-gray: #1C1C1C;        /* texto principal, legible */
+    --slate-gray: #7F8C8D;       /* secundarios, modernos */
+    --gray-dark: #555555;        /* pequeños detalles */
+    --white-translucent: rgba(255,255,255,0.95);
+    --white-semi: rgba(255,255,255,0.7);
+    --border-color: #AED6F1;     /* bordes suaves */
+    --shadow-color: rgba(0,0,0,0.08);
+    --highlight-bg: rgba(255,193,7,0.1); /* dorado suave */
+    --accent-color: #FFC107;     /* botones o íconos */
+    --accent-dark: #E0A800;
+    --body-bg: linear-gradient(135deg, var(--light-blue) 0%, #AED6F1 100%);
+    --body-text: var(--dark-gray);
+    --card-bg: var(--white-translucent);
+    --card-semi: var(--white-semi);
+    --pseudo-bg: radial-gradient(circle at 20% 80%, rgba(93, 173, 226, 0.08) 0%, transparent 50%),
+                 radial-gradient(circle at 80% 20%, rgba(255, 193, 7, 0.03) 0%, transparent 50%);
+}
 
         body.dark {
     --light-blue: #1c1c1c;
