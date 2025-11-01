@@ -307,8 +307,114 @@
             color: #ecf0f1;
         }
         
-        footer.main-footer p {
-            margin: 0;
+        /* ==============================================
+        --- ¡NUEVO! ESTILOS PARA IMPRESIÓN (PDF) ---
+        ==============================================
+        */
+        @media print {
+            
+            /* --- Ocultar todo lo innecesario --- */
+            header.main-header,
+            aside.sidebar,
+            section.comments-section,
+            footer.main-footer {
+                display: none;
+            }
+
+            /* --- Resetear el cuerpo y el contenedor --- */
+            body {
+                background-color: #ffffff;
+                color: #000000;
+                font-family: 'Merriweather', serif; /* Usar fuente serif para legibilidad de documento */
+                font-size: 12pt;
+                margin: 0;
+                padding: 0;
+            }
+            
+            .container {
+                display: block;
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                padding: 0;
+                gap: 0;
+            }
+
+            /* --- Ajustar el artículo principal --- */
+            main.blog-content {
+                flex: none;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            
+            article.blog-post {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            /* --- Ajustar estilos de texto para impresión --- */
+            .post-content h1,
+            .post-content h2,
+            .post-content h3,
+            .post-content p,
+            .post-content li {
+                color: #000000 !important; /* Forzar texto negro */
+            }
+
+            .post-content h1 {
+                font-size: 24pt;
+                margin-bottom: 10px;
+            }
+            
+            .post-content h2 {
+                font-size: 18pt;
+                border-bottom: 2px solid #000000;
+                padding-bottom: 5px;
+            }
+
+            .post-content h3 {
+                font-size: 14pt;
+                color: #000000 !important;
+                border-left: 3px solid #000000;
+                padding-left: 10px;
+            }
+            
+            .post-content blockquote {
+                background-color: #f0f0f0;
+                border-left: 4px solid #888;
+                padding: 10px;
+                font-size: 12pt;
+                color: #000000 !important;
+            }
+            
+            .post-content p,
+            .post-content li {
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+            
+            /* Evitar saltos de página extraños */
+            h1, h2, h3, blockquote {
+                page-break-after: avoid;
+            }
+            
+            p, ul, li {
+                page-break-inside: avoid;
+            }
+            
+            /* Mostrar URLs de links (opcional pero útil) */
+            a {
+                text-decoration: underline;
+                color: #000000 !important;
+            }
+            
+            /* a[href^="http"]:after {
+                content: " (" attr(href) ")";
+                font-size: 10pt;
+            } */
         }
 
     </style>
@@ -366,7 +472,7 @@
                     <h3 class="myth">Mito 3: «Puedes “resetear” tu metabolismo con un detox o un ayuno de jugos»</h3>
                     <p>La idea de un “borrón y cuenta nueva” es muy llamativa, y mucho más después de una época de excesos (¿Hola? ¿Pre-verano?). Se te vende esto como una forma de limpiar tu sistema, eliminar toxinas y reactivar ese “metabolismo dañado” que mencionamos antes.</p>
                     <p>La gente suele creer mucho en estas cosas, especialmente porque experimentan una rápida pérdida de peso en los primeros días, lo que parece confirmar que algo está funcionando “mágicamente”.</p>
-                    <p>Lo cierto es que tu metabolismo no es como tu computadora. No puedes reiniciarlo y ya. Es un conjunto de procesos biológicos que involucran a todo tu cuerpo. Esa pérdida rápida de peso que se ve al inicio es casi exclusivamente por pérdida de agua y carbohidratos almacenados, no de grasa. Además, tu cuerpo tiene su propio “detox” que son muy eficientes. ¿Y lo mejor? Funcionan 24/7: tu hígado y tus riñones. Este “detox” de jugos no limpia nada que tu cuerpo no esté ya limpiando. De hecho, una restricción calórica tan severa puede estresar al cuerpo y ralentizar temporalmente el metabolismo para conservar energía.</p>
+                    <p>Lo cierto es que tu metabolismo no es como tu computadora. No puedes reiniciarlo y ya. Es un conjunto de procesos biológicos que involucran a todo tu cuerpo. Esa pérdida rápida de peso que se ve al inicio es casi exclusivamente por pérdida de agua y carbohidLatos almacenados, no de grasa. Además, tu cuerpo tiene su propio “detox” que son muy eficientes. ¿Y lo mejor? Funcionan 24/7: tu hígado y tus riñones. Este “detox” de jugos no limpia nada que tu cuerpo no esté ya limpiando. De hecho, una restricción calórica tan severa puede estresar al cuerpo y ralentizar temporalmente el metabolismo para conservar energía.</p>
                     <p><strong>El consejo real:</strong> Si te sientes “lento”, no necesitas restablecerlo. Necesitas ayudar a tus órganos. La mejor forma es siempre volviendo a lo básico: hidratación óptima, fibra (de vegetales y frutas enteras, no de jugos milagrosos), proteínas de calidad y sueño reparador.</p>
 
                     <h2>Tres verdades (que sí funcionan)</h2>
@@ -389,7 +495,7 @@
                     <h2>Conclusión: Deja los Mitos, Enfócate en lo Real</h2>
                     <p>Como hemos visto, el metabolismo es uno de los temas más incomprendidos en lo que a salud se respeta. Estamos inundados de mitos que prometen soluciones mágicas (alimentos o reseteos milagrosos) que, en el mejor de los casos, son irrelevantes, y en el peor, contraproducentes.</p>
                     <p>Desmentimos la idea de que puedes “acelerar” tu metabolismo con un té, que las personas tienen un metabolismo rápido por arte de magia, o que un “detox” puede reiniciarlo.</p>
-                    <p><strong>Mi mensaje es: deja de intentar “hackear” tu metabolismo y empieza a apoyarlo.</strong></p>
+                    <p><strong>Mi mensaje es: deja de intentar “hackear” tu metabolismo y empieza a apoyarlo.</strong></ci>
                     <p>La verdadera optimización metabólica no se encuentra en un frasco, un jugo, o un ingrediente secreto. Se construye con paciencia, consistencia, y siempre pero siempre enfocándose en verdades científicas que sí funcionan:</p>
                     <ul>
                         <li>Construye y mantén tu masa muscular.</li>
