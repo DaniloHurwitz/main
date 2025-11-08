@@ -1962,60 +1962,6 @@
         }
         newsletterForm.addEventListener("submit", handleNewsletterSubmit);
 
-        // Star Rating
-        const ratingContainerHover = document.getElementById('freelancerRating');
-        const ratingMessageHover = document.getElementById('rating-message');
-        const starsHover = ratingContainerHover.querySelectorAll('.star');
-
-        let ratingMessagesHover = {
-            1: "Focusing solely on the <strong>lowest bid</strong> often means more management time, potential misunderstandings, and results that need extra revisions.",
-            2: "A <strong>budget-conscious</strong> choice. Might work for simple tasks, but could miss crucial nuances in specialized content like medical translation.",
-            3: "Getting the job done. A <strong>generalist approach</strong> delivers standard results for standard projects.",
-            4: "A <strong>solid professional</strong> delivering good quality. Likely requires clear guidance on highly specialized or culturally specific requirements.",
-            5: "<strong>Investing in Excellence!</strong> Choosing a <strong>Top Rated specialist</strong> focused on precision and quality for critical projects. <strong>Result:</strong> 100% accurate, culturally-perfect content delivered reliably, giving you peace of mind."
-        };
-
-        function updateRatingMessages(lang) {
-            ratingMessagesHover = {
-                1: translations[lang]['rating-msg1'] || ratingMessagesHover[1],
-                2: translations[lang]['rating-msg2'] || ratingMessagesHover[2],
-                3: translations[lang]['rating-msg3'] || ratingMessagesHover[3],
-                4: translations[lang]['rating-msg4'] || ratingMessagesHover[4],
-                5: translations[lang]['rating-msg5'] || ratingMessagesHover[5]
-            };
-            ratingMessageHover.innerHTML = translations[lang]['rating-hover'] || 'Hover over stars to see feedback.';
-        }
-        
-        // Función para actualizar las estrellas al pasar el ratón
-        starsHover.forEach(star => {
-            star.addEventListener('mouseenter', () => {
-                const rating = parseInt(star.getAttribute('data-value'));
-                highlightStarsHover(rating);
-                ratingMessageHover.innerHTML = ratingMessagesHover[rating] || 'Hover over stars to see feedback.';
-                ratingMessageHover.style.display = 'block';
-            });
-        });
-
-        ratingContainerHover.addEventListener('mouseleave', () => {
-            highlightStarsHover(0);
-            ratingMessageHover.style.display = 'none';
-            ratingMessageHover.innerHTML = '';
-        });
-
-        function highlightStarsHover(rating) {
-            starsHover.forEach(star => {
-                const starValue = parseInt(star.getAttribute('data-value'));
-                if (starValue <= rating) {
-                    star.innerHTML = '<i class="fas fa-star"></i>';
-                    star.classList.add('selected');
-                } else {
-                    star.innerHTML = '<i class="far fa-star"></i>';
-                    star.classList.remove('selected');
-                }
-                star.classList.remove('hover');
-            });
-        }
-
 
         function closePopup() {
             popup.classList.remove('show');
