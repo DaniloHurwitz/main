@@ -1369,15 +1369,7 @@
             <div class="status-item"><i class="fas fa-user-md"></i> <span data-i18n="status-md">Active Medical Training</span></div>
             <div class="status-item"><i class="fas fa-language"></i> <span data-i18n="status-tri">3 Fluent Languages</span></div>
         </div>
-        <div class="secondary-nav-container">
-            <a href="blog.html" class="secondary-nav-btn" data-i18n="blog-title">The Freelancer's Compass Blog
-                <span class="secondary-nav-subtitle" data-i18n="blog-subtitle">Insights & Guides</span>
-            </a>
-            <a href="tools.html" class="secondary-nav-btn" data-i18n="tools-title">Freelancer Utilities
-                <span class="secondary-nav-subtitle" data-i18n="tools-subtitle">Calculators & Resources</span>
-            </a>
-        </div>
-        
+
        <div class="micro-carousel-container">
   <div class="micro-samples" id="micro-samples">
 
@@ -1417,6 +1409,16 @@
     </div>
             </div>
         </div>
+
+<div class="secondary-nav-container">
+            <a href="blog.html" class="secondary-nav-btn" data-i18n="blog-title">The Freelancer's Compass Blog
+                <span class="secondary-nav-subtitle" data-i18n="blog-subtitle">Insights & Guides</span>
+            </a>
+            <a href="tools.html" class="secondary-nav-btn" data-i18n="tools-title">Freelancer Utilities
+                <span class="secondary-nav-subtitle" data-i18n="tools-subtitle">Calculators & Resources</span>
+            </a>
+        </div>
+        
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="openTab('summary')" data-i18n="tab-summary">Summary</button>
             <button class="tab-btn" onclick="openTab('experience')" data-i18n="tab-experience">Experience</button>
@@ -1557,23 +1559,30 @@
                 <li data-i18n="strength3"><strong data-i18n="strength3-bold">Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
             </ul>
         </div>
-<div class="book-3d">
+<div class="book-ad-section">
 
-    <div class="face front">
-        <img src="tapa_frontal.png" alt="Tapa del libro">
+    <div class="book-wrapper-3d">
+        <div class="book-3d">
+            <div class="face front">
+                <img src="tapa_frontal.png" alt="Tapa del libro">
+            </div>
+            <div class="face back">
+                <img src="tapa_trasera.png" alt="Contratapa del libro"> 
+            </div>
+            <div class="face spine">
+                <img src="lomo_libro.png" alt="Lomo del libro">
+            </div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+            <div class="face right"></div>
+        </div>
     </div>
-    
-    <div class="face back">
-        <img src="tapa_trasera.png" alt="Contratapa del libro"> 
+
+    <div class="book-ad-text">
+        <h2>¡Tu Título Aquí!</h2>
+        <p>Descubre cómo transformar tu negocio con estas estrategias.</p>
+        <p>Disponible en todas las librerías principales.</p>
     </div>
-    
-    <div class="face spine">
-        <img src="lomo_libro.png" alt="Lomo del libro">
-    </div>
-    
-    <div class="face top"></div>
-    <div class="face bottom"></div>
-    <div class="face right"></div>
 
 </div>
 
@@ -2062,8 +2071,6 @@
                     document.body.dir = 'ltr';
                     document.documentElement.lang = lang;
                 }
-                // Update rating messages
-                updateRatingMessages(lang);
                 
                 // --- UPDATE DYNAMIC TAGLINE ON LANGUAGE CHANGE ---
                 updateDynamicTagline(lang);
@@ -2175,9 +2182,7 @@
             popup.classList.remove('show');
         }
 
-        // Initial State
-        ratingMessageHover.innerHTML = 'Hover over stars to see feedback.';
-        ratingMessageHover.style.display = 'block';
+
         
         // --- CARRUSEL JS ---
         const microSamplesContainer = document.getElementById('micro-samples');
