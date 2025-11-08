@@ -1138,6 +1138,41 @@
         body.translating [data-i18n] {
             opacity: 0;
         }
+
+/* 11. Estilos del Libro 3D */
+    .book-container-3d {
+        /* Define el escenario 3D */
+        perspective: 1200px;
+        
+        /* Centrado y espaciado */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 40px; /* Para separarlo de las pestañas */
+        margin-bottom: 20px; /* Para separarlo de las herramientas de abajo */
+        
+        transform-style: preserve-3d;
+    }
+
+    .book-image-3d {
+        /* Ajusta el tamaño de tu tapa */
+        width: 280px; 
+        
+        /* Sombra para que flote */
+        box-shadow: 0 15px 35px var(--shadow-color);
+        
+        /* Posición 3D inicial (inclinada) */
+        transform: rotateY(-30deg);
+        
+        /* Animación suave */
+        transition: transform 1s cubic-bezier(0.25, 1, 0.35, 1);
+    }
+
+    /* El efecto al pasar el mouse sobre el contenedor */
+    .book-container-3d:hover .book-image-3d {
+        /* Gira 360 grados */
+        transform: rotateY(360deg);
+    }
         
     </style>
 </head>
@@ -1369,7 +1404,11 @@
                 <li data-i18n="strength3"><strong data-i18n="strength3-bold">Proven Reliability:</strong> Exceeds expectations on complex, deadline-driven projects for international clients via Upwork (100% JSS).</li>
             </ul>
         </div>
+<div class="book-container-3d">
+    <img src="book.png" alt="Tapa de mi libro" class="book-image-3d">
+</div>
 
+        
     </div>
     <div class="container">
         <div class="tools-section">
