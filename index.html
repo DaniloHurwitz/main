@@ -485,18 +485,16 @@
         }
 
         /* 5. Interactive Elements */
-        .tab-content {
-            display: none;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px var(--shadow-color);
-            animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            max-height: none;
-            overflow-y: visible;
-            transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
-            backdrop-filter: blur(10px);
-        }
+       .tab-content {
+    display: none;
+    background: transparent; /* Ya no es una tarjeta */
+    padding-top: 20px;       /* Solo un poco de espacio arriba */
+    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: none;
+    overflow-y: visible;
+    transition: none;        /* Ya no necesita transiciones de fondo */
+    backdrop-filter: none;   /* Sin filtro */
+}
         
         @media (max-width: 768px) {
             .tab-content {
@@ -505,9 +503,9 @@
             }
         }
         .tab-content.active {
-            display: block;
-            margin-bottom: 40px;
-        }
+    display: block;
+    margin-bottom: 60px; /* Aumentamos el espacio inferior */
+}
 
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
@@ -516,23 +514,27 @@
 
         /* 6. Content Sections */
         .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8em;
-            color: var(--gold);
-            margin-bottom: 15px;
-            text-align: center;
-            transition: color 0.3s ease-out;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5em; /* Más grande */
+    color: var(--gold);
+    margin-bottom: 30px; /* Más espacio abajo */
+    text-align: left; /* Más elegante y estructurado */
+    transition: color 0.3s ease-out;
+    text-shadow: 0 2px 8px var(--shadow-color); /* Sombra más suave */
+    
+    /* Pequeño borde inferior para anclarlo */
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
 
         .summary p {
-            font-size: 1.05em;
-            text-align: center;
-            color: var(--steel-blue);
-            max-width: 700px;
-            margin: 0 auto;
-            transition: color 0.3s ease-out;
-        }
+    font-size: 1.1em; /* Un poco más grande para legibilidad */
+    text-align: left; /* Alineado con el nuevo título */
+    color: var(--body-text); /* Color principal, más legible */
+    max-width: 800px;
+    margin: 0; /* Ya no necesita centrarse */
+    transition: color 0.3s ease-out;
+}
 
         .job {
             margin-bottom: 20px;
