@@ -487,13 +487,13 @@
         /* 5. Interactive Elements */
        .tab-content {
     display: none;
-    background: transparent; /* Ya no es una tarjeta */
-    padding-top: 20px;       /* Solo un poco de espacio arriba */
+    background: transparent;
+    padding: 0; /* Sin padding extra */
     animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     max-height: none;
     overflow-y: visible;
-    transition: none;        /* Ya no necesita transiciones de fondo */
-    backdrop-filter: none;   /* Sin filtro */
+    transition: none;
+    backdrop-filter: none;
 }
         
         @media (max-width: 768px) {
@@ -518,18 +518,15 @@
     font-size: 2.5em; /* Más grande */
     color: var(--gold);
     margin-bottom: 30px; /* Más espacio abajo */
-    text-align: left; /* Más elegante y estructurado */
+    text-align: center; /* Más elegante y estructurado */
     transition: color 0.3s ease-out;
     text-shadow: 0 2px 8px var(--shadow-color); /* Sombra más suave */
     
-    /* Pequeño borde inferior para anclarlo */
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
 }
 
         .summary p {
     font-size: 1.1em; /* Un poco más grande para legibilidad */
-    text-align: left; /* Alineado con el nuevo título */
+    text-align: center; /* Alineado con el nuevo título */
     color: var(--body-text); /* Color principal, más legible */
     max-width: 800px;
     margin: 0; /* Ya no necesita centrarse */
@@ -1125,12 +1122,7 @@
     gap: 30px; /* Espacio entre el libro y el texto */
     margin-top: 50px; /* Separación de la sección superior */
     margin-bottom: 50px; /* Separación de la sección inferior */
-    background-color: var(--card-bg); /* Fondo blanco (o tu color de tarjeta) */
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px var(--shadow-color);
     transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
-    backdrop-filter: blur(10px); /* Mantener el efecto de desenfoque */
     max-width: 900px; /* Ancho máximo para el contenedor de la sección */
     margin-left: auto;
     margin-right: auto; /* Centrar el contenedor en la página */
@@ -1338,6 +1330,21 @@ body[dir="rtl"] .book-ad-text {
         transform: rotateX(-90deg) translateZ(285px); /* 300 - 15 = 285 */
     }
 }
+
+/* --- 11. Estilos de la Tarjeta de Contenido Principal --- */
+.main-content-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    backdrop-filter: blur(10px);
+    transition: background 0.4s ease-out, box-shadow 0.4s ease-out;
+    padding: 25px; /* Espacio interno para que respire */
+}
+
+/* Ajuste para que los tabs respiren dentro de la tarjeta */
+.tabs-nav {
+    margin-bottom: 25px; /* Separa los tabs del contenido */
+}
         
     </style>
 </head>
@@ -1378,6 +1385,7 @@ body[dir="rtl"] .book-ad-text {
             <div class="status-item"><i class="fas fa-check-circle"></i> <span data-i18n="status-jss">100% Job Success</span></div>
             <div class="status-item"><i class="fas fa-user-md"></i> <span data-i18n="status-md">Active Medical Training</span></div>
             <div class="status-item"><i class="fas fa-language"></i> <span data-i18n="status-tri">3 Fluent Languages</span></div>
+        </div>
         </div>
 
        <div class="micro-carousel-container">
@@ -1428,6 +1436,8 @@ body[dir="rtl"] .book-ad-text {
                 <span class="secondary-nav-subtitle" data-i18n="tools-subtitle">Calculators & Resources</span>
             </a>
         </div>
+
+<div class="main-content-card">
         
         <nav class="tabs-nav">
             <button class="tab-btn active" onclick="openTab('summary')" data-i18n="tab-summary">Summary</button>
