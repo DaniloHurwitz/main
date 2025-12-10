@@ -2,396 +2,388 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Scouting Report - Danilo Hurwitz</title>
+    <title>Full Scouting Report - Danilo Hurwitz</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;500;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
         :root {
-            --fm-dark: #1b1b1b;
-            --fm-purple: #341f41; /* Color clásico FM moderno */
-            --fm-accent: #b0e0e6;
-            --stat-high: #32cd32; /* Verde para atributos altos 16-20 */
-            --stat-med: #ffd700;  /* Amarillo para 10-15 */
-            --bg-gray: #f4f4f5;
-            --panel-white: #ffffff;
-            --text-main: #333;
+            --fm-bg: #e9e9eb; /* Gris claro de fondo de interfaz */
+            --fm-header: #242424; /* Header oscuro */
+            --fm-purple: #3e2654; /* Color de marca FM */
+            --fm-accent: #00ff85; /* Verde brillante para stats altos */
+            --fm-text: #1a1a1a;
+            --fm-subtext: #555555;
+            --stat-20: #1ec853; /* Verde 16-20 */
+            --stat-15: #d4e157; /* Amarillo/Verde 11-15 */
+            --stat-10: #ffb74d; /* Naranja 6-10 */
+            --border-light: #d1d1d1;
         }
+
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
 
         body {
-            background-color: #e0e0e0;
-            font-family: 'Roboto', sans-serif;
+            background-color: #333;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
-            color: var(--text-main);
+            font-size: 8.5pt; /* Fuente pequeña para densidad de datos */
+            color: var(--fm-text);
         }
 
-        .scout-report {
+        .interface-wrapper {
             width: 210mm;
-            height: 297mm; /* A4 */
-            background-color: var(--bg-gray);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            height: 297mm;
+            background-color: var(--fm-bg);
             display: grid;
-            grid-template-rows: 100px 1fr;
+            grid-template-rows: auto 1fr auto;
             overflow: hidden;
-            border-top: 5px solid var(--fm-purple);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* HEADER SECTION */
-        .header-bar {
-            background: linear-gradient(90deg, #2c1a36 0%, #4a2b5e 100%);
+        /* --- HEADER SUPERIOR --- */
+        .top-header {
+            background-color: var(--fm-header);
             color: white;
+            padding: 15px 20px;
             display: flex;
-            align-items: center;
-            padding: 0 20px;
             justify-content: space-between;
-        }
-        
-        .player-identity {
-            display: flex;
             align-items: center;
-            gap: 20px;
-        }
-        
-        .face-placeholder {
-            width: 70px;
-            height: 70px;
-            background-color: #ddd;
-            border-radius: 4px;
-            border: 2px solid rgba(255,255,255,0.3);
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
-            background-size: cover;
+            border-bottom: 4px solid var(--fm-purple);
         }
 
-        .name-box h1 {
-            margin: 0;
-            font-size: 24pt;
-            font-family: 'Roboto Condensed', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .player-info { display: flex; align-items: center; gap: 15px; }
+        .avatar {
+            width: 60px; height: 60px;
+            background: #ddd; border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20pt; font-weight: bold; color: #555;
         }
-        .name-box .flag-row {
-            display: flex;
-            gap: 10px;
-            font-size: 10pt;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-        .nat-flag { font-weight: bold; color: var(--fm-accent); }
+        .names h1 { margin: 0; font-size: 22pt; font-family: 'Roboto Condensed'; text-transform: uppercase; letter-spacing: 0.5px; }
+        .names .meta { font-size: 9pt; opacity: 0.8; display: flex; gap: 10px; margin-top: 2px; }
+        .flag { font-weight: bold; color: var(--fm-accent); }
 
-        .club-info {
+        .club-badge {
             text-align: right;
         }
-        .club-logo {
-            font-size: 8pt;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.7;
-        }
-        .position-tag {
-            background-color: var(--stat-high);
-            color: #000;
-            padding: 4px 10px;
-            font-weight: 900;
-            font-size: 11pt;
-            border-radius: 2px;
-            margin-top: 5px;
-            display: inline-block;
+        .badge-text { font-size: 8pt; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+        .position-box {
+            background: var(--stat-20); color: #000;
+            padding: 3px 8px; font-weight: 800;
+            font-size: 10pt; display: inline-block;
+            margin-top: 5px; border-radius: 2px;
         }
 
-        /* MAIN CONTENT GRID */
-        .content-grid {
+        /* --- CONTENIDO PRINCIPAL --- */
+        .main-grid {
             display: grid;
-            grid-template-columns: 1fr 1.5fr; /* 2 Columnas: Atributos | Info */
-            gap: 15px;
-            padding: 20px;
-        }
-
-        /* COLUMNA IZQUIERDA: ATRIBUTOS */
-        .attributes-panel {
-            background-color: var(--panel-white);
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            grid-template-columns: 28% 1fr; /* Columna izq estrecha (Stats), der ancha (Info) */
             padding: 15px;
-            display: flex;
-            flex-direction: column;
+            gap: 15px;
+            overflow: hidden;
         }
 
-        .section-header {
-            background-color: var(--fm-purple);
+        /* PANELES GENERALES */
+        .panel {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        .panel-head {
+            background: var(--fm-purple);
             color: white;
             padding: 5px 10px;
-            font-family: 'Roboto Condensed', sans-serif;
+            font-family: 'Roboto Condensed';
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 10pt;
-            margin-bottom: 10px;
-            border-radius: 2px;
-        }
-
-        .attr-table {
-            width: 100%;
-            border-collapse: collapse;
             font-size: 9pt;
-            margin-bottom: 15px;
+            display: flex; justify-content: space-between;
         }
-        .attr-table td { padding: 3px 0; border-bottom: 1px solid #eee; }
-        .attr-name { text-align: left; color: #555; }
-        .attr-val { text-align: right; font-weight: 900; font-family: 'Roboto Condensed'; width: 30px; }
+
+        /* TABLAS DE ATRIBUTOS (IZQUIERDA) */
+        .attr-table { width: 100%; padding: 8px; border-collapse: collapse; }
+        .attr-table td { padding: 1px 5px; border-bottom: 1px solid #f0f0f0; }
+        .attr-label { text-align: left; color: #444; }
+        .attr-val { text-align: right; font-weight: 800; font-family: 'Roboto Condensed'; font-size: 9.5pt; width: 25px; }
         
-        .val-high { color: #008000; background: rgba(50, 205, 50, 0.1); border-radius:3px; padding:0 4px; }
-        .val-med { color: #b8860b; }
-        
-        /* POLYGON CHART (CSS ONLY TRICK) */
-        .polygon-container {
-            width: 100%;
-            height: 180px;
-            position: relative;
-            margin-top: auto;
-            background: radial-gradient(circle, #fff 0%, #f0f0f0 70%);
-            border: 1px solid #eee;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .polygon-label {
-            position: absolute;
-            font-size: 7pt;
-            font-weight: bold;
-            color: #666;
-            text-transform: uppercase;
-        }
-        /* Posicionamiento manual de etiquetas del hexágono */
-        .lbl-top { top: 10px; }
-        .lbl-tr { top: 40px; right: 10px; }
-        .lbl-br { bottom: 40px; right: 10px; }
-        .lbl-bot { bottom: 10px; }
-        .lbl-bl { bottom: 40px; left: 10px; }
-        .lbl-tl { top: 40px; left: 10px; }
+        .c-20 { background: var(--stat-20); color: #000; padding: 0 4px; border-radius: 2px; }
+        .c-15 { color: #827717; font-weight: bold; }
+        .c-10 { color: #e65100; }
 
-        /* COLUMNA DERECHA: INFO Y CARRERA */
-        .info-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        .preferred-moves {
+            padding: 10px;
+            list-style: none; margin: 0;
+            font-size: 8pt;
+        }
+        .preferred-moves li { margin-bottom: 4px; padding-left: 12px; position: relative; }
+        .preferred-moves li::before { content: "•"; position: absolute; left: 0; color: var(--fm-purple); font-weight: bold; }
+
+        /* SECCIÓN DERECHA (INFO DENSA) */
+        .bio-text {
+            padding: 10px 15px;
+            text-align: justify;
+            font-size: 9pt;
+            color: #333;
+            line-height: 1.4;
         }
 
-        .box-card {
-            background: var(--panel-white);
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            padding: 15px;
-        }
-
-        .pros-cons {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .pro-list, .con-list { list-style: none; padding: 0; margin: 0; font-size: 9pt; }
-        .pro-item::before { content: "✅"; margin-right: 5px; }
-        .con-item::before { content: "⚠️"; margin-right: 5px; }
-        .pro-item, .con-item { margin-bottom: 5px; }
-
-        /* CAREER HISTORY (TABLE) */
+        /* TABLA DE EXPERIENCIA (CAREER STATS) */
         .career-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 9pt;
+            font-size: 8.5pt;
         }
-        .career-table th { 
-            text-align: left; 
-            border-bottom: 2px solid var(--fm-purple); 
-            color: var(--fm-purple); 
-            font-family: 'Roboto Condensed';
-            padding-bottom: 4px;
+        .career-table th {
+            background: #f4f4f4;
+            text-align: left;
+            padding: 6px 10px;
+            color: #666;
+            font-weight: 700;
+            border-bottom: 1px solid #ccc;
         }
-        .career-table td { 
-            padding: 8px 0; 
-            border-bottom: 1px solid #eee; 
+        .career-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #eee;
             vertical-align: top;
         }
-        .year-col { width: 40px; font-weight: bold; color: #777; }
-        .team-col { font-weight: 700; color: #000; }
-        .role-col { font-style: italic; color: #555; font-size: 8.5pt; display: block;}
-        .perf-col { text-align: right; font-weight: bold; color: var(--text-main); }
+        .ct-year { font-weight: bold; width: 50px; color: #555; }
+        .ct-club { width: 140px; font-weight: 700; color: var(--fm-purple); }
+        .ct-role { font-style: italic; color: #666; display: block; margin-bottom: 4px; font-weight: 600;}
+        .ct-desc { font-size: 8pt; color: #333; line-height: 1.3; }
+        .ct-rating { font-weight: 800; text-align: center; width: 40px; }
 
-        /* FOOTER STATUS */
-        .contract-status {
-            margin-top: auto;
-            background-color: #f9f9f9;
-            border-top: 2px solid var(--fm-purple);
-            padding: 15px;
+        /* EDUCACIÓN & CERTIFICACIONES */
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+        }
+        .edu-item strong { display: block; color: var(--fm-purple); font-size: 9pt; }
+        .edu-item span { display: block; font-size: 8pt; color: #555; margin-bottom: 3px; }
+
+        /* FOOTER / STATUS BAR */
+        .status-bar {
+            background: #fff;
+            border-top: 1px solid #ccc;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-size: 9pt;
         }
-        .price-tag {
-            font-size: 16pt;
-            font-weight: 900;
-            color: var(--fm-purple);
-        }
-        .contact-btn {
-            background-color: var(--stat-high);
-            color: #000;
-            padding: 5px 15px;
-            text-decoration: none;
-            font-weight: bold;
-            font-family: 'Roboto Condensed';
-            text-transform: uppercase;
-            border-radius: 3px;
-        }
+        .stat-block { text-align: center; padding: 0 15px; border-right: 1px solid #eee; }
+        .stat-block:last-child { border: none; }
+        .stat-lbl { text-transform: uppercase; font-size: 7pt; color: #888; display: block; }
+        .stat-data { font-weight: 800; color: #222; font-size: 10pt; }
 
         @media print {
-            body { background: none; }
-            .scout-report { width: 100%; height: 100%; box-shadow: none; border: none; }
-            .val-high { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .header-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            body { background: none; margin: 0; padding: 0; }
+            .interface-wrapper { width: 100%; height: 100%; box-shadow: none; }
+            .panel { break-inside: avoid; }
         }
     </style>
 </head>
 <body>
 
-<div class="scout-report">
+<div class="interface-wrapper">
     
-    <div class="header-bar">
-        <div class="player-identity">
-            <div class="face-placeholder"></div>
-            <div class="name-box">
-                <div class="flag-row">
-                    <span class="nat-flag">🇦🇷 ARG</span> / <span class="nat-flag">🇪🇸 ESP</span> 
-                    <span>| 21 Y/O</span>
-                </div>
+    <div class="top-header">
+        <div class="player-info">
+            <div class="avatar">DH</div> <div class="names">
                 <h1>Danilo Hurwitz</h1>
+                <div class="meta">
+                    <span class="flag">🇦🇷 ARG</span>
+                    <span class="flag">🇪🇸 ESP</span>
+                    <span>| 21 Years Old (12/2003)</span>
+                    <span>| Mar del Plata, AR</span>
+                </div>
             </div>
         </div>
-        <div class="club-info">
-            <div class="club-logo">Current Team: ICUC SOCIAL</div>
-            <div class="position-tag">MED / TRANS / EDIT</div>
+        <div class="club-badge">
+            <div class="badge-text">Contracted To</div>
+            <div style="font-weight: 900; font-size: 14pt;">ICUC SOCIAL / FREELANCE</div>
+            <div class="position-box">MED / TRA / EDIT</div>
         </div>
     </div>
 
-    <div class="content-grid">
+    <div class="main-grid">
         
-        <div class="attributes-panel">
+        <div class="left-col">
             
-            <div class="section-header">Technical Attributes</div>
-            <table class="attr-table">
-                <tr><td class="attr-name">Medical Translation</td><td class="attr-val"><span class="val-high">19</span></td></tr>
-                <tr><td class="attr-name">Hebrew Fluency</td><td class="attr-val"><span class="val-high">18</span></td></tr>
-                <tr><td class="attr-name">English (Medical)</td><td class="attr-val"><span class="val-high">18</span></td></tr>
-                <tr><td class="attr-name">Spanish (Native)</td><td class="attr-val"><span class="val-high">20</span></td></tr>
-                <tr><td class="attr-name">Video Editing</td><td class="attr-val"><span class="val-med">15</span></td></tr>
-                <tr><td class="attr-name">Graphic Design</td><td class="attr-val"><span class="val-med">14</span></td></tr>
-                <tr><td class="attr-name">Subtitling</td><td class="attr-val"><span class="val-high">17</span></td></tr>
-            </table>
-
-            <div class="section-header">Mental Attributes</div>
-            <table class="attr-table">
-                <tr><td class="attr-name">Determination</td><td class="attr-val"><span class="val-high">20</span></td></tr>
-                <tr><td class="attr-name">Work Rate</td><td class="attr-val"><span class="val-high">19</span></td></tr>
-                <tr><td class="attr-name">Adaptability</td><td class="attr-val"><span class="val-high">17</span></td></tr>
-                <tr><td class="attr-name">Concentration</td><td class="attr-val"><span class="val-high">18</span></td></tr>
-                <tr><td class="attr-name">Teamwork</td><td class="attr-val"><span class="val-high">16</span></td></tr>
-            </table>
-
-            <div class="polygon-container">
-                <svg width="140" height="140" viewBox="0 0 100 100" style="position: absolute;">
-                    <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="rgba(50, 205, 50, 0.2)" stroke="#32cd32" stroke-width="2"/>
-                    <line x1="50" y1="50" x2="50" y2="5" stroke="#ddd" />
-                    <line x1="50" y1="50" x2="90" y2="25" stroke="#ddd" />
-                    <line x1="50" y1="50" x2="90" y2="75" stroke="#ddd" />
-                    <line x1="50" y1="50" x2="50" y2="95" stroke="#ddd" />
-                    <line x1="50" y1="50" x2="10" y2="75" stroke="#ddd" />
-                    <line x1="50" y1="50" x2="10" y2="25" stroke="#ddd" />
-                </svg>
-                <div class="polygon-label lbl-top">TRANS</div>
-                <div class="polygon-label lbl-tr">MED</div>
-                <div class="polygon-label lbl-br">EDIT</div>
-                <div class="polygon-label lbl-bot">QA</div>
-                <div class="polygon-label lbl-bl">COMM</div>
-                <div class="polygon-label lbl-tl">LANG</div>
-            </div>
-
-        </div>
-
-        <div class="info-panel">
-            
-            <div class="box-card">
-                <div class="section-header">Scout Summary</div>
-                <div class="pros-cons">
-                    <ul class="pro-list">
-                        <li class="pro-item"><strong>Elite Trilingual:</strong> Combines Hebrew, English, and Spanish at a native/clinical level.</li>
-                        <li class="pro-item"><strong>Medical Background:</strong> MD Candidate status adds huge value to pharma projects.</li>
-                        <li class="pro-item"><strong>Versatile:</strong> Can play as Translator or Content Editor.</li>
-                    </ul>
-                    <ul class="con-list">
-                        <li class="con-item"><strong>Perfectionist:</strong> May obsess over terminology details.</li>
-                        <li class="con-item"><strong>Student Status:</strong> Balances heavy workload (High Determination required).</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="box-card">
-                <div class="section-header">Career Stats</div>
-                <table class="career-table">
-                    <tr>
-                        <th class="year-col">Year</th>
-                        <th>Team / Role</th>
-                        <th class="perf-col">Rating</th>
-                    </tr>
-                    <tr>
-                        <td class="year-col">2025-</td>
-                        <td>
-                            <div class="team-col">ICUC Social</div>
-                            <span class="role-col">Content Specialist / Hebrew QA</span>
-                        </td>
-                        <td class="perf-col">--</td>
-                    </tr>
-                    <tr>
-                        <td class="year-col">2023-</td>
-                        <td>
-                            <div class="team-col">Freelance (Upwork)</div>
-                            <span class="role-col">Medical Translator (Clinical Trials)</span>
-                        </td>
-                        <td class="perf-col">5.00</td>
-                    </tr>
-                    <tr>
-                        <td class="year-col">2023-</td>
-                        <td>
-                            <div class="team-col">Lipswan / Video</div>
-                            <span class="role-col">Subtitle & Video Editor</span>
-                        </td>
-                        <td class="perf-col">5.00</td>
-                    </tr>
-                    <tr>
-                        <td class="year-col">2029</td>
-                        <td>
-                            <div class="team-col">UNMDP (Education)</div>
-                            <span class="role-col">M.D. Graduation (Expected)</span>
-                        </td>
-                        <td class="perf-col">GPA+</td>
-                    </tr>
+            <div class="panel">
+                <div class="panel-head">Technical Attributes</div>
+                <table class="attr-table">
+                    <tr><td class="attr-label">Medical Translation</td><td class="attr-val"><span class="c-20">20</span></td></tr>
+                    <tr><td class="attr-label">Clinical Terminology</td><td class="attr-val"><span class="c-20">19</span></td></tr>
+                    <tr><td class="attr-label">MTPE (Post-Editing)</td><td class="attr-val"><span class="c-20">19</span></td></tr>
+                    <tr><td class="attr-label">Subtitle Sync</td><td class="attr-val"><span class="c-20">18</span></td></tr>
+                    <tr><td class="attr-label">Video Editing (CapCut)</td><td class="attr-val"><span class="c-15">15</span></td></tr>
+                    <tr><td class="attr-label">SEO Basics</td><td class="attr-val"><span class="c-15">13</span></td></tr>
+                    <tr><td class="attr-label">Copywriting</td><td class="attr-val"><span class="c-15">15</span></td></tr>
                 </table>
             </div>
 
-            <div class="contract-status">
-                <div>
-                    <div style="font-size: 8pt; color:#666; text-transform:uppercase;">Transfer Value</div>
-                    <div class="price-tag">FREELANCE / OPEN</div>
-                    <div style="font-size: 8pt; color:#666;">Contract expires: N/A</div>
+            <div class="panel">
+                <div class="panel-head">Mental Attributes</div>
+                <table class="attr-table">
+                    <tr><td class="attr-label">Determination</td><td class="attr-val"><span class="c-20">20</span></td></tr>
+                    <tr><td class="attr-label">Concentration</td><td class="attr-val"><span class="c-20">19</span></td></tr>
+                    <tr><td class="attr-label">Work Rate</td><td class="attr-val"><span class="c-20">18</span></td></tr>
+                    <tr><td class="attr-label">Adaptability</td><td class="attr-val"><span class="c-20">17</span></td></tr>
+                    <tr><td class="attr-label">Teamwork</td><td class="attr-val"><span class="c-15">15</span></td></tr>
+                </table>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">Languages</div>
+                <table class="attr-table">
+                    <tr><td class="attr-label">Spanish (Native/ESP)</td><td class="attr-val"><span class="c-20">20</span></td></tr>
+                    <tr><td class="attr-label">Hebrew (Fluent C1)</td><td class="attr-val"><span class="c-20">19</span></td></tr>
+                    <tr><td class="attr-label">English (Fluent C1)</td><td class="attr-val"><span class="c-20">18</span></td></tr>
+                </table>
+                <div style="padding: 5px 8px; font-size: 7.5pt; color: #666; font-style: italic;">
+                    *10+ Years Hebrew Immersion.<br>*Born in Málaga (Castilian Expertise).
                 </div>
-                <div style="text-align: right;">
-                    <div style="margin-bottom:5px;"><strong>+54 9 2302 21-9422</strong></div>
-                    <a href="mailto:dhurwitzbecerra@mdp.edu.ar" class="contact-btn">Make an Offer</a>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">Player Traits</div>
+                <ul class="preferred-moves">
+                    <li>Obsessive regarding terminological accuracy.</li>
+                    <li>Uses medical training to verify context.</li>
+                    <li>Delivers before deadline (Pace).</li>
+                    <li>Thrives in high-pressure environments.</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="right-col">
+            
+            <div class="panel">
+                <div class="panel-head">Scout Summary Report</div>
+                <div class="bio-text">
+                    <strong>Danilo Hurwitz</strong> is a Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current <strong>Medical Student (MD Candidate)</strong>. 
+                    <br><br>
+                    He possesses elite capability in bridging complex medical terminology with linguistic barriers, combining active medical training (Anatomy, Physiology) with native/fluent proficiency. 
+                    Currently deployed at <strong>ICUC Social</strong> performing linguistic biopsies and QA. Known for 100% Job Success Score on global freelance markets.
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">Career History & Performance</div>
+                <table class="career-table">
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Team / Role</th>
+                            <th>Duties & Key Performance Indicators</th>
+                            <th>Rtg</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="ct-year">Nov 2025<br>- Pres.</td>
+                            <td>
+                                <div class="ct-club">ICUC SOCIAL</div>
+                                <span class="ct-role">Content Specialist / Hebrew Translator</span>
+                            </td>
+                            <td class="ct-desc">
+                                • Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content.<br>
+                                • Diagnosing cultural context errors and sentiment misalignments in real-time.<br>
+                                • Operating within global rapid-response teams via MS Teams infrastructure.<br>
+                                • Ensuring brand safety and correct sentiment analysis.
+                            </td>
+                            <td class="ct-rating"><span class="c-20">7.9</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ct-year">May 2023<br>- Pres.</td>
+                            <td>
+                                <div class="ct-club">UPWORK / FREELANCE</div>
+                                <span class="ct-role">Medical Translator & Proofreader</span>
+                            </td>
+                            <td class="ct-desc">
+                                • <strong>Top Rated & 100% JSS.</strong> Specialized in clinical documentation (Trials, Informed Consents, MedTech Manuals).<br>
+                                • Mastered Machine Translation Post-Editing (MTPE) workflows for efficiency.<br>
+                                • Terminology Management and Style Guide implementation for Pharma clients.<br>
+                                • <em>"Working with Danilo was an exceptional experience... Five stars!"</em> (Client Feedback).
+                            </td>
+                            <td class="ct-rating"><span class="c-20">8.1</span></td>
+                        </tr>
+                        <tr>
+                            <td class="ct-year">May 2023<br>- Pres.</td>
+                            <td>
+                                <div class="ct-club">LIPSWAN / VIDEO</div>
+                                <span class="ct-role">Video Editor & Subtitle Specialist</span>
+                            </td>
+                            <td class="ct-desc">
+                                • Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules.<br>
+                                • Ensuring cognitive accessibility through precise audio-visual timing.<br>
+                                • Video editing for clarity and patient education content.
+                            </td>
+                            <td class="ct-rating"><span class="c-15">7.5</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="panel">
+                <div class="panel-head">Education & Certification</div>
+                <div class="edu-grid">
+                    <div class="edu-item">
+                        <strong>Doctor of Medicine (MD) Candidate</strong>
+                        <span>Universidad Nacional de Mar del Plata</span>
+                        <span style="color:#777; font-size: 7.5pt;">Exp. Graduation: 2029</span>
+                        <div style="font-size: 8pt; margin-top:3px; font-style: italic;">
+                            Acquiring deep-tissue knowledge of Anatomy, Physiology, Clinical Terminology directly applied to translation.
+                        </div>
+                    </div>
+                    <div class="edu-item">
+                        <strong>Certifications & Recognition</strong>
+                        <span>• Top Rated Freelancer (Upwork)</span>
+                        <span>• ID Verified (Upwork)</span>
+                        <span>• 100% Job Success Score (Zero Errors)</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel" style="margin-bottom: 0;">
+                <div class="panel-head">Equipment / Tools</div>
+                <div style="padding: 10px; font-size: 9pt;">
+                    <strong>Office:</strong> MS Office (Advanced), Google Workspace.<br>
+                    <strong>Video/Sub:</strong> CapCut, Subtitle Edit, Adobe Premiere (Basic).<br>
+                    <strong>Translation:</strong> MTPE Tools, Medical Glossaries, SEO Basic.
                 </div>
             </div>
 
         </div>
     </div>
+
+    <div class="status-bar">
+        <div class="stat-block" style="text-align: left; padding-left: 0;">
+            <span class="stat-lbl">Contact Agent</span>
+            <span class="stat-data">dhurwitzbecerra@mdp.edu.ar</span>
+        </div>
+        <div class="stat-block">
+            <span class="stat-lbl">Direct Line</span>
+            <span class="stat-data">+54 9 2302 21-9422</span>
+        </div>
+        <div class="stat-block">
+            <span class="stat-lbl">Profiles</span>
+            <span class="stat-data">linkedin.com/in/danilo-hurwitz</span>
+        </div>
+        <div class="stat-block" style="border:none; text-align: right; margin-left: auto;">
+            <span class="stat-lbl">Asking Price</span>
+            <span class="stat-data" style="color: var(--fm-purple);">OPEN TO OFFERS</span>
+        </div>
+    </div>
+
 </div>
 
 </body>
