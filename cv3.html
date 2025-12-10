@@ -2,340 +2,319 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Danilo CV - Word 2003 Edition</title>
+    <title>Danilo Hurwitz - XP A4 Vertical</title>
     <style>
-        /* FUENTES XP */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
 
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
         body {
-            margin: 0; padding: 0;
-            background: #000;
-            display: flex; justify-content: center; align-items: center;
-            height: 100vh;
+            margin: 0; padding: 20px;
+            background: #202020;
+            display: flex; justify-content: center;
             font-family: 'Tahoma', sans-serif;
-            overflow: hidden;
         }
 
-        /* EL MONITOR (PANTALLA) */
-        .screen {
-            width: 297mm; height: 210mm; /* A4 Horizontal */
+        /* CONTENEDOR PRINCIPAL A4 VERTICAL */
+        .xp-screen {
+            width: 210mm; height: 297mm;
             position: relative;
             background-image: url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png');
             background-size: cover; background-position: center;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            overflow: hidden;
+            overflow: hidden; /* Corta lo que salga de la hoja */
         }
 
-        /* ICONOS DEL ESCRITORIO (IZQUIERDA) */
-        .desktop-icons {
-            position: absolute; top: 20px; left: 20px;
-            display: flex; flex-direction: column; gap: 25px;
-            z-index: 5;
-        }
-        .icon {
-            width: 80px; text-align: center; cursor: pointer;
-            color: white; text-shadow: 1px 1px 2px black; font-size: 11px;
-        }
-        .icon:hover .icon-img { opacity: 0.8; }
-        .icon-img {
-            width: 48px; height: 48px; margin: 0 auto 5px auto;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 28px;
-        }
-        /* Simulación de iconos XP con CSS */
-        .ico-folder { 
-            background: #fcefa1; border: 1px solid #dcb048; border-radius: 2px; position: relative;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-        }
-        .ico-folder::before {
-            content: ''; position: absolute; top: -4px; left: 0; width: 20px; height: 6px;
-            background: #fcefa1; border: 1px solid #dcb048; border-bottom: none; border-radius: 3px 3px 0 0;
-        }
-        .ico-pdf { background: white; border: 1px solid #ccc; color: red; font-weight: bold; font-family: serif; }
-
-        /* --- VENTANA DE WORD 2003 --- */
-        .word-window {
+        /* --- UI DE WINDOWS XP (ESTILOS COMPARTIDOS) --- */
+        .window {
             position: absolute;
-            top: 20px; right: 40px; /* Posicionada a la derecha para ver iconos */
-            width: 200mm; height: 165mm;
-            background: #5987d6; /* Azul Word 2003 */
-            border-radius: 5px 5px 0 0;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+            background: #ece9d8; border: 1px solid #0055ea;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
             display: flex; flex-direction: column;
-            border: 1px solid #002d96;
-            z-index: 10;
         }
-
-        /* TITLE BAR */
         .title-bar {
-            height: 28px;
-            background: linear-gradient(to bottom, #5d92e6 0%, #2f65bd 100%);
-            border-radius: 4px 4px 0 0;
+            height: 26px;
+            background: linear-gradient(to bottom, #0058ee 0%, #3593ff 4%, #288eff 18%, #127dff 20%, #0369fc 39%, #0262ee 40%, #0057e5 100%);
+            border-radius: 6px 6px 0 0;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 10px; color: white; font-weight: bold; font-size: 12px;
+            padding: 0 6px; color: white; font-weight: bold; font-size: 11px;
             text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
         }
-        .win-controls { display: flex; gap: 3px; }
-        .btn { width: 20px; height: 20px; border: 1px solid white; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; }
-        .btn-x { background: #e04a3d; font-weight: bold; font-size: 14px; }
+        .controls { display: flex; gap: 2px; }
+        .btn { width: 18px; height: 18px; border: 1px solid #fff; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; }
+        .btn-x { background: #e04a3d; font-weight: bold; font-size: 12px; }
+        .btn-m { background: #288eff; }
 
-        /* TOOLBARS */
-        .toolbar-area {
-            background: #ece9d8;
-            padding: 2px; border-bottom: 1px solid #8e8e8e;
+        /* --- VENTANA 1: WORD 2003 (CV PRINCIPAL) --- */
+        .win-word {
+            top: 15mm; right: 10mm; left: 10mm; /* Centrada horizontalmente */
+            height: 210mm; /* Altura fija sin scroll */
+            z-index: 10;
         }
-        .menu-row { display: flex; gap: 10px; font-size: 11px; padding: 2px 5px; color: #000; }
-        .menu-row span:hover { background: #316ac5; color: white; }
+        /* Menús de Word */
+        .word-toolbar { background: #ece9d8; border-bottom: 1px solid #8e8e8e; padding: 1px; }
+        .menu-items { display: flex; gap: 8px; font-size: 10px; padding: 2px 5px; color: #000; }
+        .icon-bar { display: flex; gap: 4px; padding: 2px 5px; border-top: 1px solid #fff; align-items: center; }
+        .w-icon { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; border: 1px solid transparent; }
+        .w-icon:hover { border: 1px solid #316ac5; background: #c1d2ee; }
+        .font-box { background: white; border: 1px solid #abc1de; font-size: 10px; width: 100px; padding: 0 2px; display: flex; justify-content: space-between; }
         
-        .icon-row { 
-            display: flex; gap: 5px; padding: 3px 5px; border-top: 1px solid #fff; border-bottom: 1px solid #d4d0c8; 
-            align-items: center;
-        }
-        .tool-btn { 
-            width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; 
-            border: 1px solid transparent; font-size: 12px;
-        }
-        .tool-btn:hover { border: 1px solid #316ac5; background: #c1d2ee; }
-        
-        .font-select { 
-            background: white; border: 1px solid #abc1de; padding: 1px 5px; font-size: 10px; width: 120px; margin-right: 5px; display: flex; justify-content: space-between;
-        }
-
-        /* DOCUMENT AREA */
-        .doc-container {
-            flex-grow: 1; background: #5d6c7a; /* Gris oscuro fondo de Word */
-            padding: 10px; overflow-y: auto;
-            display: flex; justify-content: center;
+        /* El Papel (Documento) */
+        .word-body {
+            background: #5d6c7a; flex-grow: 1; padding: 10px;
+            display: flex; justify-content: center; overflow: hidden; /* CLAVE: NO SCROLL */
         }
         .paper {
-            background: white;
-            width: 100%; height: 100%;
+            background: white; width: 100%; height: 100%;
+            padding: 20px 25px;
+            font-family: 'Times New Roman', serif; color: #000;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
-            padding: 20px 30px;
-            font-family: 'Times New Roman', serif;
-            color: #000;
-            overflow-y: auto;
         }
 
-        /* CONTENIDO DEL CV (ESTILO WORD) */
-        h1 { font-family: 'Arial', sans-serif; font-size: 22px; margin: 0 0 5px 0; color: #000; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 5px; }
-        h2 { font-family: 'Arial', sans-serif; font-size: 14px; margin: 15px 0 5px 0; color: #2f65bd; font-weight: bold; text-transform: uppercase; }
-        .subtitle { font-family: 'Arial', sans-serif; font-size: 11px; color: #555; margin-bottom: 15px; font-weight: bold; }
+        /* Contenido del CV (Compactado para caber) */
+        .cv-header { border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; }
+        .cv-name { font-family: Arial, sans-serif; font-size: 18pt; font-weight: bold; text-transform: uppercase; margin: 0; line-height: 1; }
+        .cv-sub { font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold; color: #444; margin-top: 3px; }
+        .cv-contact { font-size: 8pt; margin-top: 3px; color: #666; }
         
-        .job-block { margin-bottom: 12px; }
-        .job-title { font-weight: bold; font-size: 12px; display: flex; justify-content: space-between; }
-        .job-company { font-style: italic; color: #444; font-size: 11px; margin-bottom: 3px; }
-        .job-list { margin: 0; padding-left: 20px; font-size: 11px; line-height: 1.4; }
-        .job-list li { margin-bottom: 2px; }
+        .cv-sect { font-family: Arial, sans-serif; font-size: 10pt; font-weight: bold; color: #2f65bd; border-bottom: 1px solid #ddd; margin-top: 10px; margin-bottom: 5px; text-transform: uppercase; }
+        
+        .cv-item { margin-bottom: 8px; }
+        .cv-role { font-weight: bold; font-size: 10pt; display: flex; justify-content: space-between; }
+        .cv-dates { font-weight: normal; font-size: 9pt; color: #666; }
+        .cv-co { font-style: italic; font-size: 9pt; margin-bottom: 2px; }
+        .cv-desc { margin: 0; padding-left: 15px; font-size: 9pt; line-height: 1.3; }
+        .cv-desc li { margin-bottom: 1px; }
 
-        .skills-table { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 5px; }
-        .skills-table td { border: 1px solid #ccc; padding: 4px; }
-        .skills-head { background: #eee; font-weight: bold; }
+        /* --- VENTANA 2: CARPETA SKILLS (EXPLORER) --- */
+        .win-folder {
+            bottom: 40mm; left: 10mm;
+            width: 90mm; height: 80mm;
+            z-index: 20; /* Flotando encima del Word */
+        }
+        .addr-bar { background: #ece9d8; padding: 3px; display: flex; gap: 5px; font-size: 10px; border-bottom: 1px solid #aca899; align-items: center; }
+        .addr-in { background: white; border: 1px solid #7c7c7c; flex-grow: 1; padding: 1px; color: #333; }
+        
+        .folder-body { display: flex; flex-grow: 1; background: white; }
+        .f-sidebar { width: 30%; background: linear-gradient(to bottom, #7ba2e7 0%, #6375d6 100%); padding: 5px; }
+        .f-box { background: white; border-radius: 3px; margin-bottom: 5px; overflow: hidden; }
+        .f-head { background: linear-gradient(to right, #fff, #c6d3f7); font-size: 9px; font-weight: bold; padding: 2px; color: #215dc6; }
+        .f-content { padding: 5px; font-size: 8px; color: #000; line-height: 1.2; }
+        
+        .f-icons { width: 70%; padding: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 5px; align-content: start; }
+        .icon-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .i-img { font-size: 20px; margin-bottom: 2px; }
+        .i-txt { font-size: 8px; color: #000; }
+
+        /* --- ESCRITORIO --- */
+        .desktop-icons { position: absolute; top: 15mm; left: 3mm; display: flex; flex-direction: column; gap: 15px; }
+        .dt-icon { text-align: center; color: white; font-size: 9px; text-shadow: 1px 1px 1px #000; width: 60px; }
+        .dt-img { font-size: 24px; margin-bottom: 2px; }
+
+        /* --- BARRA DE TAREAS --- */
+        .taskbar {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 28px;
+            background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 10%, #245edb 100%);
+            border-top: 2px solid #3f8cf3;
+            display: flex; align-items: center; z-index: 100;
+        }
+        .start-btn {
+            width: 80px; height: 100%;
+            background: linear-gradient(to bottom, #3c9e3c, #51c051);
+            border-radius: 0 10px 10px 0;
+            display: flex; align-items: center; padding-left: 5px; gap: 3px;
+            color: white; font-weight: bold; font-style: italic; font-size: 14px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5); margin-right: 5px;
+        }
+        .win-logo { display: grid; grid-template-columns: 1fr 1fr; width: 16px; height: 16px; border-radius: 50%; background: white; padding: 1px; gap: 1px; }
+        .wl { width: 100%; height: 100%; }
+        
+        .task { 
+            width: 120px; height: 22px; background: #153c94; color: white; border: 1px solid #0f2d72;
+            border-radius: 3px; display: flex; align-items: center; padding: 0 5px; gap: 5px;
+            font-size: 10px; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; margin-right: 2px;
+        }
+        .task-inactive { background: #3c81f0; box-shadow: none; border: 1px solid #2864c0; font-weight: normal; }
+
+        .tray { margin-left: auto; background: #0b76ba; height: 100%; padding: 0 10px; display: flex; align-items: center; color: white; font-size: 10px; border-left: 1px solid #095c91; gap: 8px; }
 
         /* CLIPPY */
-        .clippy-container {
-            position: absolute; bottom: 40px; right: 20px;
-            width: 150px; z-index: 20;
-            display: flex; flex-direction: column; align-items: flex-end;
-        }
-        .bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px;
-            padding: 10px; font-size: 10px; margin-bottom: 10px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            position: relative;
-        }
-        .bubble::after {
-            content: ''; position: absolute; bottom: -5px; right: 20px;
-            width: 8px; height: 8px; background: #ffffe1;
-            transform: rotate(45deg); border-right: 1px solid #000; border-bottom: 1px solid #000;
-        }
-        .clippy-img {
-            width: 60px; height: 60px;
-            /* Simple CSS Clippy simulation */
-            position: relative;
-        }
-        /* Using an emoji for Clippy to save image requests, styled to look paperclippy */
-        .clippy-emoji { font-size: 50px; text-shadow: 2px 2px 0px rgba(0,0,0,0.3); }
-
-        /* TASKBAR */
-        .taskbar {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 30px;
-            background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 10%, #245edb 100%);
-            display: flex; align-items: center; z-index: 100;
-            border-top: 2px solid #3f8cf3;
-        }
-        .start {
-            width: 100px; height: 100%; background: linear-gradient(to bottom, #3c9e3c, #51c051);
-            border-radius: 0 10px 10px 0; display: flex; align-items: center; padding-left: 5px;
-            color: white; font-weight: bold; font-style: italic; font-size: 16px; margin-right: 10px; box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-        }
-        .task {
-            width: 150px; height: 24px; background: #153c94; color: white;
-            border-radius: 3px; display: flex; align-items: center; padding: 0 5px; gap: 5px;
-            font-size: 11px; box-shadow: inset 1px 1px 3px rgba(0,0,0,0.5); font-weight: bold;
-        }
+        .clippy { position: absolute; bottom: 35mm; right: 5mm; width: 80px; z-index: 30; }
+        .balloon { background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 5px; font-size: 9px; margin-bottom: 5px; box-shadow: 2px 2px 2px rgba(0,0,0,0.2); }
+        .c-img { font-size: 40px; text-align: right; }
 
         @media print {
-            .screen { width: 100%; height: auto; box-shadow: none; }
-            .paper { height: auto; overflow: visible; }
-            .doc-container { overflow: visible; }
+            body { background: none; margin: 0; padding: 0; }
+            .xp-screen { width: 100%; height: 100%; box-shadow: none; margin: 0; }
         }
     </style>
 </head>
 <body>
 
-<div class="screen">
+<div class="xp-screen">
 
     <div class="desktop-icons">
-        <div class="icon">
-            <div class="icon-img ico-folder" style="color:#000;">📂</div>
-            My Skills
-        </div>
-        <div class="icon">
-            <div class="icon-img ico-folder" style="color:#000;">🌐</div>
-            Languages
-        </div>
-        <div class="icon">
-            <div class="icon-img ico-pdf">W</div>
-            CV_Final.doc
-        </div>
-        <div class="icon">
-            <div class="icon-img">🗑️</div>
-            Recycle Bin
-        </div>
+        <div class="dt-icon"><div class="dt-img">💻</div>My Computer</div>
+        <div class="dt-icon"><div class="dt-img">🗑️</div>Recycle Bin</div>
+        <div class="dt-icon"><div class="dt-img">🌐</div>Internet</div>
     </div>
 
-    <div class="word-window">
+    <div class="window win-word">
         <div class="title-bar">
             <span>Microsoft Word - CV_Danilo_Hurwitz.doc</span>
-            <div class="win-controls">
-                <div class="btn" style="background:#288eff;">_</div>
-                <div class="btn" style="background:#288eff;">□</div>
-                <div class="btn btn-x">×</div>
+            <div class="controls"><div class="btn btn-m">_</div><div class="btn btn-m">□</div><div class="btn btn-x">×</div></div>
+        </div>
+        <div class="word-toolbar">
+            <div class="menu-items"><span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Tools</span><span>Help</span></div>
+            <div class="icon-bar">
+                <div class="w-icon">💾</div><div class="w-icon">🖨️</div>
+                <div style="height:14px; border-left:1px solid #999; margin:0 2px;"></div>
+                <div class="font-box"><span>Times New Roman</span><span>▼</span></div>
+                <div class="font-box" style="width:40px;"><span>10</span><span>▼</span></div>
+                <div class="w-icon"><b>B</b></div><div class="w-icon"><i>I</i></div><div class="w-icon"><u>U</u></div>
+                <div style="height:14px; border-left:1px solid #999; margin:0 2px;"></div>
+                <div class="w-icon" style="margin-left:auto;">100%</div>
             </div>
         </div>
-
-        <div class="toolbar-area">
-            <div class="menu-row">
-                <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>I</u>nsert</span><span>F<u>o</u>rmat</span><span><u>T</u>ools</span><span><u>H</u>elp</span>
-            </div>
-            <div class="icon-row">
-                <div class="tool-btn">💾</div><div class="tool-btn">🖨️</div>
-                <div style="border-left:1px solid #999; height:16px; margin:0 5px;"></div>
-                <div class="font-select"><span>Times New Roman</span><span>▼</span></div>
-                <div class="font-select" style="width:40px;"><span>11</span><span>▼</span></div>
-                <div class="tool-btn" style="font-weight:bold;">B</div>
-                <div class="tool-btn" style="font-style:italic;">I</div>
-                <div class="tool-btn" style="text-decoration:underline;">U</div>
-                <div style="border-left:1px solid #999; height:16px; margin:0 5px;"></div>
-                <div class="tool-btn">≡</div><div class="tool-btn">≣</div><div class="tool-btn">⋮</div>
-            </div>
-        </div>
-
-        <div class="doc-container">
+        <div class="word-body">
             <div class="paper">
-                <h1>DANILO HURWITZ</h1>
-                <div class="subtitle">MD Candidate | Medical Translator | Content Specialist</div>
-                <div style="font-size:10px; border-bottom:1px solid #ccc; padding-bottom:5px; margin-bottom:10px;">
-                    📍 Mar del Plata, ARG | 📞 +54 9 2302 21-9422 | 📧 dhurwitzbecerra@mdp.edu.ar
+                <div class="cv-header">
+                    <h1 class="cv-name">Danilo Hurwitz</h1>
+                    <div class="cv-sub">MD Candidate | Medical Translator | Content Specialist</div>
+                    <div class="cv-contact">
+                        Mar del Plata, ARG • +54 9 2302 21-9422 • dhurwitzbecerra@mdp.edu.ar
+                    </div>
                 </div>
 
-                <h2>PROFESSIONAL EXPERIENCE</h2>
+                <div class="cv-sect">Professional Experience</div>
                 
-                <div class="job-block">
-                    <div class="job-title">
-                        <span>Content Specialist / Hebrew Translator</span>
-                        <span>Nov 2025 – Present</span>
-                    </div>
-                    <div class="job-company">ICUC Social (Remote)</div>
-                    <ul class="job-list">
-                        <li>Performing "linguistic biopsies" on Hebrew content to diagnose cultural/context errors.</li>
-                        <li>Real-time sentiment analysis and brand safety assurance.</li>
-                        <li>Operating in global rapid-response teams via MS Teams.</li>
+                <div class="cv-item">
+                    <div class="cv-role"><span>Content Specialist / Hebrew Translator</span> <span class="cv-dates">Nov 2025 – Present</span></div>
+                    <div class="cv-co">ICUC Social (Remote)</div>
+                    <ul class="cv-desc">
+                        <li>Performing "linguistic biopsies" on Hebrew content to ensure brand safety.</li>
+                        <li>Diagnosing cultural context errors and sentiment misalignments in real-time.</li>
+                        <li>Operating within global rapid-response teams via MS Teams.</li>
                     </ul>
                 </div>
 
-                <div class="job-block">
-                    <div class="job-title">
-                        <span>Freelance Medical Translator (Top Rated)</span>
-                        <span>May 2023 – Present</span>
-                    </div>
-                    <div class="job-company">Upwork / Global Clients</div>
-                    <ul class="job-list">
-                        <li><strong>100% Job Success Score</strong>. Translating Clinical Trials & MedTech Manuals.</li>
-                        <li>Method: Human-verified MTPE (Machine Translation Post-Editing) ensuring accuracy.</li>
+                <div class="cv-item">
+                    <div class="cv-role"><span>Freelance Medical Translator (Top Rated)</span> <span class="cv-dates">May 2023 – Present</span></div>
+                    <div class="cv-co">Upwork / Global Clients</div>
+                    <ul class="cv-desc">
+                        <li><strong>100% Job Success Score</strong>. Zero errors reported.</li>
+                        <li>Translating Clinical Trials, Informed Consents, and MedTech Manuals.</li>
+                        <li>Using Human-verified MTPE workflows for maximum efficiency.</li>
                     </ul>
                 </div>
 
-                <div class="job-block">
-                    <div class="job-title">
-                        <span>Video Editor & Subtitle Specialist</span>
-                        <span>May 2023 – Present</span>
-                    </div>
-                    <div class="job-company">Lipswan / Freelance</div>
-                    <ul class="job-list">
-                        <li>Synchronizing multilingual subtitles (HE/EN/ES) for medical e-learning.</li>
-                        <li>Ensuring cognitive accessibility via precise editing.</li>
+                <div class="cv-item">
+                    <div class="cv-role"><span>Video Editor & Subtitle Specialist</span> <span class="cv-dates">May 2023 – Present</span></div>
+                    <div class="cv-co">Lipswan / Freelance</div>
+                    <ul class="cv-desc">
+                        <li>Syncing multilingual subtitles (HE/EN/ES) for medical e-learning.</li>
+                        <li>Ensuring cognitive accessibility via precise audio-visual editing.</li>
                     </ul>
                 </div>
 
-                <h2>EDUCATION</h2>
-                <div class="job-block">
-                    <div class="job-title">
-                        <span>Doctor of Medicine (MD) Candidate</span>
-                        <span>Exp. 2029</span>
-                    </div>
-                    <div class="job-company">Universidad Nacional de Mar del Plata</div>
-                    <div style="font-size:11px;">Applying deep knowledge of Anatomy/Pathology to translation.</div>
+                <div class="cv-sect">Education</div>
+                <div class="cv-item">
+                    <div class="cv-role"><span>Doctor of Medicine (MD) Candidate</span> <span class="cv-dates">Exp. 2029</span></div>
+                    <div class="cv-co">Universidad Nacional de Mar del Plata</div>
+                    <div style="font-size:9pt; margin-top:2px;">Applying deep knowledge of Anatomy and Physiology directly to translation accuracy.</div>
                 </div>
 
-                <h2>SKILLS MATRIX</h2>
-                <table class="skills-table">
-                    <tr class="skills-head">
-                        <td>Languages</td>
-                        <td>Technical</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            • Spanish (Native C2)<br>
-                            • Hebrew (Fluent C1)<br>
-                            • English (Medical C1)
-                        </td>
-                        <td>
-                            • Medical Terminology<br>
-                            • Video Editing (CapCut)<br>
-                            • Subtitle Edit
-                        </td>
-                    </tr>
-                </table>
+                <div class="cv-sect">Certifications</div>
+                <div style="font-size:9pt;">
+                    • Upwork Top Rated Freelancer & ID Verified<br>
+                    • EF SET English Certificate (C1/C2 Proficient)
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="clippy-container">
-        <div class="bubble">
-            It looks like you're looking for a <strong>Medical Translator</strong> with MD knowledge.<br><br>
-            Would you like me to schedule an interview with Danilo?
+    <div class="window win-folder">
+        <div class="title-bar">
+            <span>C:\Danilo\Skills</span>
+            <div class="controls"><div class="btn btn-m">_</div><div class="btn btn-m">□</div><div class="btn btn-x">×</div></div>
         </div>
-        <div class="clippy-emoji">📎</div>
+        <div class="word-toolbar">
+            <div class="menu-items"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
+        </div>
+        <div class="addr-bar">
+            <span>Address</span>
+            <div class="addr-in">C:\Danilo\Skills_&_Languages</div>
+            <span style="color:green; font-weight:bold;">→ Go</span>
+        </div>
+        <div class="folder-body">
+            <div class="f-sidebar">
+                <div class="f-box">
+                    <div class="f-head">Details</div>
+                    <div class="f-content">
+                        <strong>Skills Folder</strong><br>
+                        File Folder<br><br>
+                        Date: Today
+                    </div>
+                </div>
+            </div>
+            <div class="f-icons">
+                <div class="icon-item">
+                    <div class="i-img">🇪🇸</div>
+                    <div class="i-txt">Spanish<br>(Native)</div>
+                </div>
+                <div class="icon-item">
+                    <div class="i-img">🇮🇱</div>
+                    <div class="i-txt">Hebrew<br>(Fluent)</div>
+                </div>
+                <div class="icon-item">
+                    <div class="i-img">🇺🇸</div>
+                    <div class="i-txt">English<br>(Medical)</div>
+                </div>
+                <div class="icon-item">
+                    <div class="i-img">🎬</div>
+                    <div class="i-txt">Video<br>Edit</div>
+                </div>
+                <div class="icon-item">
+                    <div class="i-img">💊</div>
+                    <div class="i-txt">Medical<br>Terms</div>
+                </div>
+                 <div class="icon-item">
+                    <div class="i-img">⌨️</div>
+                    <div class="i-txt">Subtitles</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clippy">
+        <div class="balloon">
+            It looks like you need a pro!<br>
+            <strong>Call Danilo?</strong>
+        </div>
+        <div class="c-img">📎</div>
     </div>
 
     <div class="taskbar">
-        <div class="start">
-            <div style="background:white; border-radius:50%; width:20px; height:20px; margin-right:5px; display:grid; grid-template-columns:1fr 1fr; overflow:hidden;">
-                <div style="background:#e04a3d;"></div><div style="background:#68ae4a;"></div>
-                <div style="background:#3988e4;"></div><div style="background:#focb2f;"></div>
+        <div class="start-btn">
+            <div class="win-logo">
+                <div class="wl" style="background:#e04a3d;"></div><div class="wl" style="background:#68ae4a;"></div>
+                <div class="wl" style="background:#3988e4;"></div><div class="wl" style="background:#focb2f;"></div>
             </div>
             Start
         </div>
         <div class="task">
             <span style="background:white; color:blue; font-weight:bold; padding:0 2px; border-radius:2px;">W</span>
-            CV_Danilo_Hur...
+            CV_Danilo...
         </div>
-        <div style="margin-left:auto; color:white; font-size:11px; padding-right:15px; font-weight:bold;">
-            10:29 PM
+        <div class="task task-inactive">
+            <span style="font-size:12px;">📂</span>
+            Skills
+        </div>
+        <div class="tray">
+            <span>🛡️</span>
+            <span>🔊</span>
+            <span>18:08</span>
         </div>
     </div>
 
