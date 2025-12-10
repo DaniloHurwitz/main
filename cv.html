@@ -2,319 +2,302 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Danilo Hurwitz (Impact Edition)</title>
+    <title>Clinical Data Report - Danilo Hurwitz</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
         :root {
-            --primary-color: #1a3c6e;
-            --accent-color: #d4a017; /* Dorado más oscuro para contraste */
-            --text-color: #222;
-            --bg-color: #fff;
+            --ink: #111;
+            --paper: #fcfcfc;
+            --alert: #cc0000; /* Rojo clínico para detalles mínimos */
+            --grid-line: #ccc;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            font-size: 9.5pt;
-            line-height: 1.35;
-            color: var(--text-color);
-            background-color: var(--bg-color);
+            font-family: 'Space Mono', 'Courier New', monospace;
+            background: #e0e0e0; /* Fondo gris para pantalla */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Simulación de Hoja A4 */
+        .sheet {
+            background: var(--paper);
             width: 210mm;
             min-height: 297mm;
-            margin: 0 auto;
+            padding: 15mm;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-top: 5px solid var(--ink); /* Borde superior grueso estilo carpeta */
+        }
+
+        /* Estructura General */
+        h1, h2, h3, p { margin: 0; }
+        
+        .header-grid {
             display: grid;
-            grid-template-columns: 28% 68%; /* Columna izquierda estrecha */
-            gap: 4%;
-            padding: 10mm; /* Margen general */
+            grid-template-columns: 3fr 1fr;
+            border-bottom: 2px solid var(--ink);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        /* LEFT COLUMN (Dark background for visual pop) */
-        aside {
-            border-right: 1px solid #eee;
-            padding-right: 10px;
-            text-align: right; /* Alineación derecha para conectar con el contenido */
-        }
-
-        /* RIGHT COLUMN */
-        main {
-            padding-top: 0;
-        }
-
-        /* HEADER & NAME */
-        h1 {
-            color: var(--primary-color);
+        .doc-title {
+            font-size: 8pt;
             text-transform: uppercase;
-            font-size: 26pt;
-            line-height: 1;
+            letter-spacing: 2px;
+            color: #666;
             margin-bottom: 5px;
-            letter-spacing: -0.5px;
         }
 
-        .subtitle {
-            font-size: 11pt;
-            color: var(--accent-color);
-            font-weight: bold;
-            margin-bottom: 15px;
+        .candidate-name {
+            font-size: 24pt;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            font-weight: 700;
+            letter-spacing: -1px;
         }
 
-        /* SECTIONS */
-        h2 {
-            font-size: 10pt;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            border-bottom: 2px solid var(--accent-color);
+        /* Fake Barcode con CSS */
+        .barcode {
+            height: 40px;
+            width: 100%;
+            background: linear-gradient(to right, 
+                #000 2%, transparent 2%, transparent 4%, #000 4%, #000 5%, transparent 5%,
+                transparent 7%, #000 7%, #000 10%, transparent 10%, transparent 11%, #000 11%,
+                #000 15%, transparent 15%, transparent 18%, #000 18%, #000 22%, transparent 22%,
+                transparent 25%, #000 25%, #000 26%, transparent 26%, transparent 30%, #000 30%,
+                #000 34%, transparent 34%, transparent 38%, #000 38%, #000 40%, transparent 40%,
+                transparent 42%, #000 42%, #000 45%, transparent 45%, transparent 48%, #000 48%
+            );
+            opacity: 0.8;
+        }
+        .ref-code { font-size: 7pt; text-align: right; margin-top: 2px; }
+
+        /* DATA BLOCKS */
+        .section-label {
+            background: var(--ink);
+            color: #fff;
+            font-size: 9pt;
             display: inline-block;
-            margin-bottom: 8px;
-            margin-top: 15px;
+            padding: 2px 6px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .data-grid {
+            display: grid;
+            grid-template-columns: 140px 1fr; /* Columna izq fija para etiquetas */
+            gap: 15px 20px;
+            margin-bottom: 25px;
+            font-size: 9pt;
+        }
+
+        .data-label {
+            text-align: right;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 8pt;
+            color: #555;
+            padding-top: 2px;
+            border-right: 1px solid var(--grid-line);
+            padding-right: 15px;
+        }
+
+        .data-value {
+            color: var(--ink);
+        }
+
+        /* EXPERIENCE LOG STYLE */
+        .log-entry {
+            margin-bottom: 15px;
+            border-left: 2px solid #eee;
+            padding-left: 15px;
+        }
+        
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            border-bottom: 1px dashed #ccc;
             padding-bottom: 2px;
         }
         
-        h2:first-of-type { margin-top: 0; }
-
-        /* CONTACT */
-        .contact-info {
-            font-size: 8.5pt;
-            margin-bottom: 20px;
-        }
-        .contact-info div { margin-bottom: 3px; }
-        .contact-info a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
-
-        /* IMPACT BOXES (The "Unforgettable" part) */
-        .impact-box {
-            background: #fdfdfd;
-            border-left: 4px solid var(--accent-color);
-            padding: 8px 12px;
-            margin: 10px 0 15px 0;
-            font-size: 9pt;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .impact-title { font-weight: bold; color: var(--primary-color); display: block; margin-bottom: 4px; }
-        .impact-content { font-style: italic; color: #444; }
-
-        /* JOBS */
-        .job { margin-bottom: 12px; }
-        .job-header { display: flex; justify-content: space-between; align-items: baseline; }
-        .job-title { font-weight: 800; font-size: 11pt; }
-        .company { color: var(--primary-color); font-weight: 600; font-size: 10pt; }
-        .date { font-size: 9pt; color: #777; }
+        .log-role { font-weight: 700; font-size: 10pt; }
+        .log-time { font-size: 8pt; font-family: monospace; background: #eee; padding: 0 4px; }
         
-        ul { list-style: none; margin-top: 4px; }
-        li { 
-            position: relative; 
-            padding-left: 12px; 
-            margin-bottom: 2px; 
-            font-size: 9.5pt;
+        .log-desc li {
+            list-style: none;
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 3px;
+            font-size: 8.5pt;
         }
-        li::before {
-            content: "›";
+        .log-desc li::before {
+            content: "+";
             position: absolute;
             left: 0;
-            color: var(--accent-color);
+            color: #555;
             font-weight: bold;
         }
 
-        /* SKILLS & LANGUAGES (Sidebar) */
-        .skill-block { margin-bottom: 15px; }
-        .skill-name { font-weight: bold; display: block; color: var(--primary-color); font-size: 9.5pt; }
-        .skill-detail { font-size: 8.5pt; color: #555; }
-
-        /* QR CODE PLACEHOLDER */
-        .qr-container {
-            margin-top: 20px;
-            border: 1px dashed #ccc;
-            padding: 10px;
-            display: inline-block;
-            text-align: center;
+        /* "STAMP" */
+        .stamp {
+            position: absolute;
+            top: 40mm;
+            right: 20mm;
+            border: 3px solid var(--alert);
+            color: var(--alert);
+            font-size: 14pt;
+            font-weight: 700;
+            padding: 5px 10px;
+            text-transform: uppercase;
+            transform: rotate(-12deg);
+            opacity: 0.8;
+            z-index: 10;
+            mix-blend-mode: multiply;
         }
-        .qr-placeholder {
-            width: 80px;
-            height: 80px;
-            background-color: #eee;
-            margin: 0 auto 5px;
+
+        /* CONTACT MINI-GRID */
+        .contact-box {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             font-size: 8pt;
-            color: #999;
+            border-top: 1px solid var(--ink);
+            border-bottom: 1px solid var(--ink);
+            padding: 5px 0;
+            margin-bottom: 25px;
         }
-        .qr-label { font-size: 8pt; font-weight: bold; color: var(--primary-color); }
+        .contact-item span { font-weight: 700; margin-right: 5px; }
 
-        /* ANATOMY OF TRANSLATION (The Visual Hook) */
-        .translation-anatomy {
-            background-color: #f4f6f9;
-            padding: 10px;
-            border-radius: 4px;
-            margin-top: 10px;
-            font-size: 8.5pt;
-            border: 1px solid #e1e4e8;
+        /* FOOTER */
+        .footer-note {
+            position: absolute;
+            bottom: 15mm;
+            left: 15mm;
+            right: 15mm;
+            font-size: 7pt;
+            color: #888;
+            border-top: 1px solid #ddd;
+            padding-top: 5px;
+            display: flex;
+            justify-content: space-between;
         }
-        .anatomy-header {
-            font-weight: bold; 
-            color: var(--primary-color); 
-            text-transform: uppercase; 
-            font-size: 8pt;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-        .anatomy-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .term-box { background: white; padding: 5px; border: 1px solid #ddd; }
-        .term-label { display: block; font-size: 7pt; color: #888; text-transform: uppercase; }
-        .term-val { font-weight: bold; color: #000; }
-        .term-note { grid-column: 1 / -1; margin-top: 5px; font-style: italic; color: #555; border-top: 1px dotted #ccc; padding-top: 3px; }
 
         @media print {
-            body { margin: 0; width: 100%; -webkit-print-color-adjust: exact; }
-            @page { margin: 0; size: A4; }
-            .container { padding: 10mm; }
+            body { background: none; margin: 0; padding: 0; }
+            .sheet { width: 100%; height: 100%; box-shadow: none; padding: 10mm; border: none; }
+            .stamp { opacity: 0.6; } /* Asegura que no tape texto al imprimir */
         }
     </style>
 </head>
 <body>
 
-    <aside>
-        <div class="contact-info">
-            <div>+54 9 2302 21-9422</div>
-            <div>dhurwitzbecerra@mdp.edu.ar</div>
-            <div>Mar del Plata, AR</div>
-            <div style="margin-top:5px;"><a href="#">linkedin.com/in/danilo</a></div>
-            <div><a href="#">upwork.com/danilo</a></div>
-        </div>
+    <div class="sheet">
+        <div class="stamp">CLEARED FOR<br>CLINICAL USE</div>
 
-        <h2>Core Expertise</h2>
-        <div class="skill-block">
-            <span class="skill-name">Medical Translation</span>
-            <span class="skill-detail">Clinical Trials, Patient Reports, MedTech Manuals, Regulatory Docs</span>
-        </div>
-        <div class="skill-block">
-            <span class="skill-name">Technical Precision</span>
-            <span class="skill-detail">MTPE, Terminology Mgmt, QA & Back-Translation</span>
-        </div>
-
-        <h2>Languages</h2>
-        <div class="skill-block">
-            <span class="skill-name">Spanish (Native)</span>
-            <span class="skill-detail">Born in Spain | LATAM Expert</span>
-        </div>
-        <div class="skill-block">
-            <span class="skill-name">Hebrew (C1/Native)</span>
-            <span class="skill-detail">10+ Years Immersion</span>
-        </div>
-        <div class="skill-block">
-            <span class="skill-name">English (C1)</span>
-            <span class="skill-detail">Medical Proficiency</span>
-        </div>
-
-        <h2>Education</h2>
-        <div class="skill-block">
-            <span class="skill-name">Doctor of Medicine (MD)</span>
-            <span class="skill-detail">UNMDP (Candidate 2029)</span>
-            <span class="skill-detail"><i>Focus: Clinical Anatomy & Physiology</i></span>
-        </div>
-
-        <div class="qr-container">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=https://linkedin.com/in/danilo-hurwitz" alt="QR Code" style="width:80px; height:80px;">
-            <div class="qr-label">HEAR ME SPEAK<br>(Trilingual Demo)</div>
-        </div>
-
-        <div style="margin-top: 20px; text-align: left;">
-            <div class="anatomy-header">The Anatomy of Precision</div>
-            <div class="translation-anatomy">
-                <div class="anatomy-grid">
-                    <div class="term-box">
-                        <span class="term-label">Source (Hebrew)</span>
-                        <span class="term-val" dir="rtl">אי ספיקת כליות</span>
-                    </div>
-                    <div class="term-box">
-                        <span class="term-label">Target (English)</span>
-                        <span class="term-val">Renal Insufficiency</span>
-                    </div>
-                    <div class="term-note">
-                        <span class="term-label">Translator's Note:</span>
-                        Selected "Insufficiency" over generic "Failure" to match the specific early-stage context of the patient's pathology report.
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </aside>
-
-    <main>
-        <header>
-            <h1>Danilo Hurwitz</h1>
-            <div class="subtitle">Medical Translator & Content Specialist</div>
-        </header>
-
-        <div class="impact-box">
-            <span class="impact-title">Value Proposition</span>
-            <span class="impact-content">
-                I bridge the critical gap between complex medical terminology and linguistic barriers. Unlike generic translators, I leverage active medical training to ensure clinical accuracy in Hebrew, English, and Spanish. My work protects the integrity of medical data and ensures patient safety through linguistic precision.
-            </span>
-        </div>
-
-        <h2>Experience</h2>
-
-        <div class="job">
-            <div class="job-header">
-                <span class="job-title">Content Specialist / Hebrew Translator</span>
-                <span class="date">Nov 2025 – Present</span>
-            </div>
-            <div class="company">ICUC Social (Remote)</div>
-            <ul>
-                <li>Execute linguistic quality checks and moderation for high-stakes Hebrew content, acting as the final filter for cultural and contextual accuracy.</li>
-                <li>Partner with English-speaking teams to decode sentiment and colloquialisms in medical and general data sets.</li>
-                <li>Operate within a rapid-response global infrastructure (MS Teams), ensuring 100% SLA compliance.</li>
-            </ul>
-        </div>
-
-        <div class="job">
-            <div class="job-header">
-                <span class="job-title">Freelance Medical Translator</span>
-                <span class="date">May 2023 – Present</span>
-            </div>
-            <div class="company">Upwork (Top Rated / 100% JSS)</div>
-            <ul>
-                <li><strong>Specialization:</strong> Translation of clinical documentation, informed consents, and medical device manuals (HE/EN/ES).</li>
-                <li><strong>Achievement:</strong> Maintained a 0% error rate on 10+ major projects requiring strict adherence to medical style guides.</li>
-                <li><strong>Methodology:</strong> Apply MTPE (Machine Translation Post-Editing) with human medical oversight to combine speed with clinical safety.</li>
-            </ul>
-            <div style="font-size: 8.5pt; color: #555; margin-top: 3px; font-style: italic;">
-                "Working with Danilo was exceptional. His proficiency in medical terminology is unmatched." — Client Review (5.0/5.0)
-            </div>
-        </div>
-
-        <div class="job">
-            <div class="job-header">
-                <span class="job-title">Video Editor & Subtitle Creator</span>
-                <span class="date">May 2023 – Present</span>
-            </div>
-            <div class="company">Freelance</div>
-            <ul>
-                <li>Engineer synchronized multilingual subtitles for medical e-learning modules, ensuring timing matches cognitive load for students.</li>
-                <li>Optimize audio-visual clarity for patient education materials.</li>
-            </ul>
-        </div>
-
-        <h2>Technical Arsenal</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 9pt;">
+        <div class="header-grid">
             <div>
-                <strong>Translation Tools:</strong><br>
-                SDL Trados (Basic), Smartcat, Wordfast, Subtitle Edit.
+                <div class="doc-title">Personnel Proficiency Report // REF: MD-TR-2025</div>
+                <div class="candidate-name">Dr. Candidate<br>Danilo Hurwitz</div>
             </div>
             <div>
-                <strong>Productivity:</strong><br>
-                MS Office 365 (Advanced), Google Workspace, CapCut, Slack/Teams.
+                <div class="barcode"></div>
+                <div class="ref-code">ID: 54-9-2302-219422</div>
             </div>
         </div>
 
-    </main>
+        <div class="contact-box">
+            <div class="contact-item"><span>LOC:</span>Mar del Plata, AR</div>
+            <div class="contact-item"><span>TEL:</span>+54 9 2302 21-9422</div>
+            <div class="contact-item"><span>MAIL:</span>dhurwitzbecerra@mdp.edu.ar</div>
+            <div class="contact-item"><span>WEB:</span>linkedin.com/in/danilo-hurwitz</div>
+        </div>
+
+        <div class="section-label">01 // SUBJECT SPECIFICATIONS</div>
+        <div class="data-grid">
+            <div class="data-label">Education Status</div>
+            <div class="data-value">
+                <strong>Doctor of Medicine (MD) Candidate</strong><br>
+                Universidad Nacional de Mar del Plata (Exp. 2029)<br>
+                <span style="font-size:8pt; color:#666;">> Focus: Clinical Terminology & Anatomy</span>
+            </div>
+
+            <div class="data-label">Linguistic Output</div>
+            <div class="data-value">
+                [ES] SPANISH: Native (Castilian/LATAM Origin)<br>
+                [HE] HEBREW:  C1 Fluent (10 Yrs Immersion)<br>
+                [EN] ENGLISH: C1 Fluent (Medical Proficient)
+            </div>
+
+            <div class="data-label">Core Capabilities</div>
+            <div class="data-value">Medical Translation, Clinical Documentation, MTPE, Moderation.</div>
+        </div>
+
+        <div class="section-label">02 // INTERVENTION LOG</div>
+        
+        <div class="log-entry">
+            <div class="log-header">
+                <span class="log-role">CONTENT SPECIALIST / HEBREW TRANSLATOR @ ICUC SOCIAL</span>
+                <span class="log-time">NOV 2025 - PRESENT</span>
+            </div>
+            <ul class="log-desc">
+                <li>Conducting scheduled linguistic quality checks (LQC) for high-stakes Hebrew content.</li>
+                <li>Collaborating with English teams to verify sentiment and cultural nuances in medical data.</li>
+                <li> executing rapid-response moderation within global remote infrastructure (MS Teams/Outlook).</li>
+            </ul>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-header">
+                <span class="log-role">FREELANCE TRANSLATOR (TOP RATED) @ UPWORK</span>
+                <span class="log-time">MAY 2023 - PRESENT</span>
+            </div>
+            <ul class="log-desc">
+                <li>Performance Metric: 100% Job Success Score / Top Rated Status.</li>
+                <li>Specialization: Clinical trials, informed consents, MedTech manuals (HE/EN/ES).</li>
+                <li>Protocol: Machine Translation Post-Editing (MTPE) with strict human medical oversight.</li>
+                <li>Result: "Exceptional proficiency in medical terminology" (Client Rating: 5.0).</li>
+            </ul>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-header">
+                <span class="log-role">VIDEO EDITOR & SUBTITLE SPECIALIST</span>
+                <span class="log-time">MAY 2023 - PRESENT</span>
+            </div>
+            <ul class="log-desc">
+                <li>Engineering synchronized multilingual subtitles for medical e-learning.</li>
+                <li>Optimizing audiovisual clarity for patient education compliance.</li>
+            </ul>
+        </div>
+
+        <div class="section-label">03 // TECHNICAL ARSENAL</div>
+        <div class="data-grid" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; border: 1px solid #ccc; padding: 10px; margin-bottom: 0;">
+            <div style="text-align: center;">
+                <div style="font-weight: bold; font-size: 8pt; margin-bottom: 5px;">OFFICE SUITE</div>
+                <div>MS 365 (Adv)<br>Google Workspace</div>
+            </div>
+            <div style="text-align: center; border-left: 1px dashed #ccc; border-right: 1px dashed #ccc;">
+                <div style="font-weight: bold; font-size: 8pt; margin-bottom: 5px;">TRANSLATION</div>
+                <div>MTPE Workflows<br>Subtitle Edit</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-weight: bold; font-size: 8pt; margin-bottom: 5px;">COMMUNICATION</div>
+                <div>MS Teams<br>Slack / Zoom</div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <div>GENERATED: 2025-12-10</div>
+            <div>STATUS: ACTIVE & AVAILABLE</div>
+            <div>SIGNATURE: ______________________</div>
+        </div>
+    </div>
 
 </body>
 </html>
