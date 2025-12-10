@@ -2,217 +2,356 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Menu CV - Danilo Hurwitz</title>
+    <title>Danilo Wrapped 2025</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+        /* Tipografía similar a Circular/Spotify */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
         :root {
-            --bg-cream: #fbf9f5;
-            --text-dark: #2c2c2c;
-            --accent-gold: #c5a059;
-            --border-frame: #1a1a1a;
+            --bg-black: #121212;
+            --card-bg: #282828;
+            --spotify-green: #1ed760;
+            --neon-pink: #ff66a3;
+            --neon-blue: #3d95ff;
+            --neon-yellow: #f5e549;
+            --text-white: #ffffff;
+            --text-gray: #b3b3b3;
         }
 
         body {
-            background-color: #eee;
+            background-color: #000;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact;
         }
 
-        .menu-paper {
+        .wrapped-poster {
             width: 210mm;
             height: 297mm;
-            background-color: var(--bg-cream);
-            padding: 15mm;
-            box-sizing: border-box;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            background-color: var(--bg-black);
+            /* Gradiente de fondo sutil */
+            background: linear-gradient(145deg, #2a0a1a 0%, #121212 40%, #0a1a10 100%);
             position: relative;
-            color: var(--text-dark);
-            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            color: var(--text-white);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            box-sizing: border-box;
+            box-shadow: 0 0 50px rgba(0,255,100,0.1);
         }
 
-        .inner-frame {
-            border: 2px solid var(--border-frame);
+        /* --- DECORATIVE BLOBS --- */
+        .blob {
+            position: absolute;
+            filter: blur(60px);
+            z-index: 0;
+            opacity: 0.6;
+        }
+        .blob-1 { top: -100px; left: -100px; width: 400px; height: 400px; background: var(--neon-pink); border-radius: 50%; }
+        .blob-2 { bottom: 100px; right: -50px; width: 300px; height: 300px; background: var(--spotify-green); border-radius: 50%; }
+        .blob-3 { top: 40%; left: 30%; width: 200px; height: 200px; background: var(--neon-blue); border-radius: 50%; opacity: 0.4; }
+
+        /* --- CONTENT LAYER --- */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            padding: 15mm;
             height: 100%;
-            padding: 10mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             box-sizing: border-box;
+        }
+
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .wrapped-title {
+            font-size: 42pt;
+            font-weight: 900;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            background: linear-gradient(90deg, var(--neon-yellow), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .year-pill {
+            background: rgba(255,255,255,0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 10pt;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* HERO STATS */
+        .hero-stat {
+            font-size: 18pt;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        .hero-highlight { color: var(--spotify-green); font-size: 24pt; }
+
+        /* GRID SECTIONS */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            flex-grow: 1;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* TOP GENRES (SKILLS) */
+        .genre-list { display: flex; flex-direction: column; gap: 10px; }
+        .genre-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .genre-name { font-weight: 700; font-size: 12pt; }
+        .genre-rank { color: var(--neon-pink); font-weight: 900; margin-right: 10px; }
+        .genre-sub { font-size: 8pt; color: var(--text-gray); }
+
+        /* TOP SONGS (PROJECTS) */
+        .song-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .album-art {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #333, #555);
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14pt;
+            border-radius: 4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .song-info { display: flex; flex-direction: column; }
+        .song-title { font-weight: 700; font-size: 10pt; color: var(--text-white); }
+        .song-artist { font-size: 8pt; color: var(--text-gray); }
+
+        /* AURA (SOFT SKILLS) */
+        .aura-box {
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100%;
         }
-
-        /* TYPOGRAPHY */
-        h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32pt;
-            margin: 0;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-family: 'Lato', sans-serif;
-            font-size: 9pt;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 5px;
-            color: var(--accent-gold);
-            font-weight: 700;
-        }
-
-        h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 14pt;
-            margin-top: 25px;
+        .aura-shape {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--neon-yellow), var(--neon-blue));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             margin-bottom: 15px;
-            font-style: italic;
-            border-bottom: 1px solid var(--accent-gold);
-            padding-bottom: 5px;
-            display: inline-block;
         }
+        .aura-text { font-weight: 900; font-size: 16pt; line-height: 1.2; }
 
-        /* MENU ITEMS */
-        .menu-section {
-            width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .dish {
+        /* PLAYBACK BAR (FOOTER) */
+        .playback-bar {
+            background: rgba(0,0,0,0.6);
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 20px;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 4px;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .current-track-img {
+            width: 50px;
+            height: 50px;
+            background-color: var(--neon-pink);
+            margin-right: 15px;
+            border-radius: 4px;
+            /* Placeholder for profile pic */
+            display: flex;
+            align-items: center; justify-content: center; font-size: 20pt;
+        }
+        .track-details { flex-grow: 1; }
+        .track-name { font-weight: 700; font-size: 11pt; margin-bottom: 4px; }
+        .track-artist { font-size: 9pt; color: var(--text-gray); display:flex; gap:10px; }
+        
+        .progress-container { width: 100%; height: 4px; background: #444; border-radius: 2px; margin-top: 8px; position:relative;}
+        .progress-fill { width: 98%; height: 100%; background: var(--text-white); border-radius: 2px; }
+        .progress-thumb { position: absolute; right: 2%; top: -3px; width: 10px; height: 10px; background: var(--text-white); border-radius: 50%; }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            font-size: 18pt;
+            color: var(--text-white);
+            margin-left: 20px;
         }
 
-        .dish-name {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 11pt;
-            background-color: var(--bg-cream);
-            padding-right: 10px;
-            z-index: 2;
-        }
-
-        .dish-dots {
-            flex-grow: 1;
-            border-bottom: 1px dotted #ccc;
-            margin: 0 5px;
-            position: relative;
-            top: -4px;
-        }
-
-        .dish-price {
-            font-family: 'Lato', sans-serif;
-            font-size: 9pt;
-            font-weight: 700;
-            background-color: var(--bg-cream);
-            padding-left: 10px;
-        }
-
-        .dish-desc {
-            font-family: 'Lato', sans-serif;
-            font-size: 8.5pt;
-            font-style: italic;
-            color: #666;
-            margin-bottom: 12px;
-            max-width: 90%;
-        }
-
-        /* SPECIAL BOX */
-        .chef-special {
-            border: 1px solid var(--accent-gold);
-            padding: 15px;
-            text-align: center;
-            margin: 20px 0;
-            width: 80%;
-        }
-
-        .footer-info {
-            margin-top: auto;
-            text-align: center;
-            font-family: 'Lato', sans-serif;
-            font-size: 8pt;
-            letter-spacing: 1px;
-            line-height: 1.6;
-            border-top: 1px solid var(--border-frame);
-            padding-top: 15px;
-            width: 100%;
-        }
-
+        /* PRINT FIXES */
         @media print {
-            body { background: none; }
-            .menu-paper { width: 100%; height: 100%; box-shadow: none; border: none; }
+            body { background: none; margin: 0; padding: 0; }
+            .wrapped-poster { width: 100%; height: 100%; box-shadow: none; border-radius: 0; }
+            .blob { opacity: 0.4 !important; } /* Ahorro de tinta sutil pero mantiene estilo */
         }
     </style>
 </head>
 <body>
 
-<div class="menu-paper">
-    <div class="inner-frame">
+<div class="wrapped-poster">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="content-layer">
         
-        <h1>Danilo Hurwitz</h1>
-        <div class="subtitle">Translation & Creative Studio</div>
-        <div style="font-family: 'Lato'; font-size: 7pt; margin-top:5px;">EST. 2003 | MAR DEL PLATA</div>
-
-        <h2>Starters (Short Form)</h2>
-        
-        <div class="menu-section">
-            <div class="dish">
-                <span class="dish-name">Viral Video Edits</span>
-                <span class="dish-dots"></span>
-                <span class="dish-price">High Engagement</span>
+        <div class="header">
+            <div style="display:flex; flex-direction:column;">
+                <div class="wrapped-title">DANILO<br>WRAPPED</div>
+                <div style="font-size:12pt; font-weight:700; margin-top:5px; color: var(--neon-pink);">The 2025 Professional Mix</div>
             </div>
-            <div class="dish-desc">Fast-paced editing for TikTok/Reels using CapCut. Designed for maximum retention and scrolling stoppage.</div>
-
-            <div class="dish">
-                <span class="dish-name">Subtitle Synchronization</span>
-                <span class="dish-dots"></span>
-                <span class="dish-price">100% Accuracy</span>
-            </div>
-            <div class="dish-desc">Perfectly timed subtitles for e-learning. Cognitive accessibility guaranteed.</div>
+            <div class="year-pill">#TOP_RATED</div>
         </div>
 
-        <h2>Mains (The Heavy Lifting)</h2>
-
-        <div class="menu-section">
-            <div class="dish">
-                <span class="dish-name">Medical Translation (HE-EN-ES)</span>
-                <span class="dish-dots"></span>
-                <span class="dish-price">10 Yrs Immersion</span>
-            </div>
-            <div class="dish-desc">Clinical trials, informed consents, and academic papers. Prepared with native Hebrew fluency and medical training.</div>
-
-            <div class="dish">
-                <span class="dish-name">Content Specialist</span>
-                <span class="dish-dots"></span>
-                <span class="dish-price">ICUC Social</span>
-            </div>
-            <div class="dish-desc">Linguistic biopsies and cultural context analysis for high-stakes global brands.</div>
+        <div class="hero-stat">
+            This year, you spent <span class="hero-highlight">3,500+ minutes</span> editing viral clips and translating complex medical docs. <br>
+            <span style="font-size:12pt; color:var(--text-gray); font-weight:400;">That's more than 99% of other freelancers.</span>
         </div>
 
-        <div class="chef-special">
-            <div style="font-family:'Playfair Display'; font-weight:700; font-size:12pt; margin-bottom:5px;">Chef's Special: The "MD Candidate" Combo</div>
-            <div style="font-family:'Lato'; font-size:9pt; font-style:italic;">
-                A unique fusion of 2nd Year Medical School knowledge (Anatomy/Physiology) with linguistic flair. <br>
-                Guarantees zero terminology errors in health-related content.
+        <div class="bento-grid">
+            
+            <div class="card" style="grid-row: span 2;">
+                <div class="card-title">Your Top Genres</div>
+                <div class="genre-list">
+                    <div class="genre-bar">
+                        <div>
+                            <span class="genre-rank">#1</span>
+                            <span class="genre-name">Medical Hebrew</span>
+                        </div>
+                        <div class="genre-sub">C1 Fluent • 10 Yrs</div>
+                    </div>
+                    <div class="genre-bar">
+                        <div>
+                            <span class="genre-rank">#2</span>
+                            <span class="genre-name">Castilian Spanish</span>
+                        </div>
+                        <div class="genre-sub">Native • C2</div>
+                    </div>
+                    <div class="genre-bar">
+                        <div>
+                            <span class="genre-rank">#3</span>
+                            <span class="genre-name">Scientific English</span>
+                        </div>
+                        <div class="genre-sub">Advanced • C1</div>
+                    </div>
+                    <div class="genre-bar">
+                        <div>
+                            <span class="genre-rank">#4</span>
+                            <span class="genre-name">Viral Video Edit</span>
+                        </div>
+                        <div class="genre-sub">Premiere / CapCut</div>
+                    </div>
+                    <div class="genre-bar">
+                        <div>
+                            <span class="genre-rank">#5</span>
+                            <span class="genre-name">Med-Student Life</span>
+                        </div>
+                        <div class="genre-sub">MD Candidate 2029</div>
+                    </div>
+                </div>
             </div>
+
+            <div class="card">
+                <div class="card-title">Your Top Tracks</div>
+                
+                <div class="song-item">
+                    <div class="album-art" style="background:#3d95ff">🩺</div>
+                    <div class="song-info">
+                        <span class="song-title">Linguistic Biopsy</span>
+                        <span class="song-artist">ICUC Social • Content Specialist</span>
+                    </div>
+                </div>
+
+                <div class="song-item">
+                    <div class="album-art" style="background:#1ed760">⭐</div>
+                    <div class="song-info">
+                        <span class="song-title">100% Success Score</span>
+                        <span class="song-artist">Upwork • Freelance Translator</span>
+                    </div>
+                </div>
+
+                <div class="song-item">
+                    <div class="album-art" style="background:#ff66a3">🎬</div>
+                    <div class="song-info">
+                        <span class="song-title">Subtitle Sync (Remix)</span>
+                        <span class="song-artist">Video Editor • Accessibility</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Your Audio Aura</div>
+                <div class="aura-box">
+                    <div class="aura-shape"></div>
+                    <div class="aura-text">
+                        <span style="color:var(--neon-yellow)">Precision</span> & <br>
+                        <span style="color:var(--neon-blue)">Creativity</span>
+                    </div>
+                    <div style="font-size: 8pt; margin-top:10px; color:#aaa;">
+                        You blend "Clinical Accuracy" with "Visual Storytelling". Unique vibe.
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <h2>Pairing (Soft Skills)</h2>
-        <div style="text-align: center; font-family: 'Lato'; font-size: 9pt;">
-            <p>Best accompanied by: <strong>Proactive Communication</strong> & <strong>Obsessive Detail</strong>.</p>
-            <p>Tools of the trade: <em>MS Office, Google Workspace, Subtitle Edit.</em></p>
-        </div>
-
-        <div class="footer-info">
-            <strong>RESERVATIONS & BOOKINGS</strong><br>
-            +54 9 2302 21-9422<br>
-            dhurwitzbecerra@mdp.edu.ar<br>
-            linkedin.com/in/danilo-hurwitz<br>
-            <br>
-            <em>"Quality is not an act, it is a habit." - Aristotle (and Danilo)</em>
+        <div class="playback-bar">
+            <div class="current-track-img">DH</div>
+            <div class="track-details">
+                <div class="track-name">Danilo Hurwitz • Contact Now</div>
+                <div class="track-artist">
+                    <span>Mar del Plata</span> • 
+                    <span>+54 9 2302 21-9422</span> • 
+                    <span>dhurwitzbecerra@mdp.edu.ar</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-fill"></div>
+                    <div class="progress-thumb"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; font-size:7pt; color:#aaa; margin-top:2px;">
+                    <span>0:00</span>
+                    <span>HIRE_ME_NOW.mp3</span>
+                    <span>-0:00</span>
+                </div>
+            </div>
+            <div class="controls">
+                <span>♡</span> <span>⏮</span> <span style="font-size:24pt; color:var(--text-white);">▶</span> <span>⏭</span> </div>
         </div>
 
     </div>
