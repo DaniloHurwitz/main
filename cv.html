@@ -2,340 +2,350 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Case Report - Danilo Hurwitz</title>
+    <title>Clinical Case Report - Danilo Hurwitz</title>
     <style>
-        /* Tipografías: Typewriter para el cuerpo, Sans-serif técnica para etiquetas */
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@500;700;900&family=Nothing+You+Could+Do&display=swap');
+        /* Fuentes: Courier Prime para el cuerpo del reporte, Inter para títulos técnicos */
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;800&display=swap');
 
         :root {
-            --ink: #1e293b; /* Azul acero oscuro */
-            --ink-secondary: #475569;
-            --paper-white: #ffffff;
-            --alert-red: #b91c1c; /* Rojo clínico para sellos/alertas */
-            --highlight: #f1f5f9; /* Gris muy pálido para bloques */
+            --bg-body: #e2e8f0;
+            --paper: #fff;
+            --ink: #0f172a; /* Azul marino profundo */
+            --ink-secondary: #334155;
+            --highlight: #f1f5f9; /* Fondo gris/azul muy suave */
+            --accent: #b45309; /* Dorado/Ocre para sellos y alertas */
             --line: #cbd5e1;
         }
 
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
 
         body {
-            background-color: #e2e8f0;
-            margin: 0;
-            padding: 20px;
+            background-color: var(--bg-body);
             display: flex;
             justify-content: center;
+            padding: 0;
+            margin: 20px 0;
             font-family: 'Courier Prime', monospace;
             font-size: 9pt;
-            color: var(--ink);
             line-height: 1.35;
+            color: var(--ink);
         }
 
-        .case-file {
-            background-color: var(--paper-white);
+        .report-sheet {
+            background-color: var(--paper);
             width: 210mm;
-            height: 297mm; /* A4 Exacto */
-            padding: 12mm 15mm;
+            height: 297mm;
+            padding: 12mm 15mm; /* Márgenes de reporte */
             position: relative;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             overflow: hidden;
-            border-top: 8px solid var(--ink); /* Clip visual */
+            border-top: 5px solid var(--ink);
         }
 
-        /* HEADER */
-        .institute-header {
+        /* HEADER BLOQUE */
+        .header-block {
             border-bottom: 2px solid var(--ink);
             padding-bottom: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
-            align-items: flex-end;
+            align-items: flex-start;
         }
 
-        .institute-name {
+        .case-title {
             font-family: 'Inter', sans-serif;
-            font-weight: 900;
             font-size: 14pt;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: -0.5px;
+            color: var(--ink);
+            line-height: 1.1;
+            max-width: 70%;
         }
 
-        .case-meta {
+        .patient-data {
             text-align: right;
-            font-size: 7.5pt;
+            font-size: 8pt;
             color: var(--ink-secondary);
         }
 
-        /* PATIENT DEMOGRAPHICS BOX */
-        .demographics {
+        /* SECTIONS - The Medical Metaphor */
+        .section-row {
+            margin-bottom: 12px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            border: 1px solid var(--line);
-            margin-bottom: 25px;
-            background: #fafafa;
+            grid-template-columns: 140px 1fr; /* Etiqueta a la izquierda, contenido a la derecha */
+            gap: 10px;
         }
-        
-        .demo-cell {
-            padding: 5px 8px;
-            border-right: 1px solid var(--line);
-            border-bottom: 1px solid var(--line);
-        }
-        .demo-cell:nth-child(4n) { border-right: none; }
-        .demo-cell:nth-last-child(-n+4) { border-bottom: none; }
 
-        .demo-label {
-            font-family: 'Inter', sans-serif;
-            font-size: 6pt;
-            text-transform: uppercase;
-            color: #64748b;
-            display: block;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-        
-        .demo-data { font-weight: 700; font-size: 9pt; }
-        .demo-link { text-decoration: none; color: var(--ink); border-bottom: 1px dotted var(--ink); }
-
-        /* MAIN REPORT STRUCTURE */
-        .section-label {
+        .sec-label {
             font-family: 'Inter', sans-serif;
             font-size: 8pt;
-            font-weight: 900;
+            font-weight: 700;
             text-transform: uppercase;
-            color: var(--ink);
-            background: #e2e8f0;
-            display: inline-block;
-            padding: 2px 6px;
-            margin-top: 15px;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            color: var(--accent);
+            text-align: right;
+            padding-top: 2px;
         }
 
-        .narrative-block {
-            margin-bottom: 10px;
+        .sec-content {
+            font-size: 9pt;
+            color: var(--ink);
+        }
+
+        /* TEXT STYLES */
+        .narrative {
             text-align: justify;
         }
 
-        /* SPECIFIC SECTIONS */
-        .chief-complaint {
-            font-style: italic;
-            color: var(--alert-red);
-            font-weight: 700;
-            border-left: 3px solid var(--alert-red);
-            padding-left: 10px;
+        /* LISTS INSIDE SECTIONS */
+        ul.clinical-list {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        ul.clinical-list li {
+            position: relative;
+            padding-left: 12px;
+            margin-bottom: 2px;
+        }
+        ul.clinical-list li::before {
+            content: "+";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
         }
 
-        /* FINDINGS GRID */
+        /* FINDINGS GRID (LANGUAGES) */
         .findings-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: var(--highlight);
+            padding: 8px;
+            border: 1px solid var(--line);
         }
-        .finding-item { border-bottom: 1px dashed var(--line); padding-bottom: 2px; margin-bottom: 4px; }
-        .finding-key { font-weight: 700; }
+        .finding-item { text-align: center; }
+        .finding-val { font-weight: bold; font-size: 10pt; display: block; }
+        .finding-desc { font-size: 7.5pt; color: var(--ink-secondary); }
 
-        /* TREATMENT PLAN (EXPERIENCE) */
-        .treatment-row {
-            margin-bottom: 12px;
-            padding-left: 10px;
+        /* PROCEDURAL HISTORY (JOBS) */
+        .history-item {
+            margin-bottom: 8px;
             border-left: 2px solid var(--line);
+            padding-left: 10px;
         }
-        .tx-header {
+        .history-header {
+            font-weight: bold;
             display: flex;
             justify-content: space-between;
-            font-weight: 700;
-            font-size: 9.5pt;
+            font-size: 9pt;
         }
-        .tx-sub { font-size: 8.5pt; color: var(--ink-secondary); font-style: italic; margin-bottom: 3px; }
-        .tx-list { margin: 0; padding-left: 15px; }
-        .tx-list li { margin-bottom: 2px; font-size: 9pt; }
-
-        /* PROGNOSIS & QUOTE */
-        .prognosis-box {
-            border: 2px solid var(--ink);
-            padding: 10px;
-            margin-top: 10px;
-            text-align: center;
-            background: #f8fafc;
-        }
-        
-        .quote-container {
-            margin-top: 25px;
-            text-align: center;
+        .history-loc {
             font-style: italic;
-            font-size: 10pt;
+            font-size: 8.5pt;
+            color: var(--ink-secondary);
+            margin-bottom: 2px;
+        }
+        .history-notes {
+            font-size: 8.5pt;
             color: var(--ink-secondary);
         }
 
-        /* SIGNATURE */
-        .footer {
+        /* DIAGNOSIS BOX */
+        .diagnosis-box {
+            border: 2px solid var(--ink);
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 10pt;
+            text-align: center;
+            background: #fff;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        /* FOOTER / PROGNOSIS */
+        .footer-quote {
             position: absolute;
             bottom: 12mm;
+            left: 15mm;
             right: 15mm;
-            text-align: right;
+            text-align: center;
+            border-top: 1px solid var(--line);
+            padding-top: 10px;
+            font-style: italic;
+            font-family: 'Courier Prime', monospace;
+            font-size: 10pt;
+            color: var(--ink);
         }
-        .signature {
-            font-family: 'Nothing You Could Do', cursive;
-            font-size: 20pt;
-            color: #000080; /* Azul firma */
-            transform: rotate(-5deg);
-            display: block;
-            margin-bottom: -5px;
+
+        /* CONTACT MINI-STRIP */
+        .contact-strip {
+            font-size: 8pt;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed var(--line);
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--ink-secondary);
         }
+        .contact-strip a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--ink); }
 
         /* STAMP */
         .stamp {
             position: absolute;
-            top: 25mm;
-            right: 15mm;
-            border: 3px solid var(--alert-red);
-            color: var(--alert-red);
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 14pt;
+            top: 15mm;
+            right: 10mm;
+            border: 3px double var(--accent);
+            color: var(--accent);
+            font-weight: bold;
             padding: 5px 10px;
-            transform: rotate(15deg);
+            transform: rotate(-10deg);
+            font-size: 10pt;
+            text-transform: uppercase;
             opacity: 0.8;
             z-index: 10;
-            text-transform: uppercase;
         }
 
         @media print {
-            body { background: none; padding: 0; margin: 0; }
-            .case-file { width: 100%; height: 100%; box-shadow: none; padding: 12mm 15mm; page-break-after: avoid; }
-            @page { size: A4; margin: 0; }
+            body { margin: 0; padding: 0; background: none; }
+            .report-sheet { width: 100%; height: 100%; border: none; box-shadow: none; padding: 12mm 15mm; }
+            @page { margin: 0; size: A4; }
         }
     </style>
 </head>
 <body>
 
-    <div class="case-file">
+    <div class="report-sheet">
         
-        <div class="stamp">Validated<br>Case Study</div>
+        <div class="stamp">PEER REVIEWED<br>& VERIFIED</div>
 
-        <div class="institute-header">
-            <div>
-                <div class="institute-name">Medical Linguistics Institute</div>
-                <div style="font-size: 8pt; margin-top: 4px;">DEPT. OF APPLIED TRANSLATION PATHOLOGY</div>
+        <div class="header-block">
+            <div class="case-title">
+                Clinical Case Report:<br>
+                <span style="font-size:11pt; font-weight:400;">A Trilingual Medical Translator with MD-Level Training</span>
             </div>
-            <div class="case-meta">
-                <strong>CASE ID:</strong> 2025-DH-MD<br>
-                <strong>DATE:</strong> 10 DEC 2025<br>
-                <strong>STATUS:</strong> ACTIVE
-            </div>
-        </div>
-
-        <div style="text-align: center; font-weight: 700; font-size: 11pt; margin-bottom: 15px; text-decoration: underline;">
-            CASE REPORT: A TRILINGUAL MEDICAL TRANSLATOR WITH MD-LEVEL TRAINING
-        </div>
-
-        <div class="demographics">
-            <div class="demo-cell">
-                <span class="demo-label">Subject Name</span>
-                <span class="demo-data">Danilo Hurwitz</span>
-            </div>
-            <div class="demo-cell">
-                <span class="demo-label">Age / DOB</span>
-                <span class="demo-data">21 Years Old</span>
-            </div>
-            <div class="demo-cell">
-                <span class="demo-label">Location</span>
-                <span class="demo-data">Mar del Plata, AR</span>
-            </div>
-             <div class="demo-cell">
-                <span class="demo-label">Phone</span>
-                <span class="demo-data">+54 9 2302 21-9422</span>
-            </div>
-            <div class="demo-cell" style="grid-column: span 2;">
-                <span class="demo-label">Email</span>
-                <span class="demo-data">dhurwitzbecerra@mdp.edu.ar</span>
-            </div>
-            <div class="demo-cell" style="grid-column: span 2;">
-                <span class="demo-label">Web Portfolio</span>
-                <a href="https://danilohurwitz.github.io/main" class="demo-link demo-data">danilohurwitz.github.io/main</a>
-            </div>
-             <div class="demo-cell" style="grid-column: span 4; border-bottom: none;">
-                <span class="demo-label">External Links</span>
-                <span class="demo-data" style="font-size: 8pt;">linkedin.com/in/danilo-hurwitz | upwork.com/freelancers/danilohurwitz</span>
+            <div class="patient-data">
+                <strong>SUBJECT:</strong> Danilo Hurwitz<br>
+                <strong>ID:</strong> MD-CANDIDATE-2029<br>
+                <strong>DATE:</strong> 10 DEC 2025
             </div>
         </div>
 
-        <div class="section-label">I. CHIEF COMPLAINT</div>
-        <div class="narrative-block chief-complaint">
-            "Inaccurate medical translations causing regulatory risk and potential patient safety hazards in high-stakes environments."
+        <div class="contact-strip">
+            <span>Mar del Plata, AR</span>
+            <span>+54 9 2302 21-9422</span>
+            <span>dhurwitzbecerra@mdp.edu.ar</span>
+            <a href="https://danilohurwitz.github.io/main">danilohurwitz.github.io/main</a>
         </div>
 
-        <div class="section-label">II. HISTORY OF PRESENT ILLNESS (HPI)</div>
-        <div class="narrative-block">
-            Subject presents with a 10+ year history of Hebrew immersion and native Spanish proficiency (Castilian/LATAM). Currently undergoing intense academic conditioning as an <strong>MD Candidate (Doctor of Medicine)</strong> at Universidad Nacional de Mar del Plata (Exp. Graduation 2029).
-            <br><br>
-            <i>Note:</i> Subject exhibits obsessive traits regarding anatomical precision and terminological rigor.
-        </div>
-
-        <div class="section-label">III. CLINICAL FINDINGS (SKILLS)</div>
-        <div class="findings-grid">
-            <div>
-                <div class="finding-item"><span class="finding-key">[ES] Spanish:</span> Native (C2) / Neutral</div>
-                <div class="finding-item"><span class="finding-key">[HE] Hebrew:</span> Fluent (C1) / 10yrs Immersion</div>
-                <div class="finding-item"><span class="finding-key">[EN] English:</span> Fluent (C1) / Medical Lvl</div>
-            </div>
-            <div>
-                <div class="finding-item"><span class="finding-key">Tolerance:</span> Zero-Error Environments</div>
-                <div class="finding-item"><span class="finding-key">Specialty:</span> Cultural Nuance Preservation</div>
-                <div class="finding-item"><span class="finding-key">Tech:</span> MTPE, Trados, MS Office, CapCut</div>
+        <div class="section-row">
+            <div class="sec-label">Chief Complaint</div>
+            <div class="sec-content narrative">
+                Inaccurate medical translations causing regulatory risk and patient safety hazards in global markets. Need for high-precision linguistic intervention.
             </div>
         </div>
 
-        <div class="section-label">IV. TREATMENT PLAN (EXPERIENCE)</div>
-        
-        <div class="treatment-row">
-            <div class="tx-header">PROTOCOL A: CONTENT SPECIALIST / HEBREW</div>
-            <div class="tx-sub">ICUC Social (Remote) | Nov 2025 - Present</div>
-            <ul class="tx-list">
-                <li>Performing linguistic biopsies (QA checks) on Hebrew content.</li>
-                <li>Diagnosing cultural/sentiment errors in real-time data streams.</li>
-                <li>Rapid intervention via global remote infrastructure (MS Teams).</li>
-            </ul>
+        <div class="section-row">
+            <div class="sec-label">History of<br>Present Illness</div>
+            <div class="sec-content narrative">
+                Subject (21 Y.O.) presents with a chronic history of 10+ years of Hebrew immersion, native Spanish (C2) proficiency, and active MD training (Year 2, UNMDP).
+                <br><br>
+                Subject demonstrates "obsessive" traits regarding terminological accuracy. Current academic workload includes Anatomy, Physiology, and Pathology, directly applied to translation workflows.
+            </div>
         </div>
 
-        <div class="treatment-row">
-            <div class="tx-header">PROTOCOL B: MEDICAL TRANSLATOR (TOP RATED)</div>
-            <div class="tx-sub">Upwork (Global) | May 2023 - Present</div>
-            <ul class="tx-list">
-                <li>Execution of clinical trial translations and informed consents.</li>
-                <li>Management of regulatory submissions and MedTech manuals (HE/EN/ES).</li>
-                <li>Outcome: 100% Job Success Score & Client Rating of 5.0/5.0.</li>
-            </ul>
+        <div class="section-row">
+            <div class="sec-label">Clinical Findings</div>
+            <div class="sec-content">
+                <div class="findings-grid">
+                    <div class="finding-item">
+                        <span class="finding-val">SPANISH (C2)</span>
+                        <span class="finding-desc">Native / Latam</span>
+                    </div>
+                    <div class="finding-item">
+                        <span class="finding-val">HEBREW (C1)</span>
+                        <span class="finding-desc">Fluent / Immersion</span>
+                    </div>
+                    <div class="finding-item">
+                        <span class="finding-val">ENGLISH (C1)</span>
+                        <span class="finding-desc">Medical Proficient</span>
+                    </div>
+                </div>
+                <div style="margin-top:5px; font-size: 8.5pt;">
+                    <strong>ADDITIONAL OBSERVATIONS:</strong> Zero-error tolerance environment adaptation. Mastery of MTPE workflows. Cultural nuance preservation intact.
+                </div>
+            </div>
         </div>
 
-        <div class="treatment-row">
-            <div class="tx-header">PROTOCOL C: VIDEO & SUBTITLE SPECIALIST</div>
-            <div class="tx-sub">Freelance | May 2023 - Present</div>
-            <ul class="tx-list">
-                <li>Synchronization of multilingual subtitles for e-learning.</li>
-                <li>Ensuring cognitive accessibility in medical education videos.</li>
-            </ul>
+        <div class="section-row">
+            <div class="sec-label">Diagnosis</div>
+            <div class="sec-content">
+                <div class="diagnosis-box">
+                    ADVANCED MEDICAL LINGUISTIC COMPETENCE
+                </div>
+            </div>
         </div>
 
-        <div class="section-label">V. DIAGNOSIS</div>
-        <div style="font-weight: 700; font-size: 10pt; margin-bottom: 5px;">
-            ADVANCED MEDICAL LINGUISTIC COMPETENCE
-        </div>
-        <div>
-            Confirmed ability to bridge clinical terminology with linguistic barriers.
+        <div class="section-row">
+            <div class="sec-label">Treatment Plan</div>
+            <div class="sec-content">
+                <ul class="clinical-list">
+                    <li><strong>Clinical Trials & Reports:</strong> Precision translation of patient data.</li>
+                    <li><strong>Informed Consents:</strong> Ensuring patient comprehension across languages.</li>
+                    <li><strong>Regulatory Submissions:</strong> Adapting documentation for compliance.</li>
+                    <li><strong>Linguistic Biopsies:</strong> Quality checks on existing Hebrew/English content.</li>
+                </ul>
+            </div>
         </div>
 
-        <div class="prognosis-box">
-            <strong>PROGNOSIS:</strong> Excellent outcomes predicted for high-stakes international medical communication.
+        <div class="section-row">
+            <div class="sec-label">Past Procedural<br>History</div>
+            <div class="sec-content">
+                
+                <div class="history-item">
+                    <div class="history-header">
+                        <span>CONTENT SPECIALIST / TRANSLATOR (HEBREW)</span>
+                        <span>NOV 2025 – PRES</span>
+                    </div>
+                    <div class="history-loc">ICUC Social (Remote Operation)</div>
+                    <div class="history-notes">
+                        Performing scheduled quality checks. Collaborating with English teams to verify sentiment and cultural nuances in medical data.
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-header">
+                        <span>FREELANCE MEDICAL TRANSLATOR</span>
+                        <span>MAY 2023 – PRES</span>
+                    </div>
+                    <div class="history-loc">Upwork (Top Rated / 100% JSS)</div>
+                    <div class="history-notes">
+                        Executed translation of clinical docs and device manuals (HE/EN/ES). Achieved zero-error rate on 10+ major projects.
+                    </div>
+                </div>
+
+                <div class="history-item">
+                    <div class="history-header">
+                        <span>VIDEO EDITOR & SUBTITLE SPECIALIST</span>
+                        <span>MAY 2023 – PRES</span>
+                    </div>
+                    <div class="history-notes">
+                        Synchronized multilingual subtitles for medical e-learning modules.
+                    </div>
+                </div>
+
+            </div>
         </div>
 
-        <div class="quote-container">
+        <div class="section-row">
+            <div class="sec-label">Prognosis</div>
+            <div class="sec-content narrative">
+                <strong>Excellent outcomes</strong> indicated in high-stakes international medical communication. Patient is cleared for immediate recruitment.
+            </div>
+        </div>
+
+        <div class="footer-quote">
             "Because in translation, success is the absence of failure."
-        </div>
-
-        <div class="footer">
-            <span style="font-size: 7pt; font-family:'Inter'; text-transform:uppercase; color:#64748b;">Subject Signature</span>
-            <span class="signature">Danilo Hurwitz</span>
         </div>
 
     </div>
