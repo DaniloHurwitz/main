@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Danilo Hurwitz</title>
+    <style>
+        :root {
+            --primary-color: #1a3c6e; /* Azul oscuro profesional */
+            --accent-color: #f4b400; /* Amarillo sutil para detalles */
+            --text-color: #333;
+            --light-bg: #f4f6f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 10pt; /* Tamaño optimizado para 1 hoja */
+            line-height: 1.4;
+            color: var(--text-color);
+            background-color: #fff;
+            width: 210mm; /* Ancho A4 */
+            min-height: 297mm;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 20px 0 10px;
+            border-bottom: 2px solid var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 24pt;
+            margin-bottom: 5px;
+        }
+
+        .contact-info {
+            font-size: 9pt;
+            color: #555;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Layout Grid */
+        .container {
+            display: grid;
+            grid-template-columns: 30% 66%; /* Columna izquierda más angosta */
+            gap: 4%;
+            padding: 0 5mm; /* Márgenes internos */
+        }
+
+        /* Column Styles */
+        .left-column {
+            background-color: #fff;
+        }
+
+        .right-column {
+            background-color: #fff;
+        }
+
+        /* Section Headers */
+        h2 {
+            color: var(--primary-color);
+            font-size: 12pt;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+        
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        /* Content Styles */
+        .job {
+            margin-bottom: 12px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 2px;
+        }
+
+        .job-title {
+            font-weight: bold;
+            font-size: 10.5pt;
+            color: #000;
+        }
+
+        .company {
+            font-style: italic;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .date {
+            font-size: 9pt;
+            color: #666;
+            text-align: right;
+            min-width: 100px;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 15px;
+        }
+
+        li {
+            margin-bottom: 3px;
+            font-size: 9.5pt;
+        }
+
+        .review {
+            background-color: #f0f7ff;
+            border-left: 3px solid var(--accent-color);
+            padding: 5px;
+            font-style: italic;
+            font-size: 8.5pt;
+            margin-top: 4px;
+            color: #444;
+        }
+
+        /* Sidebar Specifics */
+        .skill-group {
+            margin-bottom: 12px;
+        }
+
+        .skill-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 2px;
+            font-size: 10pt;
+        }
+        
+        .skill-list {
+            font-size: 9pt;
+            margin-left: 0;
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 2px;
+            padding-left: 0;
+        }
+        
+        .education-item {
+            margin-bottom: 10px;
+        }
+        
+        .education-degree {
+            font-weight: bold;
+            font-size: 10pt;
+        }
+        
+        .education-school {
+            font-size: 9pt;
+            font-style: italic;
+        }
+
+        /* Print Settings */
+        @media print {
+            body {
+                width: 100%;
+                margin: 0;
+                -webkit-print-color-adjust: exact;
+            }
+            @page {
+                margin: 10mm 10mm 10mm 10mm;
+                size: A4;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Danilo Hurwitz</h1>
+        <div class="contact-info">
+            Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar<br>
+            <a href="https://www.linkedin.com/in/danilo-hurwitz/">linkedin.com/in/danilo-hurwitz/</a> | 
+            <a href="https://www.upwork.com/freelancers/danilohurwitz">upwork.com/freelancers/danilohurwitz</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="left-column">
+            
+            <h2>Education</h2>
+            <div class="education-item">
+                <div class="education-degree">Doctor of Medicine (MD) Candidate</div>
+                <div class="education-school">Universidad Nacional de Mar del Plata</div>
+                <div class="date" style="text-align:left; color: #444;">Exp. Graduation: 2029</div>
+                <p style="font-size: 8.5pt; margin-top:3px;">Acquiring comprehensive knowledge of anatomy, physiology, and clinical terminology directly applied to medical translation.</p>
+            </div>
+
+            <h2>Languages</h2>
+            <div class="skill-group">
+                <span class="skill-title">Spanish</span>
+                <span style="font-size: 9pt;">Native (Born in Spain, expertise in Castilian & LATAM variants)</span>
+            </div>
+            <div class="skill-group">
+                <span class="skill-title">English</span>
+                <span style="font-size: 9pt;">Fluent (C1 Equivalent, 15+ years)</span>
+            </div>
+            <div class="skill-group">
+                <span class="skill-title">Hebrew</span>
+                <span style="font-size: 9pt;">Fluent (C1 Equivalent, 10+ years daily immersion)</span>
+            </div>
+
+            <h2>Skills</h2>
+            <div class="skill-group">
+                <span class="skill-title">Medical Translation</span>
+                <p style="font-size: 9pt;">Clinical Docs, Patient Reports, MedTech Manuals, Academic Papers, Regulatory Submissions.</p>
+            </div>
+            <div class="skill-group">
+                <span class="skill-title">Translation & Editing</span>
+                <p style="font-size: 9pt;">Proofreading, MTPE, Terminology Mgmt, QA, Style Guides.</p>
+            </div>
+            <div class="skill-group">
+                <span class="skill-title">Software</span>
+                <p style="font-size: 9pt;">MS Office (Adv), Google Workspace, CapCut, Subtitle Edit, MS Teams.</p>
+            </div>
+
+            <h2>Key Strengths</h2>
+            <ul style="font-size: 9pt; margin-left: 12px;">
+                <li><strong>Elite Trilingual Medical Acumen:</strong> Combines medical training with native/fluent Hebrew, English, & Spanish.</li>
+                <li><strong>Cross-Cultural Precision:</strong> Native Spanish nuances + experience in Israel/Argentina.</li>
+                <li><strong>Proven Reliability:</strong> Top Rated Freelancer status.</li>
+            </ul>
+
+            <h2>Certifications</h2>
+            <ul style="font-size: 9pt; margin-left: 12px; list-style: none;">
+                <li>• Top Rated Freelancer (Upwork)</li>
+                <li>• 100% Job Success Score</li>
+                <li>• ID Verified</li>
+            </ul>
+        </aside>
+
+        <section class="right-column">
+            
+            <h2>Professional Summary</h2>
+            <p style="font-size: 9.5pt; margin-bottom: 5px;">
+                Top-Rated Trilingual Medical Translator (Hebrew/English/Spanish) and current Medical Student leveraging deep medical knowledge for the HealthTech and Academic sectors. Proven ability delivering 100% accurate translations of complex clinical documentation. 100% Job Success Score on Upwork reflects exceptional reliability and commitment to deadlines.
+            </p>
+
+            <h2>Professional Experience</h2>
+
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Content Specialist / Hebrew Translator</span><br>
+                        <span class="company">ICUC Social</span>
+                    </div>
+                    <span class="date">Nov 2025 – Present</span>
+                </div>
+                <ul>
+                    <li>Perform scheduled linguistic quality checks and moderation for Hebrew content for high-profile clients.</li>
+                    <li>Collaborate with English-speaking teams to verify context, sentiment, and cultural accuracy in multilingual data.</li>
+                    <li>Ensure rapid turnaround on language checks within a global, remote operational structure using MS Teams and Outlook.</li>
+                </ul>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Freelance Translator & Proofreader</span><br>
+                        <span class="company">Upwork</span>
+                    </div>
+                    <span class="date">May 2023 – Present</span>
+                </div>
+                <ul>
+                    <li>Deliver Top-Rated translation and proofreading (HE/EN/ES) for diverse global clients, specializing in high-stakes medical and technical content.</li>
+                    <li>Successfully completed 10+ complex projects, including clinical documentation reviews and technical manual adaptations.</li>
+                    <li>Mastered Machine Translation Post-Editing (MTPE) workflows, ensuring native-level fluency.</li>
+                    <li>Maintained 100% Job Success Score through meticulous quality control.</li>
+                </ul>
+                <div class="review">
+                    "Working with Danilo on a Hebrew to English MTPE project was an exceptional experience. Danilo's proficiency... Five stars!" (Rating: 5.0)
+                </div>
+            </div>
+
+            <div class="job">
+                <div class="job-header">
+                    <div>
+                        <span class="job-title">Freelance Video Editor & Subtitle Creator</span><br>
+                        <span class="company">Upwork</span>
+                    </div>
+                    <span class="date">May 2023 – Present</span>
+                </div>
+                <ul>
+                    <li>Provide specialized video editing services creating accurate, synchronized multilingual subtitles (HE/EN/ES).</li>
+                    <li>Contribute to clarity of medical e-learning modules and patient education videos through precise audiovisual optimization.</li>
+                </ul>
+                <div class="review">
+                    "Danilo did a great work! Was very responsive... I'd fully recommend working with him!" (Rating: 5.0)
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+</body>
+</html>
