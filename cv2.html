@@ -1,239 +1,564 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Danilo Forte 500mg - Leaflet CV</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danilo Hurwitz - Professional Desktop</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400&display=swap');
-
-        :root {
-            --paper-white: #fdfdfd;
-            --pharma-blue: #004488;
-            --text-black: #111;
-            --warning-box: #f0f0f0;
+        /* --- FUENTES & RESET --- */
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
+        
+        * { box-sizing: border-box; user-select: none; }
+        body { 
+            margin: 0; padding: 0; overflow: hidden; height: 100vh; 
+            font-family: 'Tahoma', sans-serif; font-size: 11px;
+            background: #2ea6f7 url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        body {
-            background-color: #ddd;
-            font-family: 'Arimo', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
+        /* --- ESCRITORIO --- */
+        #desktop {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
+            padding: 10px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 20px; align-content: flex-start;
         }
 
-        .leaflet-paper {
-            width: 210mm;
-            height: 297mm;
-            background-color: var(--paper-white);
-            padding: 15mm;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .icon {
+            width: 75px; text-align: center; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center;
+            color: white; text-shadow: 1px 1px 2px black;
+        }
+        .icon:hover { opacity: 0.8; }
+        .icon-img { font-size: 32px; margin-bottom: 5px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5)); }
+        .icon-label { background: rgba(0,0,0,0.2); padding: 2px 4px; border-radius: 2px; }
+
+        /* --- VENTANAS (DRAGGABLE) --- */
+        .window {
+            position: absolute;
+            background: #ece9d8;
+            border: 1px solid #0055ea;
+            border-radius: 8px 8px 0 0;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            min-width: 300px; min-height: 200px;
+        }
+        
+        .title-bar {
+            height: 28px;
+            background: linear-gradient(to bottom, #0058ee 0%, #3593ff 5%, #288eff 20%, #0369fc 50%, #0057e5 100%);
+            border-radius: 6px 6px 0 0;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 8px; color: white; font-weight: bold; font-size: 12px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.3); cursor: default;
+        }
+        
+        .controls { display: flex; gap: 4px; }
+        .btn { width: 20px; height: 20px; border: 1px solid #fff; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; }
+        .btn-min { background: #288eff; padding-top: 5px; font-weight: bold; }
+        .btn-close { background: #e04a3d; font-size: 14px; font-weight: bold; }
+
+        .window-body { flex-grow: 1; overflow: auto; background: white; border: 1px solid #888; margin: 3px; position: relative; }
+        
+        /* ESTILOS ESPECIFICOS INTERNOS */
+        .toolbar { background: #ece9d8; padding: 2px; border-bottom: 1px solid #aaa; display: flex; gap: 10px; font-size: 11px; }
+        .content-pad { padding: 15px; font-family: 'Verdana', sans-serif; line-height: 1.5; color: #000; user-select: text; }
+        
+        h1 { font-size: 18px; margin: 0 0 5px 0; border-bottom: 2px solid #000; text-transform: uppercase; }
+        h2 { font-size: 14px; color: #004488; margin: 15px 0 5px 0; border-bottom: 1px solid #ccc; }
+        .job-meta { font-style: italic; color: #555; font-size: 10px; margin-bottom: 5px; }
+        ul { margin: 5px 0; padding-left: 20px; }
+        
+        /* --- CLIPPY --- */
+        #clippy-container {
+            position: absolute; bottom: 40px; right: 20px; z-index: 9999;
+            display: flex; flex-direction: column; align-items: flex-end;
+            pointer-events: none; /* Let clicks pass through empty space */
+        }
+        #clippy-body { pointer-events: auto; cursor: pointer; font-size: 50px; filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4)); transition: transform 0.2s; }
+        #clippy-body:hover { transform: scale(1.1); }
+        
+        .bubble {
+            background: #ffffe1; border: 1px solid #000; border-radius: 5px;
+            padding: 10px; width: 220px; margin-bottom: 10px;
+            box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
+            font-size: 11px; color: #000; display: none; pointer-events: auto;
             position: relative;
-            box-sizing: border-box;
-            font-size: 9pt;
-            line-height: 1.4;
-            color: var(--text-black);
-            column-count: 2;
-            column-gap: 10mm;
-            column-rule: 1px solid #eee;
-            text-align: justify;
+        }
+        .bubble::after {
+            content: ''; position: absolute; bottom: -6px; right: 20px;
+            width: 10px; height: 10px; background: #ffffe1;
+            transform: rotate(45deg); border-right: 1px solid #000; border-bottom: 1px solid #000;
+        }
+        
+        .chat-options { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+        .chat-btn { background: #ece9d8; border: 1px solid #999; padding: 3px; cursor: pointer; text-align: left; }
+        .chat-btn:hover { background: #316ac5; color: white; }
+
+        /* --- BARRA DE TAREAS --- */
+        #taskbar {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 30px;
+            background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 10%, #245edb 100%);
+            border-top: 2px solid #3f8cf3; z-index: 10000;
+            display: flex; align-items: center; padding: 0 2px;
+        }
+        
+        #start-btn {
+            width: 100px; height: 100%; margin-right: 10px;
+            background: linear-gradient(to bottom, #3c9e3c, #51c051);
+            border-radius: 0 10px 10px 0;
+            display: flex; align-items: center; padding-left: 5px; gap: 5px;
+            color: white; font-weight: bold; font-style: italic; font-size: 16px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5); text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        #start-btn:hover { filter: brightness(1.1); }
+        
+        #task-list { display: flex; gap: 2px; flex-grow: 1; }
+        .task-item {
+            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0;
+            border-radius: 3px; color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px;
+            cursor: pointer;
+        }
+        .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
+        
+        #tray {
+            background: #0b76ba; height: 100%; padding: 0 15px; border-left: 1px solid #095c91;
+            display: flex; align-items: center; color: white; font-size: 11px; gap: 10px; margin-left: auto;
         }
 
-        /* HEADER */
-        .pharma-header {
-            column-span: all;
-            border-bottom: 2px solid var(--pharma-blue);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+        /* --- START MENU --- */
+        #start-menu {
+            position: absolute; bottom: 30px; left: 0; width: 280px; height: 350px;
+            background: white; border-radius: 5px 5px 0 0;
+            box-shadow: 2px -2px 10px rgba(0,0,0,0.5); border: 1px solid #316ac5;
+            display: none; flex-direction: column; z-index: 9999;
+        }
+        .sm-header {
+            background: linear-gradient(to bottom, #127dff, #0057e5);
+            height: 50px; padding: 10px; color: white; font-weight: bold; font-size: 14px;
+            display: flex; align-items: center; gap: 10px; border-radius: 4px 4px 0 0;
+        }
+        .sm-body { flex-grow: 1; display: flex; border-top: 2px solid #e59700; }
+        .sm-left { width: 50%; background: white; padding: 5px; }
+        .sm-right { width: 50%; background: #d3e5fa; border-left: 1px solid #9dbddd; padding: 5px; }
+        .sm-item { padding: 5px; cursor: pointer; display: flex; align-items: center; gap: 5px; color: #333; }
+        .sm-item:hover { background: #316ac5; color: white; }
+        .sm-footer {
+            height: 35px; background: linear-gradient(to bottom, #127dff, #0057e5);
+            display: flex; justify-content: flex-end; align-items: center; padding: 0 10px; color: white;
+            border-top: 1px solid #003c74;
         }
 
-        .drug-name {
-            font-size: 24pt;
-            font-weight: 700;
-            color: var(--pharma-blue);
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
-
-        .drug-sub {
-            font-size: 10pt;
-            font-weight: 700;
-            margin-top: 5px;
-        }
-
-        .header-box {
-            border: 1px solid black;
-            padding: 4px 8px;
-            display: inline-block;
-            font-size: 8pt;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        /* SECTIONS */
-        h2 {
-            font-size: 10pt;
-            font-weight: 700;
-            background-color: var(--pharma-blue);
-            color: white;
-            padding: 2px 5px;
-            margin-top: 20px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            break-after: avoid;
-        }
-
-        h3 {
-            font-size: 9pt;
-            font-weight: 700;
-            text-decoration: underline;
-            margin-bottom: 2px;
-            margin-top: 10px;
-        }
-
-        p { margin-top: 0; margin-bottom: 8px; }
-        ul { margin-top: 0; padding-left: 15px; margin-bottom: 8px; }
-        li { margin-bottom: 2px; }
-
-        .warning-text {
-            border: 1px solid #333;
-            background-color: var(--warning-box);
-            padding: 8px;
-            font-weight: bold;
-            font-size: 8.5pt;
-            margin: 10px 0;
-        }
-
-        /* FAKE FOLD MARKS */
-        .fold-line-1 {
-            position: absolute;
-            top: 33%;
-            left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
-            pointer-events: none;
-        }
-        .fold-line-2 {
-            position: absolute;
-            top: 66%;
-            left: 0; right: 0;
-            height: 1px;
-            background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
-            pointer-events: none;
-        }
-
-        /* FOOTER BARCODE */
-        .barcode {
-            column-span: all;
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 10px;
-            text-align: center;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 5px;
-            font-size: 8pt;
-        }
-        .barcode-bars {
-            height: 30px;
-            background: repeating-linear-gradient(
-                to right,
-                #000 0px, #000 2px,
-                transparent 2px, transparent 4px,
-                #000 4px, #000 6px
-            );
-            width: 200px;
-            margin: 0 auto 5px auto;
-        }
-
-        @media print {
-            body { background: none; }
-            .leaflet-paper { width: 100%; height: auto; box-shadow: none; padding: 0; }
-            h2 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        }
     </style>
 </head>
 <body>
 
-<div class="leaflet-paper">
-    <div class="fold-line-1"></div>
-    <div class="fold-line-2"></div>
-
-    <div class="pharma-header">
-        <div class="header-box">PACKAGE LEAFLET: INFORMATION FOR THE USER</div>
-        <h1 class="drug-name">DANILO FORTE 500mg</h1>
-        <div class="drug-sub">Injectable Solution of Creativity & Linguistic Precision</div>
-        <div style="font-size: 8pt; margin-top:5px;">Active Substance: Danilo Hurwitz (MD Candidate / Translator)</div>
+<div id="desktop">
+    <div class="icon" onclick="openWindow('win-cv')">
+        <div class="icon-img">📝</div>
+        <div class="icon-label">My Resume.doc</div>
     </div>
-
-    <div class="warning-text">
-        Read all of this leaflet carefully before you start working with this professional because it contains important information for your project.
+    <div class="icon" onclick="openWindow('win-skills')">
+        <div class="icon-img">📁</div>
+        <div class="icon-label">Skills Folder</div>
     </div>
-
-    <h2>1. WHAT DANILO FORTE IS AND WHAT IT IS USED FOR</h2>
-    <p>Danilo Forte belongs to a group of professionals known as "Trilingual Medical Creatives". It acts by reducing communication barriers and increasing audience retention.</p>
-    <p><strong>Therapeutic Indications:</strong></p>
-    <ul>
-        <li>Treatment of "Boring Feed Syndrome" in medical/tech companies.</li>
-        <li>Relief of headaches caused by inaccurate Hebrew-English translations.</li>
-        <li>Urgent care for video content requiring fast turnarounds and viral editing hooks.</li>
-    </ul>
-
-    <h2>2. WHAT YOU NEED TO KNOW BEFORE YOU HIRE</h2>
-    <h3>Composition (Qualitative & Quantitative)</h3>
-    <p>Each project unit contains:</p>
-    <ul>
-        <li><strong>Active Ingredient:</strong> Medical Translation (C1 Hebrew/English) & Video Editing (Premiere/CapCut).</li>
-        <li><strong>Excipients:</strong> Anatomy Knowledge (MD Candidate), Cultural Nuance (Israel/Argentina/Spain), SEO Basics, Subtitle Synchronization.</li>
-    </ul>
-
-    <h3>Warnings and Precautions</h3>
-    <p>Talk to Danilo if your project requires:</p>
-    <ul>
-        <li>Deep understanding of medical terminology (Physiology, Pathology).</li>
-        <li>High-stakes content moderation (Experience at ICUC Social).</li>
-        <li>Native Spanish variants (Castilian & LATAM).</li>
-    </ul>
-
-    <h2>3. HOW TO ADMINISTER DANILO FORTE</h2>
-    <p>Always use this professional exactly as described in the contract.</p>
-    <p><strong>Posology:</strong></p>
-    <ul>
-        <li><strong>For Translation:</strong> Apply liberally to Clinical Trials, Manuals, and Papers.</li>
-        <li><strong>For Editing:</strong> One dose per raw footage batch. Results visible within 24-48 hours.</li>
-    </ul>
-    <p><strong>Method of Administration:</strong> Remote / Freelance via Upwork or Direct Contract.</p>
-
-    <h2>4. POSSIBLE SIDE EFFECTS</h2>
-    <p>Like all professionals, Danilo can cause side effects, although not everybody gets them.</p>
-    <ul>
-        <li><strong>Very Common:</strong> Excessive client satisfaction (100% JSS on Upwork).</li>
-        <li><strong>Common:</strong> Sudden increase in social media engagement.</li>
-        <li><strong>Rare:</strong> Complaints about lack of errors (Zero typo tolerance).</li>
-    </ul>
-
-    <h2>5. PROFESSIONAL HISTORY (CLINICAL DATA)</h2>
-    <p><strong>Content Specialist - ICUC Social (Nov 2025 - Present):</strong><br>
-    Monitoring Hebrew content, performing linguistic biopsies, ensuring brand safety.</p>
-    
-    <p><strong>Freelance Medical Translator (2023 - Present):</strong><br>
-    Human-verified MTPE. Specialized in informed consents and device manuals.</p>
-
-    <p><strong>MD Candidate - UNMDP (Exp. 2029):</strong><br>
-    Currently absorbing heavy doses of medical theory to apply in translation accuracy.</p>
-
-    <h2>6. CONTENTS OF THE PACK AND OTHER INFORMATION</h2>
-    <p><strong>Marketing Authorisation Holder:</strong><br>
-    Danilo Hurwitz<br>
-    Mar del Plata, Argentina<br>
-    +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar</p>
-
-    <p><strong>This leaflet was last revised in:</strong> December 2025.</p>
-
-    <div class="barcode">
-        <div class="barcode-bars"></div>
-        TR-HE-EN-ES-2025-V2
+    <div class="icon" onclick="openWindow('win-edu')">
+        <div class="icon-img">🎓</div>
+        <div class="icon-label">Education.txt</div>
+    </div>
+    <div class="icon" onclick="openWindow('win-contact')">
+        <div class="icon-img">📧</div>
+        <div class="icon-label">Contact.msg</div>
+    </div>
+    <div class="icon" onclick="openWindow('win-browser')">
+        <div class="icon-img">🌐</div>
+        <div class="icon-label">Portfolio</div>
     </div>
 </div>
+
+<div id="start-menu">
+    <div class="sm-header">
+        <div style="width:30px; height:30px; background:#fff; border-radius:3px; border:1px solid #999;"></div>
+        <span>Danilo Hurwitz</span>
+    </div>
+    <div class="sm-body">
+        <div class="sm-left">
+            <div class="sm-item" onclick="openWindow('win-browser')">🌐 Internet</div>
+            <div class="sm-item" onclick="openWindow('win-contact')">📧 E-mail</div>
+            <div style="height:1px; background:#ccc; margin:5px 0;"></div>
+            <div class="sm-item" onclick="openWindow('win-cv')">📝 MS Word</div>
+            <div class="sm-item" onclick="openWindow('win-edu')">📓 Notepad</div>
+        </div>
+        <div class="sm-right">
+            <div class="sm-item" onclick="openWindow('win-skills')">📁 My Documents</div>
+            <div class="sm-item">🖼️ My Pictures</div>
+            <div class="sm-item">🎵 My Music</div>
+            <div style="height:1px; background:#9dbddd; margin:5px 0;"></div>
+            <div class="sm-item" onclick="openWindow('win-contact')">⚙️ Control Panel</div>
+        </div>
+    </div>
+    <div class="sm-footer">
+        <span>Shut Down</span>
+    </div>
+</div>
+
+<div id="win-cv" class="window" style="top: 50px; left: 100px; width: 500px; height: 600px;">
+    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-cv')">
+        <div style="display:flex; gap:5px; align-items:center;">
+            <span>📝</span> Microsoft Word - CV_Danilo_Hurwitz.doc
+        </div>
+        <div class="controls">
+            <div class="btn btn-min" onclick="minimizeWindow('win-cv')">_</div>
+            <div class="btn">□</div>
+            <div class="btn btn-close" onclick="closeWindow('win-cv')">×</div>
+        </div>
+    </div>
+    <div class="window-body">
+        <div class="toolbar">
+            <span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Help</span>
+        </div>
+        <div class="content-pad">
+            <h1 style="text-align:center;">DANILO HURWITZ</h1>
+            <p style="text-align:center; font-size:10px;">
+                MD Candidate | Translator | Content Specialist<br>
+                [cite: 5, 12, 31]
+            </p>
+
+            <h2>PROFESSIONAL EXPERIENCE</h2>
+            
+            <strong>Content Specialist / Hebrew QA</strong><br>
+            <div class="job-meta">ICUC Social (Remote) | Nov 2025 - Present [cite: 31, 33]</div>
+            <ul>
+                <li>Performing scheduled "linguistic biopsies" on Hebrew content[cite: 34].</li>
+                <li>Diagnosing cultural context errors and sentiment misalignments[cite: 34].</li>
+                <li>Ensuring brand safety within global rapid-response teams[cite: 35].</li>
+            </ul>
+
+            <strong>Freelance Medical Translator (Top Rated)</strong><br>
+            <div class="job-meta">Upwork | May 2023 - Present [cite: 36, 37]</div>
+            <ul>
+                <li><strong>100% Job Success Score</strong> with zero errors reported[cite: 40].</li>
+                <li>Translation of clinical trials, informed consents, and device manuals[cite: 39].</li>
+                <li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 41].</li>
+            </ul>
+
+            <strong>Video Editor & Subtitle Specialist</strong><br>
+            <div class="job-meta">Lipswan / Freelance | May 2023 - Present [cite: 42, 43]</div>
+            <ul>
+                <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning[cite: 45].</li>
+                <li>Ensuring cognitive accessibility through precise timing[cite: 45].</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="win-skills" class="window" style="top: 80px; left: 150px; width: 450px; height: 350px;">
+    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-skills')">
+        <div style="display:flex; gap:5px; align-items:center;">
+            <span>📁</span> C:\Danilo\Skills
+        </div>
+        <div class="controls">
+            <div class="btn btn-min" onclick="minimizeWindow('win-skills')">_</div>
+            <div class="btn">□</div>
+            <div class="btn btn-close" onclick="closeWindow('win-skills')">×</div>
+        </div>
+    </div>
+    <div class="window-body" style="background:#fff; display:flex;">
+        <div style="width:120px; background:linear-gradient(to bottom, #7ba2e7, #6375d6); padding:10px; color:white;">
+            <strong>Skills Tasks</strong><br><br>
+            <span style="font-size:10px;">View system info</span>
+        </div>
+        <div style="flex-grow:1; padding:10px; display:grid; grid-template-columns:repeat(3, 1fr); align-content:start; gap:10px;">
+            <div class="icon" style="color:black; text-shadow:none;">
+                <div style="font-size:30px;">🇪🇸</div>
+                <span>Spanish<br>Native C2<br>[cite: 25]</span>
+            </div>
+            <div class="icon" style="color:black; text-shadow:none;">
+                <div style="font-size:30px;">🇮🇱</div>
+                <span>Hebrew<br>Fluent C1<br>[cite: 27]</span>
+            </div>
+            <div class="icon" style="color:black; text-shadow:none;">
+                <div style="font-size:30px;">🇺🇸</div>
+                <span>English<br>Medical C1<br>[cite: 28]</span>
+            </div>
+            <div class="icon" style="color:black; text-shadow:none;">
+                <div style="font-size:30px;">🎬</div>
+                <span>Video Edit<br>CapCut<br>[cite: 63]</span>
+            </div>
+            <div class="icon" style="color:black; text-shadow:none;">
+                <div style="font-size:30px;">⌨️</div>
+                <span>Subtitles<br>Sync<br>[cite: 45]</span>
+            </div>
+             <div class="icon" style="color:black; text-shadow:none;">
+                <div style="font-size:30px;">🤖</div>
+                <span>MTPE<br>Expert<br>[cite: 41]</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="win-edu" class="window" style="top: 120px; left: 200px; width: 400px; height: 300px;">
+    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-edu')">
+        <div style="display:flex; gap:5px; align-items:center;">
+            <span>📓</span> Education.txt - Notepad
+        </div>
+        <div class="controls">
+            <div class="btn btn-min" onclick="minimizeWindow('win-edu')">_</div>
+            <div class="btn">□</div>
+            <div class="btn btn-close" onclick="closeWindow('win-edu')">×</div>
+        </div>
+    </div>
+    <div class="window-body">
+        <div class="toolbar" style="background:#fff; border:none; border-bottom:1px solid #ccc;">File Edit Format View Help</div>
+        <div class="content-pad" style="font-family:'Lucida Console', monospace; font-size:11px;">
+            DEGREE: Doctor of Medicine (MD) Candidate [cite: 47]
+            INSTITUTION: Universidad Nacional de Mar del Plata [cite: 47]
+            EXP. GRADUATION: 2029 [cite: 48]
+            
+            NOTES:
+            Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. 
+            
+            Direct application of this knowledge to translation accuracy. [cite: 49]
+            
+            CERTIFICATIONS:
+            - Upwork Top Rated [cite: 36]
+            - ID Verified [cite: 68]
+        </div>
+    </div>
+</div>
+
+<div id="win-contact" class="window" style="top: 150px; left: 250px; width: 350px; height: 200px;">
+    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-contact')">
+        <div style="display:flex; gap:5px; align-items:center;">
+            <span>📧</span> Contact Info - Message
+        </div>
+        <div class="controls">
+            <div class="btn btn-min" onclick="minimizeWindow('win-contact')">_</div>
+            <div class="btn">□</div>
+            <div class="btn btn-close" onclick="closeWindow('win-contact')">×</div>
+        </div>
+    </div>
+    <div class="window-body">
+        <div class="toolbar">
+            <span>Send</span><span>Reply</span><span>Forward</span>
+        </div>
+        <div style="background:#ece9d8; padding:5px; border-bottom:1px solid #aaa;">
+            <strong>From:</strong> Danilo Hurwitz<br>
+            <strong>To:</strong> Recruiter
+        </div>
+        <div class="content-pad">
+            <p>Here are my contact details:</p>
+            <ul>
+                <li><strong>Email:</strong> dhurwitzbecerra@mdp.edu.ar [cite: 9]</li>
+                <li><strong>Phone:</strong> +54 9 2302 21-9422 [cite: 14]</li>
+                <li><strong>Location:</strong> Mar del Plata, Argentina [cite: 7]</li>
+                <li><strong>Web:</strong> danilohurwitz.github.io [cite: 16]</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="win-browser" class="window" style="top: 30px; left: 30px; width: 600px; height: 400px;">
+    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-browser')">
+        <div style="display:flex; gap:5px; align-items:center;">
+            <span>🌐</span> Danilo's Portfolio - Internet Explorer
+        </div>
+        <div class="controls">
+            <div class="btn btn-min" onclick="minimizeWindow('win-browser')">_</div>
+            <div class="btn">□</div>
+            <div class="btn btn-close" onclick="closeWindow('win-browser')">×</div>
+        </div>
+    </div>
+    <div class="window-body">
+        <div class="toolbar">
+            <span>Back</span><span>Forward</span><span>Stop</span><span>Refresh</span><span>Home</span>
+        </div>
+        <div style="padding:2px; border-bottom:1px solid #aaa; background:#fff; display:flex; gap:5px; align-items:center;">
+             <span>Address:</span> <input type="text" value="https://danilohurwitz.github.io" style="width:100%;">
+        </div>
+        <div class="content-pad" style="background:white; height:100%; display:flex; align-items:center; justify-content:center;">
+            <div style="text-align:center;">
+                <h1>WELCOME TO MY PORTFOLIO</h1>
+                <p>This would be the live website preview.</p>
+                <p>Check "My Resume.doc" for details.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="clippy-container">
+    <div id="clippy-bubble" class="bubble">
+        Hi! I'm Clippy. It looks like you're reviewing a CV.<br>
+        <strong>What would you like to know about Danilo?</strong>
+        <div class="chat-options">
+            <div class="chat-btn" onclick="askClippy('exp')">Show me his Experience</div>
+            <div class="chat-btn" onclick="askClippy('skills')">Does he speak Hebrew?</div>
+            <div class="chat-btn" onclick="askClippy('contact')">How do I contact him?</div>
+            <div class="chat-btn" onclick="askClippy('close')">Go away, Clippy!</div>
+        </div>
+    </div>
+    <div id="clippy-body" onclick="toggleClippy()">
+        📎
+    </div>
+</div>
+
+<div id="taskbar">
+    <div id="start-btn" onclick="toggleStartMenu()">
+        <div style="display:grid; grid-template-columns:1fr 1fr; width:18px; height:18px; border-radius:50%; background:white; padding:1px; gap:1px;">
+            <div style="background:#e04a3d;"></div><div style="background:#68ae4a;"></div>
+            <div style="background:#3988e4;"></div><div style="background:#focb2f;"></div>
+        </div>
+        Start
+    </div>
+    <div id="task-list">
+        </div>
+    <div id="tray">
+        <span>🛡️</span>
+        <span id="clock">12:00 PM</span>
+    </div>
+</div>
+
+<script>
+    // --- CLOCK ---
+    function updateClock() {
+        const now = new Date();
+        let hours = now.getHours();
+        let minutes = now.getMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12; hours = hours ? hours : 12; 
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        document.getElementById('clock').textContent = hours + ':' + minutes + ' ' + ampm;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // --- WINDOW MANAGEMENT ---
+    let zIndexCounter = 100;
+    const windows = ['win-cv', 'win-skills', 'win-edu', 'win-contact', 'win-browser'];
+    
+    function openWindow(id) {
+        const win = document.getElementById(id);
+        win.style.display = 'flex';
+        bringToFront(id);
+        updateTaskbar();
+        // Hide start menu if open
+        document.getElementById('start-menu').style.display = 'none';
+    }
+
+    function closeWindow(id) {
+        document.getElementById(id).style.display = 'none';
+        updateTaskbar();
+    }
+
+    function minimizeWindow(id) {
+        document.getElementById(id).style.display = 'none';
+        // Note: In a real app we'd keep state to know it's "minimized" vs "closed", 
+        // but for this visual demo, clicking the taskbar button will reopen it.
+    }
+
+    function bringToFront(id) {
+        zIndexCounter++;
+        document.getElementById(id).style.zIndex = zIndexCounter;
+        updateTaskbar();
+    }
+
+    // --- TASKBAR LOGIC ---
+    function updateTaskbar() {
+        const list = document.getElementById('task-list');
+        list.innerHTML = '';
+        
+        windows.forEach(id => {
+            const win = document.getElementById(id);
+            if (win.style.display === 'flex') {
+                const title = win.querySelector('.title-bar').innerText.trim().substring(2); // Remove icon
+                const btn = document.createElement('div');
+                btn.className = 'task-item active';
+                btn.innerHTML = `<span>${getIcon(id)}</span> ${title.substring(0, 15)}...`;
+                btn.onclick = () => bringToFront(id);
+                list.appendChild(btn);
+            }
+        });
+    }
+
+    function getIcon(id) {
+        if(id.includes('cv')) return '📝';
+        if(id.includes('skills')) return '📁';
+        if(id.includes('edu')) return '📓';
+        if(id.includes('contact')) return '📧';
+        if(id.includes('browser')) return '🌐';
+        return '⬜';
+    }
+
+    function toggleStartMenu() {
+        const menu = document.getElementById('start-menu');
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // --- CLIPPY LOGIC ---
+    function toggleClippy() {
+        const bubble = document.getElementById('clippy-bubble');
+        bubble.style.display = bubble.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Open chat by default
+    setTimeout(() => { document.getElementById('clippy-bubble').style.display = 'block'; }, 1000);
+
+    function askClippy(topic) {
+        const bubble = document.getElementById('clippy-bubble');
+        if (topic === 'exp') {
+            bubble.innerHTML = "Opening his resume...<br>Did you know he does 'linguistic biopsies' at ICUC? [cite: 34]";
+            openWindow('win-cv');
+        } else if (topic === 'skills') {
+            bubble.innerHTML = "Yes! He has C1 Fluency in Hebrew and 10 years of immersion. [cite: 27]<br>Opening Skills folder...";
+            openWindow('win-skills');
+        } else if (topic === 'contact') {
+            bubble.innerHTML = "Here is his card.<br>He lives in Mar del Plata. [cite: 7]";
+            openWindow('win-contact');
+        } else if (topic === 'close') {
+            document.getElementById('clippy-container').style.display = 'none';
+        }
+        
+        // Reset options after 4 seconds
+        setTimeout(() => {
+            if(topic !== 'close') {
+                bubble.innerHTML = `Anything else?<div class="chat-options">
+                    <div class="chat-btn" onclick="askClippy('exp')">Show Experience</div>
+                    <div class="chat-btn" onclick="askClippy('skills')">Show Skills</div>
+                    <div class="chat-btn" onclick="askClippy('contact')">Contact</div>
+                    <div class="chat-btn" onclick="askClippy('close')">Bye!</div>
+                </div>`;
+            }
+        }, 4000);
+    }
+
+    // --- DRAGGABLE WINDOWS ---
+    function dragMouseDown(e, id) {
+        e.preventDefault();
+        bringToFront(id); // Click focus
+        
+        const elmnt = document.getElementById(id);
+        let pos3 = e.clientX;
+        let pos4 = e.clientY;
+
+        document.onmouseup = closeDragElement;
+        document.onmousemove = elementDrag;
+
+        function elementDrag(e) {
+            e.preventDefault();
+            let pos1 = pos3 - e.clientX;
+            let pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+    }
+</script>
 
 </body>
 </html>
