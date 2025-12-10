@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - Professional Desktop</title>
+    <title>DaniloXP - Professional OS</title>
     <style>
         /* --- FUENTES & RESET --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
@@ -12,35 +12,46 @@
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; 
             font-family: 'Tahoma', sans-serif; font-size: 11px;
+            /* Fondo Bliss Original */
             background: #2ea6f7 url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center fixed;
             background-size: cover;
+        }
+
+        /* --- PANTALLA AZUL (BSOD) --- */
+        #bsod {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000082; color: white; z-index: 99999;
+            font-family: 'Lucida Console', monospace; font-size: 16px; padding: 50px;
+            line-height: 1.5; cursor: pointer;
         }
 
         /* --- ESCRITORIO --- */
         #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            padding: 10px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 20px; align-content: flex-start;
+            padding: 10px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 15px; align-content: flex-start;
         }
 
         .icon {
-            width: 75px; text-align: center; cursor: pointer;
+            width: 80px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
-            color: white; text-shadow: 1px 1px 2px black;
+            color: white; text-shadow: 1px 1px 2px black; transition: opacity 0.2s;
         }
         .icon:hover { opacity: 0.8; }
-        .icon-img { font-size: 32px; margin-bottom: 5px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.5)); }
-        .icon-label { background: rgba(0,0,0,0.2); padding: 2px 4px; border-radius: 2px; }
+        .icon:active .icon-img { transform: scale(0.95); }
+        .icon-img { font-size: 36px; margin-bottom: 5px; filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.6)); }
+        .icon-label { background: rgba(0,0,0,0); padding: 2px 4px; border-radius: 2px; }
+        .icon:hover .icon-label { background: #0055ea; }
 
-        /* --- VENTANAS (DRAGGABLE) --- */
+        /* --- VENTANAS (GENERAL) --- */
         .window {
             position: absolute;
             background: #ece9d8;
             border: 1px solid #0055ea;
             border-radius: 8px 8px 0 0;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            display: none; /* Hidden by default */
+            box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
+            display: none; /* Oculto por defecto */
             flex-direction: column;
-            min-width: 300px; min-height: 200px;
+            min-width: 200px; min-height: 150px;
         }
         
         .title-bar {
@@ -57,42 +68,40 @@
         .btn-min { background: #288eff; padding-top: 5px; font-weight: bold; }
         .btn-close { background: #e04a3d; font-size: 14px; font-weight: bold; }
 
-        .window-body { flex-grow: 1; overflow: auto; background: white; border: 1px solid #888; margin: 3px; position: relative; }
+        .window-body { flex-grow: 1; overflow: hidden; background: white; border: 1px solid #888; margin: 3px; position: relative; display: flex; flex-direction: column; }
         
-        /* ESTILOS ESPECIFICOS INTERNOS */
-        .toolbar { background: #ece9d8; padding: 2px; border-bottom: 1px solid #aaa; display: flex; gap: 10px; font-size: 11px; }
-        .content-pad { padding: 15px; font-family: 'Verdana', sans-serif; line-height: 1.5; color: #000; user-select: text; }
+        /* --- ESTILOS INTERNOS DE APLICACIONES --- */
         
-        h1 { font-size: 18px; margin: 0 0 5px 0; border-bottom: 2px solid #000; text-transform: uppercase; }
-        h2 { font-size: 14px; color: #004488; margin: 15px 0 5px 0; border-bottom: 1px solid #ccc; }
-        .job-meta { font-style: italic; color: #555; font-size: 10px; margin-bottom: 5px; }
-        ul { margin: 5px 0; padding-left: 20px; }
-        
+        /* WORD */
+        .word-toolbar { background: #d4d0c8; padding: 2px; border-bottom: 1px solid #888; }
+        .word-paper { 
+            background: white; padding: 25px; font-family: 'Times New Roman', serif; 
+            font-size: 14px; overflow-y: auto; height: 100%; color: #000; user-select: text;
+        }
+        h1 { font-family: Arial; font-size: 18px; text-transform: uppercase; border-bottom: 2px solid #000; }
+        .cite { color: #888; font-size: 10px; vertical-align: super; }
+
+        /* IE BROWSER */
+        .addr-bar { background: #ece9d8; padding: 4px; display: flex; gap: 5px; border-bottom: 1px solid #aaa; align-items: center; }
+        .addr-input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 2px; font-size: 11px; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* WINAMP (Visual Only) */
+        .winamp { background: #222; color: #0f0; font-family: monospace; padding: 10px; display: flex; flex-direction: column; gap: 10px; height: 100%; }
+        .wa-screen { background: #000; border: 2px solid #555; height: 40px; display: flex; align-items: center; justify-content: center; color: #00ff00; }
+        .wa-controls { display: flex; justify-content: space-between; }
+        .wa-btn { width: 30px; height: 20px; background: #ccc; border: 1px solid #fff; cursor: pointer; }
+
         /* --- CLIPPY --- */
-        #clippy-container {
-            position: absolute; bottom: 40px; right: 20px; z-index: 9999;
-            display: flex; flex-direction: column; align-items: flex-end;
-            pointer-events: none; /* Let clicks pass through empty space */
+        #clippy {
+            position: absolute; bottom: 50px; right: 30px; width: 100px; z-index: 1000; cursor: move;
         }
-        #clippy-body { pointer-events: auto; cursor: pointer; font-size: 50px; filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4)); transition: transform 0.2s; }
-        #clippy-body:hover { transform: scale(1.1); }
-        
-        .bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px;
-            padding: 10px; width: 220px; margin-bottom: 10px;
-            box-shadow: 3px 3px 5px rgba(0,0,0,0.2);
-            font-size: 11px; color: #000; display: none; pointer-events: auto;
-            position: relative;
+        .clippy-bubble {
+            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 8px;
+            position: absolute; bottom: 80px; right: 0; width: 200px; font-size: 11px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3); display: none;
         }
-        .bubble::after {
-            content: ''; position: absolute; bottom: -6px; right: 20px;
-            width: 10px; height: 10px; background: #ffffe1;
-            transform: rotate(45deg); border-right: 1px solid #000; border-bottom: 1px solid #000;
-        }
-        
-        .chat-options { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
-        .chat-btn { background: #ece9d8; border: 1px solid #999; padding: 3px; cursor: pointer; text-align: left; }
-        .chat-btn:hover { background: #316ac5; color: white; }
+        .clippy-img { font-size: 50px; text-align: right; filter: drop-shadow(2px 5px 2px rgba(0,0,0,0.4)); }
 
         /* --- BARRA DE TAREAS --- */
         #taskbar {
@@ -115,9 +124,9 @@
         
         #task-list { display: flex; gap: 2px; flex-grow: 1; }
         .task-item {
-            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0;
+            width: 140px; height: 24px; background: #3c81f0; border: 1px solid #2864c0;
             border-radius: 3px; color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px;
-            cursor: pointer;
+            cursor: pointer; font-size: 10px;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
         
@@ -126,284 +135,155 @@
             display: flex; align-items: center; color: white; font-size: 11px; gap: 10px; margin-left: auto;
         }
 
-        /* --- START MENU --- */
-        #start-menu {
-            position: absolute; bottom: 30px; left: 0; width: 280px; height: 350px;
-            background: white; border-radius: 5px 5px 0 0;
-            box-shadow: 2px -2px 10px rgba(0,0,0,0.5); border: 1px solid #316ac5;
-            display: none; flex-direction: column; z-index: 9999;
-        }
-        .sm-header {
-            background: linear-gradient(to bottom, #127dff, #0057e5);
-            height: 50px; padding: 10px; color: white; font-weight: bold; font-size: 14px;
-            display: flex; align-items: center; gap: 10px; border-radius: 4px 4px 0 0;
-        }
-        .sm-body { flex-grow: 1; display: flex; border-top: 2px solid #e59700; }
-        .sm-left { width: 50%; background: white; padding: 5px; }
-        .sm-right { width: 50%; background: #d3e5fa; border-left: 1px solid #9dbddd; padding: 5px; }
-        .sm-item { padding: 5px; cursor: pointer; display: flex; align-items: center; gap: 5px; color: #333; }
-        .sm-item:hover { background: #316ac5; color: white; }
-        .sm-footer {
-            height: 35px; background: linear-gradient(to bottom, #127dff, #0057e5);
-            display: flex; justify-content: flex-end; align-items: center; padding: 0 10px; color: white;
-            border-top: 1px solid #003c74;
-        }
-
     </style>
 </head>
 <body>
 
+<div id="bsod" onclick="location.reload()">
+    A problem has been detected and Windows has been shut down to prevent damage to your computer.<br><br>
+    DANILO_OVERLOAD_EXCEPTION<br><br>
+    If this is the first time you've seen this stop error screen, restart your computer.<br>
+    Technical Information:<br>
+    *** STOP: 0x000000D1 (0x00000000, 0x00000002, 0x00000000, 0xF73120AE)<br><br>
+    Click anywhere to restart...
+</div>
+
 <div id="desktop">
     <div class="icon" onclick="openWindow('win-cv')">
         <div class="icon-img">📝</div>
-        <div class="icon-label">My Resume.doc</div>
+        <div class="icon-label">My Resume</div>
     </div>
-    <div class="icon" onclick="openWindow('win-skills')">
-        <div class="icon-img">📁</div>
-        <div class="icon-label">Skills Folder</div>
+    <div class="icon" onclick="openWindow('win-ie')">
+        <div class="icon-img">🌐</div>
+        <div class="icon-label">My Portfolio</div>
     </div>
-    <div class="icon" onclick="openWindow('win-edu')">
-        <div class="icon-img">🎓</div>
-        <div class="icon-label">Education.txt</div>
+    <div class="icon" onclick="openWindow('win-winamp')">
+        <div class="icon-img">⚡</div>
+        <div class="icon-label">Winamp</div>
     </div>
     <div class="icon" onclick="openWindow('win-contact')">
         <div class="icon-img">📧</div>
-        <div class="icon-label">Contact.msg</div>
+        <div class="icon-label">Contact</div>
     </div>
-    <div class="icon" onclick="openWindow('win-browser')">
-        <div class="icon-img">🌐</div>
-        <div class="icon-label">Portfolio</div>
+    <div class="icon" onclick="openWindow('win-solitaire')">
+        <div class="icon-img">🃏</div>
+        <div class="icon-label">Solitaire</div>
     </div>
-</div>
-
-<div id="start-menu">
-    <div class="sm-header">
-        <div style="width:30px; height:30px; background:#fff; border-radius:3px; border:1px solid #999;"></div>
-        <span>Danilo Hurwitz</span>
-    </div>
-    <div class="sm-body">
-        <div class="sm-left">
-            <div class="sm-item" onclick="openWindow('win-browser')">🌐 Internet</div>
-            <div class="sm-item" onclick="openWindow('win-contact')">📧 E-mail</div>
-            <div style="height:1px; background:#ccc; margin:5px 0;"></div>
-            <div class="sm-item" onclick="openWindow('win-cv')">📝 MS Word</div>
-            <div class="sm-item" onclick="openWindow('win-edu')">📓 Notepad</div>
-        </div>
-        <div class="sm-right">
-            <div class="sm-item" onclick="openWindow('win-skills')">📁 My Documents</div>
-            <div class="sm-item">🖼️ My Pictures</div>
-            <div class="sm-item">🎵 My Music</div>
-            <div style="height:1px; background:#9dbddd; margin:5px 0;"></div>
-            <div class="sm-item" onclick="openWindow('win-contact')">⚙️ Control Panel</div>
-        </div>
-    </div>
-    <div class="sm-footer">
-        <span>Shut Down</span>
+    <div class="icon" onclick="triggerBSOD()">
+        <div class="icon-img">⚠️</div>
+        <div class="icon-label">Don't Click</div>
     </div>
 </div>
 
-<div id="win-cv" class="window" style="top: 50px; left: 100px; width: 500px; height: 600px;">
-    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-cv')">
-        <div style="display:flex; gap:5px; align-items:center;">
-            <span>📝</span> Microsoft Word - CV_Danilo_Hurwitz.doc
-        </div>
-        <div class="controls">
-            <div class="btn btn-min" onclick="minimizeWindow('win-cv')">_</div>
-            <div class="btn">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-cv')">×</div>
-        </div>
+<div id="win-cv" class="window" style="top: 30px; left: 50px; width: 600px; height: 500px;">
+    <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
+        <div style="display:flex; gap:5px; align-items:center;"><span>📝</span> CV_Danilo_Hurwitz.doc</div>
+        <div class="controls"><div class="btn btn-min" onclick="minWin('win-cv')">_</div><div class="btn btn-close" onclick="closeWin('win-cv')">×</div></div>
     </div>
     <div class="window-body">
-        <div class="toolbar">
-            <span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Help</span>
-        </div>
-        <div class="content-pad">
-            <h1 style="text-align:center;">DANILO HURWITZ</h1>
-            <p style="text-align:center; font-size:10px;">
-                MD Candidate | Translator | Content Specialist<br>
-                [cite: 5, 12, 31]
-            </p>
-
-            <h2>PROFESSIONAL EXPERIENCE</h2>
+        <div class="word-toolbar">File | Edit | View | Insert | Format | Tools</div>
+        <div class="word-paper">
+            [cite_start]<h1>Danilo Hurwitz <span class="cite">[cite: 5, 51]</span></h1>
+            [cite_start]<p><strong>MD Candidate & Medical Translator</strong> <span class="cite">[cite: 12, 100]</span><br>
+            [cite_start]Mar del Plata, Argentina <span class="cite">[cite: 7]</span> | [cite_start]+54 9 2302 21-9422 <span class="cite">[cite: 14]</span></p>
+            <hr>
             
-            <strong>Content Specialist / Hebrew QA</strong><br>
-            <div class="job-meta">ICUC Social (Remote) | Nov 2025 - Present [cite: 31, 33]</div>
+            <h2 style="color:blue">Professional Experience</h2>
+            
+            [cite_start]<p><strong>Content Specialist / Hebrew Translator</strong> @ ICUC Social <span class="cite">[cite: 31, 32]</span><br>
+            <em>Nov 2025 – Present</em></p>
             <ul>
-                <li>Performing scheduled "linguistic biopsies" on Hebrew content[cite: 34].</li>
-                <li>Diagnosing cultural context errors and sentiment misalignments[cite: 34].</li>
-                <li>Ensuring brand safety within global rapid-response teams[cite: 35].</li>
+                [cite_start]<li>Performing scheduled "linguistic biopsies" on Hebrew content <span class="cite">[cite: 34]</span>.</li>
+                [cite_start]<li>Diagnosing cultural context errors and sentiment misalignments <span class="cite">[cite: 34]</span>.</li>
+                [cite_start]<li>Operating within global rapid-response teams via MS Teams <span class="cite">[cite: 35]</span>.</li>
             </ul>
 
-            <strong>Freelance Medical Translator (Top Rated)</strong><br>
-            <div class="job-meta">Upwork | May 2023 - Present [cite: 36, 37]</div>
+            [cite_start]<p><strong>Freelance Medical Translator</strong> @ Upwork <span class="cite">[cite: 36, 81]</span><br>
+            <em>May 2023 – Present</em></p>
             <ul>
-                <li><strong>100% Job Success Score</strong> with zero errors reported[cite: 40].</li>
-                <li>Translation of clinical trials, informed consents, and device manuals[cite: 39].</li>
-                <li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 41].</li>
+                [cite_start]<li><strong>100% Job Success Score</strong> achieved with zero errors reported <span class="cite">[cite: 40, 79]</span>.</li>
+                [cite_start]<li>Translation of clinical trials, informed consents, and device manuals <span class="cite">[cite: 39]</span>.</li>
+                [cite_start]<li>Method: Human-verified MTPE (Machine Translation Post-Editing) <span class="cite">[cite: 41]</span>.</li>
             </ul>
 
-            <strong>Video Editor & Subtitle Specialist</strong><br>
-            <div class="job-meta">Lipswan / Freelance | May 2023 - Present [cite: 42, 43]</div>
-            <ul>
-                <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning[cite: 45].</li>
-                <li>Ensuring cognitive accessibility through precise timing[cite: 45].</li>
-            </ul>
+            <h2 style="color:blue">Education</h2>
+            [cite_start]<p><strong>Doctor of Medicine (MD) Candidate</strong> <span class="cite">[cite: 47, 100]</span><br>
+            [cite_start]Universidad Nacional de Mar del Plata (Exp. 2029) <span class="cite">[cite: 47, 48]</span></p>
+            [cite_start]<p>Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology <span class="cite">[cite: 49]</span>.</p>
         </div>
     </div>
 </div>
 
-<div id="win-skills" class="window" style="top: 80px; left: 150px; width: 450px; height: 350px;">
-    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-skills')">
-        <div style="display:flex; gap:5px; align-items:center;">
-            <span>📁</span> C:\Danilo\Skills
-        </div>
-        <div class="controls">
-            <div class="btn btn-min" onclick="minimizeWindow('win-skills')">_</div>
-            <div class="btn">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-skills')">×</div>
-        </div>
-    </div>
-    <div class="window-body" style="background:#fff; display:flex;">
-        <div style="width:120px; background:linear-gradient(to bottom, #7ba2e7, #6375d6); padding:10px; color:white;">
-            <strong>Skills Tasks</strong><br><br>
-            <span style="font-size:10px;">View system info</span>
-        </div>
-        <div style="flex-grow:1; padding:10px; display:grid; grid-template-columns:repeat(3, 1fr); align-content:start; gap:10px;">
-            <div class="icon" style="color:black; text-shadow:none;">
-                <div style="font-size:30px;">🇪🇸</div>
-                <span>Spanish<br>Native C2<br>[cite: 25]</span>
-            </div>
-            <div class="icon" style="color:black; text-shadow:none;">
-                <div style="font-size:30px;">🇮🇱</div>
-                <span>Hebrew<br>Fluent C1<br>[cite: 27]</span>
-            </div>
-            <div class="icon" style="color:black; text-shadow:none;">
-                <div style="font-size:30px;">🇺🇸</div>
-                <span>English<br>Medical C1<br>[cite: 28]</span>
-            </div>
-            <div class="icon" style="color:black; text-shadow:none;">
-                <div style="font-size:30px;">🎬</div>
-                <span>Video Edit<br>CapCut<br>[cite: 63]</span>
-            </div>
-            <div class="icon" style="color:black; text-shadow:none;">
-                <div style="font-size:30px;">⌨️</div>
-                <span>Subtitles<br>Sync<br>[cite: 45]</span>
-            </div>
-             <div class="icon" style="color:black; text-shadow:none;">
-                <div style="font-size:30px;">🤖</div>
-                <span>MTPE<br>Expert<br>[cite: 41]</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="win-edu" class="window" style="top: 120px; left: 200px; width: 400px; height: 300px;">
-    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-edu')">
-        <div style="display:flex; gap:5px; align-items:center;">
-            <span>📓</span> Education.txt - Notepad
-        </div>
-        <div class="controls">
-            <div class="btn btn-min" onclick="minimizeWindow('win-edu')">_</div>
-            <div class="btn">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-edu')">×</div>
-        </div>
+<div id="win-ie" class="window" style="top: 60px; left: 100px; width: 700px; height: 500px;">
+    <div class="title-bar" onmousedown="dragStart(event, 'win-ie')">
+        <div style="display:flex; gap:5px; align-items:center;"><span>🌐</span> Danilo's Portfolio - Internet Explorer</div>
+        <div class="controls"><div class="btn btn-min" onclick="minWin('win-ie')">_</div><div class="btn btn-close" onclick="closeWin('win-ie')">×</div></div>
     </div>
     <div class="window-body">
-        <div class="toolbar" style="background:#fff; border:none; border-bottom:1px solid #ccc;">File Edit Format View Help</div>
-        <div class="content-pad" style="font-family:'Lucida Console', monospace; font-size:11px;">
-            DEGREE: Doctor of Medicine (MD) Candidate [cite: 47]
-            INSTITUTION: Universidad Nacional de Mar del Plata [cite: 47]
-            EXP. GRADUATION: 2029 [cite: 48]
-            
-            NOTES:
-            Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. 
-            
-            Direct application of this knowledge to translation accuracy. [cite: 49]
-            
-            CERTIFICATIONS:
-            - Upwork Top Rated [cite: 36]
-            - ID Verified [cite: 68]
+        <div class="addr-bar">
+            <span>Address:</span>
+            <input type="text" class="addr-input" value="https://danilohurwitz.github.io/main/">
+            <button onclick="reloadIframe()">Go</button>
         </div>
+        <iframe id="ie-frame" src="https://danilohurwitz.github.io/main/"></iframe>
     </div>
 </div>
 
-<div id="win-contact" class="window" style="top: 150px; left: 250px; width: 350px; height: 200px;">
-    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-contact')">
-        <div style="display:flex; gap:5px; align-items:center;">
-            <span>📧</span> Contact Info - Message
-        </div>
-        <div class="controls">
-            <div class="btn btn-min" onclick="minimizeWindow('win-contact')">_</div>
-            <div class="btn">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-contact')">×</div>
-        </div>
+<div id="win-winamp" class="window" style="top: 150px; left: 400px; width: 300px; height: 150px; background:#222; border:none;">
+    <div class="title-bar" style="background:#444;" onmousedown="dragStart(event, 'win-winamp')">
+        <div style="display:flex; gap:5px;"><span>⚡</span> WINAMP</div>
+        <div class="controls"><div class="btn btn-close" onclick="closeWin('win-winamp')">×</div></div>
     </div>
-    <div class="window-body">
-        <div class="toolbar">
-            <span>Send</span><span>Reply</span><span>Forward</span>
-        </div>
-        <div style="background:#ece9d8; padding:5px; border-bottom:1px solid #aaa;">
-            <strong>From:</strong> Danilo Hurwitz<br>
-            <strong>To:</strong> Recruiter
-        </div>
-        <div class="content-pad">
-            <p>Here are my contact details:</p>
-            <ul>
-                <li><strong>Email:</strong> dhurwitzbecerra@mdp.edu.ar [cite: 9]</li>
-                <li><strong>Phone:</strong> +54 9 2302 21-9422 [cite: 14]</li>
-                <li><strong>Location:</strong> Mar del Plata, Argentina [cite: 7]</li>
-                <li><strong>Web:</strong> danilohurwitz.github.io [cite: 16]</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<div id="win-browser" class="window" style="top: 30px; left: 30px; width: 600px; height: 400px;">
-    <div class="title-bar" onmousedown="dragMouseDown(event, 'win-browser')">
-        <div style="display:flex; gap:5px; align-items:center;">
-            <span>🌐</span> Danilo's Portfolio - Internet Explorer
-        </div>
-        <div class="controls">
-            <div class="btn btn-min" onclick="minimizeWindow('win-browser')">_</div>
-            <div class="btn">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-browser')">×</div>
-        </div>
-    </div>
-    <div class="window-body">
-        <div class="toolbar">
-            <span>Back</span><span>Forward</span><span>Stop</span><span>Refresh</span><span>Home</span>
-        </div>
-        <div style="padding:2px; border-bottom:1px solid #aaa; background:#fff; display:flex; gap:5px; align-items:center;">
-             <span>Address:</span> <input type="text" value="https://danilohurwitz.github.io" style="width:100%;">
-        </div>
-        <div class="content-pad" style="background:white; height:100%; display:flex; align-items:center; justify-content:center;">
-            <div style="text-align:center;">
-                <h1>WELCOME TO MY PORTFOLIO</h1>
-                <p>This would be the live website preview.</p>
-                <p>Check "My Resume.doc" for details.</p>
+    <div class="window-body" style="background:#222; border:none;">
+        <div class="winamp">
+            <div class="wa-screen">DANILO - WORK_FLOW_MIX.mp3</div>
+            <div class="wa-controls">
+                <button class="wa-btn">|&lt;</button>
+                <button class="wa-btn">||</button>
+                <button class="wa-btn">&gt;</button>
+                <button class="wa-btn">&gt;|</button>
             </div>
+            <div style="font-size:10px; color:#aaa;">1. Intro (Medical) <br> 2. Focus Mode</div>
         </div>
     </div>
 </div>
 
-<div id="clippy-container">
-    <div id="clippy-bubble" class="bubble">
-        Hi! I'm Clippy. It looks like you're reviewing a CV.<br>
-        <strong>What would you like to know about Danilo?</strong>
-        <div class="chat-options">
-            <div class="chat-btn" onclick="askClippy('exp')">Show me his Experience</div>
-            <div class="chat-btn" onclick="askClippy('skills')">Does he speak Hebrew?</div>
-            <div class="chat-btn" onclick="askClippy('contact')">How do I contact him?</div>
-            <div class="chat-btn" onclick="askClippy('close')">Go away, Clippy!</div>
-        </div>
+<div id="win-contact" class="window" style="top: 200px; left: 200px; width: 350px; height: 250px;">
+    <div class="title-bar" onmousedown="dragStart(event, 'win-contact')">
+        <div style="display:flex; gap:5px;"><span>📧</span> Contact Details</div>
+        <div class="controls"><div class="btn btn-close" onclick="closeWin('win-contact')">×</div></div>
     </div>
-    <div id="clippy-body" onclick="toggleClippy()">
-        📎
+    <div class="window-body" style="padding:10px; font-family:Verdana;">
+        [cite_start]<strong>Danilo Hurwitz</strong> <span class="cite">[cite: 5]</span><br><br>
+        [cite_start]📧 Email: <a href="#">dhurwitzbecerra@mdp.edu.ar</a> <span class="cite">[cite: 9]</span><br>
+        [cite_start]📞 Phone: +54 9 2302 21-9422 <span class="cite">[cite: 14]</span><br>
+        [cite_start]📍 Location: Mar del Plata, Argentina <span class="cite">[cite: 7]</span><br>
+        [cite_start]💼 Role: MD Student / Translator <span class="cite">[cite: 12]</span>
     </div>
+</div>
+
+<div id="win-solitaire" class="window" style="top: 100px; left: 300px; width: 400px; height: 300px;">
+    <div class="title-bar" onmousedown="dragStart(event, 'win-solitaire')">
+        <div style="display:flex; gap:5px;"><span>🃏</span> Solitaire</div>
+        <div class="controls"><div class="btn btn-close" onclick="closeWin('win-solitaire')">×</div></div>
+    </div>
+    <div class="window-body" style="background:green; display:flex; align-items:center; justify-content:center; color:white;">
+        [GAME AREA - CARDS]
+    </div>
+</div>
+
+<div id="clippy" onmousedown="dragStart(event, 'clippy')">
+    <div class="clippy-bubble" id="bubble">
+        Hi! I see you are looking at Danilo's profile.<br><br>
+        [cite_start]He has a <strong>100% Job Success Score</strong> <span class="cite">[cite: 40]</span>.<br><br>
+        <button onclick="openWindow('win-cv')">Open Resume</button>
+        <button onclick="document.getElementById('bubble').style.display='none'">Dismiss</button>
+    </div>
+    <div class="clippy-img" onclick="toggleBubble()">📎</div>
 </div>
 
 <div id="taskbar">
-    <div id="start-btn" onclick="toggleStartMenu()">
+    <div id="start-btn" onclick="alert('Start Menu Coming Soon in SP2!')">
         <div style="display:grid; grid-template-columns:1fr 1fr; width:18px; height:18px; border-radius:50%; background:white; padding:1px; gap:1px;">
             <div style="background:#e04a3d;"></div><div style="background:#68ae4a;"></div>
             <div style="background:#3988e4;"></div><div style="background:#focb2f;"></div>
@@ -419,128 +299,77 @@
 </div>
 
 <script>
-    // --- CLOCK ---
+    // --- RELOJ ---
     function updateClock() {
         const now = new Date();
-        let hours = now.getHours();
-        let minutes = now.getMinutes();
-        const ampm = hours >= 12 ? 'PM' : 'AM';
-        hours = hours % 12; hours = hours ? hours : 12; 
-        minutes = minutes < 10 ? '0'+minutes : minutes;
-        document.getElementById('clock').textContent = hours + ':' + minutes + ' ' + ampm;
+        let h = now.getHours(); let m = now.getMinutes();
+        let ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12; h = h ? h : 12; m = m < 10 ? '0'+m : m;
+        document.getElementById('clock').innerText = h + ':' + m + ' ' + ampm;
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+    setInterval(updateClock, 1000); updateClock();
 
-    // --- WINDOW MANAGEMENT ---
-    let zIndexCounter = 100;
-    const windows = ['win-cv', 'win-skills', 'win-edu', 'win-contact', 'win-browser'];
-    
+    // --- GESTIÓN DE VENTANAS ---
+    let zIndex = 100;
+
     function openWindow(id) {
         const win = document.getElementById(id);
         win.style.display = 'flex';
-        bringToFront(id);
+        bringFront(id);
         updateTaskbar();
-        // Hide start menu if open
-        document.getElementById('start-menu').style.display = 'none';
     }
 
-    function closeWindow(id) {
+    function closeWin(id) {
         document.getElementById(id).style.display = 'none';
         updateTaskbar();
     }
-
-    function minimizeWindow(id) {
+    
+    function minWin(id) {
         document.getElementById(id).style.display = 'none';
-        // Note: In a real app we'd keep state to know it's "minimized" vs "closed", 
-        // but for this visual demo, clicking the taskbar button will reopen it.
+        // Logic to keep it in taskbar would go here
     }
 
-    function bringToFront(id) {
-        zIndexCounter++;
-        document.getElementById(id).style.zIndex = zIndexCounter;
-        updateTaskbar();
+    function bringFront(id) {
+        zIndex++;
+        document.getElementById(id).style.zIndex = zIndex;
     }
 
-    // --- TASKBAR LOGIC ---
     function updateTaskbar() {
         const list = document.getElementById('task-list');
         list.innerHTML = '';
-        
-        windows.forEach(id => {
-            const win = document.getElementById(id);
-            if (win.style.display === 'flex') {
-                const title = win.querySelector('.title-bar').innerText.trim().substring(2); // Remove icon
-                const btn = document.createElement('div');
-                btn.className = 'task-item active';
-                btn.innerHTML = `<span>${getIcon(id)}</span> ${title.substring(0, 15)}...`;
-                btn.onclick = () => bringToFront(id);
-                list.appendChild(btn);
+        const wins = document.querySelectorAll('.window');
+        wins.forEach(w => {
+            if(w.style.display === 'flex') {
+                const title = w.querySelector('.title-bar').innerText;
+                const item = document.createElement('div');
+                item.className = 'task-item active';
+                item.innerText = title.substring(0, 20);
+                item.onclick = () => bringFront(w.id);
+                list.appendChild(item);
             }
         });
     }
 
-    function getIcon(id) {
-        if(id.includes('cv')) return '📝';
-        if(id.includes('skills')) return '📁';
-        if(id.includes('edu')) return '📓';
-        if(id.includes('contact')) return '📧';
-        if(id.includes('browser')) return '🌐';
-        return '⬜';
+    // --- BSOD ---
+    function triggerBSOD() {
+        document.getElementById('bsod').style.display = 'block';
     }
 
-    function toggleStartMenu() {
-        const menu = document.getElementById('start-menu');
-        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    // --- CLIPPY ---
+    function toggleBubble() {
+        const b = document.getElementById('bubble');
+        b.style.display = b.style.display === 'block' ? 'none' : 'block';
     }
 
-    // --- CLIPPY LOGIC ---
-    function toggleClippy() {
-        const bubble = document.getElementById('clippy-bubble');
-        bubble.style.display = bubble.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Open chat by default
-    setTimeout(() => { document.getElementById('clippy-bubble').style.display = 'block'; }, 1000);
-
-    function askClippy(topic) {
-        const bubble = document.getElementById('clippy-bubble');
-        if (topic === 'exp') {
-            bubble.innerHTML = "Opening his resume...<br>Did you know he does 'linguistic biopsies' at ICUC? [cite: 34]";
-            openWindow('win-cv');
-        } else if (topic === 'skills') {
-            bubble.innerHTML = "Yes! He has C1 Fluency in Hebrew and 10 years of immersion. [cite: 27]<br>Opening Skills folder...";
-            openWindow('win-skills');
-        } else if (topic === 'contact') {
-            bubble.innerHTML = "Here is his card.<br>He lives in Mar del Plata. [cite: 7]";
-            openWindow('win-contact');
-        } else if (topic === 'close') {
-            document.getElementById('clippy-container').style.display = 'none';
-        }
-        
-        // Reset options after 4 seconds
-        setTimeout(() => {
-            if(topic !== 'close') {
-                bubble.innerHTML = `Anything else?<div class="chat-options">
-                    <div class="chat-btn" onclick="askClippy('exp')">Show Experience</div>
-                    <div class="chat-btn" onclick="askClippy('skills')">Show Skills</div>
-                    <div class="chat-btn" onclick="askClippy('contact')">Contact</div>
-                    <div class="chat-btn" onclick="askClippy('close')">Bye!</div>
-                </div>`;
-            }
-        }, 4000);
-    }
-
-    // --- DRAGGABLE WINDOWS ---
-    function dragMouseDown(e, id) {
+    // --- ARRASTRAR ---
+    function dragStart(e, id) {
         e.preventDefault();
-        bringToFront(id); // Click focus
-        
-        const elmnt = document.getElementById(id);
+        bringFront(id);
+        const elm = document.getElementById(id);
         let pos3 = e.clientX;
         let pos4 = e.clientY;
-
-        document.onmouseup = closeDragElement;
+        
+        document.onmouseup = closeDrag;
         document.onmousemove = elementDrag;
 
         function elementDrag(e) {
@@ -549,15 +378,17 @@
             let pos2 = pos4 - e.clientY;
             pos3 = e.clientX;
             pos4 = e.clientY;
-            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            elm.style.top = (elm.offsetTop - pos2) + "px";
+            elm.style.left = (elm.offsetLeft - pos1) + "px";
         }
-
-        function closeDragElement() {
+        function closeDrag() {
             document.onmouseup = null;
             document.onmousemove = null;
         }
     }
+    
+    // Auto open CV
+    setTimeout(() => openWindow('win-cv'), 500);
 </script>
 
 </body>
