@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - Windows XP</title>
+    <title>Danilo XP | Final Service Pack</title>
     <style>
-        /* RESET Y FUENTES */
+        /* --- FUENTES & RESET --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
         
         * { box-sizing: border-box; user-select: none; }
@@ -20,46 +20,35 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: pointer;
         }
         
-        .boot-content { display: none; flex-direction: column; align-items: center; }
-        
-        .xp-logo { margin-bottom: 40px; }
-        /* Logo simulado con CSS/Texto para evitar links rotos */
+        .xp-logo { margin-bottom: 40px; text-align: center; }
         .win-logo-text { font-family: 'Arial', sans-serif; font-size: 40px; font-weight: bold; color: white; font-style: italic; }
-        .win-logo-sub { color: #ff6600; font-size: 16px; vertical-align: super; }
+        .win-logo-sub { color: #ff6600; font-size: 16px; vertical-align: super; font-style: italic; font-weight: bold; }
         
         .loading-bar-box {
-            width: 250px; height: 18px; border: 2px solid #b2b2b2; border-radius: 4px; padding: 2px;
-            position: relative; overflow: hidden;
+            width: 200px; height: 16px; border: 2px solid #555; border-radius: 3px; padding: 2px;
+            position: relative; overflow: hidden; margin-top: 20px;
         }
-        .loading-progress {
-            width: 100%; height: 100%; position: relative;
-        }
+        .loading-progress { width: 100%; height: 100%; position: relative; }
         .loading-blocks {
             display: flex; gap: 2px; position: absolute; left: -60px; top: 0; height: 100%;
-            animation: loadAnim 2s linear infinite;
+            animation: loadAnim 2.5s linear infinite;
         }
-        .block { width: 12px; height: 100%; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 2px; }
+        .block { width: 10px; height: 100%; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 1px; }
         
-        @keyframes loadAnim { 0% { left: -60px; } 100% { left: 250px; } }
-
-        .power-btn {
-            padding: 10px 20px; background: #333; color: white; border: 1px solid #666; cursor: pointer; font-size: 14px;
-        }
-        .power-btn:hover { background: #555; }
+        @keyframes loadAnim { 0% { left: -60px; } 100% { left: 200px; } }
 
         /* --- ESCRITORIO --- */
         #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
             background: #2ea6f7 url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center fixed;
             background-size: cover;
-            display: none; /* Se muestra tras el boot */
+            display: none; /* Se activa con JS */
         }
         
         .desktop-icons {
-            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 25px; align-content: flex-start; height: 90%;
+            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 30px; align-content: flex-start; height: 90%;
         }
 
         .icon {
@@ -69,7 +58,8 @@
         }
         .icon:hover { opacity: 0.8; }
         .icon:active img { transform: scale(0.9); }
-        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.5)); }
+        /* IMAGEN DE ICONO ASEGURADA */
+        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); }
         .icon-label { background: transparent; padding: 2px 4px; border-radius: 2px; line-height: 1.3; border: 1px solid transparent; }
         .icon:hover .icon-label { background: #0055ea; border-color: rgba(255,255,255,0.2); }
 
@@ -79,7 +69,7 @@
             background: #ece9d8;
             border: 1px solid #0055ea;
             border-radius: 8px 8px 0 0;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.5);
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.5);
             display: none; flex-direction: column;
             min-width: 250px; min-height: 150px;
             z-index: 10;
@@ -111,7 +101,7 @@
             cursor: se-resize; z-index: 100; opacity: 0.5;
         }
 
-        /* --- APP: WORD --- */
+        /* --- APP: WORD CV --- */
         .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
         .paper-area { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
@@ -119,8 +109,10 @@
             padding: 40px; font-family: 'Times New Roman', serif; color: #000;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.5); user-select: text; cursor: text;
         }
-        h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; border-bottom: 2px solid #000; margin: 0 0 10px 0; }
-        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; }
+        .profile-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
+        
+        h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; margin: 0; }
+        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
         .job-head { font-weight: bold; font-size: 13px; margin-top: 15px; display: flex; justify-content: space-between; }
         .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 11px; }
         .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
@@ -138,11 +130,12 @@
         .skill-text { font-size: 10px; color: #000; }
 
         /* --- APP: CONTACTO --- */
+        .outlook-bar { background: #ece9d8; padding: 5px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; }
         .outlook-body { padding: 15px; font-family: 'Tahoma', sans-serif; background: white; height: 100%; }
-        .contact-info { margin-top: 15px; border: 1px solid #ccc; padding: 15px; background: #f9f9f9; }
-        .c-row { margin-bottom: 8px; font-size: 12px; }
-        .c-label { font-weight: bold; color: #000; width: 70px; display: inline-block; }
-
+        .field-row { display: flex; margin-bottom: 10px; align-items: center; }
+        .field-label { width: 60px; color: #666; text-align: right; margin-right: 10px; }
+        .field-val { font-weight: bold; color: #000; user-select: text; cursor: text; }
+        
         /* --- APP: IE BROWSER --- */
         .ie-bar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; align-items: center; }
         .ie-input { flex-grow: 1; border: 1px solid #7c7c7c; font-size: 11px; padding: 2px; }
@@ -151,9 +144,10 @@
         #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
         .clippy-img { 
             width: 100px; height: 100px; cursor: pointer; 
-            /* GIF animado confiable de Clippy */
-            background: url('https://web.archive.org/web/20160406182348im_/http://www.rjlpranks.com/pranks/clippy/clippy.gif') no-repeat center bottom; 
+            /* GIF de Tenor que pediste */
+            background: url('https://media.tenor.com/images/39fe167bdab90223bcc890bcb067b761/tenor.gif') no-repeat center bottom; 
             background-size: contain; 
+            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
         }
         
         .chat-bubble {
@@ -163,7 +157,7 @@
         }
         .chat-bubble::after { content: ''; position: absolute; bottom: -8px; right: 40px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #000; }
         
-        .chat-history { height: 120px; overflow-y: auto; background: white; border: 1px solid #7c7c7c; padding: 5px; margin-bottom: 5px; }
+        .chat-history { height: 130px; overflow-y: auto; background: white; border: 1px solid #7c7c7c; padding: 5px; margin-bottom: 5px; }
         .msg-ai { color: #000; margin-bottom: 8px; }
         .msg-user { color: #0000aa; font-weight: bold; text-align: right; margin-bottom: 8px; }
         .chat-input-row { display: flex; gap: 5px; }
@@ -227,9 +221,7 @@
 <audio id="startup-sound" src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3" preload="auto"></audio>
 
 <div id="boot-screen">
-    <div id="click-to-start" class="power-btn" onclick="startSystem()">⚡ POWER ON SYSTEM</div>
-    
-    <div id="boot-animation" class="boot-content">
+    <div id="boot-animation" class="boot-content" style="display:flex;">
         <div class="xp-logo">
             <span class="win-logo-text">Microsoft</span><br>
             <span class="win-logo-text">Windows</span><span class="win-logo-sub">XP</span>
@@ -295,10 +287,6 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mypictures-4.png">
                 <span class="sm-bold">My Pictures</span>
             </div>
-            <div class="sm-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mymusic-4.png">
-                <span class="sm-bold">My Music</span>
-            </div>
             <div style="height:1px; background:#9dbddd; margin:5px 0;"></div>
             <div class="sm-item" onclick="openWindow('win-contact')">
                 <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png">
@@ -328,9 +316,15 @@
         <div class="word-toolbar">File | Edit | View | Insert | Format | Tools</div>
         <div class="paper-area">
             <div class="paper">
-                <h1>DANILO HURWITZ</h1>
-                <p><strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
-                Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar</p>
+                <div class="profile-header">
+                    <div>
+                        <h1>DANILO HURWITZ</h1>
+                        <p style="font-size:12px; margin-top:5px;">
+                            <strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
+                            Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar
+                        </p>
+                    </div>
+                </div>
                 
                 <h2>PROFESSIONAL EXPERIENCE</h2>
                 
@@ -467,9 +461,9 @@
             <button class="outlook-btn">Address Book</button>
         </div>
         <div class="outlook-body">
-            <div class="field-row"><span class="c-label">From:</span> <span class="field-val">Danilo Hurwitz</span></div>
-            <div class="field-row"><span class="c-label">To:</span> <span class="field-val">Recruiter / Client</span></div>
-            <div class="field-row"><span class="c-label">Subject:</span> <span class="field-val">Professional Inquiry</span></div>
+            <div class="field-row"><span class="field-label">From:</span> <span class="field-val">Danilo Hurwitz</span></div>
+            <div class="field-row"><span class="field-label">To:</span> <span class="field-val">Recruiter / Client</span></div>
+            <div class="field-row"><span class="field-label">Subject:</span> <span class="field-val">Professional Inquiry</span></div>
             <hr>
             <p>You can reach me directly via:</p>
             <div class="contact-info">
@@ -511,21 +505,21 @@
 </div>
 
 <script>
-    // --- BOOT SEQUENCE ---
-    function startSystem() {
-        const btn = document.getElementById('click-to-start');
-        const anim = document.getElementById('boot-animation');
-        const audio = document.getElementById('startup-sound');
-        
-        btn.style.display = 'none';
-        anim.style.display = 'flex';
-        
-        // Simular carga de 3 segundos
+    // --- BOOT SEQUENCE AUTOMATIC ---
+    window.onload = function() {
+        // Auto boot after 3 seconds
         setTimeout(() => {
             document.getElementById('boot-screen').style.display = 'none';
             document.getElementById('desktop').style.display = 'block';
-            audio.volume = 0.5;
-            audio.play().catch(e => console.log("Audio blocked by browser policy"));
+            
+            // Try to play audio (might be blocked by browser policy without interaction)
+            var audio = document.getElementById('startup-sound');
+            var promise = audio.play();
+            if (promise !== undefined) {
+                promise.catch(error => {
+                    console.log("Audio autoplay prevented by browser.");
+                });
+            }
             
             // Auto open Clippy bubble
             setTimeout(() => document.getElementById('clippy-chat').style.display = 'block', 1000);
@@ -549,10 +543,6 @@
         const win = document.getElementById(id);
         win.style.display = 'flex';
         bringFront(id);
-        
-        // Auto maximize CV only on first open logic could go here, 
-        // but styling sets it to large by default.
-        
         updateTaskbar();
         document.getElementById('start-menu').style.display = 'none'; // Close start menu
     }
