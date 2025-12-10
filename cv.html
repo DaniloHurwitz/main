@@ -1,129 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Danilo Hurwitz (Timeline Edit)</title>
-    <style>
-        :root {
-            --primary-color: #1a3c6e; /* Azul oscuro */
-            --accent-color: #f4b400; /* Dorado */
-            --text-color: #333;
-            --bg-light: #f0f4f8; /* Celeste pálido */
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            font-size: 9pt;
-            line-height: 1.3;
-            color: var(--text-color);
-            background-color: #fff;
-            width: 210mm;
-            height: 297mm;
-            margin: 0 auto;
-            padding: 8mm;
-            display: flex;
-            flex-direction: column;
-        }
-        /* Header: Previsualización */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--bg-light);
-            padding: 8px;
-            border: 1px solid var(--primary-color);
-            margin-bottom: 10px;
-        }
-        .preview-name { font-size: 18pt; font-weight: bold; color: var(--primary-color); }
-        .timecode { font-size: 10pt; color: #666; background: #fff; padding: 2px 6px; border: 1px dashed #ccc; }
-        /* Bin de Archivos (Sidebar) */
-        .bin {
-            background: #e8eff8;
-            padding: 10px;
-            border: 1px solid var(--accent-color);
-            margin-bottom: 10px;
-        }
-        .bin h2 { font-size: 10pt; color: var(--primary-color); border-bottom: 1px solid #ccc; margin-bottom: 5px; }
-        .bin ul { list-style: none; font-size: 8.5pt; }
-        .bin li { margin-bottom: 3px; padding-left: 10px; position: relative; }
-        .bin li::before { content: "📂"; position: absolute; left: 0; }
-        /* Timeline */
-        .timeline {
-            flex: 1;
-            background: linear-gradient(to bottom, #fff, #f8f8f8);
-            border: 1px solid var(--primary-color);
-            padding: 10px;
-            position: relative;
-        }
-        .track {
-            margin-bottom: 8px;
-            border-left: 4px solid var(--accent-color);
-            padding-left: 10px;
-            font-size: 9pt;
-        }
-        .track-header { font-weight: bold; color: var(--primary-color); font-size: 10pt; }
-        .track-content { font-size: 8.5pt; color: #444; }
-        /* Playhead */
-        .playhead {
-            position: absolute;
-            bottom: 10px;
-            right: 20px;
-            font-style: italic;
-            color: #888;
-            font-size: 8pt;
-        }
-        @media print {
-            body { margin: 0; width: 100%; -webkit-print-color-adjust: exact; }
-            @page { margin: 8mm; size: A4; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Timeline CV - Danilo Hurwitz</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Share+Tech+Mono&display=swap');
+    
+    :root {
+        --bg-dark: #1e1e1e;
+        --panel-bg: #252526;
+        --text-main: #d4d4d4;
+        --accent-blue: #007acc; /* Selection color */
+        --clip-video: #6a9955; /* Greenish for video */
+        --clip-audio: #569cd6; /* Blue for audio */
+        --clip-adj: #c586c0; /* Purple for adjustment layer */
+        --playhead: #d16969; /* Red playhead */
+        --border: #3e3e42;
+    }
+
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; margin: 0; padding: 0; }
+    
+    body {
+        background: #333;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        font-family: 'Roboto', sans-serif;
+        color: var(--text-main);
+    }
+
+    .interface-container {
+        width: 210mm;
+        height: 297mm;
+        background-color: var(--bg-dark);
+        display: grid;
+        grid-template-rows: 40px 1fr 250px; /* Menu, Main Workspace, Timeline */
+        border: 1px solid #000;
+        box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    /* TOP BAR */
+    .top-bar {
+        background: #333333;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        padding: 0 15px;
+        font-size: 12px;
+        color: #888;
+    }
+    .menu-item { margin-right: 15px; }
+    .project-name { color: #fff; margin-left: auto; font-weight: bold; }
+
+    /* WORKSPACE (Middle) */
+    .workspace {
+        display: grid;
+        grid-template-columns: 300px 1fr; /* Bin vs Preview */
+        gap: 2px;
+        background: var(--border); /* Gaps color */
+    }
+
+    /* BIN (Left Panel) */
+    .panel-bin {
+        background: var(--panel-bg);
+        padding: 15px;
+        font-size: 13px;
+    }
+    .panel-header {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: #aaa;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 5px;
+        margin-bottom: 10px;
+    }
+    .bin-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 4px;
+        border-radius: 3px;
+    }
+    .bin-item:hover { background-color: #2a2d2e; }
+    .icon { width: 12px; height: 12px; background: #555; margin-right: 8px; border-radius: 2px; }
+    .icon.folder { background: #dcb67a; }
+    .icon.file { background: #4fc1ff; }
+
+    /* PREVIEW (Right Panel) */
+    .panel-preview {
+        background: #000; /* Black screen for preview */
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+    }
+    .preview-content { text-align: center; }
+    .hero-name { font-size: 32px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+    .hero-role { font-size: 14px; color: var(--accent-blue); margin-top: 5px; letter-spacing: 1px; }
+    
+    .timecode {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 18px;
+        color: var(--accent-blue);
+    }
+    
+    .safe-margins {
+        position: absolute;
+        top: 10%; left: 10%; right: 10%; bottom: 10%;
+        border: 1px dashed rgba(255,255,255,0.2);
+        pointer-events: none;
+    }
+
+    /* TIMELINE (Bottom Panel) */
+    .panel-timeline {
+        background: var(--panel-bg);
+        border-top: 1px solid var(--border);
+        padding: 10px;
+        position: relative;
+        overflow: hidden;
+    }
+    .time-ruler {
+        height: 20px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 10px;
+        font-size: 10px;
+        color: #666;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .track-container {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+    .track-header {
+        font-size: 11px;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 10px;
+    }
+    .track-lane {
+        background: #1e1e1e;
+        height: 30px;
+        position: relative;
+        border-radius: 2px;
+    }
+
+    /* CLIPS */
+    .clip {
+        position: absolute;
+        height: 100%;
+        top: 0;
+        border-radius: 2px;
+        padding: 6px 8px;
+        font-size: 11px;
+        color: #fff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        border-left: 3px solid rgba(0,0,0,0.2);
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .clip-vid { background: var(--clip-video); }
+    .clip-aud { background: var(--clip-audio); }
+    .clip-adj { background: var(--clip-adj); opacity: 0.8; }
+
+    /* PLAYHEAD */
+    .playhead {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 75%; /* Start project here */
+        width: 1px;
+        background: var(--playhead);
+        z-index: 10;
+    }
+    .playhead-marker {
+        position: absolute;
+        top: 25px;
+        left: 75%;
+        transform: translateX(-50%);
+        background: var(--playhead);
+        color: #fff;
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 2px;
+        z-index: 11;
+        white-space: nowrap;
+    }
+
+    @media print {
+        body { margin: 0; padding: 0; background: none; }
+        .interface-container { width: 100%; height: 100%; border: none; box-shadow: none; }
+        @page { size: A4; margin: 0; }
+    }
+</style>
 </head>
 <body>
-    <header>
-        <div class="preview-name">Danilo Hurwitz</div>
-        <div class="timecode">21:00:00 (Dec 10, 2025)</div>
-    </header>
-    <section class="bin">
-        <h2>Assets (Contact & Languages)</h2>
-        <ul>
-            <li>Mar del Plata, Argentina</li>
-            <li>+54 9 2302 21-9422</li>
-            <li>dhurwitzbecerra@mdp.edu.ar</li>
-            <li>linkedin.com/in/danilo-hurwitz</li>
-            <li>upwork.com/freelancers/danilohurwitz</li>
-            <li>Portfolio: danilohurwitz.github.io/main</li>
-            <li>Spanish: Native (C2)</li>
-            <li>English: Fluent (C1)</li>
-            <li>Hebrew: Fluent (C1)</li>
-        </ul>
-    </section>
-    <section class="timeline">
-        <div class="track">
-            <div class="track-header">V1: Video Editing Track</div>
-            <div class="track-content">
-                Freelance Video Editor & Subtitle Creator (Upwork, May 2023 – Present): Create synchronized multilingual subtitles (HE/EN/ES) for medical e-learning and patient videos. Optimize audiovisual for clarity and engagement.
+    <div class="interface-container">
+        <div class="top-bar">
+            <span class="menu-item">File</span>
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">Clip</span>
+            <span class="menu-item">Sequence</span>
+            <div class="project-name">CV_DaniloHurwitz_Final_v3.prproj</div>
+        </div>
+
+        <div class="workspace">
+            <div class="panel-bin">
+                <div class="panel-header">Project: Danilo Assets</div>
+                
+                <div style="color: #fff; margin-bottom: 15px; font-weight: bold;">Metadata</div>
+                <div class="bin-item"><div class="icon file"></div><span>Mar del Plata, AR</span></div>
+                <div class="bin-item"><div class="icon file"></div><span>+54 9 2302 21-9422</span></div>
+                <div class="bin-item"><div class="icon file"></div><span>dhurwitzbecerra@mdp.edu.ar</span></div>
+                <div class="bin-item"><div class="icon file"></div><span>Top Rated (Upwork)</span></div>
+
+                <div style="color: #fff; margin: 15px 0 5px; font-weight: bold;">Languages (Audio)</div>
+                <div class="bin-item"><div class="icon folder"></div><span>Spanish (Native/C2)</span></div>
+                <div class="bin-item"><div class="icon folder"></div><span>Hebrew (Fluent/C1)</span></div>
+                <div class="bin-item"><div class="icon folder"></div><span>English (Medical/C1)</span></div>
+
+                <div style="color: #fff; margin: 15px 0 5px; font-weight: bold;">Soft Skills (FX)</div>
+                <div class="bin-item"><div class="icon file"></div><span>Medical Precision</span></div>
+                <div class="bin-item"><div class="icon file"></div><span>Cultural Adaptability</span></div>
+            </div>
+
+            <div class="panel-preview">
+                <div class="timecode">00:21:12:10</div> <div class="safe-margins"></div>
+                <div class="preview-content">
+                    <div class="hero-name">Danilo Hurwitz</div>
+                    <div class="hero-role">EDITOR & MEDICAL LINGUIST</div>
+                    <br>
+                    <div style="font-size: 12px; color: #aaa;">Status: Online & Ready to Render</div>
+                </div>
             </div>
         </div>
-        <div class="track">
-            <div class="track-header">A1: Translation & Audio Track</div>
-            <div class="track-content">
-                Freelance Translator & Proofreader (Upwork, May 2023 – Present): Top-Rated HE/EN/ES translations for medical and technical content. MTPE workflows ensuring native fluency. 100% Job Success Score.
+
+        <div class="panel-timeline">
+            <div class="time-ruler">
+                <span>00:00</span><span>2023</span><span>2024</span><span>2025</span><span>FUTURE</span>
             </div>
-        </div>
-        <div class="track">
-            <div class="track-header">Adjustment Layer: Content Specialist</div>
-            <div class="track-content">
-                Content Specialist / Hebrew Translator (ICUC Social, Nov 2025 – Present): Linguistic quality checks for Hebrew content. Collaborate on multilingual data verification using MS Teams.
+
+            <div class="track-container">
+                <div class="track-header">V2 (FX)</div>
+                <div class="track-lane">
+                    <div class="clip clip-adj" style="left: 60%; width: 35%;">Content Specialist @ ICUC Social (Biopsies & QA)</div>
+                </div>
             </div>
-        </div>
-        <div class="track">
-            <div class="track-header">Education Overlay</div>
-            <div class="track-content">
-                Doctor of Medicine (MD) Candidate, Universidad Nacional de Mar del Plata (Exp. 2029): Acquiring knowledge in anatomy, physiology, applied to medical translation.
+
+            <div class="track-container">
+                <div class="track-header">V1 (Main)</div>
+                <div class="track-lane">
+                    <div class="clip clip-vid" style="left: 10%; width: 30%;">Lipswan: Video Editor & Subtitler</div>
+                    <div class="clip clip-vid" style="left: 42%; width: 40%;">Viral Clips & Short Form Content Creation</div>
+                </div>
             </div>
+
+            <div class="track-container">
+                <div class="track-header">A1 (Audio)</div>
+                <div class="track-lane">
+                    <div class="clip clip-aud" style="left: 0%; width: 90%;">Freelance Medical Translator (Upwork Top Rated)</div>
+                </div>
+            </div>
+
+            <div class="track-container">
+                <div class="track-header">A2 (Back)</div>
+                <div class="track-lane">
+                    <div class="clip clip-aud" style="left: 20%; width: 75%; opacity: 0.5;">MD Candidate - Universidad Nacional de MDP (In Progress)</div>
+                </div>
+            </div>
+
+            <div class="playhead"></div>
+            <div class="playhead-marker">YOUR PROJECT STARTS HERE</div>
         </div>
-        <div class="playhead">Your Project Starts Here →</div>
-    </section>
+    </div>
 </body>
 </html>
