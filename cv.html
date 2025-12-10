@@ -2,17 +2,18 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Curriculum Vitae - Danilo Hurwitz</title>
+    <title>Clinical Report CV - Danilo Hurwitz</title>
     <style>
+        /* Fuentes */
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;700&family=Nothing+You+Could+Do&display=swap');
 
         :root {
             --paper-bg: #fff;
-            --ink: #0f172a; /* Azul Navy */
+            --ink: #0f172a; 
             --ink-light: #334155; 
-            --highlight-bg: #f0f9ff; /* Celeste clínico */
+            --highlight-bg: #f0f9ff; 
             --accent-gold: #b45309; 
-            --line-color: #cbd5e1;
+            --line-color: #cbd5e1; 
         }
 
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
@@ -21,29 +22,30 @@
             background-color: #e2e8f0;
             display: flex;
             justify-content: center;
-            padding: 10px;
+            padding: 0; /* Eliminado padding del body para ajustar mejor */
+            margin: 20px 0;
             font-family: 'Courier Prime', monospace; 
-            font-size: 9pt; /* Optimizado */
-            line-height: 1.25; /* Más compacto */
+            font-size: 9pt; /* Reducido de 9.5pt a 9pt para encajar */
+            line-height: 1.35; /* Interlineado optimizado */
             color: var(--ink);
         }
 
         .chart-paper {
             background-color: var(--paper-bg);
-            width: 210mm;
-            height: 296mm; /* A4 Exacto - 1mm de margen de error */
-            padding: 10mm; /* Márgenes seguros para impresión */
+            width: 210mm; 
+            height: 297mm; /* Altura fija A4 */
+            padding: 10mm; /* Reducido de 12mm a 10mm */
             position: relative;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border-top: 5px solid var(--ink);
-            overflow: hidden;
+            overflow: hidden; /* Asegura que no se desborde */
         }
 
         /* HEADER */
         .hospital-header {
             border-bottom: 2px solid var(--ink);
-            padding-bottom: 8px;
-            margin-bottom: 12px;
+            padding-bottom: 8px; /* Reducido */
+            margin-bottom: 12px; /* Reducido */
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -64,7 +66,7 @@
             color: var(--accent-gold);
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            margin-top: 1px;
+            margin-top: 2px;
             font-weight: 600;
         }
 
@@ -75,45 +77,54 @@
             line-height: 1.3;
         }
 
-        /* PATIENT GRID - OPTIMIZED TO 3 COLUMNS */
+        /* PATIENT GRID */
         .patient-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* 3 Columnas ahorra espacio vertical */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0;
             border: 1px solid var(--line-color);
-            margin-bottom: 15px;
+            margin-bottom: 15px; /* Reducido de 25px */
             background-color: #fafafa;
         }
 
         .grid-cell {
-            padding: 4px 8px;
+            padding: 4px 8px; /* Reducido padding vertical */
             border-bottom: 1px solid var(--line-color);
             border-right: 1px solid var(--line-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
         
-        .grid-cell:nth-child(3n) { border-right: none; } /* Quitar borde derecho cada 3 celdas */
-        /* Ajuste manual para bordes inferiores */
-        .grid-cell:nth-last-child(-n+3) { border-bottom: none; }
+        .grid-cell:nth-child(2n) { border-right: none; }
+        .grid-cell:nth-last-child(-n+2) { border-bottom: none; }
 
         .label {
             font-family: 'Inter', sans-serif;
             font-size: 6pt;
             text-transform: uppercase;
             color: #64748b;
+            display: block;
             margin-bottom: 1px;
             font-weight: 600;
         }
         
-        .data { font-weight: 700; font-size: 8.5pt; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .data-link { text-decoration: none; color: var(--ink); border-bottom: 1px dotted var(--ink); }
+        .data { 
+            font-weight: 700; 
+            font-size: 8.5pt; 
+            color: var(--ink);
+        }
+        .data-link {
+            text-decoration: none;
+            color: var(--ink);
+            border-bottom: 1px dotted var(--ink);
+        }
 
         /* SECTIONS */
         .section-header {
-            margin-bottom: 6px;
-            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px; /* Reducido */
+            margin-top: 12px; /* Reducido de 20px */
             border-bottom: 1px solid var(--line-color);
+            padding-bottom: 2px;
         }
 
         .section-title {
@@ -127,18 +138,58 @@
             letter-spacing: 0.5px;
             border: 1px solid var(--line-color);
             border-bottom: none;
-            display: inline-block;
+            margin-bottom: -3px;
         }
 
         /* DIAGNOSIS BOX */
         .diagnosis-box {
-            padding: 6px 10px;
+            padding: 8px 12px; /* Reducido */
             background-color: var(--highlight-bg);
             border-left: 3px solid var(--accent-gold);
             font-style: italic;
             font-size: 8.5pt;
             color: var(--ink-light);
-            margin-bottom: 12px;
+            margin-bottom: 15px; /* Reducido */
+            line-height: 1.4;
+        }
+
+        /* EXPERIENCE & LISTS */
+        .procedure-row {
+            margin-bottom: 8px; /* Reducido de 12px */
+            padding-bottom: 4px;
+        }
+        .procedure-row:last-child { border-bottom: none; margin-bottom: 0; }
+
+        .proc-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 9pt;
+            color: var(--ink);
+        }
+        .proc-loc { 
+            font-size: 8pt; 
+            color: var(--accent-gold); 
+            font-style: italic; 
+            margin-bottom: 2px; 
+            font-weight: 600;
+        }
+        
+        .proc-notes { margin-top: 2px; padding-left: 0; margin-bottom: 0; }
+        .proc-notes li {
+            list-style-type: none;
+            position: relative;
+            padding-left: 12px;
+            margin-bottom: 1px; /* Reducido */
+            font-size: 8.5pt;
+            color: var(--ink-light);
+        }
+        .proc-notes li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
         }
 
         /* VITALS (LANGUAGES) */
@@ -155,85 +206,48 @@
         }
         .vital-title { font-size: 6.5pt; color: #64748b; text-transform: uppercase; margin-bottom: 1px; }
         .vital-val { font-weight: 700; font-size: 9pt; color: var(--ink); }
-        .vital-sub { font-size: 7pt; color: var(--accent-gold); }
-
-        /* EXPERIENCE & LISTS */
-        .procedure-row {
-            margin-bottom: 8px;
-            padding-bottom: 4px;
-        }
-        
-        .proc-header {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 9pt;
-            color: var(--ink);
-        }
-        .proc-loc { 
-            font-size: 8pt; 
-            color: var(--accent-gold); 
-            font-style: italic; 
-            margin-bottom: 2px; 
-            font-weight: 600;
-        }
-        
-        .proc-notes { margin-top: 0; padding-left: 0; margin-bottom: 0; }
-        .proc-notes li {
-            list-style-type: none;
-            position: relative;
-            padding-left: 10px;
-            margin-bottom: 1px; /* Super compacto */
-            font-size: 8.5pt;
-            color: var(--ink-light);
-        }
-        .proc-notes li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--accent-gold);
-            font-weight: bold;
-            font-size: 10pt;
-            line-height: 1;
-        }
+        .vital-sub { font-size: 7pt; color: var(--accent-gold); margin-top: 1px; }
 
         /* STAMP */
         .stamp-approved {
             position: absolute;
-            top: 15mm;
+            top: 20mm;
             right: 10mm;
             border: 2px solid var(--accent-gold);
             color: var(--accent-gold);
             font-family: 'Inter', sans-serif;
-            font-size: 10pt;
+            font-size: 11pt;
             font-weight: 700;
-            padding: 5px 10px;
+            padding: 6px 12px;
             text-transform: uppercase;
             transform: rotate(-8deg);
             opacity: 0.9;
             z-index: 10;
-            background: rgba(255,255,255,0.85); 
-            letter-spacing: 1px;
+            background: rgba(255,255,255,0.85);
+            letter-spacing: 2px;
         }
 
         /* FOOTER SIGNATURE */
         .footer-sign {
-            margin-top: 10px;
+            margin-top: 15px; /* Reducido drásticamente para asegurar que entre */
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            border-top: 1px solid var(--line-color);
-            padding-top: 5px;
+            gap: 15px;
+        }
+        .signature-line {
+            text-align: center;
         }
         .signature {
             font-family: 'Nothing You Could Do', cursive;
-            font-size: 18pt;
+            font-size: 18pt; /* Reducido ligeramente */
             color: #1e3a8a;
             transform: rotate(-3deg);
             display: block;
-            margin-bottom: -5px;
+            margin-bottom: -4px;
         }
         .sig-label {
+            border-top: 1px solid var(--ink-light);
             padding-top: 2px;
             font-size: 6pt;
             text-transform: uppercase;
@@ -242,7 +256,19 @@
 
         @media print {
             body { background: none; margin: 0; padding: 0; }
-            .chart-paper { width: 100%; height: 100%; box-shadow: none; border: none; padding: 10mm; }
+            .chart-paper { 
+                width: 100%; 
+                height: 100%; 
+                box-shadow: none; 
+                border: none; 
+                padding: 10mm; 
+                page-break-after: avoid; 
+                page-break-inside: avoid;
+            }
+            @page {
+                size: A4;
+                margin: 0; /* IMPORTANTE: Deja que el CSS controle los márgenes */
+            }
         }
     </style>
 </head>
@@ -258,28 +284,28 @@
                 <div class="hospital-sub">Dept. of Clinical Translation & Pathology</div>
             </div>
             <div class="record-meta">
-                <strong>REF:</strong> TR-2025-MD<br>
+                <strong>REF NO:</strong> TR-2025-MD<br>
                 <strong>DATE:</strong> 10 DEC 2025<br>
-                <strong>STATUS:</strong> ACTIVE
+                <strong>PRIORITY:</strong> HIGH
             </div>
         </div>
 
-        <div class="section-header" style="margin-top: 0;">
+        <div class="section-header">
             <span class="section-title">01. Subject Data</span>
         </div>
 
         <div class="patient-grid">
             <div class="grid-cell">
                 <span class="label">Name / Age</span>
-                <span class="data">HURWITZ, Danilo (21)</span>
+                <span class="data">HURWITZ, Danilo (21 Y.O.)</span>
             </div>
             <div class="grid-cell">
                 <span class="label">Classification</span>
                 <span class="data">MD Student / Translator</span>
             </div>
             <div class="grid-cell">
-                <span class="label">Base Location</span>
-                <span class="data">Mar del Plata, AR</span>
+                <span class="label">Location</span>
+                <span class="data">Mar del Plata, Argentina</span>
             </div>
             <div class="grid-cell">
                 <span class="label">Phone Contact</span>
@@ -287,16 +313,16 @@
             </div>
             <div class="grid-cell">
                 <span class="label">Email Protocol</span>
-                <span class="data" style="font-size:8pt;">dhurwitzbecerra@mdp.edu.ar</span>
+                <span class="data">dhurwitzbecerra@mdp.edu.ar</span>
             </div>
             <div class="grid-cell">
                 <span class="label">Portfolio (Web)</span>
-                <a href="https://danilohurwitz.github.io/main" class="data-link data" style="font-size:8pt;">danilohurwitz.github.io/main</a>
+                <a href="https://danilohurwitz.github.io/main" class="data-link data">danilohurwitz.github.io/main</a>
             </div>
-            <div class="grid-cell" style="grid-column: span 3;">
+            <div class="grid-cell" style="grid-column: span 2; border-bottom: none;">
                 <span class="label">External Profiles</span>
-                <span class="data" style="font-size: 8pt;">
-                    linkedin.com/in/danilo-hurwitz &nbsp; // &nbsp; upwork.com/freelancers/danilohurwitz
+                <span class="data" style="font-size: 8.5pt;">
+                    linkedin.com/in/danilo-hurwitz &nbsp;|&nbsp; upwork.com/freelancers/danilohurwitz
                 </span>
             </div>
         </div>
@@ -305,7 +331,9 @@
             <span class="section-title">02. Clinical Findings & Diagnosis</span>
         </div>
         <div class="diagnosis-box">
-            <strong>DIAGNOSIS:</strong> Subject demonstrates elite capability in bridging complex medical terminology with linguistic barriers. Advanced Trilingual Proficiency (Hebrew/English/Spanish) combined with active Medical Training. Shows "obsessive" traits regarding terminological accuracy.
+            <strong>OBSERVATION:</strong> Subject demonstrates elite capability in bridging complex medical terminology with linguistic barriers. 
+            <br><br>
+            <strong>DIAGNOSIS:</strong> Advanced Trilingual Proficiency combined with active Medical Training. Subject shows "obsessive" traits regarding terminological accuracy and cultural nuance.
         </div>
 
         <div class="section-header">
@@ -340,7 +368,7 @@
             </div>
             <div class="proc-loc">ICUC Social (Remote)</div>
             <ul class="proc-notes">
-                <li>Performing scheduled "linguistic biopsies" (quality checks) on Hebrew content.</li>
+                <li>Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content.</li>
                 <li>Diagnosing cultural context errors and sentiment misalignments in real-time.</li>
                 <li>Operating within global rapid-response teams via MS Teams infrastructure.</li>
             </ul>
@@ -353,7 +381,7 @@
             </div>
             <div class="proc-loc">Upwork / Global Clients</div>
             <ul class="proc-notes">
-                <li><strong>Procedure:</strong> Translation of clinical trials, informed consents, device manuals.</li>
+                <li><strong>Procedure:</strong> Translation of clinical trials, informed consents, and device manuals.</li>
                 <li><strong>Metric:</strong> 100% Job Success Score achieved. Zero errors reported.</li>
                 <li><strong>Method:</strong> Human-verified MTPE (Machine Translation Post-Editing).</li>
             </ul>
@@ -380,13 +408,13 @@
                 <span>EXP. 2029</span>
             </div>
             <div class="proc-loc">Universidad Nacional de Mar del Plata</div>
-            <div style="font-size: 8.5pt; color: var(--ink-light);">
-                Acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application to translation.
+            <div style="font-size: 8.5pt; color: var(--ink-light); margin-top:1px;">
+                Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy.
             </div>
         </div>
 
         <div class="footer-sign">
-            <div style="text-align: center;">
+            <div class="signature-line">
                 <span class="signature">Danilo Hurwitz</span>
                 <div class="sig-label">Subject Signature / Verified</div>
             </div>
