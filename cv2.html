@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo XP | Professional Edition</title>
+    <title>Danilo XP - Professional Edition</title>
     <style>
         /* --- FUENTES & RESET --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
@@ -22,18 +22,18 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         
-        .xp-logo-container { margin-bottom: 50px; text-align: center; }
-        /* Logo reconstruido con CSS para nitidez */
-        .win-logo-text { font-family: 'Arial', sans-serif; font-size: 42px; font-weight: bold; color: white; font-style: italic; letter-spacing: -2px; }
-        .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; font-style: italic; position: relative; top: -15px; left: 5px; }
+        .xp-logo { margin-bottom: 40px; text-align: center; }
+        .win-logo-text { font-family: 'Arial', sans-serif; font-size: 40px; font-weight: bold; color: white; font-style: italic; }
+        .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 16px; vertical-align: super; font-style: italic; font-weight: bold; }
         
         .loading-bar-box {
-            width: 200px; height: 18px; border: 2px solid #b2b2b2; border-radius: 4px; padding: 2px;
-            position: relative; overflow: hidden;
+            width: 200px; height: 16px; border: 2px solid #b2b2b2; border-radius: 3px; padding: 2px;
+            position: relative; overflow: hidden; margin-top: 20px;
         }
+        .loading-progress { width: 100%; height: 100%; position: relative; }
         .loading-blocks {
-            display: flex; gap: 2px; position: absolute; left: -60px; top: 2px; height: 10px;
-            animation: loadAnim 2s linear infinite;
+            display: flex; gap: 2px; position: absolute; left: -60px; top: 0; height: 100%;
+            animation: loadAnim 2.5s linear infinite;
         }
         .block { width: 10px; height: 100%; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 1px; }
         
@@ -48,7 +48,7 @@
         }
         
         .desktop-icons {
-            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 30px; align-content: flex-start; height: 90%;
+            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 35px; align-content: flex-start; height: 90%;
         }
 
         .icon {
@@ -108,9 +108,10 @@
             padding: 40px; font-family: 'Times New Roman', serif; color: #000;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.5); user-select: text; cursor: text;
         }
+        .profile-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
         
         h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; margin: 0; }
-        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; }
+        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
         .job-head { font-weight: bold; font-size: 13px; margin-top: 15px; display: flex; justify-content: space-between; }
         .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 11px; }
         .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
@@ -141,15 +142,15 @@
         /* --- CLIPPY --- */
         #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
         
-        /* IMAGEN DE CLIPPY PNG (WIKIMEDIA - ALTA CALIDAD) */
+        /* CLIPPY PNG REAL */
         .clippy-img { 
             width: 100px; height: 100px; cursor: pointer; 
-            background: url('https://upload.wikimedia.org/wikipedia/commons/f/f9/Clippy-saying-it-looks-like.gif') no-repeat center bottom; 
+            background: url('https://static.wikia.nocookie.net/joke-battles/images/c/cb/Clippy.png/revision/latest?cb=20151209031540') no-repeat center bottom; 
             background-size: contain; 
             filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
-            transition: transform 0.2s;
+            animation: float 4s infinite ease-in-out;
         }
-        .clippy-img:hover { transform: scale(1.05); }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
         
         .chat-bubble {
             background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 300px;
@@ -222,8 +223,8 @@
 <audio id="startup-sound" src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3" preload="auto"></audio>
 
 <div id="boot-screen">
-    <div id="boot-animation" class="boot-content" style="display:flex;">
-        <div class="xp-logo-container">
+    <div id="boot-animation" class="boot-content" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="xp-logo">
             <span class="win-logo-text">Microsoft</span><br>
             <span class="win-logo-text">Windows</span><span class="win-logo-sub">XP</span>
         </div>
@@ -240,7 +241,7 @@
 <div id="desktop">
     <div class="desktop-icons">
         <div class="icon" onclick="openWindow('win-cv')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png" alt="CV">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png" alt="CV">
             <div class="icon-label">My Resume</div>
         </div>
         <div class="icon" onclick="openWindow('win-skills')">
@@ -275,7 +276,7 @@
             </div>
             <div style="height:1px; background:#ccc; margin:5px 0;"></div>
             <div class="sm-item" onclick="openWindow('win-cv')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
                 <div class="sm-text"><span class="sm-bold">My Resume</span><span class="sm-sub">Microsoft Word</span></div>
             </div>
         </div>
@@ -308,7 +309,7 @@
 <div id="win-cv" class="window" style="top: 10px; left: 10px; width: 900px; height: 700px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
         <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png" width="16"> 
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png" width="16"> 
             CV_Danilo_Hurwitz.doc - Microsoft Word
         </div>
         <div class="win-controls">
@@ -517,12 +518,16 @@
             document.getElementById('boot-screen').style.display = 'none';
             document.getElementById('desktop').style.display = 'block';
             
-            // Try to play audio (might be blocked by browser policy without interaction)
+            // Try to play audio (will play only if browser allows autoplay, otherwise silent)
             var audio = document.getElementById('startup-sound');
             var promise = audio.play();
             if (promise !== undefined) {
                 promise.catch(error => {
-                    console.log("Audio autoplay prevented by browser.");
+                    // Autoplay prevented. We add a listener to play on first click.
+                    document.body.addEventListener('click', function playOnFirstClick() {
+                        audio.play();
+                        document.body.removeEventListener('click', playOnFirstClick);
+                    });
                 });
             }
             
