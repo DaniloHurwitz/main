@@ -1,209 +1,222 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Menu CV - Danilo Hurwitz</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+    <meta charset="UTF-8">
+    <title>Menu CV - Danilo Hurwitz</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
 
-    :root {
-        --paper-color: #fffcf5;
-        --ink-dark: #2c2c2c;
-        --gold: #b89c68;
-    }
+        :root {
+            --bg-cream: #fbf9f5;
+            --text-dark: #2c2c2c;
+            --accent-gold: #c5a059;
+            --border-frame: #1a1a1a;
+        }
 
-    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body {
+            background-color: #eee;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-    body {
-        background: #ddd;
-        display: flex;
-        justify-content: center;
-        padding: 40px;
-        font-family: 'Lato', sans-serif;
-        color: var(--ink-dark);
-    }
+        .menu-paper {
+            width: 210mm;
+            height: 297mm;
+            background-color: var(--bg-cream);
+            padding: 15mm;
+            box-sizing: border-box;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            color: var(--text-dark);
+            border: 1px solid #e0e0e0;
+        }
 
-    .menu-card {
-        width: 210mm;
-        height: 297mm;
-        background-color: var(--paper-color);
-        padding: 20mm;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        border: 1px solid #e0e0e0;
-    }
+        .inner-frame {
+            border: 2px solid var(--border-frame);
+            height: 100%;
+            padding: 10mm;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    /* HEADER */
-    .restaurant-name {
-        font-family: 'Playfair Display', serif;
-        font-size: 32pt;
-        font-weight: 700;
-        margin-bottom: 5px;
-        letter-spacing: 2px;
-        color: var(--ink-dark);
-    }
-    .restaurant-tagline {
-        font-size: 10pt;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        color: var(--gold);
-        margin-bottom: 15mm;
-        font-weight: 700;
-    }
+        /* TYPOGRAPHY */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32pt;
+            margin: 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
 
-    .separator {
-        width: 40px;
-        height: 2px;
-        background: var(--gold);
-        margin: 10px auto;
-    }
+        .subtitle {
+            font-family: 'Lato', sans-serif;
+            font-size: 9pt;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 5px;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
 
-    /* MENU SECTIONS */
-    .course-section {
-        width: 100%;
-        margin-bottom: 12mm;
-    }
-    
-    .course-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 16pt;
-        text-align: center;
-        font-style: italic;
-        margin-bottom: 8mm;
-        color: var(--gold);
-    }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 14pt;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            font-style: italic;
+            border-bottom: 1px solid var(--accent-gold);
+            padding-bottom: 5px;
+            display: inline-block;
+        }
 
-    .menu-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 4mm;
-    }
-    
-    .item-desc-block { flex-grow: 1; }
+        /* MENU ITEMS */
+        .menu-section {
+            width: 100%;
+            margin-bottom: 10px;
+        }
 
-    .dish-name {
-        font-weight: 700;
-        font-size: 11pt;
-        text-transform: uppercase;
-    }
+        .dish {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
 
-    .dish-desc {
-        font-size: 9pt;
-        font-weight: 300;
-        font-style: italic;
-        color: #666;
-        margin-top: 2px;
-    }
+        .dish-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 11pt;
+            background-color: var(--bg-cream);
+            padding-right: 10px;
+            z-index: 2;
+        }
 
-    .dish-price {
-        font-weight: 700;
-        font-size: 10pt;
-        margin-left: 20px;
-        min-width: 80px;
-        text-align: right;
-    }
+        .dish-dots {
+            flex-grow: 1;
+            border-bottom: 1px dotted #ccc;
+            margin: 0 5px;
+            position: relative;
+            top: -4px;
+        }
 
-    /* CHEF SPECIAL BOX */
-    .chef-special {
-        border: 1px double var(--gold);
-        padding: 15px;
-        text-align: center;
-        width: 90%;
-        margin-top: 5mm;
-    }
-    .special-title { font-family: 'Playfair Display', serif; font-weight: bold; margin-bottom: 5px; }
+        .dish-price {
+            font-family: 'Lato', sans-serif;
+            font-size: 9pt;
+            font-weight: 700;
+            background-color: var(--bg-cream);
+            padding-left: 10px;
+        }
 
-    /* FOOTER */
-    .footer-info {
-        margin-top: auto;
-        text-align: center;
-        font-size: 8pt;
-        color: #888;
-        line-height: 1.6;
-    }
-    .contact-line { font-weight: 700; color: var(--ink-dark); font-size: 9pt; }
+        .dish-desc {
+            font-family: 'Lato', sans-serif;
+            font-size: 8.5pt;
+            font-style: italic;
+            color: #666;
+            margin-bottom: 12px;
+            max-width: 90%;
+        }
 
-    @media print {
-        body { margin: 0; padding: 0; background: none; }
-        .menu-card { width: 100%; height: 100%; box-shadow: none; margin: 0; padding: 15mm; border: none; }
-        @page { size: A4; margin: 0; }
-    }
-</style>
+        /* SPECIAL BOX */
+        .chef-special {
+            border: 1px solid var(--accent-gold);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            width: 80%;
+        }
+
+        .footer-info {
+            margin-top: auto;
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            font-size: 8pt;
+            letter-spacing: 1px;
+            line-height: 1.6;
+            border-top: 1px solid var(--border-frame);
+            padding-top: 15px;
+            width: 100%;
+        }
+
+        @media print {
+            body { background: none; }
+            .menu-paper { width: 100%; height: 100%; box-shadow: none; border: none; }
+        }
+    </style>
 </head>
 <body>
-    <div class="menu-card">
-        
-        <div class="restaurant-name">DANILO HURWITZ</div>
-        <div class="restaurant-tagline">Est. 2004 • Mar del Plata</div>
-        
-        <div class="course-section">
-            <div class="course-title">Entradas (Short Form)</div>
-            
-            <div class="menu-item">
-                <div class="item-desc-block">
-                    <div class="dish-name">Viral Video Edits</div>
-                    <div class="dish-desc">Cortes rápidos, subtítulos dinámicos y retención garantizada. Estilo TikTok/Reels.</div>
-                </div>
-                <div class="dish-price">High Impact</div>
-            </div>
 
-            <div class="menu-item">
-                <div class="item-desc-block">
-                    <div class="dish-name">Social Media Strategy</div>
-                    <div class="dish-desc">Adaptación de contenido para consumo masivo en plataformas verticales.</div>
-                </div>
-                <div class="dish-price">Fresh</div>
+<div class="menu-paper">
+    <div class="inner-frame">
+        
+        <h1>Danilo Hurwitz</h1>
+        <div class="subtitle">Translation & Creative Studio</div>
+        <div style="font-family: 'Lato'; font-size: 7pt; margin-top:5px;">EST. 2003 | MAR DEL PLATA</div>
+
+        <h2>Starters (Short Form)</h2>
+        
+        <div class="menu-section">
+            <div class="dish">
+                <span class="dish-name">Viral Video Edits</span>
+                <span class="dish-dots"></span>
+                <span class="dish-price">High Engagement</span>
             </div>
+            <div class="dish-desc">Fast-paced editing for TikTok/Reels using CapCut. Designed for maximum retention and scrolling stoppage.</div>
+
+            <div class="dish">
+                <span class="dish-name">Subtitle Synchronization</span>
+                <span class="dish-dots"></span>
+                <span class="dish-price">100% Accuracy</span>
+            </div>
+            <div class="dish-desc">Perfectly timed subtitles for e-learning. Cognitive accessibility guaranteed.</div>
         </div>
 
-        <div class="course-section">
-            <div class="course-title">Platos Principales (Core Skills)</div>
-            
-            <div class="menu-item">
-                <div class="item-desc-block">
-                    <div class="dish-name">Traducción Médica Premium</div>
-                    <div class="dish-desc">Inglés / Español / Hebreo. Especialidad en manuales MedTech y Ensayos Clínicos.</div>
-                </div>
-                <div class="dish-price">Certified</div>
-            </div>
+        <h2>Mains (The Heavy Lifting)</h2>
 
-            <div class="menu-item">
-                <div class="item-desc-block">
-                    <div class="dish-name">Content Specialist @ ICUC</div>
-                    <div class="dish-desc">QA Lingüístico, análisis de sentimiento y gestión de crisis en tiempo real.</div>
-                </div>
-                <div class="dish-price">Nov 2025</div>
+        <div class="menu-section">
+            <div class="dish">
+                <span class="dish-name">Medical Translation (HE-EN-ES)</span>
+                <span class="dish-dots"></span>
+                <span class="dish-price">10 Yrs Immersion</span>
             </div>
+            <div class="dish-desc">Clinical trials, informed consents, and academic papers. Prepared with native Hebrew fluency and medical training.</div>
 
-            <div class="menu-item">
-                <div class="item-desc-block">
-                    <div class="dish-name">Long-Form Editing</div>
-                    <div class="dish-desc">Documentales y YouTube. Narrativa estructurada y corrección de color.</div>
-                </div>
-                <div class="dish-price">Deep Work</div>
+            <div class="dish">
+                <span class="dish-name">Content Specialist</span>
+                <span class="dish-dots"></span>
+                <span class="dish-price">ICUC Social</span>
             </div>
+            <div class="dish-desc">Linguistic biopsies and cultural context analysis for high-stakes global brands.</div>
         </div>
 
         <div class="chef-special">
-            <div class="special-title">Especialidad de la Casa: "The MD Candidate"</div>
-            <div class="dish-desc">
-                Una fusión única de disciplina académica (UNMDP Medicina) con creatividad digital.
-                <br>Garantiza precisión anatómica en traducciones y rigor científico en la edición.
+            <div style="font-family:'Playfair Display'; font-weight:700; font-size:12pt; margin-bottom:5px;">Chef's Special: The "MD Candidate" Combo</div>
+            <div style="font-family:'Lato'; font-size:9pt; font-style:italic;">
+                A unique fusion of 2nd Year Medical School knowledge (Anatomy/Physiology) with linguistic flair. <br>
+                Guarantees zero terminology errors in health-related content.
             </div>
         </div>
 
-        <div class="separator"></div>
+        <h2>Pairing (Soft Skills)</h2>
+        <div style="text-align: center; font-family: 'Lato'; font-size: 9pt;">
+            <p>Best accompanied by: <strong>Proactive Communication</strong> & <strong>Obsessive Detail</strong>.</p>
+            <p>Tools of the trade: <em>MS Office, Google Workspace, Subtitle Edit.</em></p>
+        </div>
 
         <div class="footer-info">
-            <div class="contact-line">RESERVAS & CONTRATACIONES</div>
-            dhurwitzbecerra@mdp.edu.ar &nbsp;|&nbsp; +54 9 2302 21-9422<br>
+            <strong>RESERVATIONS & BOOKINGS</strong><br>
+            +54 9 2302 21-9422<br>
+            dhurwitzbecerra@mdp.edu.ar<br>
             linkedin.com/in/danilo-hurwitz<br>
-            <em>Top Rated Service on Upwork • 100% Job Success Score</em>
+            <br>
+            <em>"Quality is not an act, it is a habit." - Aristotle (and Danilo)</em>
         </div>
 
     </div>
+</div>
+
 </body>
 </html>
