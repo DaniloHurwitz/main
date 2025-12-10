@@ -1,215 +1,239 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Prospecto CV - Danilo Hurwitz</title>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap');
+    <meta charset="UTF-8">
+    <title>Danilo Forte 500mg - Leaflet CV</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,700;1,400&display=swap');
 
-    :root {
-        --pharma-blue: #004481;
-        --pharma-light: #e6f0fa;
-        --warning-red: #d32f2f;
-        --paper: #fffdf8;
-    }
+        :root {
+            --paper-white: #fdfdfd;
+            --pharma-blue: #004488;
+            --text-black: #111;
+            --warning-box: #f0f0f0;
+        }
 
-    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body {
+            background-color: #ddd;
+            font-family: 'Arimo', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
 
-    body {
-        background: #f0f0f0;
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        font-family: 'Tinos', serif; /* Classic medical font */
-        color: #333;
-        line-height: 1.4;
-    }
+        .leaflet-paper {
+            width: 210mm;
+            height: 297mm;
+            background-color: var(--paper-white);
+            padding: 15mm;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            box-sizing: border-box;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: var(--text-black);
+            column-count: 2;
+            column-gap: 10mm;
+            column-rule: 1px solid #eee;
+            text-align: justify;
+        }
 
-    .leaflet {
-        width: 210mm;
-        height: 297mm;
-        background-color: #fff;
-        padding: 15mm;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 Columns like a leaflet */
-        grid-column-gap: 10mm;
-        align-content: start;
-        position: relative;
-    }
+        /* HEADER */
+        .pharma-header {
+            column-span: all;
+            border-bottom: 2px solid var(--pharma-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+        }
 
-    /* HEADER FULL WIDTH */
-    .header {
-        grid-column: span 2;
-        border-bottom: 2px solid var(--pharma-blue);
-        margin-bottom: 5mm;
-        padding-bottom: 2mm;
-    }
+        .drug-name {
+            font-size: 24pt;
+            font-weight: 700;
+            color: var(--pharma-blue);
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
 
-    h1 {
-        font-family: 'Arimo', sans-serif;
-        color: var(--pharma-blue);
-        font-size: 24pt;
-        margin: 0;
-        text-transform: uppercase;
-        font-weight: 800;
-        letter-spacing: -0.5px;
-    }
+        .drug-sub {
+            font-size: 10pt;
+            font-weight: 700;
+            margin-top: 5px;
+        }
 
-    .subtitle {
-        font-family: 'Arimo', sans-serif;
-        font-size: 10pt;
-        color: #666;
-        font-weight: 700;
-    }
+        .header-box {
+            border: 1px solid black;
+            padding: 4px 8px;
+            display: inline-block;
+            font-size: 8pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
 
-    .mg-badge {
-        display: inline-block;
-        background: var(--pharma-blue);
-        color: #fff;
-        padding: 2px 6px;
-        font-size: 10pt;
-        border-radius: 4px;
-        vertical-align: middle;
-        margin-left: 10px;
-    }
+        /* SECTIONS */
+        h2 {
+            font-size: 10pt;
+            font-weight: 700;
+            background-color: var(--pharma-blue);
+            color: white;
+            padding: 2px 5px;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            break-after: avoid;
+        }
 
-    /* SECTIONS */
-    .section { margin-bottom: 5mm; }
-    
-    h2 {
-        font-family: 'Arimo', sans-serif;
-        font-size: 11pt;
-        color: var(--pharma-blue);
-        text-transform: uppercase;
-        border-bottom: 1px solid #ccc;
-        margin: 10px 0 5px 0;
-        padding-bottom: 2px;
-    }
+        h3 {
+            font-size: 9pt;
+            font-weight: 700;
+            text-decoration: underline;
+            margin-bottom: 2px;
+            margin-top: 10px;
+        }
 
-    p, li { font-size: 9.5pt; text-align: justify; margin-bottom: 6px; }
-    ul { padding-left: 18px; margin-top: 0; }
+        p { margin-top: 0; margin-bottom: 8px; }
+        ul { margin-top: 0; padding-left: 15px; margin-bottom: 8px; }
+        li { margin-bottom: 2px; }
 
-    .warning-box {
-        border: 2px solid var(--warning-red);
-        background: #fff5f5;
-        padding: 8px;
-        border-radius: 4px;
-        margin-bottom: 5mm;
-    }
-    .warning-title { color: var(--warning-red); font-weight: bold; font-family: 'Arimo', sans-serif; font-size: 9pt; }
+        .warning-text {
+            border: 1px solid #333;
+            background-color: var(--warning-box);
+            padding: 8px;
+            font-weight: bold;
+            font-size: 8.5pt;
+            margin: 10px 0;
+        }
 
-    /* DATA TABLES inside sections */
-    .composition-table { width: 100%; border-collapse: collapse; font-size: 9pt; }
-    .composition-table td { padding: 4px 0; border-bottom: 1px dotted #ccc; }
-    .composition-table td:first-child { font-weight: bold; }
-    .composition-table td:last-child { text-align: right; }
+        /* FAKE FOLD MARKS */
+        .fold-line-1 {
+            position: absolute;
+            top: 33%;
+            left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+            pointer-events: none;
+        }
+        .fold-line-2 {
+            position: absolute;
+            top: 66%;
+            left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent);
+            pointer-events: none;
+        }
 
-    /* FOOTER */
-    .footer-bar {
-        grid-column: span 2;
-        margin-top: auto;
-        border-top: 1px solid #333;
-        padding-top: 10px;
-        text-align: center;
-        font-family: 'Arimo', sans-serif;
-        font-size: 8pt;
-    }
+        /* FOOTER BARCODE */
+        .barcode {
+            column-span: all;
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 5px;
+            font-size: 8pt;
+        }
+        .barcode-bars {
+            height: 30px;
+            background: repeating-linear-gradient(
+                to right,
+                #000 0px, #000 2px,
+                transparent 2px, transparent 4px,
+                #000 4px, #000 6px
+            );
+            width: 200px;
+            margin: 0 auto 5px auto;
+        }
 
-    @media print {
-        body { margin: 0; padding: 0; background: none; }
-        .leaflet { width: 100%; height: 100%; box-shadow: none; margin: 0; padding: 10mm; }
-        @page { size: A4; margin: 0; }
-    }
-</style>
+        @media print {
+            body { background: none; }
+            .leaflet-paper { width: 100%; height: auto; box-shadow: none; padding: 0; }
+            h2 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
 </head>
 <body>
-    <div class="leaflet">
-        
-        <div class="header">
-            <div style="float:right; text-align:right;">
-                <div style="font-size:9pt;">Venta bajo receta de contratación</div>
-                <div style="font-size:9pt;">Industria Argentina</div>
-            </div>
-            <h1>Danilo Forte <span class="mg-badge">500 mg</span></h1>
-            <div class="subtitle">Solución Inyectable de Creatividad & Precisión Médica</div>
-        </div>
 
-        <div class="column-left">
-            <div class="warning-box">
-                <div class="warning-title">ADVERTENCIA:</div>
-                <p>Lea todo el prospecto detenidamente antes de contratar a este profesional. Contiene información importante sobre la calidad de su proyecto.</p>
-            </div>
+<div class="leaflet-paper">
+    <div class="fold-line-1"></div>
+    <div class="fold-line-2"></div>
 
-            <div class="section">
-                <h2>1. Qué es DANILO FORTE y para qué se utiliza</h2>
-                <p>Danilo Forte pertenece al grupo de profesionales denominados "Trilingües Multidisciplinarios".</p>
-                <p><strong>Indicaciones terapéuticas:</strong></p>
-                <ul>
-                    <li>Tratamiento sintomático del "Feed de Redes Sociales Aburrido".</li>
-                    <li>Alivio inmediato de barreras lingüísticas severas (Hebreo-Inglés-Español).</li>
-                    <li>Corrección de textos médicos con deficiencia terminológica.</li>
-                </ul>
-            </div>
-
-            <div class="section">
-                <h2>2. Composición Cualitativa y Cuantitativa</h2>
-                <table class="composition-table">
-                    <tr><td>Principio Activo:</td><td>Edición de Video (Viral/Técnico)</td></tr>
-                    <tr><td>Excipiente 1:</td><td>Traducción Médica C1</td></tr>
-                    <tr><td>Excipiente 2:</td><td>Hebreo Fluido (10 años exp.)</td></tr>
-                    <tr><td>Componente Base:</td><td>Estudiante Medicina (UNMDP)</td></tr>
-                </table>
-            </div>
-
-            <div class="section">
-                <h2>3. Posología y Forma de Administración</h2>
-                <p><strong>Freelance / Remoto:</strong> Administrar tareas complejas vía Upwork, Email o Slack.</p>
-                <p><strong>Dosis recomendada:</strong> Un brief claro al inicio del proyecto. Efectos visibles (entregables) en plazos estrictos.</p>
-                <p><em>Población pediátrica:</em> Apto para explicar temas complejos a audiencias generales.</p>
-            </div>
-        </div>
-
-        <div class="column-right">
-            <div class="section">
-                <h2>4. Experiencia Clínica (Procedencia)</h2>
-                
-                <p><strong>ICUC SOCIAL (Nov 2025 - Presente)</strong><br>
-                <em>Content Specialist / QA</em><br>
-                Realización de "biopsias lingüísticas" en contenido hebreo de alto riesgo. Diagnóstico de errores culturales en tiempo real.</p>
-
-                <p><strong>UPWORK (May 2023 - Presente)</strong><br>
-                <em>Top Rated Medical Translator</em><br>
-                100% Job Success Score. Cero reacciones adversas en clientes. Especialista en MTPE y Ensayos Clínicos.</p>
-
-                <p><strong>LIPSWAN (May 2023 - Presente)</strong><br>
-                <em>Video Editor</em><br>
-                Sincronización fina de subtítulos y cortes quirúrgicos para retención de audiencia.</p>
-            </div>
-
-            <div class="section">
-                <h2>5. Conservación de DANILO FORTE</h2>
-                <p>Mantener fuera del alcance de reclutadores que buscan "pagar con visibilidad".</p>
-                <p>Conservar en ambientes de trabajo dinámicos (Remote preferred).</p>
-            </div>
-
-            <div class="section">
-                <h2>6. Información Adicional</h2>
-                <p><strong>Titular de la autorización de comercialización:</strong></p>
-                <p>Danilo Hurwitz<br>
-                Mar del Plata, CP 7600<br>
-                Tel: +54 9 2302 21-9422<br>
-                Email: dhurwitzbecerra@mdp.edu.ar</p>
-                
-                <p><strong>Portafolio Web:</strong> danilohurwitz.github.io/main</p>
-                <p><strong>Fecha de la última revisión de este prospecto:</strong> Diciembre 2025.</p>
-            </div>
-        </div>
-
-        <div class="footer-bar">
-            LABORATORIOS HURWITZ & ASOCIADOS - División Creativa & Científica
-        </div>
-
+    <div class="pharma-header">
+        <div class="header-box">PACKAGE LEAFLET: INFORMATION FOR THE USER</div>
+        <h1 class="drug-name">DANILO FORTE 500mg</h1>
+        <div class="drug-sub">Injectable Solution of Creativity & Linguistic Precision</div>
+        <div style="font-size: 8pt; margin-top:5px;">Active Substance: Danilo Hurwitz (MD Candidate / Translator)</div>
     </div>
+
+    <div class="warning-text">
+        Read all of this leaflet carefully before you start working with this professional because it contains important information for your project.
+    </div>
+
+    <h2>1. WHAT DANILO FORTE IS AND WHAT IT IS USED FOR</h2>
+    <p>Danilo Forte belongs to a group of professionals known as "Trilingual Medical Creatives". It acts by reducing communication barriers and increasing audience retention.</p>
+    <p><strong>Therapeutic Indications:</strong></p>
+    <ul>
+        <li>Treatment of "Boring Feed Syndrome" in medical/tech companies.</li>
+        <li>Relief of headaches caused by inaccurate Hebrew-English translations.</li>
+        <li>Urgent care for video content requiring fast turnarounds and viral editing hooks.</li>
+    </ul>
+
+    <h2>2. WHAT YOU NEED TO KNOW BEFORE YOU HIRE</h2>
+    <h3>Composition (Qualitative & Quantitative)</h3>
+    <p>Each project unit contains:</p>
+    <ul>
+        <li><strong>Active Ingredient:</strong> Medical Translation (C1 Hebrew/English) & Video Editing (Premiere/CapCut).</li>
+        <li><strong>Excipients:</strong> Anatomy Knowledge (MD Candidate), Cultural Nuance (Israel/Argentina/Spain), SEO Basics, Subtitle Synchronization.</li>
+    </ul>
+
+    <h3>Warnings and Precautions</h3>
+    <p>Talk to Danilo if your project requires:</p>
+    <ul>
+        <li>Deep understanding of medical terminology (Physiology, Pathology).</li>
+        <li>High-stakes content moderation (Experience at ICUC Social).</li>
+        <li>Native Spanish variants (Castilian & LATAM).</li>
+    </ul>
+
+    <h2>3. HOW TO ADMINISTER DANILO FORTE</h2>
+    <p>Always use this professional exactly as described in the contract.</p>
+    <p><strong>Posology:</strong></p>
+    <ul>
+        <li><strong>For Translation:</strong> Apply liberally to Clinical Trials, Manuals, and Papers.</li>
+        <li><strong>For Editing:</strong> One dose per raw footage batch. Results visible within 24-48 hours.</li>
+    </ul>
+    <p><strong>Method of Administration:</strong> Remote / Freelance via Upwork or Direct Contract.</p>
+
+    <h2>4. POSSIBLE SIDE EFFECTS</h2>
+    <p>Like all professionals, Danilo can cause side effects, although not everybody gets them.</p>
+    <ul>
+        <li><strong>Very Common:</strong> Excessive client satisfaction (100% JSS on Upwork).</li>
+        <li><strong>Common:</strong> Sudden increase in social media engagement.</li>
+        <li><strong>Rare:</strong> Complaints about lack of errors (Zero typo tolerance).</li>
+    </ul>
+
+    <h2>5. PROFESSIONAL HISTORY (CLINICAL DATA)</h2>
+    <p><strong>Content Specialist - ICUC Social (Nov 2025 - Present):</strong><br>
+    Monitoring Hebrew content, performing linguistic biopsies, ensuring brand safety.</p>
+    
+    <p><strong>Freelance Medical Translator (2023 - Present):</strong><br>
+    Human-verified MTPE. Specialized in informed consents and device manuals.</p>
+
+    <p><strong>MD Candidate - UNMDP (Exp. 2029):</strong><br>
+    Currently absorbing heavy doses of medical theory to apply in translation accuracy.</p>
+
+    <h2>6. CONTENTS OF THE PACK AND OTHER INFORMATION</h2>
+    <p><strong>Marketing Authorisation Holder:</strong><br>
+    Danilo Hurwitz<br>
+    Mar del Plata, Argentina<br>
+    +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar</p>
+
+    <p><strong>This leaflet was last revised in:</strong> December 2025.</p>
+
+    <div class="barcode">
+        <div class="barcode-bars"></div>
+        TR-HE-EN-ES-2025-V2
+    </div>
+</div>
+
 </body>
 </html>
