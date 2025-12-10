@@ -1,67 +1,209 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Danilo Hurwitz (Menú Fusión)</title>
-    <style>
-        :root {
-            --primary-color: #1a3c6e;
-            --accent-color: #f4b400;
-            --text-color: #333;
-            --bg-light: #f0f9ff;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: 'Segoe UI', serif;
-            font-size: 9pt;
-            line-height: 1.3;
-            color: var(--text-color);
-            background-color: #fff;
-            width: 210mm;
-            height: 297mm;
-            margin: 0 auto;
-            padding: 8mm;
-            text-align: center;
-        }
-        header { font-size: 18pt; font-style: italic; color: var(--primary-color); margin-bottom: 15px; }
-        section { margin-bottom: 15px; text-align: left; }
-        h2 { font-size: 11pt; color: var(--accent-color); border-bottom: 1px dotted #ccc; margin-bottom: 5px; }
-        ul { list-style: none; font-size: 8.5pt; }
-        li { margin-bottom: 3px; }
-        .price { font-style: italic; color: #666; }
-        @media print {
-            body { margin: 0; width: 100%; -webkit-print-color-adjust: exact; }
-            @page { margin: 8mm; size: A4; }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Menu CV - Danilo Hurwitz</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+    :root {
+        --paper-color: #fffcf5;
+        --ink-dark: #2c2c2c;
+        --gold: #b89c68;
+    }
+
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+    body {
+        background: #ddd;
+        display: flex;
+        justify-content: center;
+        padding: 40px;
+        font-family: 'Lato', sans-serif;
+        color: var(--ink-dark);
+    }
+
+    .menu-card {
+        width: 210mm;
+        height: 297mm;
+        background-color: var(--paper-color);
+        padding: 20mm;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #e0e0e0;
+    }
+
+    /* HEADER */
+    .restaurant-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 32pt;
+        font-weight: 700;
+        margin-bottom: 5px;
+        letter-spacing: 2px;
+        color: var(--ink-dark);
+    }
+    .restaurant-tagline {
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        color: var(--gold);
+        margin-bottom: 15mm;
+        font-weight: 700;
+    }
+
+    .separator {
+        width: 40px;
+        height: 2px;
+        background: var(--gold);
+        margin: 10px auto;
+    }
+
+    /* MENU SECTIONS */
+    .course-section {
+        width: 100%;
+        margin-bottom: 12mm;
+    }
+    
+    .course-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 16pt;
+        text-align: center;
+        font-style: italic;
+        margin-bottom: 8mm;
+        color: var(--gold);
+    }
+
+    .menu-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 4mm;
+    }
+    
+    .item-desc-block { flex-grow: 1; }
+
+    .dish-name {
+        font-weight: 700;
+        font-size: 11pt;
+        text-transform: uppercase;
+    }
+
+    .dish-desc {
+        font-size: 9pt;
+        font-weight: 300;
+        font-style: italic;
+        color: #666;
+        margin-top: 2px;
+    }
+
+    .dish-price {
+        font-weight: 700;
+        font-size: 10pt;
+        margin-left: 20px;
+        min-width: 80px;
+        text-align: right;
+    }
+
+    /* CHEF SPECIAL BOX */
+    .chef-special {
+        border: 1px double var(--gold);
+        padding: 15px;
+        text-align: center;
+        width: 90%;
+        margin-top: 5mm;
+    }
+    .special-title { font-family: 'Playfair Display', serif; font-weight: bold; margin-bottom: 5px; }
+
+    /* FOOTER */
+    .footer-info {
+        margin-top: auto;
+        text-align: center;
+        font-size: 8pt;
+        color: #888;
+        line-height: 1.6;
+    }
+    .contact-line { font-weight: 700; color: var(--ink-dark); font-size: 9pt; }
+
+    @media print {
+        body { margin: 0; padding: 0; background: none; }
+        .menu-card { width: 100%; height: 100%; box-shadow: none; margin: 0; padding: 15mm; border: none; }
+        @page { size: A4; margin: 0; }
+    }
+</style>
 </head>
 <body>
-    <header>Menú Fusión: Danilo Hurwitz</header>
-    <section>
-        <h2>Entradas (Lo Rápido)</h2>
-        <ul>
-            <li>Creación de Clips Virales, Reels, TikToks: Snackable content para redes. Freelance Video Editor (Upwork, May 2023 – Present).</li>
-        </ul>
-    </section>
-    <section>
-        <h2>Platos Principales (Lo Fuerte)</h2>
-        <ul>
-            <li>Traducción Hebreo ↔ Español (Complejidad Alta): Medical & Technical. Freelance Translator (Upwork, May 2023 – Present), 100% Success.</li>
-            <li>Edición de Documentales o YouTube Long-form: Audiovisual optimization.</li>
-        </ul>
-    </section>
-    <section>
-        <h2>Especialidad de la Casa</h2>
-        <p>El Combo Multitasking: Content Specialist (ICUC, Nov 2025 – Present). Mi cerebro médico (MD Candidate, Exp. 2029) aporta disciplina; el creativo, vuelo.</p>
-    </section>
-    <section>
-        <h2>Maridaje (Soft Skills)</h2>
-        <p>Se recomienda acompañar con: Comunicación fluida, Puntualidad y Trabajo bajo presión. Languages: Spanish C2, English/Hebrew C1.</p>
-    </section>
-    <section>
-        <h2>La Cuenta (Contacto)</h2>
-        <p class="price">El precio es charlable, el valor es incalculable. +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar | linkedin.com/in/danilo-hurwitz | Portfolio: danilohurwitz.github.io/main</p>
-    </section>
+    <div class="menu-card">
+        
+        <div class="restaurant-name">DANILO HURWITZ</div>
+        <div class="restaurant-tagline">Est. 2004 • Mar del Plata</div>
+        
+        <div class="course-section">
+            <div class="course-title">Entradas (Short Form)</div>
+            
+            <div class="menu-item">
+                <div class="item-desc-block">
+                    <div class="dish-name">Viral Video Edits</div>
+                    <div class="dish-desc">Cortes rápidos, subtítulos dinámicos y retención garantizada. Estilo TikTok/Reels.</div>
+                </div>
+                <div class="dish-price">High Impact</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-desc-block">
+                    <div class="dish-name">Social Media Strategy</div>
+                    <div class="dish-desc">Adaptación de contenido para consumo masivo en plataformas verticales.</div>
+                </div>
+                <div class="dish-price">Fresh</div>
+            </div>
+        </div>
+
+        <div class="course-section">
+            <div class="course-title">Platos Principales (Core Skills)</div>
+            
+            <div class="menu-item">
+                <div class="item-desc-block">
+                    <div class="dish-name">Traducción Médica Premium</div>
+                    <div class="dish-desc">Inglés / Español / Hebreo. Especialidad en manuales MedTech y Ensayos Clínicos.</div>
+                </div>
+                <div class="dish-price">Certified</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-desc-block">
+                    <div class="dish-name">Content Specialist @ ICUC</div>
+                    <div class="dish-desc">QA Lingüístico, análisis de sentimiento y gestión de crisis en tiempo real.</div>
+                </div>
+                <div class="dish-price">Nov 2025</div>
+            </div>
+
+            <div class="menu-item">
+                <div class="item-desc-block">
+                    <div class="dish-name">Long-Form Editing</div>
+                    <div class="dish-desc">Documentales y YouTube. Narrativa estructurada y corrección de color.</div>
+                </div>
+                <div class="dish-price">Deep Work</div>
+            </div>
+        </div>
+
+        <div class="chef-special">
+            <div class="special-title">Especialidad de la Casa: "The MD Candidate"</div>
+            <div class="dish-desc">
+                Una fusión única de disciplina académica (UNMDP Medicina) con creatividad digital.
+                <br>Garantiza precisión anatómica en traducciones y rigor científico en la edición.
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="footer-info">
+            <div class="contact-line">RESERVAS & CONTRATACIONES</div>
+            dhurwitzbecerra@mdp.edu.ar &nbsp;|&nbsp; +54 9 2302 21-9422<br>
+            linkedin.com/in/danilo-hurwitz<br>
+            <em>Top Rated Service on Upwork • 100% Job Success Score</em>
+        </div>
+
+    </div>
 </body>
 </html>
