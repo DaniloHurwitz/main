@@ -22,18 +22,18 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         
-        .xp-logo { margin-bottom: 40px; text-align: center; }
-        .win-logo-text { font-family: 'Arial', sans-serif; font-size: 40px; font-weight: bold; color: white; font-style: italic; }
-        .win-logo-sub { color: #ff6600; font-size: 16px; vertical-align: super; font-style: italic; font-weight: bold; }
+        .xp-logo-container { margin-bottom: 50px; text-align: center; }
+        /* Logo reconstruido con CSS para nitidez */
+        .win-logo-text { font-family: 'Arial', sans-serif; font-size: 42px; font-weight: bold; color: white; font-style: italic; letter-spacing: -2px; }
+        .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; font-style: italic; position: relative; top: -15px; left: 5px; }
         
         .loading-bar-box {
-            width: 200px; height: 16px; border: 2px solid #555; border-radius: 3px; padding: 2px;
-            position: relative; overflow: hidden; margin-top: 20px;
+            width: 200px; height: 18px; border: 2px solid #b2b2b2; border-radius: 4px; padding: 2px;
+            position: relative; overflow: hidden;
         }
-        .loading-progress { width: 100%; height: 100%; position: relative; }
         .loading-blocks {
-            display: flex; gap: 2px; position: absolute; left: -60px; top: 0; height: 100%;
-            animation: loadAnim 2.5s linear infinite;
+            display: flex; gap: 2px; position: absolute; left: -60px; top: 2px; height: 10px;
+            animation: loadAnim 2s linear infinite;
         }
         .block { width: 10px; height: 100%; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 1px; }
         
@@ -58,8 +58,7 @@
         }
         .icon:hover { opacity: 0.8; }
         .icon:active img { transform: scale(0.9); }
-        /* IMAGEN DE ICONO ASEGURADA */
-        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); }
+        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); object-fit: contain; }
         .icon-label { background: transparent; padding: 2px 4px; border-radius: 2px; line-height: 1.3; border: 1px solid transparent; }
         .icon:hover .icon-label { background: #0055ea; border-color: rgba(255,255,255,0.2); }
 
@@ -109,10 +108,9 @@
             padding: 40px; font-family: 'Times New Roman', serif; color: #000;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.5); user-select: text; cursor: text;
         }
-        .profile-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
         
         h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; margin: 0; }
-        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
+        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; }
         .job-head { font-weight: bold; font-size: 13px; margin-top: 15px; display: flex; justify-content: space-between; }
         .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 11px; }
         .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
@@ -143,10 +141,10 @@
         /* --- CLIPPY --- */
         #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
         
-        /* IMAGEN DE CLIPPY PNG (WIKIPEDIA - ESTABLE) */
+        /* IMAGEN DE CLIPPY PNG (WIKIMEDIA - ALTA CALIDAD) */
         .clippy-img { 
-            width: 120px; height: 120px; cursor: pointer; 
-            background: url('https://upload.wikimedia.org/wikipedia/en/e/e0/Clippy-letter.png') no-repeat center bottom; 
+            width: 100px; height: 100px; cursor: pointer; 
+            background: url('https://upload.wikimedia.org/wikipedia/commons/f/f9/Clippy-saying-it-looks-like.gif') no-repeat center bottom; 
             background-size: contain; 
             filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
             transition: transform 0.2s;
@@ -225,7 +223,7 @@
 
 <div id="boot-screen">
     <div id="boot-animation" class="boot-content" style="display:flex;">
-        <div class="xp-logo">
+        <div class="xp-logo-container">
             <span class="win-logo-text">Microsoft</span><br>
             <span class="win-logo-text">Windows</span><span class="win-logo-sub">XP</span>
         </div>
@@ -242,7 +240,7 @@
 <div id="desktop">
     <div class="desktop-icons">
         <div class="icon" onclick="openWindow('win-cv')">
-            <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-0.png" alt="CV">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png" alt="CV">
             <div class="icon-label">My Resume</div>
         </div>
         <div class="icon" onclick="openWindow('win-skills')">
@@ -277,7 +275,7 @@
             </div>
             <div style="height:1px; background:#ccc; margin:5px 0;"></div>
             <div class="sm-item" onclick="openWindow('win-cv')">
-                <img src="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png">
                 <div class="sm-text"><span class="sm-bold">My Resume</span><span class="sm-sub">Microsoft Word</span></div>
             </div>
         </div>
@@ -310,7 +308,7 @@
 <div id="win-cv" class="window" style="top: 10px; left: 10px; width: 900px; height: 700px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
         <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-0.png" width="16"> 
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png" width="16"> 
             CV_Danilo_Hurwitz.doc - Microsoft Word
         </div>
         <div class="win-controls">
