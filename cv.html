@@ -1,409 +1,375 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Ops Profile - Danilo Hurwitz</title>
+    <title>Product Spec Sheet - Danilo Hurwitz</title>
     <style>
-        /* Fuentes: JetBrains Mono (Tech/Code), Inter (Clean UI), Rock Salt (Firma rebelde) */
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600;800&family=Rock+Salt&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto+Mono:wght@400;700&display=swap');
 
         :root {
-            --paper: #ffffff;
-            --ink: #111827;       /* Negro suave */
-            --ink-dim: #4b5563;   /* Gris oscuro */
-            --accent: #0284c7;    /* Azul eléctrico (Tech/Creative) */
-            --alert: #dc2626;     /* Rojo para stamps */
-            --panel-bg: #f3f4f6;  /* Gris muy claro */
-            --border: #d1d5db;
+            --black: #000;
+            --white: #fff;
+            --border-thick: 4px solid #000;
+            --border-thin: 1px solid #000;
         }
 
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
 
         body {
-            background-color: #e5e7eb;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
-            padding: 0;
-            margin: 20px 0;
-            font-family: 'JetBrains Mono', monospace; /* Fuente 'Tech' */
-            font-size: 8.5pt;
-            color: var(--ink);
-            line-height: 1.35;
+            padding: 20px;
+            font-family: 'Roboto Mono', monospace; /* Fuente monoespaciada técnica */
+            font-size: 9pt;
+            color: var(--black);
+            line-height: 1.3;
         }
 
-        .dossier-sheet {
-            background-color: var(--paper);
+        .spec-sheet {
+            background-color: var(--white);
             width: 210mm;
-            height: 297mm; /* A4 Fijo */
+            height: 297mm;
             padding: 10mm;
+            border: var(--border-thick);
             position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
             overflow: hidden;
-            border-top: 5px solid var(--accent); /* Línea tech azul */
         }
 
-        /* HEADER: AGENCY STYLE */
-        .top-bar {
+        /* HEADER BLOQUE */
+        .header-block {
+            border-bottom: var(--border-thick);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 2px solid var(--ink);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
         }
 
-        .identity-block h1 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 20pt;
-            text-transform: uppercase;
+        h1 {
+            font-family: 'Archivo Black', sans-serif; /* Fuente de impacto industrial */
+            font-size: 28pt;
             margin: 0;
+            text-transform: uppercase;
+            line-height: 0.9;
             letter-spacing: -1px;
-            line-height: 1;
         }
 
-        .identity-block .role {
-            color: var(--accent);
+        .model-number {
+            font-size: 10pt;
             font-weight: 700;
-            font-size: 9pt;
+            background: #000;
+            color: #fff;
+            padding: 2px 6px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .qr-placeholder {
+            border: 2px solid #000;
+            padding: 5px;
+            text-align: center;
+            font-size: 7pt;
+            font-weight: bold;
+        }
+
+        /* CAJAS DE ADVERTENCIA */
+        .warning-box {
+            border: 2px solid #000;
+            padding: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .warning-icon {
+            font-size: 16pt;
+            font-weight: bold;
+        }
+        .warning-text {
+            font-size: 8pt;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
+        }
+
+        /* GRID PRINCIPAL */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        /* SECCIONES ESTILO ETIQUETA */
+        .spec-section {
+            border: var(--border-thin);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-header {
+            background: #000;
+            color: #fff;
+            padding: 4px 8px;
+            font-family: 'Archivo Black', sans-serif;
+            text-transform: uppercase;
+            font-size: 10pt;
+        }
+
+        .section-content {
+            padding: 8px;
+            flex-grow: 1;
+        }
+
+        /* MODOS DE OPERACIÓN (EXPERIENCIA) */
+        .mode-item {
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #000;
+            padding-bottom: 5px;
+        }
+        .mode-item:last-child { border-bottom: none; }
+
+        .mode-title {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 9.5pt;
             display: block;
         }
-
-        .meta-data {
-            text-align: right;
-            font-size: 7pt;
-            color: var(--ink-dim);
+        .mode-sub {
+            font-size: 8pt;
+            font-style: italic;
+            margin-bottom: 3px;
+            display: block;
         }
+        
+        ul { margin: 0; padding-left: 15px; }
+        li { font-size: 8.5pt; margin-bottom: 2px; }
 
-        /* DATA STRIP (CONTACT) */
-        .data-strip {
+        /* ESPECIFICACIONES TÉCNICAS (SKILLS) */
+        .tech-row {
             display: flex;
             justify-content: space-between;
-            background: var(--ink);
-            color: #fff;
-            padding: 6px 10px;
-            font-size: 7.5pt;
-            margin-bottom: 20px;
-            border-radius: 2px;
+            border-bottom: 1px solid #ccc;
+            padding: 3px 0;
         }
-        .data-strip a { color: #fff; text-decoration: none; border-bottom: 1px dotted #888; }
-        .ds-item span { color: var(--accent); font-weight: bold; margin-right: 4px; }
+        .tech-label { font-weight: 700; }
 
-        /* MODULES (SECTIONS) */
-        .module-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-            margin-top: 15px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 2px;
+        /* IDIOMAS - BARRAS DE CARGA */
+        .lang-row { margin-bottom: 5px; }
+        .lang-name { font-weight: 700; font-size: 9pt; display: flex; justify-content: space-between; }
+        .progress-bar {
+            height: 8px;
+            border: 1px solid #000;
+            width: 100%;
+            background: #fff;
+            margin-top: 2px;
+            position: relative;
         }
-
-        .module-title {
-            background: var(--panel-bg);
-            color: var(--ink);
-            font-family: 'Inter', sans-serif;
-            font-weight: 800;
-            font-size: 8pt;
-            padding: 3px 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border: 1px solid var(--border);
-            border-bottom: none;
-            margin-bottom: -3px;
+        .fill {
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 2px,
+                #fff 2px,
+                #fff 4px
+            );
         }
 
-        /* SUMMARY BOX */
-        .overview-box {
-            display: grid;
-            grid-template-columns: 80px 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            padding: 10px;
-        }
-        .profile-pic-placeholder {
-            width: 80px;
-            height: 80px;
-            background: var(--panel-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 7pt;
-            text-align: center;
-            color: var(--ink-dim);
-            border: 1px dashed var(--ink-dim);
-        }
-        .overview-text {
-            font-family: 'Inter', sans-serif;
-            font-size: 9pt;
-            color: var(--ink-dim);
-        }
-
-        /* SKILL MATRIX (3 COLS) */
-        .matrix-grid {
+        /* FOOTER DIVERTIDO */
+        .footer-specs {
+            border-top: var(--border-thick);
+            padding-top: 10px;
+            margin-top: auto;
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .matrix-col {
-            background: var(--panel-bg);
-            padding: 8px;
-            border-left: 3px solid var(--accent);
-        }
-        .matrix-head {
-            font-weight: 700;
             font-size: 7.5pt;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 5px;
-            display: block;
-            border-bottom: 1px solid var(--border);
+            text-align: center;
         }
-        .matrix-list { list-style: none; padding: 0; margin: 0; }
-        .matrix-list li {
-            margin-bottom: 3px;
-            font-size: 8pt;
-            display: flex;
-            justify-content: space-between;
-        }
-        .lvl { font-weight: 700; font-size: 7.5pt; }
+        .footer-col { border-right: 1px solid #000; }
+        .footer-col:last-child { border-right: none; }
 
-        /* LOGS (EXPERIENCE) */
-        .log-entry {
-            margin-bottom: 12px;
-        }
-        .log-head {
-            display: flex;
-            justify-content: space-between;
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 9.5pt;
-            color: var(--ink);
-            border-left: 3px solid var(--ink);
-            padding-left: 8px;
-            margin-bottom: 3px;
-        }
-        .log-sub {
-            padding-left: 11px;
-            font-size: 8pt;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 3px;
-            text-transform: uppercase;
-        }
-        .log-details {
-            padding-left: 11px;
-            margin: 0;
-            list-style: none;
-        }
-        .log-details li {
-            position: relative;
-            padding-left: 12px;
-            margin-bottom: 2px;
-            color: var(--ink-dim);
-            font-size: 8.5pt;
-        }
-        .log-details li::before {
-            content: ">";
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            color: var(--accent);
-            font-size: 8pt;
-        }
-
-        /* STAMP */
         .stamp {
-            position: absolute;
-            top: 15mm;
-            right: 10mm;
-            border: 3px solid var(--alert);
-            color: var(--alert);
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: 14pt;
+            border: 3px solid #000;
+            font-family: 'Archivo Black';
             text-transform: uppercase;
+            font-size: 14pt;
             padding: 5px 10px;
-            transform: rotate(-12deg);
-            opacity: 0.8;
+            transform: rotate(-5deg);
+            position: absolute;
+            bottom: 30mm;
+            right: 15mm;
+            background: #fff;
             z-index: 10;
-            mix-blend-mode: multiply;
         }
 
-        /* FOOTER */
-        .footer {
-            position: absolute;
-            bottom: 10mm;
-            left: 10mm;
-            width: calc(100% - 20mm);
-            border-top: 1px solid var(--ink);
-            padding-top: 5px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 7pt;
-        }
-        .signature {
-            font-family: 'Rock Salt', cursive;
-            font-size: 10pt;
-            color: var(--ink);
-            transform: rotate(-2deg);
-        }
+        a { color: #000; text-decoration: underline; font-weight: bold; }
 
         @media print {
-            body { margin: 0; background: none; }
-            .dossier-sheet { 
-                width: 100%; height: 100%; 
-                box-shadow: none; border: none; 
-                padding: 10mm; 
-                page-break-after: avoid; 
-            }
+            body { margin: 0; padding: 0; }
+            .spec-sheet { width: 100%; height: 100%; border: 4px solid #000; }
             @page { margin: 0; size: A4; }
         }
     </style>
 </head>
 <body>
 
-    <div class="dossier-sheet">
+    <div class="spec-sheet">
         
-        <div class="stamp">MULTISKILLED<br>VERIFIED</div>
+        <div class="stamp">High<br>Performance<br>Unit</div>
 
-        <div class="top-bar">
-            <div class="identity-block">
-                <h1>Danilo Hurwitz</h1>
-                <span class="role">Content Specialist // Video Editor // Translator</span>
-            </div>
-            <div class="meta-data">
-                ID: DH-2025-OPS<br>
-                BASE: Mar del Plata, AR<br>
-                AGE: 21
-            </div>
-        </div>
-
-        <div class="data-strip">
-            <div class="ds-item"><span>TEL:</span> +54 9 2302 21-9422</div>
-            <div class="ds-item"><span>MAIL:</span> dhurwitzbecerra@mdp.edu.ar</div>
-            <div class="ds-item"><span>WEB:</span> <a href="https://danilohurwitz.github.io/main">danilohurwitz.github.io/main</a></div>
-            <div class="ds-item"><span>LINKEDIN:</span> /in/danilo-hurwitz</div>
-        </div>
-
-        <div class="module-header">
-            <span class="module-title">01 // Operational Profile</span>
-        </div>
-        <div class="overview-box">
-            <div class="profile-pic-placeholder">
-                [PHOTO<br>ID]
-            </div>
-            <div class="overview-text">
-                <strong>PROFILE SUMMARY:</strong><br>
-                A high-versatility operative specializing in Content Management, Creative Video Production, and Technical Translation. 
-                <br><br>
-                Unlike standard specialists, I operate at the intersection of <strong>Medical Precision</strong> (MD Candidate), <strong>Linguistic Fluency</strong> (Hebrew/Eng/Spa), and <strong>Digital Creativity</strong>. Capable of managing complex data workflows (ICUC) while delivering high-impact audiovisual content.
-            </div>
-        </div>
-
-        <div class="module-header">
-            <span class="module-title">02 // Capability Matrix</span>
-        </div>
-        <div class="matrix-grid">
-            <div class="matrix-col">
-                <span class="matrix-head">CREATIVE & TECH</span>
-                <ul class="matrix-list">
-                    <li>Video Editing <span class="lvl">ADV</span></li>
-                    <li>Subtitling/Sync <span class="lvl">EXP</span></li>
-                    <li>CapCut / Adobe <span class="lvl">PRO</span></li>
-                    <li>Content Mod. <span class="lvl">EXP</span></li>
-                </ul>
-            </div>
-            <div class="matrix-col">
-                <span class="matrix-head">LINGUISTICS</span>
-                <ul class="matrix-list">
-                    <li>Spanish (Native) <span class="lvl">C2</span></li>
-                    <li>Hebrew (Fluent) <span class="lvl">C1</span></li>
-                    <li>English (Fluent) <span class="lvl">C1</span></li>
-                    <li>MTPE Workflow <span class="lvl">EXP</span></li>
-                </ul>
-            </div>
-            <div class="matrix-col">
-                <span class="matrix-head">KNOWLEDGE BASE</span>
-                <ul class="matrix-list">
-                    <li>Medical Term. <span class="lvl">HIGH</span></li>
-                    <li>Anatomy/Physio <span class="lvl">ACA</span></li>
-                    <li>Research <span class="lvl">ACA</span></li>
-                    <li>Digital Ops <span class="lvl">EXP</span></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="module-header">
-            <span class="module-title">03 // Deployment History</span>
-        </div>
-
-        <div class="log-entry">
-            <div class="log-head">
-                <span>CONTENT SPECIALIST / HEBREW LINGUIST</span>
-                <span>NOV 2025 - PRESENT</span>
-            </div>
-            <div class="log-sub">ICUC SOCIAL (REMOTE OPS)</div>
-            <ul class="log-details">
-                <li>Managing linguistic quality checks (LQC) and moderation for high-stakes Hebrew/English content.</li>
-                <li>Analyzing sentiment and cultural context in real-time data streams to prevent misinformation.</li>
-                <li>Coordinating with global teams via MS Teams for rapid-response content filtering.</li>
-            </ul>
-        </div>
-
-        <div class="log-entry">
-            <div class="log-head">
-                <span>FREELANCE VIDEO EDITOR & SUBTITLE CREATOR</span>
-                <span>MAY 2023 - PRESENT</span>
-            </div>
-            <div class="log-sub">UPWORK / FREELANCE</div>
-            <ul class="log-details">
-                <li>Producing high-retention video content with precise multilingual subtitles (Sync/Timing).</li>
-                <li>Optimizing audiovisual assets for e-learning platforms and social media engagement.</li>
-                <li>Consistently rated 5.0/5.0 for technical quality and creative delivery.</li>
-            </ul>
-        </div>
-
-        <div class="log-entry">
-            <div class="log-head">
-                <span>MEDICAL & TECHNICAL TRANSLATOR (TOP RATED)</span>
-                <span>MAY 2023 - PRESENT</span>
-            </div>
-            <div class="log-sub">UPWORK (GLOBAL CLIENTS)</div>
-            <ul class="log-details">
-                <li>Executing high-precision translations for clinical docs and tech manuals (Hebrew/English/Spanish).</li>
-                <li>Bridging the gap between complex terminology and clear communication.</li>
-                <li>100% Job Success Score achieved through "obsessive" attention to detail.</li>
-            </ul>
-        </div>
-
-        <div class="module-header">
-            <span class="module-title">04 // Academic Background</span>
-        </div>
-        <div class="log-entry" style="margin-bottom:0;">
-            <div class="log-head">
-                <span>DOCTOR OF MEDICINE (MD) CANDIDATE</span>
-                <span>EXP. 2029</span>
-            </div>
-            <div class="log-sub">UNIVERSIDAD NACIONAL DE MAR DEL PLATA</div>
-            <div style="font-size: 8pt; color: var(--ink-dim); padding-left: 11px; margin-top: 2px;">
-                Leveraging strict scientific training to enhance discipline, research capabilities, and terminological accuracy in all professional projects.
-            </div>
-        </div>
-
-        <div class="footer">
+        <div class="header-block">
             <div>
-                SYS_STATUS: ONLINE<br>
-                LAST_UPDATE: 12-2025
+                <div class="model-number">MODEL: DH-MULTI-2025</div>
+                <h1>THE SWISS ARMY<br>HUMAN UNIT</h1>
+                <div style="font-size: 9pt; margin-top: 5px;">
+                    <strong>PRODUCT NAME:</strong> Danilo Hurwitz (The "Do-It-All" Edition)<br>
+                    <strong>MANUFACTURED IN:</strong> Argentina (Spain/Israel Components)<br>
+                    <strong>AGE:</strong> 21 Years (Peak Efficiency)
+                </div>
             </div>
             <div style="text-align: right;">
-                <span class="signature">Danilo Hurwitz</span><br>
-                AUTHORIZED PERSONNEL
+                <div class="qr-placeholder">
+                    SCAN FOR<br>DEMO<br>
+                    [QR]<br>
+                    <a href="https://danilohurwitz.github.io/main">PORTFOLIO</a>
+                </div>
+                <div style="font-size: 8pt; margin-top: 5px;">
+                    <strong>CONTACT:</strong><br>
+                    dhurwitzbecerra@mdp.edu.ar<br>
+                    +54 9 2302 21-9422
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="warning-icon">⚠ CAUTION:</div>
+            <div class="warning-text">
+                This unit is equipped with excessive multitasking capabilities. May correct your grammar in 3 languages while editing video and studying pathology simultaneously. Handle with care.
+            </div>
+        </div>
+
+        <div class="main-grid">
+            
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                
+                <div class="spec-section" style="flex-grow: 1;">
+                    <div class="section-header">/// PRIMARY OPERATING MODES</div>
+                    <div class="section-content">
+                        
+                        <div class="mode-item">
+                            <span class="mode-title">MODE A: CONTENT GUARDIAN (QA)</span>
+                            <span class="mode-sub">ICUC Social | Nov 2025 - Present</span>
+                            <ul>
+                                <li>Executes linguistic quality checks (Hebrew).</li>
+                                <li>Detects cultural errors/sentiment flaws.</li>
+                                <li>High-speed remote operation via Teams.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mode-item">
+                            <span class="mode-title">MODE B: THE LINGUIST (Translator)</span>
+                            <span class="mode-sub">Upwork (Top Rated) | May 2023 - Present</span>
+                            <ul>
+                                <li>Specialty: Medical/Technical (HE/EN/ES).</li>
+                                <li>Accuracy Rate: 100% (Zero defects reported).</li>
+                                <li>Protocol: MTPE + Human Verification.</li>
+                            </ul>
+                        </div>
+
+                        <div class="mode-item">
+                            <span class="mode-title">MODE C: THE CREATOR (Video)</span>
+                            <span class="mode-sub">Freelance | May 2023 - Present</span>
+                            <ul>
+                                <li>Video Editing & Subtitle Sync.</li>
+                                <li>Optimized for Social Media Retention.</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="spec-section">
+                    <div class="section-header">/// BACKGROUND PROCESSES</div>
+                    <div class="section-content">
+                        <strong>MEDICAL STUDENT (MD)</strong><br>
+                        Running continuously at UNMDP (Exp. 2029).<br>
+                        <span style="font-size: 8pt; color: #555;">*Provides deep knowledge of anatomy/physiology to translation tasks.</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                
+                <div class="spec-section">
+                    <div class="section-header">/// INSTALLED LANGUAGE PACKS</div>
+                    <div class="section-content">
+                        
+                        <div class="lang-row">
+                            <div class="lang-name"><span>SPANISH (Native)</span> <span>C2</span></div>
+                            <div class="progress-bar"><div class="fill" style="width: 100%;"></div></div>
+                            <div style="font-size: 7pt;">Latency: 0ms | Source: Spain/Argentina</div>
+                        </div>
+
+                        <div class="lang-row">
+                            <div class="lang-name"><span>HEBREW (Fluent)</span> <span>C1</span></div>
+                            <div class="progress-bar"><div class="fill" style="width: 90%;"></div></div>
+                            <div style="font-size: 7pt;">Daily Usage: 10+ Years</div>
+                        </div>
+
+                        <div class="lang-row">
+                            <div class="lang-name"><span>ENGLISH (Fluent)</span> <span>C1</span></div>
+                            <div class="progress-bar"><div class="fill" style="width: 90%;"></div></div>
+                            <div style="font-size: 7pt;">Optimized for: Medical/Technical</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="spec-section">
+                    <div class="section-header">/// SOFTWARE COMPATIBILITY</div>
+                    <div class="section-content">
+                        <div class="tech-row"><span class="tech-label">OFFICE:</span> <span>MS 365, Google Work.</span></div>
+                        <div class="tech-row"><span class="tech-label">MEDIA:</span> <span>CapCut, Subtitle Edit</span></div>
+                        <div class="tech-row"><span class="tech-label">TRANS:</span> <span>Smartcat, MTPE Tools</span></div>
+                        <div class="tech-row"><span class="tech-label">COMMS:</span> <span>Slack, Teams, Zoom</span></div>
+                    </div>
+                </div>
+
+                <div class="spec-section" style="flex-grow: 1; border: 2px dashed #000;">
+                    <div class="section-header" style="background: #fff; color: #000; border-bottom: 2px solid #000;">WHY CHOOSE THIS MODEL?</div>
+                    <div class="section-content">
+                        <p style="margin-bottom: 10px;">
+                            <strong>VERSATILITY:</strong> Unlike standard units, the Danilo-2025 bridges the gap between Clinical Precision and Creative Content. 
+                        </p>
+                        <p>
+                            <strong>ADAPTABILITY:</strong> Thrives in remote environments. Self-regulating. Requires minimal supervision.
+                        </p>
+                        <p style="margin-top: 10px; font-weight: bold; text-align: center;">
+                            RATED 5/5 STARS ON UPWORK
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="footer-specs">
+            <div class="footer-col">
+                <strong>ENERGY SOURCE</strong><br>
+                Caffeine / Mate
+            </div>
+            <div class="footer-col">
+                <strong>OPERATING TEMP</strong><br>
+                High Pressure OK
+            </div>
+            <div class="footer-col">
+                <strong>WARRANTY</strong><br>
+                Satisfaction Guaranteed
             </div>
         </div>
 
