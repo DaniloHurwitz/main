@@ -7,7 +7,7 @@
     <style>
         /* --- FUENTES & RESET --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Winamp Font */
 
         * { box-sizing: border-box; user-select: none; }
         body { 
@@ -17,20 +17,21 @@
             background-size: cover;
         }
 
-        /* --- ESCRITORIO --- */
-        #desktop {
+        /* --- UI GLOBAL --- */
+        .desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 25px; align-content: flex-start; z-index: 1;
+            padding: 15px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 25px; align-content: flex-start; z-index: 1;
         }
 
+        /* --- ICONOS ESCRITORIO (IMAGENES REALES XP) --- */
         .icon {
             width: 80px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
-            color: white; text-shadow: 1px 1px 2px black; transition: opacity 0.1s;
+            color: white; text-shadow: 1px 1px 2px black;
         }
         .icon:hover { opacity: 0.8; }
-        .icon:active .icon-img { transform: scale(0.9); }
-        .icon-img { font-size: 42px; margin-bottom: 5px; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.5)); }
+        .icon:active img { transform: scale(0.9); }
+        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.6)); }
         .icon-label { background: transparent; padding: 2px 4px; border-radius: 2px; line-height: 1.3; border: 1px solid transparent; }
         .icon:hover .icon-label { background: #0055ea; border-color: rgba(255,255,255,0.2); }
 
@@ -42,7 +43,7 @@
             border-radius: 8px 8px 0 0;
             box-shadow: 8px 8px 25px rgba(0,0,0,0.5);
             display: none; flex-direction: column;
-            min-width: 250px; min-height: 150px;
+            min-width: 300px; min-height: 200px;
             z-index: 10;
         }
         
@@ -72,53 +73,79 @@
             cursor: se-resize; z-index: 100; opacity: 0.5;
         }
 
-        /* --- APPS --- */
-        /* WORD */
+        /* --- APP: WORD --- */
         .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
-        .word-btn { padding: 2px 5px; border: 1px solid transparent; cursor: pointer; }
-        .word-btn:hover { border: 1px solid #888; background: #ffeec2; }
         .paper-area { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
-            background: white; width: 100%; max-width: 800px; min-height: 100%; 
+            background: white; width: 100%; max-width: 750px; min-height: 100%; 
             padding: 40px; font-family: 'Times New Roman', serif; color: #000;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.5); user-select: text; cursor: text;
         }
-        h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; border-bottom: 2px solid #000; margin: 0 0 10px 0; }
-        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; }
-        .job-head { font-weight: bold; font-size: 14px; margin-top: 10px; display: flex; justify-content: space-between; }
-        .job-meta { font-style: italic; color: #555; margin-bottom: 5px; }
-        
-        /* WINAMP */
-        .winamp-skin { background: #222; color: #00ff00; font-family: 'Verdana', sans-serif; height: 100%; display: flex; flex-direction: column; padding: 10px; gap: 5px; }
-        .wa-screen { 
-            background: #000; border: 2px solid #555; height: 50px; 
-            display: flex; align-items: center; justify-content: center; 
-            font-family: 'Press Start 2P', monospace; font-size: 10px; color: #0f0; text-align: center;
-        }
-        .visualizer { display: flex; align-items: flex-end; justify-content: center; gap: 2px; height: 30px; margin-top: 10px; }
-        .v-bar { width: 6px; background: #0f0; animation: bounce 0.5s infinite ease-in-out; }
-        @keyframes bounce { 0%, 100% { height: 5px; } 50% { height: 25px; } }
+        .paper h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; border-bottom: 2px solid #000; margin: 0 0 5px 0; }
+        .paper h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; }
+        .job-head { font-weight: bold; font-size: 13px; margin-top: 15px; display: flex; justify-content: space-between; }
+        .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 11px; }
+        .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
 
-        /* CLIPPY */
+        /* --- APP: SKILLS (GRID VIEW) --- */
+        .skills-grid { padding: 10px; display: flex; flex-wrap: wrap; gap: 15px; align-content: flex-start; background: white; height: 100%; overflow-y: auto; }
+        .skill-item { 
+            width: 70px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 5px; 
+            padding: 5px; border: 1px solid transparent; 
+        }
+        .skill-item:hover { border: 1px solid #ccc; background: #f0f0f0; border-radius: 3px; }
+        .skill-icon { width: 32px; height: 32px; }
+        .skill-text { font-size: 10px; color: #000; }
+
+        /* --- APP: WINAMP (MEJORADO) --- */
+        .winamp-skin { background: #222; color: #00ff00; font-family: 'Verdana', sans-serif; height: 100%; display: flex; flex-direction: column; padding: 8px; gap: 4px; border: 2px solid #555; }
+        .wa-header { background: #333; color: white; padding: 2px; font-size: 9px; display: flex; justify-content: space-between; }
+        .wa-screen { 
+            background: #000; border: 2px solid #555; height: 40px; margin-bottom: 5px;
+            display: flex; flex-direction: column; justify-content: center; padding: 5px;
+            font-family: 'Press Start 2P', monospace; font-size: 9px; color: #0f0;
+        }
+        .wa-visualizer { display: flex; align-items: flex-end; gap: 1px; height: 15px; margin-top: 5px; }
+        .v-bar { width: 4px; background: #0f0; animation: equalizer 0.8s infinite; }
+        @keyframes equalizer { 0% { height: 2px; } 50% { height: 12px; } 100% { height: 5px; } }
+        
+        .wa-playlist { background: #000; color: #0f0; border: 2px solid #555; flex-grow: 1; font-family: monospace; font-size: 10px; padding: 4px; overflow-y: auto; }
+        .wa-track { padding: 2px; cursor: pointer; }
+        .wa-track:hover { background: #00ff00; color: #000; }
+        
+        .wa-controls { display: flex; gap: 2px; margin-top: 5px; }
+        .wa-btn { background: #ccc; border: 1px solid #fff; border-right: 1px solid #555; border-bottom: 1px solid #555; font-size: 9px; width: 25px; cursor: pointer; }
+        .wa-btn:active { border: 1px solid #555; border-right: 1px solid #fff; border-bottom: 1px solid #fff; }
+
+        /* --- APP: CONTACTO (OUTLOOK EXPRESS STYLE) --- */
+        .contact-form { padding: 15px; font-family: 'Tahoma', sans-serif; display: flex; flex-direction: column; gap: 10px; background: #ece9d8; height: 100%; }
+        .form-row { display: flex; gap: 10px; align-items: center; }
+        .form-label { width: 60px; text-align: right; font-weight: bold; }
+        .form-input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; background: white; }
+        .contact-card { background: white; border: 1px solid #999; padding: 10px; margin-top: 10px; box-shadow: inset 1px 1px 3px #ccc; }
+
+        /* --- CLIPPY --- */
         #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-        .clippy-img { font-size: 60px; cursor: pointer; filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4)); animation: float 4s infinite ease-in-out; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .clippy-img { 
+            width: 80px; height: 80px; cursor: pointer; 
+            background: url('https://media.tenor.com/images/39fe167bdab90223bcc890bcb067b761/tenor.gif') no-repeat center; 
+            background-size: contain; 
+        }
         
         .chat-bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 260px;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 10px; display: none; font-size: 11px;
+            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 280px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: none; font-size: 11px;
             position: relative;
         }
         .chat-bubble::after { content: ''; position: absolute; bottom: -8px; right: 30px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #000; }
         
-        .chat-history { height: 100px; overflow-y: auto; border-bottom: 1px solid #ccc; margin-bottom: 5px; padding-bottom: 5px; }
-        .msg-ai { color: #000; margin-bottom: 5px; }
+        .chat-history { height: 120px; overflow-y: auto; border-bottom: 1px solid #ccc; margin-bottom: 8px; padding-bottom: 5px; background: white; border: 1px solid #ddd; padding: 5px;}
+        .msg-ai { color: #000; margin-bottom: 5px; background: #eee; padding: 3px; border-radius: 3px; }
         .msg-user { color: #0000aa; font-weight: bold; text-align: right; margin-bottom: 5px; }
-        .chat-input-area { display: flex; gap: 5px; }
-        .chat-input { flex-grow: 1; border: 1px solid #999; padding: 3px; font-family: Tahoma; }
-        .chat-send { background: #ece9d8; border: 1px solid #999; cursor: pointer; }
+        .chat-input { width: 75%; padding: 3px; }
+        .chat-btn { width: 20%; cursor: pointer; }
 
-        /* TASKBAR */
+        /* --- BARRA DE TAREAS --- */
         #taskbar {
             position: absolute; bottom: 0; left: 0; right: 0; height: 30px;
             background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 10%, #245edb 100%);
@@ -131,11 +158,13 @@
         }
         #task-list { display: flex; gap: 3px; flex-grow: 1; }
         .task-item {
-            width: 140px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
+            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
             color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px; cursor: pointer; font-size: 11px;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
-        #tray { margin-left: auto; color: white; padding-right: 10px; font-size: 11px; display: flex; gap: 10px; }
+        .task-icon { width: 16px; height: 16px; }
+
+        #tray { margin-left: auto; color: white; padding-right: 10px; font-size: 11px; display: flex; gap: 10px; align-items: center; }
 
     </style>
 </head>
@@ -143,30 +172,33 @@
 
 <div id="desktop">
     <div class="icon" onclick="openWindow('win-cv')">
-        <div class="icon-img">📝</div>
-        <div class="icon-label">My Resume</div>
-    </div>
-    <div class="icon" onclick="openWindow('win-ie')">
-        <div class="icon-img">🌐</div>
-        <div class="icon-label">Portfolio</div>
+        <img src="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png" class="icon-img" alt="CV">
+        <div class="icon-label">My Resume.doc</div>
     </div>
     <div class="icon" onclick="openWindow('win-skills')">
-        <div class="icon-img">📁</div>
-        <div class="icon-label">Skills</div>
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="icon-img" alt="Skills">
+        <div class="icon-label">My Skills</div>
+    </div>
+    <div class="icon" onclick="openWindow('win-ie')">
+        <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" class="icon-img" alt="IE">
+        <div class="icon-label">Portfolio</div>
     </div>
     <div class="icon" onclick="openWindow('win-winamp')">
-        <div class="icon-img">⚡</div>
+        <img src="https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-4.png" class="icon-img" alt="Winamp">
         <div class="icon-label">Winamp</div>
     </div>
     <div class="icon" onclick="openWindow('win-contact')">
-        <div class="icon-img">📧</div>
+        <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" class="icon-img" alt="Contact">
         <div class="icon-label">Contact</div>
     </div>
 </div>
 
-<div id="win-cv" class="window" style="top: 30px; left: 50px; width: 700px; height: 500px;">
+<div id="win-cv" class="window" style="top: 20px; left: 50px; width: 750px; height: 550px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
-        <div style="display:flex;gap:5px;align-items:center;"><span>📝</span> CV_Danilo_Hurwitz.doc</div>
+        <div style="display:flex;gap:5px;align-items:center;">
+            <img src="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png" width="16"> 
+            CV_Danilo_Hurwitz.doc - Microsoft Word
+        </div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-cv')">_</div>
             <div class="btn btn-max" onclick="maxWindow('win-cv')">□</div>
@@ -174,90 +206,54 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="word-toolbar">
-            <div class="word-btn">File</div><div class="word-btn">Edit</div><div class="word-btn">View</div><div class="word-btn">Format</div><div class="word-btn">Help</div>
-        </div>
+        <div class="word-toolbar">File | Edit | View | Insert | Format | Tools</div>
         <div class="paper-area">
             <div class="paper">
                 <h1>DANILO HURWITZ</h1>
                 <p><strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
-                Mar del Plata, Argentina | +54 9 2302 21-9422</p>
+                Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar</p>
                 
                 <h2>PROFESSIONAL EXPERIENCE</h2>
                 
-                <div class="job-head"><span>Content Specialist / Hebrew QA</span> <span>Nov 2025 – Present</span></div>
+                <div class="job-head"><span>Content Specialist / Hebrew Translator</span> <span>Nov 2025 – Present</span></div>
                 <div class="job-meta">ICUC Social (Remote)</div>
                 <ul>
-                    <li>Performing scheduled "linguistic biopsies" on Hebrew content[cite: 31, 34].</li>
-                    <li>Diagnosing cultural context errors and sentiment misalignments[cite: 34].</li>
-                    <li>Operating within global rapid-response teams[cite: 35].</li>
+                    <li>Performing scheduled "linguistic biopsies" on high-stakes Hebrew content.</li>
+                    <li>Diagnosing cultural context errors and sentiment misalignments in real-time.</li>
+                    <li>Operating within global rapid-response teams via MS Teams infrastructure.</li>
                 </ul>
 
-                <div class="job-head"><span>Freelance Medical Translator</span> <span>May 2023 – Present</span></div>
-                <div class="job-meta">Upwork (Top Rated)</div>
+                <div class="job-head"><span>Freelance Medical Translator (Top Rated)</span> <span>May 2023 – Present</span></div>
+                <div class="job-meta">Upwork / Global Clients</div>
                 <ul>
-                    <li><strong>100% Job Success Score</strong> with zero errors reported[cite: 40].</li>
-                    <li>Translation of clinical trials, informed consents, and device manuals[cite: 39].</li>
-                    <li>Human-verified MTPE workflows[cite: 41].</li>
+                    <li><strong>100% Job Success Score</strong> achieved with zero errors reported.</li>
+                    <li>Translation of clinical trials, informed consents, and device manuals.</li>
+                    <li>Method: Human-verified MTPE (Machine Translation Post-Editing).</li>
+                </ul>
+
+                <div class="job-head"><span>Video Editor & Subtitle Specialist</span> <span>May 2023 – Present</span></div>
+                <div class="job-meta">Lipswan / Freelance</div>
+                <ul>
+                    <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules.</li>
+                    <li>Ensuring cognitive accessibility through precise audio-visual timing.</li>
                 </ul>
 
                 <h2>EDUCATION</h2>
                 <div class="job-head"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
                 <div class="job-meta">Universidad Nacional de Mar del Plata</div>
-                <p>Acquiring deep knowledge of Anatomy and Physiology directly applied to translation accuracy[cite: 49].</p>
+                <p>Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy.</p>
             </div>
         </div>
     </div>
     <div class="resizer" onmousedown="resizeStart(event, 'win-cv')"></div>
 </div>
 
-<div id="win-ie" class="window" style="top: 50px; left: 80px; width: 800px; height: 500px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-ie')">
-        <div style="display:flex;gap:5px;align-items:center;"><span>🌐</span> Internet Explorer</div>
-        <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-ie')">_</div>
-            <div class="btn btn-max" onclick="maxWindow('win-ie')">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-ie')">×</div>
-        </div>
-    </div>
-    <div class="window-content">
-        <div style="padding:5px; background:#ece9d8; border-bottom:1px solid #999; display:flex; gap:5px;">
-            <span>Address:</span>
-            <input type="text" value="https://danilohurwitz.github.io/main/" style="flex-grow:1; font-size:11px;">
-            <button onclick="document.getElementById('ie-frame').src='https://danilohurwitz.github.io/main/'">Go</button>
-        </div>
-        <iframe id="ie-frame" src="https://danilohurwitz.github.io/main/" style="border:none; flex-grow:1; width:100%;"></iframe>
-    </div>
-    <div class="resizer" onmousedown="resizeStart(event, 'win-ie')"></div>
-</div>
-
-<div id="win-winamp" class="window" style="top: 150px; left: 400px; width: 300px; height: 180px; border:none; background:transparent; box-shadow:none;">
-    <div class="title-bar" style="background:#444; border:none;" onmousedown="dragStart(event, 'win-winamp')">
-        <div style="display:flex;gap:5px;"><span>⚡</span> WINAMP</div>
-        <div class="win-controls"><div class="btn btn-close" onclick="closeWindow('win-winamp')">×</div></div>
-    </div>
-    <div class="window-content" style="background:#222; border:none; border-top:2px solid #555;">
-        <div class="winamp-skin">
-            <div class="wa-screen">DANILO_WORK_FLOW_MIX.mp3</div>
-            <div class="visualizer">
-                <div class="v-bar" style="animation-delay:0s"></div><div class="v-bar" style="animation-delay:0.1s"></div>
-                <div class="v-bar" style="animation-delay:0.2s"></div><div class="v-bar" style="animation-delay:0.3s"></div>
-                <div class="v-bar" style="animation-delay:0.1s"></div><div class="v-bar" style="animation-delay:0.4s"></div>
-            </div>
-            <div style="display:flex; justify-content:space-between; margin-top:10px;">
-                <button style="background:#ccc; width:40px;">Prev</button>
-                <button style="background:#ccc; width:40px;">Play</button>
-                <button style="background:#ccc; width:40px;">Pause</button>
-                <button style="background:#ccc; width:40px;">Stop</button>
-                <button style="background:#ccc; width:40px;">Next</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="win-skills" class="window" style="top: 100px; left: 200px; width: 450px; height: 350px;">
+<div id="win-skills" class="window" style="top: 80px; left: 150px; width: 500px; height: 400px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-skills')">
-        <div style="display:flex;gap:5px;align-items:center;"><span>📁</span> C:\Danilo\Skills</div>
+        <div style="display:flex;gap:5px;align-items:center;">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" width="16">
+            C:\Danilo\Skills
+        </div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-skills')">_</div>
             <div class="btn btn-max" onclick="maxWindow('win-skills')">□</div>
@@ -265,59 +261,145 @@
         </div>
     </div>
     <div class="window-content" style="flex-direction:row;">
-        <div style="width:120px; background:linear-gradient(to bottom, #7ba2e7, #6375d6); padding:10px; color:white;">
+        <div style="width:130px; background:linear-gradient(to bottom, #7ba2e7, #6375d6); padding:10px; color:white;">
             <strong>Skills Tasks</strong><br><br>
-            <span style="font-size:10px;">View file details</span>
+            <span style="font-size:10px;">Select an item to view its description.</span>
         </div>
-        <div style="flex-grow:1; background:white; padding:10px; display:flex; flex-wrap:wrap; gap:15px; align-content:start;">
-            <div class="icon" style="color:black; text-shadow:none; width:60px;">
-                <div style="font-size:32px;">🇪🇸</div><span>Spanish<br>C2</span>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
+                <span class="skill-text">Spanish<br><strong>Native C2</strong></span>
             </div>
-            <div class="icon" style="color:black; text-shadow:none; width:60px;">
-                <div style="font-size:32px;">🇮🇱</div><span>Hebrew<br>C1</span>
+            <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
+                <span class="skill-text">Hebrew<br><strong>Fluent C1</strong></span>
             </div>
-            <div class="icon" style="color:black; text-shadow:none; width:60px;">
-                <div style="font-size:32px;">🇺🇸</div><span>English<br>C1</span>
+            <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
+                <span class="skill-text">English<br><strong>Medical C1</strong></span>
             </div>
-            <div class="icon" style="color:black; text-shadow:none; width:60px;">
-                <div style="font-size:32px;">💊</div><span>Medical<br>Terms</span>
+            <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png" class="skill-icon">
+                <span class="skill-text">Medical<br>Terms</span>
+            </div>
+            <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png" class="skill-icon">
+                <span class="skill-text">Video Edit<br>(CapCut)</span>
+            </div>
+             <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png" class="skill-icon">
+                <span class="skill-text">Subtitles<br>Sync</span>
+            </div>
+             <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" class="skill-icon">
+                <span class="skill-text">MTPE<br>Workflow</span>
+            </div>
+             <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" class="skill-icon">
+                <span class="skill-text">Office<br>Suite</span>
+            </div>
+             <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/users-1.png" class="skill-icon">
+                <span class="skill-text">Team<br>Work</span>
             </div>
         </div>
     </div>
     <div class="resizer" onmousedown="resizeStart(event, 'win-skills')"></div>
 </div>
 
-<div id="win-contact" class="window" style="top: 180px; left: 300px; width: 350px; height: 250px;">
+<div id="win-winamp" class="window" style="top: 150px; left: 450px; width: 300px; height: 250px; border:none; background:transparent; box-shadow:none;">
+    <div class="title-bar" style="background:#444; border:none;" onmousedown="dragStart(event, 'win-winamp')">
+        <div style="display:flex;gap:5px;"><span>⚡</span> WINAMP</div>
+        <div class="win-controls"><div class="btn btn-min" onclick="minWindow('win-winamp')">_</div><div class="btn btn-close" onclick="closeWindow('win-winamp')">×</div></div>
+    </div>
+    <div class="window-content" style="background:#222; border:none; border-top:2px solid #555;">
+        <div class="winamp-skin">
+            <div class="wa-header"><span>DANILO PLAYER</span><span>02:34</span></div>
+            <div class="wa-screen">
+                <span id="wa-song">1. MEDICAL_TRANSLATION_MIX.mp3</span>
+                <div class="wa-visualizer">
+                    <div class="v-bar" style="animation-delay:0s"></div><div class="v-bar" style="animation-delay:0.2s"></div>
+                    <div class="v-bar" style="animation-delay:0.4s"></div><div class="v-bar" style="animation-delay:0.1s"></div>
+                    <div class="v-bar" style="animation-delay:0.3s"></div><div class="v-bar" style="animation-delay:0.5s"></div>
+                    <div class="v-bar" style="animation-delay:0.2s"></div><div class="v-bar" style="animation-delay:0.1s"></div>
+                    <div class="v-bar" style="animation-delay:0.4s"></div><div class="v-bar" style="animation-delay:0.0s"></div>
+                </div>
+            </div>
+            <div class="wa-controls">
+                <button class="wa-btn">|&lt;</button><button class="wa-btn">||</button><button class="wa-btn">&gt;</button>
+            </div>
+            <div class="wa-playlist">
+                <div class="wa-track">1. Medical_Translation_Mix.mp3</div>
+                <div class="wa-track">2. Hebrew_Fluency_10yrs.wav</div>
+                <div class="wa-track">3. Spanish_Native_Vibes.ogg</div>
+                <div class="wa-track">4. English_C1_Proficiency.mp3</div>
+                <div class="wa-track">5. Video_Editing_Beats.flac</div>
+                <div class="wa-track">6. 100_Percent_JSS_Anthem.mp3</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="win-ie" class="window" style="top: 40px; left: 80px; width: 800px; height: 500px;">
+    <div class="title-bar" onmousedown="dragStart(event, 'win-ie')">
+        <div style="display:flex;gap:5px;align-items:center;">
+            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" width="16"> Internet Explorer
+        </div>
+        <div class="win-controls">
+            <div class="btn btn-min" onclick="minWindow('win-ie')">_</div>
+            <div class="btn btn-max" onclick="maxWindow('win-ie')">□</div>
+            <div class="btn btn-close" onclick="closeWindow('win-ie')">×</div>
+        </div>
+    </div>
+    <div class="window-content">
+        <div class="word-toolbar">
+            <span>Back</span><span>Forward</span><span>Stop</span><span>Refresh</span><span>Home</span>
+            <input type="text" value="https://danilohurwitz.github.io/main/" style="width:300px; font-size:11px;">
+        </div>
+        <iframe src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
+    </div>
+    <div class="resizer" onmousedown="resizeStart(event, 'win-ie')"></div>
+</div>
+
+<div id="win-contact" class="window" style="top: 180px; left: 300px; width: 400px; height: 280px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-contact')">
-        <div style="display:flex;gap:5px;align-items:center;"><span>📧</span> Contact Info</div>
+        <div style="display:flex;gap:5px;align-items:center;">
+            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" width="16"> Contact
+        </div>
         <div class="win-controls"><div class="btn btn-min" onclick="minWindow('win-contact')">_</div><div class="btn btn-close" onclick="closeWindow('win-contact')">×</div></div>
     </div>
-    <div class="window-content" style="padding:15px; font-family:Verdana;">
-        <p><strong>Danilo Hurwitz</strong></p>
-        <ul>
-            <li>📧 dhurwitzbecerra@mdp.edu.ar [cite: 9]</li>
-            <li>📞 +54 9 2302 21-9422 [cite: 14]</li>
-            <li>📍 Mar del Plata, ARG [cite: 7]</li>
-        </ul>
-        <button style="margin-top:10px; padding:5px 10px;">Send Message</button>
+    <div class="window-content">
+        <div class="word-toolbar"><span>Send</span><span>Attach</span><span>Priority</span></div>
+        <div class="contact-form">
+            <div class="form-row"><span class="form-label">To:</span> <input class="form-input" value="Recruiter" disabled></div>
+            <div class="form-row"><span class="form-label">From:</span> <input class="form-input" value="Danilo Hurwitz" disabled></div>
+            <div class="contact-card">
+                <strong>Danilo Hurwitz</strong><br>
+                MD Candidate | Translator<br><br>
+                📧 dhurwitzbecerra@mdp.edu.ar<br>
+                📞 +54 9 2302 21-9422<br>
+                📍 Mar del Plata, Argentina
+            </div>
+            <button style="padding:5px;">Send Inquiry</button>
+        </div>
     </div>
 </div>
 
 <div id="clippy-container">
     <div class="chat-bubble" id="clippy-chat">
         <div class="chat-history" id="chat-history">
-            <div class="msg-ai">Hi! I'm Clippy. Ask me about Danilo's <strong>experience</strong>, <strong>languages</strong>, or <strong>contact</strong> info!</div>
+            <div class="msg-ai">Hi! I'm Clippy. Ask me about Danilo's <strong>experience</strong>, <strong>Hebrew</strong> skills, or <strong>contact</strong> info!</div>
         </div>
         <div class="chat-input-area">
             <input type="text" id="user-input" class="chat-input" placeholder="Type here..." onkeypress="handleEnter(event)">
-            <button class="chat-send" onclick="sendMessage()">Send</button>
+            <button class="chat-btn" onclick="sendMessage()">Send</button>
         </div>
     </div>
-    <div class="clippy-img" onclick="toggleClippy()">📎</div>
+    <div class="clippy-img" onclick="toggleClippy()"></div>
 </div>
 
 <div id="taskbar">
-    <div id="start-btn" onclick="alert('Start Menu coming in SP2!')">
+    <div id="start-btn" onclick="alert('System Ready.')">
         <div style="display:grid; grid-template-columns:1fr 1fr; width:16px; height:16px; border-radius:50%; background:white; padding:1px; gap:1px;">
             <div style="background:#e04a3d;"></div><div style="background:#68ae4a;"></div>
             <div style="background:#3988e4;"></div><div style="background:#focb2f;"></div>
@@ -326,7 +408,7 @@
     </div>
     <div id="task-list"></div>
     <div id="tray">
-        <span>🛡️</span>
+        <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" width="16">
         <span id="clock">12:00 PM</span>
     </div>
 </div>
@@ -344,7 +426,6 @@
 
     // --- WINDOW MANAGEMENT ---
     let zIndex = 100;
-    const windows = ['win-cv', 'win-ie', 'win-skills', 'win-winamp', 'win-contact'];
 
     function openWindow(id) {
         const win = document.getElementById(id);
@@ -357,16 +438,15 @@
         document.getElementById(id).style.display = 'none';
         updateTaskbar();
     }
-
+    
     function minWindow(id) {
         document.getElementById(id).style.display = 'none';
-        // Note: Taskbar item remains
     }
 
     function maxWindow(id) {
         const win = document.getElementById(id);
         if(win.style.width === '100%') {
-            win.style.width = '600px'; win.style.height = '500px'; win.style.top = '50px'; win.style.left = '50px';
+            win.style.width = '700px'; win.style.height = '500px'; win.style.top = '50px'; win.style.left = '50px';
         } else {
             win.style.width = '100%'; win.style.height = 'calc(100% - 30px)'; win.style.top = '0'; win.style.left = '0';
         }
@@ -380,26 +460,32 @@
     function updateTaskbar() {
         const list = document.getElementById('task-list');
         list.innerHTML = '';
-        windows.forEach(id => {
-            const win = document.getElementById(id);
-            if (win.style.display === 'flex') {
+        document.querySelectorAll('.window').forEach(w => {
+            if(w.style.display === 'flex') {
                 const item = document.createElement('div');
                 item.className = 'task-item active';
                 // Clean title
-                let title = win.querySelector('.title-bar').innerText;
-                item.innerText = title.substring(0, 15) + '...';
-                item.onclick = () => bringFront(id);
+                let title = w.querySelector('.title-bar').innerText;
+                // Add icon based on window ID
+                let iconUrl = "";
+                if(w.id==='win-cv') iconUrl="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png";
+                if(w.id==='win-skills') iconUrl="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png";
+                if(w.id==='win-ie') iconUrl="https://win98icons.alexmeub.com/icons/png/msie1-2.png";
+                if(w.id==='win-winamp') iconUrl="https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-4.png";
+                if(w.id==='win-contact') iconUrl="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png";
+                
+                item.innerHTML = `<img src="${iconUrl}" width="14" style="margin-right:4px;"> ${title.substring(0, 15)}...`;
+                item.onclick = () => bringFront(w.id);
                 list.appendChild(item);
             }
         });
     }
 
-    // --- CLIPPY LOGIC (IA SIMULADA) ---
+    // --- CLIPPY IA LOGIC ---
     function toggleClippy() {
         const c = document.getElementById('clippy-chat');
         c.style.display = c.style.display === 'block' ? 'none' : 'block';
     }
-    // Auto open
     setTimeout(() => document.getElementById('clippy-chat').style.display = 'block', 1000);
 
     function handleEnter(e) {
@@ -414,36 +500,41 @@
         const hist = document.getElementById('chat-history');
         hist.innerHTML += `<div class="msg-user">${input.value}</div>`;
         input.value = '';
+        hist.scrollTop = hist.scrollHeight;
 
-        // IA LOGIC
+        // IA LOGIC (Enhanced Keywords)
         let response = "";
         let action = null;
 
-        if (text.includes('experiencia') || text.includes('trabajo') || text.includes('experience') || text.includes('job')) {
+        // Keywords for Experience
+        if (['experiencia', 'trabajo', 'experience', 'job', 'work', 'cv', 'resume', 'resumen', 'curriculum', 'icuc', 'upwork'].some(k => text.includes(k))) {
             response = "Danilo works at ICUC Social and is a Top Rated Translator on Upwork. Opening his CV...";
             action = 'win-cv';
         } 
-        else if (text.includes('hebreo') || text.includes('idioma') || text.includes('language') || text.includes('english')) {
-            response = "He speaks Spanish (Native), Hebrew (C1), and English (C1). Opening Skills...";
+        // Keywords for Languages/Skills
+        else if (['hebreo', 'hebrew', 'idioma', 'lenguaje', 'language', 'english', 'ingles', 'spanish', 'espanol', 'skill', 'habilidad'].some(k => text.includes(k))) {
+            response = "Yes! He is C1 Fluent in Hebrew (10 years immersion), Native Spanish, and C1 English. Opening Skills...";
             action = 'win-skills';
         }
-        else if (text.includes('medico') || text.includes('doctor') || text.includes('estudio') || text.includes('medical')) {
-            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening CV...";
+        // Keywords for Medical/Education
+        else if (['medico', 'doctor', 'estudio', 'medical', 'education', 'universidad', 'anatomy', 'medicine'].some(k => text.includes(k))) {
+            response = "He is an MD Candidate at UNMDP (Class of 2029). He uses this knowledge for translations. Opening CV...";
             action = 'win-cv';
         }
-        else if (text.includes('contacto') || text.includes('contact') || text.includes('mail')) {
+        // Keywords for Contact
+        else if (['contacto', 'contact', 'mail', 'email', 'phone', 'telefono', 'llamar', 'call'].some(k => text.includes(k))) {
             response = "Here is his contact info.";
             action = 'win-contact';
         }
         else {
-            response = "I'm not sure about that. Try asking about: 'Experience', 'Languages', or 'Contact'.";
+            response = "I'm not sure. Try asking about: 'Hebrew', 'Experience', or 'Contact'.";
         }
 
         setTimeout(() => {
             hist.innerHTML += `<div class="msg-ai">${response}</div>`;
             hist.scrollTop = hist.scrollHeight;
             if(action) openWindow(action);
-        }, 500);
+        }, 600);
     }
 
     // --- DRAGGABLE ---
@@ -488,6 +579,9 @@
             document.onmousemove = null; document.onmouseup = null;
         }
     }
+    
+    // Auto open main window
+    setTimeout(() => openWindow('win-cv'), 500);
 </script>
 
 </body>
