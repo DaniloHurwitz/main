@@ -2,282 +2,397 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Danilo Hurwitz - Receipt CV</title>
+    <title>Scouting Report - Danilo Hurwitz</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=VT323&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Roboto:wght@400;500;900&display=swap');
 
         :root {
-            --bg-color: #e0e0e0;
-            --receipt-bg: #fff;
-            --ink: #222;
+            --fm-dark: #1b1b1b;
+            --fm-purple: #341f41; /* Color clásico FM moderno */
+            --fm-accent: #b0e0e6;
+            --stat-high: #32cd32; /* Verde para atributos altos 16-20 */
+            --stat-med: #ffd700;  /* Amarillo para 10-15 */
+            --bg-gray: #f4f4f5;
+            --panel-white: #ffffff;
+            --text-main: #333;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: #e0e0e0;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
+            color: var(--text-main);
+        }
+
+        .scout-report {
+            width: 210mm;
+            height: 297mm; /* A4 */
+            background-color: var(--bg-gray);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: grid;
+            grid-template-rows: 100px 1fr;
+            overflow: hidden;
+            border-top: 5px solid var(--fm-purple);
+        }
+
+        /* HEADER SECTION */
+        .header-bar {
+            background: linear-gradient(90deg, #2c1a36 0%, #4a2b5e 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+        }
+        
+        .player-identity {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .face-placeholder {
+            width: 70px;
+            height: 70px;
+            background-color: #ddd;
+            border-radius: 4px;
+            border: 2px solid rgba(255,255,255,0.3);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23333"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>');
+            background-size: cover;
+        }
+
+        .name-box h1 {
             margin: 0;
-            padding: 40px 0;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .receipt-container {
-            width: 80mm; /* Ancho típico de ticket ancho */
-            min-height: 200mm;
-            background-color: var(--receipt-bg);
-            padding: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-            position: relative;
-            color: var(--ink);
-            /* Dientes de sierra (CSS ZigZag) */
-            --mask: radial-gradient(circle at 10px bottom, transparent 10px, black 10.5px) bottom left / 20px 20px repeat-x,
-                    linear-gradient(black, black);
-            -webkit-mask: var(--mask);
-            -webkit-mask-composite: source-in, source-over; /* Chrome */
-            mask: var(--mask);
-            mask-composite: intersect;
-        }
-
-        /* Si el soporte de mask falla, un borde simple */
-        @supports not (-webkit-mask: var(--mask)) {
-            .receipt-container { border-bottom: 2px dashed #999; }
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        h1 {
-            font-family: 'VT323', monospace;
-            font-size: 32pt;
-            margin: 0;
+            font-size: 24pt;
+            font-family: 'Roboto Condensed', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            line-height: 1;
+            letter-spacing: 1px;
+        }
+        .name-box .flag-row {
+            display: flex;
+            gap: 10px;
+            font-size: 10pt;
+            opacity: 0.9;
+            margin-top: 4px;
+        }
+        .nat-flag { font-weight: bold; color: var(--fm-accent); }
+
+        .club-info {
+            text-align: right;
+        }
+        .club-logo {
+            font-size: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        .position-tag {
+            background-color: var(--stat-high);
+            color: #000;
+            padding: 4px 10px;
+            font-weight: 900;
+            font-size: 11pt;
+            border-radius: 2px;
+            margin-top: 5px;
+            display: inline-block;
         }
 
-        .meta-info {
-            font-size: 9pt;
-            text-align: center;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed var(--ink);
-            padding-bottom: 10px;
+        /* MAIN CONTENT GRID */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; /* 2 Columnas: Atributos | Info */
+            gap: 15px;
+            padding: 20px;
         }
 
-        .divider {
-            border-top: 1px dashed var(--ink);
-            margin: 10px 0;
+        /* COLUMNA IZQUIERDA: ATRIBUTOS */
+        .attributes-panel {
+            background-color: var(--panel-white);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .section-title {
+        .section-header {
+            background-color: var(--fm-purple);
+            color: white;
+            padding: 5px 10px;
+            font-family: 'Roboto Condensed', sans-serif;
             font-weight: 700;
             text-transform: uppercase;
             font-size: 10pt;
-            margin: 15px 0 5px 0;
-            text-align: center;
-            background: #000;
-            color: #fff;
-            padding: 2px;
+            margin-bottom: 10px;
+            border-radius: 2px;
         }
 
-        /* ITEM LIST */
-        .item-row {
-            display: flex;
-            justify-content: space-between;
+        .attr-table {
+            width: 100%;
+            border-collapse: collapse;
             font-size: 9pt;
-            margin-bottom: 6px;
-            align-items: flex-start;
+            margin-bottom: 15px;
         }
-        .qty { width: 10%; text-align: center; }
-        .item-desc { width: 65%; }
-        .price { width: 25%; text-align: right; font-weight: 700; }
+        .attr-table td { padding: 3px 0; border-bottom: 1px solid #eee; }
+        .attr-name { text-align: left; color: #555; }
+        .attr-val { text-align: right; font-weight: 900; font-family: 'Roboto Condensed'; width: 30px; }
+        
+        .val-high { color: #008000; background: rgba(50, 205, 50, 0.1); border-radius:3px; padding:0 4px; }
+        .val-med { color: #b8860b; }
+        
+        /* POLYGON CHART (CSS ONLY TRICK) */
+        .polygon-container {
+            width: 100%;
+            height: 180px;
+            position: relative;
+            margin-top: auto;
+            background: radial-gradient(circle, #fff 0%, #f0f0f0 70%);
+            border: 1px solid #eee;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .polygon-label {
+            position: absolute;
+            font-size: 7pt;
+            font-weight: bold;
+            color: #666;
+            text-transform: uppercase;
+        }
+        /* Posicionamiento manual de etiquetas del hexágono */
+        .lbl-top { top: 10px; }
+        .lbl-tr { top: 40px; right: 10px; }
+        .lbl-br { bottom: 40px; right: 10px; }
+        .lbl-bot { bottom: 10px; }
+        .lbl-bl { bottom: 40px; left: 10px; }
+        .lbl-tl { top: 40px; left: 10px; }
 
-        .item-sub {
-            display: block;
-            font-size: 7.5pt;
-            color: #555;
-            font-style: italic;
-            margin-top: 2px;
+        /* COLUMNA DERECHA: INFO Y CARRERA */
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        /* TOTAL SECTION */
-        .total-section {
-            margin-top: 20px;
-            border-top: 2px solid var(--ink);
-            padding-top: 10px;
+        .box-card {
+            background: var(--panel-white);
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 15px;
         }
-        .total-row {
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .pro-list, .con-list { list-style: none; padding: 0; margin: 0; font-size: 9pt; }
+        .pro-item::before { content: "✅"; margin-right: 5px; }
+        .con-item::before { content: "⚠️"; margin-right: 5px; }
+        .pro-item, .con-item { margin-bottom: 5px; }
+
+        /* CAREER HISTORY (TABLE) */
+        .career-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+        .career-table th { 
+            text-align: left; 
+            border-bottom: 2px solid var(--fm-purple); 
+            color: var(--fm-purple); 
+            font-family: 'Roboto Condensed';
+            padding-bottom: 4px;
+        }
+        .career-table td { 
+            padding: 8px 0; 
+            border-bottom: 1px solid #eee; 
+            vertical-align: top;
+        }
+        .year-col { width: 40px; font-weight: bold; color: #777; }
+        .team-col { font-weight: 700; color: #000; }
+        .role-col { font-style: italic; color: #555; font-size: 8.5pt; display: block;}
+        .perf-col { text-align: right; font-weight: bold; color: var(--text-main); }
+
+        /* FOOTER STATUS */
+        .contract-status {
+            margin-top: auto;
+            background-color: #f9f9f9;
+            border-top: 2px solid var(--fm-purple);
+            padding: 15px;
             display: flex;
             justify-content: space-between;
-            font-size: 14pt;
-            font-weight: 700;
-            font-family: 'VT323', monospace;
+            align-items: center;
         }
-
-        .barcode-box {
-            text-align: center;
-            margin-top: 30px;
-            margin-bottom: 20px;
+        .price-tag {
+            font-size: 16pt;
+            font-weight: 900;
+            color: var(--fm-purple);
         }
-        .barcode {
-            font-family: 'Libre Barcode 39', cursive; /* Fallback visual */
-            font-size: 30pt;
-            transform: scaleY(1.5);
-            letter-spacing: 5px;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        /* CSS Barcode Hack */
-        .css-barcode {
-            height: 40px;
-            background: repeating-linear-gradient(
-                90deg,
-                #000 0px, #000 2px,
-                transparent 2px, transparent 4px,
-                #000 4px, #000 5px,
-                transparent 5px, transparent 9px
-            );
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .footer-msg {
-            text-align: center;
-            font-size: 8pt;
-            margin-top: 10px;
+        .contact-btn {
+            background-color: var(--stat-high);
+            color: #000;
+            padding: 5px 15px;
+            text-decoration: none;
+            font-weight: bold;
+            font-family: 'Roboto Condensed';
             text-transform: uppercase;
+            border-radius: 3px;
         }
 
         @media print {
-            body { background: none; padding: 0; display: block; }
-            .receipt-container {
-                width: 100%;
-                box-shadow: none;
-                margin: 0 auto;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
+            body { background: none; }
+            .scout-report { width: 100%; height: 100%; box-shadow: none; border: none; }
+            .val-high { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .header-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         }
     </style>
 </head>
 <body>
 
-    <div class="receipt-container">
-        
-        <div class="header">
-            <h1>DANILO INC.</h1>
-            <div style="font-size: 9pt;">Professional Services & Talent</div>
-        </div>
-
-        <div class="meta-info">
-            SERVER: Danilo Hurwitz<br>
-            TABLE: Freelance / Remote<br>
-            DATE: 10/12/2025<br>
-            REF: #TR-MD-2025
-        </div>
-
-        <div class="section-title">LANGUAGES (CONSUMABLES)</div>
-        
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                SPANISH (NATIVE)
-                <span class="item-sub">Castilian / LATAM Variant</span>
-            </div>
-            <span class="price">C2 LEVEL</span>
-        </div>
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                HEBREW (FLUENT)
-                <span class="item-sub">10 Yrs Immersion / Cultural Nuance</span>
-            </div>
-            <span class="price">C1 LEVEL</span>
-        </div>
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                ENGLISH (FLUENT)
-                <span class="item-sub">Medical Proficiency</span>
-            </div>
-            <span class="price">C1 LEVEL</span>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section-title">EXPERIENCE (SERVICES)</div>
-
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                CONTENT SPECIALIST
-                <span class="item-sub">ICUC Social (Nov 25 - Present)<br>Linguistic Biopsies / QA</span>
-            </div>
-            <span class="price">HIRED</span>
-        </div>
-
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                MEDICAL TRANSLATOR
-                <span class="item-sub">Upwork (Top Rated)<br>Clinical Trials / Manuals</span>
-            </div>
-            <span class="price">*****</span>
-        </div>
-
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                VIDEO EDITOR
-                <span class="item-sub">Viral Clips / Subtitling</span>
-            </div>
-            <span class="price">FAST</span>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="section-title">EDUCATION (R&D)</div>
-        <div class="item-row">
-            <span class="qty">1</span>
-            <div class="item-desc">
-                MD CANDIDATE
-                <span class="item-sub">Universidad Nac. Mar del Plata<br>Exp. 2029</span>
-            </div>
-            <span class="price">IN PROG</span>
-        </div>
-
-        <div class="total-section">
-            <div class="total-row">
-                <span>SUBTOTAL:</span>
-                <span>YEARS OF EXP.</span>
-            </div>
-            <div class="total-row">
-                <span>TAX (ERRORS):</span>
-                <span>0.00</span>
-            </div>
-            <div class="total-row" style="font-size: 18pt; margin-top: 10px;">
-                <span>TOTAL:</span>
-                <span>HIRE ME</span>
+<div class="scout-report">
+    
+    <div class="header-bar">
+        <div class="player-identity">
+            <div class="face-placeholder"></div>
+            <div class="name-box">
+                <div class="flag-row">
+                    <span class="nat-flag">🇦🇷 ARG</span> / <span class="nat-flag">🇪🇸 ESP</span> 
+                    <span>| 21 Y/O</span>
+                </div>
+                <h1>Danilo Hurwitz</h1>
             </div>
         </div>
-
-        <div class="barcode-box">
-            <div class="css-barcode"></div>
-            <div style="font-size: 8pt; letter-spacing: 3px; margin-top:5px;">TR-MD-2025-HE-EN-ES</div>
+        <div class="club-info">
+            <div class="club-logo">Current Team: ICUC SOCIAL</div>
+            <div class="position-tag">MED / TRANS / EDIT</div>
         </div>
-
-        <div class="footer-msg">
-            THANK YOU FOR YOUR BUSINESS!<br><br>
-            <strong>CONTACT:</strong><br>
-            dhurwitzbecerra@mdp.edu.ar<br>
-            +54 9 2302 21-9422<br>
-            Mar del Plata, AR
-        </div>
-
     </div>
+
+    <div class="content-grid">
+        
+        <div class="attributes-panel">
+            
+            <div class="section-header">Technical Attributes</div>
+            <table class="attr-table">
+                <tr><td class="attr-name">Medical Translation</td><td class="attr-val"><span class="val-high">19</span></td></tr>
+                <tr><td class="attr-name">Hebrew Fluency</td><td class="attr-val"><span class="val-high">18</span></td></tr>
+                <tr><td class="attr-name">English (Medical)</td><td class="attr-val"><span class="val-high">18</span></td></tr>
+                <tr><td class="attr-name">Spanish (Native)</td><td class="attr-val"><span class="val-high">20</span></td></tr>
+                <tr><td class="attr-name">Video Editing</td><td class="attr-val"><span class="val-med">15</span></td></tr>
+                <tr><td class="attr-name">Graphic Design</td><td class="attr-val"><span class="val-med">14</span></td></tr>
+                <tr><td class="attr-name">Subtitling</td><td class="attr-val"><span class="val-high">17</span></td></tr>
+            </table>
+
+            <div class="section-header">Mental Attributes</div>
+            <table class="attr-table">
+                <tr><td class="attr-name">Determination</td><td class="attr-val"><span class="val-high">20</span></td></tr>
+                <tr><td class="attr-name">Work Rate</td><td class="attr-val"><span class="val-high">19</span></td></tr>
+                <tr><td class="attr-name">Adaptability</td><td class="attr-val"><span class="val-high">17</span></td></tr>
+                <tr><td class="attr-name">Concentration</td><td class="attr-val"><span class="val-high">18</span></td></tr>
+                <tr><td class="attr-name">Teamwork</td><td class="attr-val"><span class="val-high">16</span></td></tr>
+            </table>
+
+            <div class="polygon-container">
+                <svg width="140" height="140" viewBox="0 0 100 100" style="position: absolute;">
+                    <polygon points="50,5 90,25 90,75 50,95 10,75 10,25" fill="rgba(50, 205, 50, 0.2)" stroke="#32cd32" stroke-width="2"/>
+                    <line x1="50" y1="50" x2="50" y2="5" stroke="#ddd" />
+                    <line x1="50" y1="50" x2="90" y2="25" stroke="#ddd" />
+                    <line x1="50" y1="50" x2="90" y2="75" stroke="#ddd" />
+                    <line x1="50" y1="50" x2="50" y2="95" stroke="#ddd" />
+                    <line x1="50" y1="50" x2="10" y2="75" stroke="#ddd" />
+                    <line x1="50" y1="50" x2="10" y2="25" stroke="#ddd" />
+                </svg>
+                <div class="polygon-label lbl-top">TRANS</div>
+                <div class="polygon-label lbl-tr">MED</div>
+                <div class="polygon-label lbl-br">EDIT</div>
+                <div class="polygon-label lbl-bot">QA</div>
+                <div class="polygon-label lbl-bl">COMM</div>
+                <div class="polygon-label lbl-tl">LANG</div>
+            </div>
+
+        </div>
+
+        <div class="info-panel">
+            
+            <div class="box-card">
+                <div class="section-header">Scout Summary</div>
+                <div class="pros-cons">
+                    <ul class="pro-list">
+                        <li class="pro-item"><strong>Elite Trilingual:</strong> Combines Hebrew, English, and Spanish at a native/clinical level.</li>
+                        <li class="pro-item"><strong>Medical Background:</strong> MD Candidate status adds huge value to pharma projects.</li>
+                        <li class="pro-item"><strong>Versatile:</strong> Can play as Translator or Content Editor.</li>
+                    </ul>
+                    <ul class="con-list">
+                        <li class="con-item"><strong>Perfectionist:</strong> May obsess over terminology details.</li>
+                        <li class="con-item"><strong>Student Status:</strong> Balances heavy workload (High Determination required).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="box-card">
+                <div class="section-header">Career Stats</div>
+                <table class="career-table">
+                    <tr>
+                        <th class="year-col">Year</th>
+                        <th>Team / Role</th>
+                        <th class="perf-col">Rating</th>
+                    </tr>
+                    <tr>
+                        <td class="year-col">2025-</td>
+                        <td>
+                            <div class="team-col">ICUC Social</div>
+                            <span class="role-col">Content Specialist / Hebrew QA</span>
+                        </td>
+                        <td class="perf-col">--</td>
+                    </tr>
+                    <tr>
+                        <td class="year-col">2023-</td>
+                        <td>
+                            <div class="team-col">Freelance (Upwork)</div>
+                            <span class="role-col">Medical Translator (Clinical Trials)</span>
+                        </td>
+                        <td class="perf-col">5.00</td>
+                    </tr>
+                    <tr>
+                        <td class="year-col">2023-</td>
+                        <td>
+                            <div class="team-col">Lipswan / Video</div>
+                            <span class="role-col">Subtitle & Video Editor</span>
+                        </td>
+                        <td class="perf-col">5.00</td>
+                    </tr>
+                    <tr>
+                        <td class="year-col">2029</td>
+                        <td>
+                            <div class="team-col">UNMDP (Education)</div>
+                            <span class="role-col">M.D. Graduation (Expected)</span>
+                        </td>
+                        <td class="perf-col">GPA+</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="contract-status">
+                <div>
+                    <div style="font-size: 8pt; color:#666; text-transform:uppercase;">Transfer Value</div>
+                    <div class="price-tag">FREELANCE / OPEN</div>
+                    <div style="font-size: 8pt; color:#666;">Contract expires: N/A</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="margin-bottom:5px;"><strong>+54 9 2302 21-9422</strong></div>
+                    <a href="mailto:dhurwitzbecerra@mdp.edu.ar" class="contact-btn">Make an Offer</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
