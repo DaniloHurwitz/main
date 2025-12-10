@@ -2,378 +2,128 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product Spec Sheet - Danilo Hurwitz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Danilo Hurwitz (Timeline Edit)</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Roboto+Mono:wght@400;700&display=swap');
-
         :root {
-            --black: #000;
-            --white: #fff;
-            --border-thick: 4px solid #000;
-            --border-thin: 1px solid #000;
+            --primary-color: #1a3c6e; /* Azul oscuro */
+            --accent-color: #f4b400; /* Dorado */
+            --text-color: #333;
+            --bg-light: #f0f4f8; /* Celeste pálido */
         }
-
-        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-            font-family: 'Roboto Mono', monospace; /* Fuente monoespaciada técnica */
+            font-family: 'Segoe UI', Roboto, sans-serif;
             font-size: 9pt;
-            color: var(--black);
             line-height: 1.3;
-        }
-
-        .spec-sheet {
-            background-color: var(--white);
+            color: var(--text-color);
+            background-color: #fff;
             width: 210mm;
             height: 297mm;
-            padding: 10mm;
-            border: var(--border-thick);
-            position: relative;
+            margin: 0 auto;
+            padding: 8mm;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
-
-        /* HEADER BLOQUE */
-        .header-block {
-            border-bottom: var(--border-thick);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
+        /* Header: Previsualización */
+        header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-        }
-
-        h1 {
-            font-family: 'Archivo Black', sans-serif; /* Fuente de impacto industrial */
-            font-size: 28pt;
-            margin: 0;
-            text-transform: uppercase;
-            line-height: 0.9;
-            letter-spacing: -1px;
-        }
-
-        .model-number {
-            font-size: 10pt;
-            font-weight: 700;
-            background: #000;
-            color: #fff;
-            padding: 2px 6px;
-            display: inline-block;
-            margin-bottom: 5px;
-        }
-
-        .qr-placeholder {
-            border: 2px solid #000;
-            padding: 5px;
-            text-align: center;
-            font-size: 7pt;
-            font-weight: bold;
-        }
-
-        /* CAJAS DE ADVERTENCIA */
-        .warning-box {
-            border: 2px solid #000;
-            padding: 8px;
-            margin-bottom: 15px;
-            display: flex;
             align-items: center;
-            gap: 10px;
-        }
-        .warning-icon {
-            font-size: 16pt;
-            font-weight: bold;
-        }
-        .warning-text {
-            font-size: 8pt;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        /* GRID PRINCIPAL */
-        .main-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            flex-grow: 1;
-        }
-
-        /* SECCIONES ESTILO ETIQUETA */
-        .spec-section {
-            border: var(--border-thin);
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .section-header {
-            background: #000;
-            color: #fff;
-            padding: 4px 8px;
-            font-family: 'Archivo Black', sans-serif;
-            text-transform: uppercase;
-            font-size: 10pt;
-        }
-
-        .section-content {
+            background: var(--bg-light);
             padding: 8px;
-            flex-grow: 1;
-        }
-
-        /* MODOS DE OPERACIÓN (EXPERIENCIA) */
-        .mode-item {
+            border: 1px solid var(--primary-color);
             margin-bottom: 10px;
-            border-bottom: 1px dashed #000;
-            padding-bottom: 5px;
         }
-        .mode-item:last-child { border-bottom: none; }
-
-        .mode-title {
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 9.5pt;
-            display: block;
+        .preview-name { font-size: 18pt; font-weight: bold; color: var(--primary-color); }
+        .timecode { font-size: 10pt; color: #666; background: #fff; padding: 2px 6px; border: 1px dashed #ccc; }
+        /* Bin de Archivos (Sidebar) */
+        .bin {
+            background: #e8eff8;
+            padding: 10px;
+            border: 1px solid var(--accent-color);
+            margin-bottom: 10px;
         }
-        .mode-sub {
-            font-size: 8pt;
-            font-style: italic;
-            margin-bottom: 3px;
-            display: block;
-        }
-        
-        ul { margin: 0; padding-left: 15px; }
-        li { font-size: 8.5pt; margin-bottom: 2px; }
-
-        /* ESPECIFICACIONES TÉCNICAS (SKILLS) */
-        .tech-row {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #ccc;
-            padding: 3px 0;
-        }
-        .tech-label { font-weight: 700; }
-
-        /* IDIOMAS - BARRAS DE CARGA */
-        .lang-row { margin-bottom: 5px; }
-        .lang-name { font-weight: 700; font-size: 9pt; display: flex; justify-content: space-between; }
-        .progress-bar {
-            height: 8px;
-            border: 1px solid #000;
-            width: 100%;
-            background: #fff;
-            margin-top: 2px;
+        .bin h2 { font-size: 10pt; color: var(--primary-color); border-bottom: 1px solid #ccc; margin-bottom: 5px; }
+        .bin ul { list-style: none; font-size: 8.5pt; }
+        .bin li { margin-bottom: 3px; padding-left: 10px; position: relative; }
+        .bin li::before { content: "📂"; position: absolute; left: 0; }
+        /* Timeline */
+        .timeline {
+            flex: 1;
+            background: linear-gradient(to bottom, #fff, #f8f8f8);
+            border: 1px solid var(--primary-color);
+            padding: 10px;
             position: relative;
         }
-        .fill {
-            height: 100%;
-            background: repeating-linear-gradient(
-                45deg,
-                #000,
-                #000 2px,
-                #fff 2px,
-                #fff 4px
-            );
+        .track {
+            margin-bottom: 8px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+            font-size: 9pt;
         }
-
-        /* FOOTER DIVERTIDO */
-        .footer-specs {
-            border-top: var(--border-thick);
-            padding-top: 10px;
-            margin-top: auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            font-size: 7.5pt;
-            text-align: center;
-        }
-        .footer-col { border-right: 1px solid #000; }
-        .footer-col:last-child { border-right: none; }
-
-        .stamp {
-            border: 3px solid #000;
-            font-family: 'Archivo Black';
-            text-transform: uppercase;
-            font-size: 14pt;
-            padding: 5px 10px;
-            transform: rotate(-5deg);
+        .track-header { font-weight: bold; color: var(--primary-color); font-size: 10pt; }
+        .track-content { font-size: 8.5pt; color: #444; }
+        /* Playhead */
+        .playhead {
             position: absolute;
-            bottom: 30mm;
-            right: 15mm;
-            background: #fff;
-            z-index: 10;
+            bottom: 10px;
+            right: 20px;
+            font-style: italic;
+            color: #888;
+            font-size: 8pt;
         }
-
-        a { color: #000; text-decoration: underline; font-weight: bold; }
-
         @media print {
-            body { margin: 0; padding: 0; }
-            .spec-sheet { width: 100%; height: 100%; border: 4px solid #000; }
-            @page { margin: 0; size: A4; }
+            body { margin: 0; width: 100%; -webkit-print-color-adjust: exact; }
+            @page { margin: 8mm; size: A4; }
         }
     </style>
 </head>
 <body>
-
-    <div class="spec-sheet">
-        
-        <div class="stamp">High<br>Performance<br>Unit</div>
-
-        <div class="header-block">
-            <div>
-                <div class="model-number">MODEL: DH-MULTI-2025</div>
-                <h1>THE SWISS ARMY<br>HUMAN UNIT</h1>
-                <div style="font-size: 9pt; margin-top: 5px;">
-                    <strong>PRODUCT NAME:</strong> Danilo Hurwitz (The "Do-It-All" Edition)<br>
-                    <strong>MANUFACTURED IN:</strong> Argentina (Spain/Israel Components)<br>
-                    <strong>AGE:</strong> 21 Years (Peak Efficiency)
-                </div>
-            </div>
-            <div style="text-align: right;">
-                <div class="qr-placeholder">
-                    SCAN FOR<br>DEMO<br>
-                    [QR]<br>
-                    <a href="https://danilohurwitz.github.io/main">PORTFOLIO</a>
-                </div>
-                <div style="font-size: 8pt; margin-top: 5px;">
-                    <strong>CONTACT:</strong><br>
-                    dhurwitzbecerra@mdp.edu.ar<br>
-                    +54 9 2302 21-9422
-                </div>
+    <header>
+        <div class="preview-name">Danilo Hurwitz</div>
+        <div class="timecode">21:00:00 (Dec 10, 2025)</div>
+    </header>
+    <section class="bin">
+        <h2>Assets (Contact & Languages)</h2>
+        <ul>
+            <li>Mar del Plata, Argentina</li>
+            <li>+54 9 2302 21-9422</li>
+            <li>dhurwitzbecerra@mdp.edu.ar</li>
+            <li>linkedin.com/in/danilo-hurwitz</li>
+            <li>upwork.com/freelancers/danilohurwitz</li>
+            <li>Portfolio: danilohurwitz.github.io/main</li>
+            <li>Spanish: Native (C2)</li>
+            <li>English: Fluent (C1)</li>
+            <li>Hebrew: Fluent (C1)</li>
+        </ul>
+    </section>
+    <section class="timeline">
+        <div class="track">
+            <div class="track-header">V1: Video Editing Track</div>
+            <div class="track-content">
+                Freelance Video Editor & Subtitle Creator (Upwork, May 2023 – Present): Create synchronized multilingual subtitles (HE/EN/ES) for medical e-learning and patient videos. Optimize audiovisual for clarity and engagement.
             </div>
         </div>
-
-        <div class="warning-box">
-            <div class="warning-icon">⚠ CAUTION:</div>
-            <div class="warning-text">
-                This unit is equipped with excessive multitasking capabilities. May correct your grammar in 3 languages while editing video and studying pathology simultaneously. Handle with care.
+        <div class="track">
+            <div class="track-header">A1: Translation & Audio Track</div>
+            <div class="track-content">
+                Freelance Translator & Proofreader (Upwork, May 2023 – Present): Top-Rated HE/EN/ES translations for medical and technical content. MTPE workflows ensuring native fluency. 100% Job Success Score.
             </div>
         </div>
-
-        <div class="main-grid">
-            
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                
-                <div class="spec-section" style="flex-grow: 1;">
-                    <div class="section-header">/// PRIMARY OPERATING MODES</div>
-                    <div class="section-content">
-                        
-                        <div class="mode-item">
-                            <span class="mode-title">MODE A: CONTENT GUARDIAN (QA)</span>
-                            <span class="mode-sub">ICUC Social | Nov 2025 - Present</span>
-                            <ul>
-                                <li>Executes linguistic quality checks (Hebrew).</li>
-                                <li>Detects cultural errors/sentiment flaws.</li>
-                                <li>High-speed remote operation via Teams.</li>
-                            </ul>
-                        </div>
-
-                        <div class="mode-item">
-                            <span class="mode-title">MODE B: THE LINGUIST (Translator)</span>
-                            <span class="mode-sub">Upwork (Top Rated) | May 2023 - Present</span>
-                            <ul>
-                                <li>Specialty: Medical/Technical (HE/EN/ES).</li>
-                                <li>Accuracy Rate: 100% (Zero defects reported).</li>
-                                <li>Protocol: MTPE + Human Verification.</li>
-                            </ul>
-                        </div>
-
-                        <div class="mode-item">
-                            <span class="mode-title">MODE C: THE CREATOR (Video)</span>
-                            <span class="mode-sub">Freelance | May 2023 - Present</span>
-                            <ul>
-                                <li>Video Editing & Subtitle Sync.</li>
-                                <li>Optimized for Social Media Retention.</li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="spec-section">
-                    <div class="section-header">/// BACKGROUND PROCESSES</div>
-                    <div class="section-content">
-                        <strong>MEDICAL STUDENT (MD)</strong><br>
-                        Running continuously at UNMDP (Exp. 2029).<br>
-                        <span style="font-size: 8pt; color: #555;">*Provides deep knowledge of anatomy/physiology to translation tasks.</span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 15px;">
-                
-                <div class="spec-section">
-                    <div class="section-header">/// INSTALLED LANGUAGE PACKS</div>
-                    <div class="section-content">
-                        
-                        <div class="lang-row">
-                            <div class="lang-name"><span>SPANISH (Native)</span> <span>C2</span></div>
-                            <div class="progress-bar"><div class="fill" style="width: 100%;"></div></div>
-                            <div style="font-size: 7pt;">Latency: 0ms | Source: Spain/Argentina</div>
-                        </div>
-
-                        <div class="lang-row">
-                            <div class="lang-name"><span>HEBREW (Fluent)</span> <span>C1</span></div>
-                            <div class="progress-bar"><div class="fill" style="width: 90%;"></div></div>
-                            <div style="font-size: 7pt;">Daily Usage: 10+ Years</div>
-                        </div>
-
-                        <div class="lang-row">
-                            <div class="lang-name"><span>ENGLISH (Fluent)</span> <span>C1</span></div>
-                            <div class="progress-bar"><div class="fill" style="width: 90%;"></div></div>
-                            <div style="font-size: 7pt;">Optimized for: Medical/Technical</div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="spec-section">
-                    <div class="section-header">/// SOFTWARE COMPATIBILITY</div>
-                    <div class="section-content">
-                        <div class="tech-row"><span class="tech-label">OFFICE:</span> <span>MS 365, Google Work.</span></div>
-                        <div class="tech-row"><span class="tech-label">MEDIA:</span> <span>CapCut, Subtitle Edit</span></div>
-                        <div class="tech-row"><span class="tech-label">TRANS:</span> <span>Smartcat, MTPE Tools</span></div>
-                        <div class="tech-row"><span class="tech-label">COMMS:</span> <span>Slack, Teams, Zoom</span></div>
-                    </div>
-                </div>
-
-                <div class="spec-section" style="flex-grow: 1; border: 2px dashed #000;">
-                    <div class="section-header" style="background: #fff; color: #000; border-bottom: 2px solid #000;">WHY CHOOSE THIS MODEL?</div>
-                    <div class="section-content">
-                        <p style="margin-bottom: 10px;">
-                            <strong>VERSATILITY:</strong> Unlike standard units, the Danilo-2025 bridges the gap between Clinical Precision and Creative Content. 
-                        </p>
-                        <p>
-                            <strong>ADAPTABILITY:</strong> Thrives in remote environments. Self-regulating. Requires minimal supervision.
-                        </p>
-                        <p style="margin-top: 10px; font-weight: bold; text-align: center;">
-                            RATED 5/5 STARS ON UPWORK
-                        </p>
-                    </div>
-                </div>
-
+        <div class="track">
+            <div class="track-header">Adjustment Layer: Content Specialist</div>
+            <div class="track-content">
+                Content Specialist / Hebrew Translator (ICUC Social, Nov 2025 – Present): Linguistic quality checks for Hebrew content. Collaborate on multilingual data verification using MS Teams.
             </div>
         </div>
-
-        <div class="footer-specs">
-            <div class="footer-col">
-                <strong>ENERGY SOURCE</strong><br>
-                Caffeine / Mate
-            </div>
-            <div class="footer-col">
-                <strong>OPERATING TEMP</strong><br>
-                High Pressure OK
-            </div>
-            <div class="footer-col">
-                <strong>WARRANTY</strong><br>
-                Satisfaction Guaranteed
+        <div class="track">
+            <div class="track-header">Education Overlay</div>
+            <div class="track-content">
+                Doctor of Medicine (MD) Candidate, Universidad Nacional de Mar del Plata (Exp. 2029): Acquiring knowledge in anatomy, physiology, applied to medical translation.
             </div>
         </div>
-
-    </div>
-
+        <div class="playhead">Your Project Starts Here →</div>
+    </section>
 </body>
 </html>
