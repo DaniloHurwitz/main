@@ -3,27 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo XP - Professional OS</title>
+    <title>Danilo Hurwitz | XP Professional</title>
     <style>
         /* --- FUENTES & RESET --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Winamp Font */
-
+        
         * { box-sizing: border-box; user-select: none; }
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; 
             font-family: 'Tahoma', sans-serif; font-size: 11px;
+            background: #000;
+        }
+
+        /* --- PANTALLA DE CARGA (BOOT SCREEN) --- */
+        #boot-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 99999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        .boot-logo { margin-bottom: 50px; font-family: Arial, sans-serif; font-style: italic; color: white; font-size: 24px; font-weight: bold; }
+        .xp-logo-text { font-size: 40px; }
+        .xp-logo-sub { font-size: 14px; color: #ff6600; vertical-align: super; }
+        
+        .loading-bar-container {
+            width: 200px; height: 15px; border: 2px solid #555; border-radius: 4px; padding: 2px;
+            position: relative;
+        }
+        .loading-bar {
+            width: 100%; height: 100%; position: relative; overflow: hidden;
+        }
+        .blue-squares {
+            display: flex; gap: 2px; position: absolute; left: -50px; top: 0; height: 100%;
+            animation: bootLoad 2s linear infinite;
+        }
+        .sq { width: 8px; height: 100%; background: linear-gradient(to bottom, #2d5096 0%, #6b89c7 50%, #2d5096 100%); border-radius: 1px; }
+        @keyframes bootLoad { 0% { left: -40px; } 100% { left: 200px; } }
+
+        /* --- ESCRITORIO --- */
+        #desktop {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
             background: #2ea6f7 url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center fixed;
             background-size: cover;
+            display: none; /* Oculto hasta que cargue */
+        }
+        
+        .desktop-icons {
+            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 25px; align-content: flex-start;
         }
 
-        /* --- UI GLOBAL --- */
-        .desktop {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            padding: 15px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 25px; align-content: flex-start; z-index: 1;
-        }
-
-        /* --- ICONOS ESCRITORIO (IMAGENES REALES XP) --- */
         .icon {
             width: 80px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
@@ -31,7 +58,7 @@
         }
         .icon:hover { opacity: 0.8; }
         .icon:active img { transform: scale(0.9); }
-        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.6)); }
+        .icon img { width: 48px; height: 48px; margin-bottom: 5px; filter: drop-shadow(0px 2px 3px rgba(0,0,0,0.5)); }
         .icon-label { background: transparent; padding: 2px 4px; border-radius: 2px; line-height: 1.3; border: 1px solid transparent; }
         .icon:hover .icon-label { background: #0055ea; border-color: rgba(255,255,255,0.2); }
 
@@ -77,73 +104,66 @@
         .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
         .paper-area { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
-            background: white; width: 100%; max-width: 750px; min-height: 100%; 
+            background: white; width: 100%; max-width: 800px; min-height: 100%; 
             padding: 40px; font-family: 'Times New Roman', serif; color: #000;
             box-shadow: 3px 3px 10px rgba(0,0,0,0.5); user-select: text; cursor: text;
         }
-        .paper h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; border-bottom: 2px solid #000; margin: 0 0 5px 0; }
-        .paper h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; }
+        .profile-header { display: flex; justify-content: space-between; border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
+        .photo-placeholder { width: 80px; height: 80px; background: #ddd; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #666; text-align: center; }
+        
+        h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; margin: 0; }
+        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
         .job-head { font-weight: bold; font-size: 13px; margin-top: 15px; display: flex; justify-content: space-between; }
         .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 11px; }
         .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
 
-        /* --- APP: SKILLS (GRID VIEW) --- */
-        .skills-grid { padding: 10px; display: flex; flex-wrap: wrap; gap: 15px; align-content: flex-start; background: white; height: 100%; overflow-y: auto; }
+        /* --- APP: SKILLS --- */
+        .skills-container { display: flex; height: 100%; }
+        .skills-sidebar { width: 150px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; }
+        .skills-grid { padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-content: flex-start; flex-grow: 1; background: white; overflow-y: auto; }
         .skill-item { 
-            width: 70px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 5px; 
+            width: 80px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 5px; 
             padding: 5px; border: 1px solid transparent; 
         }
         .skill-item:hover { border: 1px solid #ccc; background: #f0f0f0; border-radius: 3px; }
         .skill-icon { width: 32px; height: 32px; }
         .skill-text { font-size: 10px; color: #000; }
 
-        /* --- APP: WINAMP (MEJORADO) --- */
-        .winamp-skin { background: #222; color: #00ff00; font-family: 'Verdana', sans-serif; height: 100%; display: flex; flex-direction: column; padding: 8px; gap: 4px; border: 2px solid #555; }
-        .wa-header { background: #333; color: white; padding: 2px; font-size: 9px; display: flex; justify-content: space-between; }
-        .wa-screen { 
-            background: #000; border: 2px solid #555; height: 40px; margin-bottom: 5px;
-            display: flex; flex-direction: column; justify-content: center; padding: 5px;
-            font-family: 'Press Start 2P', monospace; font-size: 9px; color: #0f0;
-        }
-        .wa-visualizer { display: flex; align-items: flex-end; gap: 1px; height: 15px; margin-top: 5px; }
-        .v-bar { width: 4px; background: #0f0; animation: equalizer 0.8s infinite; }
-        @keyframes equalizer { 0% { height: 2px; } 50% { height: 12px; } 100% { height: 5px; } }
-        
-        .wa-playlist { background: #000; color: #0f0; border: 2px solid #555; flex-grow: 1; font-family: monospace; font-size: 10px; padding: 4px; overflow-y: auto; }
-        .wa-track { padding: 2px; cursor: pointer; }
-        .wa-track:hover { background: #00ff00; color: #000; }
-        
-        .wa-controls { display: flex; gap: 2px; margin-top: 5px; }
-        .wa-btn { background: #ccc; border: 1px solid #fff; border-right: 1px solid #555; border-bottom: 1px solid #555; font-size: 9px; width: 25px; cursor: pointer; }
-        .wa-btn:active { border: 1px solid #555; border-right: 1px solid #fff; border-bottom: 1px solid #fff; }
+        /* --- APP: CONTACTO (OUTLOOK) --- */
+        .outlook-bar { background: #ece9d8; padding: 5px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; }
+        .outlook-body { padding: 15px; font-family: 'Tahoma', sans-serif; background: white; height: 100%; }
+        .field-row { display: flex; margin-bottom: 10px; align-items: center; }
+        .field-label { width: 60px; color: #666; text-align: right; margin-right: 10px; }
+        .field-val { font-weight: bold; color: #000; user-select: text; cursor: text; }
+        .outlook-btn { padding: 5px 10px; background: #ece9d8; border: 1px solid #999; cursor: pointer; }
 
-        /* --- APP: CONTACTO (OUTLOOK EXPRESS STYLE) --- */
-        .contact-form { padding: 15px; font-family: 'Tahoma', sans-serif; display: flex; flex-direction: column; gap: 10px; background: #ece9d8; height: 100%; }
-        .form-row { display: flex; gap: 10px; align-items: center; }
-        .form-label { width: 60px; text-align: right; font-weight: bold; }
-        .form-input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; background: white; }
-        .contact-card { background: white; border: 1px solid #999; padding: 10px; margin-top: 10px; box-shadow: inset 1px 1px 3px #ccc; }
+        /* --- APP: IE BROWSER --- */
+        .ie-bar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; align-items: center; }
+        .ie-input { flex-grow: 1; border: 1px solid #7c7c7c; font-size: 11px; padding: 2px; }
 
         /* --- CLIPPY --- */
         #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
         .clippy-img { 
-            width: 80px; height: 80px; cursor: pointer; 
-            background: url('https://media.tenor.com/images/39fe167bdab90223bcc890bcb067b761/tenor.gif') no-repeat center; 
+            width: 100px; height: 100px; cursor: pointer; 
+            /* Using a static Clippy image hosted on a reliable CDN or similar */
+            background: url('https://upload.wikimedia.org/wikipedia/en/e/e0/Clippy-letter.png') no-repeat center bottom; 
             background-size: contain; 
+            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
         }
         
         .chat-bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 280px;
+            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 300px;
             box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: none; font-size: 11px;
             position: relative;
         }
-        .chat-bubble::after { content: ''; position: absolute; bottom: -8px; right: 30px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #000; }
+        .chat-bubble::after { content: ''; position: absolute; bottom: -8px; right: 40px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #000; }
         
-        .chat-history { height: 120px; overflow-y: auto; border-bottom: 1px solid #ccc; margin-bottom: 8px; padding-bottom: 5px; background: white; border: 1px solid #ddd; padding: 5px;}
-        .msg-ai { color: #000; margin-bottom: 5px; background: #eee; padding: 3px; border-radius: 3px; }
-        .msg-user { color: #0000aa; font-weight: bold; text-align: right; margin-bottom: 5px; }
-        .chat-input { width: 75%; padding: 3px; }
-        .chat-btn { width: 20%; cursor: pointer; }
+        .chat-history { height: 150px; overflow-y: auto; background: white; border: 1px solid #7c7c7c; padding: 5px; margin-bottom: 5px; }
+        .msg-ai { color: #000; margin-bottom: 8px; }
+        .msg-user { color: #0000aa; font-weight: bold; text-align: right; margin-bottom: 8px; }
+        .chat-input-row { display: flex; gap: 5px; }
+        .chat-input { flex-grow: 1; padding: 3px; font-family: Tahoma; }
+        .chat-btn { cursor: pointer; padding: 2px 10px; }
 
         /* --- BARRA DE TAREAS --- */
         #taskbar {
@@ -162,38 +182,48 @@
             color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px; cursor: pointer; font-size: 11px;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
-        .task-icon { width: 16px; height: 16px; }
-
         #tray { margin-left: auto; color: white; padding-right: 10px; font-size: 11px; display: flex; gap: 10px; align-items: center; }
 
     </style>
 </head>
 <body>
 
-<div id="desktop">
-    <div class="icon" onclick="openWindow('win-cv')">
-        <img src="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png" class="icon-img" alt="CV">
-        <div class="icon-label">My Resume.doc</div>
+<div id="boot-screen">
+    <div class="boot-logo">
+        <span class="xp-logo-text">Microsoft</span><br>
+        <span class="xp-logo-text">Windows</span><span class="xp-logo-sub">XP</span>
     </div>
-    <div class="icon" onclick="openWindow('win-skills')">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" class="icon-img" alt="Skills">
-        <div class="icon-label">My Skills</div>
-    </div>
-    <div class="icon" onclick="openWindow('win-ie')">
-        <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" class="icon-img" alt="IE">
-        <div class="icon-label">Portfolio</div>
-    </div>
-    <div class="icon" onclick="openWindow('win-winamp')">
-        <img src="https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-4.png" class="icon-img" alt="Winamp">
-        <div class="icon-label">Winamp</div>
-    </div>
-    <div class="icon" onclick="openWindow('win-contact')">
-        <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" class="icon-img" alt="Contact">
-        <div class="icon-label">Contact</div>
+    <div class="loading-bar-container">
+        <div class="loading-bar">
+            <div class="blue-squares">
+                <div class="sq"></div><div class="sq"></div><div class="sq"></div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="win-cv" class="window" style="top: 20px; left: 50px; width: 750px; height: 550px;">
+<div id="desktop">
+    <div class="desktop-icons">
+        <div class="icon" onclick="openWindow('win-cv')">
+            <img src="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png" alt="CV">
+            <div class="icon-label">My Resume</div>
+        </div>
+        <div class="icon" onclick="openWindow('win-skills')">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Skills">
+            <div class="icon-label">Skills</div>
+        </div>
+        <div class="icon" onclick="openWindow('win-ie')">
+            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" alt="Portfolio">
+            <div class="icon-label">Portfolio</div>
+        </div>
+        <div class="icon" onclick="openWindow('win-contact')">
+            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" alt="Contact">
+            <div class="icon-label">Contact</div>
+        </div>
+    </div>
+</div>
+
+<div id="win-cv" class="window" style="top: 10px; left: 10px; width: 900px; height: 700px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
         <div style="display:flex;gap:5px;align-items:center;">
             <img src="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png" width="16"> 
@@ -209,9 +239,18 @@
         <div class="word-toolbar">File | Edit | View | Insert | Format | Tools</div>
         <div class="paper-area">
             <div class="paper">
-                <h1>DANILO HURWITZ</h1>
-                <p><strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
-                Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar</p>
+                <div class="profile-header">
+                    <div>
+                        <h1>DANILO HURWITZ</h1>
+                        <p style="font-size:12px; margin-top:5px;">
+                            <strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
+                            Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar
+                        </p>
+                    </div>
+                    <div class="photo-placeholder">
+                        [PHOTO<br>PLACEHOLDER]
+                    </div>
+                </div>
                 
                 <h2>PROFESSIONAL EXPERIENCE</h2>
                 
@@ -248,7 +287,7 @@
     <div class="resizer" onmousedown="resizeStart(event, 'win-cv')"></div>
 </div>
 
-<div id="win-skills" class="window" style="top: 80px; left: 150px; width: 500px; height: 400px;">
+<div id="win-skills" class="window" style="top: 80px; left: 150px; width: 600px; height: 450px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-skills')">
         <div style="display:flex;gap:5px;align-items:center;">
             <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" width="16">
@@ -261,22 +300,22 @@
         </div>
     </div>
     <div class="window-content" style="flex-direction:row;">
-        <div style="width:130px; background:linear-gradient(to bottom, #7ba2e7, #6375d6); padding:10px; color:white;">
-            <strong>Skills Tasks</strong><br><br>
+        <div class="skills-sidebar">
+            <strong>Skills Details</strong><br><br>
             <span style="font-size:10px;">Select an item to view its description.</span>
         </div>
         <div class="skills-grid">
             <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
-                <span class="skill-text">Spanish<br><strong>Native C2</strong></span>
+                <span class="skill-text">Spanish<br>C2</span>
             </div>
             <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
-                <span class="skill-text">Hebrew<br><strong>Fluent C1</strong></span>
+                <span class="skill-text">Hebrew<br>C1</span>
             </div>
             <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
-                <span class="skill-text">English<br><strong>Medical C1</strong></span>
+                <span class="skill-text">English<br>C1</span>
             </div>
             <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png" class="skill-icon">
@@ -284,66 +323,38 @@
             </div>
             <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png" class="skill-icon">
-                <span class="skill-text">Video Edit<br>(CapCut)</span>
+                <span class="skill-text">CapCut<br>Editing</span>
             </div>
-             <div class="skill-item">
+            <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png" class="skill-icon">
-                <span class="skill-text">Subtitles<br>Sync</span>
+                <span class="skill-text">Subtitle<br>Edit</span>
             </div>
-             <div class="skill-item">
+            <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" class="skill-icon">
-                <span class="skill-text">MTPE<br>Workflow</span>
+                <span class="skill-text">MTPE</span>
             </div>
-             <div class="skill-item">
+            <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" class="skill-icon">
                 <span class="skill-text">Office<br>Suite</span>
             </div>
-             <div class="skill-item">
+            <div class="skill-item">
+                <img src="https://win98icons.alexmeub.com/icons/png/internet_connection_wiz-5.png" class="skill-icon">
+                <span class="skill-text">SEO<br>Basic</span>
+            </div>
+            <div class="skill-item">
                 <img src="https://win98icons.alexmeub.com/icons/png/users-1.png" class="skill-icon">
-                <span class="skill-text">Team<br>Work</span>
+                <span class="skill-text">Cross<br>Cultural</span>
             </div>
         </div>
     </div>
     <div class="resizer" onmousedown="resizeStart(event, 'win-skills')"></div>
 </div>
 
-<div id="win-winamp" class="window" style="top: 150px; left: 450px; width: 300px; height: 250px; border:none; background:transparent; box-shadow:none;">
-    <div class="title-bar" style="background:#444; border:none;" onmousedown="dragStart(event, 'win-winamp')">
-        <div style="display:flex;gap:5px;"><span>⚡</span> WINAMP</div>
-        <div class="win-controls"><div class="btn btn-min" onclick="minWindow('win-winamp')">_</div><div class="btn btn-close" onclick="closeWindow('win-winamp')">×</div></div>
-    </div>
-    <div class="window-content" style="background:#222; border:none; border-top:2px solid #555;">
-        <div class="winamp-skin">
-            <div class="wa-header"><span>DANILO PLAYER</span><span>02:34</span></div>
-            <div class="wa-screen">
-                <span id="wa-song">1. MEDICAL_TRANSLATION_MIX.mp3</span>
-                <div class="wa-visualizer">
-                    <div class="v-bar" style="animation-delay:0s"></div><div class="v-bar" style="animation-delay:0.2s"></div>
-                    <div class="v-bar" style="animation-delay:0.4s"></div><div class="v-bar" style="animation-delay:0.1s"></div>
-                    <div class="v-bar" style="animation-delay:0.3s"></div><div class="v-bar" style="animation-delay:0.5s"></div>
-                    <div class="v-bar" style="animation-delay:0.2s"></div><div class="v-bar" style="animation-delay:0.1s"></div>
-                    <div class="v-bar" style="animation-delay:0.4s"></div><div class="v-bar" style="animation-delay:0.0s"></div>
-                </div>
-            </div>
-            <div class="wa-controls">
-                <button class="wa-btn">|&lt;</button><button class="wa-btn">||</button><button class="wa-btn">&gt;</button>
-            </div>
-            <div class="wa-playlist">
-                <div class="wa-track">1. Medical_Translation_Mix.mp3</div>
-                <div class="wa-track">2. Hebrew_Fluency_10yrs.wav</div>
-                <div class="wa-track">3. Spanish_Native_Vibes.ogg</div>
-                <div class="wa-track">4. English_C1_Proficiency.mp3</div>
-                <div class="wa-track">5. Video_Editing_Beats.flac</div>
-                <div class="wa-track">6. 100_Percent_JSS_Anthem.mp3</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="win-ie" class="window" style="top: 40px; left: 80px; width: 800px; height: 500px;">
+<div id="win-ie" class="window" style="top: 50px; left: 100px; width: 800px; height: 500px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-ie')">
         <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" width="16"> Internet Explorer
+            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" width="16"> 
+            Danilo Portfolio - Internet Explorer
         </div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-ie')">_</div>
@@ -352,35 +363,44 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="word-toolbar">
-            <span>Back</span><span>Forward</span><span>Stop</span><span>Refresh</span><span>Home</span>
-            <input type="text" value="https://danilohurwitz.github.io/main/" style="width:300px; font-size:11px;">
+        <div class="ie-bar">
+            <span>Address:</span>
+            <input type="text" class="ie-input" value="https://danilohurwitz.github.io/main/">
+            <button onclick="document.getElementById('ie-frame').src='https://danilohurwitz.github.io/main/'">Go</button>
         </div>
-        <iframe src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
+        <iframe id="ie-frame" src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
     </div>
     <div class="resizer" onmousedown="resizeStart(event, 'win-ie')"></div>
 </div>
 
-<div id="win-contact" class="window" style="top: 180px; left: 300px; width: 400px; height: 280px;">
+<div id="win-contact" class="window" style="top: 150px; left: 250px; width: 450px; height: 350px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-contact')">
         <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" width="16"> Contact
+            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" width="16"> 
+            Contact Danilo - Outlook Express
         </div>
-        <div class="win-controls"><div class="btn btn-min" onclick="minWindow('win-contact')">_</div><div class="btn btn-close" onclick="closeWindow('win-contact')">×</div></div>
+        <div class="win-controls">
+            <div class="btn btn-min" onclick="minWindow('win-contact')">_</div>
+            <div class="btn btn-close" onclick="closeWindow('win-contact')">×</div>
+        </div>
     </div>
     <div class="window-content">
-        <div class="word-toolbar"><span>Send</span><span>Attach</span><span>Priority</span></div>
-        <div class="contact-form">
-            <div class="form-row"><span class="form-label">To:</span> <input class="form-input" value="Recruiter" disabled></div>
-            <div class="form-row"><span class="form-label">From:</span> <input class="form-input" value="Danilo Hurwitz" disabled></div>
-            <div class="contact-card">
-                <strong>Danilo Hurwitz</strong><br>
-                MD Candidate | Translator<br><br>
-                📧 dhurwitzbecerra@mdp.edu.ar<br>
-                📞 +54 9 2302 21-9422<br>
-                📍 Mar del Plata, Argentina
-            </div>
-            <button style="padding:5px;">Send Inquiry</button>
+        <div class="outlook-bar">
+            <button class="outlook-btn">Send/Recv</button>
+            <button class="outlook-btn">Address Book</button>
+        </div>
+        <div class="outlook-body">
+            <div class="field-row"><span class="field-label">From:</span> <span class="field-val">Danilo Hurwitz</span></div>
+            <div class="field-row"><span class="field-label">To:</span> <span class="field-val">Recruiter / Client</span></div>
+            <div class="field-row"><span class="field-label">Subject:</span> <span class="field-val">Professional Inquiry</span></div>
+            <hr>
+            <p>Here are my direct contact details:</p>
+            <ul>
+                <li><strong>Email:</strong> dhurwitzbecerra@mdp.edu.ar</li>
+                <li><strong>Phone:</strong> +54 9 2302 21-9422</li>
+                <li><strong>Location:</strong> Mar del Plata, Argentina</li>
+                <li><strong>Web:</strong> danilohurwitz.github.io/main</li>
+            </ul>
         </div>
     </div>
 </div>
@@ -388,18 +408,18 @@
 <div id="clippy-container">
     <div class="chat-bubble" id="clippy-chat">
         <div class="chat-history" id="chat-history">
-            <div class="msg-ai">Hi! I'm Clippy. Ask me about Danilo's <strong>experience</strong>, <strong>Hebrew</strong> skills, or <strong>contact</strong> info!</div>
+            <div class="msg-ai">Hi! I'm Clippy. I know everything about Danilo. Ask me a question like "Does he speak Hebrew?" or "Where does he work?"</div>
         </div>
-        <div class="chat-input-area">
+        <div class="chat-input-row">
             <input type="text" id="user-input" class="chat-input" placeholder="Type here..." onkeypress="handleEnter(event)">
-            <button class="chat-btn" onclick="sendMessage()">Send</button>
+            <button class="chat-btn" onclick="sendMessage()">Ask</button>
         </div>
     </div>
     <div class="clippy-img" onclick="toggleClippy()"></div>
 </div>
 
 <div id="taskbar">
-    <div id="start-btn" onclick="alert('System Ready.')">
+    <div id="start-btn" onclick="alert('Start Menu coming soon!')">
         <div style="display:grid; grid-template-columns:1fr 1fr; width:16px; height:16px; border-radius:50%; background:white; padding:1px; gap:1px;">
             <div style="background:#e04a3d;"></div><div style="background:#68ae4a;"></div>
             <div style="background:#3988e4;"></div><div style="background:#focb2f;"></div>
@@ -414,6 +434,14 @@
 </div>
 
 <script>
+    // --- BOOT SEQUENCE ---
+    setTimeout(() => {
+        document.getElementById('boot-screen').style.display = 'none';
+        document.getElementById('desktop').style.display = 'block';
+        openWindow('win-cv'); // Auto-open CV maximized
+        toggleClippy(); // Auto-open Clippy
+    }, 4000);
+
     // --- CLOCK ---
     function updateClock() {
         const now = new Date();
@@ -438,7 +466,7 @@
         document.getElementById(id).style.display = 'none';
         updateTaskbar();
     }
-    
+
     function minWindow(id) {
         document.getElementById(id).style.display = 'none';
     }
@@ -464,33 +492,21 @@
             if(w.style.display === 'flex') {
                 const item = document.createElement('div');
                 item.className = 'task-item active';
-                // Clean title
-                let title = w.querySelector('.title-bar').innerText;
-                // Add icon based on window ID
-                let iconUrl = "";
-                if(w.id==='win-cv') iconUrl="https://win98icons.alexmeub.com/icons/png/wordpad_document-0.png";
-                if(w.id==='win-skills') iconUrl="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png";
-                if(w.id==='win-ie') iconUrl="https://win98icons.alexmeub.com/icons/png/msie1-2.png";
-                if(w.id==='win-winamp') iconUrl="https://win98icons.alexmeub.com/icons/png/cd_audio_cd_a-4.png";
-                if(w.id==='win-contact') iconUrl="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png";
-                
-                item.innerHTML = `<img src="${iconUrl}" width="14" style="margin-right:4px;"> ${title.substring(0, 15)}...`;
+                let title = w.querySelector('.title-bar').innerText.trim();
+                item.innerText = title.substring(0, 15) + '...';
                 item.onclick = () => bringFront(w.id);
                 list.appendChild(item);
             }
         });
     }
 
-    // --- CLIPPY IA LOGIC ---
+    // --- CLIPPY AI ---
     function toggleClippy() {
         const c = document.getElementById('clippy-chat');
         c.style.display = c.style.display === 'block' ? 'none' : 'block';
     }
-    setTimeout(() => document.getElementById('clippy-chat').style.display = 'block', 1000);
 
-    function handleEnter(e) {
-        if(e.key === 'Enter') sendMessage();
-    }
+    function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
 
     function sendMessage() {
         const input = document.getElementById('user-input');
@@ -502,32 +518,38 @@
         input.value = '';
         hist.scrollTop = hist.scrollHeight;
 
-        // IA LOGIC (Enhanced Keywords)
         let response = "";
         let action = null;
 
-        // Keywords for Experience
-        if (['experiencia', 'trabajo', 'experience', 'job', 'work', 'cv', 'resume', 'resumen', 'curriculum', 'icuc', 'upwork'].some(k => text.includes(k))) {
-            response = "Danilo works at ICUC Social and is a Top Rated Translator on Upwork. Opening his CV...";
+        // IA LOGIC (Cerebro de Clippy)
+        if (text.includes('nombre') || text.includes('name') || text.includes('who')) {
+            response = "His name is Danilo Hurwitz. He's based in Mar del Plata.";
+        }
+        else if (text.includes('experiencia') || text.includes('experience') || text.includes('work') || text.includes('job') || text.includes('trabajo')) {
+            response = "Danilo works at ICUC Social as a Content Specialist and is a Top Rated Translator on Upwork (100% JSS). Opening his CV...";
             action = 'win-cv';
-        } 
-        // Keywords for Languages/Skills
-        else if (['hebreo', 'hebrew', 'idioma', 'lenguaje', 'language', 'english', 'ingles', 'spanish', 'espanol', 'skill', 'habilidad'].some(k => text.includes(k))) {
-            response = "Yes! He is C1 Fluent in Hebrew (10 years immersion), Native Spanish, and C1 English. Opening Skills...";
+        }
+        else if (text.includes('hebreo') || text.includes('hebrew')) {
+            response = "Yes! He is Fluent in Hebrew (C1) with 10 years of immersion. He is also a Native Spanish speaker. Opening Skills...";
             action = 'win-skills';
         }
-        // Keywords for Medical/Education
-        else if (['medico', 'doctor', 'estudio', 'medical', 'education', 'universidad', 'anatomy', 'medicine'].some(k => text.includes(k))) {
-            response = "He is an MD Candidate at UNMDP (Class of 2029). He uses this knowledge for translations. Opening CV...";
+        else if (text.includes('ingles') || text.includes('english')) {
+            response = "He has C1 English proficiency, specialized in Medical terminology.";
+            action = 'win-skills';
+        }
+        else if (text.includes('medico') || text.includes('medical') || text.includes('doctor') || text.includes('medicine') || text.includes('estudio')) {
+            response = "He is a Medical Student (MD Candidate) at UNMDP, expecting to graduate in 2029. He uses this knowledge for translations.";
             action = 'win-cv';
         }
-        // Keywords for Contact
-        else if (['contacto', 'contact', 'mail', 'email', 'phone', 'telefono', 'llamar', 'call'].some(k => text.includes(k))) {
-            response = "Here is his contact info.";
+        else if (text.includes('contacto') || text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('telefono')) {
+            response = "You can contact him at dhurwitzbecerra@mdp.edu.ar. Opening contact info...";
             action = 'win-contact';
         }
+        else if (text.includes('hola') || text.includes('hi') || text.includes('hello')) {
+            response = "Hello there! Ask me about Danilo's work or skills.";
+        }
         else {
-            response = "I'm not sure. Try asking about: 'Hebrew', 'Experience', or 'Contact'.";
+            response = "I'm not sure about that. Try asking about his 'Experience', 'Languages', or 'Contact info'.";
         }
 
         setTimeout(() => {
@@ -537,17 +559,14 @@
         }, 600);
     }
 
-    // --- DRAGGABLE ---
+    // --- DRAG & RESIZE ---
     function dragStart(e, id) {
         if(e.target.classList.contains('btn')) return; 
-        e.preventDefault();
-        bringFront(id);
+        e.preventDefault(); bringFront(id);
         const elm = document.getElementById(id);
         let pos3 = e.clientX, pos4 = e.clientY;
-
         document.onmouseup = closeDrag;
         document.onmousemove = elementDrag;
-
         function elementDrag(e) {
             e.preventDefault();
             let pos1 = pos3 - e.clientX, pos2 = pos4 - e.clientY;
@@ -555,33 +574,23 @@
             elm.style.top = (elm.offsetTop - pos2) + "px";
             elm.style.left = (elm.offsetLeft - pos1) + "px";
         }
-        function closeDrag() {
-            document.onmouseup = null; document.onmousemove = null;
-        }
+        function closeDrag() { document.onmouseup = null; document.onmousemove = null; }
     }
 
-    // --- RESIZABLE ---
     function resizeStart(e, id) {
         e.preventDefault();
         const elm = document.getElementById(id);
         const startX = e.clientX, startY = e.clientY;
         const startW = parseInt(document.defaultView.getComputedStyle(elm).width, 10);
         const startH = parseInt(document.defaultView.getComputedStyle(elm).height, 10);
-
         document.onmousemove = doResize;
         document.onmouseup = stopResize;
-
         function doResize(e) {
             elm.style.width = (startW + e.clientX - startX) + 'px';
             elm.style.height = (startH + e.clientY - startY) + 'px';
         }
-        function stopResize() {
-            document.onmousemove = null; document.onmouseup = null;
-        }
+        function stopResize() { document.onmousemove = null; document.onmouseup = null; }
     }
-    
-    // Auto open main window
-    setTimeout(() => openWindow('win-cv'), 500);
 </script>
 
 </body>
