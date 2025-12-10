@@ -2,95 +2,52 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Danilo XP Professional</title>
+    <title>Danilo XP - Professional Edition</title>
     <style>
-        /* RESET & FONTS */
-        @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap');
-        
-        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Lucida+Console&display=swap');
+
+        /* CONFIGURACIÓN BÁSICA */
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         
         body {
             margin: 0;
-            padding: 20px;
+            padding: 0;
             background-color: #000;
             display: flex;
             justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-family: 'Tahoma', sans-serif;
+            overflow: hidden; /* Evita scroll en pantalla, se ajusta al imprimir */
         }
 
-        /* A4 CONTAINER AKA "THE MONITOR" */
-        .monitor-screen {
-            width: 210mm;
-            height: 297mm;
+        /* EL MONITOR (HOJA A4) */
+        .screen-container {
+            width: 297mm; /* Usamos formato A4 APAISADO (Landscape) para que entre todo mejor estilo escritorio */
+            height: 210mm; 
             position: relative;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            /* FONDO BLISS REAL */
+            background-image: url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png');
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            /* CSS BLISS WALLPAPER GENERATOR */
-            background: linear-gradient(to bottom, #3988e4 0%, #3988e4 50%, #68ae4a 50%, #68ae4a 100%);
-        }
-        /* Clouds and Hill simulation */
-        .monitor-screen::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
-            background: radial-gradient(circle at 30% 60%, rgba(255,255,255,0.4) 0%, transparent 20%),
-                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.3) 0%, transparent 30%);
-            z-index: 0;
-        }
-        .monitor-screen::after {
-            content: ''; position: absolute; top: 45%; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at 50% 100%, #7ccb5e 0%, #68ae4a 60%);
-            z-index: 0;
         }
 
-        /* --- DESKTOP ICONS --- */
-        .desktop-icons {
-            position: absolute;
-            top: 20px; left: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            z-index: 1;
-        }
-        .icon {
-            width: 70px;
-            text-align: center;
-            cursor: pointer;
-        }
-        .icon-img {
-            width: 40px; height: 40px;
-            margin: 0 auto 5px auto;
-            background-size: contain;
-            background-repeat: no-repeat;
-            /* Pixel art placeholders via CSS shadows or data URI would go here, using simple shapes for now */
-            background-color: rgba(255,255,255,0.2); 
-            border: 1px dotted rgba(255,255,255,0.5);
-            border-radius: 4px;
-            position: relative;
-        }
-        /* My Computer Icon Sim */
-        .ico-pc { background: #b0c4de; border: 2px solid #fff; box-shadow: 2px 2px 0 #333; }
-        /* Recycle Bin Sim */
-        .ico-bin { background: transparent; border: none; font-size: 24px; line-height: 40px; }
-        
-        .icon-text {
-            color: white;
-            font-size: 8pt;
-            text-shadow: 1px 1px 1px #000;
-        }
-
-        /* --- WINDOWS COMMON STYLES --- */
+        /* --- VENTANAS (ESTILO LUNA BLUE) --- */
         .xp-window {
             position: absolute;
-            background-color: #ece9d8; /* XP Beige */
+            background-color: #ece9d8;
             border-radius: 8px 8px 0 0;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+            border: 1px solid #0055ea;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
             display: flex;
             flex-direction: column;
-            border: 1px solid #0055ea;
-            font-size: 8pt;
+            z-index: 10;
         }
 
         .title-bar {
-            height: 30px;
+            height: 28px;
             background: linear-gradient(to bottom, #0058ee 0%, #3593ff 4%, #288eff 18%, #127dff 20%, #0369fc 39%, #0262ee 40%, #0057e5 100%);
             border-radius: 6px 6px 0 0;
             display: flex;
@@ -99,370 +56,352 @@
             padding: 0 8px;
             color: white;
             font-weight: bold;
-            text-shadow: 1px 1px 0 #000;
-        }
-        
-        .window-controls { display: flex; gap: 4px; }
-        .win-btn { width: 20px; height: 20px; border-radius: 3px; border: 1px solid #fff; box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5); }
-        .btn-min { background: #288eff; }
-        .btn-max { background: #288eff; }
-        .btn-close { background: #e04a3d; border-color: #b1281d; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: sans-serif; }
-        .btn-close::after { content: '×'; font-size: 14pt; line-height: 18px; margin-left: 1px; }
-
-        .menu-bar { background: #ece9d8; padding: 4px 8px; border-bottom: 1px solid #d8d2bd; color: #000; }
-        .menu-item { display: inline-block; margin-right: 10px; }
-        .menu-item::first-letter { text-decoration: underline; }
-
-        /* --- NOTEPAD WINDOW (Experience) --- */
-        .window-notepad {
-            top: 40mm; right: 10mm;
-            width: 110mm; height: 160mm;
-            z-index: 10;
-        }
-        .notepad-content {
-            flex-grow: 1;
-            background-color: #fff;
-            padding: 10px;
-            font-family: 'Lucida Console', 'Courier New', monospace;
-            font-size: 9pt;
-            overflow: hidden;
-            border: 1px solid #7c7c7c;
-            border-top: none;
-            color: #000;
-            line-height: 1.4;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+            font-size: 13px;
+            cursor: default;
         }
 
-        /* --- EXPLORER WINDOW (Skills) --- */
+        .window-controls { display: flex; gap: 3px; }
+        .win-btn { width: 21px; height: 21px; border-radius: 3px; border: 1px solid #fff; box-shadow: inset 0 -1px 2px rgba(0,0,0,0.2); cursor: pointer; }
+        .btn-min { background: #288eff; display: flex; align-items: end; justify-content: center; font-weight: 900; color: white; font-size: 14px; line-height: 16px; }
+        .btn-min::after { content: '_'; }
+        .btn-max { background: #288eff; display: flex; align-items: center; justify-content: center; }
+        .btn-max::after { content: '□'; color: white; font-size: 14px; font-weight: bold; }
+        .btn-close { background: #e04a3d; border-color: #d6301d; display: flex; align-items: center; justify-content: center; }
+        .btn-close::after { content: '×'; color: white; font-size: 17px; font-weight: bold; line-height: 19px; }
+
+        .menu-bar { 
+            background: #ece9d8; padding: 2px 8px; border-bottom: 1px solid #d8d2bd; 
+            color: #000; font-size: 11px; display: flex; gap: 10px;
+        }
+        .menu-item:hover { background-color: #316ac5; color: white; }
+
+        /* --- VENTANA 1: EXPLORADOR (SKILLS) --- */
         .window-explorer {
-            top: 80mm; left: 15mm;
-            width: 100mm; height: 110mm;
-            z-index: 5;
+            top: 15mm; left: 10mm;
+            width: 110mm; height: 140mm;
         }
         .address-bar {
-            background: #fff; border: 1px solid #7c7c7c; padding: 2px 5px; margin: 5px;
-            color: #000; font-family: 'Tahoma'; display: flex; align-items: center;
+            background: #ece9d8; padding: 4px; display: flex; align-items: center; gap: 5px; font-size: 11px; border-bottom: 1px solid #aca899;
         }
-        .explorer-body {
-            display: flex; flex-grow: 1;
-            background: #fff;
+        .addr-input { background: white; border: 1px solid #7c7c7c; flex-grow: 1; padding: 2px; }
+        
+        .explorer-content {
+            display: flex; flex-grow: 1; background: white;
         }
-        .sidebar-pane {
-            width: 35%;
-            background: linear-gradient(to right, #7ba2e7 0%, #6375d6 100%);
-            padding: 10px;
+        .sidebar-xp {
+            width: 35%; background: linear-gradient(to bottom, #7ba2e7 0%, #6375d6 100%);
+            padding: 10px; display: flex; flex-direction: column; gap: 10px;
         }
-        .sidebar-box {
-            background: #fff;
-            border-radius: 4px 4px 0 0;
-            overflow: hidden;
-            margin-bottom: 15px;
+        .xp-box { background: white; border-radius: 3px; overflow: hidden; }
+        .xp-box-head { 
+            background: linear-gradient(to right, #fff 0%, #c6d3f7 100%); 
+            padding: 4px; font-size: 11px; font-weight: bold; color: #215dc6; cursor: pointer;
         }
-        .sb-header {
-            background: linear-gradient(to right, #fff 0%, #c6d3f7 100%);
-            padding: 4px; font-weight: bold; color: #215dc6; cursor: pointer;
-        }
-        .sb-header::after { content: ' ^'; float: right; font-weight: bold; }
-        .sb-content { padding: 8px; color: #215dc6; font-size: 7.5pt; line-height: 1.5; }
+        .xp-box-head::after { content: '︾'; float: right; font-size: 9px; }
+        .xp-box-body { padding: 8px; font-size: 10px; color: #000; line-height: 1.4; }
 
-        .main-pane {
-            width: 65%;
-            padding: 10px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-auto-rows: min-content;
-            gap: 15px;
-            align-content: start;
+        .main-icons {
+            width: 65%; padding: 10px; overflow: hidden;
+            display: grid; grid-template-columns: 1fr; gap: 5px; align-content: start;
         }
         
-        .file-item {
-            text-align: center;
-            display: flex; flex-direction: column; align-items: center;
+        /* SKILL ROW (Details View style) */
+        .skill-row {
+            display: flex; align-items: center; gap: 8px; padding: 4px;
+            border-bottom: 1px dotted #ccc;
         }
-        .file-icon {
-            width: 32px; height: 32px;
-            background: #fcefa1; /* Yellow folderish */
-            border: 1px solid #dcb048;
-            border-radius: 2px;
-            margin-bottom: 4px;
-            position: relative;
-        }
-        .file-icon::before { /* Folder tab */
-            content: ''; position: absolute; top: -4px; left: 0; width: 15px; height: 4px;
-            background: #fcefa1; border: 1px solid #dcb048; border-bottom: none; border-radius: 2px 2px 0 0;
-        }
-        /* Specific icons */
-        .icon-pdf { background: #fff; border: 1px solid #ccc; }
-        .icon-pdf::after { content: 'W'; color: #288eff; font-weight: bold; font-family: serif; font-size: 18px; line-height: 32px; }
+        .skill-row:hover { background-color: #eff3ff; border: 1px solid #add6ff; }
+        .skill-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        .skill-info { display: flex; flex-direction: column; }
+        .skill-name { font-size: 11px; font-weight: bold; color: #333; }
+        .skill-meta { font-size: 9px; color: #666; }
 
-        .file-name { font-size: 8pt; color: #000; }
-        .file-details { font-size: 6.5pt; color: #888; }
+        /* --- VENTANA 2: NOTEPAD (EXPERIENCE) --- */
+        .window-notepad {
+            top: 10mm; right: 10mm;
+            width: 150mm; height: 165mm;
+            z-index: 20; /* Encima del explorer si se tocan, pero están separados */
+        }
+        .notepad-body {
+            flex-grow: 1;
+            background: white;
+            font-family: 'Lucida Console', monospace;
+            font-size: 11px;
+            padding: 15px;
+            overflow: hidden;
+            color: #000;
+            line-height: 1.3;
+            border: 1px solid #7c7c7c; border-top: none;
+            white-space: pre-wrap; /* Mantiene saltos de línea */
+        }
+
+        /* --- VENTANA 3: PROPIEDADES DEL SISTEMA (PROFILE) --- */
+        .window-system {
+            bottom: 45px; left: 10mm;
+            width: 110mm; height: 45mm;
+            background: #ece9d8;
+            z-index: 15;
+            display: flex; flex-direction: row; padding: 10px; gap: 15px;
+            align-items: center;
+            border: 1px solid #0055ea;
+            border-radius: 5px; box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+        .sys-logo { width: 60px; height: 50px; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+        .sys-text { font-size: 11px; color: #000; line-height: 1.4; }
 
         /* --- TASKBAR --- */
         .taskbar {
             position: absolute; bottom: 0; left: 0; width: 100%; height: 30px;
             background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
-            display: flex; align-items: center;
-            border-top: 1px solid #4a80f6;
-            z-index: 100;
+            display: flex; align-items: center; z-index: 100;
+            border-top: 2px solid #3f8cf3;
         }
-        
         .start-btn {
-            width: 90px; height: 30px;
+            width: 100px; height: 30px; margin-right: 10px;
             background: linear-gradient(to bottom, #3c9e3c 0%, #51c051 10%, #3c9e3c 100%);
             border-radius: 0 10px 10px 0;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-            display: flex; align-items: center;
-            padding-left: 5px;
-            color: white; font-style: italic; font-weight: bold; font-size: 11pt; text-shadow: 1px 1px 1px #000;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        .start-logo {
-            width: 18px; height: 18px;
-            background: #fff; border-radius: 50%; margin-right: 4px;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 1px; padding: 1px;
-            overflow: hidden;
-        }
-        .win-sq { width: 100%; height: 100%; }
-        .sq-r { background: #e04a3d; } .sq-g { background: #68ae4a; } .sq-b { background: #3988e4; } .sq-y { background: #focb2f; }
-
-        .task-btn {
-            width: 140px; height: 26px;
-            background: #1c4ebd;
-            border-radius: 3px;
-            color: white;
-            display: flex; align-items: center; padding: 0 5px;
-            font-size: 8pt;
-            box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
-            margin-right: 2px;
-            border: 1px solid #163d96;
-        }
-        .task-btn:hover { background: #2c6aef; }
-        .task-active { background: #163d96; box-shadow: inset 1px 1px 5px rgba(0,0,0,0.5); font-weight: bold;}
-
-        .tray {
-            margin-left: auto;
-            background: #1290e2;
-            height: 100%;
-            padding: 0 10px;
-            display: flex; align-items: center;
-            border-left: 1px solid #1066a3;
-            color: white; font-size: 8pt;
-            gap: 8px;
-        }
-
-        /* --- CONTACT STICKY NOTE --- */
-        .sticky-note {
-            position: absolute; bottom: 40mm; left: 10mm;
-            width: 60mm; height: 40mm;
-            background: #fdfd86;
             box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            padding: 10px;
-            font-family: 'Comic Sans MS', cursive; /* El toque realismo */
-            font-size: 9pt;
-            transform: rotate(-2deg);
-            z-index: 2;
-            color: #333;
+            display: flex; align-items: center; padding-left: 5px; color: white;
+            font-style: italic; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+        .win-logo { 
+            width: 22px; height: 22px; background: white; border-radius: 50%; margin-right: 5px; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px; padding: 2px;
+        }
+        .wl-sq { width: 100%; height: 100%; }
+
+        .task-item {
+            width: 160px; height: 25px; background: #1c4ebd; color: white; margin-right: 3px;
+            border-radius: 3px; display: flex; align-items: center; padding: 0 5px; gap: 5px;
+            font-size: 11px; border: 1px solid #0f2d72; box-shadow: inset 1px 1px 0 rgba(255,255,255,0.2);
+        }
+        .task-active { background: #153c94; box-shadow: inset 1px 1px 3px rgba(0,0,0,0.5); font-weight: bold; }
+        
+        .tray {
+            margin-left: auto; background: #0b76ba; height: 100%; padding: 0 15px;
+            display: flex; align-items: center; gap: 10px; color: white; font-size: 11px; border-left: 1px solid #095c91;
+        }
+
+        /* --- STICKY NOTE --- */
+        .sticky {
+            position: absolute; top: 20px; right: 20px;
+            width: 200px; padding: 15px;
+            background: #fbfd8d; color: #333;
+            font-family: 'Comic Sans MS', cursive; font-size: 12px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transform: rotate(2deg); z-index: 5;
         }
 
         @media print {
-            body { background: none; margin: 0; padding: 0; }
-            .monitor-screen { width: 100%; height: 100%; box-shadow: none; }
-            .xp-window { box-shadow: none; border: 1px solid #666; }
+            @page { size: A4 landscape; margin: 0; }
+            body { background: none; height: auto; display: block; }
+            .screen-container { width: 100%; height: 100%; box-shadow: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="monitor-screen">
+<div class="screen-container">
 
-    <div class="desktop-icons">
-        <div class="icon">
-            <div class="icon-img ico-pc"></div>
-            <div class="icon-text">My Computer</div>
+    <div style="position: absolute; top: 20px; left: 20px; display: flex; flex-direction: column; gap: 20px; color: white; text-align: center; text-shadow: 1px 1px 1px black; font-size: 12px;">
+        <div style="cursor: pointer;">
+            <div style="font-size: 32px; margin-bottom: 5px;">💻</div>
+            <div>My Computer</div>
         </div>
-        <div class="icon">
-            <div class="icon-img" style="background:#fcefa1; border:1px solid #dcb048;"></div>
-            <div class="icon-text">My Projects</div>
+        <div style="cursor: pointer;">
+            <div style="font-size: 32px; margin-bottom: 5px;">📁</div>
+            <div>My Documents</div>
         </div>
-        <div class="icon">
-            <div class="icon-img" style="background:#fff;">
-                <span style="color:#0055ea; font-weight:900; font-size:20px; display:block; padding-top:5px;">e</span>
-            </div>
-            <div class="icon-text">Internet<br>Explorer</div>
-        </div>
-        <div class="icon">
-            <div class="icon-img ico-bin">♻️</div>
-            <div class="icon-text">Recycle Bin</div>
+        <div style="cursor: pointer;">
+            <div style="font-size: 32px; margin-bottom: 5px;">🗑️</div>
+            <div>Recycle Bin</div>
         </div>
     </div>
 
-    <div class="sticky-note">
-        <strong>Don't forget to call:</strong><br><br>
+    <div class="sticky">
+        <strong>CONTACT INFO:</strong><br><br>
         Danilo Hurwitz<br>
-        +54 9 2302 21-9422<br>
-        dhurwitzbecerra@mdp.edu.ar<br>
-        Mar del Plata, ARG
+        📧 dhurwitzbecerra@mdp.edu.ar<br>
+        📞 +54 9 2302 21-9422<br>
+        📍 Mar del Plata, ARG
     </div>
 
     <div class="xp-window window-explorer">
         <div class="title-bar">
-            <span>C:\System32\Skills</span>
-            <div class="window-controls">
-                <div class="win-btn btn-min"></div>
-                <div class="win-btn btn-max"></div>
-                <div class="win-btn btn-close"></div>
-            </div>
+            <span>System Skills & Tools</span>
+            <div class="window-controls"><div class="win-btn btn-min"></div><div class="win-btn btn-max"></div><div class="win-btn btn-close"></div></div>
         </div>
         <div class="menu-bar">
-            <span class="menu-item">File</span>
-            <span class="menu-item">Edit</span>
-            <span class="menu-item">View</span>
-            <span class="menu-item">Favorites</span>
-            <span class="menu-item">Tools</span>
-            <span class="menu-item">Help</span>
+            <span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span>
         </div>
         <div class="address-bar">
-            <span style="color:#888; margin-right:5px;">Address</span>
-            <div style="border:1px solid #ccc; width:100%; background:#fff; padding:1px;">C:\Danilo\Professional_Skills</div>
-            <span style="color:green; margin-left:5px;">Go</span>
+            <span>Address</span>
+            <div class="addr-input">C:\Danilo\Skills_&_Languages</div>
+            <span style="color: green;">Go</span>
         </div>
-        <div class="explorer-body">
-            <div class="sidebar-pane">
-                <div class="sidebar-box">
-                    <div class="sb-header">System Tasks</div>
-                    <div class="sb-content">
-                        ▶ View system info<br>
-                        ▶ Add or remove programs<br>
-                        ▶ Change settings
+        <div class="explorer-content">
+            <div class="sidebar-xp">
+                <div class="xp-box">
+                    <div class="xp-box-head">File Tasks</div>
+                    <div class="xp-box-body">
+                        <span style="color:blue; text-decoration:underline;">Rename this folder</span><br>
+                        <span style="color:blue; text-decoration:underline;">Move this folder</span><br>
+                        <span style="color:blue; text-decoration:underline;">Share to Web</span>
                     </div>
                 </div>
-                <div class="sidebar-box">
-                    <div class="sb-header">Details</div>
-                    <div class="sb-content">
-                        <strong>Danilo Hurwitz</strong><br>
-                        System Admin<br><br>
-                        Total Size: Unlimited<br>
-                        Date Modified: Today
+                <div class="xp-box">
+                    <div class="xp-box-head">Details</div>
+                    <div class="xp-box-body">
+                        <strong>Skills Folder</strong><br>
+                        System Folder<br><br>
+                        Status: Optimized<br>
+                        Author: Danilo H.
                     </div>
                 </div>
             </div>
-            <div class="main-pane">
-                <div class="file-item">
-                    <div class="file-icon icon-pdf"></div>
-                    <div class="file-name">Medical_Trans.dll</div>
-                    <div class="file-details">System File (Critical)</div>
+            <div class="main-icons">
+                <div style="font-size:10px; font-weight:bold; color:#666; border-bottom:1px solid #ccc; margin-bottom:5px;">Hard Skills (Files)</div>
+                
+                <div class="skill-row">
+                    <div class="skill-icon">📄</div>
+                    <div class="skill-info">
+                        <span class="skill-name">Medical Translation.dll</span>
+                        <span class="skill-meta">Type: Expertise | Size: Huge</span>
+                    </div>
                 </div>
-                <div class="file-item">
-                    <div class="file-icon icon-pdf"></div>
-                    <div class="file-name">Hebrew_Lang.exe</div>
-                    <div class="file-details">C1 Fluent (Native)</div>
+                <div class="skill-row">
+                    <div class="skill-icon">🎬</div>
+                    <div class="skill-info">
+                        <span class="skill-name">Video_Edit_CapCut.exe</span>
+                        <span class="skill-meta">Type: Application | Ver: Pro</span>
+                    </div>
                 </div>
-                <div class="file-item">
-                    <div class="file-icon icon-pdf"></div>
-                    <div class="file-name">English_Med.exe</div>
-                    <div class="file-details">C1 Advanced</div>
+                <div class="skill-row">
+                    <div class="skill-icon">⌨️</div>
+                    <div class="skill-info">
+                        <span class="skill-name">Subtitle_Edit.exe</span>
+                        <span class="skill-meta">Type: Sync Tool | Ver: Latest</span>
+                    </div>
                 </div>
-                <div class="file-item">
-                    <div class="file-icon icon-pdf"></div>
-                    <div class="file-name">Spanish_ESP.exe</div>
-                    <div class="file-details">C2 Native</div>
+                <div class="skill-row">
+                    <div class="skill-icon">🌐</div>
+                    <div class="skill-info">
+                        <span class="skill-name">MS_Office_Suite</span>
+                        <span class="skill-meta">Type: System Tool | Advanced</span>
+                    </div>
                 </div>
-                <div class="file-item">
-                    <div class="file-icon"></div>
-                    <div class="file-name">Video_Edit_Ste</div>
-                    <div class="file-details">Folder</div>
+
+                <div style="font-size:10px; font-weight:bold; color:#666; border-bottom:1px solid #ccc; margin:10px 0 5px 0;">Language Packs</div>
+                
+                <div class="skill-row">
+                    <div class="skill-icon">🇪🇸</div>
+                    <div class="skill-info">
+                        <span class="skill-name">Spanish (Castilian).lng</span>
+                        <span class="skill-meta">Level: NATIVE (C2)</span>
+                    </div>
                 </div>
-                <div class="file-item">
-                    <div class="file-icon"></div>
-                    <div class="file-name">MD_Knowledge</div>
-                    <div class="file-details">Folder (Large)</div>
+                <div class="skill-row">
+                    <div class="skill-icon">🇮🇱</div>
+                    <div class="skill-info">
+                        <span class="skill-name">Hebrew.lng</span>
+                        <span class="skill-meta">Level: FLUENT (C1) [10 Yrs]</span>
+                    </div>
+                </div>
+                <div class="skill-row">
+                    <div class="skill-icon">🇺🇸</div>
+                    <div class="skill-info">
+                        <span class="skill-name">English (Medical).lng</span>
+                        <span class="skill-meta">Level: FLUENT (C1)</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div style="background:#ece9d8; border-top:1px solid #ccc; padding:2px; color:#000;">
-            6 objects (Disk free space: 0MB)
         </div>
     </div>
 
     <div class="xp-window window-notepad">
-        <div class="title-bar" style="background: linear-gradient(to right, #0058ee, #3593ff);">
-            <span>career_log.txt - Notepad</span>
-            <div class="window-controls">
-                <div class="win-btn btn-min"></div>
-                <div class="win-btn btn-max"></div>
-                <div class="win-btn btn-close"></div>
-            </div>
+        <div class="title-bar">
+            <span>System_Log_Experience.txt - Notepad</span>
+            <div class="window-controls"><div class="win-btn btn-min"></div><div class="win-btn btn-max"></div><div class="win-btn btn-close"></div></div>
         </div>
-        <div class="menu-bar">
-            <span class="menu-item">File</span>
-            <span class="menu-item">Edit</span>
-            <span class="menu-item">Format</span>
-            <span class="menu-item">View</span>
-            <span class="menu-item">Help</span>
-        </div>
-        <div class="notepad-content">
-[SYSTEM LOG: DANILO HURWITZ]
-[ROLE: MD STUDENT / TRANSLATOR / CONTENT SPECIALIST]
+        <div class="menu-bar"><span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span></div>
+        <div class="notepad-body">
+[cite_start]// SYSTEM LOG: DANILO HURWITZ [cite: 51]
+[cite_start]// ROLE: MEDICAL STUDENT / TRANSLATOR / CONTENT SPECIALIST [cite: 12]
+[cite_start]// DATE: DEC 2025 [cite: 17]
 
-================================================
-EXPERIENCE LOG
-================================================
+[==========================================================]
+  SECTION 1: PROFESSIONAL EXPERIENCE
+[==========================================================]
 
-> NOV 2025 - PRESENT | ICUC SOCIAL (Remote)
+> NOV 2025 - PRESENT | [cite_start]ICUC SOCIAL (Remote) [cite: 31, 32, 33]
   ROLE: Content Specialist / Hebrew Translator
-  STATUS: ACTIVE
-  - Performing scheduled "linguistic biopsies" on Hebrew content.
-  - Diagnosing cultural context errors & sentiment misalignments.
-  - Operating in global rapid-response teams via MS Teams.
+  ----------------------------------------------------------
+  * [cite_start]Performing scheduled "linguistic biopsies" on Hebrew content to ensure accuracy. [cite: 34]
+  * [cite_start]Diagnosing cultural context errors and sentiment misalignments in real-time. [cite: 34]
+  * [cite_start]Operating within global rapid-response teams via MS Teams infrastructure. [cite: 35]
 
-> MAY 2023 - PRESENT | UPWORK (Global)
-  ROLE: Medical Translator (Top Rated)
-  STATUS: 100% SUCCESS SCORE
-  - Translating Clinical Trials, Informed Consents, Device Manuals.
-  - Method: Human-verified MTPE (Zero errors reported).
-  - Specialized in Pharma & MedTech documentation.
+> MAY 2023 - PRESENT | [cite_start]UPWORK (Global) [cite: 36, 37]
+  [cite_start]ROLE: Freelance Medical Translator (Top Rated) [cite: 36]
+  [cite_start]STATUS: 100% JOB SUCCESS SCORE [cite: 40]
+  ----------------------------------------------------------
+  * [cite_start]Executing translation of clinical trials, informed consents, and device manuals. [cite: 39]
+  * [cite_start]Methodology: Human-verified MTPE (Machine Translation Post-Editing). [cite: 41]
+  * [cite_start]Client Feedback: "Exceptional experience... Five stars!" [cite: 89]
 
-> MAY 2023 - PRESENT | LIPSWAN / FREELANCE
-  ROLE: Video Editor & Subtitle Specialist
-  - Syncing multilingual subtitles (HE/EN/ES) for medical e-learning.
-  - Ensuring cognitive accessibility via precise editing.
+> MAY 2023 - PRESENT | [cite_start]LIPSWAN / FREELANCE [cite: 90, 91]
+  [cite_start]ROLE: Video Editor & Subtitle Specialist [cite: 90]
+  ----------------------------------------------------------
+  * [cite_start]Synchronization of multilingual subtitles for medical e-learning modules. [cite: 93]
+  * [cite_start]Ensuring cognitive accessibility through precise audio-visual timing. [cite: 45]
 
-================================================
-EDUCATION DATABASE
-================================================
+[==========================================================]
+  [cite_start]SECTION 2: EDUCATION & TRAINING [cite: 46]
+[==========================================================]
 
-> UNIVERSIDAD NACIONAL DE MAR DEL PLATA
-  DEGREE: Doctor of Medicine (MD) Candidate
-  EXP: 2029
-  NOTE: Applying deep-tissue knowledge of Anatomy & Pathology 
-  directly to translation accuracy.
+> [cite_start]UNIVERSIDAD NACIONAL DE MAR DEL PLATA [cite: 47]
+  [cite_start]DEGREE: Doctor of Medicine (MD) Candidate [cite: 47]
+  [cite_start]EXPECTED GRADUATION: 2029 [cite: 48]
+  NOTE: Acquiring deep-tissue knowledge of Anatomy, Physiology, 
+  [cite_start]and Pathology directly applied to translation. [cite: 49]
 
-> CERTIFICATIONS
-  - Top Rated Freelancer (Upwork)
-  - ID Verified 
+[==========================================================]
+  END OF LOG
+[==========================================================]
+        </div>
+    </div>
 
-------------------------------------------------
-EOF
+    <div class="window-system">
+        <div class="sys-logo">💻</div>
+        <div class="sys-text">
+            <strong>System:</strong><br>
+            Danilo Hurwitz Professional<br>
+            Version 2025 (MD Edition)<br><br>
+            <strong>Registered to:</strong><br>
+            [cite_start]Born in Málaga, Spain [cite: 57]<br>
+            [cite_start]Resident of Argentina [cite: 52]<br><br>
+            <strong>Computer:</strong><br>
+            Intel(R) Brain @ High Speed<br>
+            Creative & Medical Co-Processor<br>
+            [cite_start]Top Rated Freelancer Extension Installed [cite: 67]
         </div>
     </div>
 
     <div class="taskbar">
         <div class="start-btn">
-            <div class="start-logo">
-                <div class="win-sq sq-r"></div><div class="win-sq sq-g"></div>
-                <div class="win-sq sq-b"></div><div class="win-sq sq-y"></div>
+            <div class="win-logo">
+                <div class="wl-sq" style="background:#e04a3d;"></div><div class="wl-sq" style="background:#68ae4a;"></div>
+                <div class="wl-sq" style="background:#3988e4;"></div><div class="wl-sq" style="background:#focb2f;"></div>
             </div>
             Start
         </div>
         
-        <div class="task-btn">
-            <div class="icon-img" style="width:16px; height:16px; margin:0 5px 0 0; background:#fcefa1; border:1px solid #dcb048;"></div>
-            C:\System32...
+        <div class="task-item">
+            <div style="font-size:14px;">📂</div> Skills & Tools
         </div>
-        <div class="task-btn task-active">
-            <div class="icon-img" style="width:16px; height:16px; margin:0 5px 0 0; background:#fff; border:1px solid #ccc;"></div>
-            career_log.t...
+        <div class="task-item task-active">
+            <div style="font-size:14px;">📝</div> System_Log...
         </div>
 
         <div class="tray">
