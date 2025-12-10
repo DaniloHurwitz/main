@@ -1,410 +1,474 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>DANILO HURWITZ - SYSTEM INTERFACE</title>
+    <title>Danilo XP Professional</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap');
-
-        :root {
-            --bg-color: #050a10;
-            --hex-grid: #0a1520;
-            --neon-cyan: #00f3ff;
-            --neon-orange: #ff9d00;
-            --text-white: #e0f7ff;
-            --text-dim: #6c8a99;
-            --alert-red: #ff3333;
-            --glass-panel: rgba(10, 30, 50, 0.85);
-            --border-tech: 1px solid rgba(0, 243, 255, 0.3);
-        }
-
+        /* RESET & FONTS */
+        @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap');
+        
         * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
-
+        
         body {
-            background-color: #000;
             margin: 0;
             padding: 20px;
+            background-color: #000;
             display: flex;
             justify-content: center;
-            font-family: 'Rajdhani', sans-serif;
-            color: var(--text-white);
-            background-image: 
-                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
-            background-size: 20px 20px;
+            font-family: 'Tahoma', sans-serif;
         }
 
-        .hud-container {
+        /* A4 CONTAINER AKA "THE MONITOR" */
+        .monitor-screen {
             width: 210mm;
             height: 297mm;
-            background-color: var(--bg-color);
             position: relative;
             overflow: hidden;
-            display: grid;
-            grid-template-columns: 70mm 1fr; /* Columna Izq (Stats) | Columna Der (Data) */
-            grid-template-rows: 40mm 1fr 30mm; /* Header | Body | Footer */
-            border: 2px solid var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.15);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            /* CSS BLISS WALLPAPER GENERATOR */
+            background: linear-gradient(to bottom, #3988e4 0%, #3988e4 50%, #68ae4a 50%, #68ae4a 100%);
+        }
+        /* Clouds and Hill simulation */
+        .monitor-screen::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 50%;
+            background: radial-gradient(circle at 30% 60%, rgba(255,255,255,0.4) 0%, transparent 20%),
+                        radial-gradient(circle at 70% 30%, rgba(255,255,255,0.3) 0%, transparent 30%);
+            z-index: 0;
+        }
+        .monitor-screen::after {
+            content: ''; position: absolute; top: 45%; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(ellipse at 50% 100%, #7ccb5e 0%, #68ae4a 60%);
+            z-index: 0;
         }
 
-        /* --- DECORACIONES SCI-FI (CORNERS) --- */
-        .corner { position: absolute; width: 30px; height: 30px; border: 3px solid var(--neon-orange); z-index: 10; }
-        .tl { top: -2px; left: -2px; border-bottom: none; border-right: none; }
-        .tr { top: -2px; right: -2px; border-bottom: none; border-left: none; }
-        .bl { bottom: -2px; left: -2px; border-top: none; border-right: none; }
-        .br { bottom: -2px; right: -2px; border-top: none; border-left: none; }
-
-        /* --- HEADER SECTION --- */
-        .header-hud {
-            grid-column: 1 / -1;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            background: linear-gradient(90deg, rgba(0,243,255,0.1) 0%, transparent 100%);
-            border-bottom: 1px solid var(--neon-cyan);
-            position: relative;
-        }
-        
-        .scan-line {
-            position: absolute; top:0; left:0; width:100%; height:2px;
-            background: var(--neon-cyan);
-            opacity: 0.5;
-            box-shadow: 0 0 10px var(--neon-cyan);
-        }
-
-        .profile-hex {
-            width: 80px; height: 80px;
-            background: #112;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-            display: flex; align-items: center; justify-content: center;
-            border: 2px solid var(--neon-orange);
-            margin-right: 20px;
-            color: var(--neon-orange);
-            font-size: 24pt; font-weight: bold;
-        }
-
-        .identity-block h1 {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 32pt; margin: 0; line-height: 0.9;
-            text-transform: uppercase;
-            text-shadow: 0 0 5px var(--neon-cyan);
-        }
-        .identity-block .rank {
-            font-size: 12pt; letter-spacing: 4px; color: var(--neon-orange);
-            text-transform: uppercase; font-weight: 700;
-        }
-
-        .sys-status {
-            margin-left: auto;
-            text-align: right;
-            font-family: 'Share Tech Mono';
-            font-size: 9pt; color: var(--neon-cyan);
-        }
-        .blink { animation: blinker 2s linear infinite; }
-        @keyframes blinker { 50% { opacity: 0; } }
-
-        /* --- LEFT COLUMN: DIAGNOSTICS (STATS) --- */
-        .sidebar-hud {
-            border-right: 1px solid var(--text-dim);
-            padding: 20px;
-            background: rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .module-title {
-            font-family: 'Share Tech Mono';
-            color: var(--neon-orange);
-            font-size: 10pt;
-            border-bottom: 1px solid var(--neon-orange);
-            margin-bottom: 10px;
-            padding-bottom: 2px;
-            display: flex; justify-content: space-between;
-        }
-
-        /* SKILL BARS - ALWAYS FULL */
-        .skill-group { margin-bottom: 15px; }
-        .skill-label { font-size: 9pt; font-weight: 700; display: flex; justify-content: space-between; }
-        .bar-container {
-            height: 8px; width: 100%; background: #111;
-            margin-top: 4px; position: relative;
-            border: 1px solid #333;
-        }
-        .bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--neon-cyan), #0088ff);
-            box-shadow: 0 0 8px var(--neon-cyan);
-            position: relative;
-        }
-        /* Efecto de carga completa */
-        .bar-fill::after { content: ''; position: absolute; right: 0; top:0; height:100%; width: 2px; background: white; }
-
-        .stat-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-        }
-        .stat-box {
-            border: 1px solid var(--text-dim);
-            padding: 5px; text-align: center;
-        }
-        .stat-val { font-family: 'Share Tech Mono'; font-size: 14pt; color: var(--neon-cyan); }
-        .stat-name { font-size: 7pt; color: var(--text-dim); text-transform: uppercase; }
-
-        .lang-module {
-            border: 1px solid var(--neon-cyan);
-            padding: 10px;
-            background: rgba(0, 243, 255, 0.05);
-        }
-        .lang-row {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 8px; border-bottom: 1px dashed var(--text-dim); padding-bottom: 4px;
-        }
-        .lang-row:last-child { border: none; margin: 0; }
-        .lang-badge { font-weight: 900; color: var(--text-white); }
-        .lang-lvl { font-family: 'Share Tech Mono'; color: var(--neon-orange); font-size: 9pt; }
-
-        /* --- RIGHT COLUMN: MISSION LOG (EXPERIENCE) --- */
-        .main-hud {
-            padding: 25px;
+        /* --- DESKTOP ICONS --- */
+        .desktop-icons {
+            position: absolute;
+            top: 20px; left: 20px;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            z-index: 1;
         }
-
-        .mission-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-            border-left: 4px solid var(--neon-cyan);
-            padding: 15px;
+        .icon {
+            width: 70px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .icon-img {
+            width: 40px; height: 40px;
+            margin: 0 auto 5px auto;
+            background-size: contain;
+            background-repeat: no-repeat;
+            /* Pixel art placeholders via CSS shadows or data URI would go here, using simple shapes for now */
+            background-color: rgba(255,255,255,0.2); 
+            border: 1px dotted rgba(255,255,255,0.5);
+            border-radius: 4px;
             position: relative;
         }
-        .mission-card::before {
-            content: '[LOG_ENTRY]';
-            position: absolute; top: 10px; right: 10px;
-            font-family: 'Share Tech Mono'; font-size: 8pt; color: var(--text-dim);
-        }
-
-        .job-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
-        .job-title { font-size: 14pt; font-weight: 700; color: var(--neon-cyan); text-transform: uppercase; }
-        .job-loc { font-size: 10pt; color: var(--neon-orange); font-weight: 600; }
-        .job-date { font-family: 'Share Tech Mono'; font-size: 9pt; color: var(--text-dim); margin-left: auto; }
-
-        .job-details ul { margin: 0; padding-left: 20px; }
-        .job-details li {
-            margin-bottom: 5px; font-size: 9.5pt; color: #ddd;
-            list-style-type: square;
-        }
-        .highlight { color: var(--neon-cyan); font-weight: bold; }
-
-        /* EDUCATION MODULE */
-        .edu-module {
-            border: 1px solid var(--text-dim);
-            padding: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255, 157, 0, 0.05);
-        }
-        .edu-icon { font-size: 20pt; color: var(--neon-orange); }
-        .edu-text h3 { margin: 0; font-size: 11pt; color: var(--text-white); }
-        .edu-text p { margin: 2px 0 0 0; font-size: 9pt; color: var(--text-dim); }
-
-        /* --- FOOTER SECTION --- */
-        .footer-hud {
-            grid-column: 1 / -1;
-            border-top: 1px solid var(--neon-cyan);
-            background: rgba(0, 243, 255, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 30px;
-        }
+        /* My Computer Icon Sim */
+        .ico-pc { background: #b0c4de; border: 2px solid #fff; box-shadow: 2px 2px 0 #333; }
+        /* Recycle Bin Sim */
+        .ico-bin { background: transparent; border: none; font-size: 24px; line-height: 40px; }
         
-        .contact-grid {
-            display: flex; gap: 30px;
+        .icon-text {
+            color: white;
+            font-size: 8pt;
+            text-shadow: 1px 1px 1px #000;
         }
-        .contact-item { display: flex; flex-direction: column; }
-        .contact-lbl { font-family: 'Share Tech Mono'; font-size: 7pt; color: var(--neon-orange); }
-        .contact-data { font-size: 10pt; font-weight: 700; letter-spacing: 0.5px; }
 
-        .barcode {
-            font-family: 'Share Tech Mono'; letter-spacing: 4px;
-            border: 1px solid var(--text-white); padding: 5px;
+        /* --- WINDOWS COMMON STYLES --- */
+        .xp-window {
+            position: absolute;
+            background-color: #ece9d8; /* XP Beige */
+            border-radius: 8px 8px 0 0;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #0055ea;
             font-size: 8pt;
         }
 
+        .title-bar {
+            height: 30px;
+            background: linear-gradient(to bottom, #0058ee 0%, #3593ff 4%, #288eff 18%, #127dff 20%, #0369fc 39%, #0262ee 40%, #0057e5 100%);
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #000;
+        }
+        
+        .window-controls { display: flex; gap: 4px; }
+        .win-btn { width: 20px; height: 20px; border-radius: 3px; border: 1px solid #fff; box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5); }
+        .btn-min { background: #288eff; }
+        .btn-max { background: #288eff; }
+        .btn-close { background: #e04a3d; border-color: #b1281d; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: sans-serif; }
+        .btn-close::after { content: '×'; font-size: 14pt; line-height: 18px; margin-left: 1px; }
+
+        .menu-bar { background: #ece9d8; padding: 4px 8px; border-bottom: 1px solid #d8d2bd; color: #000; }
+        .menu-item { display: inline-block; margin-right: 10px; }
+        .menu-item::first-letter { text-decoration: underline; }
+
+        /* --- NOTEPAD WINDOW (Experience) --- */
+        .window-notepad {
+            top: 40mm; right: 10mm;
+            width: 110mm; height: 160mm;
+            z-index: 10;
+        }
+        .notepad-content {
+            flex-grow: 1;
+            background-color: #fff;
+            padding: 10px;
+            font-family: 'Lucida Console', 'Courier New', monospace;
+            font-size: 9pt;
+            overflow: hidden;
+            border: 1px solid #7c7c7c;
+            border-top: none;
+            color: #000;
+            line-height: 1.4;
+        }
+
+        /* --- EXPLORER WINDOW (Skills) --- */
+        .window-explorer {
+            top: 80mm; left: 15mm;
+            width: 100mm; height: 110mm;
+            z-index: 5;
+        }
+        .address-bar {
+            background: #fff; border: 1px solid #7c7c7c; padding: 2px 5px; margin: 5px;
+            color: #000; font-family: 'Tahoma'; display: flex; align-items: center;
+        }
+        .explorer-body {
+            display: flex; flex-grow: 1;
+            background: #fff;
+        }
+        .sidebar-pane {
+            width: 35%;
+            background: linear-gradient(to right, #7ba2e7 0%, #6375d6 100%);
+            padding: 10px;
+        }
+        .sidebar-box {
+            background: #fff;
+            border-radius: 4px 4px 0 0;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        .sb-header {
+            background: linear-gradient(to right, #fff 0%, #c6d3f7 100%);
+            padding: 4px; font-weight: bold; color: #215dc6; cursor: pointer;
+        }
+        .sb-header::after { content: ' ^'; float: right; font-weight: bold; }
+        .sb-content { padding: 8px; color: #215dc6; font-size: 7.5pt; line-height: 1.5; }
+
+        .main-pane {
+            width: 65%;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-auto-rows: min-content;
+            gap: 15px;
+            align-content: start;
+        }
+        
+        .file-item {
+            text-align: center;
+            display: flex; flex-direction: column; align-items: center;
+        }
+        .file-icon {
+            width: 32px; height: 32px;
+            background: #fcefa1; /* Yellow folderish */
+            border: 1px solid #dcb048;
+            border-radius: 2px;
+            margin-bottom: 4px;
+            position: relative;
+        }
+        .file-icon::before { /* Folder tab */
+            content: ''; position: absolute; top: -4px; left: 0; width: 15px; height: 4px;
+            background: #fcefa1; border: 1px solid #dcb048; border-bottom: none; border-radius: 2px 2px 0 0;
+        }
+        /* Specific icons */
+        .icon-pdf { background: #fff; border: 1px solid #ccc; }
+        .icon-pdf::after { content: 'W'; color: #288eff; font-weight: bold; font-family: serif; font-size: 18px; line-height: 32px; }
+
+        .file-name { font-size: 8pt; color: #000; }
+        .file-details { font-size: 6.5pt; color: #888; }
+
+        /* --- TASKBAR --- */
+        .taskbar {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 30px;
+            background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 9%, #245edb 18%, #245edb 92%, #1941a5 100%);
+            display: flex; align-items: center;
+            border-top: 1px solid #4a80f6;
+            z-index: 100;
+        }
+        
+        .start-btn {
+            width: 90px; height: 30px;
+            background: linear-gradient(to bottom, #3c9e3c 0%, #51c051 10%, #3c9e3c 100%);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+            display: flex; align-items: center;
+            padding-left: 5px;
+            color: white; font-style: italic; font-weight: bold; font-size: 11pt; text-shadow: 1px 1px 1px #000;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .start-logo {
+            width: 18px; height: 18px;
+            background: #fff; border-radius: 50%; margin-right: 4px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 1px; padding: 1px;
+            overflow: hidden;
+        }
+        .win-sq { width: 100%; height: 100%; }
+        .sq-r { background: #e04a3d; } .sq-g { background: #68ae4a; } .sq-b { background: #3988e4; } .sq-y { background: #focb2f; }
+
+        .task-btn {
+            width: 140px; height: 26px;
+            background: #1c4ebd;
+            border-radius: 3px;
+            color: white;
+            display: flex; align-items: center; padding: 0 5px;
+            font-size: 8pt;
+            box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+            margin-right: 2px;
+            border: 1px solid #163d96;
+        }
+        .task-btn:hover { background: #2c6aef; }
+        .task-active { background: #163d96; box-shadow: inset 1px 1px 5px rgba(0,0,0,0.5); font-weight: bold;}
+
+        .tray {
+            margin-left: auto;
+            background: #1290e2;
+            height: 100%;
+            padding: 0 10px;
+            display: flex; align-items: center;
+            border-left: 1px solid #1066a3;
+            color: white; font-size: 8pt;
+            gap: 8px;
+        }
+
+        /* --- CONTACT STICKY NOTE --- */
+        .sticky-note {
+            position: absolute; bottom: 40mm; left: 10mm;
+            width: 60mm; height: 40mm;
+            background: #fdfd86;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            padding: 10px;
+            font-family: 'Comic Sans MS', cursive; /* El toque realismo */
+            font-size: 9pt;
+            transform: rotate(-2deg);
+            z-index: 2;
+            color: #333;
+        }
+
         @media print {
-            body { background: none; margin: 0; }
-            .hud-container { width: 100%; height: 100%; box-shadow: none; border: 2px solid #000; }
+            body { background: none; margin: 0; padding: 0; }
+            .monitor-screen { width: 100%; height: 100%; box-shadow: none; }
+            .xp-window { box-shadow: none; border: 1px solid #666; }
         }
     </style>
 </head>
 <body>
 
-<div class="hud-container">
-    <div class="corner tl"></div><div class="corner tr"></div>
-    <div class="corner bl"></div><div class="corner br"></div>
+<div class="monitor-screen">
 
-    <div class="header-hud">
-        <div class="scan-line"></div>
-        <div class="profile-hex">DH</div>
-        <div class="identity-block">
-            <h1>DANILO HURWITZ</h1>
-            <div class="rank">OPERATIVE CLASS: MEDICAL / TECH / LINGUISTIC</div>
+    <div class="desktop-icons">
+        <div class="icon">
+            <div class="icon-img ico-pc"></div>
+            <div class="icon-text">My Computer</div>
         </div>
-        <div class="sys-status">
-            SYSTEM: ONLINE<br>
-            SYNC RATE: 100%<br>
-            <span class="blink">● LIVE CONNECTION</span>
+        <div class="icon">
+            <div class="icon-img" style="background:#fcefa1; border:1px solid #dcb048;"></div>
+            <div class="icon-text">My Projects</div>
+        </div>
+        <div class="icon">
+            <div class="icon-img" style="background:#fff;">
+                <span style="color:#0055ea; font-weight:900; font-size:20px; display:block; padding-top:5px;">e</span>
+            </div>
+            <div class="icon-text">Internet<br>Explorer</div>
+        </div>
+        <div class="icon">
+            <div class="icon-img ico-bin">♻️</div>
+            <div class="icon-text">Recycle Bin</div>
         </div>
     </div>
 
-    <div class="sidebar-hud">
+    <div class="sticky-note">
+        <strong>Don't forget to call:</strong><br><br>
+        Danilo Hurwitz<br>
+        +54 9 2302 21-9422<br>
+        dhurwitzbecerra@mdp.edu.ar<br>
+        Mar del Plata, ARG
+    </div>
+
+    <div class="xp-window window-explorer">
+        <div class="title-bar">
+            <span>C:\System32\Skills</span>
+            <div class="window-controls">
+                <div class="win-btn btn-min"></div>
+                <div class="win-btn btn-max"></div>
+                <div class="win-btn btn-close"></div>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <span class="menu-item">File</span>
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">View</span>
+            <span class="menu-item">Favorites</span>
+            <span class="menu-item">Tools</span>
+            <span class="menu-item">Help</span>
+        </div>
+        <div class="address-bar">
+            <span style="color:#888; margin-right:5px;">Address</span>
+            <div style="border:1px solid #ccc; width:100%; background:#fff; padding:1px;">C:\Danilo\Professional_Skills</div>
+            <span style="color:green; margin-left:5px;">Go</span>
+        </div>
+        <div class="explorer-body">
+            <div class="sidebar-pane">
+                <div class="sidebar-box">
+                    <div class="sb-header">System Tasks</div>
+                    <div class="sb-content">
+                        ▶ View system info<br>
+                        ▶ Add or remove programs<br>
+                        ▶ Change settings
+                    </div>
+                </div>
+                <div class="sidebar-box">
+                    <div class="sb-header">Details</div>
+                    <div class="sb-content">
+                        <strong>Danilo Hurwitz</strong><br>
+                        System Admin<br><br>
+                        Total Size: Unlimited<br>
+                        Date Modified: Today
+                    </div>
+                </div>
+            </div>
+            <div class="main-pane">
+                <div class="file-item">
+                    <div class="file-icon icon-pdf"></div>
+                    <div class="file-name">Medical_Trans.dll</div>
+                    <div class="file-details">System File (Critical)</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon icon-pdf"></div>
+                    <div class="file-name">Hebrew_Lang.exe</div>
+                    <div class="file-details">C1 Fluent (Native)</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon icon-pdf"></div>
+                    <div class="file-name">English_Med.exe</div>
+                    <div class="file-details">C1 Advanced</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon icon-pdf"></div>
+                    <div class="file-name">Spanish_ESP.exe</div>
+                    <div class="file-details">C2 Native</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon"></div>
+                    <div class="file-name">Video_Edit_Ste</div>
+                    <div class="file-details">Folder</div>
+                </div>
+                <div class="file-item">
+                    <div class="file-icon"></div>
+                    <div class="file-name">MD_Knowledge</div>
+                    <div class="file-details">Folder (Large)</div>
+                </div>
+            </div>
+        </div>
+        <div style="background:#ece9d8; border-top:1px solid #ccc; padding:2px; color:#000;">
+            6 objects (Disk free space: 0MB)
+        </div>
+    </div>
+
+    <div class="xp-window window-notepad">
+        <div class="title-bar" style="background: linear-gradient(to right, #0058ee, #3593ff);">
+            <span>career_log.txt - Notepad</span>
+            <div class="window-controls">
+                <div class="win-btn btn-min"></div>
+                <div class="win-btn btn-max"></div>
+                <div class="win-btn btn-close"></div>
+            </div>
+        </div>
+        <div class="menu-bar">
+            <span class="menu-item">File</span>
+            <span class="menu-item">Edit</span>
+            <span class="menu-item">Format</span>
+            <span class="menu-item">View</span>
+            <span class="menu-item">Help</span>
+        </div>
+        <div class="notepad-content">
+[SYSTEM LOG: DANILO HURWITZ]
+[ROLE: MD STUDENT / TRANSLATOR / CONTENT SPECIALIST]
+
+================================================
+EXPERIENCE LOG
+================================================
+
+> NOV 2025 - PRESENT | ICUC SOCIAL (Remote)
+  ROLE: Content Specialist / Hebrew Translator
+  STATUS: ACTIVE
+  - Performing scheduled "linguistic biopsies" on Hebrew content.
+  - Diagnosing cultural context errors & sentiment misalignments.
+  - Operating in global rapid-response teams via MS Teams.
+
+> MAY 2023 - PRESENT | UPWORK (Global)
+  ROLE: Medical Translator (Top Rated)
+  STATUS: 100% SUCCESS SCORE
+  - Translating Clinical Trials, Informed Consents, Device Manuals.
+  - Method: Human-verified MTPE (Zero errors reported).
+  - Specialized in Pharma & MedTech documentation.
+
+> MAY 2023 - PRESENT | LIPSWAN / FREELANCE
+  ROLE: Video Editor & Subtitle Specialist
+  - Syncing multilingual subtitles (HE/EN/ES) for medical e-learning.
+  - Ensuring cognitive accessibility via precise editing.
+
+================================================
+EDUCATION DATABASE
+================================================
+
+> UNIVERSIDAD NACIONAL DE MAR DEL PLATA
+  DEGREE: Doctor of Medicine (MD) Candidate
+  EXP: 2029
+  NOTE: Applying deep-tissue knowledge of Anatomy & Pathology 
+  directly to translation accuracy.
+
+> CERTIFICATIONS
+  - Top Rated Freelancer (Upwork)
+  - ID Verified 
+
+------------------------------------------------
+EOF
+        </div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start-btn">
+            <div class="start-logo">
+                <div class="win-sq sq-r"></div><div class="win-sq sq-g"></div>
+                <div class="win-sq sq-b"></div><div class="win-sq sq-y"></div>
+            </div>
+            Start
+        </div>
         
-        <div style="font-size: 8.5pt; color: #aab; line-height: 1.4; border-bottom: 1px solid #333; padding-bottom: 15px;">
-            <strong style="color:var(--neon-orange)">>> PROFILE SUMMARY:</strong><br>
-            Subject demonstrates elite proficiency in medical terminology and linguistics.
-            [cite_start]Currently deployed as <strong>Content Specialist</strong> at ICUC Social[cite: 84].
-            [cite_start]Combines MD Candidate status [cite: 50] with native creative editing skills.
+        <div class="task-btn">
+            <div class="icon-img" style="width:16px; height:16px; margin:0 5px 0 0; background:#fcefa1; border:1px solid #dcb048;"></div>
+            C:\System32...
+        </div>
+        <div class="task-btn task-active">
+            <div class="icon-img" style="width:16px; height:16px; margin:0 5px 0 0; background:#fff; border:1px solid #ccc;"></div>
+            career_log.t...
         </div>
 
-        <div>
-            <div class="module-title"><span>CORE PARAMETERS</span><span>[MAX]</span></div>
-            <div class="stat-grid">
-                <div class="stat-box">
-                    <div class="stat-val">100%</div>
-                    <div class="stat-name">JSS (UPWORK)</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-val">C2</div>
-                    <div class="stat-name">SPANISH (ESP)</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-val">C1</div>
-                    <div class="stat-name">HEBREW</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-val">MD</div>
-                    <div class="stat-name">CANDIDATE</div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div class="module-title"><span>SKILL CALIBRATION</span><span>[DIAGNOSTIC]</span></div>
-            
-            <div class="skill-group">
-                <div class="skill-label"><span>MEDICAL TRANSLATION</span><span style="color:var(--neon-cyan)">OPTIMAL</span></div>
-                <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
-            </div>
-            
-            <div class="skill-group">
-                <div class="skill-label"><span>TEAM SYNC / COMM</span><span style="color:var(--neon-cyan)">100%</span></div>
-                <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
-            </div>
-
-            <div class="skill-group">
-                <div class="skill-label"><span>VIDEO EDITING (CAPCUT)</span><span style="color:var(--neon-cyan)">ADVANCED</span></div>
-                <div class="bar-container"><div class="bar-fill" style="width: 95%;"></div></div>
-            </div>
-
-            <div class="skill-group">
-                <div class="skill-label"><span>DETAIL ORIENTATION</span><span style="color:var(--neon-cyan)">OBSESSIVE</span></div>
-                <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
-            </div>
-        </div>
-
-        <div class="lang-module">
-            <div class="lang-row">
-                <span class="lang-badge">SPANISH</span>
-                [cite_start]<span class="lang-lvl">NATIVE / CASTILIAN [cite: 7]</span>
-            </div>
-            <div class="lang-row">
-                <span class="lang-badge">HEBREW</span>
-                [cite_start]<span class="lang-lvl">FLUENT (10 YRS) [cite: 9]</span>
-            </div>
-            <div class="lang-row">
-                <span class="lang-badge">ENGLISH</span>
-                [cite_start]<span class="lang-lvl">FLUENT / MEDICAL [cite: 8]</span>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="main-hud">
-        
-        <div class="mission-card">
-            <div class="job-header">
-                <div class="job-title">Content Specialist</div>
-                <div class="job-loc">ICUC SOCIAL</div>
-                [cite_start]<div class="job-date">NOV 2025 - PRESENT [cite: 86]</div>
-            </div>
-            <div class="job-details">
-                <ul>
-                    [cite_start]<li>Executing <span class="highlight">"linguistic biopsies"</span> on Hebrew content to diagnose cultural errors[cite: 87].</li>
-                    <li>Analyzing sentiment and brand safety in real-time global environments.</li>
-                    [cite_start]<li>Operating within rapid-response teams via MS Teams infrastructure[cite: 88].</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="mission-card">
-            <div class="job-header">
-                <div class="job-title">Medical Translator</div>
-                <div class="job-loc">UPWORK (TOP RATED)</div>
-                [cite_start]<div class="job-date">MAY 2023 - PRESENT [cite: 31, 32]</div>
-            </div>
-            <div class="job-details">
-                <ul>
-                    [cite_start]<li>Status: <span class="highlight">Top Rated Freelancer</span> with 100% Job Success Score[cite: 17, 29].</li>
-                    [cite_start]<li>Mission: Translation of Clinical Trials, Informed Consents, and MedTech Manuals[cite: 5].</li>
-                    [cite_start]<li>Protocol: Human-verified MTPE (Machine Translation Post-Editing) for zero-error delivery[cite: 94].</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="mission-card">
-            <div class="job-header">
-                <div class="job-title">Video & Subtitle Editor</div>
-                <div class="job-loc">LIPSWAN / FREELANCE</div>
-                [cite_start]<div class="job-date">MAY 2023 - PRESENT [cite: 41, 42]</div>
-            </div>
-            <div class="job-details">
-                <ul>
-                    [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning[cite: 43].</li>
-                    [cite_start]<li>Enhancing cognitive accessibility through precise audiovisual timing[cite: 44].</li>
-                    <li>Client Feedback: "Danilo did a great work! Was very responsive." (5/5 Stars) [cite_start][cite: 48].</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="edu-module">
-            <div class="edu-icon">⚕</div>
-            <div class="edu-text">
-                <h3>DOCTOR OF MEDICINE (MD) CANDIDATE</h3>
-                [cite_start]<p><strong>Universidad Nacional de Mar del Plata (Exp. 2029) [cite: 50, 51]</strong></p>
-                [cite_start]<p style="font-size:8.5pt; color: #889;">Acquiring comprehensive knowledge of anatomy and physiology directly applied to translation accuracy[cite: 53].</p>
-            </div>
-        </div>
-
-    </div>
-
-    <div class="footer-hud">
-        <div class="contact-grid">
-            <div class="contact-item">
-                <span class="contact-lbl">COMM_LINK_01 (PHONE)</span>
-                [cite_start]<span class="contact-data">+54 9 2302 21-9422 [cite: 2]</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-lbl">COMM_LINK_02 (EMAIL)</span>
-                [cite_start]<span class="contact-data">dhurwitzbecerra@mdp.edu.ar [cite: 2]</span>
-            </div>
-            <div class="contact-item">
-                <span class="contact-lbl">LOCATION_DATA</span>
-                [cite_start]<span class="contact-data">MAR DEL PLATA, ARGENTINA [cite: 2]</span>
-            </div>
-        </div>
-        <div class="barcode">
-            ||| || ||| ACCESS_GRANTED
+        <div class="tray">
+            <span>🛡️</span>
+            <span>🔊</span>
+            <span>10:29 PM</span>
         </div>
     </div>
 
