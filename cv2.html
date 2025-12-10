@@ -3,50 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo XP - Professional OS</title>
+    <title>Danilo XP - Interactive Resume</title>
     <style>
-        /* --- FUENTES & RESET --- */
+        /* --- FUENTES Y ESTILOS BÁSICOS --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Para Winamp */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Fuente Pixel para Winamp */
 
         * { box-sizing: border-box; user-select: none; }
+        
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; 
             font-family: 'Tahoma', sans-serif; font-size: 11px;
-            /* Fondo Bliss HD */
+            /* Fondo Bliss Windows XP */
             background: #2ea6f7 url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* --- UI GLOBAL --- */
-        .desktop {
+        /* --- ESCRITORIO --- */
+        #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            padding: 15px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 20px; align-content: flex-start;
+            padding: 20px; 
+            display: flex; flex-direction: column; flex-wrap: wrap; gap: 20px; align-content: flex-start;
+            z-index: 1; /* Nivel base */
         }
 
-        /* --- ICONOS ESCRITORIO --- */
         .icon {
-            width: 80px; text-align: center; cursor: pointer;
+            width: 85px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
-            color: white; text-shadow: 1px 1px 2px black; transition: opacity 0.2s;
+            color: white; text-shadow: 1px 1px 2px black; transition: transform 0.1s;
         }
-        .icon:hover { opacity: 0.8; }
-        .icon:active .icon-img { transform: scale(0.95); }
-        .icon-img { font-size: 38px; margin-bottom: 5px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.6)); }
-        .icon-label { background: rgba(0,0,0,0); padding: 2px 4px; border-radius: 2px; line-height: 1.3; }
-        .icon.selected .icon-label, .icon:hover .icon-label { background: #0055ea; }
+        .icon:hover { opacity: 0.9; }
+        .icon:active { transform: scale(0.95); }
+        .icon-img { font-size: 42px; margin-bottom: 5px; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.6)); }
+        .icon-label { 
+            background: rgba(0,0,0,0); padding: 2px 6px; border-radius: 2px; 
+            line-height: 1.3; margin-top: 2px;
+        }
+        .icon:hover .icon-label { background: #0055ea; }
 
-        /* --- SISTEMA DE VENTANAS --- */
+        /* --- VENTANAS --- */
         .window {
             position: absolute;
             background: #ece9d8;
             border: 1px solid #0055ea;
             border-radius: 8px 8px 0 0;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
-            display: none; flex-direction: column;
-            min-width: 250px; min-height: 150px;
-            /* Transición suave al maximizar */
-            transition: width 0.1s, height 0.1s, top 0.1s, left 0.1s;
+            box-shadow: 5px 5px 25px rgba(0,0,0,0.5);
+            display: none; /* Oculto por defecto */
+            flex-direction: column;
+            min-width: 300px; min-height: 200px;
+            z-index: 100; /* Siempre encima del escritorio */
         }
         
         .title-bar {
@@ -59,43 +64,44 @@
             border-bottom: 1px solid #003c74;
         }
         
-        .win-controls { display: flex; gap: 4px; }
+        .win-controls { display: flex; gap: 5px; }
         .btn { width: 20px; height: 20px; border: 1px solid #fff; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; box-shadow: inset 1px 1px 0 rgba(255,255,255,0.3); }
         .btn:hover { filter: brightness(1.1); }
-        .btn-min { background: #288eff; padding-top: 6px; font-weight: bold; line-height: 0; }
+        .btn-min { background: #288eff; font-weight: bold; align-items: flex-end; padding-bottom: 3px;}
         .btn-max { background: #288eff; font-size: 10px; }
         .btn-close { background: #e04a3d; font-size: 14px; font-weight: bold; border-color: #d6301d; }
 
         .window-content { flex-grow: 1; overflow: hidden; background: white; margin: 3px; border: 1px solid #999; position: relative; display: flex; flex-direction: column; }
         
-        /* RESIZER (NUEVO) */
+        /* AGARRADERA PARA CAMBIAR TAMAÑO */
         .resizer {
             width: 15px; height: 15px;
-            background: linear-gradient(135deg, transparent 50%, #999 50%);
+            background: linear-gradient(135deg, transparent 50%, #666 50%);
             position: absolute; bottom: 1px; right: 1px;
-            cursor: se-resize; z-index: 100;
-            opacity: 0.5;
+            cursor: se-resize; z-index: 200; opacity: 0.6;
         }
 
-        /* --- ESTILOS APP: WORD CV --- */
-        .word-toolbar { background: #d4d0c8; padding: 2px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; }
-        .word-toolbar span { padding: 2px 5px; cursor: pointer; }
-        .word-toolbar span:hover { background: #0a246a; color: white; }
+        /* --- ESTILOS INTERNOS DE LAS VENTANAS --- */
+        
+        /* WORD CV */
+        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 15px; align-items: center; }
+        .word-toolbar span { cursor: pointer; }
+        .word-toolbar span:hover { text-decoration: underline; color: blue; }
         .paper-view { 
-            background: #5d6c7a; flex-grow: 1; padding: 15px; overflow: auto; display: flex; justify-content: center; 
+            background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; 
         }
         .paper { 
             background: white; width: 100%; max-width: 800px; min-height: 100%; 
-            padding: 30px 40px; font-family: 'Times New Roman', serif; color: #000;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.5); text-align: left; user-select: text;
+            padding: 40px; font-family: 'Times New Roman', serif; color: #000;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5); text-align: left; user-select: text;
         }
-        .paper h1 { font-family: Arial, sans-serif; font-size: 22px; text-transform: uppercase; border-bottom: 2px solid #000; margin-bottom: 5px; }
-        .paper h2 { font-family: Arial, sans-serif; font-size: 14px; color: #004488; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; }
-        .job-title { font-weight: bold; font-size: 14px; margin-top: 10px; }
-        .job-meta { font-style: italic; color: #555; margin-bottom: 5px; }
-        .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
+        .paper h1 { font-family: Arial, sans-serif; font-size: 24px; text-transform: uppercase; border-bottom: 2px solid #000; margin-bottom: 5px; }
+        .paper h2 { font-family: Arial, sans-serif; font-size: 16px; color: #004488; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; }
+        .job-title { font-weight: bold; font-size: 14px; margin-top: 15px; }
+        .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 12px; }
+        .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; font-size: 13px; }
 
-        /* --- ESTILOS APP: WINAMP (SIMULADO) --- */
+        /* WINAMP */
         .winamp-skin { background: #222; color: #00ff00; font-family: 'Verdana', sans-serif; height: 100%; display: flex; flex-direction: column; padding: 10px; gap: 5px; }
         .wa-screen { 
             background: #000; border: 2px solid #555; height: 50px; 
@@ -106,36 +112,35 @@
         .wa-visualizer { display: flex; align-items: flex-end; gap: 2px; height: 30px; margin-top: 5px; justify-content: center; }
         .bar { width: 5px; background: #0f0; animation: equalizer 0.5s infinite; }
         @keyframes equalizer { 0% { height: 5px; } 50% { height: 25px; } 100% { height: 10px; } }
-        
         .wa-controls { display: flex; justify-content: space-between; margin-top: 5px; }
-        .wa-btn { width: 30px; height: 20px; background: #ccc; border: 1px solid #fff; cursor: pointer; font-size: 10px; font-weight: bold; }
+        .wa-btn { width: 40px; height: 25px; background: #ccc; border: 1px solid #fff; cursor: pointer; font-size: 10px; font-weight: bold; border-radius: 2px; }
 
-        /* --- ESTILOS APP: IE EXPLORER --- */
-        .ie-bar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; align-items: center; }
-        .ie-input { flex-grow: 1; border: 1px solid #7c7c7c; font-size: 11px; padding: 2px; }
+        /* INTERNET EXPLORER */
+        .ie-bar { background: #ece9d8; padding: 5px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; align-items: center; }
+        .ie-input { flex-grow: 1; border: 1px solid #7c7c7c; font-size: 11px; padding: 3px; }
         
-        /* --- CLIPPY (MINI IA) --- */
+        /* SKILLS FOLDER */
+        .folder-grid { display: flex; flex-wrap: wrap; gap: 15px; padding: 15px; align-content: flex-start; }
+        .folder-item { width: 70px; text-align: center; color: black; cursor: pointer; }
+        .folder-item:hover { background: #eef; border: 1px solid #ccf; border-radius: 3px; }
+        .f-icon { font-size: 32px; }
+
+        /* CLIPPY */
         #clippy-wrapper { position: absolute; bottom: 50px; right: 20px; z-index: 9000; display: flex; flex-direction: column; align-items: flex-end; }
-        .clippy-char { font-size: 60px; cursor: pointer; filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4)); transition: transform 0.2s; animation: float 3s infinite ease-in-out; }
+        .clippy-char { font-size: 60px; cursor: pointer; filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4)); animation: float 3s infinite ease-in-out; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
         
         .clippy-chat { 
             background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 240px; 
             box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 10px; display: none; font-size: 11px;
-            position: relative;
+            position: relative; color: black;
         }
         .clippy-chat::after { 
             content: ''; position: absolute; bottom: -8px; right: 30px; width: 12px; height: 12px; 
             background: #ffffe1; transform: rotate(45deg); border-right: 1px solid #000; border-bottom: 1px solid #000; 
         }
-        
-        .chat-log { max-height: 100px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
-        .msg-clippy { color: #000; margin-bottom: 5px; }
-        .msg-user { color: #0000aa; font-weight: bold; text-align: right; margin-bottom: 5px; }
-        
-        .chat-opts { display: flex; flex-direction: column; gap: 4px; }
-        .opt-btn { background: white; border: 1px solid #999; padding: 4px; cursor: pointer; text-align: left; }
-        .opt-btn:hover { background: #316ac5; color: white; border-color: #0000aa; }
+        .chat-opts div { background: white; border: 1px solid #999; padding: 5px; margin-top: 5px; cursor: pointer; }
+        .chat-opts div:hover { background: #316ac5; color: white; }
 
         /* --- BARRA DE TAREAS --- */
         #taskbar {
@@ -149,74 +154,68 @@
             background: linear-gradient(to bottom, #3c9e3c, #51c051);
             border-radius: 0 10px 10px 0; display: flex; align-items: center; padding-left: 5px; gap: 5px;
             color: white; font-weight: bold; font-style: italic; font-size: 16px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5); text-shadow: 1px 1px 1px rgba(0,0,0,0.3); cursor: pointer;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5); text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+            cursor: pointer;
         }
         #start-btn:hover { filter: brightness(1.1); }
         
         #task-list { display: flex; gap: 3px; flex-grow: 1; }
         .task-item {
-            width: 140px; height: 24px; background: #3c81f0; border: 1px solid #2864c0;
+            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0;
             border-radius: 3px; color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px;
-            cursor: pointer; font-size: 11px;
+            cursor: pointer; font-size: 11px; overflow: hidden; white-space: nowrap;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 3px rgba(0,0,0,0.5); font-weight: bold; }
         
         #tray { background: #0b76ba; height: 100%; padding: 0 15px; border-left: 1px solid #095c91; display: flex; align-items: center; color: white; font-size: 11px; gap: 10px; margin-left: auto; }
 
-        /* --- MENÚ INICIO --- */
+        /* MENÚ INICIO */
         #start-menu {
             position: absolute; bottom: 30px; left: 0; width: 300px; height: 400px;
             background: white; border-radius: 5px 5px 0 0; display: none; z-index: 9999;
             box-shadow: 2px -2px 10px rgba(0,0,0,0.5); border: 1px solid #316ac5;
             flex-direction: column;
         }
-        .sm-head {
-            height: 50px; background: linear-gradient(to bottom, #127dff, #0057e5);
-            display: flex; align-items: center; padding: 10px; gap: 10px; color: white; font-weight: bold; border-radius: 4px 4px 0 0;
-        }
-        .user-pic { width: 36px; height: 36px; background: white; border-radius: 3px; border: 1px solid #999; }
+        .sm-head { height: 50px; background: linear-gradient(to bottom, #127dff, #0057e5); display: flex; align-items: center; padding: 10px; gap: 10px; color: white; font-weight: bold; border-radius: 4px 4px 0 0; }
+        .user-pic { width: 36px; height: 36px; background: white; border-radius: 3px; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 20px;}
         .sm-body { flex-grow: 1; display: flex; border-top: 2px solid #e59700; }
         .sm-col-l { width: 50%; padding: 5px; display: flex; flex-direction: column; gap: 2px; }
         .sm-col-r { width: 50%; background: #d3e5fa; border-left: 1px solid #9dbddd; padding: 5px; display: flex; flex-direction: column; gap: 2px; }
         .sm-item { padding: 5px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: #333; height: 30px; }
         .sm-item:hover { background: #316ac5; color: white; }
-        .sm-footer { height: 35px; background: linear-gradient(to bottom, #127dff, #0057e5); display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: white; border-top: 1px solid #003c74; }
+        .sm-footer { height: 35px; background: linear-gradient(to bottom, #127dff, #0057e5); display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: white; border-top: 1px solid #003c74; cursor: pointer; }
 
     </style>
 </head>
 <body>
 
 <div class="desktop" id="desktop-area">
-    <div class="icon" ondblclick="openWindow('win-cv')">
+    <div class="icon" onclick="openWindow('win-cv')">
         <div class="icon-img">📝</div>
         <div class="icon-label">My Resume.doc</div>
     </div>
-    <div class="icon" ondblclick="openWindow('win-ie')">
+    <div class="icon" onclick="openWindow('win-ie')">
         <div class="icon-img">🌐</div>
-        <div class="icon-label">Internet Explorer</div>
+        <div class="icon-label">Portfolio</div>
     </div>
-    <div class="icon" ondblclick="openWindow('win-skills')">
+    <div class="icon" onclick="openWindow('win-skills')">
         <div class="icon-img">📁</div>
-        <div class="icon-label">My Skills</div>
+        <div class="icon-label">Skills Folder</div>
     </div>
-    <div class="icon" ondblclick="openWindow('win-winamp')">
+    <div class="icon" onclick="openWindow('win-winamp')">
         <div class="icon-img">⚡</div>
-        <div class="icon-label">Winamp Player</div>
+        <div class="icon-label">Winamp</div>
     </div>
-    <div class="icon" ondblclick="openWindow('win-contact')">
+    <div class="icon" onclick="openWindow('win-contact')">
         <div class="icon-img">📧</div>
-        <div class="icon-label">Contact Info</div>
-    </div>
-    <div class="icon" ondblclick="alert('Access Denied. System Locked.')">
-        <div class="icon-img">⚠️</div>
-        <div class="icon-label">System32</div>
+        <div class="icon-label">Contact</div>
     </div>
 </div>
 
 <div id="start-menu">
     <div class="sm-head">
-        <div class="user-pic" style="display:flex;align-items:center;justify-content:center;font-size:24px;">👨‍⚕️</div>
-        <span>Danilo Hurwitz</span>
+        <div class="user-pic">👨‍⚕️</div>
+        <span style="font-size: 14px; text-shadow: 1px 1px 1px rgba(0,0,0,0.3);">Danilo Hurwitz</span>
     </div>
     <div class="sm-body">
         <div class="sm-col-l">
@@ -239,9 +238,9 @@
     </div>
 </div>
 
-<div id="win-cv" class="window" style="top: 20px; left: 50px; width: 700px; height: 550px;">
+<div id="win-cv" class="window" style="top: 30px; left: 50px; width: 700px; height: 550px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
-        <div style="display:flex;gap:5px;align-items:center;"><span>📝</span> CV_Danilo_Hurwitz.doc - Microsoft Word</div>
+        <div style="display:flex;gap:5px;align-items:center;"><span>📝</span> CV_Danilo_Hurwitz.doc</div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWin('win-cv')">_</div>
             <div class="btn btn-max" onclick="maxWin('win-cv')">□</div>
@@ -254,48 +253,48 @@
         </div>
         <div class="paper-view">
             <div class="paper">
-                <h1>DANILO HURWITZ</h1>
-                <p><strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
-                Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar</p>
+                [cite_start]<h1>DANILO HURWITZ [cite: 5]</h1>
+                <p><strong>MD Candidate | Content Specialist | [cite_start]Medical Translator</strong> [cite: 11, 12, 31]<br>
+                Mar del Plata, Argentina | [cite_start]+54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar [cite: 7, 9, 14]</p>
                 
-                [cite_start]<h2>PROFESSIONAL EXPERIENCE [cite: 30]</h2>
+                <h2>PROFESSIONAL EXPERIENCE</h2>
                 
                 <div class="job-title">Content Specialist / Hebrew Translator</div>
-                <div class="job-meta">ICUC Social (Remote) | Nov 2025 – Present</div>
+                <div class="job-meta">ICUC Social (Remote) | [cite_start]Nov 2025 – Present [cite: 31, 32, 33]</div>
                 <ul>
-                    [cite_start]<li>Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content. [cite: 34]</li>
-                    [cite_start]<li>Diagnosing cultural context errors and sentiment misalignments in real-time. [cite: 34]</li>
-                    [cite_start]<li>Operating within global rapid-response teams via MS Teams infrastructure. [cite: 35]</li>
+                    [cite_start]<li>Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content[cite: 34].</li>
+                    [cite_start]<li>Diagnosing cultural context errors and sentiment misalignments in real-time[cite: 34].</li>
+                    [cite_start]<li>Operating within global rapid-response teams via MS Teams infrastructure[cite: 35].</li>
                 </ul>
 
                 <div class="job-title">Freelance Medical Translator (Top Rated)</div>
-                <div class="job-meta">Upwork / Global Clients | [cite_start]May 2023 – Present [cite: 37]</div>
+                <div class="job-meta">Upwork / Global Clients | [cite_start]May 2023 – Present [cite: 36, 37, 38]</div>
                 <ul>
-                    [cite_start]<li><strong>100% Job Success Score</strong> achieved with zero errors reported. [cite: 40]</li>
-                    [cite_start]<li>Translation of clinical trials, informed consents, and device manuals. [cite: 39]</li>
-                    [cite_start]<li>Method: Human-verified MTPE (Machine Translation Post-Editing). [cite: 41]</li>
+                    [cite_start]<li><strong>100% Job Success Score</strong> achieved with zero errors reported[cite: 40].</li>
+                    [cite_start]<li>Translation of clinical trials, informed consents, and device manuals[cite: 39].</li>
+                    [cite_start]<li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 41].</li>
                 </ul>
 
                 <div class="job-title">Video Editor & Subtitle Specialist</div>
-                <div class="job-meta">Lipswan / Freelance | [cite_start]May 2023 – Present [cite: 43]</div>
+                <div class="job-meta">Lipswan / Freelance | [cite_start]May 2023 – Present [cite: 42, 43, 91]</div>
                 <ul>
-                    [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules. [cite: 45]</li>
-                    [cite_start]<li>Ensuring cognitive accessibility through precise audio-visual timing. [cite: 45]</li>
+                    [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules[cite: 45].</li>
+                    [cite_start]<li>Ensuring cognitive accessibility through precise audio-visual timing[cite: 45].</li>
                 </ul>
 
-                [cite_start]<h2>EDUCATION [cite: 46]</h2>
+                <h2>EDUCATION</h2>
                 <div class="job-title">Doctor of Medicine (MD) Candidate</div>
                 <div class="job-meta">Universidad Nacional de Mar del Plata | Exp. [cite_start]2029 [cite: 47, 48]</div>
-                <p>Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. [cite_start]Direct application of this knowledge to translation accuracy. [cite: 49]</p>
+                <p>Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. [cite_start]Direct application of this knowledge to translation accuracy[cite: 49].</p>
             </div>
         </div>
     </div>
     <div class="resizer" onmousedown="resizeStart(event, 'win-cv')"></div>
 </div>
 
-<div id="win-ie" class="window" style="top: 50px; left: 100px; width: 800px; height: 500px;">
+<div id="win-ie" class="window" style="top: 60px; left: 100px; width: 800px; height: 500px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-ie')">
-        <div style="display:flex;gap:5px;align-items:center;"><span>🌐</span> Danilo Portfolio - Internet Explorer</div>
+        <div style="display:flex;gap:5px;align-items:center;"><span>🌐</span> Danilo's Portfolio - Internet Explorer</div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWin('win-ie')">_</div>
             <div class="btn btn-max" onclick="maxWin('win-ie')">□</div>
@@ -307,7 +306,7 @@
         <div class="ie-bar">
             <span>Address:</span>
             <input type="text" class="ie-input" value="https://danilohurwitz.github.io/main/">
-            <button>Go</button>
+            <button onclick="document.querySelector('iframe').src='https://danilohurwitz.github.io/main/'">Go</button>
         </div>
         <iframe src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
     </div>
@@ -331,7 +330,7 @@
                 <div class="bar" style="animation-delay:0.2s;"></div><div class="bar" style="animation-delay:0.0s;"></div>
                 <div class="bar" style="animation-delay:0.3s;"></div><div class="bar" style="animation-delay:0.1s;"></div>
             </div>
-            <div style="font-size:10px; color:#0f0; margin-top:5px;">128kbps | 44kHz | Stereo</div>
+            <div style="font-size:10px; color:#aaa; margin-top:5px;">128kbps | 44kHz | Stereo</div>
             <div class="wa-controls">
                 <button class="wa-btn">|&lt;</button>
                 <button class="wa-btn">||</button>
@@ -353,24 +352,24 @@
     </div>
     <div class="window-content" style="flex-direction:row;">
         <div style="width:130px; background:linear-gradient(to bottom, #7ba2e7, #6375d6); padding:10px; color:white;">
-            <strong>Skills Folder</strong><br><br>
-            <span style="font-size:10px;">Select an item to view its description.</span>
+            <strong>Skills Tasks</strong><br><br>
+            <span style="font-size:10px;">Select a file to view details.</span>
         </div>
-        <div style="flex-grow:1; background:white; padding:10px; display:flex; flex-wrap:wrap; gap:10px; align-content:start;">
-            <div class="icon" style="color:black;text-shadow:none;width:60px;">
-                <div style="font-size:32px;">🇪🇸</div><span>Spanish<br>C2</span>
+        <div class="folder-grid">
+            <div class="folder-item">
+                <div class="f-icon">🇪🇸</div><div>Spanish<br>C2</div>
             </div>
-            <div class="icon" style="color:black;text-shadow:none;width:60px;">
-                <div style="font-size:32px;">🇮🇱</div><span>Hebrew<br>C1</span>
+            <div class="folder-item">
+                <div class="f-icon">🇮🇱</div><div>Hebrew<br>C1</div>
             </div>
-            <div class="icon" style="color:black;text-shadow:none;width:60px;">
-                <div style="font-size:32px;">🇺🇸</div><span>English<br>C1</span>
+            <div class="folder-item">
+                <div class="f-icon">🇺🇸</div><div>English<br>C1</div>
             </div>
-            <div class="icon" style="color:black;text-shadow:none;width:60px;">
-                <div style="font-size:32px;">💊</div><span>Medical<br>Terms</span>
+            <div class="folder-item">
+                <div class="f-icon">🎬</div><div>Video<br>Edit</div>
             </div>
-            <div class="icon" style="color:black;text-shadow:none;width:60px;">
-                <div style="font-size:32px;">🎬</div><span>Video<br>Edit</span>
+            <div class="folder-item">
+                <div class="f-icon">💊</div><div>Medical<br>Terms</div>
             </div>
         </div>
     </div>
@@ -386,7 +385,7 @@
         </div>
     </div>
     <div class="window-content" style="padding:15px; font-family:Verdana; font-size:11px;">
-        <p><strong>Danilo Hurwitz</strong></p>
+        [cite_start]<p><strong>Danilo Hurwitz</strong> [cite: 5]</p>
         <p>You can reach me at:</p>
         <ul>
             [cite_start]<li>📧 dhurwitzbecerra@mdp.edu.ar [cite: 9]</li>
@@ -401,7 +400,7 @@
 <div id="clippy-wrapper">
     <div class="clippy-chat" id="clippy-box">
         <div class="chat-log" id="chat-log">
-            <div class="msg-clippy">Hi! I'm Clippy. I know everything about Danilo's profile. Ask me anything!</div>
+            <div class="msg-clippy">Hi! I'm Clippy. Ask me about Danilo!</div>
         </div>
         <div class="chat-opts">
             <div class="opt-btn" onclick="ask('exp')">Tell me about his experience</div>
@@ -482,7 +481,9 @@
                 const item = document.createElement('div');
                 item.className = 'task-item active';
                 // Extract clean title
-                let title = w.querySelector('.title-bar').innerText.replace('_', ' ');
+                let title = w.querySelector('.title-bar').innerText;
+                // Remove icons from title string if any
+                title = title.replace(/📝|🌐|⚡|📁|📧/g, '').trim();
                 item.innerText = title.substring(0, 15) + '...';
                 item.onclick = () => bringFront(w.id);
                 list.appendChild(item);
@@ -556,7 +557,7 @@
             openWindow('win-cv');
         } else if(type === 'lang') {
             q = "Does he speak Hebrew?";
-            a = "Yes! [cite_start]He is C1 Fluent in Hebrew with 10 years of immersion[cite: 27]. [cite_start]He is also native in Spanish (Spain/LATAM)[cite: 57].";
+            a = "Yes! [cite_start]He is C1 Fluent in Hebrew with 10 years of immersion[cite: 27]. [cite_start]He is also native in Spanish (Spain/LATAM)[cite: 24].";
         } else if(type === 'med') {
             q = "Is he a doctor?";
             [cite_start]a = "He is an MD Candidate at UNMDP, expecting to graduate in 2029[cite: 47]. [cite_start]He uses this knowledge for medical translations[cite: 49].";
