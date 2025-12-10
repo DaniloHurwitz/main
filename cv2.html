@@ -2,698 +2,332 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo XP - Professional</title>
+    <title>Danilo XP - Balanced Layout</title>
     <style>
-        /* --- FUENTES & RESET --- */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
-        
-        * { box-sizing: border-box; user-select: none; }
-        body { 
-            margin: 0; padding: 0; overflow: hidden; height: 100vh; 
-            font-family: 'Tahoma', sans-serif; font-size: 11px;
-            background: #000;
+
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+        body {
+            margin: 0; padding: 20px;
+            background: #202020;
+            display: flex; justify-content: center;
+            font-family: 'Tahoma', sans-serif;
         }
 
-        /* --- PANTALLA DE CARGA --- */
-        #boot-screen {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 99999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-        
-        .xp-logo { margin-bottom: 40px; text-align: center; }
-        .win-logo-text { font-family: 'Arial', sans-serif; font-size: 40px; font-weight: bold; color: white; font-style: italic; }
-        .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 16px; vertical-align: super; font-style: italic; font-weight: bold; }
-        
-        .loading-bar-box {
-            width: 200px; height: 16px; border: 2px solid #b2b2b2; border-radius: 3px; padding: 2px;
-            position: relative; overflow: hidden; margin-top: 20px;
-        }
-        .loading-blocks {
-            display: flex; gap: 2px; position: absolute; left: -60px; top: 2px; height: 10px;
-            animation: loadAnim 2.5s linear infinite;
-        }
-        .block { width: 10px; height: 100%; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 1px; }
-        
-        @keyframes loadAnim { 0% { left: -60px; } 100% { left: 200px; } }
-
-        /* --- ESCRITORIO --- */
-        #desktop {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            /* Fondo Bliss Original */
-            background: #2ea6f7 url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png') no-repeat center center fixed;
-            background-size: cover;
-            display: none;
-        }
-        
-        .desktop-icons {
-            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 30px; align-content: flex-start; height: 90%;
+        /* CONTENEDOR A4 VERTICAL */
+        .xp-screen {
+            width: 210mm; height: 297mm;
+            position: relative;
+            background-image: url('https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png');
+            background-size: cover; background-position: center;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            overflow: hidden;
         }
 
-        .icon {
-            width: 80px; text-align: center; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center;
-            color: white; text-shadow: 1px 1px 2px black;
-        }
-        .icon:hover { opacity: 0.8; }
-        .icon:active img { transform: scale(0.9); }
-        
-        /* CORRECCIÓN DE IMAGENES: object-fit para evitar estiramiento */
-        .icon img { 
-            width: 48px; height: 48px; margin-bottom: 5px; 
-            object-fit: contain; /* CLAVE: Esto evita que se estire */
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); 
-        }
-        .icon-label { background: transparent; padding: 2px 4px; border-radius: 2px; line-height: 1.3; border: 1px solid transparent; }
-        .icon:hover .icon-label { background: #0055ea; border-color: rgba(255,255,255,0.2); }
-
-        /* --- VENTANAS --- */
+        /* --- ESTILOS WINDOWS XP --- */
         .window {
             position: absolute;
-            background: #ece9d8;
-            border: 1px solid #0055ea;
+            background: #ece9d8; border: 1px solid #0055ea;
             border-radius: 8px 8px 0 0;
-            box-shadow: 8px 8px 25px rgba(0,0,0,0.5);
-            display: none; flex-direction: column;
-            min-width: 250px; min-height: 150px;
-            z-index: 10;
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.5); /* Sombra más fuerte para profundidad */
+            display: flex; flex-direction: column;
         }
-        
         .title-bar {
-            height: 28px;
+            height: 24px;
             background: linear-gradient(to bottom, #0058ee 0%, #3593ff 5%, #288eff 20%, #0369fc 50%, #0057e5 100%);
             border-radius: 6px 6px 0 0;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 8px; color: white; font-weight: bold; font-size: 12px;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.3); cursor: default;
+            padding: 0 6px; color: white; font-weight: bold; font-size: 11px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
             border-bottom: 1px solid #003c74;
         }
-        
-        .win-controls { display: flex; gap: 4px; }
-        .btn { width: 20px; height: 20px; border: 1px solid #fff; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; box-shadow: inset 1px 1px 0 rgba(255,255,255,0.3); }
-        .btn:hover { filter: brightness(1.1); }
-        .btn-min { background: #288eff; padding-top: 6px; font-weight: bold; }
-        .btn-max { background: #288eff; font-size: 10px; }
-        .btn-close { background: #e04a3d; font-size: 14px; font-weight: bold; border-color: #d6301d; }
+        .controls { display: flex; gap: 2px; }
+        .btn { width: 16px; height: 16px; border: 1px solid #fff; border-radius: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; }
+        .btn-x { background: #e04a3d; } .btn-m { background: #288eff; }
 
-        .window-content { flex-grow: 1; overflow: hidden; background: white; margin: 3px; border: 1px solid #999; position: relative; display: flex; flex-direction: column; }
-        
-        .resizer {
-            width: 15px; height: 15px;
-            background: linear-gradient(135deg, transparent 50%, #999 50%);
-            position: absolute; bottom: 1px; right: 1px;
-            cursor: se-resize; z-index: 100; opacity: 0.5;
+        /* --- VENTANA WORD (Ahora más compacta y arriba a la derecha) --- */
+        .win-word {
+            top: 10mm; right: 5mm; 
+            width: 175mm; /* Más angosto para ver escritorio a la izq */
+            height: 185mm; /* Más corto para ver carpeta abajo */
+            z-index: 10;
+        }
+        /* Toolbar Word */
+        .word-toolbar { background: #d4d0c8; border-bottom: 1px solid #808080; padding: 1px; }
+        .menu-items { display: flex; gap: 10px; font-size: 10px; padding: 2px 5px; color: #000; }
+        .icon-bar { display: flex; gap: 5px; padding: 2px 5px; border-top: 1px solid #fff; align-items: center; background: #ece9d8; }
+        .w-icon { width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+        .font-box { background: white; border: 1px solid #abc1de; font-size: 9px; width: 90px; padding: 0 2px; display: flex; justify-content: space-between; margin-right: 5px; }
+
+        /* Documento Word */
+        .word-body {
+            background: #5d6c7a; flex-grow: 1; padding: 8px;
+            display: flex; justify-content: center; overflow: hidden;
+        }
+        .paper {
+            background: white; width: 100%; height: 100%;
+            padding: 15px 20px; /* Márgenes internos reducidos */
+            font-family: 'Times New Roman', serif; color: #000;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            overflow: hidden; /* Sin scroll */
         }
 
-        /* --- APP: WORD CV --- */
-        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
-        .paper-area { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
-        .paper { 
-            background: white; width: 100%; max-width: 800px; min-height: 100%; 
-            padding: 40px; font-family: 'Times New Roman', serif; color: #000;
-            box-shadow: 3px 3px 10px rgba(0,0,0,0.5); user-select: text; cursor: text;
-        }
+        /* Contenido CV ajustado */
+        h1 { font-family: Arial, sans-serif; font-size: 16pt; margin: 0; text-transform: uppercase; border-bottom: 2px solid #000; padding-bottom: 2px; }
+        .sub { font-family: Arial, sans-serif; font-size: 8pt; font-weight: bold; color: #444; margin-top: 2px; margin-bottom: 2px; }
+        .contact { font-size: 8pt; color: #666; margin-bottom: 8px; }
         
-        h1 { font-family: Arial; font-size: 24px; text-transform: uppercase; margin: 0; }
-        h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 20px; text-transform: uppercase; font-weight: bold; }
-        .job-head { font-weight: bold; font-size: 13px; margin-top: 15px; display: flex; justify-content: space-between; }
-        .job-meta { font-style: italic; color: #555; margin-bottom: 5px; font-size: 11px; }
-        .paper ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; }
+        h2 { font-family: Arial, sans-serif; font-size: 9pt; font-weight: bold; color: #2f65bd; border-bottom: 1px solid #ccc; margin: 8px 0 4px 0; text-transform: uppercase; }
+        
+        .job { margin-bottom: 6px; }
+        .job-head { display: flex; justify-content: space-between; font-size: 9pt; font-weight: bold; }
+        .job-co { font-style: italic; font-size: 8.5pt; color: #333; margin-bottom: 1px; }
+        .job-list { margin: 0; padding-left: 15px; font-size: 8.5pt; line-height: 1.25; }
+        .job-list li { margin-bottom: 1px; }
 
-        /* --- APP: SKILLS --- */
-        .skills-container { display: flex; height: 100%; }
-        .skills-sidebar { width: 150px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; }
-        .skills-grid { padding: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-content: flex-start; flex-grow: 1; background: white; overflow-y: auto; }
-        .skill-item { 
-            width: 80px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 5px; 
-            padding: 5px; border: 1px solid transparent; 
+        /* --- VENTANA CARPETA (Ahora más grande y superpuesta) --- */
+        .win-folder {
+            bottom: 35mm; left: 15mm; /* Posición estratégica */
+            width: 125mm; height: 95mm; /* Mucho más grande */
+            z-index: 20; /* Flotando encima del Word */
         }
-        .skill-item:hover { border: 1px solid #ccc; background: #f0f0f0; border-radius: 3px; }
-        .skill-icon { width: 32px; height: 32px; object-fit: contain; }
-        .skill-text { font-size: 10px; color: #000; }
+        .addr-bar { background: #ece9d8; padding: 3px; display: flex; gap: 5px; font-size: 10px; border-bottom: 1px solid #aca899; align-items: center; }
+        .addr-in { background: white; border: 1px solid #7c7c7c; flex-grow: 1; padding: 1px; color: #333; font-size: 10px; }
 
-        /* --- APP: CONTACTO --- */
-        .outlook-bar { background: #ece9d8; padding: 5px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; }
-        .outlook-body { padding: 15px; font-family: 'Tahoma', sans-serif; background: white; height: 100%; }
-        .field-row { display: flex; margin-bottom: 10px; align-items: center; }
-        .field-label { width: 60px; color: #666; text-align: right; margin-right: 10px; }
-        .field-val { font-weight: bold; color: #000; user-select: text; cursor: text; }
+        .folder-view { display: flex; flex-grow: 1; background: white; }
         
-        /* --- APP: IE BROWSER --- */
-        .ie-bar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aaa; display: flex; gap: 5px; align-items: center; }
-        .ie-input { flex-grow: 1; border: 1px solid #7c7c7c; font-size: 11px; padding: 2px; }
+        /* Sidebar azul de la carpeta */
+        .f-sidebar { width: 32%; background: linear-gradient(to bottom, #7ba2e7 0%, #6375d6 100%); padding: 5px; }
+        .xp-box { background: white; border-radius: 3px; margin-bottom: 5px; overflow: hidden; }
+        .xp-head { background: linear-gradient(to right, #fff, #c6d3f7); font-size: 9px; font-weight: bold; padding: 3px; color: #215dc6; }
+        .xp-body { padding: 5px; font-size: 9px; line-height: 1.3; color: #000; }
 
-        /* --- CLIPPY --- */
-        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 9999; display: flex; flex-direction: column; align-items: flex-end; }
-        
-        /* CLIPPY PNG REAL (WIKIMEDIA - ESTABLE) */
-        .clippy-img { 
-            width: 120px; height: 120px; cursor: pointer; 
-            /* Enlace a PNG transparente de Clippy */
-            background: url('https://upload.wikimedia.org/wikipedia/en/e/e0/Clippy-letter.png') no-repeat center bottom; 
-            background-size: contain; 
-            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
-            animation: float 4s infinite ease-in-out;
+        /* Iconos de Skills */
+        .f-grid { width: 68%; padding: 10px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 5px; align-content: start; overflow: hidden; }
+        .icon-tile { 
+            display: flex; flex-direction: column; align-items: center; text-align: center; 
+            padding: 2px; 
         }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0px); } }
-        
-        .chat-bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 10px; width: 300px;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 0px; display: none; font-size: 11px;
-            position: relative;
-        }
-        .chat-bubble::after { content: ''; position: absolute; bottom: -8px; right: 40px; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid #000; }
-        
-        .chat-history { height: 130px; overflow-y: auto; background: white; border: 1px solid #7c7c7c; padding: 5px; margin-bottom: 5px; }
-        .msg-ai { color: #000; margin-bottom: 8px; }
-        .msg-user { color: #0000aa; font-weight: bold; text-align: right; margin-bottom: 8px; }
-        .chat-input-row { display: flex; gap: 5px; }
-        .chat-input { flex-grow: 1; padding: 3px; font-family: Tahoma; }
-        .chat-btn { cursor: pointer; padding: 2px 10px; }
+        .tile-img { font-size: 28px; margin-bottom: 2px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2)); }
+        .tile-txt { font-size: 9px; color: #000; line-height: 1.1; }
+        .tile-sub { font-size: 8px; color: #666; }
 
-        /* --- BARRA DE TAREAS --- */
-        #taskbar {
-            position: absolute; bottom: 0; left: 0; right: 0; height: 30px;
+        /* --- ESCRITORIO --- */
+        .desktop-icons { position: absolute; top: 15mm; left: 5mm; display: flex; flex-direction: column; gap: 20px; z-index: 5; }
+        .dt-icon { text-align: center; color: white; font-size: 10px; text-shadow: 1px 1px 2px #000; width: 60px; cursor: pointer; }
+        .dt-img { font-size: 32px; margin-bottom: 2px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.6)); }
+
+        /* --- TASKBAR --- */
+        .taskbar {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 28px;
             background: linear-gradient(to bottom, #245edb 0%, #3f8cf3 10%, #245edb 100%);
-            border-top: 2px solid #3f8cf3; z-index: 10000; display: flex; align-items: center; padding: 0 2px;
+            border-top: 2px solid #3f8cf3;
+            display: flex; align-items: center; z-index: 100;
         }
-        #start-btn {
-            width: 100px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
-            border-radius: 0 10px 10px 0; display: flex; align-items: center; padding-left: 5px; gap: 5px;
-            color: white; font-weight: bold; font-style: italic; font-size: 16px; box-shadow: 2px 0 5px rgba(0,0,0,0.5); cursor: pointer;
+        .start {
+            width: 85px; height: 100%; margin-right: 5px;
+            background: linear-gradient(to bottom, #3c9e3c, #51c051);
+            border-radius: 0 10px 10px 0;
+            display: flex; align-items: center; padding-left: 5px; gap: 3px;
+            color: white; font-weight: bold; font-style: italic; font-size: 14px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5); text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
         }
-        #start-btn:hover { filter: brightness(1.1); }
+        .win-logo { display: grid; grid-template-columns: 1fr 1fr; width: 16px; height: 16px; border-radius: 50%; background: white; padding: 1px; gap: 1px; }
+        .wl { width: 100%; height: 100%; }
         
-        #task-list { display: flex; gap: 3px; flex-grow: 1; }
-        .task-item {
-            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
-            color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px; cursor: pointer; font-size: 11px;
+        .task { 
+            width: 130px; height: 22px; background: #153c94; color: white; border: 1px solid #0f2d72;
+            border-radius: 3px; display: flex; align-items: center; padding: 0 5px; gap: 5px;
+            font-size: 10px; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; margin-right: 2px;
         }
-        .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
-        #tray { margin-left: auto; color: white; padding-right: 10px; font-size: 11px; display: flex; gap: 10px; align-items: center; }
+        .task-inactive { background: #3c81f0; box-shadow: none; border: 1px solid #2864c0; font-weight: normal; }
 
-        /* --- START MENU --- */
-        #start-menu {
-            position: absolute; bottom: 30px; left: 0; width: 380px; height: 450px;
-            background: white; border-radius: 5px 5px 0 0; display: none; z-index: 9999;
-            box-shadow: 2px -2px 15px rgba(0,0,0,0.5); border: 1px solid #316ac5;
-            flex-direction: column; font-family: 'Tahoma';
-        }
-        .sm-header {
-            height: 60px; background: linear-gradient(to bottom, #127dff, #0057e5);
-            display: flex; align-items: center; padding: 10px; gap: 10px; border-radius: 4px 4px 0 0;
-            color: white; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 1px #000;
-        }
-        .sm-avatar { width: 44px; height: 44px; background: #fff url('https://win98icons.alexmeub.com/icons/png/user_world-0.png') center no-repeat; border-radius: 3px; border: 2px solid #fff; background-size: 32px; }
-        .sm-body { flex-grow: 1; display: flex; border-top: 2px solid #e59700; }
-        .sm-left { width: 50%; padding: 5px; display: flex; flex-direction: column; gap: 5px; background: white; }
-        .sm-right { width: 50%; background: #d3e5fa; border-left: 1px solid #9dbddd; padding: 5px; display: flex; flex-direction: column; gap: 5px; }
-        
-        .sm-item {
-            display: flex; align-items: center; gap: 10px; padding: 5px; cursor: pointer; color: #333; height: 36px;
-        }
-        .sm-item:hover { background: #316ac5; color: white; }
-        .sm-item img { width: 24px; height: 24px; object-fit: contain; }
-        .sm-text { display: flex; flex-direction: column; justify-content: center; }
-        .sm-bold { font-weight: bold; font-size: 11px; }
-        .sm-sub { font-size: 9px; color: #666; }
-        .sm-item:hover .sm-sub { color: #ddd; }
+        .tray { margin-left: auto; background: #0b76ba; height: 100%; padding: 0 10px; display: flex; align-items: center; color: white; font-size: 10px; border-left: 1px solid #095c91; gap: 8px; }
 
-        .sm-footer { height: 40px; background: linear-gradient(to bottom, #127dff, #0057e5); display: flex; align-items: center; justify-content: flex-end; padding-right: 15px; color: white; border-top: 1px solid #003c74; gap: 10px; cursor: pointer; }
+        /* CLIPPY */
+        .clippy { position: absolute; bottom: 35mm; right: 10mm; width: 80px; z-index: 5; }
+        .balloon { background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 6px; font-size: 9px; margin-bottom: 5px; box-shadow: 2px 2px 3px rgba(0,0,0,0.3); text-align: center; }
+        .c-img { font-size: 40px; text-align: center; }
 
+        @media print {
+            body { background: none; margin: 0; padding: 0; }
+            .xp-screen { width: 100%; height: 100%; box-shadow: none; margin: 0; }
+        }
     </style>
 </head>
 <body>
 
-<audio id="startup-sound" src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3" preload="auto"></audio>
+<div class="xp-screen">
 
-<div id="boot-screen">
-    <div id="boot-animation" style="display:flex; flex-direction:column; align-items:center;">
-        <div class="xp-logo">
-            <span class="win-logo-text">Microsoft</span><br>
-            <span class="win-logo-text">Windows</span><span class="win-logo-sub">XP</span>
+    <div class="desktop-icons">
+        <div class="dt-icon"><div class="dt-img">💻</div>My Computer</div>
+        <div class="dt-icon"><div class="dt-img">🗑️</div>Recycle Bin</div>
+        <div class="dt-icon"><div class="dt-img">🌐</div>Internet</div>
+        <div class="dt-icon"><div class="dt-img">📁</div>My Projects</div>
+    </div>
+
+    <div class="window win-word">
+        <div class="title-bar">
+            <span>Microsoft Word - CV_Danilo_Hurwitz.doc</span>
+            <div class="controls"><div class="btn btn-m">_</div><div class="btn btn-m">□</div><div class="btn btn-x">×</div></div>
         </div>
-        <div class="loading-bar-box">
-            <div class="loading-progress">
-                <div class="loading-blocks">
-                    <div class="block"></div><div class="block"></div><div class="block"></div>
+        <div class="word-toolbar">
+            <div class="menu-items"><span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Tools</span><span>Table</span><span>Window</span><span>Help</span></div>
+            <div class="icon-bar">
+                <div class="w-icon">📄</div><div class="w-icon">💾</div><div class="w-icon">🖨️</div>
+                <div style="height:14px; border-left:1px solid #999; margin:0 2px;"></div>
+                <div class="font-box"><span>Times New Roman</span><span>▼</span></div>
+                <div class="font-box" style="width:40px;"><span>10</span><span>▼</span></div>
+                <div class="w-icon"><b>B</b></div><div class="w-icon"><i>I</i></div><div class="w-icon"><u>U</u></div>
+                <div class="w-icon" style="margin-left: auto;">100%</div>
+            </div>
+        </div>
+        <div class="word-body">
+            <div class="paper">
+                <h1>Danilo Hurwitz</h1>
+                <div class="sub">MD Candidate | Medical Translator | Content Specialist</div>
+                <div class="contact">Mar del Plata, ARG • +54 9 2302 21-9422 • dhurwitzbecerra@mdp.edu.ar</div>
+
+                <h2>Professional Experience</h2>
+                
+                <div class="job">
+                    <div class="job-head"><span>Content Specialist / Hebrew QA</span> <span>Nov 2025 – Present</span></div>
+                    <div class="job-co">ICUC Social (Remote)</div>
+                    <ul class="job-list">
+                        <li>Performing "linguistic biopsies" on Hebrew content to ensure accuracy.</li>
+                        <li>Diagnosing cultural context errors and sentiment misalignments.</li>
+                        <li>Ensuring brand safety via rigorous Quality Assurance.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-head"><span>Freelance Medical Translator</span> <span>May 2023 – Present</span></div>
+                    <div class="job-co">Upwork (Top Rated / 100% JSS)</div>
+                    <ul class="job-list">
+                        <li>Translating Clinical Trials, Informed Consents & Manuals.</li>
+                        <li>Method: Human-verified MTPE (Zero errors reported).</li>
+                        <li>Specialized in Hebrew/English/Spanish combinations.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <div class="job-head"><span>Video Editor & Subtitle Specialist</span> <span>May 2023 – Present</span></div>
+                    <div class="job-co">Lipswan / Freelance</div>
+                    <ul class="job-list">
+                        <li>Syncing multilingual subtitles (HE/EN/ES) for medical e-learning.</li>
+                        <li>Ensuring cognitive accessibility via precise timing.</li>
+                    </ul>
+                </div>
+
+                <h2>Education</h2>
+                <div class="job">
+                    <div class="job-head"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
+                    <div class="job-co">Universidad Nacional de Mar del Plata</div>
+                    <div style="font-size:8.5pt;">Applying Anatomy & Physiology knowledge to translation accuracy.</div>
+                </div>
+
+                <h2>Certifications</h2>
+                <div style="font-size:8.5pt; line-height:1.3;">
+                    • <strong>Top Rated Freelancer</strong> & ID Verified (Upwork)<br>
+                    • EF SET English Certificate (C1/C2 Proficient)
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="desktop">
-    <div class="desktop-icons">
-        <div class="icon" onclick="openWindow('win-cv')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png" alt="CV">
-            <div class="icon-label">My Resume</div>
+    <div class="window win-folder">
+        <div class="title-bar">
+            <span>C:\Danilo\Skills</span>
+            <div class="controls"><div class="btn btn-m">_</div><div class="btn btn-m">□</div><div class="btn btn-x">×</div></div>
         </div>
-        <div class="icon" onclick="openWindow('win-skills')">
-            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Skills">
-            <div class="icon-label">My Skills</div>
+        <div class="word-toolbar">
+            <div class="menu-items"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
         </div>
-        <div class="icon" onclick="openWindow('win-ie')">
-            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" alt="Portfolio">
-            <div class="icon-label">Portfolio</div>
+        <div class="addr-bar">
+            <span>Address</span>
+            <div class="addr-in">C:\Danilo\Skills_&_Languages</div>
+            <span style="color:green; font-weight:bold;">→ Go</span>
         </div>
-        <div class="icon" onclick="openWindow('win-contact')">
-            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" alt="Contact">
-            <div class="icon-label">Contact</div>
-        </div>
-    </div>
-</div>
-
-<div id="start-menu">
-    <div class="sm-header">
-        <div class="sm-avatar"></div>
-        <span>Danilo Hurwitz</span>
-    </div>
-    <div class="sm-body">
-        <div class="sm-left">
-            <div class="sm-item" onclick="openWindow('win-ie')">
-                <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png">
-                <div class="sm-text"><span class="sm-bold">Internet Explorer</span><span class="sm-sub">Browser</span></div>
-            </div>
-            <div class="sm-item" onclick="openWindow('win-contact')">
-                <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png">
-                <div class="sm-text"><span class="sm-bold">E-mail</span><span class="sm-sub">Outlook Express</span></div>
-            </div>
-            <div style="height:1px; background:#ccc; margin:5px 0;"></div>
-            <div class="sm-item" onclick="openWindow('win-cv')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
-                <div class="sm-text"><span class="sm-bold">My Resume</span><span class="sm-sub">Microsoft Word</span></div>
-            </div>
-        </div>
-        <div class="sm-right">
-            <div class="sm-item" onclick="openWindow('win-skills')">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
-                <span class="sm-bold">My Documents</span>
-            </div>
-            <div class="sm-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mypictures-4.png">
-                <span class="sm-bold">My Pictures</span>
-            </div>
-            <div class="sm-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mymusic-4.png">
-                <span class="sm-bold">My Music</span>
-            </div>
-            <div style="height:1px; background:#9dbddd; margin:5px 0;"></div>
-            <div class="sm-item" onclick="openWindow('win-contact')">
-                <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png">
-                <span class="sm-bold">Control Panel</span>
-            </div>
-        </div>
-    </div>
-    <div class="sm-footer" onclick="location.reload()">
-        <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-2.png" width="24">
-        <span>Turn Off Computer</span>
-    </div>
-</div>
-
-<div id="win-cv" class="window" style="top: 20px; left: 50px; width: 800px; height: 600px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
-        <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png" width="16"> 
-            CV_Danilo_Hurwitz.doc - Microsoft Word
-        </div>
-        <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-cv')">_</div>
-            <div class="btn btn-max" onclick="maxWindow('win-cv')">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-cv')">×</div>
-        </div>
-    </div>
-    <div class="window-content">
-        <div class="word-toolbar">File | Edit | View | Insert | Format | Tools</div>
-        <div class="paper-area">
-            <div class="paper">
-                <div class="profile-header">
-                    <div>
-                        <h1>DANILO HURWITZ</h1>
-                        <p style="font-size:12px; margin-top:5px;">
-                            <strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
-                            Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar
-                        </p>
+        <div class="folder-view">
+            <div class="f-sidebar">
+                <div class="xp-box">
+                    <div class="xp-head">Details</div>
+                    <div class="xp-body">
+                        <strong>Skills Folder</strong><br>
+                        File Folder<br><br>
+                        Items: 6<br>
+                        Status: Pro
                     </div>
                 </div>
-                
-                <h2>PROFESSIONAL EXPERIENCE</h2>
-                
-                <div class="job-head"><span>Content Specialist / Hebrew Translator</span> <span>Nov 2025 – Present</span></div>
-                <div class="job-meta">ICUC Social (Remote)</div>
-                <ul>
-                    <li>Performing scheduled "linguistic biopsies" on high-stakes Hebrew content.</li>
-                    <li>Diagnosing cultural context errors and sentiment misalignments in real-time.</li>
-                    <li>Operating within global rapid-response teams via MS Teams infrastructure.</li>
-                </ul>
-
-                <div class="job-head"><span>Freelance Medical Translator (Top Rated)</span> <span>May 2023 – Present</span></div>
-                <div class="job-meta">Upwork / Global Clients</div>
-                <ul>
-                    <li><strong>100% Job Success Score</strong> achieved with zero errors reported.</li>
-                    <li>Translation of clinical trials, informed consents, and device manuals.</li>
-                    <li>Method: Human-verified MTPE (Machine Translation Post-Editing).</li>
-                </ul>
-
-                <div class="job-head"><span>Freelance Video Editor & Subtitle Creator</span> <span>May 2023 – Present</span></div>
-                <div class="job-meta">Freelance / Upwork</div>
-                <ul>
-                    <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules.</li>
-                    <li>Ensuring cognitive accessibility through precise audio-visual timing.</li>
-                </ul>
-
-                <h2>EDUCATION</h2>
-                <div class="job-head"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
-                <div class="job-meta">Universidad Nacional de Mar del Plata</div>
-                <p>Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy.</p>
+            </div>
+            <div class="f-grid">
+                <div class="icon-tile">
+                    <div class="tile-img">🇪🇸</div>
+                    <div class="tile-txt">Spanish</div>
+                    <div class="tile-sub">Native C2</div>
+                </div>
+                <div class="icon-tile">
+                    <div class="tile-img">🇮🇱</div>
+                    <div class="tile-txt">Hebrew</div>
+                    <div class="tile-sub">Fluent C1</div>
+                </div>
+                <div class="icon-tile">
+                    <div class="tile-img">🇺🇸</div>
+                    <div class="tile-txt">English</div>
+                    <div class="tile-sub">Medical C1</div>
+                </div>
+                <div class="icon-tile">
+                    <div class="tile-img">💊</div>
+                    <div class="tile-txt">Med Terms</div>
+                    <div class="tile-sub">Expert</div>
+                </div>
+                <div class="icon-tile">
+                    <div class="tile-img">🎬</div>
+                    <div class="tile-txt">Video Edit</div>
+                    <div class="tile-sub">CapCut</div>
+                </div>
+                <div class="icon-tile">
+                    <div class="tile-img">⌨️</div>
+                    <div class="tile-txt">Subtitles</div>
+                    <div class="tile-sub">Timing</div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="resizer" onmousedown="resizeStart(event, 'win-cv')"></div>
+
+    <div class="clippy">
+        <div class="balloon">
+            <strong>Need a Pro?</strong><br>
+            Hire Danilo!
+        </div>
+        <div class="c-img">📎</div>
+    </div>
+
+    <div class="taskbar">
+        <div class="start">
+            <div class="win-logo">
+                <div class="wl" style="background:#e04a3d;"></div><div class="wl" style="background:#68ae4a;"></div>
+                <div class="wl" style="background:#3988e4;"></div><div class="wl" style="background:#focb2f;"></div>
+            </div>
+            Start
+        </div>
+        <div class="task">
+            <span style="background:white; color:blue; font-weight:bold; padding:0 2px; border-radius:2px;">W</span>
+            CV_Danilo...
+        </div>
+        <div class="task task-inactive">
+            <span style="font-size:11px;">📂</span>
+            Skills
+        </div>
+        <div class="tray">
+            <span>🛡️</span>
+            <span>🔊</span>
+            <span>18:08</span>
+        </div>
+    </div>
+
 </div>
-
-<div id="win-skills" class="window" style="top: 80px; left: 150px; width: 600px; height: 450px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-skills')">
-        <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" width="16">
-            C:\Danilo\Skills
-        </div>
-        <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-skills')">_</div>
-            <div class="btn btn-max" onclick="maxWindow('win-skills')">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-skills')">×</div>
-        </div>
-    </div>
-    <div class="window-content" style="flex-direction:row;">
-        <div class="skills-sidebar">
-            <strong>Skills Details</strong><br><br>
-            <span style="font-size:10px;">Select an item to view its description.</span>
-        </div>
-        <div class="skills-grid">
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
-                <span class="skill-text">Spanish<br>C2</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
-                <span class="skill-text">Hebrew<br>C1</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/world-3.png" class="skill-icon">
-                <span class="skill-text">English<br>C1</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png" class="skill-icon">
-                <span class="skill-text">Medical<br>Terms</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png" class="skill-icon">
-                <span class="skill-text">CapCut<br>Editing</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png" class="skill-icon">
-                <span class="skill-text">Subtitle<br>Edit</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png" class="skill-icon">
-                <span class="skill-text">MTPE</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" class="skill-icon">
-                <span class="skill-text">Office<br>Suite</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/internet_connection_wiz-5.png" class="skill-icon">
-                <span class="skill-text">SEO<br>Basic</span>
-            </div>
-            <div class="skill-item">
-                <img src="https://win98icons.alexmeub.com/icons/png/users-1.png" class="skill-icon">
-                <span class="skill-text">Cross<br>Cultural</span>
-            </div>
-        </div>
-    </div>
-    <div class="resizer" onmousedown="resizeStart(event, 'win-skills')"></div>
-</div>
-
-<div id="win-ie" class="window" style="top: 50px; left: 100px; width: 800px; height: 500px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-ie')">
-        <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" width="16"> 
-            Danilo Portfolio - Internet Explorer
-        </div>
-        <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-ie')">_</div>
-            <div class="btn btn-max" onclick="maxWindow('win-ie')">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-ie')">×</div>
-        </div>
-    </div>
-    <div class="window-content">
-        <div class="ie-bar">
-            <span>Address:</span>
-            <input type="text" class="ie-input" value="https://danilohurwitz.github.io/main/">
-            <button onclick="document.getElementById('ie-frame').src='https://danilohurwitz.github.io/main/'">Go</button>
-        </div>
-        <iframe id="ie-frame" src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
-    </div>
-    <div class="resizer" onmousedown="resizeStart(event, 'win-ie')"></div>
-</div>
-
-<div id="win-contact" class="window" style="top: 150px; left: 250px; width: 450px; height: 300px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-contact')">
-        <div style="display:flex;gap:5px;align-items:center;">
-            <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png" width="16"> 
-            Contact Danilo - Outlook Express
-        </div>
-        <div class="win-controls"><div class="btn btn-min" onclick="minWindow('win-contact')">_</div><div class="btn btn-close" onclick="closeWindow('win-contact')">×</div></div>
-    </div>
-    <div class="window-content">
-        <div class="outlook-bar">
-            <button class="outlook-btn">Send/Recv</button>
-            <button class="outlook-btn">Address Book</button>
-        </div>
-        <div class="outlook-body">
-            <div class="field-row"><span class="field-label">From:</span> <span class="field-val">Danilo Hurwitz</span></div>
-            <div class="field-row"><span class="field-label">To:</span> <span class="field-val">Recruiter / Client</span></div>
-            <div class="field-row"><span class="field-label">Subject:</span> <span class="field-val">Professional Inquiry</span></div>
-            <hr>
-            <p>You can reach me directly via:</p>
-            <div class="contact-info">
-                <div class="field-row"><span class="field-label">Email:</span> dhurwitzbecerra@mdp.edu.ar</div>
-                <div class="field-row"><span class="field-label">Phone:</span> +54 9 2302 21-9422</div>
-                <div class="field-row"><span class="field-label">Location:</span> Mar del Plata, Argentina</div>
-                <div class="field-row"><span class="field-label">Web:</span> danilohurwitz.github.io</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="clippy-container">
-    <div class="chat-bubble" id="clippy-chat">
-        <div class="chat-history" id="chat-history">
-            <div class="msg-ai">Hi! I'm Clippy. Ask me a question like "Where does Danilo work?", "Does he speak Hebrew?", or "Contact info".</div>
-        </div>
-        <div class="chat-input-row">
-            <input type="text" id="user-input" class="chat-input" placeholder="Type here..." onkeypress="handleEnter(event)">
-            <button class="chat-btn" onclick="sendMessage()">Send</button>
-        </div>
-    </div>
-    <div class="clippy-img" onclick="toggleClippy()"></div>
-</div>
-
-<div id="taskbar">
-    <div id="start-btn" onclick="toggleStart()">
-        <div style="display:grid; grid-template-columns:1fr 1fr; width:16px; height:16px; border-radius:50%; background:white; padding:1px; gap:1px;">
-            <div style="background:#e04a3d;"></div><div style="background:#68ae4a;"></div>
-            <div style="background:#3988e4;"></div><div style="background:#focb2f;"></div>
-        </div>
-        Start
-    </div>
-    <div id="task-list"></div>
-    <div id="tray">
-        <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" width="16">
-        <span id="clock">12:00 PM</span>
-    </div>
-</div>
-
-<script>
-    // --- BOOT SEQUENCE AUTOMATIC ---
-    window.onload = function() {
-        // Auto boot after 3 seconds
-        setTimeout(() => {
-            document.getElementById('boot-screen').style.display = 'none';
-            document.getElementById('desktop').style.display = 'block';
-            
-            // Intento de audio (puede ser bloqueado por navegador si no hay click)
-            var audio = document.getElementById('startup-sound');
-            var promise = audio.play();
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    // Si autoplay falla, sonará al primer clic en cualquier lado
-                    document.body.addEventListener('click', function playOnFirstClick() {
-                        audio.play();
-                        document.body.removeEventListener('click', playOnFirstClick);
-                    });
-                });
-            }
-            
-            // Auto open Clippy bubble
-            setTimeout(() => document.getElementById('clippy-chat').style.display = 'block', 1000);
-        }, 3000);
-    }
-
-    // --- CLOCK ---
-    function updateClock() {
-        const now = new Date();
-        let h = now.getHours(), m = now.getMinutes();
-        const ampm = h >= 12 ? 'PM' : 'AM';
-        h = h % 12 || 12; m = m < 10 ? '0'+m : m;
-        document.getElementById('clock').innerText = h + ':' + m + ' ' + ampm;
-    }
-    setInterval(updateClock, 1000); updateClock();
-
-    // --- WINDOW MANAGEMENT ---
-    let zIndex = 100;
-
-    function openWindow(id) {
-        const win = document.getElementById(id);
-        win.style.display = 'flex';
-        bringFront(id);
-        updateTaskbar();
-        document.getElementById('start-menu').style.display = 'none'; // Close start menu
-    }
-
-    function closeWindow(id) {
-        document.getElementById(id).style.display = 'none';
-        updateTaskbar();
-    }
-
-    function minWindow(id) {
-        document.getElementById(id).style.display = 'none';
-    }
-
-    function maxWindow(id) {
-        const win = document.getElementById(id);
-        if(win.style.width === '100%') {
-            win.style.width = '700px'; win.style.height = '500px'; win.style.top = '50px'; win.style.left = '50px';
-        } else {
-            win.style.width = '100%'; win.style.height = 'calc(100% - 30px)'; win.style.top = '0'; win.style.left = '0';
-        }
-    }
-
-    function bringFront(id) {
-        zIndex++;
-        document.getElementById(id).style.zIndex = zIndex;
-    }
-
-    function updateTaskbar() {
-        const list = document.getElementById('task-list');
-        list.innerHTML = '';
-        document.querySelectorAll('.window').forEach(w => {
-            if(w.style.display === 'flex') {
-                const item = document.createElement('div');
-                item.className = 'task-item active';
-                let title = w.querySelector('.title-bar').innerText.trim();
-                item.innerText = title.substring(0, 20) + '...';
-                item.onclick = () => bringFront(w.id);
-                list.appendChild(item);
-            }
-        });
-    }
-
-    function toggleStart() {
-        const menu = document.getElementById('start-menu');
-        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    // --- CLIPPY AI ---
-    function toggleClippy() {
-        const c = document.getElementById('clippy-chat');
-        c.style.display = c.style.display === 'block' ? 'none' : 'block';
-    }
-
-    function handleEnter(e) { if(e.key === 'Enter') sendMessage(); }
-
-    function sendMessage() {
-        const input = document.getElementById('user-input');
-        const text = input.value.trim().toLowerCase();
-        if(!text) return;
-
-        const hist = document.getElementById('chat-history');
-        hist.innerHTML += `<div class="msg-user">${input.value}</div>`;
-        input.value = '';
-        hist.scrollTop = hist.scrollHeight;
-
-        let response = "";
-        let action = null;
-
-        // IA LOGIC (Cerebro de Clippy)
-        if (text.includes('nombre') || text.includes('name') || text.includes('who')) {
-            response = "His name is Danilo Hurwitz. He's based in Mar del Plata.";
-        }
-        else if (text.includes('experiencia') || text.includes('experience') || text.includes('work') || text.includes('job') || text.includes('trabajo') || text.includes('icuc')) {
-            response = "Danilo works at ICUC Social as a Content Specialist and is a Top Rated Translator on Upwork (100% JSS). Opening his CV...";
-            action = 'win-cv';
-        }
-        else if (text.includes('hebreo') || text.includes('hebrew') || text.includes('ingles') || text.includes('english') || text.includes('idioma') || text.includes('language') || text.includes('espanol') || text.includes('spanish')) {
-            response = "Yes! He is Fluent in Hebrew (C1) with 10 years of immersion, Native in Spanish, and Medical English C1. Opening Skills...";
-            action = 'win-skills';
-        }
-        else if (text.includes('medico') || text.includes('medical') || text.includes('doctor') || text.includes('medicine') || text.includes('estudio') || text.includes('universidad')) {
-            response = "He is a Medical Student (MD Candidate) at UNMDP, expecting to graduate in 2029. He uses this knowledge for translations.";
-            action = 'win-cv';
-        }
-        else if (text.includes('contacto') || text.includes('contact') || text.includes('email') || text.includes('phone') || text.includes('telefono')) {
-            response = "You can contact him at dhurwitzbecerra@mdp.edu.ar. Opening contact info...";
-            action = 'win-contact';
-        }
-        else if (text.includes('hola') || text.includes('hi') || text.includes('hello')) {
-            response = "Hello there! Ask me about Danilo's work or skills.";
-        }
-        else {
-            response = "I'm not sure. Try asking about: 'Hebrew', 'Experience', or 'Contact'.";
-        }
-
-        setTimeout(() => {
-            hist.innerHTML += `<div class="msg-ai">${response}</div>`;
-            hist.scrollTop = hist.scrollHeight;
-            if(action) openWindow(action);
-        }, 600);
-    }
-
-    // --- DRAG & RESIZE ---
-    function dragStart(e, id) {
-        if(e.target.classList.contains('btn')) return; 
-        e.preventDefault(); bringFront(id);
-        const elm = document.getElementById(id);
-        let pos3 = e.clientX, pos4 = e.clientY;
-        document.onmouseup = closeDrag;
-        document.onmousemove = elementDrag;
-        function elementDrag(e) {
-            e.preventDefault();
-            let pos1 = pos3 - e.clientX, pos2 = pos4 - e.clientY;
-            pos3 = e.clientX; pos4 = e.clientY;
-            elm.style.top = (elm.offsetTop - pos2) + "px";
-            elm.style.left = (elm.offsetLeft - pos1) + "px";
-        }
-        function closeDrag() { document.onmouseup = null; document.onmousemove = null; }
-    }
-
-    function resizeStart(e, id) {
-        e.preventDefault();
-        const elm = document.getElementById(id);
-        const startX = e.clientX, startY = e.clientY;
-        const startW = parseInt(document.defaultView.getComputedStyle(elm).width, 10);
-        const startH = parseInt(document.defaultView.getComputedStyle(elm).height, 10);
-        document.onmousemove = doResize;
-        document.onmouseup = stopResize;
-        function doResize(e) {
-            elm.style.width = (startW + e.clientX - startX) + 'px';
-            elm.style.height = (startH + e.clientY - startY) + 'px';
-        }
-        function stopResize() { document.onmousemove = null; document.onmouseup = null; }
-    }
-</script>
 
 </body>
 </html>
