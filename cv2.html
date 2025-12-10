@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - Windows XP Professional</title>
+    <title>Danilo Hurwitz - Professional Enterprise OS</title>
     <style>
         /* =========================================
-           1. CORE SYSTEM STYLES & FONTS
+           1. CORE SYSTEM & FONTS
            ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Winamp/Retro fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap'); /* Code/Terminal */
+        @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+        :root {
+            --xp-blue: #245edb;
+            --xp-blue-grad-start: #0058ee;
+            --xp-blue-grad-end: #0057e5;
+            --xp-panel-bg: #ece9d8;
+            --win-border: #0055ea;
+        }
 
         * { box-sizing: border-box; user-select: none; }
         
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; width: 100vw;
             font-family: 'Tahoma', sans-serif; font-size: 11px;
-            background: #000;
-            cursor: default;
+            background: #000; cursor: default;
         }
 
-        /* Utility Classes */
+        /* Utilidades */
         .hidden { display: none !important; }
         .flex { display: flex; }
         .col { flex-direction: column; }
+        .row { flex-direction: row; }
         .center { align-items: center; justify-content: center; }
         .bold { font-weight: bold; }
+        .text-center { text-align: center; }
+        .pointer { cursor: pointer; }
 
         /* =========================================
-           2. BOOT SCREEN
+           2. BOOT SCREEN (PANTALLA DE CARGA)
            ========================================= */
         #boot-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -48,7 +57,7 @@
         .loading-progress { width: 100%; height: 100%; position: relative; }
         .loading-blocks {
             display: flex; gap: 3px; position: absolute; left: -80px; top: 1px; height: 100%;
-            animation: loadAnim 2.5s linear infinite;
+            animation: loadAnim 3s linear infinite;
         }
         .block { width: 12px; height: 10px; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 2px; }
         
@@ -59,47 +68,46 @@
            ========================================= */
         #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            /* Fondo 16:9 Solicitado */
+            /* Fondo HD 16:9 Solicitado */
             background: #2ea6f7 url('https://external-preview.redd.it/uhq5zTcMPM3tOW_fbUz4PayDt_5pkEXdyXXoRWs3XOg.jpg?auto=webp&s=e06461124c1ccfdba7e9ece763b644ff68eeb06b') no-repeat center center fixed;
             background-size: cover;
-            display: none; /* Activado por JS */
+            display: none; /* Se activa tras el boot */
             z-index: 1;
         }
         
         .desktop-icons {
-            padding: 10px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 20px; align-content: flex-start; height: 95%; width: 100%;
+            padding: 20px; display: flex; flex-direction: column; flex-wrap: wrap; gap: 25px; align-content: flex-start; height: 95%; width: 100%;
         }
 
         .icon {
-            width: 80px; text-align: center; cursor: pointer;
+            width: 85px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
             color: white; text-shadow: 1px 1px 2px black; margin-bottom: 5px;
-            border: 1px solid transparent;
+            border: 1px solid transparent; padding: 5px;
         }
-        .icon:hover { background-color: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 3px; }
+        .icon:hover { background-color: rgba(0, 100, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 3px; }
         .icon:active img { transform: scale(0.9); opacity: 0.8; }
         .icon img { 
             width: 48px; height: 48px; margin-bottom: 5px; 
-            object-fit: contain; 
-            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); 
+            object-fit: contain; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); 
         }
-        .icon-label { padding: 1px 3px; border-radius: 2px; line-height: 1.3; }
+        .icon-label { padding: 2px 4px; border-radius: 2px; line-height: 1.3; }
         .icon:hover .icon-label { background: #0055ea; }
 
         /* =========================================
-           4. WINDOW SYSTEM (THE ENGINE)
+           4. WINDOW SYSTEM ENGINE
            ========================================= */
         .window {
             position: absolute;
-            background: #ece9d8;
-            border: 1px solid #0055ea;
+            background: var(--xp-panel-bg);
+            border: 1px solid var(--win-border);
             border-radius: 8px 8px 0 0;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.5);
+            box-shadow: 6px 6px 20px rgba(0,0,0,0.5);
             display: none; flex-direction: column;
             min-width: 200px; min-height: 150px;
             z-index: 10;
         }
-        .window.active { z-index: 100; box-shadow: 8px 8px 25px rgba(0,0,0,0.6); }
+        .window.active { z-index: 100; box-shadow: 10px 10px 30px rgba(0,0,0,0.6); }
         
         .title-bar {
             height: 29px;
@@ -110,7 +118,7 @@
             text-shadow: 1px 1px 0 rgba(0,0,0,0.3); cursor: default;
             border-bottom: 1px solid #003c74;
         }
-        .title-bar-text { display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .title-bar-text { display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .title-bar img { width: 16px; height: 16px; }
         
         .win-controls { display: flex; gap: 3px; }
@@ -135,11 +143,11 @@
             cursor: se-resize; z-index: 101; opacity: 0.6;
         }
 
-        /* Generic Menus */
-        .menubar { background: #ece9d8; padding: 2px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; }
+        /* Generic UI Elements */
+        .menubar { background: var(--xp-panel-bg); padding: 2px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; }
         .menubar span { padding: 2px 6px; cursor: default; }
         .menubar span:hover { background: #316ac5; color: white; }
-        .toolbar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; }
+        .toolbar { background: var(--xp-panel-bg); padding: 4px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; }
         
         /* =========================================
            5. APPLICATIONS STYLING
@@ -154,7 +162,7 @@
         }
         .cv-header { border-bottom: 2px solid #000; margin-bottom: 20px; padding-bottom: 10px; }
         .cv-h1 { font-family: Arial; font-size: 26px; text-transform: uppercase; margin: 0; letter-spacing: 1px; }
-        .cv-sub { font-size: 12px; margin-top: 5px; line-height: 1.4; }
+        .cv-sub { font-size: 12px; margin-top: 5px; line-height: 1.4; color: #444;}
         .cv-h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; padding-bottom: 2px; }
         .cv-job { margin-bottom: 15px; }
         .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; }
@@ -163,66 +171,73 @@
 
         /* 5.2 SKILLS EXPLORER */
         .explorer-layout { display: flex; height: 100%; }
-        .explorer-side { width: 180px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; overflow: hidden; }
-        .explorer-main { flex-grow: 1; background: white; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 10px; overflow-y: auto; }
-        .skill-detail-box { background: white; color: black; padding: 10px; border-radius: 5px; margin-top: 10px; border: 1px solid #003c74; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .xp-box-header { font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; cursor: pointer; }
+        .explorer-side { width: 180px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; overflow: hidden; display:flex; flex-direction:column; gap:10px; }
+        .explorer-main { flex-grow: 1; background: white; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 15px; overflow-y: auto; }
+        
+        .xp-box { background: white; color: black; border-radius: 5px; overflow: hidden; }
+        .xp-box-head { background: linear-gradient(to right, #fff, #c6d3f7); padding: 5px; font-weight: bold; color: #215dc6; font-size: 12px; cursor: pointer; display: flex; justify-content: space-between; }
+        .xp-box-content { padding: 10px; font-size: 11px; line-height: 1.4; }
+
         .xp-icon-tile { width: 80px; padding: 5px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid transparent; cursor: pointer; }
         .xp-icon-tile:hover { border-color: #ccc; background: #f1f1f1; border-radius: 3px; }
-        .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 3px; object-fit: contain; }
+        .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 5px; object-fit: contain; }
 
         /* 5.3 OUTLOOK EXPRESS (CONTACT) */
         .outlook-body { display: flex; flex-direction: column; height: 100%; }
         .outlook-header { padding: 15px; background: white; border-bottom: 1px solid #ccc; }
         .form-line { display: flex; margin-bottom: 8px; align-items: center; }
-        .form-label { width: 60px; color: #666; text-align: right; margin-right: 10px; }
-        .form-val { border: 1px solid #ccc; padding: 3px; flex-grow: 1; background: #f9f9f9; user-select: text; }
-        .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; }
+        .form-label { width: 70px; color: #666; text-align: right; margin-right: 10px; }
+        .form-val { border: 1px solid #ccc; padding: 4px; flex-grow: 1; background: #f9f9f9; user-select: text; font-family: 'Tahoma'; font-size:11px; }
+        .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; font-size: 12px; overflow-y: auto; }
 
-        /* 5.4 MS PAINT */
-        .paint-tools { width: 50px; background: #ece9d8; border-right: 1px solid #aca899; display: flex; flex-direction: column; padding: 2px; gap: 2px; }
-        .tool-btn { width: 44px; height: 24px; border: 1px solid #fff; border-bottom: 1px solid #888; border-right: 1px solid #888; background: #ece9d8; text-align: center; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 10px; }
-        .tool-btn.active { border: 1px solid #888; border-bottom: 1px solid #fff; border-right: 1px solid #fff; background: #fff; }
-        .paint-canvas-area { flex-grow: 1; background: #808080; padding: 3px; overflow: auto; display: flex; }
-        #canvas { background: white; cursor: crosshair; box-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .color-palette { height: 40px; background: #ece9d8; border-top: 1px solid #aca899; display: flex; align-items: center; padding: 5px; gap: 2px; }
-        .color-box { width: 15px; height: 15px; border: 1px solid #888; cursor: pointer; }
+        /* 5.4 RATE CALCULATOR (NEW!) */
+        .calc-body { background: #ece9d8; padding: 15px; display: flex; flex-direction: column; gap: 10px; height: 100%; font-family: 'Tahoma'; }
+        .calc-screen { 
+            background: #fff; border: 2px inset #fff; padding: 10px; 
+            font-family: 'Courier Prime', monospace; font-size: 14px; text-align: right; margin-bottom: 5px;
+            color: #000; font-weight: bold;
+        }
+        .calc-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+        .calc-label { font-weight: bold; width: 100px; }
+        .calc-input { width: 100%; padding: 3px; border: 1px solid #7c7c7c; }
+        .calc-btn { 
+            width: 100%; padding: 5px; background: #d4d0c8; border: 1px solid #888; 
+            cursor: pointer; font-weight: bold; margin-top: 10px;
+        }
+        .calc-btn:active { border-style: inset; }
+        .price-display { font-size: 18px; color: green; font-weight: bold; text-align: right; margin-top: 5px; }
 
-        /* 5.5 CALCULATOR */
-        .calc-body { background: #ece9d8; padding: 10px; display: flex; flex-direction: column; gap: 5px; align-items: center; }
-        .calc-screen { width: 100%; height: 25px; background: white; border: 1px solid #888; text-align: right; padding: 4px; font-family: 'Tahoma'; margin-bottom: 5px; }
-        .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-        .calc-btn { width: 35px; height: 28px; background: #fff; border: 1px solid #888; color: blue; font-weight: bold; cursor: pointer; border-radius: 3px; }
-        .calc-btn.op { color: red; }
+        /* 5.5 SYSTEM PROPERTIES (NEW!) */
+        .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; }
+        .sys-img { width: 80px; text-align: center; }
+        .sys-img img { width: 64px; }
+        .sys-info { flex-grow: 1; font-size: 11px; line-height: 1.5; }
+        .sys-info h3 { margin: 0 0 10px 0; color: #000; font-size: 12px; }
+        .sys-section { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
-        /* 5.6 MINESWEEPER */
-        .mine-body { background: #c0c0c0; border: 2px solid #fff; border-right-color: #808080; border-bottom-color: #808080; padding: 5px; display: flex; flex-direction: column; align-items: center; }
-        .mine-header { background: #c0c0c0; border: 2px solid #808080; border-right-color: #fff; border-bottom-color: #fff; width: 100%; margin-bottom: 5px; padding: 5px; display: flex; justify-content: space-between; }
-        .mine-face { width: 24px; height: 24px; background: #c0c0c0; border: 2px solid #fff; border-right-color: #808080; border-bottom-color: #808080; text-align: center; line-height: 20px; cursor: pointer; font-size: 16px; }
-        #mine-grid { display: grid; grid-template-columns: repeat(8, 20px); gap: 0; border: 3px solid #808080; border-right-color: #fff; border-bottom-color: #fff; }
-        .cell { width: 20px; height: 20px; background: #c0c0c0; border: 1px solid #fff; border-right-color: #808080; border-bottom-color: #808080; font-size: 12px; font-weight: bold; text-align: center; line-height: 18px; cursor: pointer; }
-        .cell.revealed { border: 1px solid #808080; border-left: none; border-top: none; background: #c0c0c0; }
-        .cell.mine { background: red; color: black; }
-
-        /* 5.7 CLIPPY INTELLIGENCE */
-        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 99999; display: flex; flex-direction: column; align-items: flex-end; }
+        /* 5.6 CLIPPY INTELLIGENCE */
+        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 99999; display: flex; flex-direction: column; align-items: flex-end; display: none; /* Hidden until boot */ }
         .clippy-img { 
             width: 120px; height: 120px; cursor: pointer; 
+            /* Enlace Tenor GIF proporcionado */
             background: url('https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif') no-repeat center bottom; 
             background-size: contain; 
             filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
         }
         .chat-bubble {
             background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 300px;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: none; font-size: 11px;
-            position: relative;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; font-size: 11px;
+            position: relative; display: block;
         }
-        .cb-header { background: #F5F5C5; padding: 4px; font-weight: bold; border-bottom: 1px solid #E2E2A8; color: #444; }
+        .cb-header { background: #F5F5C5; padding: 4px 8px; font-weight: bold; border-bottom: 1px solid #E2E2A8; color: #444; }
         .cb-body { padding: 10px; max-height: 200px; overflow-y: auto; }
         .msg-line { margin-bottom: 5px; }
         .msg-user { color: #0000aa; font-weight: bold; text-align: right; }
         .cb-input { display: flex; padding: 5px; background: #ece9d8; border-top: 1px solid #ccc; gap: 5px; }
-        .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; }
+        .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; font-family: 'Tahoma'; }
+        
+        /* 5.7 NOTEPAD */
+        .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 12px; resize: none; outline: none; }
 
         /* =========================================
            6. TASKBAR & START MENU
@@ -294,9 +309,9 @@
 
 <div id="desktop">
     <div class="desktop-icons">
-        <div class="icon" onclick="openWindow('win-computer')">
+        <div class="icon" onclick="openWindow('win-sys')">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
-            <div class="icon-label">My Computer</div>
+            <div class="icon-label">System Props</div>
         </div>
         <div class="icon" onclick="openWindow('win-cv')">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
@@ -314,17 +329,13 @@
             <img src="https://win98icons.alexmeub.com/icons/png/outlook_express-5.png">
             <div class="icon-label">Contact</div>
         </div>
-        <div class="icon" onclick="openWindow('win-paint')">
-            <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png">
-            <div class="icon-label">Paint</div>
-        </div>
-        <div class="icon" onclick="openWindow('win-mine')">
-            <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png">
-            <div class="icon-label">Minesweeper</div>
-        </div>
         <div class="icon" onclick="openWindow('win-calc')">
             <img src="https://win98icons.alexmeub.com/icons/png/calculator-0.png">
-            <div class="icon-label">Calculator</div>
+            <div class="icon-label">Rate Calc</div>
+        </div>
+        <div class="icon" onclick="openWindow('win-notepad')">
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
+            <div class="icon-label">Notepad</div>
         </div>
         <div class="icon" onclick="openWindow('win-trash')">
             <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png">
@@ -350,46 +361,46 @@
                     <h1 class="cv-h1">DANILO HURWITZ</h1>
                     <div class="cv-sub">
                         <strong>MD Candidate | Content Specialist | Medical Translator</strong><br>
-                        Mar del Plata, Argentina | [cite_start]+54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar [cite: 52]
+                        Mar del Plata, Argentina | +54 9 2302 21-9422 | dhurwitzbecerra@mdp.edu.ar
                     </div>
                 </div>
                 
-                <h2 class="cv-h2">PROFESSIONAL EXPERIENCE</h2>
+                <h2 class="cv-h2">PROFESSIONAL EXPERIENCE [cite: 30]</h2>
                 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Content Specialist / Hebrew Translator</span> <span>Nov 2025 – Present</span></div>
-                    [cite_start]<div class="cv-job-meta">ICUC Social (Remote) [cite: 31, 32]</div>
+                    <div class="cv-job-meta">ICUC Social (Remote) [cite: 85]</div>
                     <ul class="cv-ul">
-                        [cite_start]<li>Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content. [cite: 34]</li>
-                        [cite_start]<li>Diagnosing cultural context errors and sentiment misalignments in real-time. [cite: 34]</li>
-                        [cite_start]<li>Operating within global rapid-response teams via MS Teams infrastructure. [cite: 35]</li>
+                        <li>Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content[cite: 87].</li>
+                        <li>Diagnosing cultural context errors and sentiment misalignments in real-time[cite: 87].</li>
+                        <li>Operating within global rapid-response teams via MS Teams infrastructure[cite: 88].</li>
                     </ul>
                 </div>
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Medical Translator (Top Rated)</span> <span>May 2023 – Present</span></div>
-                    [cite_start]<div class="cv-job-meta">Upwork / Global Clients [cite: 81]</div>
+                    <div class="cv-job-meta">Upwork / Global Clients [cite: 31]</div>
                     <ul class="cv-ul">
-                        [cite_start]<li><strong>100% Job Success Score</strong> achieved with zero errors reported. [cite: 86]</li>
-                        [cite_start]<li>Translation of clinical trials, informed consents, and device manuals. [cite: 55]</li>
-                        [cite_start]<li>Method: Human-verified MTPE (Machine Translation Post-Editing). [cite: 85]</li>
+                        <li><strong>100% Job Success Score</strong> achieved with zero errors reported[cite: 36].</li>
+                        <li>Translation of clinical trials, informed consents, and device manuals[cite: 34].</li>
+                        <li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 35].</li>
                     </ul>
                 </div>
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Video Editor & Subtitle Creator</span> <span>May 2023 – Present</span></div>
-                    [cite_start]<div class="cv-job-meta">Freelance / Upwork [cite: 90, 91]</div>
+                    <div class="cv-job-meta">Freelance / Upwork [cite: 40]</div>
                     <ul class="cv-ul">
-                        [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules. [cite: 93]</li>
-                        [cite_start]<li>Ensuring cognitive accessibility through precise audio-visual timing. [cite: 94]</li>
+                        <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules[cite: 43].</li>
+                        <li>Ensuring cognitive accessibility through precise audio-visual timing[cite: 44].</li>
                     </ul>
                 </div>
 
-                <h2 class="cv-h2">EDUCATION</h2>
+                <h2 class="cv-h2">EDUCATION [cite: 49]</h2>
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
-                    [cite_start]<div class="cv-job-meta">Universidad Nacional de Mar del Plata [cite: 101]</div>
-                    <p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. [cite_start]Direct application of this knowledge to translation accuracy. [cite: 103]</p>
+                    <div class="cv-job-meta">Universidad Nacional de Mar del Plata [cite: 51]</div>
+                    <p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy[cite: 53].</p>
                 </div>
             </div>
         </div>
@@ -397,7 +408,7 @@
     <div class="resizer" onmousedown="resizeStart(event, 'win-cv')"></div>
 </div>
 
-<div id="win-skills" class="window" style="top: 50px; left: 100px; width: 700px; height: 500px;">
+<div id="win-skills" class="window" style="top: 50px; left: 100px; width: 750px; height: 500px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-skills')">
         <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png"> C:\Danilo\Skills</div>
         <div class="win-controls">
@@ -412,33 +423,35 @@
             <div class="explorer-side">
                 <strong>Skills Details</strong><br><br>
                 <div id="skill-details-box" class="skill-detail-box">
-                    <span id="skill-title" class="bold" style="display:block; margin-bottom:5px;">Select an item</span>
-                    <span id="skill-desc">Hover or click an icon to view details about my expertise.</span>
+                    <div class="xp-box">
+                        <div class="xp-box-head">Description</div>
+                        <div class="xp-box-content" id="skill-desc">Select an icon to view details.</div>
+                    </div>
                 </div>
             </div>
             <div class="explorer-main">
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Spanish', 'Native (C2). Born in Málaga, Spain. Expert in Castilian & LATAM. [cite: 57]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Native (C2). Born in Málaga, Spain. Expert in Castilian & LATAM variants[cite: 7].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Spanish</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Hebrew', 'Fluent (C1). 10+ years of daily immersion. [cite: 59]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Fluent (C1). 10+ years of daily immersion. Specialized in Medical context[cite: 9].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Hebrew</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('English', 'Fluent (C1). 15+ years experience. Medical proficiency. [cite: 58]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Fluent (C1). 15+ years experience. Medical proficiency level[cite: 8].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>English</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Med Trans', 'Translation of clinical trials, informed consents & manuals. [cite: 55]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Clinical documentation, patient reports, informed consents, and device manuals[cite: 5].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png"><span>Med Trans</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Video Edit', 'CapCut expert. Precise audio-visual timing. [cite: 63]')">
-                    <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png"><span>Video</span>
+                <div class="xp-icon-tile" onclick="updateSkill('CapCut expert. Precise audio-visual timing for medical videos[cite: 13].')">
+                    <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png"><span>Video Edit</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Subtitles', 'Synchronized multilingual subtitles using Subtitle Edit. [cite: 63]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Synchronized multilingual subtitles using Subtitle Edit[cite: 13].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png"><span>Subtitles</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy. [cite: 85]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Machine Translation Post-Editing. Efficiency + Accuracy[cite: 11].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>MTPE</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace. [cite: 63]')">
+                <div class="xp-icon-tile" onclick="updateSkill('Advanced MS Office & Google Workspace knowledge[cite: 13].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"><span>Office</span>
                 </div>
             </div>
@@ -447,90 +460,77 @@
     <div class="resizer" onmousedown="resizeStart(event, 'win-skills')"></div>
 </div>
 
-<div id="win-paint" class="window" style="top: 80px; left: 150px; width: 600px; height: 450px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-paint')">
-        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/paint-4.png"> untitled - Paint</div>
-        <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-paint')">_</div>
-            <div class="btn btn-max" onclick="maxWindow('win-paint')">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-paint')">×</div>
-        </div>
-    </div>
-    <div class="window-content">
-        <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Image</span><span>Colors</span><span>Help</span></div>
-        <div class="flex" style="flex-grow:1; overflow:hidden;">
-            <div class="paint-tools">
-                <div class="tool-btn active" onclick="setTool('brush')">✏️</div>
-                <div class="tool-btn" onclick="setTool('eraser')">🧽</div>
-                <div class="tool-btn" onclick="clearCanvas()">🗑️</div>
-            </div>
-            <div class="paint-canvas-area">
-                <canvas id="canvas" width="500" height="350"></canvas>
-            </div>
-        </div>
-        <div class="color-palette">
-            <div class="color-box" style="background:black" onclick="setColor('black')"></div>
-            <div class="color-box" style="background:red" onclick="setColor('red')"></div>
-            <div class="color-box" style="background:blue" onclick="setColor('blue')"></div>
-            <div class="color-box" style="background:green" onclick="setColor('green')"></div>
-            <div class="color-box" style="background:yellow" onclick="setColor('yellow')"></div>
-        </div>
-    </div>
-    <div class="resizer" onmousedown="resizeStart(event, 'win-paint')"></div>
-</div>
-
-<div id="win-calc" class="window" style="top: 100px; left: 400px; width: 250px; height: 250px; min-width:200px;">
+<div id="win-calc" class="window" style="top: 100px; left: 400px; width: 300px; height: 280px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-calc')">
-        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/calculator-0.png"> Calculator</div>
+        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/calculator-0.png"> Quote Estimator</div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-calc')">_</div>
             <div class="btn btn-close" onclick="closeWindow('win-calc')">×</div>
         </div>
     </div>
     <div class="window-content">
-        <div class="menubar"><span>Edit</span><span>View</span><span>Help</span></div>
+        <div class="menubar"><span>View</span><span>Help</span></div>
         <div class="calc-body">
-            <input type="text" id="calc-display" class="calc-screen" readonly value="0">
-            <div class="calc-grid">
-                <button class="calc-btn op" onclick="clearCalc()">C</button>
-                <button class="calc-btn op" onclick="calcOp('/')">/</button>
-                <button class="calc-btn op" onclick="calcOp('*')">*</button>
-                <button class="calc-btn op" onclick="calcOp('-')">-</button>
-                <button class="calc-btn" onclick="calcNum(7)">7</button>
-                <button class="calc-btn" onclick="calcNum(8)">8</button>
-                <button class="calc-btn" onclick="calcNum(9)">9</button>
-                <button class="calc-btn op" onclick="calcOp('+')" style="grid-row:span 2; height:100%;">+</button>
-                <button class="calc-btn" onclick="calcNum(4)">4</button>
-                <button class="calc-btn" onclick="calcNum(5)">5</button>
-                <button class="calc-btn" onclick="calcNum(6)">6</button>
-                <button class="calc-btn" onclick="calcNum(1)">1</button>
-                <button class="calc-btn" onclick="calcNum(2)">2</button>
-                <button class="calc-btn" onclick="calcNum(3)">3</button>
-                <button class="calc-btn op" onclick="calcEq()" style="grid-row:span 2; height:100%;">=</button>
-                <button class="calc-btn" onclick="calcNum(0)" style="grid-column:span 2; width:100%;">0</button>
-                <button class="calc-btn" onclick="calcNum('.')">.</button>
+            <div class="calc-screen" id="calc-result">$0.00</div>
+            
+            <div class="calc-row">
+                <span class="calc-label">Type:</span>
+                <select class="calc-input" id="service-type" onchange="calculateRate()">
+                    <option value="word">Translation (Words)</option>
+                    <option value="min">Subtitling (Minutes)</option>
+                    <option value="hour">General (Hours)</option>
+                </select>
             </div>
+            <div class="calc-row">
+                <span class="calc-label">Amount:</span>
+                <input type="number" class="calc-input" id="service-amount" value="0" oninput="calculateRate()">
+            </div>
+            
+            <div style="font-size:10px; color:#666; margin-top:10px;">
+                <strong>Rates:</strong><br>
+                Translation: $0.05 / word<br>
+                Subtitling: $5.00 / minute<br>
+                Hourly: $20.00 / hour
+            </div>
+            <button class="calc-btn" onclick="openWindow('win-contact')">Request This Quote</button>
         </div>
     </div>
 </div>
 
-<div id="win-mine" class="window" style="top: 120px; left: 300px; width: 200px; height: 260px; min-width: 180px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-mine')">
-        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png"> Minesweeper</div>
+<div id="win-sys" class="window" style="top: 80px; left: 80px; width: 450px; height: 350px;">
+    <div class="title-bar" onmousedown="dragStart(event, 'win-sys')">
+        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"> System Properties</div>
         <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-mine')">_</div>
-            <div class="btn btn-close" onclick="closeWindow('win-mine')">×</div>
+            <div class="btn btn-min" onclick="minWindow('win-sys')">_</div>
+            <div class="btn btn-close" onclick="closeWindow('win-sys')">×</div>
         </div>
     </div>
-    <div class="window-content" style="background:#c0c0c0;">
-        <div class="menubar"><span>Game</span><span>Help</span></div>
-        <div class="mine-body">
-            <div class="mine-header">
-                <div class="mine-lcd">010</div>
-                <div class="mine-face" onclick="initMine()">🙂</div>
-                <div class="mine-lcd">000</div>
+    <div class="window-content">
+        <div class="menubar"><span>General</span><span>Computer Name</span><span>Hardware</span><span>Advanced</span></div>
+        <div class="sys-body">
+            <div class="sys-img">
+                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
             </div>
-            <div id="mine-grid"></div>
+            <div class="sys-info">
+                <div class="sys-section">
+                    <h3>System:</h3>
+                    Danilo Hurwitz Professional<br>
+                    Service Pack 2025<br>
+                    Mar del Plata Edition [cite: 2]
+                </div>
+                <div class="sys-section">
+                    <h3>Registered to:</h3>
+                    MD Candidate (UNMDP)<br>
+                    Native Spanish / Fluent Hebrew [cite: 7, 9]<br>
+                    55274-OEM-0011903-00102
+                </div>
+                <div class="sys-section" style="border:none;">
+                    <h3>Computer:</h3>
+                    Medical Knowledge Processor<br>
+                    Creative Co-Processor (Video/Design)<br>
+                    100% JSS Performance [cite: 17]
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -554,8 +554,8 @@
         </div>
         <div class="outlook-content">
             You can reach me directly via:<br><br>
-            [cite_start]Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong> [cite: 52]<br>
-            [cite_start]Phone: <strong>+54 9 2302 21-9422</strong> [cite: 52]<br>
+            Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong> [cite: 2]<br>
+            Phone: <strong>+54 9 2302 21-9422</strong> [cite: 2]<br>
             LinkedIn: linkedin.com/in/danilo-hurwitz<br>
             Portfolio: danilohurwitz.github.io/main<br>
         </div>
@@ -582,30 +582,9 @@
     <div class="resizer" onmousedown="resizeStart(event, 'win-ie')"></div>
 </div>
 
-<div id="win-run" class="window" style="top: 200px; left: 200px; width: 350px; height: 180px; min-height:150px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-run')">
-        <div class="title-bar-text">Run</div>
-        <div class="win-controls"><div class="btn btn-close" onclick="closeWindow('win-run')">×</div></div>
-    </div>
-    <div class="window-content" style="padding:15px; background:#ece9d8;">
-        <div style="display:flex; gap:10px; margin-bottom:15px;">
-            <img src="https://win98icons.alexmeub.com/icons/png/application_hourglass_small-0.png" width="32">
-            <div style="font-size:11px;">Type the name of a program, folder, document, or Internet resource, and Windows will open it for you.</div>
-        </div>
-        <div style="display:flex; gap:5px; align-items:center;">
-            <span>Open:</span>
-            <input type="text" id="run-input" style="flex-grow:1;">
-        </div>
-        <div style="display:flex; justify-content:flex-end; gap:5px; margin-top:20px;">
-            <button onclick="runCommand()">OK</button>
-            <button onclick="closeWindow('win-run')">Cancel</button>
-        </div>
-    </div>
-</div>
-
-<div id="win-notepad" class="window" style="top: 100px; left: 100px; width: 400px; height: 300px;">
+<div id="win-notepad" class="window" style="top: 120px; left: 350px; width: 400px; height: 300px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-notepad')">
-        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png"> Untitled - Notepad</div>
+        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png"> Notes</div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-notepad')">_</div>
             <div class="btn btn-max" onclick="maxWindow('win-notepad')">□</div>
@@ -613,48 +592,21 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="menubar"><span>File</span><span>Edit</span><span>Format</span><span>View</span><span>Help</span></div>
-        <textarea class="notepad-area"></textarea>
+        <div class="menubar"><span>File</span><span>Edit</span><span>Format</span></div>
+        <textarea class="notepad-area" placeholder="Take notes about this candidate..."></textarea>
     </div>
     <div class="resizer" onmousedown="resizeStart(event, 'win-notepad')"></div>
-</div>
-
-<div id="win-computer" class="window" style="top: 50px; left: 50px; width: 600px; height: 400px;">
-    <div class="title-bar" onmousedown="dragStart(event, 'win-computer')">
-        <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"> My Computer</div>
-        <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-computer')">_</div>
-            <div class="btn btn-max" onclick="maxWindow('win-computer')">□</div>
-            <div class="btn btn-close" onclick="closeWindow('win-computer')">×</div>
-        </div>
-    </div>
-    <div class="window-content">
-        <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Favorites</span><span>Tools</span><span>Help</span></div>
-        <div class="mycomp-body">
-            <div style="font-weight:bold; width:100%; border-bottom:1px solid #ccc; margin-bottom:10px; color:#003399;">Hard Disk Drives</div>
-            <div class="drive">
-                <img src="https://win98icons.alexmeub.com/icons/png/hard_disk_drive-2.png" class="drive-img">
-                <div class="drive-info">
-                    <b>Local Disk (C:)</b><br>
-                    <div class="drive-bar"><div class="drive-fill" style="width:85%;"></div></div>
-                    <span style="font-size:10px; color:#666;">System & Skills</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="resizer" onmousedown="resizeStart(event, 'win-computer')"></div>
 </div>
 
 <div id="win-trash" class="window" style="top: 150px; left: 150px; width: 400px; height: 300px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-trash')">
         <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png"> Recycle Bin</div>
         <div class="win-controls">
-            <div class="btn btn-min" onclick="minWindow('win-trash')">_</div>
             <div class="btn btn-close" onclick="closeWindow('win-trash')">×</div>
         </div>
     </div>
-    <div class="window-content" style="padding:20px; background:white;">
-        <div style="font-style:italic; color:#666;">The Recycle Bin is empty.</div>
+    <div class="window-content" style="padding:20px; background:white; color:#666; font-style:italic;">
+        Only bad translations and low quality videos go here. (Empty)
     </div>
 </div>
 
@@ -662,7 +614,7 @@
     <div class="chat-bubble" id="clippy-chat">
         <div class="cb-header">Assistant</div>
         <div class="cb-body" id="chat-history">
-            <div class="msg-line msg-ai">Hi! I'm Clippy. Ask me about Danilo's <strong>experience</strong>, <strong>rates</strong>, or <strong>contact</strong> info!</div>
+            <div class="msg-line msg-ai">Hi! I'm Clippy. Ask me about Danilo's <strong>rates</strong>, <strong>experience</strong>, or <strong>contact</strong> info!</div>
         </div>
         <div class="cb-input">
             <input type="text" id="user-input" placeholder="Type here..." onkeypress="handleEnter(event)">
@@ -707,21 +659,9 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
                 <span class="sm-bold">My Resume</span>
             </div>
-            <div class="sm-item" onclick="openWindow('win-notepad')">
-                <img src="https://win98icons.alexmeub.com/icons/png/notepad-5.png">
-                <span class="sm-bold">Notepad</span>
-            </div>
-            <div class="sm-item" onclick="openWindow('win-paint')">
-                <img src="https://win98icons.alexmeub.com/icons/png/paint-4.png">
-                <span class="sm-bold">Paint</span>
-            </div>
             <div class="sm-item" onclick="openWindow('win-calc')">
                 <img src="https://win98icons.alexmeub.com/icons/png/calculator-0.png">
-                <span class="sm-bold">Calculator</span>
-            </div>
-            <div class="sm-item" onclick="openWindow('win-mine')">
-                <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-0.png">
-                <span class="sm-bold">Minesweeper</span>
+                <span class="sm-bold">Rate Calculator</span>
             </div>
         </div>
         <div class="sm-right">
@@ -729,14 +669,14 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
                 <span class="sm-bold">My Documents</span>
             </div>
-            <div class="sm-item" onclick="openWindow('win-computer')">
+            <div class="sm-item" onclick="openWindow('win-sys')">
                 <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
                 <span class="sm-bold">My Computer</span>
             </div>
             <div style="height:1px; background:#9dbddd; margin:5px 0;"></div>
-            <div class="sm-item" onclick="openWindow('win-run')">
-                <img src="https://win98icons.alexmeub.com/icons/png/application_hourglass_small-0.png">
-                <span class="sm-bold">Run...</span>
+            <div class="sm-item" onclick="openWindow('win-contact')">
+                <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-4.png">
+                <span class="sm-bold">Control Panel</span>
             </div>
         </div>
     </div>
@@ -831,7 +771,6 @@
     function toggleStart() {
         const menu = document.getElementById('start-menu');
         menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-        // Close menu if clicked outside
         if (menu.style.display === 'flex') {
             setTimeout(() => {
                 document.addEventListener('click', closeStartOutside);
@@ -846,6 +785,24 @@
             menu.style.display = 'none';
             document.removeEventListener('click', closeStartOutside);
         }
+    }
+
+    /* ================= APP LOGIC ================= */
+    
+    // SKILLS
+    function updateSkill(title, desc) {
+        document.getElementById('skill-desc').innerHTML = `<b>${title}</b><br>${desc}`;
+    }
+
+    // RATE CALCULATOR
+    function calculateRate() {
+        const type = document.getElementById('service-type').value;
+        const amount = parseFloat(document.getElementById('service-amount').value) || 0;
+        let total = 0;
+        if(type === 'word') total = amount * 0.05;
+        if(type === 'min') total = amount * 5.00;
+        if(type === 'hour') total = amount * 20.00;
+        document.getElementById('calc-result').innerText = '$' + total.toFixed(2) + ' USD';
     }
 
     /* ================= CLIPPY AI ================= */
@@ -879,17 +836,20 @@
             action = 'win-skills';
         }
         else if (text.match(/rate|precio|tarifa|costo|cobras|cost|charge|money/)) {
-            response = "My rate is $20 USD/hour.";
+            response = "Rates: $20/hr, $0.05/word, $5/min. Opening Calculator...";
+            action = 'win-calc';
         }
         else if (text.match(/translate|traduccion|palabra|word/)) {
             response = "Translation rate: $0.05 USD per word.";
+            action = 'win-calc';
         }
         else if (text.match(/srt|subtitulos|subtitle|minuto|minute/)) {
             response = "Subtitling rate: $5.00 USD per video minute.";
+            action = 'win-calc';
         }
         else if (text.match(/medico|medical|doctor|medicine|estudio|universidad/)) {
-            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening CV...";
-            action = 'win-cv';
+            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening System Info...";
+            action = 'win-sys';
         }
         else if (text.match(/contacto|contact|mail|email|phone|telefono/)) {
             response = "Opening contact info...";
@@ -897,6 +857,10 @@
         }
         else if (text.match(/quien|who|nombre|name/)) {
             response = "Danilo Hurwitz. MD Student & Translator from Argentina.";
+        }
+        else if (text.match(/video|editor|edit/)) {
+            response = "He is an expert Video Editor (CapCut) and Subtitle Specialist.";
+            action = 'win-cv';
         }
         else {
             response = "I'm not sure. Try asking about: 'Rates', 'Experience', 'Hebrew' or 'Contact'.";
@@ -908,79 +872,6 @@
             if(action) openWindow(action);
         }, 600);
     }
-
-    /* ================= APP LOGIC ================= */
-    
-    // SKILLS
-    function updateSkill(title, desc) {
-        document.getElementById('skill-title').innerText = title;
-        document.getElementById('skill-desc').innerText = desc;
-    }
-
-    // RUN COMMAND
-    function runCommand() {
-        const cmd = document.getElementById('run-input').value.toLowerCase();
-        if(cmd === 'calc') openWindow('win-calc');
-        else if(cmd === 'mspaint' || cmd === 'paint') openWindow('win-paint');
-        else if(cmd === 'notepad') openWindow('win-notepad');
-        else if(cmd === 'mine' || cmd === 'winmine') openWindow('win-mine');
-        else alert('Cannot find "' + cmd + '". Make sure you typed the name correctly.');
-        closeWindow('win-run');
-    }
-
-    // CALCULATOR
-    let calcExp = "";
-    function calcNum(n) { calcExp += n; updateCalc(); }
-    function calcOp(op) { calcExp += op; updateCalc(); }
-    function clearCalc() { calcExp = ""; updateCalc(); }
-    function calcEq() { try { calcExp = eval(calcExp); } catch(e) { calcExp = "Error"; } updateCalc(); }
-    function updateCalc() { document.getElementById('calc-display').value = calcExp; }
-
-    // PAINT (CANVAS)
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    let painting = false;
-    let color = 'black';
-    let tool = 'brush';
-
-    function setColor(c) { color = c; }
-    function setTool(t) { tool = t; }
-    function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-    canvas.addEventListener('mousedown', startPosition);
-    canvas.addEventListener('mouseup', finishedPosition);
-    canvas.addEventListener('mousemove', draw);
-
-    function startPosition(e) { painting = true; draw(e); }
-    function finishedPosition() { painting = false; ctx.beginPath(); }
-    function draw(e) {
-        if (!painting) return;
-        const rect = canvas.getBoundingClientRect();
-        ctx.lineWidth = tool === 'eraser' ? 10 : 3;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = tool === 'eraser' ? 'white' : color;
-        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-    }
-
-    // MINESWEEPER (SIMPLE)
-    function initMine() {
-        const grid = document.getElementById('mine-grid');
-        grid.innerHTML = '';
-        for(let i=0; i<64; i++) {
-            const cell = document.createElement('div');
-            cell.className = 'cell';
-            cell.onclick = () => {
-                cell.className = 'cell revealed';
-                if(Math.random() > 0.85) { cell.className += ' mine'; cell.innerText = '💣'; alert('Game Over!'); initMine(); }
-                else { cell.innerText = Math.floor(Math.random()*3)+1; }
-            };
-            grid.appendChild(cell);
-        }
-    }
-    initMine();
 
     /* ================= DRAG & RESIZE ================= */
     function dragStart(e, id) {
