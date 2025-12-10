@@ -1,433 +1,411 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Danilo Hurwitz - Modular CV</title>
+    <title>DANILO HURWITZ - SYSTEM INTERFACE</title>
     <style>
-        /* IMPORTACIÓN DE FUENTES: Inter para cuerpo, JetBrains Mono para datos técnicos */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap');
 
         :root {
-            --c-black: #111111;
-            --c-gray-dark: #333333;
-            --c-gray-mid: #888888;
-            --c-gray-light: #e5e5e5;
-            --c-accent: #ff3300; /* Un rojo internacional vibrante "Safety Orange" */
-            --bg-paper: #f8f8f8;
-            
-            --spacing-unit: 4mm;
-            --border-thick: 2px solid var(--c-black);
-            --border-thin: 1px solid var(--c-gray-dark);
-            --border-hairline: 1px solid var(--c-gray-mid);
+            --bg-color: #050a10;
+            --hex-grid: #0a1520;
+            --neon-cyan: #00f3ff;
+            --neon-orange: #ff9d00;
+            --text-white: #e0f7ff;
+            --text-dim: #6c8a99;
+            --alert-red: #ff3333;
+            --glass-panel: rgba(10, 30, 50, 0.85);
+            --border-tech: 1px solid rgba(0, 243, 255, 0.3);
         }
 
-        * {
-            box-sizing: border-box;
-            -webkit-print-color-adjust: exact;
-        }
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
 
         body {
-            background-color: #555;
-            display: flex;
-            justify-content: center;
-            padding: 40px;
-            font-family: 'Inter', sans-serif;
+            background-color: #000;
             margin: 0;
-            color: var(--c-black);
-        }
-
-        /* CONTENEDOR PRINCIPAL A4 */
-        .page-container {
-            width: 210mm;
-            height: 297mm;
-            background-color: #ffffff;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            display: grid;
-            grid-template-columns: 65mm 1fr; /* Sidebar ancho fijo | Contenido flexible */
-            grid-template-rows: 35mm 1fr 20mm; /* Header | Body | Footer */
-        }
-
-        /* --- ELEMENTOS DE DISEÑO (Líneas y grillas) --- */
-        .grid-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 10;
-        }
-        .v-line {
-            position: absolute; top: 0; bottom: 0;
-            border-left: 1px solid rgba(0,0,0,0.05);
-        }
-        .h-line {
-            position: absolute; left: 0; right: 0;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        /* HEADER (Top Section) */
-        .header-section {
-            grid-column: 1 / -1;
-            border-bottom: var(--border-thick);
-            display: grid;
-            grid-template-columns: 65mm 1fr 40mm;
-            align-items: center;
-        }
-
-        .brand-box {
-            height: 100%;
-            background-color: var(--c-black);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            font-size: 24pt;
-            letter-spacing: -1px;
-        }
-
-        .name-title-box {
-            padding: 0 20px;
-        }
-        .main-name {
-            font-size: 28pt;
-            font-weight: 800;
-            text-transform: uppercase;
-            line-height: 0.9;
-            letter-spacing: -0.5px;
-        }
-        .sub-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 9pt;
-            color: var(--c-accent);
-            text-transform: uppercase;
-            margin-top: 5px;
-            font-weight: 700;
-        }
-
-        .meta-box {
-            height: 100%;
-            border-left: var(--border-thin);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10px;
-            text-align: right;
-        }
-        .meta-item { font-size: 7pt; font-family: 'JetBrains Mono'; color: var(--c-gray-mid); margin-bottom: 2px; }
-        .meta-val { font-size: 9pt; font-weight: 700; }
-
-        /* SIDEBAR (Left) */
-        .sidebar {
-            border-right: var(--border-thick);
             padding: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 30px;
+            justify-content: center;
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-white);
+            background-image: 
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        .sb-section-title {
-            font-size: 8pt;
+        .hud-container {
+            width: 210mm;
+            height: 297mm;
+            background-color: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 70mm 1fr; /* Columna Izq (Stats) | Columna Der (Data) */
+            grid-template-rows: 40mm 1fr 30mm; /* Header | Body | Footer */
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.15);
+        }
+
+        /* --- DECORACIONES SCI-FI (CORNERS) --- */
+        .corner { position: absolute; width: 30px; height: 30px; border: 3px solid var(--neon-orange); z-index: 10; }
+        .tl { top: -2px; left: -2px; border-bottom: none; border-right: none; }
+        .tr { top: -2px; right: -2px; border-bottom: none; border-left: none; }
+        .bl { bottom: -2px; left: -2px; border-top: none; border-right: none; }
+        .br { bottom: -2px; right: -2px; border-top: none; border-left: none; }
+
+        /* --- HEADER SECTION --- */
+        .header-hud {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: linear-gradient(90deg, rgba(0,243,255,0.1) 0%, transparent 100%);
+            border-bottom: 1px solid var(--neon-cyan);
+            position: relative;
+        }
+        
+        .scan-line {
+            position: absolute; top:0; left:0; width:100%; height:2px;
+            background: var(--neon-cyan);
+            opacity: 0.5;
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .profile-hex {
+            width: 80px; height: 80px;
+            background: #112;
+            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+            display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--neon-orange);
+            margin-right: 20px;
+            color: var(--neon-orange);
+            font-size: 24pt; font-weight: bold;
+        }
+
+        .identity-block h1 {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 32pt; margin: 0; line-height: 0.9;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--c-black);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-            font-weight: 800;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+        .identity-block .rank {
+            font-size: 12pt; letter-spacing: 4px; color: var(--neon-orange);
+            text-transform: uppercase; font-weight: 700;
         }
 
-        .contact-group { margin-bottom: 5px; }
-        .contact-label { font-size: 7pt; font-family: 'JetBrains Mono'; color: var(--c-gray-mid); }
-        .contact-value { font-size: 9pt; font-weight: 600; display: block; word-break: break-all; }
+        .sys-status {
+            margin-left: auto;
+            text-align: right;
+            font-family: 'Share Tech Mono';
+            font-size: 9pt; color: var(--neon-cyan);
+        }
+        .blink { animation: blinker 2s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
 
-        .skill-item { margin-bottom: 12px; }
-        .skill-name { font-size: 9pt; font-weight: 700; display: flex; justify-content: space-between; }
-        .skill-bar-bg { width: 100%; height: 4px; background: var(--c-gray-light); margin-top: 4px; }
-        .skill-bar-fill { height: 100%; background: var(--c-black); }
-
-        .lang-grid { display: grid; grid-template-columns: 1fr; gap: 10px; }
-        .lang-item { border: 1px solid var(--c-gray-light); padding: 8px; }
-        .lang-code { font-size: 14pt; font-weight: 800; }
-        .lang-level { font-size: 8pt; color: var(--c-accent); font-family: 'JetBrains Mono'; font-weight: bold; }
-        .lang-desc { font-size: 7pt; color: var(--c-gray-mid); margin-top: 2px; }
-
-        /* MAIN CONTENT (Right) */
-        .main-content {
-            padding: 30px;
+        /* --- LEFT COLUMN: DIAGNOSTICS (STATS) --- */
+        .sidebar-hud {
+            border-right: 1px solid var(--text-dim);
+            padding: 20px;
+            background: rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             gap: 25px;
         }
 
-        .content-block {
+        .module-title {
+            font-family: 'Share Tech Mono';
+            color: var(--neon-orange);
+            font-size: 10pt;
+            border-bottom: 1px solid var(--neon-orange);
+            margin-bottom: 10px;
+            padding-bottom: 2px;
+            display: flex; justify-content: space-between;
+        }
+
+        /* SKILL BARS - ALWAYS FULL */
+        .skill-group { margin-bottom: 15px; }
+        .skill-label { font-size: 9pt; font-weight: 700; display: flex; justify-content: space-between; }
+        .bar-container {
+            height: 8px; width: 100%; background: #111;
+            margin-top: 4px; position: relative;
+            border: 1px solid #333;
+        }
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), #0088ff);
+            box-shadow: 0 0 8px var(--neon-cyan);
             position: relative;
-            padding-left: 20px;
-            border-left: 1px solid var(--c-gray-light);
         }
-        /* Decoración de puntos en la línea de tiempo */
-        .content-block::before {
-            content: '';
-            position: absolute;
-            left: -3px; top: 0;
-            width: 5px; height: 5px;
-            background: var(--c-black);
-            border-radius: 50%;
-        }
+        /* Efecto de carga completa */
+        .bar-fill::after { content: ''; position: absolute; right: 0; top:0; height:100%; width: 2px; background: white; }
 
-        .block-header {
+        .stat-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+        }
+        .stat-box {
+            border: 1px solid var(--text-dim);
+            padding: 5px; text-align: center;
+        }
+        .stat-val { font-family: 'Share Tech Mono'; font-size: 14pt; color: var(--neon-cyan); }
+        .stat-name { font-size: 7pt; color: var(--text-dim); text-transform: uppercase; }
+
+        .lang-module {
+            border: 1px solid var(--neon-cyan);
+            padding: 10px;
+            background: rgba(0, 243, 255, 0.05);
+        }
+        .lang-row {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 8px; border-bottom: 1px dashed var(--text-dim); padding-bottom: 4px;
+        }
+        .lang-row:last-child { border: none; margin: 0; }
+        .lang-badge { font-weight: 900; color: var(--text-white); }
+        .lang-lvl { font-family: 'Share Tech Mono'; color: var(--neon-orange); font-size: 9pt; }
+
+        /* --- RIGHT COLUMN: MISSION LOG (EXPERIENCE) --- */
+        .main-hud {
+            padding: 25px;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 8px;
-            border-bottom: 1px solid var(--c-gray-light);
-            padding-bottom: 5px;
-        }
-        .role-title { font-size: 11pt; font-weight: 800; text-transform: uppercase; }
-        .company-name { font-size: 10pt; font-weight: 600; color: var(--c-gray-dark); }
-        .date-badge { 
-            font-family: 'JetBrains Mono'; 
-            font-size: 8pt; 
-            background: var(--c-gray-light); 
-            padding: 2px 6px; 
-            border-radius: 2px;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .job-desc {
-            font-size: 9.5pt;
-            line-height: 1.5;
-            color: var(--c-gray-dark);
-            margin: 0;
-        }
-        .job-desc ul { padding-left: 15px; margin: 5px 0 0 0; }
-        .job-desc li { margin-bottom: 3px; }
-
-        .big-number-block {
-            display: flex;
-            align-items: flex-end;
-            margin-bottom: 10px;
-        }
-        .big-num { font-size: 32pt; font-weight: 900; line-height: 0.8; color: var(--c-accent); margin-right: 10px; }
-        .big-label { font-size: 9pt; font-weight: 600; text-transform: uppercase; line-height: 1.1; }
-
-        /* SUMMARY BOX (Top of main) */
-        .summary-box {
-            background: #f4f4f4;
+        .mission-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+            border-left: 4px solid var(--neon-cyan);
             padding: 15px;
-            border-left: 4px solid var(--c-accent);
-            font-size: 9.5pt;
-            line-height: 1.5;
-            font-style: italic;
-            margin-bottom: 10px;
+            position: relative;
+        }
+        .mission-card::before {
+            content: '[LOG_ENTRY]';
+            position: absolute; top: 10px; right: 10px;
+            font-family: 'Share Tech Mono'; font-size: 8pt; color: var(--text-dim);
         }
 
-        /* FOOTER */
-        .footer-section {
-            grid-column: 1 / -1;
-            border-top: var(--border-thick);
-            background: var(--c-black);
-            color: #fff;
+        .job-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 10px; }
+        .job-title { font-size: 14pt; font-weight: 700; color: var(--neon-cyan); text-transform: uppercase; }
+        .job-loc { font-size: 10pt; color: var(--neon-orange); font-weight: 600; }
+        .job-date { font-family: 'Share Tech Mono'; font-size: 9pt; color: var(--text-dim); margin-left: auto; }
+
+        .job-details ul { margin: 0; padding-left: 20px; }
+        .job-details li {
+            margin-bottom: 5px; font-size: 9.5pt; color: #ddd;
+            list-style-type: square;
+        }
+        .highlight { color: var(--neon-cyan); font-weight: bold; }
+
+        /* EDUCATION MODULE */
+        .edu-module {
+            border: 1px solid var(--text-dim);
+            padding: 15px;
             display: flex;
             align-items: center;
+            gap: 15px;
+            background: rgba(255, 157, 0, 0.05);
+        }
+        .edu-icon { font-size: 20pt; color: var(--neon-orange); }
+        .edu-text h3 { margin: 0; font-size: 11pt; color: var(--text-white); }
+        .edu-text p { margin: 2px 0 0 0; font-size: 9pt; color: var(--text-dim); }
+
+        /* --- FOOTER SECTION --- */
+        .footer-hud {
+            grid-column: 1 / -1;
+            border-top: 1px solid var(--neon-cyan);
+            background: rgba(0, 243, 255, 0.05);
+            display: flex;
             justify-content: space-between;
-            padding: 0 20px;
-            font-family: 'JetBrains Mono';
+            align-items: center;
+            padding: 0 30px;
+        }
+        
+        .contact-grid {
+            display: flex; gap: 30px;
+        }
+        .contact-item { display: flex; flex-direction: column; }
+        .contact-lbl { font-family: 'Share Tech Mono'; font-size: 7pt; color: var(--neon-orange); }
+        .contact-data { font-size: 10pt; font-weight: 700; letter-spacing: 0.5px; }
+
+        .barcode {
+            font-family: 'Share Tech Mono'; letter-spacing: 4px;
+            border: 1px solid var(--text-white); padding: 5px;
             font-size: 8pt;
         }
 
-        /* STAMPS & TECH DETAILS */
-        .tech-stamp {
-            border: 1px solid var(--c-black);
-            padding: 4px 8px;
-            font-size: 7pt;
-            text-transform: uppercase;
-            font-weight: 700;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
         @media print {
-            body { background: none; padding: 0; margin: 0; }
-            .page-container { width: 100%; height: 100%; box-shadow: none; margin: 0; }
+            body { background: none; margin: 0; }
+            .hud-container { width: 100%; height: 100%; box-shadow: none; border: 2px solid #000; }
         }
     </style>
 </head>
 <body>
 
-<div class="page-container">
-    
-    <div class="grid-overlay">
-        <div class="v-line" style="left: 65mm;"></div>
-        <div class="v-line" style="left: 137.5mm;"></div>
-        <div class="h-line" style="top: 35mm;"></div>
-        <div class="h-line" style="top: 120mm;"></div>
-        <div class="h-line" style="top: 205mm;"></div>
-    </div>
+<div class="hud-container">
+    <div class="corner tl"></div><div class="corner tr"></div>
+    <div class="corner bl"></div><div class="corner br"></div>
 
-    <div class="header-section">
-        <div class="brand-box">DH</div>
-        <div class="name-title-box">
-            <div class="main-name">DANILO HURWITZ</div>
-            <div class="sub-title">MD Candidate // Content Specialist // Translator</div>
+    <div class="header-hud">
+        <div class="scan-line"></div>
+        <div class="profile-hex">DH</div>
+        <div class="identity-block">
+            <h1>DANILO HURWITZ</h1>
+            <div class="rank">OPERATIVE CLASS: MEDICAL / TECH / LINGUISTIC</div>
         </div>
-        <div class="meta-box">
-            <div class="meta-item">REF NO.</div>
-            <div class="meta-val">TR-2025</div>
-            <div class="meta-item" style="margin-top:5px;">LOC</div>
-            <div class="meta-val">MDP, ARG</div>
+        <div class="sys-status">
+            SYSTEM: ONLINE<br>
+            SYNC RATE: 100%<br>
+            <span class="blink">● LIVE CONNECTION</span>
         </div>
     </div>
 
-    <div class="sidebar">
+    <div class="sidebar-hud">
         
-        <div>
-            <div class="sb-section-title">01. Comm Data</div>
-            <div class="contact-group">
-                <span class="contact-label">PHONE</span>
-                <span class="contact-value">+54 9 2302 21-9422</span>
-            </div>
-            <div class="contact-group">
-                <span class="contact-label">EMAIL PROTOCOL</span>
-                <span class="contact-value">dhurwitzbecerra@mdp.edu.ar</span>
-            </div>
-            <div class="contact-group">
-                <span class="contact-label">NETWORK</span>
-                <span class="contact-value">linkedin.com/in/danilo-hurwitz</span>
-            </div>
-            <div class="contact-group">
-                <span class="contact-label">WEB PORTFOLIO</span>
-                <span class="contact-value">danilohurwitz.github.io</span>
-            </div>
+        <div style="font-size: 8.5pt; color: #aab; line-height: 1.4; border-bottom: 1px solid #333; padding-bottom: 15px;">
+            <strong style="color:var(--neon-orange)">>> PROFILE SUMMARY:</strong><br>
+            Subject demonstrates elite proficiency in medical terminology and linguistics.
+            [cite_start]Currently deployed as <strong>Content Specialist</strong> at ICUC Social[cite: 84].
+            [cite_start]Combines MD Candidate status [cite: 50] with native creative editing skills.
         </div>
 
         <div>
-            <div class="sb-section-title">02. Language Mod</div>
-            <div class="lang-grid">
-                <div class="lang-item">
-                    <div class="lang-code">ES</div>
-                    <div class="lang-level">NATIVE (C2)</div>
-                    <div class="lang-desc">Castilian / LATAM. Born in Spain.</div>
+            <div class="module-title"><span>CORE PARAMETERS</span><span>[MAX]</span></div>
+            <div class="stat-grid">
+                <div class="stat-box">
+                    <div class="stat-val">100%</div>
+                    <div class="stat-name">JSS (UPWORK)</div>
                 </div>
-                <div class="lang-item">
-                    <div class="lang-code">HE</div>
-                    <div class="lang-level">FLUENT (C1)</div>
-                    <div class="lang-desc">10 Years Immersion. High Proficiency.</div>
+                <div class="stat-box">
+                    <div class="stat-val">C2</div>
+                    <div class="stat-name">SPANISH (ESP)</div>
                 </div>
-                <div class="lang-item">
-                    <div class="lang-code">EN</div>
-                    <div class="lang-level">FLUENT (C1)</div>
-                    <div class="lang-desc">Medical & Technical Focus.</div>
+                <div class="stat-box">
+                    <div class="stat-val">C1</div>
+                    <div class="stat-name">HEBREW</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-val">MD</div>
+                    <div class="stat-name">CANDIDATE</div>
                 </div>
             </div>
         </div>
 
         <div>
-            <div class="sb-section-title">03. Tech Specs</div>
+            <div class="module-title"><span>SKILL CALIBRATION</span><span>[DIAGNOSTIC]</span></div>
             
-            <div class="skill-item">
-                <div class="skill-name"><span>Medical Translation</span><span>99%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 99%;"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-name"><span>MTPE / QA</span><span>95%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 95%;"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-name"><span>Video Editing (CapCut)</span><span>85%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%;"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-name"><span>Subtitle Sync</span><span>90%</span></div>
-                <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
+            <div class="skill-group">
+                <div class="skill-label"><span>MEDICAL TRANSLATION</span><span style="color:var(--neon-cyan)">OPTIMAL</span></div>
+                <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
             </div>
             
-            <div class="tech-stamp">UPWORK TOP RATED</div>
+            <div class="skill-group">
+                <div class="skill-label"><span>TEAM SYNC / COMM</span><span style="color:var(--neon-cyan)">100%</span></div>
+                <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-label"><span>VIDEO EDITING (CAPCUT)</span><span style="color:var(--neon-cyan)">ADVANCED</span></div>
+                <div class="bar-container"><div class="bar-fill" style="width: 95%;"></div></div>
+            </div>
+
+            <div class="skill-group">
+                <div class="skill-label"><span>DETAIL ORIENTATION</span><span style="color:var(--neon-cyan)">OBSESSIVE</span></div>
+                <div class="bar-container"><div class="bar-fill" style="width: 100%;"></div></div>
+            </div>
         </div>
+
+        <div class="lang-module">
+            <div class="lang-row">
+                <span class="lang-badge">SPANISH</span>
+                [cite_start]<span class="lang-lvl">NATIVE / CASTILIAN [cite: 7]</span>
+            </div>
+            <div class="lang-row">
+                <span class="lang-badge">HEBREW</span>
+                [cite_start]<span class="lang-lvl">FLUENT (10 YRS) [cite: 9]</span>
+            </div>
+            <div class="lang-row">
+                <span class="lang-badge">ENGLISH</span>
+                [cite_start]<span class="lang-lvl">FLUENT / MEDICAL [cite: 8]</span>
+            </div>
+        </div>
+
     </div>
 
-    <div class="main-content">
+    <div class="main-hud">
         
-        <div class="summary-box">
-            "Trilingual Medical Translator and MD Candidate with elite capability in bridging complex medical terminology with linguistic barriers. Obsessive traits regarding accuracy and cultural nuance." [cite: 21, 22]
-        </div>
-
-        <div class="content-block">
-            <div class="block-header">
-                <div>
-                    <div class="role-title">Content Specialist / Hebrew Translator</div>
-                    <div class="company-name">ICUC Social (Remote)</div>
-                </div>
-                <div class="date-badge">NOV 2025 - PRESENT</div>
+        <div class="mission-card">
+            <div class="job-header">
+                <div class="job-title">Content Specialist</div>
+                <div class="job-loc">ICUC SOCIAL</div>
+                [cite_start]<div class="job-date">NOV 2025 - PRESENT [cite: 86]</div>
             </div>
-            <div class="job-desc">
+            <div class="job-details">
                 <ul>
-                    <li>Performing scheduled <strong>"linguistic biopsies"</strong> (quality checks) on high-stakes Hebrew content[cite: 31, 34].</li>
-                    <li>Diagnosing cultural context errors and sentiment misalignments in real-time within global rapid-response teams[cite: 34, 35].</li>
-                    <li>Ensuring brand safety through rigorous QA of translated assets[cite: 34].</li>
+                    [cite_start]<li>Executing <span class="highlight">"linguistic biopsies"</span> on Hebrew content to diagnose cultural errors[cite: 87].</li>
+                    <li>Analyzing sentiment and brand safety in real-time global environments.</li>
+                    [cite_start]<li>Operating within rapid-response teams via MS Teams infrastructure[cite: 88].</li>
                 </ul>
             </div>
         </div>
 
-        <div class="content-block">
-            <div class="block-header">
-                <div>
-                    <div class="role-title">Freelance Medical Translator</div>
-                    <div class="company-name">Upwork / Global Clients</div>
-                </div>
-                <div class="date-badge">MAY 2023 - PRESENT</div>
+        <div class="mission-card">
+            <div class="job-header">
+                <div class="job-title">Medical Translator</div>
+                <div class="job-loc">UPWORK (TOP RATED)</div>
+                [cite_start]<div class="job-date">MAY 2023 - PRESENT [cite: 31, 32]</div>
             </div>
-            
-            <div class="big-number-block" style="margin-top:10px;">
-                <div class="big-num">100%</div>
-                <div class="big-label">JOB SUCCESS<br>SCORE</div>
-            </div>
-
-            <div class="job-desc">
+            <div class="job-details">
                 <ul>
-                    <li><strong>Procedures:</strong> Translation of clinical trials, informed consents, device manuals, and academic papers[cite: 39, 55].</li>
-                    <li><strong>Method:</strong> Human-verified MTPE (Machine Translation Post-Editing) ensuring native flow[cite: 41, 61].</li>
-                    <li>Achieved <strong>Top Rated</strong> status with zero errors reported[cite: 40, 67].</li>
+                    [cite_start]<li>Status: <span class="highlight">Top Rated Freelancer</span> with 100% Job Success Score[cite: 17, 29].</li>
+                    [cite_start]<li>Mission: Translation of Clinical Trials, Informed Consents, and MedTech Manuals[cite: 5].</li>
+                    [cite_start]<li>Protocol: Human-verified MTPE (Machine Translation Post-Editing) for zero-error delivery[cite: 94].</li>
                 </ul>
             </div>
         </div>
 
-        <div class="content-block">
-            <div class="block-header">
-                <div>
-                    <div class="role-title">Video Editor & Subtitle Specialist</div>
-                    <div class="company-name">Lipswan / Freelance</div>
-                </div>
-                <div class="date-badge">MAY 2023 - PRESENT</div>
+        <div class="mission-card">
+            <div class="job-header">
+                <div class="job-title">Video & Subtitle Editor</div>
+                <div class="job-loc">LIPSWAN / FREELANCE</div>
+                [cite_start]<div class="job-date">MAY 2023 - PRESENT [cite: 41, 42]</div>
             </div>
-            <div class="job-desc">
+            <div class="job-details">
                 <ul>
-                    <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules[cite: 45, 93].</li>
-                    <li>Ensuring cognitive accessibility through precise audio-visual timing and editing[cite: 45, 94].</li>
+                    [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning[cite: 43].</li>
+                    [cite_start]<li>Enhancing cognitive accessibility through precise audiovisual timing[cite: 44].</li>
+                    <li>Client Feedback: "Danilo did a great work! Was very responsive." (5/5 Stars) [cite_start][cite: 48].</li>
                 </ul>
             </div>
         </div>
 
-        <div style="margin-top: 10px;">
-            <div class="sb-section-title" style="border-color: var(--c-gray-light); color: var(--c-gray-dark);">04. ACADEMIC FOUNDATION</div>
-            <div class="content-block" style="border: none; padding-left: 0;">
-                <div class="block-header" style="border: none; padding-bottom: 0;">
-                    <div>
-                        <div class="role-title">Doctor of Medicine (MD) Candidate</div>
-                        <div class="company-name">Universidad Nacional de Mar del Plata</div>
-                    </div>
-                    <div class="date-badge">EXP. 2029</div>
-                </div>
-                <div class="job-desc" style="margin-top: 5px; font-style: italic;">
-                    Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy[cite: 49].
-                </div>
+        <div class="edu-module">
+            <div class="edu-icon">⚕</div>
+            <div class="edu-text">
+                <h3>DOCTOR OF MEDICINE (MD) CANDIDATE</h3>
+                [cite_start]<p><strong>Universidad Nacional de Mar del Plata (Exp. 2029) [cite: 50, 51]</strong></p>
+                [cite_start]<p style="font-size:8.5pt; color: #889;">Acquiring comprehensive knowledge of anatomy and physiology directly applied to translation accuracy[cite: 53].</p>
             </div>
         </div>
 
     </div>
 
-    <div class="footer-section">
-        <div>SYS: GENERATED 10 DEC 2025</div>
-        <div>VER: 4.2.0 [FINAL]</div>
-        <div>AUTH: DANILO HURWITZ</div>
+    <div class="footer-hud">
+        <div class="contact-grid">
+            <div class="contact-item">
+                <span class="contact-lbl">COMM_LINK_01 (PHONE)</span>
+                [cite_start]<span class="contact-data">+54 9 2302 21-9422 [cite: 2]</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-lbl">COMM_LINK_02 (EMAIL)</span>
+                [cite_start]<span class="contact-data">dhurwitzbecerra@mdp.edu.ar [cite: 2]</span>
+            </div>
+            <div class="contact-item">
+                <span class="contact-lbl">LOCATION_DATA</span>
+                [cite_start]<span class="contact-data">MAR DEL PLATA, ARGENTINA [cite: 2]</span>
+            </div>
+        </div>
+        <div class="barcode">
+            ||| || ||| ACCESS_GRANTED
+        </div>
     </div>
 
 </div>
