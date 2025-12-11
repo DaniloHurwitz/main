@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - XP Enterprise</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Danilo Hurwitz - XP Universal</title>
     <style>
         /* =========================================
            1. SYSTEM CORE
@@ -11,7 +11,13 @@
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-        * { box-sizing: border-box; user-select: none; }
+        :root {
+            --xp-blue: #245edb;
+            --xp-panel-bg: #ece9d8;
+            --win-border: #0055ea;
+        }
+
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; width: 100vw;
@@ -31,10 +37,9 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            cursor: progress; /* Indica que está cargando */
         }
         
-        .xp-logo-container { margin-bottom: 60px; text-align: center; }
+        .xp-logo-container { margin-bottom: 60px; text-align: center; transform: scale(0.8); }
         .win-logo-text { font-family: 'Arial', sans-serif; font-size: 42px; font-weight: bold; color: white; font-style: italic; letter-spacing: -2px; }
         .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; font-style: italic; position: relative; top: -15px; left: 5px; }
         
@@ -59,8 +64,7 @@
             /* Fondo HD 16:9 */
             background: #2ea6f7 url('https://external-preview.redd.it/uhq5zTcMPM3tOW_fbUz4PayDt_5pkEXdyXXoRWs3XOg.jpg?auto=webp&s=e06461124c1ccfdba7e9ece763b644ff68eeb06b') no-repeat center center fixed;
             background-size: cover;
-            display: none; /* Se activa tras el boot */
-            z-index: 1;
+            display: none; z-index: 1;
         }
         
         .desktop-icons {
@@ -131,18 +135,55 @@
             cursor: se-resize; z-index: 101; opacity: 0.6;
         }
 
-        /* Generic Menus */
-        .menubar { background: #ece9d8; padding: 2px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; }
-        .menubar span { padding: 2px 6px; cursor: default; }
-        .menubar span:hover { background: #316ac5; color: white; }
-        .toolbar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; }
-        
         /* =========================================
-           5. APPLICATIONS
+           5. MOBILE OPTIMIZATIONS (@MEDIA)
+           ========================================= */
+        @media (max-width: 768px) {
+            /* ICONOS: Reordenar horizontal/vertical fluido */
+            .desktop-icons {
+                flex-direction: row; align-content: flex-start; justify-content: flex-start; gap: 10px;
+            }
+            .icon { width: 70px; margin-bottom: 10px; }
+            .icon-label { font-size: 10px; background: rgba(0,0,0,0.4); border-radius: 4px; }
+
+            /* VENTANAS: Fullscreen Mode para evitar desbordes */
+            .window {
+                width: 100% !important;
+                height: calc(100% - 30px) !important; /* Menos barra de tareas */
+                top: 0 !important;
+                left: 0 !important;
+                border-radius: 0;
+            }
+            .resizer { display: none; } /* No redimensionar en movil */
+            .btn-max { display: none; } /* Siempre maximizado */
+
+            /* Ajustes internos de Apps */
+            .explorer-layout { flex-direction: column; }
+            .explorer-side { width: 100%; height: auto; flex-direction: row; padding: 5px; }
+            .explorer-main { padding: 5px; justify-content: space-around; }
+            
+            .sys-body { flex-direction: column; overflow-y: auto; }
+            
+            .paper { width: 100%; padding: 15px; box-shadow: none; }
+            .cv-header { flex-direction: column; }
+            
+            /* Start Menu */
+            #start-menu { width: 90%; left: 5%; height: 80%; bottom: 35px; }
+            .sm-body { flex-direction: column; }
+            .sm-left, .sm-right { width: 100%; }
+
+            /* Clippy en Móvil: Arriba para no tapar teclado */
+            #clippy-container { bottom: auto; top: 10px; right: 10px; transform: scale(0.8); transform-origin: top right; }
+            .chat-bubble { width: 220px; right: 50px; bottom: auto; top: 0; }
+            .chat-bubble::after { top: 10px; right: -8px; border-left: 8px solid #000; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-right: none; }
+        }
+
+        /* =========================================
+           6. APPLICATIONS
            ========================================= */
         
-        /* 5.1 WORD CV */
-        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
+        /* 6.1 WORD CV */
+        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; overflow-x: auto; }
         .paper-viewport { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
             background: white; width: 800px; min-height: 1000px; 
@@ -154,11 +195,11 @@
         .cv-sub { font-size: 12px; margin-top: 5px; line-height: 1.4; color: #444;}
         .cv-h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; padding-bottom: 2px; }
         .cv-job { margin-bottom: 15px; }
-        .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; }
+        .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; }
         .cv-job-meta { font-style: italic; color: #555; margin-bottom: 4px; font-size: 11px; }
         .cv-ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; font-size: 12px; }
 
-        /* 5.2 SKILLS EXPLORER */
+        /* 6.2 SKILLS EXPLORER */
         .explorer-layout { display: flex; height: 100%; }
         .explorer-side { width: 180px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; overflow: hidden; display:flex; flex-direction:column; gap:10px; }
         .explorer-main { flex-grow: 1; background: white; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 15px; overflow-y: auto; }
@@ -168,7 +209,7 @@
         .xp-icon-tile:hover { border-color: #ccc; background: #f1f1f1; border-radius: 3px; }
         .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 3px; object-fit: contain; }
 
-        /* 5.3 OUTLOOK EXPRESS (CONTACT) */
+        /* 6.3 OUTLOOK EXPRESS (CONTACT) */
         .outlook-body { display: flex; flex-direction: column; height: 100%; }
         .outlook-header { padding: 15px; background: white; border-bottom: 1px solid #ccc; }
         .form-line { display: flex; margin-bottom: 8px; align-items: center; }
@@ -176,7 +217,7 @@
         .form-val { border: 1px solid #ccc; padding: 4px; flex-grow: 1; background: #f9f9f9; user-select: text; font-family: 'Tahoma'; font-size:11px; }
         .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; font-size: 12px; overflow-y: auto; }
 
-        /* 5.4 RATE CALCULATOR */
+        /* 6.4 RATE CALCULATOR */
         .calc-body { background: #ece9d8; padding: 15px; display: flex; flex-direction: column; gap: 10px; height: 100%; font-family: 'Tahoma'; }
         .calc-screen { 
             background: #fff; border: 2px inset #fff; padding: 10px; 
@@ -192,7 +233,7 @@
         }
         .calc-btn:active { border-style: inset; }
 
-        /* 5.5 SYSTEM PROPERTIES (BIO) */
+        /* 6.5 SYSTEM PROPERTIES (BIO) */
         .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; }
         .sys-img { width: 80px; text-align: center; }
         .sys-img img { width: 64px; }
@@ -200,16 +241,11 @@
         .sys-info h3 { margin: 0 0 10px 0; color: #000; font-size: 12px; }
         .sys-section { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
-        /* 5.6 CLIPPY INTELLIGENCE */
-        /* Importante: Display block para que no se oculte por defecto */
-        #clippy-container { 
-            position: absolute; bottom: 50px; right: 20px; z-index: 10000; 
-            display: none; /* Se activa tras el boot */
-            flex-direction: column; align-items: flex-end; 
-        }
+        /* 6.6 CLIPPY INTELLIGENCE */
+        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 99999; display: none; flex-direction: column; align-items: flex-end; }
         
         .clippy-img { 
-            width: 120px; height: 120px; cursor: pointer; 
+            width: 100px; height: 100px; cursor: pointer; 
             background: url('https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif') no-repeat center bottom; 
             background-size: contain; 
             filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
@@ -227,11 +263,11 @@
         .cb-input { display: flex; padding: 5px; background: #ece9d8; border-top: 1px solid #ccc; gap: 5px; }
         .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; font-family: 'Tahoma'; }
         
-        /* 5.7 NOTEPAD */
+        /* 6.7 NOTEPAD */
         .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 12px; resize: none; outline: none; }
 
         /* =========================================
-           6. TASKBAR & START MENU
+           7. TASKBAR & START MENU
            ========================================= */
         #taskbar {
             position: absolute; bottom: 0; left: 0; right: 0; height: 30px;
@@ -239,16 +275,17 @@
             border-top: 2px solid #3f8cf3; z-index: 10000; display: flex; align-items: center; padding: 0 2px;
         }
         #start-btn {
-            width: 100px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
+            width: auto; padding: 0 10px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
             border-radius: 0 10px 10px 0; display: flex; align-items: center; padding-left: 5px; gap: 5px;
             color: white; font-weight: bold; font-style: italic; font-size: 16px; box-shadow: 2px 0 5px rgba(0,0,0,0.5); cursor: pointer;
         }
         #start-btn:hover { filter: brightness(1.1); }
         
-        #task-list { display: flex; gap: 2px; flex-grow: 1; }
+        #task-list { display: flex; gap: 2px; flex-grow: 1; overflow-x: auto; }
         .task-item {
-            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
+            min-width: 100px; width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
             color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px; cursor: pointer; font-size: 11px;
+            white-space: nowrap; overflow: hidden;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
         
@@ -284,7 +321,7 @@
 
 <audio id="startup-sound" src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3" preload="auto"></audio>
 
-<div id="boot-screen" onclick="forceBoot()">
+<div id="boot-screen">
     <div class="xp-logo-container">
         <span class="win-logo-text">Microsoft</span><br>
         <span class="win-logo-text">Windows</span><span class="win-logo-sub">XP</span>
@@ -296,7 +333,6 @@
             </div>
         </div>
     </div>
-    <div style="color:#555; margin-top:20px; font-size:10px;">Click anywhere if system doesn't start automatically</div>
 </div>
 
 <div id="desktop">
@@ -441,7 +477,7 @@
                 <div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>MTPE</span>
                 </div>
-               <div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge.')">
+                <div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"><span>Office</span>
                 </div>
             </div>
@@ -450,7 +486,7 @@
     <div class="resizer" onmousedown="resizeStart(event, 'win-skills')"></div>
 </div>
 
-    <div id="win-calc" class="window" style="top: 100px; left: 400px; width: 300px; height: 400px;">
+<div id="win-calc" class="window" style="top: 100px; left: 400px; width: 300px; height: 350px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-calc')">
         <div class="title-bar-text"><img src="https://win98icons.alexmeub.com/icons/png/calculator-0.png"> Quote Estimator</div>
         <div class="win-controls">
@@ -659,7 +695,7 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
                 <span class="sm-bold">My Documents</span>
             </div>
-            <div class="sm-item" onclick="openWindow('win-computer')">
+            <div class="sm-item" onclick="openWindow('win-sys')">
                 <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
                 <span class="sm-bold">My Computer</span>
             </div>
@@ -678,41 +714,27 @@
 
 <script>
     /* ================= BOOT & SYSTEM ================= */
-    let bootFinished = false;
-
-    // Función para entrar al escritorio (Fail-Safe)
-    function enterDesktop() {
-        if (bootFinished) return;
-        bootFinished = true;
-        document.getElementById('boot-screen').style.display = 'none';
-        document.getElementById('desktop').style.display = 'block';
-        
-        var audio = document.getElementById('startup-sound');
-        var promise = audio.play();
-        if (promise !== undefined) {
-            promise.catch(error => {
-                // Si el audio falla, lo intentamos en el primer clic
-                document.body.addEventListener('click', function playOnFirstClick() {
-                    audio.play();
-                    document.body.removeEventListener('click', playOnFirstClick);
-                });
-            });
-        }
-        
-        // Mostrar Clippy DESPUÉS de boot
+    window.onload = function() {
         setTimeout(() => {
-            document.getElementById('clippy-container').style.display = 'flex';
-            document.getElementById('clippy-chat').style.display = 'block';
-        }, 1000);
+            document.getElementById('boot-screen').style.display = 'none';
+            document.getElementById('desktop').style.display = 'block';
+            
+            var audio = document.getElementById('startup-sound');
+            var promise = audio.play();
+            if (promise !== undefined) {
+                promise.catch(error => {
+                    document.body.addEventListener('click', function playOnFirstClick() {
+                        audio.play();
+                        document.body.removeEventListener('click', playOnFirstClick);
+                    });
+                });
+            }
+            setTimeout(() => {
+                document.getElementById('clippy-container').style.display = 'flex';
+                document.getElementById('clippy-chat').style.display = 'block';
+            }, 1000);
+        }, 3000);
     }
-
-    document.addEventListener("DOMContentLoaded", function() {
-        // Auto boot after 3.5 seconds
-        setTimeout(enterDesktop, 3500);
-    });
-
-    // Fallback: Click to skip if stuck
-    document.getElementById('boot-screen').addEventListener('click', enterDesktop);
 
     // --- SKILLS LOGIC ---
     function updateSkill(title, desc) {
@@ -844,12 +866,15 @@
         }
         else if (text.match(/rate|precio|tarifa|costo|cobras|cost|charge|money/)) {
             response = "My rate is $20 USD/hour.";
+            action = 'win-calc';
         }
         else if (text.match(/translate|traduccion|palabra|word/)) {
             response = "Translation rate: $0.05 USD per word.";
+            action = 'win-calc';
         }
         else if (text.match(/srt|subtitulos|subtitle|minuto|minute/)) {
             response = "Subtitling rate: $5.00 USD per video minute.";
+            action = 'win-calc';
         }
         else if (text.match(/medico|medical|doctor|medicine|estudio|universidad/)) {
             response = "He is an MD Candidate at UNMDP (Class of 2029). Opening CV...";
@@ -861,6 +886,7 @@
         }
         else if (text.match(/quien|who|nombre|name/)) {
             response = "Danilo Hurwitz. MD Student & Translator from Argentina.";
+            action = 'win-sys';
         }
         else if (text.match(/video|editor|edit/)) {
             response = "He is an expert Video Editor (CapCut) and Subtitle Specialist.";
