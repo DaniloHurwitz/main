@@ -2,16 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - XP Enterprise</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Danilo Hurwitz - XP</title>
     <style>
         /* =========================================
-           1. SYSTEM CORE
+           1. CORE SYSTEM & FONTS
            ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-        * { box-sizing: border-box; user-select: none; }
+        :root {
+            --xp-blue: #245edb;
+            --xp-blue-grad-start: #0058ee;
+            --xp-blue-grad-end: #0057e5;
+            --xp-panel-bg: #ece9d8;
+            --win-border: #0055ea;
+        }
+
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
         
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; width: 100vw;
@@ -25,7 +33,7 @@
         .pointer { cursor: pointer; }
 
         /* =========================================
-           2. BOOT SCREEN
+           2. BOOT SCREEN (RESPONSIVE)
            ========================================= */
         #boot-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -33,7 +41,7 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         
-        .xp-logo-container { margin-bottom: 60px; text-align: center; }
+        .xp-logo-container { margin-bottom: 60px; text-align: center; transform: scale(0.8); }
         .win-logo-text { font-family: 'Arial', sans-serif; font-size: 42px; font-weight: bold; color: white; font-style: italic; letter-spacing: -2px; }
         .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; font-style: italic; position: relative; top: -15px; left: 5px; }
         
@@ -51,15 +59,14 @@
         @keyframes loadAnim { 0% { left: -80px; } 100% { left: 250px; } }
 
         /* =========================================
-           3. DESKTOP
+           3. DESKTOP (RESPONSIVE)
            ========================================= */
         #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            /* Fondo HD 16:9 Solicitado */
+            /* Fondo HD */
             background: #2ea6f7 url('https://external-preview.redd.it/uhq5zTcMPM3tOW_fbUz4PayDt_5pkEXdyXXoRWs3XOg.jpg?auto=webp&s=e06461124c1ccfdba7e9ece763b644ff68eeb06b') no-repeat center center fixed;
             background-size: cover;
-            display: none; /* Se activa tras el boot */
-            z-index: 1;
+            display: none; z-index: 1;
         }
         
         .desktop-icons {
@@ -70,34 +77,36 @@
             width: 85px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
             color: white; text-shadow: 1px 1px 2px black; margin-bottom: 5px;
-            border: 1px solid transparent; padding: 5px;
+            border: 1px solid transparent; padding: 5px; transition: transform 0.1s;
         }
         .icon:hover { background-color: rgba(0, 100, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 3px; }
-        .icon:active img { transform: scale(0.9); opacity: 0.8; }
+        .icon:active { transform: scale(0.95); }
         .icon img { 
             width: 48px; height: 48px; margin-bottom: 5px; 
             object-fit: contain; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); 
         }
-        .icon-label { padding: 2px 4px; border-radius: 2px; line-height: 1.3; }
+        .icon-label { padding: 2px 4px; border-radius: 2px; line-height: 1.3; font-size: 12px; }
         .icon:hover .icon-label { background: #0055ea; }
 
         /* =========================================
-           4. WINDOW SYSTEM
+           4. WINDOW SYSTEM (RESPONSIVE ENGINE)
            ========================================= */
         .window {
             position: absolute;
-            background: #ece9d8;
-            border: 1px solid #0055ea;
+            background: var(--xp-panel-bg);
+            border: 1px solid var(--win-border);
             border-radius: 8px 8px 0 0;
             box-shadow: 6px 6px 20px rgba(0,0,0,0.5);
             display: none; flex-direction: column;
             min-width: 200px; min-height: 150px;
             z-index: 10;
+            /* Transiciones suaves para maximizar */
+            transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s;
         }
         .window.active { z-index: 100; box-shadow: 10px 10px 30px rgba(0,0,0,0.6); }
         
         .title-bar {
-            height: 29px;
+            height: 30px; /* Un poco más alto para tocar con el dedo */
             background: linear-gradient(to bottom, #0058ee 0%, #3593ff 5%, #288eff 20%, #0369fc 50%, #0057e5 100%);
             border-radius: 6px 6px 0 0;
             display: flex; align-items: center; justify-content: space-between;
@@ -108,35 +117,74 @@
         .title-bar-text { display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .title-bar img { width: 16px; height: 16px; }
         
-        .win-controls { display: flex; gap: 3px; }
+        .win-controls { display: flex; gap: 5px; }
         .btn { 
-            width: 21px; height: 21px; border: 1px solid #fff; border-radius: 3px; 
+            width: 24px; height: 24px; border: 1px solid #fff; border-radius: 3px; 
             cursor: pointer; display: flex; align-items: center; justify-content: center; 
             color: white; box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3); 
             background: linear-gradient(to bottom, #478bef, #1d5fc6);
         }
-        .btn:hover { filter: brightness(1.2); }
-        .btn:active { box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); margin-top: 1px; }
-        .btn-min { align-items: flex-end; padding-bottom: 3px; font-weight: 900; }
-        .btn-max { font-size: 10px; font-family: 'Verdana'; }
         .btn-close { background: linear-gradient(to bottom, #e05b4d, #b5291d); border-color: #fff; font-size: 14px; font-weight: bold; }
 
         .window-content { flex-grow: 1; overflow: hidden; background: white; margin: 3px; border: 1px solid #999; position: relative; display: flex; flex-direction: column; }
         
         .resizer {
-            width: 15px; height: 15px;
+            width: 20px; height: 20px;
             background: linear-gradient(135deg, transparent 50%, #999 50%);
             position: absolute; bottom: 2px; right: 2px;
             cursor: se-resize; z-index: 101; opacity: 0.6;
         }
 
+        /* Generic UI */
+        .menubar { background: var(--xp-panel-bg); padding: 4px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; overflow-x: auto; }
+        .menubar span { padding: 2px 6px; cursor: default; white-space: nowrap; }
+        .toolbar { background: var(--xp-panel-bg); padding: 5px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; overflow-x: auto;}
+        
         /* =========================================
-           5. APPLICATIONS
+           5. MOBILE ADAPTATIONS (@MEDIA)
+           ========================================= */
+        @media (max-width: 768px) {
+            /* ICONOS: Flujo horizontal en móvil para no tapar */
+            .desktop-icons { flex-direction: row; align-content: flex-start; justify-content: space-around; }
+            .icon { width: 70px; margin-bottom: 15px; }
+            .icon-label { font-size: 11px; background: rgba(0,0,0,0.3); }
+
+            /* VENTANAS: Fullscreen forzoso en móvil */
+            .window {
+                width: 100% !important;
+                height: calc(100% - 30px) !important;
+                top: 0 !important;
+                left: 0 !important;
+                border-radius: 0;
+            }
+            .window.minimized { display: none !important; }
+            .resizer { display: none; } /* No resize en móvil */
+            
+            /* Start Menu: Pantalla completa parcial */
+            #start-menu {
+                width: 90%; height: 80%; left: 5%; bottom: 35px;
+            }
+            .sm-body { flex-direction: column; }
+            .sm-left, .sm-right { width: 100%; height: 50%; overflow-y: auto; }
+
+            /* Apps internas */
+            .paper { width: 100%; padding: 15px; box-shadow: none; }
+            .skills-container { flex-direction: column; }
+            .skills-sidebar { width: 100%; height: auto; padding: 10px; flex-direction: row; align-items: center; overflow-x: auto; }
+            .skills-grid { padding: 5px; justify-content: center; }
+            
+            /* Clippy: Más pequeño y arriba para no molestar */
+            #clippy-container { top: 10px; right: 10px; bottom: auto; transform: scale(0.8); transform-origin: top right; }
+            .chat-bubble { width: 250px; right: 0; bottom: auto; top: 10px; }
+            .chat-bubble::after { top: 20px; right: -8px; border-left: 8px solid #000; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-right: none; }
+        }
+
+        /* =========================================
+           6. APPLICATIONS
            ========================================= */
         
-        /* 5.1 WORD CV */
-        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
-        .paper-viewport { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
+        /* WORD CV */
+        .paper-viewport { background: #5d6c7a; flex-grow: 1; padding: 10px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
             background: white; width: 800px; min-height: 1000px; 
             padding: 40px 50px; font-family: 'Times New Roman', serif; color: #000;
@@ -147,74 +195,63 @@
         .cv-sub { font-size: 12px; margin-top: 5px; line-height: 1.4; color: #444;}
         .cv-h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; padding-bottom: 2px; }
         .cv-job { margin-bottom: 15px; }
-        .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; }
+        .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; }
         .cv-job-meta { font-style: italic; color: #555; margin-bottom: 4px; font-size: 11px; }
         .cv-ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; font-size: 12px; }
 
-        /* 5.2 SKILLS EXPLORER */
-        .explorer-layout { display: flex; height: 100%; }
-        .explorer-side { width: 180px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; overflow: hidden; display:flex; flex-direction:column; gap:10px; }
-        .explorer-main { flex-grow: 1; background: white; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 15px; overflow-y: auto; }
-        .skill-detail-box { background: white; color: black; padding: 10px; border-radius: 5px; margin-top: 10px; border: 1px solid #003c74; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .xp-box-header { font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; cursor: pointer; }
+        /* SKILLS EXPLORER */
+        .skill-detail-box { background: white; color: black; padding: 10px; border-radius: 5px; margin-top: 5px; border: 1px solid #003c74; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
         .xp-icon-tile { width: 80px; padding: 5px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid transparent; cursor: pointer; }
         .xp-icon-tile:hover { border-color: #ccc; background: #f1f1f1; border-radius: 3px; }
         .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 3px; object-fit: contain; }
 
-        /* 5.3 OUTLOOK EXPRESS (CONTACT) */
-        .outlook-body { display: flex; flex-direction: column; height: 100%; }
-        .outlook-header { padding: 15px; background: white; border-bottom: 1px solid #ccc; }
-        .form-line { display: flex; margin-bottom: 8px; align-items: center; }
-        .form-label { width: 60px; color: #666; text-align: right; margin-right: 10px; }
-        .form-val { border: 1px solid #ccc; padding: 3px; flex-grow: 1; background: #f9f9f9; user-select: text; }
-        .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; }
+        /* OUTLOOK EXPRESS */
+        .outlook-header { padding: 10px; background: white; border-bottom: 1px solid #ccc; }
+        .form-line { display: flex; margin-bottom: 5px; align-items: center; }
+        .form-label { width: 60px; color: #666; text-align: right; margin-right: 10px; font-size: 11px; }
+        .form-val { border: 1px solid #ccc; padding: 3px; flex-grow: 1; background: #f9f9f9; user-select: text; font-size: 11px; }
+        .outlook-content { padding: 15px; background: white; flex-grow: 1; font-family: 'Arial', sans-serif; font-size: 12px; overflow-y: auto; }
 
-        /* 5.4 RATE CALCULATOR */
+        /* RATE CALCULATOR */
         .calc-body { background: #ece9d8; padding: 15px; display: flex; flex-direction: column; gap: 10px; height: 100%; font-family: 'Tahoma'; }
         .calc-screen { 
             background: #fff; border: 2px inset #fff; padding: 10px; 
-            font-family: 'Courier Prime', monospace; font-size: 14px; text-align: right; margin-bottom: 5px;
+            font-family: 'Courier Prime', monospace; font-size: 16px; text-align: right; margin-bottom: 5px;
             color: #000; font-weight: bold;
         }
         .calc-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-        .calc-label { font-weight: bold; width: 100px; }
-        .calc-input { width: 100%; padding: 3px; border: 1px solid #7c7c7c; }
-        .calc-btn { 
-            width: 100%; padding: 5px; background: #d4d0c8; border: 1px solid #888; 
-            cursor: pointer; font-weight: bold; margin-top: 10px;
-        }
-        .calc-btn:active { border-style: inset; }
-
-        /* 5.5 SYSTEM PROPERTIES (BIO) */
-        .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; }
-        .sys-img { width: 80px; text-align: center; }
-        .sys-img img { width: 64px; }
+        .calc-input { width: 100%; padding: 5px; border: 1px solid #7c7c7c; }
+        .calc-btn { width: 100%; padding: 8px; background: #d4d0c8; border: 1px solid #888; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        
+        /* SYSTEM PROPERTIES */
+        .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; flex-wrap: wrap; }
+        .sys-img { width: 60px; text-align: center; }
         .sys-info { flex-grow: 1; font-size: 11px; line-height: 1.5; }
-        .sys-info h3 { margin: 0 0 10px 0; color: #000; font-size: 12px; }
         .sys-section { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
-        /* 5.6 CLIPPY INTELLIGENCE */
-        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 99999; display: flex; flex-direction: column; align-items: flex-end; display: none; }
+        /* CLIPPY INTELLIGENCE */
         .clippy-img { 
-            width: 120px; height: 120px; cursor: pointer; 
-            background: url('https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif') no-repeat center bottom; 
+            width: 100px; height: 100px; cursor: pointer; 
+            background: url('https://static.wikia.nocookie.net/joke-battles/images/c/cb/Clippy.png/revision/latest?cb=20151209031540') no-repeat center bottom; 
             background-size: contain; 
             filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
+            transition: transform 0.2s;
         }
+        .clippy-img:hover { transform: scale(1.1); }
         .chat-bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 300px;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: block; font-size: 11px;
-            position: relative;
+            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 280px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: block; font-size: 12px;
+            position: relative; z-index: 100000;
         }
         .cb-header { background: #F5F5C5; padding: 4px 8px; font-weight: bold; border-bottom: 1px solid #E2E2A8; color: #444; }
-        .cb-body { padding: 10px; max-height: 200px; overflow-y: auto; }
-        .msg-line { margin-bottom: 5px; }
+        .cb-body { padding: 10px; max-height: 150px; overflow-y: auto; }
+        .msg-line { margin-bottom: 6px; }
         .msg-user { color: #0000aa; font-weight: bold; text-align: right; }
         .cb-input { display: flex; padding: 5px; background: #ece9d8; border-top: 1px solid #ccc; gap: 5px; }
-        .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; font-family: 'Tahoma'; }
+        .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 4px; font-family: 'Tahoma'; }
         
-        /* 5.7 NOTEPAD */
-        .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 12px; resize: none; outline: none; }
+        /* NOTEPAD */
+        .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 13px; resize: none; outline: none; }
 
         /* =========================================
            6. TASKBAR & START MENU
@@ -225,16 +262,16 @@
             border-top: 2px solid #3f8cf3; z-index: 10000; display: flex; align-items: center; padding: 0 2px;
         }
         #start-btn {
-            width: 100px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
-            border-radius: 0 10px 10px 0; display: flex; align-items: center; padding-left: 5px; gap: 5px;
+            width: auto; padding: 0 10px 0 5px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
+            border-radius: 0 10px 10px 0; display: flex; align-items: center; gap: 5px;
             color: white; font-weight: bold; font-style: italic; font-size: 16px; box-shadow: 2px 0 5px rgba(0,0,0,0.5); cursor: pointer;
         }
-        #start-btn:hover { filter: brightness(1.1); }
         
-        #task-list { display: flex; gap: 2px; flex-grow: 1; }
+        #task-list { display: flex; gap: 2px; flex-grow: 1; overflow-x: auto; }
         .task-item {
-            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
+            width: 140px; min-width: 100px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
             color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px; cursor: pointer; font-size: 11px;
+            overflow: hidden; white-space: nowrap;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
         
@@ -291,7 +328,7 @@
             <div class="icon-label">My Computer</div>
         </div>
         <div class="icon" onclick="openWindow('win-cv')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
             <div class="icon-label">My Resume</div>
         </div>
         <div class="icon" onclick="openWindow('win-skills')">
@@ -323,7 +360,7 @@
 
 <div id="win-cv" class="window" style="top: 20px; left: 50px; width: 850px; height: 600px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
-        <div class="title-bar-text"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png"> CV_Danilo_Hurwitz.doc</div>
+        <div class="title-bar-text"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png"> CV_Danilo_Hurwitz.doc</div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-cv')">_</div>
             <div class="btn btn-max" onclick="maxWindow('win-cv')">□</div>
@@ -348,7 +385,7 @@
                     <div class="cv-job-title"><span>Content Specialist / Hebrew Translator</span> <span>Nov 2025 – Present</span></div>
                     <div class="cv-job-meta">ICUC Social (Remote)</div>
                     <ul class="cv-ul">
-                        <li>Performing scheduled linguistic quality assurance (QA) audits on high-stakes Hebrew content.</li>
+                        <li>Performing scheduled Linguistic Quality Assurance (QA) audits on high-stakes Hebrew content.</li>
                         <li>Diagnosing cultural context errors and sentiment misalignments in real-time.</li>
                         <li>Operating within global rapid-response teams via MS Teams infrastructure.</li>
                     </ul>
@@ -426,7 +463,7 @@
                 <div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>MTPE</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge.')">
+                <div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"><span>Office</span>
                 </div>
             </div>
@@ -519,9 +556,7 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="outlook-bar">
-            <button class="btn" style="color:black; width:auto; padding:0 5px;">Send</button>
-        </div>
+        <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Tools</span><span>Message</span></div>
         <div class="outlook-header">
             <div class="form-line"><span class="form-label">To:</span> <div class="form-val">Danilo Hurwitz</div></div>
             <div class="form-line"><span class="form-label">From:</span> <div class="form-val">Recruiter</div></div>
@@ -547,9 +582,9 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="ie-bar">
+        <div class="toolbar">
             <span>Address:</span>
-            <input class="ie-input" type="text" value="https://danilohurwitz.github.io/main/">
+            <input type="text" style="flex-grow:1; border:1px solid #7c7c7c; padding:2px;" value="https://danilohurwitz.github.io/main/">
             <button onclick="document.getElementById('ie-frame').src='https://danilohurwitz.github.io/main/'">Go</button>
         </div>
         <iframe id="ie-frame" src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
@@ -631,7 +666,7 @@
             </div>
             <div style="height:1px; background:#ccc; margin:5px 0;"></div>
             <div class="sm-item" onclick="openWindow('win-cv')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
                 <span class="sm-bold">My Resume</span>
             </div>
             <div class="sm-item" onclick="openWindow('win-calc')">
