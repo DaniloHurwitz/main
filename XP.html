@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Danilo Hurwitz - XP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danilo XP - Final Stable</title>
     <style>
         /* =========================================
            1. CORE SYSTEM & FONTS
@@ -19,7 +19,7 @@
             --win-border: #0055ea;
         }
 
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * { box-sizing: border-box; user-select: none; }
         
         body { 
             margin: 0; padding: 0; overflow: hidden; height: 100vh; width: 100vw;
@@ -33,7 +33,7 @@
         .pointer { cursor: pointer; }
 
         /* =========================================
-           2. BOOT SCREEN (RESPONSIVE)
+           2. BOOT SCREEN
            ========================================= */
         #boot-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -41,7 +41,7 @@
             display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
         
-        .xp-logo-container { margin-bottom: 60px; text-align: center; transform: scale(0.8); }
+        .xp-logo-container { margin-bottom: 60px; text-align: center; }
         .win-logo-text { font-family: 'Arial', sans-serif; font-size: 42px; font-weight: bold; color: white; font-style: italic; letter-spacing: -2px; }
         .win-logo-sub { color: #ff6600; font-family: 'Arial', sans-serif; font-size: 18px; font-weight: bold; font-style: italic; position: relative; top: -15px; left: 5px; }
         
@@ -59,14 +59,15 @@
         @keyframes loadAnim { 0% { left: -80px; } 100% { left: 250px; } }
 
         /* =========================================
-           3. DESKTOP (RESPONSIVE)
+           3. DESKTOP
            ========================================= */
         #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
-            /* Fondo HD */
+            /* Fondo HD 16:9 */
             background: #2ea6f7 url('https://external-preview.redd.it/uhq5zTcMPM3tOW_fbUz4PayDt_5pkEXdyXXoRWs3XOg.jpg?auto=webp&s=e06461124c1ccfdba7e9ece763b644ff68eeb06b') no-repeat center center fixed;
             background-size: cover;
-            display: none; z-index: 1;
+            display: none; /* Se activa tras el boot */
+            z-index: 1;
         }
         
         .desktop-icons {
@@ -77,36 +78,34 @@
             width: 85px; text-align: center; cursor: pointer;
             display: flex; flex-direction: column; align-items: center;
             color: white; text-shadow: 1px 1px 2px black; margin-bottom: 5px;
-            border: 1px solid transparent; padding: 5px; transition: transform 0.1s;
+            border: 1px solid transparent; padding: 5px;
         }
         .icon:hover { background-color: rgba(0, 100, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 3px; }
-        .icon:active { transform: scale(0.95); }
+        .icon:active img { transform: scale(0.9); opacity: 0.8; }
         .icon img { 
             width: 48px; height: 48px; margin-bottom: 5px; 
             object-fit: contain; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.6)); 
         }
-        .icon-label { padding: 2px 4px; border-radius: 2px; line-height: 1.3; font-size: 12px; }
+        .icon-label { padding: 2px 4px; border-radius: 2px; line-height: 1.3; }
         .icon:hover .icon-label { background: #0055ea; }
 
         /* =========================================
-           4. WINDOW SYSTEM (RESPONSIVE ENGINE)
+           4. WINDOW SYSTEM
            ========================================= */
         .window {
             position: absolute;
-            background: var(--xp-panel-bg);
-            border: 1px solid var(--win-border);
+            background: #ece9d8;
+            border: 1px solid #0055ea;
             border-radius: 8px 8px 0 0;
             box-shadow: 6px 6px 20px rgba(0,0,0,0.5);
             display: none; flex-direction: column;
             min-width: 200px; min-height: 150px;
             z-index: 10;
-            /* Transiciones suaves para maximizar */
-            transition: width 0.2s, height 0.2s, top 0.2s, left 0.2s;
         }
         .window.active { z-index: 100; box-shadow: 10px 10px 30px rgba(0,0,0,0.6); }
         
         .title-bar {
-            height: 30px; /* Un poco más alto para tocar con el dedo */
+            height: 29px;
             background: linear-gradient(to bottom, #0058ee 0%, #3593ff 5%, #288eff 20%, #0369fc 50%, #0057e5 100%);
             border-radius: 6px 6px 0 0;
             display: flex; align-items: center; justify-content: space-between;
@@ -117,74 +116,41 @@
         .title-bar-text { display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .title-bar img { width: 16px; height: 16px; }
         
-        .win-controls { display: flex; gap: 5px; }
+        .win-controls { display: flex; gap: 3px; }
         .btn { 
-            width: 24px; height: 24px; border: 1px solid #fff; border-radius: 3px; 
+            width: 21px; height: 21px; border: 1px solid #fff; border-radius: 3px; 
             cursor: pointer; display: flex; align-items: center; justify-content: center; 
             color: white; box-shadow: inset 0 -1px 2px rgba(0,0,0,0.3); 
             background: linear-gradient(to bottom, #478bef, #1d5fc6);
         }
+        .btn:hover { filter: brightness(1.2); }
+        .btn:active { box-shadow: inset 0 1px 2px rgba(0,0,0,0.5); margin-top: 1px; }
+        .btn-min { align-items: flex-end; padding-bottom: 3px; font-weight: 900; }
+        .btn-max { font-size: 10px; font-family: 'Verdana'; }
         .btn-close { background: linear-gradient(to bottom, #e05b4d, #b5291d); border-color: #fff; font-size: 14px; font-weight: bold; }
 
         .window-content { flex-grow: 1; overflow: hidden; background: white; margin: 3px; border: 1px solid #999; position: relative; display: flex; flex-direction: column; }
         
         .resizer {
-            width: 20px; height: 20px;
+            width: 15px; height: 15px;
             background: linear-gradient(135deg, transparent 50%, #999 50%);
             position: absolute; bottom: 2px; right: 2px;
             cursor: se-resize; z-index: 101; opacity: 0.6;
         }
 
-        /* Generic UI */
-        .menubar { background: var(--xp-panel-bg); padding: 4px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; overflow-x: auto; }
-        .menubar span { padding: 2px 6px; cursor: default; white-space: nowrap; }
-        .toolbar { background: var(--xp-panel-bg); padding: 5px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; overflow-x: auto;}
+        /* Generic Menus */
+        .menubar { background: #ece9d8; padding: 2px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; }
+        .menubar span { padding: 2px 6px; cursor: default; }
+        .menubar span:hover { background: #316ac5; color: white; }
+        .toolbar { background: #ece9d8; padding: 4px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; }
         
         /* =========================================
-           5. MOBILE ADAPTATIONS (@MEDIA)
-           ========================================= */
-        @media (max-width: 768px) {
-            /* ICONOS: Flujo horizontal en móvil para no tapar */
-            .desktop-icons { flex-direction: row; align-content: flex-start; justify-content: space-around; }
-            .icon { width: 70px; margin-bottom: 15px; }
-            .icon-label { font-size: 11px; background: rgba(0,0,0,0.3); }
-
-            /* VENTANAS: Fullscreen forzoso en móvil */
-            .window {
-                width: 100% !important;
-                height: calc(100% - 30px) !important;
-                top: 0 !important;
-                left: 0 !important;
-                border-radius: 0;
-            }
-            .window.minimized { display: none !important; }
-            .resizer { display: none; } /* No resize en móvil */
-            
-            /* Start Menu: Pantalla completa parcial */
-            #start-menu {
-                width: 90%; height: 80%; left: 5%; bottom: 35px;
-            }
-            .sm-body { flex-direction: column; }
-            .sm-left, .sm-right { width: 100%; height: 50%; overflow-y: auto; }
-
-            /* Apps internas */
-            .paper { width: 100%; padding: 15px; box-shadow: none; }
-            .skills-container { flex-direction: column; }
-            .skills-sidebar { width: 100%; height: auto; padding: 10px; flex-direction: row; align-items: center; overflow-x: auto; }
-            .skills-grid { padding: 5px; justify-content: center; }
-            
-            /* Clippy: Más pequeño y arriba para no molestar */
-            #clippy-container { top: 10px; right: 10px; bottom: auto; transform: scale(0.8); transform-origin: top right; }
-            .chat-bubble { width: 250px; right: 0; bottom: auto; top: 10px; }
-            .chat-bubble::after { top: 20px; right: -8px; border-left: 8px solid #000; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-right: none; }
-        }
-
-        /* =========================================
-           6. APPLICATIONS
+           5. APPLICATIONS
            ========================================= */
         
-        /* WORD CV */
-        .paper-viewport { background: #5d6c7a; flex-grow: 1; padding: 10px; overflow: auto; display: flex; justify-content: center; }
+        /* 5.1 WORD CV */
+        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
+        .paper-viewport { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
             background: white; width: 800px; min-height: 1000px; 
             padding: 40px 50px; font-family: 'Times New Roman', serif; color: #000;
@@ -195,24 +161,58 @@
         .cv-sub { font-size: 12px; margin-top: 5px; line-height: 1.4; color: #444;}
         .cv-h2 { font-family: Arial; font-size: 14px; color: #2f65bd; border-bottom: 1px solid #ccc; margin-top: 25px; text-transform: uppercase; font-weight: bold; padding-bottom: 2px; }
         .cv-job { margin-bottom: 15px; }
-        .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; flex-wrap: wrap; }
+        .cv-job-title { font-weight: bold; font-size: 13px; display: flex; justify-content: space-between; }
         .cv-job-meta { font-style: italic; color: #555; margin-bottom: 4px; font-size: 11px; }
         .cv-ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; font-size: 12px; }
 
-        /* SKILLS EXPLORER */
-        .skill-detail-box { background: white; color: black; padding: 10px; border-radius: 5px; margin-top: 5px; border: 1px solid #003c74; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .xp-icon-tile { width: 80px; padding: 5px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid transparent; cursor: pointer; }
+        /* 5.2 SKILLS EXPLORER (CORREGIDO) */
+        .explorer-layout { display: flex; height: 100%; }
+        .explorer-side { 
+            width: 200px; 
+            background: linear-gradient(to bottom, #7ba2e7, #6375d6); 
+            padding: 10px; 
+            color: white; 
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .explorer-main { 
+            flex-grow: 1; 
+            background: white; 
+            padding: 20px; 
+            display: flex; 
+            flex-wrap: wrap; 
+            align-content: flex-start; 
+            gap: 15px; 
+            overflow-y: auto; 
+        }
+        
+        /* Caja de detalles de Skill */
+        .xp-box { background: white; color: black; border-radius: 3px; overflow: hidden; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+        .xp-box-head { 
+            background: linear-gradient(to right, #fff, #c6d3f7); 
+            padding: 5px; font-weight: bold; color: #215dc6; font-size: 11px; cursor: pointer; 
+            display: flex; justify-content: space-between; 
+        }
+        .xp-box-content { padding: 10px; font-size: 11px; line-height: 1.4; }
+
+        /* Iconos de Skills */
+        .xp-icon-tile { 
+            width: 70px; padding: 5px; 
+            display: flex; flex-direction: column; align-items: center; text-align: center; 
+            border: 1px solid transparent; cursor: pointer; 
+        }
         .xp-icon-tile:hover { border-color: #ccc; background: #f1f1f1; border-radius: 3px; }
         .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 3px; object-fit: contain; }
+        .xp-icon-tile span { font-size: 10px; color: #000; }
 
-        /* OUTLOOK EXPRESS */
-        .outlook-header { padding: 10px; background: white; border-bottom: 1px solid #ccc; }
-        .form-line { display: flex; margin-bottom: 5px; align-items: center; }
-        .form-label { width: 60px; color: #666; text-align: right; margin-right: 10px; font-size: 11px; }
-        .form-val { border: 1px solid #ccc; padding: 3px; flex-grow: 1; background: #f9f9f9; user-select: text; font-size: 11px; }
-        .outlook-content { padding: 15px; background: white; flex-grow: 1; font-family: 'Arial', sans-serif; font-size: 12px; overflow-y: auto; }
+        /* 5.3 OUTLOOK EXPRESS (CONTACT) */
+        .outlook-body { display: flex; flex-direction: column; height: 100%; }
+        .outlook-header { padding: 15px; background: white; border-bottom: 1px solid #ccc; }
+        .form-line { display: flex; margin-bottom: 8px; align-items: center; }
+        .form-label { width: 70px; color: #666; text-align: right; margin-right: 10px; }
+        .form-val { border: 1px solid #ccc; padding: 4px; flex-grow: 1; background: #f9f9f9; user-select: text; font-family: 'Tahoma'; font-size:11px; }
+        .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; font-size: 12px; overflow-y: auto; }
 
-        /* RATE CALCULATOR */
+        /* 5.4 RATE CALCULATOR */
         .calc-body { background: #ece9d8; padding: 15px; display: flex; flex-direction: column; gap: 10px; height: 100%; font-family: 'Tahoma'; }
         .calc-screen { 
             background: #fff; border: 2px inset #fff; padding: 10px; 
@@ -220,38 +220,54 @@
             color: #000; font-weight: bold;
         }
         .calc-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-        .calc-input { width: 100%; padding: 5px; border: 1px solid #7c7c7c; }
-        .calc-btn { width: 100%; padding: 8px; background: #d4d0c8; border: 1px solid #888; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        
-        /* SYSTEM PROPERTIES */
-        .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; flex-wrap: wrap; }
-        .sys-img { width: 60px; text-align: center; }
+        .calc-label { font-weight: bold; width: 100px; }
+        .calc-input { width: 100%; padding: 3px; border: 1px solid #7c7c7c; }
+        .calc-btn { 
+            width: 100%; padding: 5px; background: #d4d0c8; border: 1px solid #888; 
+            cursor: pointer; font-weight: bold; margin-top: 10px;
+        }
+        .calc-btn:active { border-style: inset; }
+
+        /* 5.5 SYSTEM PROPERTIES (BIO) */
+        .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; }
+        .sys-img { width: 80px; text-align: center; }
+        .sys-img img { width: 64px; }
         .sys-info { flex-grow: 1; font-size: 11px; line-height: 1.5; }
+        .sys-info h3 { margin: 0 0 10px 0; color: #000; font-size: 12px; }
         .sys-section { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
-        /* CLIPPY INTELLIGENCE */
-        .clippy-img { 
-            width: 100px; height: 100px; cursor: pointer; 
-            background: url('https://static.wikia.nocookie.net/joke-battles/images/c/cb/Clippy.png/revision/latest?cb=20151209031540') no-repeat center bottom; 
-            background-size: contain; 
-            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
+        /* 5.6 CLIPPY INTELLIGENCE (CORREGIDO) */
+        /* IMPORTANTE: display: none inicial para que no aparezca antes del boot */
+        #clippy-container { 
+            position: absolute; bottom: 50px; right: 20px; z-index: 99999; 
+            display: none; /* Se activa SOLO con JS después del boot */
+            flex-direction: column; align-items: flex-end; 
+        }
+        
+        /* GLOBO DE TEXTO */
+        .chat-bubble {
+            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 300px;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: block; font-size: 11px;
+            position: relative;
+        }
+        .cb-header { background: #F5F5C5; padding: 4px 8px; font-weight: bold; border-bottom: 1px solid #E2E2A8; color: #444; }
+        .cb-body { padding: 10px; max-height: 200px; overflow-y: auto; }
+        .msg-line { margin-bottom: 5px; }
+        .msg-user { color: #0000aa; font-weight: bold; text-align: right; }
+        .cb-input { display: flex; padding: 5px; background: #ece9d8; border-top: 1px solid #ccc; gap: 5px; }
+        .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; font-family: 'Tahoma'; }
+        
+        /* CLIPPY IMAGEN REAL */
+        .clippy-img {
+            width: 100px; height: 100px; cursor: pointer;
+            /* Usamos etiqueta IMG en el HTML para evitar problemas de carga de background */
+            display: block;
             transition: transform 0.2s;
         }
         .clippy-img:hover { transform: scale(1.1); }
-        .chat-bubble {
-            background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 280px;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: block; font-size: 12px;
-            position: relative; z-index: 100000;
-        }
-        .cb-header { background: #F5F5C5; padding: 4px 8px; font-weight: bold; border-bottom: 1px solid #E2E2A8; color: #444; }
-        .cb-body { padding: 10px; max-height: 150px; overflow-y: auto; }
-        .msg-line { margin-bottom: 6px; }
-        .msg-user { color: #0000aa; font-weight: bold; text-align: right; }
-        .cb-input { display: flex; padding: 5px; background: #ece9d8; border-top: 1px solid #ccc; gap: 5px; }
-        .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 4px; font-family: 'Tahoma'; }
-        
-        /* NOTEPAD */
-        .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 13px; resize: none; outline: none; }
+
+        /* 5.7 NOTEPAD */
+        .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 12px; resize: none; outline: none; }
 
         /* =========================================
            6. TASKBAR & START MENU
@@ -262,16 +278,16 @@
             border-top: 2px solid #3f8cf3; z-index: 10000; display: flex; align-items: center; padding: 0 2px;
         }
         #start-btn {
-            width: auto; padding: 0 10px 0 5px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
-            border-radius: 0 10px 10px 0; display: flex; align-items: center; gap: 5px;
+            width: 100px; height: 100%; margin-right: 10px; background: linear-gradient(to bottom, #3c9e3c, #51c051);
+            border-radius: 0 10px 10px 0; display: flex; align-items: center; padding-left: 5px; gap: 5px;
             color: white; font-weight: bold; font-style: italic; font-size: 16px; box-shadow: 2px 0 5px rgba(0,0,0,0.5); cursor: pointer;
         }
+        #start-btn:hover { filter: brightness(1.1); }
         
-        #task-list { display: flex; gap: 2px; flex-grow: 1; overflow-x: auto; }
+        #task-list { display: flex; gap: 2px; flex-grow: 1; }
         .task-item {
-            width: 140px; min-width: 100px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
+            width: 150px; height: 24px; background: #3c81f0; border: 1px solid #2864c0; border-radius: 3px;
             color: white; display: flex; align-items: center; padding: 0 5px; gap: 5px; cursor: pointer; font-size: 11px;
-            overflow: hidden; white-space: nowrap;
         }
         .task-item.active { background: #153c94; box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5); font-weight: bold; }
         
@@ -393,28 +409,28 @@
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Medical Translator (Top Rated)</span> <span>May 2023 – Present</span></div>
-                    <div class="cv-job-meta">Upwork / Global Clients</div>
+                    [cite_start]<div class="cv-job-meta">Upwork / Global Clients [cite: 31]</div>
                     <ul class="cv-ul">
-                        <li><strong>100% Job Success Score</strong> achieved with zero errors reported.</li>
-                        <li>Translation of clinical trials, informed consents, and device manuals.</li>
-                        <li>Method: Human-verified MTPE (Machine Translation Post-Editing).</li>
+                        [cite_start]<li><strong>100% Job Success Score</strong> achieved with zero errors reported[cite: 36].</li>
+                        [cite_start]<li>Translation of clinical trials, informed consents, and device manuals[cite: 34].</li>
+                        [cite_start]<li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 35].</li>
                     </ul>
                 </div>
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Video Editor & Subtitle Creator</span> <span>May 2023 – Present</span></div>
-                    <div class="cv-job-meta">Freelance</div>
+                    [cite_start]<div class="cv-job-meta">Freelance / Upwork [cite: 40]</div>
                     <ul class="cv-ul">
-                        <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules.</li>
-                        <li>Ensuring cognitive accessibility through precise audio-visual timing.</li>
+                        [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules[cite: 43].</li>
+                        [cite_start]<li>Ensuring cognitive accessibility through precise audio-visual timing[cite: 44].</li>
                     </ul>
                 </div>
 
                 <h2 class="cv-h2">EDUCATION</h2>
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
-                    <div class="cv-job-meta">Universidad Nacional de Mar del Plata</div>
-                    <p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy.</p>
+                    [cite_start]<div class="cv-job-meta">Universidad Nacional de Mar del Plata [cite: 51]</div>
+                    [cite_start]<p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology[cite: 53]. Direct application of this knowledge to translation accuracy.</p>
                 </div>
             </div>
         </div>
@@ -437,33 +453,35 @@
             <div class="explorer-side">
                 <strong>Skills Details</strong><br><br>
                 <div id="skill-details-box" class="skill-detail-box">
-                    <span id="skill-title" class="bold" style="display:block; margin-bottom:5px;">Select an item</span>
-                    <span id="skill-desc">Hover or click an icon to view details about my expertise.</span>
+                    <div class="xp-box">
+                        <div class="xp-box-head">Description</div>
+                        <div class="xp-box-content" id="skill-desc">Select an icon to view details.</div>
+                    </div>
                 </div>
             </div>
             <div class="explorer-main">
-                <div class="xp-icon-tile" onclick="updateSkill('Spanish', 'Native (C2). Born in Málaga, Spain. Expert in Castilian & LATAM variants.')">
+                <div class="xp-icon-tile" onclick="updateSkill('Spanish', 'Native (C2). Born in Málaga, Spain. [cite_start]Expert in Castilian & LATAM variants[cite: 7].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Spanish</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Hebrew', 'Fluent (C1). 10+ years of daily immersion. Specialized in Medical context.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Hebrew', 'Fluent (C1). 10+ years of daily immersion. Specialized in Medical context[cite: 9].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Hebrew</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('English', 'Fluent (C1). 15+ years experience. Medical proficiency level.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('English', 'Fluent (C1). 15+ years experience. Medical proficiency level[cite: 8].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>English</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Med Trans', 'Translation of clinical trials, informed consents & manuals.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Med Trans', 'Translation of clinical trials, informed consents & manuals[cite: 5].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png"><span>Med Trans</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Video Edit', 'CapCut expert. Precise audio-visual timing for medical videos.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Video Edit', 'CapCut expert. Precise audio-visual timing for medical videos[cite: 13].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png"><span>Video Edit</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Subtitles', 'Synchronized multilingual subtitles using Subtitle Edit.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Subtitles', 'Synchronized multilingual subtitles using Subtitle Edit[cite: 13].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png"><span>Subtitles</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy[cite: 11].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>MTPE</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace.')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge[cite: 13].')">
                     <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"><span>Office</span>
                 </div>
             </div>
@@ -528,19 +546,19 @@
                     <h3>System:</h3>
                     Danilo Hurwitz Professional<br>
                     Service Pack 2025<br>
-                    Mar del Plata Edition
+                    [cite_start]Mar del Plata Edition [cite: 2]
                 </div>
                 <div class="sys-section">
                     <h3>Registered to:</h3>
-                    MD Candidate (UNMDP)<br>
-                    Native Spanish / Fluent Hebrew<br>
+                    [cite_start]MD Candidate (UNMDP) [cite: 50]<br>
+                    [cite_start]Native Spanish / Fluent Hebrew [cite: 7, 9]<br>
                     55274-OEM-0011903-00102
                 </div>
                 <div class="sys-section" style="border:none;">
                     <h3>Computer:</h3>
                     Medical Knowledge Processor<br>
                     Creative Co-Processor (Video/Design)<br>
-                    100% JSS Performance
+                    [cite_start]100% JSS Performance [cite: 29]
                 </div>
             </div>
         </div>
@@ -556,7 +574,9 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="menubar"><span>File</span><span>Edit</span><span>View</span><span>Tools</span><span>Message</span></div>
+        <div class="outlook-bar">
+            <button class="btn" style="color:black; width:auto; padding:0 5px;">Send</button>
+        </div>
         <div class="outlook-header">
             <div class="form-line"><span class="form-label">To:</span> <div class="form-val">Danilo Hurwitz</div></div>
             <div class="form-line"><span class="form-label">From:</span> <div class="form-val">Recruiter</div></div>
@@ -564,10 +584,10 @@
         </div>
         <div class="outlook-content">
             You can reach me directly via:<br><br>
-            Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong><br>
-            Phone: <strong>+54 9 2302 21-9422</strong><br>
-            LinkedIn: linkedin.com/in/danilo-hurwitz<br>
-            Portfolio: danilohurwitz.github.io/main<br>
+            [cite_start]Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong> [cite: 2]<br>
+            [cite_start]Phone: <strong>+54 9 2302 21-9422</strong> [cite: 2]<br>
+            [cite_start]LinkedIn: linkedin.com/in/danilo-hurwitz [cite: 2]<br>
+            [cite_start]Portfolio: danilohurwitz.github.io/main [cite: 69]<br>
         </div>
     </div>
 </div>
@@ -582,9 +602,9 @@
         </div>
     </div>
     <div class="window-content">
-        <div class="toolbar">
+        <div class="ie-bar">
             <span>Address:</span>
-            <input type="text" style="flex-grow:1; border:1px solid #7c7c7c; padding:2px;" value="https://danilohurwitz.github.io/main/">
+            <input class="ie-input" type="text" value="https://danilohurwitz.github.io/main/">
             <button onclick="document.getElementById('ie-frame').src='https://danilohurwitz.github.io/main/'">Go</button>
         </div>
         <iframe id="ie-frame" src="https://danilohurwitz.github.io/main/" style="border:none;flex-grow:1;"></iframe>
@@ -631,7 +651,7 @@
             <button onclick="sendMessage()">Ask</button>
         </div>
     </div>
-    <div class="clippy-img" onclick="toggleClippy()"></div>
+    <img src="https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif" class="clippy-img" onclick="toggleClippy()">
 </div>
 
 <div id="taskbar">
@@ -699,6 +719,9 @@
 <script>
     /* ================= BOOT & SYSTEM ================= */
     window.onload = function() {
+        // Ocultar clippy inicialmente
+        document.getElementById('clippy-container').style.display = 'none';
+        
         setTimeout(() => {
             document.getElementById('boot-screen').style.display = 'none';
             document.getElementById('desktop').style.display = 'block';
@@ -713,10 +736,22 @@
                     });
                 });
             }
-            setTimeout(() => document.getElementById('clippy-chat').style.display = 'block', 1000);
+            
+            // Mostrar Clippy DESPUÉS de boot
+            setTimeout(() => {
+                document.getElementById('clippy-container').style.display = 'flex';
+                document.getElementById('clippy-chat').style.display = 'block';
+            }, 1000);
         }, 3000);
     }
 
+    // --- SKILLS LOGIC ---
+    function updateSkill(title, desc) {
+        document.getElementById('skill-title').innerText = title;
+        document.getElementById('skill-desc').innerHTML = desc;
+    }
+
+    // --- CLOCK ---
     function updateClock() {
         const now = new Date();
         let h = now.getHours(), m = now.getMinutes();
@@ -798,13 +833,6 @@
     }
 
     /* ================= APP LOGIC ================= */
-    
-    // SKILLS
-    function updateSkill(title, desc) {
-        document.getElementById('skill-title').innerText = title;
-        document.getElementById('skill-desc').innerHTML = desc;
-    }
-
     // RATE CALCULATOR
     function calculateRate() {
         const type = document.getElementById('service-type').value;
@@ -839,11 +867,11 @@
 
         // CEREBRO DE CLIPPY
         if (text.match(/experiencia|trabajo|experience|job|work|icuc|upwork|cv|resume/)) {
-            response = "Danilo works at ICUC Social (Hebrew QA) and is a Top Rated Translator on Upwork (100% JSS).";
+            [cite_start]response = "Danilo works at ICUC Social (Hebrew QA) and is a Top Rated Translator on Upwork (100% JSS). [cite: 36]";
             action = 'win-cv';
         }
         else if (text.match(/hebreo|hebrew|ingles|english|idioma|language|spanish|espanol|skill/)) {
-            response = "Fluent Hebrew (C1 - 10yrs), Native Spanish, Medical English C1. Opening Skills...";
+            [cite_start]response = "Fluent Hebrew (C1 - 10yrs), Native Spanish, Medical English C1. [cite: 7, 9, 8] Opening Skills...";
             action = 'win-skills';
         }
         else if (text.match(/rate|precio|tarifa|costo|cobras|cost|charge|money/)) {
@@ -856,7 +884,7 @@
             response = "Subtitling rate: $5.00 USD per video minute.";
         }
         else if (text.match(/medico|medical|doctor|medicine|estudio|universidad/)) {
-            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening CV...";
+            [cite_start]response = "He is an MD Candidate at UNMDP (Class of 2029). [cite: 50] Opening CV...";
             action = 'win-cv';
         }
         else if (text.match(/contacto|contact|mail|email|phone|telefono/)) {
@@ -864,10 +892,10 @@
             action = 'win-contact';
         }
         else if (text.match(/quien|who|nombre|name/)) {
-            response = "Danilo Hurwitz. MD Student & Translator from Argentina.";
+            response = "Danilo Hurwitz. [cite_start]MD Student & Translator from Argentina. [cite: 1]";
         }
         else if (text.match(/video|editor|edit/)) {
-            response = "He is an expert Video Editor (CapCut) and Subtitle Specialist.";
+            [cite_start]response = "He is an expert Video Editor (CapCut) and Subtitle Specialist. [cite: 40]";
             action = 'win-cv';
         }
         else {
