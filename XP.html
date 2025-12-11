@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo XP - Final Stable</title>
+    <title>Danilo Hurwitz - XP Enterprise</title>
     <style>
         /* =========================================
-           1. CORE SYSTEM & FONTS
+           1. SYSTEM CORE
            ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-
-        :root {
-            --xp-blue: #245edb;
-            --xp-blue-grad-start: #0058ee;
-            --xp-blue-grad-end: #0057e5;
-            --xp-panel-bg: #ece9d8;
-            --win-border: #0055ea;
-        }
 
         * { box-sizing: border-box; user-select: none; }
         
@@ -39,6 +31,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
+            cursor: progress; /* Indica que está cargando */
         }
         
         .xp-logo-container { margin-bottom: 60px; text-align: center; }
@@ -165,44 +158,15 @@
         .cv-job-meta { font-style: italic; color: #555; margin-bottom: 4px; font-size: 11px; }
         .cv-ul { margin: 5px 0; padding-left: 20px; line-height: 1.4; font-size: 12px; }
 
-        /* 5.2 SKILLS EXPLORER (CORREGIDO) */
+        /* 5.2 SKILLS EXPLORER */
         .explorer-layout { display: flex; height: 100%; }
-        .explorer-side { 
-            width: 200px; 
-            background: linear-gradient(to bottom, #7ba2e7, #6375d6); 
-            padding: 10px; 
-            color: white; 
-            display: flex; flex-direction: column; gap: 10px;
-        }
-        .explorer-main { 
-            flex-grow: 1; 
-            background: white; 
-            padding: 20px; 
-            display: flex; 
-            flex-wrap: wrap; 
-            align-content: flex-start; 
-            gap: 15px; 
-            overflow-y: auto; 
-        }
-        
-        /* Caja de detalles de Skill */
-        .xp-box { background: white; color: black; border-radius: 3px; overflow: hidden; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
-        .xp-box-head { 
-            background: linear-gradient(to right, #fff, #c6d3f7); 
-            padding: 5px; font-weight: bold; color: #215dc6; font-size: 11px; cursor: pointer; 
-            display: flex; justify-content: space-between; 
-        }
-        .xp-box-content { padding: 10px; font-size: 11px; line-height: 1.4; }
-
-        /* Iconos de Skills */
-        .xp-icon-tile { 
-            width: 70px; padding: 5px; 
-            display: flex; flex-direction: column; align-items: center; text-align: center; 
-            border: 1px solid transparent; cursor: pointer; 
-        }
+        .explorer-side { width: 180px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; overflow: hidden; display:flex; flex-direction:column; gap:10px; }
+        .explorer-main { flex-grow: 1; background: white; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 15px; overflow-y: auto; }
+        .skill-detail-box { background: white; color: black; padding: 10px; border-radius: 5px; margin-top: 10px; border: 1px solid #003c74; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+        .xp-box-header { font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; cursor: pointer; }
+        .xp-icon-tile { width: 80px; padding: 5px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid transparent; cursor: pointer; }
         .xp-icon-tile:hover { border-color: #ccc; background: #f1f1f1; border-radius: 3px; }
         .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 3px; object-fit: contain; }
-        .xp-icon-tile span { font-size: 10px; color: #000; }
 
         /* 5.3 OUTLOOK EXPRESS (CONTACT) */
         .outlook-body { display: flex; flex-direction: column; height: 100%; }
@@ -236,15 +200,21 @@
         .sys-info h3 { margin: 0 0 10px 0; color: #000; font-size: 12px; }
         .sys-section { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
-        /* 5.6 CLIPPY INTELLIGENCE (CORREGIDO) */
-        /* IMPORTANTE: display: none inicial para que no aparezca antes del boot */
+        /* 5.6 CLIPPY INTELLIGENCE */
+        /* Importante: Display block para que no se oculte por defecto */
         #clippy-container { 
-            position: absolute; bottom: 50px; right: 20px; z-index: 99999; 
-            display: none; /* Se activa SOLO con JS después del boot */
+            position: absolute; bottom: 50px; right: 20px; z-index: 10000; 
+            display: none; /* Se activa tras el boot */
             flex-direction: column; align-items: flex-end; 
         }
         
-        /* GLOBO DE TEXTO */
+        .clippy-img { 
+            width: 120px; height: 120px; cursor: pointer; 
+            background: url('https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif') no-repeat center bottom; 
+            background-size: contain; 
+            filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
+        }
+        
         .chat-bubble {
             background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 300px;
             box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: block; font-size: 11px;
@@ -257,15 +227,6 @@
         .cb-input { display: flex; padding: 5px; background: #ece9d8; border-top: 1px solid #ccc; gap: 5px; }
         .cb-input input { flex-grow: 1; border: 1px solid #7c7c7c; padding: 3px; font-family: 'Tahoma'; }
         
-        /* CLIPPY IMAGEN REAL */
-        .clippy-img {
-            width: 100px; height: 100px; cursor: pointer;
-            /* Usamos etiqueta IMG en el HTML para evitar problemas de carga de background */
-            display: block;
-            transition: transform 0.2s;
-        }
-        .clippy-img:hover { transform: scale(1.1); }
-
         /* 5.7 NOTEPAD */
         .notepad-area { width: 100%; height: 100%; border: none; padding: 5px; font-family: 'Courier New', monospace; font-size: 12px; resize: none; outline: none; }
 
@@ -323,7 +284,7 @@
 
 <audio id="startup-sound" src="https://www.myinstants.com/media/sounds/windows-xp-startup.mp3" preload="auto"></audio>
 
-<div id="boot-screen">
+<div id="boot-screen" onclick="forceBoot()">
     <div class="xp-logo-container">
         <span class="win-logo-text">Microsoft</span><br>
         <span class="win-logo-text">Windows</span><span class="win-logo-sub">XP</span>
@@ -335,6 +296,7 @@
             </div>
         </div>
     </div>
+    <div style="color:#555; margin-top:20px; font-size:10px;">Click anywhere if system doesn't start automatically</div>
 </div>
 
 <div id="desktop">
@@ -409,28 +371,28 @@
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Medical Translator (Top Rated)</span> <span>May 2023 – Present</span></div>
-                    [cite_start]<div class="cv-job-meta">Upwork / Global Clients [cite: 31]</div>
+                    <div class="cv-job-meta">Upwork / Global Clients</div>
                     <ul class="cv-ul">
-                        [cite_start]<li><strong>100% Job Success Score</strong> achieved with zero errors reported[cite: 36].</li>
-                        [cite_start]<li>Translation of clinical trials, informed consents, and device manuals[cite: 34].</li>
-                        [cite_start]<li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 35].</li>
+                        <li><strong>100% Job Success Score</strong> achieved with zero errors reported.</li>
+                        <li>Translation of clinical trials, informed consents, and device manuals.</li>
+                        <li>Method: Human-verified MTPE (Machine Translation Post-Editing).</li>
                     </ul>
                 </div>
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Video Editor & Subtitle Creator</span> <span>May 2023 – Present</span></div>
-                    [cite_start]<div class="cv-job-meta">Freelance / Upwork [cite: 40]</div>
+                    <div class="cv-job-meta">Freelance</div>
                     <ul class="cv-ul">
-                        [cite_start]<li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules[cite: 43].</li>
-                        [cite_start]<li>Ensuring cognitive accessibility through precise audio-visual timing[cite: 44].</li>
+                        <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules.</li>
+                        <li>Ensuring cognitive accessibility through precise audio-visual timing.</li>
                     </ul>
                 </div>
 
                 <h2 class="cv-h2">EDUCATION</h2>
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
-                    [cite_start]<div class="cv-job-meta">Universidad Nacional de Mar del Plata [cite: 51]</div>
-                    [cite_start]<p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology[cite: 53]. Direct application of this knowledge to translation accuracy.</p>
+                    <div class="cv-job-meta">Universidad Nacional de Mar del Plata</div>
+                    <p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy.</p>
                 </div>
             </div>
         </div>
@@ -453,35 +415,33 @@
             <div class="explorer-side">
                 <strong>Skills Details</strong><br><br>
                 <div id="skill-details-box" class="skill-detail-box">
-                    <div class="xp-box">
-                        <div class="xp-box-head">Description</div>
-                        <div class="xp-box-content" id="skill-desc">Select an icon to view details.</div>
-                    </div>
+                    <span id="skill-title" class="bold" style="display:block; margin-bottom:5px;">Select an item</span>
+                    <span id="skill-desc">Hover or click an icon to view details about my expertise.</span>
                 </div>
             </div>
             <div class="explorer-main">
-                <div class="xp-icon-tile" onclick="updateSkill('Spanish', 'Native (C2). Born in Málaga, Spain. [cite_start]Expert in Castilian & LATAM variants[cite: 7].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Spanish', 'Native (C2). Born in Málaga, Spain. Expert in Castilian & LATAM variants.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Spanish</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Hebrew', 'Fluent (C1). 10+ years of daily immersion. Specialized in Medical context[cite: 9].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Hebrew', 'Fluent (C1). 10+ years of daily immersion. Specialized in Medical context.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Hebrew</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('English', 'Fluent (C1). 15+ years experience. Medical proficiency level[cite: 8].')">
+                <div class="xp-icon-tile" onclick="updateSkill('English', 'Fluent (C1). 15+ years experience. Medical proficiency level.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>English</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Med Trans', 'Translation of clinical trials, informed consents & manuals[cite: 5].')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Med Trans', 'Translation of clinical trials, informed consents & manuals. [cite: 5]')">
                     <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png"><span>Med Trans</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Video Edit', 'CapCut expert. Precise audio-visual timing for medical videos[cite: 13].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Video Edit', 'CapCut expert. Precise audio-visual timing for medical videos.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png"><span>Video Edit</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Subtitles', 'Synchronized multilingual subtitles using Subtitle Edit[cite: 13].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Subtitles', 'Synchronized multilingual subtitles using Subtitle Edit.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png"><span>Subtitles</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy[cite: 11].')">
+                <div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>MTPE</span>
                 </div>
-                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge[cite: 13].')">
+                [cite_start]<div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge. [cite: 13]')">
                     <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"><span>Office</span>
                 </div>
             </div>
@@ -546,19 +506,19 @@
                     <h3>System:</h3>
                     Danilo Hurwitz Professional<br>
                     Service Pack 2025<br>
-                    [cite_start]Mar del Plata Edition [cite: 2]
+                    Mar del Plata Edition
                 </div>
                 <div class="sys-section">
                     <h3>Registered to:</h3>
-                    [cite_start]MD Candidate (UNMDP) [cite: 50]<br>
-                    [cite_start]Native Spanish / Fluent Hebrew [cite: 7, 9]<br>
+                    MD Candidate (UNMDP)<br>
+                    Native Spanish / Fluent Hebrew<br>
                     55274-OEM-0011903-00102
                 </div>
                 <div class="sys-section" style="border:none;">
                     <h3>Computer:</h3>
                     Medical Knowledge Processor<br>
                     Creative Co-Processor (Video/Design)<br>
-                    [cite_start]100% JSS Performance [cite: 29]
+                    100% JSS Performance
                 </div>
             </div>
         </div>
@@ -584,10 +544,10 @@
         </div>
         <div class="outlook-content">
             You can reach me directly via:<br><br>
-            [cite_start]Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong> [cite: 2]<br>
-            [cite_start]Phone: <strong>+54 9 2302 21-9422</strong> [cite: 2]<br>
-            [cite_start]LinkedIn: linkedin.com/in/danilo-hurwitz [cite: 2]<br>
-            [cite_start]Portfolio: danilohurwitz.github.io/main [cite: 69]<br>
+            Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong><br>
+            Phone: <strong>+54 9 2302 21-9422</strong><br>
+            LinkedIn: linkedin.com/in/danilo-hurwitz<br>
+            Portfolio: danilohurwitz.github.io/main<br>
         </div>
     </div>
 </div>
@@ -651,7 +611,7 @@
             <button onclick="sendMessage()">Ask</button>
         </div>
     </div>
-    <img src="https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif" class="clippy-img" onclick="toggleClippy()">
+    <div class="clippy-img" onclick="toggleClippy()"></div>
 </div>
 
 <div id="taskbar">
@@ -718,37 +678,57 @@
 
 <script>
     /* ================= BOOT & SYSTEM ================= */
-    window.onload = function() {
-        // Ocultar clippy inicialmente
-        document.getElementById('clippy-container').style.display = 'none';
+    let bootFinished = false;
+
+    // Función para entrar al escritorio (Fail-Safe)
+    function enterDesktop() {
+        if (bootFinished) return;
+        bootFinished = true;
+        document.getElementById('boot-screen').style.display = 'none';
+        document.getElementById('desktop').style.display = 'block';
         
-        setTimeout(() => {
-            document.getElementById('boot-screen').style.display = 'none';
-            document.getElementById('desktop').style.display = 'block';
-            
-            var audio = document.getElementById('startup-sound');
-            var promise = audio.play();
-            if (promise !== undefined) {
-                promise.catch(error => {
-                    document.body.addEventListener('click', function playOnFirstClick() {
-                        audio.play();
-                        document.body.removeEventListener('click', playOnFirstClick);
-                    });
+        var audio = document.getElementById('startup-sound');
+        var promise = audio.play();
+        if (promise !== undefined) {
+            promise.catch(error => {
+                // Si el audio falla, lo intentamos en el primer clic
+                document.body.addEventListener('click', function playOnFirstClick() {
+                    audio.play();
+                    document.body.removeEventListener('click', playOnFirstClick);
                 });
-            }
-            
-            // Mostrar Clippy DESPUÉS de boot
-            setTimeout(() => {
-                document.getElementById('clippy-container').style.display = 'flex';
-                document.getElementById('clippy-chat').style.display = 'block';
-            }, 1000);
-        }, 3000);
+            });
+        }
+        
+        // Mostrar Clippy DESPUÉS de boot
+        setTimeout(() => {
+            document.getElementById('clippy-container').style.display = 'flex';
+            document.getElementById('clippy-chat').style.display = 'block';
+        }, 1000);
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Auto boot after 3.5 seconds
+        setTimeout(enterDesktop, 3500);
+    });
+
+    // Fallback: Click to skip if stuck
+    document.getElementById('boot-screen').addEventListener('click', enterDesktop);
 
     // --- SKILLS LOGIC ---
     function updateSkill(title, desc) {
         document.getElementById('skill-title').innerText = title;
-        document.getElementById('skill-desc').innerHTML = desc;
+        document.getElementById('skill-desc').innerText = desc;
+    }
+
+    // RATE CALCULATOR
+    function calculateRate() {
+        const type = document.getElementById('service-type').value;
+        const amount = parseFloat(document.getElementById('service-amount').value) || 0;
+        let total = 0;
+        if(type === 'word') total = amount * 0.05;
+        if(type === 'min') total = amount * 5.00;
+        if(type === 'hour') total = amount * 20.00;
+        document.getElementById('calc-result').innerText = '$' + total.toFixed(2) + ' USD';
     }
 
     // --- CLOCK ---
@@ -832,18 +812,6 @@
         }
     }
 
-    /* ================= APP LOGIC ================= */
-    // RATE CALCULATOR
-    function calculateRate() {
-        const type = document.getElementById('service-type').value;
-        const amount = parseFloat(document.getElementById('service-amount').value) || 0;
-        let total = 0;
-        if(type === 'word') total = amount * 0.05;
-        if(type === 'min') total = amount * 5.00;
-        if(type === 'hour') total = amount * 20.00;
-        document.getElementById('calc-result').innerText = '$' + total.toFixed(2) + ' USD';
-    }
-
     /* ================= CLIPPY AI ================= */
     function toggleClippy() {
         const c = document.getElementById('clippy-chat');
@@ -867,11 +835,11 @@
 
         // CEREBRO DE CLIPPY
         if (text.match(/experiencia|trabajo|experience|job|work|icuc|upwork|cv|resume/)) {
-            [cite_start]response = "Danilo works at ICUC Social (Hebrew QA) and is a Top Rated Translator on Upwork (100% JSS). [cite: 36]";
+            response = "Danilo works at ICUC Social (Hebrew QA) and is a Top Rated Translator on Upwork (100% JSS).";
             action = 'win-cv';
         }
         else if (text.match(/hebreo|hebrew|ingles|english|idioma|language|spanish|espanol|skill/)) {
-            [cite_start]response = "Fluent Hebrew (C1 - 10yrs), Native Spanish, Medical English C1. [cite: 7, 9, 8] Opening Skills...";
+            response = "Fluent Hebrew (C1 - 10yrs), Native Spanish, Medical English C1. Opening Skills...";
             action = 'win-skills';
         }
         else if (text.match(/rate|precio|tarifa|costo|cobras|cost|charge|money/)) {
@@ -884,7 +852,7 @@
             response = "Subtitling rate: $5.00 USD per video minute.";
         }
         else if (text.match(/medico|medical|doctor|medicine|estudio|universidad/)) {
-            [cite_start]response = "He is an MD Candidate at UNMDP (Class of 2029). [cite: 50] Opening CV...";
+            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening CV...";
             action = 'win-cv';
         }
         else if (text.match(/contacto|contact|mail|email|phone|telefono/)) {
@@ -892,10 +860,10 @@
             action = 'win-contact';
         }
         else if (text.match(/quien|who|nombre|name/)) {
-            response = "Danilo Hurwitz. [cite_start]MD Student & Translator from Argentina. [cite: 1]";
+            response = "Danilo Hurwitz. MD Student & Translator from Argentina.";
         }
         else if (text.match(/video|editor|edit/)) {
-            [cite_start]response = "He is an expert Video Editor (CapCut) and Subtitle Specialist. [cite: 40]";
+            response = "He is an expert Video Editor (CapCut) and Subtitle Specialist.";
             action = 'win-cv';
         }
         else {
