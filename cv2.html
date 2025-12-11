@@ -3,21 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danilo Hurwitz - Professional Enterprise OS</title>
+    <title>Danilo Hurwitz - XP Enterprise</title>
     <style>
         /* =========================================
-           1. CORE SYSTEM & FONTS
+           1. SYSTEM CORE
            ========================================= */
         @import url('https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&family=Verdana:wght@400;700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
-
-        :root {
-            --xp-blue: #245edb;
-            --xp-blue-grad-start: #0058ee;
-            --xp-blue-grad-end: #0057e5;
-            --xp-panel-bg: #ece9d8;
-            --win-border: #0055ea;
-        }
 
         * { box-sizing: border-box; user-select: none; }
         
@@ -29,16 +21,11 @@
 
         /* Utilidades */
         .hidden { display: none !important; }
-        .flex { display: flex; }
-        .col { flex-direction: column; }
-        .row { flex-direction: row; }
-        .center { align-items: center; justify-content: center; }
         .bold { font-weight: bold; }
-        .text-center { text-align: center; }
         .pointer { cursor: pointer; }
 
         /* =========================================
-           2. BOOT SCREEN (PANTALLA DE CARGA)
+           2. BOOT SCREEN
            ========================================= */
         #boot-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -57,14 +44,14 @@
         .loading-progress { width: 100%; height: 100%; position: relative; }
         .loading-blocks {
             display: flex; gap: 3px; position: absolute; left: -80px; top: 1px; height: 100%;
-            animation: loadAnim 3s linear infinite;
+            animation: loadAnim 2.5s linear infinite;
         }
         .block { width: 12px; height: 10px; background: linear-gradient(to bottom, #2d5096, #80a3e0, #2d5096); border-radius: 2px; }
         
         @keyframes loadAnim { 0% { left: -80px; } 100% { left: 250px; } }
 
         /* =========================================
-           3. DESKTOP ENVIRONMENT
+           3. DESKTOP
            ========================================= */
         #desktop {
             position: absolute; top: 0; left: 0; right: 0; bottom: 30px;
@@ -95,12 +82,12 @@
         .icon:hover .icon-label { background: #0055ea; }
 
         /* =========================================
-           4. WINDOW SYSTEM ENGINE
+           4. WINDOW SYSTEM
            ========================================= */
         .window {
             position: absolute;
-            background: var(--xp-panel-bg);
-            border: 1px solid var(--win-border);
+            background: #ece9d8;
+            border: 1px solid #0055ea;
             border-radius: 8px 8px 0 0;
             box-shadow: 6px 6px 20px rgba(0,0,0,0.5);
             display: none; flex-direction: column;
@@ -143,17 +130,12 @@
             cursor: se-resize; z-index: 101; opacity: 0.6;
         }
 
-        /* Generic UI Elements */
-        .menubar { background: var(--xp-panel-bg); padding: 2px 5px; border-bottom: 1px solid #aca899; display: flex; gap: 10px; }
-        .menubar span { padding: 2px 6px; cursor: default; }
-        .menubar span:hover { background: #316ac5; color: white; }
-        .toolbar { background: var(--xp-panel-bg); padding: 4px; border-bottom: 1px solid #aca899; display: flex; gap: 5px; align-items: center; }
-        
         /* =========================================
-           5. APPLICATIONS STYLING
+           5. APPLICATIONS
            ========================================= */
         
         /* 5.1 WORD CV */
+        .word-toolbar { background: #d4d0c8; padding: 4px; border-bottom: 1px solid #888; display: flex; gap: 10px; align-items: center; box-shadow: inset 0 1px 0 white; }
         .paper-viewport { background: #5d6c7a; flex-grow: 1; padding: 20px; overflow: auto; display: flex; justify-content: center; }
         .paper { 
             background: white; width: 800px; min-height: 1000px; 
@@ -173,24 +155,21 @@
         .explorer-layout { display: flex; height: 100%; }
         .explorer-side { width: 180px; background: linear-gradient(to bottom, #7ba2e7, #6375d6); padding: 10px; color: white; overflow: hidden; display:flex; flex-direction:column; gap:10px; }
         .explorer-main { flex-grow: 1; background: white; padding: 10px; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 15px; overflow-y: auto; }
-        
-        .xp-box { background: white; color: black; border-radius: 5px; overflow: hidden; }
-        .xp-box-head { background: linear-gradient(to right, #fff, #c6d3f7); padding: 5px; font-weight: bold; color: #215dc6; font-size: 12px; cursor: pointer; display: flex; justify-content: space-between; }
-        .xp-box-content { padding: 10px; font-size: 11px; line-height: 1.4; }
-
+        .skill-detail-box { background: white; color: black; padding: 10px; border-radius: 5px; margin-top: 10px; border: 1px solid #003c74; box-shadow: 2px 2px 5px rgba(0,0,0,0.2); }
+        .xp-box-header { font-weight: bold; font-size: 12px; margin-bottom: 5px; display: block; cursor: pointer; }
         .xp-icon-tile { width: 80px; padding: 5px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid transparent; cursor: pointer; }
         .xp-icon-tile:hover { border-color: #ccc; background: #f1f1f1; border-radius: 3px; }
-        .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 5px; object-fit: contain; }
+        .xp-icon-tile img { width: 32px; height: 32px; margin-bottom: 3px; object-fit: contain; }
 
         /* 5.3 OUTLOOK EXPRESS (CONTACT) */
         .outlook-body { display: flex; flex-direction: column; height: 100%; }
         .outlook-header { padding: 15px; background: white; border-bottom: 1px solid #ccc; }
         .form-line { display: flex; margin-bottom: 8px; align-items: center; }
-        .form-label { width: 70px; color: #666; text-align: right; margin-right: 10px; }
-        .form-val { border: 1px solid #ccc; padding: 4px; flex-grow: 1; background: #f9f9f9; user-select: text; font-family: 'Tahoma'; font-size:11px; }
-        .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; font-size: 12px; overflow-y: auto; }
+        .form-label { width: 60px; color: #666; text-align: right; margin-right: 10px; }
+        .form-val { border: 1px solid #ccc; padding: 3px; flex-grow: 1; background: #f9f9f9; user-select: text; }
+        .outlook-content { padding: 20px; background: white; flex-grow: 1; font-family: 'Courier New', monospace; }
 
-        /* 5.4 RATE CALCULATOR (NEW!) */
+        /* 5.4 RATE CALCULATOR */
         .calc-body { background: #ece9d8; padding: 15px; display: flex; flex-direction: column; gap: 10px; height: 100%; font-family: 'Tahoma'; }
         .calc-screen { 
             background: #fff; border: 2px inset #fff; padding: 10px; 
@@ -205,9 +184,8 @@
             cursor: pointer; font-weight: bold; margin-top: 10px;
         }
         .calc-btn:active { border-style: inset; }
-        .price-display { font-size: 18px; color: green; font-weight: bold; text-align: right; margin-top: 5px; }
 
-        /* 5.5 SYSTEM PROPERTIES (NEW!) */
+        /* 5.5 SYSTEM PROPERTIES (BIO) */
         .sys-body { padding: 15px; display: flex; gap: 15px; background: white; height: 100%; }
         .sys-img { width: 80px; text-align: center; }
         .sys-img img { width: 64px; }
@@ -216,18 +194,17 @@
         .sys-section { margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #ccc; }
 
         /* 5.6 CLIPPY INTELLIGENCE */
-        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 99999; display: flex; flex-direction: column; align-items: flex-end; display: none; /* Hidden until boot */ }
+        #clippy-container { position: absolute; bottom: 50px; right: 20px; z-index: 99999; display: flex; flex-direction: column; align-items: flex-end; display: none; }
         .clippy-img { 
             width: 120px; height: 120px; cursor: pointer; 
-            /* Enlace Tenor GIF proporcionado */
             background: url('https://media.tenor.com/WbF039Su6TIAAAAi/clippy.gif') no-repeat center bottom; 
             background-size: contain; 
             filter: drop-shadow(2px 5px 5px rgba(0,0,0,0.4));
         }
         .chat-bubble {
             background: #ffffe1; border: 1px solid #000; border-radius: 5px; padding: 0; width: 300px;
-            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; font-size: 11px;
-            position: relative; display: block;
+            box-shadow: 4px 4px 10px rgba(0,0,0,0.2); margin-bottom: 5px; display: block; font-size: 11px;
+            position: relative;
         }
         .cb-header { background: #F5F5C5; padding: 4px 8px; font-weight: bold; border-bottom: 1px solid #E2E2A8; color: #444; }
         .cb-body { padding: 10px; max-height: 200px; overflow-y: auto; }
@@ -309,12 +286,12 @@
 
 <div id="desktop">
     <div class="desktop-icons">
-        <div class="icon" onclick="openWindow('win-sys')">
+        <div class="icon" onclick="openWindow('win-computer')">
             <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png">
-            <div class="icon-label">System Props</div>
+            <div class="icon-label">My Computer</div>
         </div>
         <div class="icon" onclick="openWindow('win-cv')">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png">
             <div class="icon-label">My Resume</div>
         </div>
         <div class="icon" onclick="openWindow('win-skills')">
@@ -346,7 +323,7 @@
 
 <div id="win-cv" class="window" style="top: 20px; left: 50px; width: 850px; height: 600px;">
     <div class="title-bar" onmousedown="dragStart(event, 'win-cv')">
-        <div class="title-bar-text"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png"> CV_Danilo_Hurwitz.doc</div>
+        <div class="title-bar-text"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png"> CV_Danilo_Hurwitz.doc</div>
         <div class="win-controls">
             <div class="btn btn-min" onclick="minWindow('win-cv')">_</div>
             <div class="btn btn-max" onclick="maxWindow('win-cv')">□</div>
@@ -365,42 +342,42 @@
                     </div>
                 </div>
                 
-                <h2 class="cv-h2">PROFESSIONAL EXPERIENCE [cite: 30]</h2>
+                <h2 class="cv-h2">PROFESSIONAL EXPERIENCE</h2>
                 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Content Specialist / Hebrew Translator</span> <span>Nov 2025 – Present</span></div>
-                    <div class="cv-job-meta">ICUC Social (Remote) [cite: 85]</div>
+                    <div class="cv-job-meta">ICUC Social (Remote)</div>
                     <ul class="cv-ul">
-                        <li>Performing scheduled "linguistic biopsies" (quality checks) on high-stakes Hebrew content[cite: 87].</li>
-                        <li>Diagnosing cultural context errors and sentiment misalignments in real-time[cite: 87].</li>
-                        <li>Operating within global rapid-response teams via MS Teams infrastructure[cite: 88].</li>
+                        <li>Performing scheduled linguistic quality assurance (QA) audits on high-stakes Hebrew content.</li>
+                        <li>Diagnosing cultural context errors and sentiment misalignments in real-time.</li>
+                        <li>Operating within global rapid-response teams via MS Teams infrastructure.</li>
                     </ul>
                 </div>
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Medical Translator (Top Rated)</span> <span>May 2023 – Present</span></div>
-                    <div class="cv-job-meta">Upwork / Global Clients [cite: 31]</div>
+                    <div class="cv-job-meta">Upwork / Global Clients</div>
                     <ul class="cv-ul">
-                        <li><strong>100% Job Success Score</strong> achieved with zero errors reported[cite: 36].</li>
-                        <li>Translation of clinical trials, informed consents, and device manuals[cite: 34].</li>
-                        <li>Method: Human-verified MTPE (Machine Translation Post-Editing)[cite: 35].</li>
+                        <li><strong>100% Job Success Score</strong> achieved with zero errors reported.</li>
+                        <li>Translation of clinical trials, informed consents, and device manuals.</li>
+                        <li>Method: Human-verified MTPE (Machine Translation Post-Editing).</li>
                     </ul>
                 </div>
 
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Freelance Video Editor & Subtitle Creator</span> <span>May 2023 – Present</span></div>
-                    <div class="cv-job-meta">Freelance / Upwork [cite: 40]</div>
+                    <div class="cv-job-meta">Freelance</div>
                     <ul class="cv-ul">
-                        <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules[cite: 43].</li>
-                        <li>Ensuring cognitive accessibility through precise audio-visual timing[cite: 44].</li>
+                        <li>Synchronization of multilingual subtitles (HE/EN/ES) for medical e-learning modules.</li>
+                        <li>Ensuring cognitive accessibility through precise audio-visual timing.</li>
                     </ul>
                 </div>
 
-                <h2 class="cv-h2">EDUCATION [cite: 49]</h2>
+                <h2 class="cv-h2">EDUCATION</h2>
                 <div class="cv-job">
                     <div class="cv-job-title"><span>Doctor of Medicine (MD) Candidate</span> <span>Exp. 2029</span></div>
-                    <div class="cv-job-meta">Universidad Nacional de Mar del Plata [cite: 51]</div>
-                    <p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy[cite: 53].</p>
+                    <div class="cv-job-meta">Universidad Nacional de Mar del Plata</div>
+                    <p class="cv-ul">Currently acquiring deep-tissue knowledge of Anatomy, Physiology, and Pathology. Direct application of this knowledge to translation accuracy.</p>
                 </div>
             </div>
         </div>
@@ -423,35 +400,33 @@
             <div class="explorer-side">
                 <strong>Skills Details</strong><br><br>
                 <div id="skill-details-box" class="skill-detail-box">
-                    <div class="xp-box">
-                        <div class="xp-box-head">Description</div>
-                        <div class="xp-box-content" id="skill-desc">Select an icon to view details.</div>
-                    </div>
+                    <span id="skill-title" class="bold" style="display:block; margin-bottom:5px;">Select an item</span>
+                    <span id="skill-desc">Hover or click an icon to view details about my expertise.</span>
                 </div>
             </div>
             <div class="explorer-main">
-                <div class="xp-icon-tile" onclick="updateSkill('Native (C2). Born in Málaga, Spain. Expert in Castilian & LATAM variants[cite: 7].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Spanish', 'Native (C2). Born in Málaga, Spain. Expert in Castilian & LATAM variants.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Spanish</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Fluent (C1). 10+ years of daily immersion. Specialized in Medical context[cite: 9].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Hebrew', 'Fluent (C1). 10+ years of daily immersion. Specialized in Medical context.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>Hebrew</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Fluent (C1). 15+ years experience. Medical proficiency level[cite: 8].')">
+                <div class="xp-icon-tile" onclick="updateSkill('English', 'Fluent (C1). 15+ years experience. Medical proficiency level.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/world-3.png"><span>English</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Clinical documentation, patient reports, informed consents, and device manuals[cite: 5].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Med Trans', 'Translation of clinical trials, informed consents & manuals.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/write_wordpad-1.png"><span>Med Trans</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('CapCut expert. Precise audio-visual timing for medical videos[cite: 13].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Video Edit', 'CapCut expert. Precise audio-visual timing for medical videos.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/video_-0.png"><span>Video Edit</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Synchronized multilingual subtitles using Subtitle Edit[cite: 13].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Subtitles', 'Synchronized multilingual subtitles using Subtitle Edit.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/keyboard-2.png"><span>Subtitles</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Machine Translation Post-Editing. Efficiency + Accuracy[cite: 11].')">
+                <div class="xp-icon-tile" onclick="updateSkill('MTPE', 'Machine Translation Post-Editing. Efficiency + Accuracy.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png"><span>MTPE</span>
                 </div>
-                <div class="xp-icon-tile" onclick="updateSkill('Advanced MS Office & Google Workspace knowledge[cite: 13].')">
+                <div class="xp-icon-tile" onclick="updateSkill('Office', 'Advanced MS Office & Google Workspace knowledge.')">
                     <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"><span>Office</span>
                 </div>
             </div>
@@ -516,19 +491,19 @@
                     <h3>System:</h3>
                     Danilo Hurwitz Professional<br>
                     Service Pack 2025<br>
-                    Mar del Plata Edition [cite: 2]
+                    Mar del Plata Edition
                 </div>
                 <div class="sys-section">
                     <h3>Registered to:</h3>
                     MD Candidate (UNMDP)<br>
-                    Native Spanish / Fluent Hebrew [cite: 7, 9]<br>
+                    Native Spanish / Fluent Hebrew<br>
                     55274-OEM-0011903-00102
                 </div>
                 <div class="sys-section" style="border:none;">
                     <h3>Computer:</h3>
                     Medical Knowledge Processor<br>
                     Creative Co-Processor (Video/Design)<br>
-                    100% JSS Performance [cite: 17]
+                    100% JSS Performance
                 </div>
             </div>
         </div>
@@ -554,8 +529,8 @@
         </div>
         <div class="outlook-content">
             You can reach me directly via:<br><br>
-            Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong> [cite: 2]<br>
-            Phone: <strong>+54 9 2302 21-9422</strong> [cite: 2]<br>
+            Email: <strong>dhurwitzbecerra@mdp.edu.ar</strong><br>
+            Phone: <strong>+54 9 2302 21-9422</strong><br>
             LinkedIn: linkedin.com/in/danilo-hurwitz<br>
             Portfolio: danilohurwitz.github.io/main<br>
         </div>
@@ -656,7 +631,7 @@
             </div>
             <div style="height:1px; background:#ccc; margin:5px 0;"></div>
             <div class="sm-item" onclick="openWindow('win-cv')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Microsoft-Word-Logo-1999-2003.png/1200px-Microsoft-Word-Logo-1999-2003.png">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Microsoft_Word_2003_icon.svg/512px-Microsoft_Word_2003_icon.svg.png">
                 <span class="sm-bold">My Resume</span>
             </div>
             <div class="sm-item" onclick="openWindow('win-calc')">
@@ -791,7 +766,8 @@
     
     // SKILLS
     function updateSkill(title, desc) {
-        document.getElementById('skill-desc').innerHTML = `<b>${title}</b><br>${desc}`;
+        document.getElementById('skill-title').innerText = title;
+        document.getElementById('skill-desc').innerHTML = desc;
     }
 
     // RATE CALCULATOR
@@ -836,20 +812,17 @@
             action = 'win-skills';
         }
         else if (text.match(/rate|precio|tarifa|costo|cobras|cost|charge|money/)) {
-            response = "Rates: $20/hr, $0.05/word, $5/min. Opening Calculator...";
-            action = 'win-calc';
+            response = "My rate is $20 USD/hour.";
         }
         else if (text.match(/translate|traduccion|palabra|word/)) {
             response = "Translation rate: $0.05 USD per word.";
-            action = 'win-calc';
         }
         else if (text.match(/srt|subtitulos|subtitle|minuto|minute/)) {
             response = "Subtitling rate: $5.00 USD per video minute.";
-            action = 'win-calc';
         }
         else if (text.match(/medico|medical|doctor|medicine|estudio|universidad/)) {
-            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening System Info...";
-            action = 'win-sys';
+            response = "He is an MD Candidate at UNMDP (Class of 2029). Opening CV...";
+            action = 'win-cv';
         }
         else if (text.match(/contacto|contact|mail|email|phone|telefono/)) {
             response = "Opening contact info...";
