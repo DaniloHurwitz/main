@@ -517,6 +517,253 @@
         .hidden {
             display: none !important;
         }
+
+        /* Admin Panel Styles */
+        .admin-section {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 80px auto;
+            background: var(--dark-gray);
+            border: 3px solid var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .admin-header {
+            background: var(--black);
+            padding: 30px;
+            border-bottom: 2px solid var(--gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-header h2 {
+            margin: 0;
+        }
+
+        .btn-close {
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 10px 20px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-close:hover {
+            background: var(--gold-dark);
+            transform: scale(1.05);
+        }
+
+        .admin-content {
+            padding: 50px;
+        }
+
+        .decoder-box {
+            background: var(--black);
+            padding: 40px;
+            border: 2px solid var(--light-gray);
+            margin-bottom: 40px;
+        }
+
+        .decoded-results {
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 10px 30px;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10B981;
+            color: #10B981;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .status-badge.invalid {
+            background: rgba(220, 38, 38, 0.2);
+            border-color: #DC2626;
+            color: #DC2626;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .info-section {
+            background: var(--black);
+            padding: 30px;
+            border: 1px solid var(--light-gray);
+            border-left: 4px solid var(--gold);
+        }
+
+        .info-section.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .info-title {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: var(--white);
+            text-align: right;
+            max-width: 60%;
+        }
+
+        .motivation-text {
+            color: var(--white);
+            line-height: 1.8;
+            padding: 20px;
+            background: var(--dark-gray);
+            border-left: 3px solid var(--gold);
+        }
+
+        .exam-score {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            flex-shrink: 0;
+            background: var(--dark-gray);
+        }
+
+        .score-details {
+            flex: 1;
+        }
+
+        .recommendation-box {
+            padding: 25px;
+            background: var(--dark-gray);
+            border-left: 4px solid var(--gold);
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .recommendation-box.approved {
+            border-left-color: #10B981;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .recommendation-box.rejected {
+            border-left-color: #DC2626;
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .error-box {
+            text-align: center;
+            padding: 60px;
+            background: var(--black);
+            border: 2px solid #DC2626;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-content {
+                padding: 20px;
+            }
+
+            .decoder-box {
+                padding: 20px;
+            }
+
+            .exam-score {
+                flex-direction: column;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media print {
+            header, footer, .admin-header, .decoder-box, .btn {
+                display: none !important;
+            }
+
+            .admin-section {
+                position: static;
+                background: white;
+            }
+
+            .admin-container {
+                border: none;
+                box-shadow: none;
+            }
+
+            .info-section {
+                page-break-inside: avoid;
+            }
+        }
     </style>
 </head>
 <body>
@@ -743,6 +990,135 @@
         </div>
     </section>
 
+    <!-- Admin Panel -->
+    <section class="admin-section hidden" id="adminPanel">
+        <div class="admin-container">
+            <div class="admin-header">
+                <h2 class="section-title">🔐 PANEL DE VERIFICACIÓN - ACCESO RESTRINGIDO</h2>
+                <button class="btn-close" onclick="closeAdminPanel()">✕ CERRAR</button>
+            </div>
+
+            <div class="admin-content">
+                <div class="decoder-box">
+                    <h3 style="color: var(--gold); margin-bottom: 20px;">📋 VERIFICAR CÓDIGO DE POSTULACIÓN</h3>
+                    <p style="margin-bottom: 25px; color: var(--white);">
+                        Ingresa el código proporcionado por el recluta para acceder a su información completa y resultados del examen.
+                    </p>
+
+                    <div class="form-group">
+                        <label class="form-label">Código de Postulación</label>
+                        <input type="text" class="form-input" id="codeInput" placeholder="MSF-XXXX-XXXX-XXXX" style="text-align: center; font-family: 'Orbitron', monospace; font-size: 1.2rem;">
+                    </div>
+
+                    <button class="btn" onclick="decodeRecruitment()" style="width: 100%; margin-top: 20px;">
+                        🔓 DESCIFRAR Y VERIFICAR
+                    </button>
+                </div>
+
+                <div class="decoded-results hidden" id="decodedResults">
+                    <div class="result-header">
+                        <div class="status-badge" id="statusBadge">✅ CÓDIGO VÁLIDO</div>
+                        <h3 style="color: var(--gold); margin: 20px 0;">INFORMACIÓN DEL RECLUTA</h3>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-section">
+                            <h4 class="info-title">📋 DATOS PERSONALES</h4>
+                            <div class="info-row">
+                                <span class="info-label">Nombre IC:</span>
+                                <span class="info-value" id="dec_nombreIC">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Nombre OOC:</span>
+                                <span class="info-value" id="dec_nombreOOC">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Edad:</span>
+                                <span class="info-value" id="dec_edad">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">País:</span>
+                                <span class="info-value" id="dec_pais">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Discord:</span>
+                                <span class="info-value" id="dec_discord">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Idiomas:</span>
+                                <span class="info-value" id="dec_idiomas">-</span>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h4 class="info-title">⚔️ EXPERIENCIA Y DISPONIBILIDAD</h4>
+                            <div class="info-row">
+                                <span class="info-label">Experiencia Previa:</span>
+                                <span class="info-value" id="dec_experiencia">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Detalle Experiencia:</span>
+                                <span class="info-value" id="dec_detalleExp">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Disponibilidad:</span>
+                                <span class="info-value" id="dec_disponibilidad">-</span>
+                            </div>
+                        </div>
+
+                        <div class="info-section full-width">
+                            <h4 class="info-title">💬 MOTIVACIÓN</h4>
+                            <div class="motivation-text" id="dec_motivacion">-</div>
+                        </div>
+
+                        <div class="info-section">
+                            <h4 class="info-title">📊 RESULTADOS DEL EXAMEN</h4>
+                            <div class="exam-score">
+                                <div class="score-circle" id="scoreCircle">
+                                    <span id="dec_percentage">0%</span>
+                                </div>
+                                <div class="score-details">
+                                    <div class="info-row">
+                                        <span class="info-label">Respuestas Correctas:</span>
+                                        <span class="info-value" id="dec_correct">-</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Estado:</span>
+                                        <span class="info-value" id="dec_passed">-</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Fecha de Postulación:</span>
+                                        <span class="info-value" id="dec_fecha">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-section">
+                            <h4 class="info-title">🎯 EVALUACIÓN RECOMENDADA</h4>
+                            <div id="recommendationBox" class="recommendation-box">
+                                <p id="recommendationText">Evaluación pendiente...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-print" onclick="window.print()" style="width: 100%; margin-top: 30px;">
+                        🖨️ IMPRIMIR REPORTE
+                    </button>
+                </div>
+
+                <div class="error-box hidden" id="errorBox">
+                    <div style="font-size: 3rem; margin-bottom: 20px;">⚠️</div>
+                    <h3 style="color: #cc0000; margin-bottom: 15px;">CÓDIGO NO VÁLIDO</h3>
+                    <p style="color: var(--white);">
+                        El código ingresado no existe en el sistema o ha expirado.<br>
+                        Verifica que esté correctamente escrito.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-motto">SIN FRONTERAS, SIN LÍMITES, SIN RENDICIÓN</div>
@@ -753,6 +1129,11 @@
             © 2025 Militaires Sans Frontières | San Andreas MultiPlayer<br>
             Fundadores: John_Doe & Kazuhira_Miller
         </p>
+        <div style="margin-top: 30px;">
+            <a href="#" onclick="openAdminPanel()" style="color: var(--gold); text-decoration: none; font-size: 0.75rem; opacity: 0.5;">
+                🔐 Acceso Staff
+            </a>
+        </div>
     </footer>
 
     <script>
@@ -1094,6 +1475,161 @@
             resultsSection.style.display = 'block';
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
+
+        // ========== FUNCIONES DE ADMIN PANEL ==========
+
+        // Abrir panel de admin
+        function openAdminPanel() {
+            document.getElementById('adminPanel').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Cerrar panel de admin
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            
+            // Limpiar resultados
+            document.getElementById('decodedResults').classList.add('hidden');
+            document.getElementById('errorBox').classList.add('hidden');
+            document.getElementById('codeInput').value = '';
+        }
+
+        // Descifrar código de reclutamiento
+        function decodeRecruitment() {
+            const code = document.getElementById('codeInput').value.trim();
+            
+            if (!code) {
+                alert('⚠️ Por favor ingresa un código válido');
+                return;
+            }
+
+            // Buscar código en localStorage
+            const dataString = localStorage.getItem(code);
+            
+            if (!dataString) {
+                // Mostrar error
+                document.getElementById('decodedResults').classList.add('hidden');
+                document.getElementById('errorBox').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const data = JSON.parse(dataString);
+                
+                // Ocultar error, mostrar resultados
+                document.getElementById('errorBox').classList.add('hidden');
+                document.getElementById('decodedResults').classList.remove('hidden');
+
+                // Llenar datos personales
+                document.getElementById('dec_nombreIC').textContent = data.nombreIC;
+                document.getElementById('dec_nombreOOC').textContent = data.nombreOOC;
+                document.getElementById('dec_edad').textContent = data.edad + ' años';
+                document.getElementById('dec_pais').textContent = data.pais;
+                document.getElementById('dec_discord').textContent = data.discord;
+                document.getElementById('dec_idiomas').textContent = data.idiomas;
+
+                // Llenar experiencia
+                document.getElementById('dec_experiencia').textContent = data.experiencia === 'si' ? 'Sí' : 'No';
+                document.getElementById('dec_detalleExp').textContent = data.detalleExp;
+                document.getElementById('dec_disponibilidad').textContent = data.disponibilidad;
+
+                // Llenar motivación
+                document.getElementById('dec_motivacion').textContent = data.motivacion;
+
+                // Llenar resultados del examen
+                document.getElementById('dec_percentage').textContent = data.percentage + '%';
+                document.getElementById('dec_correct').textContent = `${data.correctAnswers} de ${data.totalQuestions}`;
+                document.getElementById('dec_passed').textContent = data.passed ? '✅ APROBADO' : '❌ NO APROBADO';
+                document.getElementById('dec_fecha').textContent = data.fecha;
+
+                // Colorear círculo según resultado
+                const scoreCircle = document.getElementById('scoreCircle');
+                if (data.passed) {
+                    scoreCircle.style.borderColor = '#10B981';
+                    scoreCircle.style.color = '#10B981';
+                } else {
+                    scoreCircle.style.borderColor = '#DC2626';
+                    scoreCircle.style.color = '#DC2626';
+                }
+
+                // Generar recomendación
+                generateRecommendation(data);
+
+                // Scroll a resultados
+                document.getElementById('decodedResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            } catch (error) {
+                console.error('Error al descifrar:', error);
+                document.getElementById('decodedResults').classList.add('hidden');
+                document.getElementById('errorBox').classList.remove('hidden');
+            }
+        }
+
+        // Generar recomendación de evaluación
+        function generateRecommendation(data) {
+            const recBox = document.getElementById('recommendationBox');
+            const recText = document.getElementById('recommendationText');
+            
+            let recommendation = '';
+            let recClass = '';
+
+            if (data.passed) {
+                if (data.percentage >= 90) {
+                    recommendation = `
+                        <strong style="color: #10B981;">✅ RECLUTA EXCELENTE - APROBACIÓN INMEDIATA RECOMENDADA</strong><br><br>
+                        El candidato demuestra conocimiento excepcional del Manual Oficial (${data.percentage}%). 
+                        Muestra ${data.experiencia === 'si' ? 'experiencia previa en facciones militares' : 'gran dedicación a pesar de no tener experiencia previa'}.
+                        Su motivación es clara y su disponibilidad horaria es ${data.disponibilidad ? 'compatible' : 'evaluable'}.<br><br>
+                        <strong>Recomendación:</strong> Proceder con entrevista IC inmediata y asignación a DIV-E para entrenamiento básico.
+                    `;
+                    recClass = 'approved';
+                } else if (data.percentage >= 80) {
+                    recommendation = `
+                        <strong style="color: #10B981;">✅ RECLUTA COMPETENTE - APROBADO</strong><br><br>
+                        Puntaje de ${data.percentage}% demuestra buen conocimiento de protocolos MSF. 
+                        ${data.experiencia === 'si' ? 'La experiencia previa es un punto a favor.' : 'Sin experiencia previa, pero con potencial.'}
+                        Su motivación indica compromiso genuino con la organización.<br><br>
+                        <strong>Recomendación:</strong> Aprobar para período de prueba. Asignar mentor de DIV-E para seguimiento cercano.
+                    `;
+                    recClass = 'approved';
+                } else {
+                    recommendation = `
+                        <strong style="color: #10B981;">✅ RECLUTA APTO - APROBADO CON OBSERVACIONES</strong><br><br>
+                        Puntaje mínimo aprobatorio (${data.percentage}%). Conoce lo básico pero requiere refuerzo en áreas clave.
+                        ${data.experiencia === 'si' ? 'La experiencia previa ayudará en la adaptación.' : 'Falta de experiencia requerirá entrenamiento intensivo.'}
+                        Monitorear estrechamente durante período de prueba.<br><br>
+                        <strong>Recomendación:</strong> Aprobar condicionalmente. Entrenamiento extensivo obligatorio antes de operaciones.
+                    `;
+                    recClass = 'approved';
+                }
+            } else {
+                recommendation = `
+                    <strong style="color: #DC2626;">❌ NO CUMPLE REQUISITOS MÍNIMOS</strong><br><br>
+                    Puntaje de ${data.percentage}% está por debajo del 70% requerido. 
+                    El candidato debe estudiar el Manual Oficial más profundamente antes de reaplicar.
+                    ${data.experiencia === 'no' ? 'La falta de experiencia previa y el puntaje bajo sugieren necesidad de más preparación.' : 'A pesar de tener experiencia previa, los resultados son insuficientes.'}
+                    <br><br>
+                    <strong>Recomendación:</strong> Rechazar amablemente. Invitar a reaplicar en 30 días después de estudiar el manual.
+                `;
+                recClass = 'rejected';
+            }
+
+            recText.innerHTML = recommendation;
+            recBox.className = 'recommendation-box ' + recClass;
+        }
+
+        // Event listener para Enter en el input del código
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeInput = document.getElementById('codeInput');
+            if (codeInput) {
+                codeInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        decodeRecruitment();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
