@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSF - Militaires Sans Frontières | Reclutamiento Oficial</title>
+    <meta name="description" content="Compañía Militar Privada de Élite. Reclutamiento exclusivo para soldados profesionales.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --medium-gray: #2a2a2a;
+            --light-gray: #3a3a3a;
+            --gold: #d4af37;
+            --gold-dark: #b8941f;
+            --gold-light: #f0d57c;
+            --white: #f5f5f5;
+            --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 2px solid var(--gold);
+            padding: 15px 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-shield {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+            color: var(--black);
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: -5px;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--white);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: 
+                linear-gradient(rgba(10, 10, 10, 0.85), rgba(10, 10, 10, 0.85)),
+                url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1920') center/cover;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(212, 175, 55, 0.03) 2px,
+                rgba(212, 175, 55, 0.03) 4px
+            );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(212, 175, 55, 0.1);
+            border: 2px solid var(--gold);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .hero h2 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            color: var(--white);
+            margin-bottom: 40px;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .hero-quote {
+            font-style: italic;
+            color: var(--gold-light);
+            font-size: 1.1rem;
+            margin: 30px 0;
+            padding: 20px;
+            border-left: 3px solid var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+            box-shadow: var(--shadow);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.4);
+        }
+
+        /* About Section */
+        .section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--gold);
+            margin-bottom: 60px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .about-card {
+            background: var(--dark-gray);
+            padding: 40px;
+            border: 1px solid var(--light-gray);
+            border-left: 4px solid var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateX(10px);
+            border-left-width: 8px;
+            background: var(--medium-gray);
+        }
+
+        .about-card h3 {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .about-card p {
+            color: var(--white);
+            line-height: 1.8;
+        }
+
+        /* Values Grid */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .value-item {
+            background: var(--dark-gray);
+            padding: 30px;
+            text-align: center;
+            border: 2px solid var(--light-gray);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .value-item h4 {
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--dark-gray);
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: var(--white);
+        }
+
+        /* Form Section */
+        .form-section {
+            background: var(--medium-gray);
+            padding: 80px 20px;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--dark-gray);
+            padding: 50px;
+            border: 2px solid var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            background: var(--black);
+            border: 2px solid var(--light-gray);
+            color: var(--white);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .required {
+            color: var(--gold);
+        }
+
+        /* Exam Section */
+        .exam-section {
+            display: none;
+            padding: 80px 20px;
+        }
+
+        .exam-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .question-card {
+            background: var(--dark-gray);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--gold);
+        }
+
+        .question-number {
+            color: var(--gold);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .option-label {
+            display: block;
+            padding: 15px 20px;
+            background: var(--black);
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--light-gray);
+        }
+
+        .option-label:hover {
+            background: var(--medium-gray);
+            border-color: var(--gold);
+        }
+
+        .option-label input {
+            margin-right: 10px;
+        }
+
+        /* Results */
+        .results-section {
+            display: none;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .results-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--dark-gray);
+            padding: 60px;
+            border: 3px solid var(--gold);
+            box-shadow: var(--shadow);
+        }
+
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .result-score {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin: 30px 0;
+        }
+
+        .code-display {
+            background: var(--black);
+            padding: 30px;
+            border: 2px solid var(--gold);
+            margin: 40px 0;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            word-break: break-all;
+        }
+
+        .code-label {
+            font-size: 0.9rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+        }
+
+        .footer-motto {
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 3px;
+        }
+
+        .footer-text {
+            color: var(--white);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 0.95rem;
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-shield">MSF</div>
+                <div class="logo-text">
+                    <h1>MILITAIRES SANS FRONTIÈRES</h1>
+                    <p>Ejército Sin Fronteras</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🎖️ COMPAÑÍA MILITAR PRIVADA DE ÉLITE</div>
+            <h2>MILITAIRES SANS FRONTIÈRES</h2>
+            <p class="hero-subtitle">
+                Una organización militar profesional que opera más allá de las fronteras nacionales.
+                No somos mercenarios. No somos una legión extranjera. MSF es un negocio militar completo.
+            </p>
+            <div class="hero-quote">
+                "No somos mercenarios. No somos una legión extranjera. MSF es un negocio. Un nuevo tipo de negocio."
+                <br>— Kazuhira Miller, Cofundador
+            </div>
+            <a href="#recruitment" class="btn">POSTULARME COMO RECLUTA</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <h2 class="section-title">QUIÉNES SOMOS</h2>
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>🎯 NUESTRA HISTORIA</h3>
+                <p>
+                    Fundada por los legendarios comandantes John Doe y Kazuhira Miller, MSF representa 
+                    la evolución del concepto original de "soldados sin fronteras" adaptado a San Andreas. 
+                    Operamos con independencia total de estados-nación, manteniendo profesionalismo militar 
+                    absoluto y lealtad inquebrantable entre nuestros miembros.
+                </p>
+            </div>
+            <div class="about-card">
+                <h3>⚔️ FILOSOFÍA OPERACIONAL</h3>
+                <p>
+                    Fusionamos la agilidad de las fuerzas especiales con el poderío de un ejército regular. 
+                    Proporcionamos servicios militares profesionales de la más alta calidad: operaciones de 
+                    combate, logística, entrenamiento militar, inteligencia operacional y apoyo administrativo.
+                </p>
+            </div>
+            <div class="about-card">
+                <h3>🛡️ NUESTRO COMPROMISO</h3>
+                <p>
+                    MSF no es simplemente una facción de juego. Somos una comunidad de jugadores comprometidos 
+                    con la excelencia en roleplay militar. Buscamos calidad sobre cantidad, profesionalismo 
+                    sobre caos, y hermandad sobre individualismo.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="section" style="background: var(--dark-gray);">
+        <h2 class="section-title">VALORES FUNDAMENTALES</h2>
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-icon">🎖️</div>
+                <h4>HONOR</h4>
+                <p>Integridad absoluta en cada misión y decisión</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">🤝</div>
+                <h4>LEALTAD</h4>
+                <p>Hermandad inquebrantable entre soldados</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">⚡</div>
+                <h4>DISCIPLINA</h4>
+                <p>Estructura jerárquica no negociable</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">🏆</div>
+                <h4>EXCELENCIA</h4>
+                <p>Perfección en cada operación</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">💼</div>
+                <h4>PROFESIONALISMO</h4>
+                <p>Compostura y eficiencia siempre</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">🔄</div>
+                <h4>ADAPTABILIDAD</h4>
+                <p>Flexibilidad ante cualquier situación</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="recruitment">
+        <h2>¿LISTO PARA UNIRTE A LA ÉLITE?</h2>
+        <p>
+            El proceso de reclutamiento de MSF es selectivo y exigente. Solo individuos calificados, 
+            comprometidos y compatibles con nuestros valores serán aceptados.
+        </p>
+        <a href="#form" class="btn" onclick="scrollToForm()">INICIAR POSTULACIÓN</a>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section" id="form">
+        <div class="form-container">
+            <h2 class="section-title">SOLICITUD DE RECLUTAMIENTO</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--white);">
+                Completa la información requerida. Todos los datos son confidenciales y serán evaluados por nuestro equipo de reclutamiento.
+            </p>
+            <form id="recruitmentForm">
+                <div class="form-group">
+                    <label class="form-label">Nombre In Character <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="nombreIC" required placeholder="Ej: John_Smith">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nombre Out of Character (Opcional)</label>
+                    <input type="text" class="form-input" id="nombreOOC" placeholder="Tu nombre real o apodo">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Edad <span class="required">*</span></label>
+                    <input type="number" class="form-input" id="edad" required min="16" max="60">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">País <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="pais" required placeholder="Ej: Argentina">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Discord <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="discord" required placeholder="usuario#1234">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">¿Tienes experiencia previa en facciones militares? <span class="required">*</span></label>
+                    <select class="form-select" id="experiencia" required>
+                        <option value="">Selecciona una opción</option>
+                        <option value="si">Sí, tengo experiencia</option>
+                        <option value="no">No, sería mi primera vez</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="detalleExpGroup" style="display: none;">
+                    <label class="form-label">Detalla tu experiencia previa</label>
+                    <textarea class="form-textarea" id="detalleExp" placeholder="Menciona las facciones, servidores y tiempo aproximado..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Disponibilidad horaria <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="disponibilidad" required placeholder="Ej: Lunes a Viernes 20:00-00:00 GMT-3">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Idiomas que hablas <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="idiomas" required placeholder="Ej: Español, Inglés">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">¿Por qué deseas unirte a MSF? <span class="required">*</span></label>
+                    <textarea class="form-textarea" id="motivacion" required placeholder="Explica tus razones y qué te atrae de MSF..."></textarea>
+                </div>
+
+                <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">
+                    CONTINUAR AL EXAMEN DE EVALUACIÓN
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Exam Section -->
+    <section class="exam-section" id="exam">
+        <div class="exam-container">
+            <h2 class="section-title">EXAMEN DE EVALUACIÓN INICIAL</h2>
+            <p style="text-align: center; margin-bottom: 40px; color: var(--white);">
+                Responde las 30 preguntas basadas en el Manual Oficial de MSF. Se requiere 70% de aciertos para aprobar.
+            </p>
+            <form id="examForm">
+                <!-- Las preguntas se generarán dinámicamente con JavaScript -->
+            </form>
+            <button class="btn" style="width: 100%; margin-top: 30px;" onclick="submitExam()">
+                FINALIZAR Y ENVIAR EVALUACIÓN
+            </button>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section" id="results">
+        <div class="results-container">
+            <div class="result-icon" id="resultIcon">🎖️</div>
+            <h2 class="result-title" id="resultTitle">EVALUACIÓN COMPLETADA</h2>
+            <div class="result-score" id="resultScore">0%</div>
+            <p id="resultMessage" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
+            
+            <div class="code-display">
+                <div class="code-label">📋 TU CÓDIGO DE POSTULACIÓN</div>
+                <div id="resultCode" style="margin-top: 15px;">MSF-XXXX-XXXX</div>
+            </div>
+
+            <div style="background: var(--medium-gray); padding: 30px; margin: 30px 0; border-left: 4px solid var(--gold);">
+                <h3 style="color: var(--gold); margin-bottom: 15px;">📌 INSTRUCCIONES IMPORTANTES</h3>
+                <p style="text-align: left; line-height: 1.8;">
+                    ✅ Guarda este código o toma una captura de pantalla<br>
+                    ✅ Envía el código a nuestros oficiales de reclutamiento<br>
+                    ✅ Espera el contacto por Discord en las próximas 24-48 horas<br>
+                    ✅ Este código contiene toda tu información y resultados
+                </p>
+            </div>
+
+            <p style="color: var(--gold); font-size: 1.1rem; margin-top: 30px;">
+                🎖️ Gracias por tu interés en unirte a Militaires Sans Frontières
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-motto">SIN FRONTERAS, SIN LÍMITES, SIN RENDICIÓN</div>
+        <p class="footer-text">
+            Soldados Sin Fronteras, Unidos por el Honor y el Deber
+        </p>
+        <p class="footer-text" style="margin-top: 20px; font-size: 0.8rem; opacity: 0.7;">
+            © 2025 Militaires Sans Frontières | San Andreas MultiPlayer<br>
+            Fundadores: John_Doe & Kazuhira_Miller
+        </p>
+    </footer>
+
+    <script>
+        // Datos del formulario
+        let formData = {};
+
+        // Preguntas del examen (30 preguntas basadas en el manual)
+        const examQuestions = [
+            {
+                question: "¿Quiénes son los fundadores de MSF?",
+                options: ["John Doe y Big Boss", "Kazuhira Miller y Snake", "John Doe y Kazuhira Miller", "Big Boss y Ocelot"],
+                correct: 2
+            },
+            {
+                question: "¿Qué significa MSF?",
+                options: ["Military Special Forces", "Militaires Sans Frontières", "Marines Special Forces", "Military Security Faction"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el lema de MSF?",
+                options: ["Honor y Disciplina", "Sin Fronteras, Sin Límites, Sin Rendición", "Lealtad Absoluta", "Nunca Rendirse"],
+                correct: 1
+            },
+            {
+                question: "¿Qué NO es MSF según Kazuhira Miller?",
+                options: ["Un ejército sin fronteras", "Un grupo de mercenarios", "Un negocio militar", "Una compañía privada"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el rango inicial de un recluta en MSF?",
+                options: ["Cabo", "Soldado Raso (R-1)", "Sargento", "Private First Class"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el rango más alto en MSF?",
+                options: ["General (R-10)", "Comandante Supremo (R-10)", "Coronel (R-9)", "Subcomandante (R-9)"],
+                correct: 1
+            },
+            {
+                question: "¿Cuántas divisiones operativas tiene MSF?",
+                options: ["3", "4", "5", "6"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál es la División encargada de operaciones de combate?",
+                options: ["DIV-C", "DIV-I", "DIV-E", "DIV-L"],
+                correct: 0
+            },
+            {
+                question: "¿Qué significa DIV-I?",
+                options: ["División de Infantería", "División de Inteligencia", "División de Intervención", "División de Investigación"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el tiempo mínimo de actividad semanal requerido?",
+                options: ["5 horas", "8 horas", "10 horas", "15 horas"],
+                correct: 2
+            },
+            {
+                question: "¿Cuántos días de inactividad sin aviso resultan en amonestación?",
+                options: ["3 días", "5 días", "7 días", "10 días"],
+                correct: 2
+            },
+            {
+                question: "¿Qué valor NO es parte de los principios fundamentales de MSF?",
+                options: ["Honor", "Riqueza", "Lealtad", "Disciplina"],
+                correct: 1
+            },
+            {
+                question: "¿Qué significa CCM?",
+                options: ["Centro de Comando Militar", "Código de Conducta Militar", "Certificación de Combate Militar", "Comandancia Central Militar"],
+                correct: 1
+            },
+            {
+                question: "¿Está permitido ser miembro de otra facción militar mientras estás en MSF?",
+                options: ["Sí, si son aliadas", "Solo facciones policiales", "No, está prohibido", "Depende del rango"],
+                correct: 2
+            },
+            {
+                question: "¿Qué es el metagaming?",
+                options: ["Jugar mejor que otros", "Usar información OOC para beneficio IC", "Jugar en múltiples servidores", "Usar comandos especiales"],
+                correct: 1
+            },
+            {
+                question: "¿Qué es el powergaming?",
+                options: ["Ser el jugador más fuerte", "Forzar acciones sin dar opción de respuesta", "Tener mucho poder en el juego", "Usar armas poderosas"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la sanción por traición comprobada?",
+                options: ["Suspensión 30 días", "Degradación de rango", "Expulsión inmediata permanente", "Amonestación escrita"],
+                correct: 2
+            },
+            {
+                question: "¿Cuántas horas mínimas de juego en SAMP se requieren para aplicar?",
+                options: ["20 horas", "30 horas", "50 horas", "100 horas"],
+                correct: 2
+            },
+            {
+                question: "¿Qué rango mínimo se necesita para liderar una operación tipo B?",
+                options: ["R-4", "R-5", "R-6", "R-7"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál es la duración del período de prueba para reclutas?",
+                options: ["3-5 días", "7-14 días", "15-30 días", "1 mes"],
+                correct: 1
+            },
+            {
+                question: "¿Qué significa 'Fear RP'?",
+                options: ["Temer a todos los jugadores", "Valorar la vida del personaje", "Tener miedo de roleplay", "Evitar combates"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el porcentaje mínimo para aprobar este examen?",
+                options: ["60%", "65%", "70%", "75%"],
+                correct: 2
+            },
+            {
+                question: "MSF opera desde una base en:",
+                options: ["Mother Base marina", "Instalaciones terrestres en San Andreas", "Base aérea móvil", "Submarino nuclear"],
+                correct: 1
+            },
+            {
+                question: "¿Qué división maneja el reclutamiento?",
+                options: ["DIV-C", "DIV-E", "DIV-A", "DIV-I"],
+                correct: 2
+            },
+            {
+                question: "¿Está permitido robar a compañeros de MSF?",
+                options: ["Sí, si es IC", "Solo en misiones", "No, está absolutamente prohibido", "Depende del rango"],
+                correct: 2
+            },
+            {
+                question: "¿Qué código de radio significa 'En movimiento'?",
+                options: ["RTB", "Oscar Mike", "Firme", "Break Contact"],
+                correct: 1
+            },
+            {
+                question: "El armamento pesado solo se porta durante:",
+                options: ["Siempre que quieras", "Operaciones oficiales o guardias", "Solo si eres oficial", "Nunca"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál NO es un valor fundamental de MSF?",
+                options: ["Excelencia", "Venganza", "Profesionalismo", "Adaptabilidad"],
+                correct: 1
+            },
+            {
+                question: "¿Qué tipo de operación requiere autorización del Comandante o Subcomandante?",
+                options: ["Tipo A", "Tipo B", "Tipo C", "Tipo D"],
+                correct: 3
+            },
+            {
+                question: "La filosofía de MSF busca fusionar:",
+                options: ["Guerrilla y ejército", "Fuerzas especiales y ejército regular", "Mercenarios y soldados", "Policía y militar"],
+                correct: 1
+            }
+        ];
+
+        // Mostrar/ocultar campo de experiencia
+        document.getElementById('experiencia').addEventListener('change', function() {
+            const detalleGroup = document.getElementById('detalleExpGroup');
+            if (this.value === 'si') {
+                detalleGroup.style.display = 'block';
+            } else {
+                detalleGroup.style.display = 'none';
+            }
+        });
+
+        // Función para scroll suave
+        function scrollToForm() {
+            document.getElementById('form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Procesar formulario
+        document.getElementById('recruitmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Guardar datos del formulario
+            formData = {
+                nombreIC: document.getElementById('nombreIC').value,
+                nombreOOC: document.getElementById('nombreOOC').value || 'N/A',
+                edad: document.getElementById('edad').value,
+                pais: document.getElementById('pais').value,
+                discord: document.getElementById('discord').value,
+                experiencia: document.getElementById('experiencia').value,
+                detalleExp: document.getElementById('detalleExp').value || 'N/A',
+                disponibilidad: document.getElementById('disponibilidad').value,
+                idiomas: document.getElementById('idiomas').value,
+                motivacion: document.getElementById('motivacion').value,
+                fecha: new Date().toLocaleString('es-AR')
+            };
+
+            // Generar preguntas del examen
+            generateExam();
+
+            // Mostrar examen, ocultar formulario
+            document.querySelector('.form-section').style.display = 'none';
+            document.querySelector('.exam-section').style.display = 'block';
+            document.getElementById('exam').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Generar examen
+        function generateExam() {
+            const examForm = document.getElementById('examForm');
+            examForm.innerHTML = '';
+
+            examQuestions.forEach((q, index) => {
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card';
+                questionCard.innerHTML = `
+                    <div class="question-number">PREGUNTA ${index + 1} DE 30</div>
+                    <div class="question-text">${q.question}</div>
+                    ${q.options.map((opt, i) => `
+                        <label class="option-label">
+                            <input type="radio" name="q${index}" value="${i}" required>
+                            <span>${opt}</span>
+                        </label>
+                    `).join('')}
+                `;
+                examForm.appendChild(questionCard);
+            });
+        }
+
+        // Enviar examen
+        function submitExam() {
+            const examForm = document.getElementById('examForm');
+            
+            // Verificar que todas las preguntas estén respondidas
+            let allAnswered = true;
+            for (let i = 0; i < examQuestions.length; i++) {
+                if (!examForm.querySelector(`input[name="q${i}"]:checked`)) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allAnswered) {
+                alert('⚠️ Por favor responde todas las preguntas antes de finalizar el examen.');
+                return;
+            }
+
+            // Calcular puntaje
+            let correctAnswers = 0;
+            const answers = [];
+            
+            for (let i = 0; i < examQuestions.length; i++) {
+                const selected = examForm.querySelector(`input[name="q${i}"]:checked`);
+                const answer = parseInt(selected.value);
+                answers.push(answer);
+                
+                if (answer === examQuestions[i].correct) {
+                    correctAnswers++;
+                }
+            }
+
+            const percentage = Math.round((correctAnswers / examQuestions.length) * 100);
+            const passed = percentage >= 70;
+
+            // Guardar resultados
+            const results = {
+                ...formData,
+                correctAnswers,
+                totalQuestions: examQuestions.length,
+                percentage,
+                passed,
+                answers: answers.join(',')
+            };
+
+            // Generar código
+            const code = generateCode(results);
+
+            // Mostrar resultados
+            displayResults(percentage, passed, code);
+        }
+
+        // Generar código de postulación
+        function generateCode(data) {
+            // Crear string con todos los datos
+            const dataString = JSON.stringify(data);
+            
+            // Generar hash simple (en producción usar algoritmo real)
+            let hash = 0;
+            for (let i = 0; i < dataString.length; i++) {
+                const char = dataString.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            
+            // Convertir a base36 y formatear
+            const hashStr = Math.abs(hash).toString(36).toUpperCase();
+            const timestamp = Date.now().toString(36).toUpperCase();
+            const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+            
+            // Formato: MSF-XXXX-XXXX-XXXX
+            const code = `MSF-${hashStr.substring(0, 4)}-${timestamp.substring(0, 4)}-${random}`;
+            
+            // Guardar en localStorage para validación posterior
+            localStorage.setItem(code, dataString);
+            
+            return code;
+        }
+
+        // Mostrar resultados
+        function displayResults(percentage, passed, code) {
+            const resultsSection = document.getElementById('results');
+            const resultIcon = document.getElementById('resultIcon');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultScore = document.getElementById('resultScore');
+            const resultMessage = document.getElementById('resultMessage');
+            const resultCode = document.getElementById('resultCode');
+
+            resultScore.textContent = percentage + '%';
+            resultCode.textContent = code;
+
+            if (passed) {
+                resultIcon.textContent = '🎖️';
+                resultTitle.textContent = '¡EVALUACIÓN APROBADA!';
+                resultTitle.style.color = 'var(--gold)';
+                resultMessage.innerHTML = `
+                    <strong style="color: var(--gold);">¡FELICITACIONES, RECLUTA!</strong><br>
+                    Has demostrado conocimiento suficiente del Manual Oficial de MSF.<br>
+                    Respondiste correctamente ${Math.round(percentage * 30 / 100)} de 30 preguntas.
+                `;
+            } else {
+                resultIcon.textContent = '⚠️';
+                resultTitle.textContent = 'EVALUACIÓN NO APROBADA';
+                resultTitle.style.color = '#cc0000';
+                resultMessage.innerHTML = `
+                    <strong style="color: #cc0000;">Se requiere 70% para aprobar</strong><br>
+                    Has obtenido ${percentage}%. Respondiste correctamente ${Math.round(percentage * 30 / 100)} de 30 preguntas.<br>
+                    Te recomendamos estudiar el Manual Oficial y volver a aplicar en 30 días.
+                `;
+            }
+
+            // Ocultar examen, mostrar resultados
+            document.querySelector('.exam-section').style.display = 'none';
+            resultsSection.style.display = 'block';
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
