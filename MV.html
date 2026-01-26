@@ -995,38 +995,42 @@
     line-height: 1.4;
   }
 
-    /* ===== WHY US ULTRA COMPACTO ===== */
-  .why-us-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-  }
+/* Reemplazar o sobreescribir lo que ya tenés de .why-us-grid / .why-us-item */
+.why-grid {
+    display: none;           /* ocultamos la grilla original en móvil */
+}
 
-  .why-us-item {
-    padding: 8px 6px;
+.why-list-mobile {
+    list-style: none;
+    margin: 1.5rem 0 2.5rem;
+    padding: 0;
+    font-size: 0.96rem;
+    line-height: 1.45;
+}
+
+.why-list-mobile li {
     display: flex;
     align-items: center;
-    gap: 6px;
-    text-align: left;
-  }
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e3f2fd;
+}
 
-  .why-us-item .icon {
-    font-size: 1.1rem;
-    margin: 0;
-  }
+.why-list-mobile li:last-child {
+    border-bottom: none;
+}
 
-  .why-us-item h3 {
-    font-size: 0.85rem;
-    margin: 0;
-    line-height: 1.2;
-  }
+.why-list-mobile .why-ico {
+    font-size: 1.6rem;
+    min-width: 32px;
+    text-align: center;
+    color: var(--accent);
+}
 
-  /* OCULTA el texto largo SOLO en móvil */
-  .why-us-item p {
-    display: none;
-  }
-
-
+.why-list-mobile strong {
+    color: var(--primary);
+    font-weight: 600;
+}
   /* ===== PROCESO: oculto en móvil ===== */
   .process {
     display: none;
@@ -1042,31 +1046,35 @@
     display: none;
   }
 
-  /* ===== ZONA DE COBERTURA MINI ===== */
-  .coverage h2 {
-    font-size: 1.4rem;
-    margin-bottom: 0.8rem;
-  }
+ .coverage-grid {
+    display: none;
+}
 
-  .coverage p {
-    font-size: 0.9rem;
-    margin-bottom: 0.8rem;
-  }
-
-  .coverage-list {
+.coverage-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 8px 10px;
     justify-content: center;
-  }
+    margin: 1.2rem 0 1.8rem;
+}
 
-  .coverage-list li {
-    padding: 4px 10px;
-    font-size: 0.75rem;
-    border-radius: 14px;
-  }
+.coverage-tags .tag {
+    padding: 6px 14px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border-radius: 20px;
+    background: #e3f2fd;
+    color: var(--primary);
+    border: 1px solid #bbdefb;
+}
 
-
+.coverage-tags .tag.main {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    font-weight: 700;
+    padding: 7px 16px;
+}
     </style>
 </head>
 <body>
@@ -1182,43 +1190,33 @@
             <h2 class="section-title" data-aos="fade-up">Por Qué Elegirnos</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Compromiso, calidad y resultados que superan expectativas</p>
             
-            <div class="why-grid">
-                <div class="why-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="why-icon">★</div>
-                    <h3>Experiencia Local</h3>
-                    <p>Somos de General Pico y trabajamos en la zona. Conocemos el clima y las necesidades de construcción de la región.</p>
-                </div>
-                
-                <div class="why-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="why-icon">⚡</div>
-                    <h3>Sistema Moderno</h3>
-                    <p>Utilizamos el sistema de steel frame, un método de construcción en seco eficiente y duradero que se adapta bien a nuestra zona.</p>
-                </div>
-                
-                <div class="why-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="why-icon">✓</div>
-                    <h3>Transparencia</h3>
-                    <p>Presupuestos claros desde el inicio. Te mantenemos al tanto del avance de la obra. Precios razonables y justos.</p>
-                </div>
-
-                <div class="why-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="why-icon">♻</div>
-                    <h3>Construcción en Seco</h3>
-                    <p>El sistema steel frame genera menos desperdicios que la construcción tradicional. Obra más limpia y ordenada.</p>
-                </div>
-
-                <div class="why-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="why-icon">⏱</div>
-                    <h3>Compromiso con Plazos</h3>
-                    <p>Planificamos la obra para cumplir con los tiempos acordados. Sabemos que tu tiempo es valioso.</p>
-                </div>
-
-                <div class="why-card" data-aos="fade-up" data-aos-delay="600">
-                    <div class="why-icon">▲</div>
-                    <h3>Atención Directa</h3>
-                    <p>Seguimiento de tu proyecto. Disponibles para responder consultas y hacer ajustes cuando sea necesario.</p>
-                </div>
-            </div>
+<!-- Reemplazar todo el <div class="why-grid"> ... </div> por esto -->
+<ul class="why-list-mobile">
+  <li>
+    <span class="why-ico">★</span>
+    <strong>Experiencia Local</strong> — Somos de General Pico y conocemos la zona y el clima.
+  </li>
+  <li>
+    <span class="why-ico">⚡</span>
+    <strong>Sistema Moderno</strong> — Steel frame eficiente, duradero y adaptado a La Pampa.
+  </li>
+  <li>
+    <span class="why-ico">✓</span>
+    <strong>Transparencia total</strong> — Presupuestos claros y seguimiento constante.
+  </li>
+  <li>
+    <span class="why-ico">♻</span>
+    <strong>Obra limpia</strong> — Menos desperdicio y limpieza durante toda la construcción.
+  </li>
+  <li>
+    <span class="why-ico">⏱</span>
+    <strong>Cumplimos plazos</strong> — Planificación seria y respeto por tu tiempo.
+  </li>
+  <li>
+    <span class="why-ico">▲</span>
+    <strong>Atención directa</strong> — Seguimiento personalizado y ajustes cuando los necesitás.
+  </li>
+</ul>
         </div>
     </section>
 
@@ -1396,16 +1394,16 @@
             <h2 class="section-title" data-aos="fade-up">Zona de Cobertura</h2>
             <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Servicio profesional en General Pico y localidades cercanas</p>
             
-            <div class="coverage-grid">
-                <div class="coverage-item main" data-aos="fade-up" data-aos-delay="100">General Pico</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="150">Intendente Alvear</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="200">Eduardo Castex</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="250">Ingeniero Luiggi</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="300">Trebolares</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="350">Speluzzi</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="400">Metileo</div>
-                <div class="coverage-item" data-aos="fade-up" data-aos-delay="450">Zona Rural</div>
-            </div>
+            <div class="coverage-tags">
+  <span class="tag main">General Pico</span>
+  <span class="tag">Intendente Alvear</span>
+  <span class="tag">Eduardo Castex</span>
+  <span class="tag">Ingeniero Luiggi</span>
+  <span class="tag">Trebolares</span>
+  <span class="tag">Speluzzi</span>
+  <span class="tag">Metileo</span>
+  <span class="tag">Zona Rural</span>
+</div>
 
             <p style="text-align: center; margin-top: 2.5rem; font-size: 1.1rem; color: var(--secondary);" data-aos="fade-up" data-aos-delay="500">
                 ¿Tu localidad no está en la lista? Consultanos igual. Evaluamos cada proyecto según ubicación y características.
