@@ -1,738 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Freelancer Power Toolkit | Danilo H.</title> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <style>
-      :root {
-        /* Palette */
-        --primary-color: #87CEEB;
-        --accent-color: #FFD700;
-        --accent-dark: #e6c300;
-        --text-color: #2C3E50;
-        --link-color: #4682B4;
-        --summary-color: #708090;
-        --bg-color: #E6F3FF;
-        --container-bg: #ffffff;
-        --border-color: #B3E5FC;
-        --shadow-color: rgba(0,0,0,0.08);
-        --highlight-bg: rgba(255,215,0,0.3);
-        --highlight-text: #2C3E50;
-        --control-bg: rgba(240, 248, 255, 0.9); /* Más opaco */
-        --success-color: #28a745;
-        --danger-color: #dc3545;
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Tools — Danilo Hurwitz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg:#0c0f1a;--surface:#131726;--surface2:#1a1f32;--border:rgba(255,255,255,0.07);
+      --text:#e8eaf0;--muted:#7a8099;--gold:#f5c842;--gold-dim:rgba(245,200,66,0.1);
+      --gold-glow:rgba(245,200,66,0.2);--sky:#5baaee;--sky-dim:rgba(91,170,238,0.1);
+      --green:#4ecb8d;--radius:16px;
+      --font-head:'Syne',sans-serif;--font-body:'DM Sans',sans-serif;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65;}
+    .nav{position:sticky;top:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+      padding:16px 5%;background:rgba(12,15,26,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+    .nav-logo{font-family:var(--font-head);font-weight:800;font-size:1.1em;color:var(--gold);text-decoration:none;}
+    .nav-links{display:flex;gap:8px;align-items:center;}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:0.87em;font-weight:500;padding:7px 14px;border-radius:8px;transition:all 0.2s;}
+    .nav-links a:hover{color:var(--text);background:var(--surface2);}
+    .nav-links a.cta{background:var(--gold);color:#0c0f1a;font-weight:700;}
 
-      /* --- Estilos base y Animaciones --- */
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      html { scroll-behavior: smooth; } /* Scroll suave */
-      body {
-        font-family: 'Roboto', Arial, sans-serif;
-        background: linear-gradient(135deg, #a1d4f4 0%, #e6f3ff 100%);
-        color: var(--text-color);
-        line-height: 1.6;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        font-size: 16px;
-        position: relative;
-        overflow-x: hidden;
-      }
-      /* ... (Estilos Nubes opcionales) ... */
+    .page-hero{padding:70px 5% 50px;max-width:1100px;margin:0 auto;}
+    .page-label{font-size:0.75em;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;}
+    .page-hero h1{font-family:var(--font-head);font-size:clamp(1.9em,4vw,2.9em);font-weight:800;line-height:1.1;letter-spacing:-0.5px;margin-bottom:14px;}
+    .page-hero p{color:var(--muted);max-width:520px;font-size:1em;}
 
-      /* --- Navegación Superior --- */
-      .top-nav {
-         background-color: rgba(255,255,255,0.95); /* Más opaco */
-         padding: 10px 4%;
-         display: flex;
-         justify-content: flex-end;
-         align-items: center;
-         border-bottom: 1px solid var(--border-color);
-         position: sticky;
-         top: 0;
-         z-index: 1000;
-         margin-bottom: 30px;
-         box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-       }
-       .nav-buttons button, .nav-buttons a {
-         padding: 9px 18px; /* Ligeramente más padding */
-         background-color: transparent;
-         color: var(--primary-color);
-         text-decoration: none;
-         border-radius: 6px; /* Más redondeado */
-         font-weight: 500;
-         border: 1px solid var(--primary-color);
-         cursor: pointer;
-         margin-left: 12px;
-         font-size: 0.9em;
-         transition: all 0.3s ease-in-out;
-         display: inline-flex; /* Para alinear íconos */
-         align-items: center;
-         gap: 5px; /* Espacio entre icono y texto */
-       }
-       .nav-buttons button i, .nav-buttons a i { font-size: 1.1em; } /* Tamaño íconos nav */
-       .nav-buttons button:hover, .nav-buttons a:hover {
-         background-color: var(--accent-color);
-         color: var(--text-color);
-         border-color: var(--accent-color);
-         transform: translateY(-2px) scale(1.03);
-         box-shadow: 0 5px 12px rgba(135, 206, 235, 0.25);
-       }
+    .tools-wrap{max-width:1100px;margin:0 auto;padding:0 5% 80px;display:flex;flex-direction:column;gap:30px;}
 
-      /* --- Contenedor Principal --- */
-      .container {
-        max-width: 900px;
-        width: 90%;
-        margin: 0 auto 40px auto;
-        padding: 35px 45px; /* Más padding */
-        background-color: var(--container-bg);
-        border-radius: 12px;
-        box-shadow: 0 6px 25px var(--shadow-color); /* Sombra más notoria */
-        flex-grow: 1;
-        z-index: 1;
-        position: relative;
-      }
-      .page-title {
-        color: var(--accent-color); /* Dorado */
-        font-family: 'Playfair Display', serif; /* Fuente distintiva */
-        text-align: center;
-        font-size: 2.8em; /* Más grande */
-        font-weight: 700;
-        margin-bottom: 35px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid var(--border-color);
-        letter-spacing: 1px;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-      }
+    .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;}
+    .tool-header{padding:24px 28px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.2s;}
+    .tool-header:hover{background:var(--surface2);}
+    .tool-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2em;flex-shrink:0;}
+    .ti-calc{background:var(--gold-dim);}
+    .ti-word{background:var(--sky-dim);}
+    .ti-rate{background:rgba(78,203,141,0.1);}
+    .tool-header-text h3{font-family:var(--font-head);font-size:1em;font-weight:700;margin-bottom:3px;}
+    .tool-header-text p{color:var(--muted);font-size:0.82em;}
+    .tool-chevron{margin-left:auto;color:var(--muted);transition:transform 0.3s;}
+    .tool-card.open .tool-chevron{transform:rotate(180deg);}
+    .tool-body{padding:28px;display:none;}
+    .tool-card.open .tool-body{display:block;}
 
-      /* --- Acordeón Mejorado --- */
-      .utilities-accordion { border: none; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.07); }
-      .utility-item { border-bottom: 1px solid var(--border-color); }
-      .utility-item:last-child { border-bottom: none; }
-      .utility-header {
-        background: linear-gradient(to right, #fdfdff, #f7fbff); /* Gradiente sutil */
-        padding: 20px 25px;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
-        user-select: none;
-      }
-      .utility-header:hover { background-color: #eef8ff; transform: scale(1.005); }
-      .utility-header h3 {
-        color: var(--link-color); /* Azul link */
-        font-weight: 500;
-        font-size: 1.2em; /* Más grande */
-        margin: 0;
-        display: flex; /* Para icono junto al título */
-        align-items: center;
-        gap: 10px; /* Espacio entre icono y texto */
-      }
-      .utility-header h3 i { color: var(--accent-color); font-size: 1.1em; } /* Icono dorado */
-      .utility-header .icon {
-        font-size: 1.3em; /* Más sutil */
-        font-weight: bold;
-        color: var(--primary-color); /* Celeste */
-        transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-        transform-origin: center;
-      }
-      .utility-header.active {
-         background-color: #eef8ff;
-         border-left: 5px solid var(--accent-color); /* Borde dorado */
-         padding-left: 20px;
-      }
-      .utility-header.active h3 { color: var(--accent-dark); } /* Título dorado oscuro al abrir */
-      .utility-header.active .icon { transform: rotate(180deg); color: var(--accent-color); } /* Flecha que gira */
+    /* Quote Calculator */
+    .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-label{font-size:0.8em;font-weight:600;color:var(--muted);}
+    .form-input, .form-select{background:var(--surface2);border:1px solid var(--border);border-radius:10px;
+      padding:11px 14px;color:var(--text);font-family:var(--font-body);font-size:0.9em;outline:none;transition:border-color 0.2s;}
+    .form-input:focus, .form-select:focus{border-color:var(--gold);}
+    .form-select option{background:var(--surface2);}
+    .calc-btn{width:100%;padding:13px;background:var(--gold);color:#0c0f1a;border:none;border-radius:10px;
+      font-weight:700;font-size:0.93em;cursor:pointer;transition:all 0.25s;font-family:var(--font-body);}
+    .calc-btn:hover{background:#ffd84a;transform:translateY(-1px);box-shadow:0 8px 25px var(--gold-glow);}
+    .calc-result{margin-top:20px;padding:20px;background:var(--bg);border-radius:12px;border:1px solid var(--border);
+      display:none;text-align:center;}
+    .calc-result.show{display:block;}
+    .result-amount{font-family:var(--font-head);font-size:2em;font-weight:800;color:var(--gold);}
+    .result-note{color:var(--muted);font-size:0.82em;margin-top:6px;}
 
-      .utility-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* Animación más suave */
-        background-color: #fafcff; /* Fondo contenido ligeramente distinto */
-        padding: 0 30px; /* Más padding horizontal */
-        border-top: 1px dashed var(--border-color);
-        opacity: 0; /* Para fade in */
-      }
-      .utility-content.active {
-        max-height: 1500px; /* Aumentado */
-        padding: 30px 30px;
-        opacity: 1;
-        transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), padding 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in 0.2s; /* Fade in con delay */
-      }
+    /* Word counter */
+    .word-area{background:var(--surface2);border:1px solid var(--border);border-radius:12px;
+      padding:16px;color:var(--text);font-family:var(--font-body);font-size:0.9em;
+      width:100%;min-height:140px;outline:none;resize:vertical;transition:border-color 0.2s;margin-bottom:16px;}
+    .word-area:focus{border-color:var(--gold);}
+    .word-stats{display:flex;gap:16px;flex-wrap:wrap;}
+    .word-stat{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 18px;flex:1;min-width:120px;}
+    .word-stat-num{font-family:var(--font-head);font-size:1.5em;font-weight:800;color:var(--gold);}
+    .word-stat-label{color:var(--muted);font-size:0.75em;margin-top:3px;}
 
-      /* --- Estilos Generales Herramientas --- */
-      .utility-content p { margin-bottom: 20px; color: var(--summary-color); }
-      .utility-content label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--text-color); font-size: 0.95em; }
-      .utility-content input[type="number"], .utility-content input[type="text"],
-      .utility-content textarea, .utility-content select {
-        width: 100%; padding: 12px 15px; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1em; background-color: #fff; box-shadow: inset 0 1px 3px rgba(0,0,0,0.06); transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-      }
-      .utility-content input:focus, .utility-content textarea:focus, .utility-content select:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 6px rgba(135, 206, 235, 0.7); }
-      .utility-content button {
-        padding: 12px 25px; background: linear-gradient(45deg, var(--accent-color), var(--accent-dark)); color: var(--text-color); border: none; border-radius: 6px; cursor: pointer; font-weight: 500; transition: all 0.3s ease-in-out; margin-top: 10px; font-size: 0.95em; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: inline-flex; align-items: center; gap: 8px;
-      }
-      .utility-content button:hover { background: linear-gradient(45deg, var(--accent-dark), var(--accent-color)); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(218, 165, 32, 0.3); }
-       .utility-content button i { font-size: 1.1em; }
-      .utility-content .result {
-        margin-top: 20px; font-weight: bold; color: var(--link-color); background-color: var(--control-bg); padding: 15px; border-radius: 6px; border-left: 4px solid var(--accent-color); animation: fadeInResult 0.6s ease-out; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-      }
-      @keyframes fadeInResult { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-      .utility-content small { display: block; margin-top: 15px; color: var(--summary-color); font-size: 0.85em; }
+    /* Rate guide */
+    .rate-table{width:100%;border-collapse:collapse;}
+    .rate-table th{text-align:left;padding:10px 14px;font-size:0.78em;font-weight:700;letter-spacing:0.5px;
+      text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);}
+    .rate-table td{padding:12px 14px;font-size:0.88em;border-bottom:1px solid rgba(255,255,255,0.03);}
+    .rate-table tr:last-child td{border-bottom:none;}
+    .rate-badge{font-size:0.72em;font-weight:700;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+    .rate-beginner{background:rgba(91,170,238,0.1);color:var(--sky);}
+    .rate-mid{background:var(--gold-dim);color:var(--gold);}
+    .rate-senior{background:rgba(78,203,141,0.1);color:var(--green);}
+    .rate-note{color:var(--muted);font-size:0.82em;margin-top:16px;padding:14px;background:var(--bg);border-radius:10px;}
 
-      /* Checklist */
-      .checklist label { display: flex; align-items: center; margin-bottom: 12px; cursor: pointer; font-weight: normal; transition: color 0.3s ease; }
-      .checklist input[type="checkbox"] { margin-right: 12px; transform: scale(1.2); accent-color: var(--primary-color); cursor: pointer; }
-      .checklist label:has(input:checked) { text-decoration: line-through; color: var(--summary-color); opacity: 0.7; }
-
-      /* Zonas Horarias */
-      .timezone-list { list-style: none; padding: 10px 0 0 0; }
-      .timezone-list li { margin-bottom: 10px; display: flex; justify-content: space-between; padding: 8px 10px; border-bottom: 1px solid #eee; background-color: #fdfdfd; border-radius: 4px; transition: transform 0.2s ease; }
-       .timezone-list li:hover { transform: scale(1.02); }
-      .timezone-list li:last-child { border-bottom: none; }
-      .timezone-list .zone { font-weight: 500; }
-      .timezone-list .time { color: var(--link-color); font-weight: 500; }
-
-      /* Enlaces Útiles */
-      .useful-links ul { list-style: none; padding: 10px 0 0 0; }
-      .useful-links li { margin-bottom: 12px; padding-left: 30px; position: relative; }
-      .useful-links li::before { content: '\f0c1'; /* Font Awesome link icon */ font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: 0; top: 2px; color: var(--accent-color); font-size: 1.1em; transition: transform 0.3s ease; }
-       .useful-links li:hover::before { transform: rotate(15deg); }
-      .useful-links a { color: var(--link-color); text-decoration: none; transition: color 0.3s ease-in-out; }
-       .useful-links a:hover { color: var(--accent-dark); text-decoration: underline; }
-
-       /* --- NUEVAS HERRAMIENTAS --- */
-       /* Pomodoro */
-       .pomodoro-timer { text-align: center; }
-       .pomodoro-timer #timer-display { font-size: 3.5em; font-weight: bold; color: var(--link-color); margin: 15px 0; }
-       .pomodoro-timer .timer-controls button { margin: 0 8px; padding: 10px 15px; font-size: 0.9em; }
-        .pomodoro-timer #timer-status { margin-top: 10px; font-style: italic; color: var(--summary-color); }
-
-       /* Word Count */
-       .word-count #word-count-output { margin-top: 10px; font-weight: 500; }
-
-       /* Invoice Generator */
-       .invoice-generator .invoice-preview { border: 1px solid var(--border-color); padding: 20px; margin-top: 20px; background: #fff; font-size: 0.9em; line-height: 1.5; }
-       .invoice-generator h4 { margin-top: 15px; margin-bottom: 5px; color: var(--link-color); }
-        .invoice-generator .row { display: flex; justify-content: space-between; margin-bottom: 5px; }
-
-        /* Savings Goal */
-        .savings-goal #savings-result { white-space: pre-wrap; /* Mantiene saltos de línea */ }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-            body { font-size: 15px; }
-            .container { width: 95%; padding: 25px 20px; margin: 15px auto 30px auto; } /* Más padding vertical */
-            .page-title { font-size: 2em; }
-            .utility-header { padding: 15px 18px; }
-            .utility-header h3 { font-size: 1.1em; gap: 8px; }
-            .utility-header.active { padding-left: 14px; }
-            .utility-content.active { padding: 20px 20px; }
-            .top-nav { padding: 8px 3%; }
-            .nav-buttons button, .nav-buttons a { padding: 7px 12px; font-size: 0.85em; margin: 3px; }
-            .utility-content input, .utility-content textarea, .utility-content select { padding: 11px; }
-            .utility-content button { padding: 11px 20px; }
-            .pomodoro-timer #timer-display { font-size: 3em; }
-      }
-
-    </style>
+    footer{border-top:1px solid var(--border);padding:28px 5%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+    .footer-brand{font-family:var(--font-head);font-size:1em;font-weight:800;color:var(--gold);}
+    .footer-links{display:flex;gap:18px;}
+    .footer-links a{color:var(--muted);text-decoration:none;font-size:0.84em;transition:color 0.2s;}
+    .footer-links a:hover{color:var(--text);}
+    @media(max-width:600px){.calc-grid{grid-template-columns:1fr;}.nav-links a:not(.cta){display:none;}}
+  </style>
 </head>
 <body>
 
-    <nav class="top-nav">
-        <div></div>
-        <div class="nav-buttons">
-            <a href="blog.html"><i class="fas fa-archive"></i> Blog Archive</a>
-            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+<nav class="nav">
+  <a href="index.html" class="nav-logo">DH.</a>
+  <div class="nav-links">
+    <a href="index.html#services">Services</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#book">Book</a>
+    <a href="index.html#contact" class="cta">Hire Me</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <span class="page-label">Free Tools</span>
+  <h1>Tools for Freelancers<br>& Content Clients</h1>
+  <p>A small collection of free calculators and references — built to solve the same problems I run into every day.</p>
+</div>
+
+<div class="tools-wrap">
+
+  <!-- Quote Calculator -->
+  <div class="tool-card open" id="tool1">
+    <div class="tool-header" onclick="toggleTool('tool1')">
+      <div class="tool-icon ti-calc">💰</div>
+      <div class="tool-header-text">
+        <h3>Translation & Video Project Quote Calculator</h3>
+        <p>Estimate your project cost by service type, volume, and urgency</p>
+      </div>
+      <i class="fas fa-chevron-down tool-chevron"></i>
+    </div>
+    <div class="tool-body">
+      <div class="calc-grid">
+        <div class="form-group">
+          <label class="form-label">Service Type</label>
+          <select class="form-select" id="serviceType" onchange="updateCalc()">
+            <option value="0.08">Translation (per word)</option>
+            <option value="0.12">Medical Translation (per word)</option>
+            <option value="20">Video Editing (per hour)</option>
+            <option value="3">Subtitling (per minute)</option>
+            <option value="0.06">Proofreading (per word)</option>
+            <option value="0.10">Copywriting (per word)</option>
+            <option value="20">Content Moderation (per hour)</option>
+          </select>
         </div>
-    </nav>
+        <div class="form-group">
+          <label class="form-label" id="volLabel">Volume (words)</label>
+          <input type="number" class="form-input" id="volume" placeholder="e.g. 1000" min="1" oninput="updateCalc()">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Urgency</label>
+          <select class="form-select" id="urgency" onchange="updateCalc()">
+            <option value="1">Standard (3–5 days)</option>
+            <option value="1.25">Rush (1–2 days)</option>
+            <option value="1.5">Same-day / Urgent</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Language Pair</label>
+          <select class="form-select" id="langPair" onchange="updateCalc()">
+            <option value="1">HE ↔ EN</option>
+            <option value="1">EN ↔ ES</option>
+            <option value="1.1">HE ↔ ES (rare pair)</option>
+            <option value="1">Other</option>
+          </select>
+        </div>
+      </div>
+      <button class="calc-btn" onclick="calculateQuote()">Calculate Estimate</button>
+      <div class="calc-result" id="calcResult">
+        <div class="result-amount" id="resultAmount">$0.00</div>
+        <div class="result-note">Estimated project cost · <a href="index.html#contact" style="color:var(--gold)">Get an exact quote →</a></div>
+      </div>
+    </div>
+  </div>
 
-    <div class="container">
-        <h1 class="page-title"><i class="fas fa-toolbox"></i> Freelancer Power Toolkit</h1>
+  <!-- Word Counter -->
+  <div class="tool-card" id="tool2">
+    <div class="tool-header" onclick="toggleTool('tool2')">
+      <div class="tool-icon ti-word">📝</div>
+      <div class="tool-header-text">
+        <h3>Word Counter & Reading Time Estimator</h3>
+        <p>Paste any text to count words, characters, and estimate read time</p>
+      </div>
+      <i class="fas fa-chevron-down tool-chevron"></i>
+    </div>
+    <div class="tool-body">
+      <textarea class="word-area" id="wordArea" placeholder="Paste your text here..." oninput="countWords()"></textarea>
+      <div class="word-stats">
+        <div class="word-stat">
+          <div class="word-stat-num" id="wordCount">0</div>
+          <div class="word-stat-label">Words</div>
+        </div>
+        <div class="word-stat">
+          <div class="word-stat-num" id="charCount">0</div>
+          <div class="word-stat-label">Characters</div>
+        </div>
+        <div class="word-stat">
+          <div class="word-stat-num" id="sentCount">0</div>
+          <div class="word-stat-label">Sentences</div>
+        </div>
+        <div class="word-stat">
+          <div class="word-stat-num" id="readTime">0</div>
+          <div class="word-stat-label">Min Read</div>
+        </div>
+        <div class="word-stat">
+          <div class="word-stat-num" id="transTime">0</div>
+          <div class="word-stat-label">Est. Translation Cost</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="utilities-accordion">
+  <!-- Rate Guide -->
+  <div class="tool-card" id="tool3">
+    <div class="tool-header" onclick="toggleTool('tool3')">
+      <div class="tool-icon ti-rate">📊</div>
+      <div class="tool-header-text">
+        <h3>Freelance Rate Reference Guide</h3>
+        <p>Industry rate ranges for translation, video editing, and content work</p>
+      </div>
+      <i class="fas fa-chevron-down tool-chevron"></i>
+    </div>
+    <div class="tool-body">
+      <table class="rate-table">
+        <tr>
+          <th>Service</th>
+          <th>Unit</th>
+          <th>Beginner</th>
+          <th>Mid-Level</th>
+          <th>Senior/Specialized</th>
+        </tr>
+        <tr>
+          <td>General Translation</td>
+          <td>per word</td>
+          <td><span class="rate-badge rate-beginner">$0.04–0.07</span></td>
+          <td><span class="rate-badge rate-mid">$0.08–0.12</span></td>
+          <td><span class="rate-badge rate-senior">$0.13–0.20</span></td>
+        </tr>
+        <tr>
+          <td>Medical Translation</td>
+          <td>per word</td>
+          <td><span class="rate-badge rate-beginner">$0.08–0.12</span></td>
+          <td><span class="rate-badge rate-mid">$0.12–0.18</span></td>
+          <td><span class="rate-badge rate-senior">$0.18–0.30+</span></td>
+        </tr>
+        <tr>
+          <td>Hebrew Rare Pair</td>
+          <td>per word</td>
+          <td><span class="rate-badge rate-beginner">$0.10–0.14</span></td>
+          <td><span class="rate-badge rate-mid">$0.14–0.20</span></td>
+          <td><span class="rate-badge rate-senior">$0.20–0.35+</span></td>
+        </tr>
+        <tr>
+          <td>Proofreading</td>
+          <td>per word</td>
+          <td><span class="rate-badge rate-beginner">$0.02–0.04</span></td>
+          <td><span class="rate-badge rate-mid">$0.04–0.08</span></td>
+          <td><span class="rate-badge rate-senior">$0.08–0.15</span></td>
+        </tr>
+        <tr>
+          <td>Video Editing</td>
+          <td>per hour</td>
+          <td><span class="rate-badge rate-beginner">$10–18/hr</span></td>
+          <td><span class="rate-badge rate-mid">$18–35/hr</span></td>
+          <td><span class="rate-badge rate-senior">$35–75+/hr</span></td>
+        </tr>
+        <tr>
+          <td>Subtitling (SRT)</td>
+          <td>per minute</td>
+          <td><span class="rate-badge rate-beginner">$1.50–3</span></td>
+          <td><span class="rate-badge rate-mid">$3–6</span></td>
+          <td><span class="rate-badge rate-senior">$6–12+</span></td>
+        </tr>
+        <tr>
+          <td>Copywriting</td>
+          <td>per word</td>
+          <td><span class="rate-badge rate-beginner">$0.04–0.08</span></td>
+          <td><span class="rate-badge rate-mid">$0.08–0.15</span></td>
+          <td><span class="rate-badge rate-senior">$0.15–0.40+</span></td>
+        </tr>
+        <tr>
+          <td>Content Moderation</td>
+          <td>per hour</td>
+          <td><span class="rate-badge rate-beginner">$12–18/hr</span></td>
+          <td><span class="rate-badge rate-mid">$18–28/hr</span></td>
+          <td><span class="rate-badge rate-senior">$28–50+/hr</span></td>
+        </tr>
+      </table>
+      <div class="rate-note">
+        <strong style="color:var(--text);">Note:</strong> Rates vary significantly by market, platform, language pair rarity, and specialization. Hebrew is considered a rare language pair — rates trend higher than common language combinations. These are reference ranges, not fixed standards.
+      </div>
+    </div>
+  </div>
 
-            <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-calculator"></i> Inverse Hourly Rate Calculator</h3>
-                    <span class="icon">▼</span> </button>
-                <div class="utility-content">
-                     <p>Figure out what to charge per hour to hit your monthly income goal.</p>
-                     <label for="target-income">Target Monthly Income (USD):</label>
-                     <input type="number" id="target-income" placeholder="e.g., 1000">
-                     <label for="workable-hours">Workable Hours per Week:</label>
-                     <input type="number" id="workable-hours" placeholder="e.g., 20">
-                     <label for="monthly-expenses">Fixed Monthly Expenses (USD, optional):</label>
-                     <input type="number" id="monthly-expenses" placeholder="e.g., 50" value="0">
-                     <button onclick="calculateInverseRate()"><i class="fas fa-dollar-sign"></i> Calculate Rate</button>
-                     <div id="inverse-rate-result" class="result" style="display: none;"></div>
-                </div>
-            </div>
+</div>
 
-             <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-percent"></i> Upwork Fee Calculator</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content">
-                    <p>Calculate your estimated earnings after Upwork's service fees.</p>
-                    <label for="project-amount">Client Billed Amount (USD):</label>
-                    <input type="number" id="project-amount" placeholder="e.g., 500">
-                    <label for="lifetime-billed">Lifetime Billed to *this* Client (USD):</label>
-                    <input type="number" id="lifetime-billed" placeholder="e.g., 0 for new clients" value="0">
-                    <button onclick="calculateUpworkFee()"><i class="fas fa-receipt"></i> Calculate Net Earnings</button>
-                    <div id="upwork-fee-result" class="result" style="display: none;"></div>
-                     <small>Note: Based on Upwork's standard tiered fee structure (20% up to $500, 10% up to $10k, 5% above).</small>
-                </div>
-            </div>
+<footer>
+  <div class="footer-brand">DH.</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="blog.html">Blog</a>
+    <a href="index.html#book">Book</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+  <div style="color:var(--muted);font-size:0.78em;">© 2026 Danilo Hurwitz</div>
+</footer>
 
-            <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-chart-line"></i> Profitability Calculator (Fixed-Price)</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content">
-                    <p>Calculate your effective hourly rate for a fixed-price project.</p>
-                    <label for="fixed-price">Offered Fixed Price (USD):</label>
-                    <input type="number" id="fixed-price" placeholder="e.g., 300">
-                    <label for="estimated-hours">Estimated Hours of Work:</label>
-                    <input type="number" id="estimated-hours" placeholder="e.g., 8">
-                     <label for="profit-platform-commission">Platform Commission (%):</label>
-                     <select id="profit-platform-commission">
-                         <option value="10">10% (Upwork Standard)</option>
-                         <option value="20">20% (Upwork First $500)</option>
-                         <option value="5">5% (Upwork +$10k)</option>
-                         <option value="0">0% (Direct)</option>
-                     </select>
-                    <button onclick="calculateProfitability()"><i class="fas fa-hourglass-half"></i> Calculate Real Rate</button>
-                    <div id="profitability-result" class="result" style="display: none;"></div>
-                </div>
-            </div>
+<script>
+  function toggleTool(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
 
-             <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-file-word"></i> Word & Character Counter</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content word-count">
-                    <p>Paste your text below to get the word and character count.</p>
-                    <textarea id="word-count-input" rows="6" placeholder="Paste text here..."></textarea>
-                    <div id="word-count-output" class="result" style="display: none;"></div>
-                </div>
-            </div>
+  function updateCalc() {
+    const svc = document.getElementById('serviceType').value;
+    const label = document.getElementById('volLabel');
+    if (svc == 20) label.textContent = 'Volume (hours)';
+    else if (svc == 3) label.textContent = 'Volume (minutes)';
+    else label.textContent = 'Volume (words)';
+  }
 
-            <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-stopwatch"></i> Pomodoro Timer</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content pomodoro-timer">
-                    <p>Boost your focus with the Pomodoro Technique (25 min work / 5 min break).</p>
-                    <div id="timer-display">25:00</div>
-                    <div class="timer-controls">
-                        <button id="start-timer"><i class="fas fa-play"></i> Start</button>
-                        <button id="pause-timer"><i class="fas fa-pause"></i> Pause</button>
-                        <button id="reset-timer"><i class="fas fa-redo"></i> Reset</button>
-                    </div>
-                     <div id="timer-status" style="display: none;"></div>
-                     <audio id="timer-alert" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio> </div>
-            </div>
+  function calculateQuote() {
+    const rate = parseFloat(document.getElementById('serviceType').value);
+    const vol = parseFloat(document.getElementById('volume').value) || 0;
+    const urgency = parseFloat(document.getElementById('urgency').value);
+    const lang = parseFloat(document.getElementById('langPair').value);
+    if (!vol) { alert('Please enter a volume.'); return; }
+    const total = (rate * vol * urgency * lang).toFixed(2);
+    document.getElementById('resultAmount').textContent = '$' + total;
+    const r = document.getElementById('calcResult');
+    r.classList.add('show');
+  }
 
-             <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-piggy-bank"></i> Savings Goal Calculator</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content savings-goal">
-                    <p>Calculate how much you need to save per month or week to reach your goal.</p>
-                    <label for="goal-amount">Savings Goal Amount (USD):</label>
-                    <input type="number" id="goal-amount" placeholder="e.g., 1500 (for a new laptop)">
-                    <label for="goal-months">Months to Reach Goal:</label>
-                    <input type="number" id="goal-months" placeholder="e.g., 6">
-                    <button onclick="calculateSavings()"><i class="fas fa-calendar-alt"></i> Calculate Savings</button>
-                    <div id="savings-result" class="result" style="display: none;"></div>
-                </div>
-            </div>
-
-
-            <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-pencil-alt"></i> Quick Proposal Generator</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content">
-                    <p>Fill in the fields to generate a base text (Always customize it!).</p>
-                    <label for="client-name">Client Name (if known):</label>
-                    <input type="text" id="client-name" placeholder="e.g., John Doe">
-                    <label for="client-need">What does the client need? (Short summary):</label>
-                    <input type="text" id="client-need" placeholder="e.g., translate a technical manual HE>EN">
-                    <label for="why-me">Why are YOU ideal for THIS? (1 key phrase):</label>
-                    <input type="text" id="why-me" placeholder="e.g., my MedTech background and native Hebrew fluency">
-                    <label for="call-to-action">Suggested next step:</label>
-                    <input type="text" id="call-to-action" placeholder="e.g., discuss the details on a quick call" value="discuss the details on a quick call">
-                    <button onclick="generateProposal()"><i class="fas fa-magic"></i> Generate Template</button>
-                    <textarea id="proposal-output" rows="7" style="margin-top: 15px; display: none; width: 100%; font-family: inherit; font-size: 0.95em;" placeholder="Your template will appear here..."></textarea>
-                </div>
-            </div>
-
-            <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-file-invoice-dollar"></i> Basic Invoice Generator</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content invoice-generator">
-                    <p>Generate a basic invoice structure. Fill in your details.</p>
-                     <label for="inv-client-name">Client Name:</label>
-                     <input type="text" id="inv-client-name" placeholder="Client Company Name">
-                     <label for="inv-item-desc">Service/Item Description:</label>
-                     <input type="text" id="inv-item-desc" placeholder="e.g., Medical Translation HE>EN (Project X)">
-                     <label for="inv-amount">Amount Due (USD):</label>
-                     <input type="number" id="inv-amount" placeholder="e.g., 500">
-                     <button onclick="generateInvoice()"><i class="fas fa-print"></i> Generate Invoice Text</button>
-                     <div id="invoice-preview" class="invoice-preview" style="display:none; white-space: pre-wrap; margin-top: 20px;"></div>
-                     <small>Note: This is a very basic structure. Consider using dedicated invoicing software for more features.</small>
-                </div>
-            </div>
-
-
-            <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-tasks"></i> Checklist: Upwork First Steps</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content checklist">
-                    <p>Tick off the essential tasks to start strong:</p>
-                    <label><input type="checkbox"> Create a 100% complete profile.</label>
-                    <label><input type="checkbox"> Add a professional profile picture.</label>
-                    <label><input type="checkbox"> Write a specific title and overview (Not generic!).</label>
-                    <label><input type="checkbox"> Upload 2-3 work samples to portfolio.</label>
-                    <label><input type="checkbox"> Set an initial rate (Research your market!).</label>
-                    <label><input type="checkbox"> Verify your identity.</label>
-                    <label><input type="checkbox"> Look for small jobs (<$100) for the first review.</label>
-                    <label><input type="checkbox"> Write SHORT and CUSTOMIZED proposals (No templates!).</label>
-                    <label><input type="checkbox"> Respond quickly to client messages.</label>
-                    <label><input type="checkbox"> Deliver flawless work, on time.</label>
-                    <label><input type="checkbox"> Kindly ask for feedback upon completion.</label>
-                </div>
-            </div>
-
-             <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-globe-americas"></i> Key Client Time Zones</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content">
-                    <p>Approximate current times in common client zones (relative to your time):</p>
-                    <ul class="timezone-list" id="timezone-display">
-                        <li>Loading times...</li>
-                    </ul>
-                    <small>Note: Times may vary due to Daylight Saving Time (DST).</small>
-                     <button onclick="displayTimeZones()" style="margin-top: 15px; font-size: 0.8em; padding: 5px 10px;"><i class="fas fa-sync-alt"></i> Refresh Times</button>
-                </div>
-            </div>
-
-             <div class="utility-item">
-                <button class="utility-header">
-                    <h3><i class="fas fa-link"></i> Useful Links for Freelancers</h3>
-                    <span class="icon">▼</span>
-                </button>
-                <div class="utility-content useful-links">
-                     <p>A curated list of helpful resources:</p>
-                    <ul>
-                        <li><a href="https://support.upwork.com/hc/en-us" target="_blank" rel="noopener noreferrer">Upwork Help Center (Official)</a></li>
-                        <li><a href="https://www.fiverr.com/support" target="_blank" rel="noopener noreferrer">Fiverr Help Center (Official)</a></li>
-                        <li><a href="https://www.wordreference.com/" target="_blank" rel="noopener noreferrer">WordReference (Multi-language Dictionary)</a></li>
-                        <li><a href="https://www.merriam-webster.com/medical" target="_blank" rel="noopener noreferrer">Merriam-Webster Medical Dictionary</a></li>
-                         <li><a href="https://www.pealim.com/" target="_blank" rel="noopener noreferrer">Pealim (Hebrew Verb Conjugator)</a></li>
-                        <li><a href="https://toggl.com/track/" target="_blank" rel="noopener noreferrer">Toggl Track (Time Tracking - Free Plan)</a></li>
-                        <li><a href="https://clockify.me/" target="_blank" rel="noopener noreferrer">Clockify (Time Tracking - Free Plan)</a></li>
-                         <li><a href="https://hemingwayapp.com/" target="_blank" rel="noopener noreferrer">Hemingway Editor (Improve English Writing Clarity)</a></li>
-                         <li><a href="https://www.grammarly.com/" target="_blank" rel="noopener noreferrer">Grammarly (Grammar & Style Checker - Free Version)</a></li>
-                        <li><a href="https://www.reddit.com/r/Upwork/" target="_blank" rel="noopener noreferrer">r/Upwork (Reddit Community)</a></li>
-                        <li><a href="https://www.reddit.com/r/freelance/" target="_blank" rel="noopener noreferrer">r/freelance (Reddit Community)</a></li>
-                    </ul>
-                </div>
-            </div>
-
-        </div> </div> <script>
-    // --- ACCORDION LOGIC ---
-    const accordionHeaders = document.querySelectorAll('.utility-header');
-    accordionHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const content = header.nextElementSibling;
-            const isActive = header.classList.contains('active');
-            // Close others (optional)
-            /* accordionHeaders.forEach(h => {
-                 if (h !== header && h.classList.contains('active')) {
-                     h.classList.remove('active');
-                     h.nextElementSibling.classList.remove('active');
-                     h.querySelector('.icon').style.transform = 'rotate(0deg)';
-                 }
-            }); */
-            header.classList.toggle('active');
-            content.classList.toggle('active');
-             // Usar Font Awesome icons para flecha
-            header.querySelector('.icon').innerHTML = isActive ? '<i class="fas fa-chevron-down"></i>' : '<i class="fas fa-chevron-up"></i>';
-            header.querySelector('.icon').style.transform = isActive ? 'rotate(0deg)' : 'rotate(180deg)'; // Rotar icono flecha
-        });
-         // Set initial icon state
-        header.querySelector('.icon').innerHTML = '<i class="fas fa-chevron-down"></i>';
-    });
-
-    // --- CALCULATOR LOGIC ---
-
-    // 1. Inverse Rate
-    function calculateInverseRate() { /* ... (igual que antes) ... */
-        const income = parseFloat(document.getElementById('target-income').value) || 0;
-        const hours = parseFloat(document.getElementById('workable-hours').value) || 0;
-        const expenses = parseFloat(document.getElementById('monthly-expenses').value) || 0;
-        const resultDiv = document.getElementById('inverse-rate-result');
-        if (income <= 0 || hours <= 0) {
-            resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid target income and workable hours.';
-            resultDiv.style.display = 'block'; return;
-        }
-        const totalNeeded = income + expenses;
-        const hoursPerMonth = hours * 4.33; // More precise
-        const hourlyRate = totalNeeded / hoursPerMonth;
-        resultDiv.innerHTML = `<i class="fas fa-bullseye"></i> You need to charge approximately <strong>$${hourlyRate.toFixed(2)} USD</strong> per hour.`;
-        resultDiv.style.display = 'block';
-    }
-
-    // 2. Upwork Fee
-    function calculateUpworkFee() {
-        const amount = parseFloat(document.getElementById('project-amount').value) || 0;
-        const lifetime = parseFloat(document.getElementById('lifetime-billed').value) || 0;
-        const resultDiv = document.getElementById('upwork-fee-result');
-        if (amount <= 0) {
-            resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid billed amount.';
-            resultDiv.style.display = 'block'; return;
-        }
-
-        let feePercentage = 0;
-        let netAmount = 0;
-
-        if (lifetime < 500) {
-            const firstTierAmount = Math.min(amount, 500 - lifetime);
-            const remainingAmount = amount - firstTierAmount;
-            const secondTierAmount = Math.min(remainingAmount, 10000 - 500);
-            const thirdTierAmount = Math.max(0, remainingAmount - secondTierAmount);
-
-            netAmount = (firstTierAmount * 0.80) + (secondTierAmount * 0.90) + (thirdTierAmount * 0.95);
-            feePercentage = ((amount - netAmount) / amount) * 100;
-
-        } else if (lifetime < 10000) {
-            const secondTierAmount = Math.min(amount, 10000 - lifetime);
-            const thirdTierAmount = Math.max(0, amount - secondTierAmount);
-            netAmount = (secondTierAmount * 0.90) + (thirdTierAmount * 0.95);
-            feePercentage = ((amount - netAmount) / amount) * 100;
-        } else {
-            feePercentage = 5;
-            netAmount = amount * 0.95;
-        }
-
-        resultDiv.innerHTML = `<i class="fas fa-wallet"></i> Estimated Net Earnings: <strong>$${netAmount.toFixed(2)} USD</strong> (Approx. ${feePercentage.toFixed(1)}% fee).`;
-        resultDiv.style.display = 'block';
-    }
-
-    // 3. Profitability
-    function calculateProfitability() { /* ... (igual que antes) ... */
-        const price = parseFloat(document.getElementById('fixed-price').value) || 0;
-        const hours = parseFloat(document.getElementById('estimated-hours').value) || 0;
-        const commission = parseFloat(document.getElementById('profit-platform-commission').value) / 100;
-        const resultDiv = document.getElementById('profitability-result');
-         if (price <= 0 || hours <= 0) {
-            resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid price and estimated hours.';
-            resultDiv.style.display = 'block'; return;
-        }
-        const netIncome = price * (1 - commission);
-        const realHourlyRate = netIncome / hours;
-        resultDiv.innerHTML = `<i class="fas fa-tachometer-alt"></i> Your effective hourly rate is <strong>$${realHourlyRate.toFixed(2)} USD/hour</strong> (after commission).`;
-        resultDiv.style.display = 'block';
-    }
-
-     // 4. Word Count
-    const wordCountInput = document.getElementById('word-count-input');
-    const wordCountOutput = document.getElementById('word-count-output');
-    if(wordCountInput) { // Check if element exists
-        wordCountInput.addEventListener('input', () => {
-            const text = wordCountInput.value.trim();
-            const words = text.split(/\s+/).filter(word => word.length > 0).length;
-            const chars = text.length;
-            wordCountOutput.innerHTML = `<i class="fas fa-calculator"></i> Words: <strong>${words}</strong> | Characters: <strong>${chars}</strong>`;
-            wordCountOutput.style.display = words > 0 || chars > 0 ? 'block' : 'none';
-        });
-    }
-
-
-    // 5. Pomodoro Timer
-    let timerInterval;
-    let timeLeft = 25 * 60; // 25 minutes in seconds
-    let isPaused = true;
-    let isWorkSession = true;
-    const timerDisplay = document.getElementById('timer-display');
-    const startButton = document.getElementById('start-timer');
-    const pauseButton = document.getElementById('pause-timer');
-    const resetButton = document.getElementById('reset-timer');
-    const statusDisplay = document.getElementById('timer-status');
-    const alertSound = document.getElementById('timer-alert');
-
-    function updateTimerDisplay() {
-        const minutes = Math.floor(timeLeft / 60);
-        const seconds = timeLeft % 60;
-        timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
-
-    function startTimer() {
-        if (isPaused) {
-            isPaused = false;
-            statusDisplay.textContent = isWorkSession ? 'Work Session' : 'Short Break';
-            statusDisplay.style.display = 'block';
-            timerInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    updateTimerDisplay();
-                } else {
-                    clearInterval(timerInterval);
-                    isPaused = true;
-                    if (alertSound) alertSound.play(); // Play sound
-                    // Switch session
-                    isWorkSession = !isWorkSession;
-                    timeLeft = (isWorkSession ? 25 : 5) * 60;
-                    updateTimerDisplay();
-                    statusDisplay.textContent = `Time for a ${isWorkSession ? 'Work Session!' : 'Short Break!'}`;
-                    // Optionally start next session automatically? Or require manual start.
-                }
-            }, 1000);
-        }
-    }
-
-    function pauseTimer() {
-        if (!isPaused) {
-            clearInterval(timerInterval);
-            isPaused = true;
-             statusDisplay.textContent += ' (Paused)';
-        }
-    }
-
-    function resetTimer() {
-        clearInterval(timerInterval);
-        isPaused = true;
-        isWorkSession = true; // Reset to work session
-        timeLeft = 25 * 60;
-        updateTimerDisplay();
-        statusDisplay.style.display = 'none';
-    }
-
-    if(startButton) startButton.addEventListener('click', startTimer);
-    if(pauseButton) pauseButton.addEventListener('click', pauseTimer);
-    if(resetButton) resetButton.addEventListener('click', resetTimer);
-    // Initial display
-    if(timerDisplay) updateTimerDisplay();
-
-
-    // 6. Savings Goal
-    function calculateSavings() {
-         const amount = parseFloat(document.getElementById('goal-amount').value) || 0;
-         const months = parseInt(document.getElementById('goal-months').value) || 0;
-         const resultDiv = document.getElementById('savings-result');
-         if (amount <= 0 || months <= 0) {
-            resultDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid goal amount and number of months.';
-            resultDiv.style.display = 'block'; return;
-        }
-         const monthlySavings = amount / months;
-         const weeklySavings = amount / (months * 4.33); // Approx weeks per month
-         resultDiv.innerHTML = `To reach $${amount.toFixed(2)} in ${months} months:
-         - Save approx. <strong>$${monthlySavings.toFixed(2)} USD</strong> per month.
-         - Or save approx. <strong>$${weeklySavings.toFixed(2)} USD</strong> per week.`;
-         resultDiv.style.display = 'block';
-    }
-
-
-    // 7. Proposal Generator
-    function generateProposal() { /* ... (igual que antes) ... */
-        const clientName = document.getElementById('client-name').value.trim();
-        const clientNeed = document.getElementById('client-need').value.trim();
-        const whyMe = document.getElementById('why-me').value.trim();
-        const callToAction = document.getElementById('call-to-action').value.trim();
-        const outputTextarea = document.getElementById('proposal-output');
-        let proposal = `Hello ${clientName || '[Client Name]'}, \n\nI read your job post and understand you need help with ${clientNeed || '[specific need mentioned in the post]'}. \n\n${whyMe || '[Briefly explain why you are the perfect fit for THIS specific task based on your skills/experience]'}. \n\nI am available to start immediately and confident I can deliver excellent results. \n\nI'd be happy to ${callToAction || 'discuss this further'}. \n\nBest regards, \n[Your Name]`;
-        outputTextarea.value = proposal;
-        outputTextarea.style.display = 'block';
-        outputTextarea.select();
-    }
-
-     // 8. Invoice Generator
-    function generateInvoice() {
-        const client = document.getElementById('inv-client-name').value.trim() || '[Client Name/Address]';
-        const item = document.getElementById('inv-item-desc').value.trim() || '[Description of Service/Project]';
-        const amount = parseFloat(document.getElementById('inv-amount').value) || 0;
-        const previewDiv = document.getElementById('invoice-preview');
-        const invoiceDate = new Date().toLocaleDateString('en-CA'); // YYYY-MM-DD format
-        const invoiceNumber = `INV-${Date.now().toString().slice(-6)}`; // Simple unique ID
-
-        const invoiceText = `
------------------------------------------
-**INVOICE**
------------------------------------------
-**From:**
-Danilo Hurwitz
-[Your Address/Contact Info - Optional]
-Mar del Plata, Argentina
-
-**Bill To:**
-${client}
-
-**Invoice Number:** ${invoiceNumber}
-**Date:** ${invoiceDate}
-**Due Date:** Upon Receipt (or specify terms)
------------------------------------------
-**Description** **Amount (USD)**
------------------------------------------
-${item.padEnd(25)}     $${amount.toFixed(2)}
-
------------------------------------------
-**Total Due:** **$${amount.toFixed(2)}**
------------------------------------------
-Payment instructions: [Add your PayPal, Payoneer, Wire Info Here]
-
-Thank you for your business!
-        `;
-        previewDiv.textContent = invoiceText.trim();
-        previewDiv.style.display = 'block';
-    }
-
-
-    // 10. Time Zones
-    function displayTimeZones() { /* ... (igual que antes, pero con formato hora inglés) ... */
-        const timezoneList = document.getElementById('timezone-display');
-        timezoneList.innerHTML = '';
-        const now = new Date();
-        const zones = [
-            { name: 'Buenos Aires (Your Time)', tz: 'America/Argentina/Buenos_Aires' },
-            { name: 'New York (ET)', tz: 'America/New_York' },
-            { name: 'Los Angeles (PT)', tz: 'America/Los_Angeles' },
-            { name: 'London (GMT/BST)', tz: 'Europe/London' },
-            { name: 'Madrid (CET/CEST)', tz: 'Europe/Madrid' },
-            { name: 'Tel Aviv (IST/IDT)', tz: 'Asia/Jerusalem' }
-        ];
-        zones.forEach(zone => {
-            try {
-                const timeString = now.toLocaleTimeString('en-US', {
-                    timeZone: zone.tz, hour: 'numeric', minute: '2-digit', hour12: true
-                });
-                const li = document.createElement('li');
-                li.innerHTML = `<span class="zone">${zone.name}:</span> <span class="time">${timeString}</span>`;
-                timezoneList.appendChild(li);
-            } catch (e) { console.warn(`Error getting time for ${zone.tz}:`, e); }
-        });
-    }
-
-    // Initial load
-    document.addEventListener('DOMContentLoaded', displayTimeZones);
-
+  function countWords() {
+    const text = document.getElementById('wordArea').value;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    const chars = text.length;
+    const sentences = text.split(/[.!?]+/).filter(s => s.trim()).length;
+    const readTime = Math.max(1, Math.ceil(words / 200));
+    const transCost = '$' + (words * 0.08).toFixed(2);
+    document.getElementById('wordCount').textContent = words;
+    document.getElementById('charCount').textContent = chars;
+    document.getElementById('sentCount').textContent = sentences;
+    document.getElementById('readTime').textContent = readTime;
+    document.getElementById('transTime').textContent = transCost;
+  }
 </script>
-
 </body>
 </html>
