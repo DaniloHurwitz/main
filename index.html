@@ -4,56 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danilo Hurwitz — Content Specialist</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
     /* ═══════════════════════════════════════════
        ROOT VARIABLES — MEDICAL TECH NOIR
     ═══════════════════════════════════════════ */
     :root {
-        --bg:           #0D0F12;
-        --bg2:          #13161A;
-        --bg3:          #191C21;
-        --surface:      rgba(25,28,33,0.92);
-        --surface2:     rgba(32,36,42,0.85);
-        --amber:        #C8922A;
-        --amber-light:  #E8B04A;
-        --amber-muted:  #8A6020;
-        --slate:        #6B8CAE;
-        --slate-light:  #8AABCC;
-        --text:         #E8E2D9;
-        --text2:        #A09888;
-        --text3:        #5C5650;
-        --border:       rgba(200,146,42,0.18);
-        --border2:      rgba(107,140,174,0.15);
-        --glow-amber:   rgba(200,146,42,0.12);
-        --glow-slate:   rgba(107,140,174,0.10);
+        --bg:           #0E1017;
+        --bg2:          #141720;
+        --bg3:          #1A1E28;
+        --surface:      rgba(22,26,38,0.95);
+        --surface2:     rgba(30,35,50,0.88);
+        --amber:        #E09640;
+        --amber-light:  #F0B060;
+        --amber-muted:  #9A6828;
+        --teal:         #4AADAA;
+        --teal-light:   #6ECBC8;
+        --text:         #F0EDE8;
+        --text2:        #9DA8B8;
+        --text3:        #4A5268;
+        --border:       rgba(224,150,64,0.16);
+        --border2:      rgba(74,173,170,0.14);
+        --glow-amber:   rgba(224,150,64,0.10);
+        --glow-teal:    rgba(74,173,170,0.08);
         --shadow:       rgba(0,0,0,0.6);
         --font-display: 'Playfair Display', Georgia, serif;
-        --font-body:    'Cormorant Garamond', Georgia, serif;
+        --font-body:    'Lora', Georgia, serif;
         --font-mono:    'DM Mono', 'Courier New', monospace;
     }
 
     /* LIGHT MODE */
     body.light {
-        --bg:           #F5F0E8;
-        --bg2:          #EDE7DC;
+        --bg:           #F8F6F1;
+        --bg2:          #EEE9E0;
         --bg3:          #E5DED2;
-        --surface:      rgba(250,246,240,0.96);
-        --surface2:     rgba(237,231,220,0.88);
-        --amber:        #A0700A;
-        --amber-light:  #C08A20;
-        --amber-muted:  #D4A840;
-        --slate:        #3A6080;
-        --slate-light:  #4A78A0;
-        --text:         #2C2820;
-        --text2:        #6A5C4C;
-        --text3:        #A09080;
-        --border:       rgba(160,112,10,0.2);
-        --border2:      rgba(58,96,128,0.15);
-        --glow-amber:   rgba(160,112,10,0.07);
-        --glow-slate:   rgba(58,96,128,0.07);
-        --shadow:       rgba(0,0,0,0.12);
+        --surface:      rgba(252,250,246,0.97);
+        --surface2:     rgba(238,233,224,0.90);
+        --amber:        #B87820;
+        --amber-light:  #D49030;
+        --amber-muted:  #C8A050;
+        --teal:         #2A8A88;
+        --teal-light:   #3AAAAA;
+        --text:         #1C1E28;
+        --text2:        #5A6070;
+        --text3:        #9AA0B0;
+        --border:       rgba(184,120,32,0.18);
+        --border2:      rgba(42,138,136,0.14);
+        --glow-amber:   rgba(184,120,32,0.07);
+        --glow-teal:    rgba(42,138,136,0.07);
+        --shadow:       rgba(0,0,0,0.10);
     }
 
     /* ═══════════════════════════════════════════
@@ -65,10 +65,10 @@
 
     body {
         font-family: var(--font-body);
-        font-size: 18px;
+        font-size: 16px;
         background: var(--bg);
         color: var(--text);
-        line-height: 1.7;
+        line-height: 1.65;
         overflow-x: hidden;
         transition: background 0.5s ease, color 0.5s ease;
     }
@@ -179,7 +179,7 @@
     .wrapper {
         max-width: 1080px;
         margin: 0 auto;
-        padding: 100px 28px 60px;
+        padding: 80px 28px 48px;
         position: relative; z-index: 1;
     }
 
@@ -191,9 +191,9 @@
         grid-template-columns: 1fr auto;
         grid-template-rows: auto;
         gap: 0;
-        min-height: 90vh;
+        min-height: 70vh;
         align-items: start;
-        padding-top: 40px;
+        padding-top: 24px;
         position: relative;
     }
 
@@ -251,13 +251,13 @@
         font-size: clamp(1.1rem, 2vw, 1.5rem);
         font-weight: 400;
         font-style: italic;
-        color: var(--slate-light);
+        color: var(--teal-light);
         margin-bottom: 32px;
         line-height: 1.4;
     }
 
     .hero-manifesto {
-        font-size: 1.05rem;
+        font-size: 0.97rem;
         color: var(--text2);
         max-width: 440px;
         line-height: 1.8;
@@ -292,8 +292,8 @@
     }
     .badge.slate {
         border-color: var(--border2);
-        color: var(--slate-light);
-        background: var(--glow-slate);
+        color: var(--teal-light);
+        background: var(--glow-teal);
     }
 
     .hero-cta {
@@ -481,7 +481,7 @@
        SECTION ARCHITECTURE
     ═══════════════════════════════════════════ */
     section {
-        margin-top: 100px;
+        margin-top: 64px;
         position: relative;
     }
 
@@ -506,11 +506,11 @@
 
     .section-title {
         font-family: var(--font-display);
-        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
         font-weight: 700;
         color: var(--text);
-        line-height: 1.1;
-        margin-bottom: 40px;
+        line-height: 1.15;
+        margin-bottom: 28px;
     }
     .section-title em { color: var(--amber); font-style: italic; }
 
@@ -608,7 +608,7 @@
     .service-block {
         background: var(--surface);
         border: 1px solid var(--border2);
-        padding: 36px 32px;
+        padding: 24px 22px;
         position: relative;
         overflow: hidden;
         transition: background 0.3s, border-color 0.3s;
@@ -684,8 +684,8 @@
 
     .timeline-item {
         position: relative;
-        margin-bottom: 40px;
-        padding: 28px 32px;
+        margin-bottom: 16px;
+        padding: 20px 24px;
         background: var(--surface);
         border: 1px solid var(--border2);
         border-radius: 2px;
@@ -767,7 +767,7 @@
         font-size: 0.62rem;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--slate-light);
+        color: var(--teal-light);
         cursor: pointer;
         margin-top: 10px;
         padding: 0;
@@ -786,7 +786,7 @@
 
     .skill-block {
         background: var(--surface);
-        padding: 28px 24px;
+        padding: 20px 18px;
         border: 1px solid var(--border2);
         transition: border-color 0.3s;
     }
@@ -1025,7 +1025,7 @@
     #consulting {
         background: var(--surface);
         border: 1px solid var(--border);
-        padding: 60px;
+        padding: 40px;
         position: relative;
         overflow: hidden;
     }
@@ -1034,7 +1034,7 @@
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 2px;
-        background: linear-gradient(90deg, var(--amber), var(--slate), transparent);
+        background: linear-gradient(90deg, var(--amber), var(--teal), transparent);
     }
 
     .consulting-grid {
@@ -1191,7 +1191,7 @@
     .calc-card {
         background: var(--surface);
         border: 1px solid var(--border2);
-        padding: 36px;
+        padding: 28px 24px;
     }
     .calc-card h3 {
         font-family: var(--font-display);
@@ -1262,7 +1262,7 @@
     .contact-card {
         background: var(--surface);
         border: 1px solid var(--border2);
-        padding: 36px;
+        padding: 28px 24px;
     }
     .contact-card h3 {
         font-family: var(--font-display);
@@ -1357,7 +1357,7 @@
         font-size: 0.62rem;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--slate-light);
+        color: var(--teal-light);
         text-decoration: none;
         display: inline-flex;
         align-items: center;
@@ -1375,9 +1375,9 @@
        FOOTER
     ═══════════════════════════════════════════ */
     .site-footer {
-        margin-top: 120px;
+        margin-top: 72px;
         border-top: 1px solid var(--border);
-        padding: 48px 0 32px;
+        padding: 36px 0 28px;
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
