@@ -1,1375 +1,2471 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Danilo Hurwitz — Trilingual Content Specialist</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danilo Hurwitz — Content Specialist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+    /* ═══════════════════════════════════════════
+       ROOT VARIABLES — MEDICAL TECH NOIR
+    ═══════════════════════════════════════════ */
     :root {
-      --bg: #0c0f1a;
-      --surface: #131726;
-      --surface2: #1a1f32;
-      --border: rgba(255,255,255,0.07);
-      --text: #e8eaf0;
-      --muted: #7a8099;
-      --gold: #f5c842;
-      --gold-dim: rgba(245,200,66,0.12);
-      --gold-glow: rgba(245,200,66,0.25);
-      --sky: #5baaee;
-      --sky-dim: rgba(91,170,238,0.12);
-      --green: #4ecb8d;
-      --radius: 16px;
-      --font-head: 'Syne', sans-serif;
-      --font-body: 'DM Sans', sans-serif;
+        --bg:           #0D0F12;
+        --bg2:          #13161A;
+        --bg3:          #191C21;
+        --surface:      rgba(25,28,33,0.92);
+        --surface2:     rgba(32,36,42,0.85);
+        --amber:        #C8922A;
+        --amber-light:  #E8B04A;
+        --amber-muted:  #8A6020;
+        --slate:        #6B8CAE;
+        --slate-light:  #8AABCC;
+        --text:         #E8E2D9;
+        --text2:        #A09888;
+        --text3:        #5C5650;
+        --border:       rgba(200,146,42,0.18);
+        --border2:      rgba(107,140,174,0.15);
+        --glow-amber:   rgba(200,146,42,0.12);
+        --glow-slate:   rgba(107,140,174,0.10);
+        --shadow:       rgba(0,0,0,0.6);
+        --font-display: 'Playfair Display', Georgia, serif;
+        --font-body:    'Cormorant Garamond', Georgia, serif;
+        --font-mono:    'DM Mono', 'Courier New', monospace;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* LIGHT MODE */
+    body.light {
+        --bg:           #F5F0E8;
+        --bg2:          #EDE7DC;
+        --bg3:          #E5DED2;
+        --surface:      rgba(250,246,240,0.96);
+        --surface2:     rgba(237,231,220,0.88);
+        --amber:        #A0700A;
+        --amber-light:  #C08A20;
+        --amber-muted:  #D4A840;
+        --slate:        #3A6080;
+        --slate-light:  #4A78A0;
+        --text:         #2C2820;
+        --text2:        #6A5C4C;
+        --text3:        #A09080;
+        --border:       rgba(160,112,10,0.2);
+        --border2:      rgba(58,96,128,0.15);
+        --glow-amber:   rgba(160,112,10,0.07);
+        --glow-slate:   rgba(58,96,128,0.07);
+        --shadow:       rgba(0,0,0,0.12);
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET + BASE
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.65;
-      overflow-x: hidden;
-      min-height: 100vh;
+        font-family: var(--font-body);
+        font-size: 18px;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
+        overflow-x: hidden;
+        transition: background 0.5s ease, color 0.5s ease;
     }
 
+    /* Noise grain overlay */
     body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 15% 10%, rgba(91,170,238,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 85% 80%, rgba(245,200,66,0.05) 0%, transparent 55%);
-      pointer-events: none; z-index: 0;
+        content: '';
+        position: fixed; inset: 0; z-index: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+        opacity: 0.4;
+        pointer-events: none;
     }
 
-    /* ─── NAV ─── */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 5%;
-      background: rgba(12,15,26,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
+    a { color: var(--amber); text-decoration: none; }
+    a:hover { color: var(--amber-light); }
+    img { max-width: 100%; height: auto; display: block; }
+
+    /* ═══════════════════════════════════════════
+       CONTROLS — TOP BAR
+    ═══════════════════════════════════════════ */
+    .top-controls {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 1000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 28px;
+        background: rgba(13,15,18,0.85);
+        backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border);
+        transition: background 0.5s ease;
+    }
+    body.light .top-controls {
+        background: rgba(245,240,232,0.88);
     }
 
-    .nav-logo {
-      font-family: var(--font-head);
-      font-weight: 800; font-size: 1.15em;
-      color: var(--gold); text-decoration: none;
-      letter-spacing: -0.5px;
+    .logo-small {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        color: var(--amber);
+        letter-spacing: 0.05em;
+        font-weight: 700;
     }
 
-    .nav-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-
-    .nav-links a {
-      color: var(--muted); text-decoration: none; font-size: 0.88em;
-      font-weight: 500; padding: 7px 14px; border-radius: 8px;
-      transition: all 0.25s;
+    .controls-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
     }
 
-    .nav-links a:hover { color: var(--text); background: var(--surface2); }
-
-    .nav-links a.cta {
-      background: var(--gold); color: #0c0f1a;
-      font-weight: 700; padding: 7px 18px;
+    /* Toggle switch */
+    .toggle-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .toggle-label {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--text2);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    .toggle-switch {
+        position: relative;
+        width: 44px; height: 22px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .toggle-knob {
+        position: absolute;
+        top: 3px; left: 3px;
+        width: 14px; height: 14px;
+        background: var(--text3);
+        border-radius: 50%;
+        transition: transform 0.3s, background 0.3s;
+    }
+    input:checked ~ .toggle-knob {
+        transform: translateX(22px);
+        background: var(--amber);
     }
 
-    .nav-links a.cta:hover { background: #ffd84a; transform: translateY(-1px); }
+    .lang-select {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--text2);
+        background: transparent;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 4px 8px;
+        cursor: pointer;
+        letter-spacing: 0.08em;
+        appearance: none;
+    }
+    .lang-select option {
+        background: var(--bg2);
+        color: var(--text);
+    }
 
-    .nav-toggle { display: none; background: none; border: 1px solid var(--border);
-      color: var(--text); cursor: pointer; padding: 7px 10px; border-radius: 8px; }
+    /* ═══════════════════════════════════════════
+       WRAPPER
+    ═══════════════════════════════════════════ */
+    .wrapper {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 100px 28px 60px;
+        position: relative; z-index: 1;
+    }
 
-    /* ─── HERO ─── */
+    /* ═══════════════════════════════════════════
+       HERO — ASYMMETRIC
+    ═══════════════════════════════════════════ */
     .hero {
-      min-height: 100vh; display: flex; align-items: center;
-      padding: 120px 5% 80px;
-      position: relative; z-index: 1;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-rows: auto;
+        gap: 0;
+        min-height: 90vh;
+        align-items: start;
+        padding-top: 40px;
+        position: relative;
     }
 
-    .hero-inner {
-      max-width: 1100px; margin: 0 auto; width: 100%;
-      display: grid; grid-template-columns: 1fr 420px; gap: 80px; align-items: center;
+    /* Decorative vertical rule */
+    .hero::after {
+        content: '';
+        position: absolute;
+        left: 55%;
+        top: 0; bottom: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, var(--border), var(--border2), transparent);
+        pointer-events: none;
     }
 
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: var(--gold-dim); border: 1px solid rgba(245,200,66,0.25);
-      color: var(--gold); font-size: 0.8em; font-weight: 600;
-      padding: 6px 14px; border-radius: 50px; margin-bottom: 24px;
-      letter-spacing: 0.5px; text-transform: uppercase;
+    .hero-text {
+        grid-column: 1;
+        padding-right: 60px;
+        padding-top: 20px;
     }
 
-    .hero-badge span { width: 7px; height: 7px; background: var(--green);
-      border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
-
-    @keyframes pulse {
-      0%,100% { opacity:1; transform: scale(1); }
-      50% { opacity:0.5; transform: scale(0.85); }
+    .hero-meta {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        color: var(--amber-muted);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .hero-meta::before {
+        content: '';
+        display: inline-block;
+        width: 28px; height: 1px;
+        background: var(--amber-muted);
     }
 
-    h1 {
-      font-family: var(--font-head);
-      font-size: clamp(2.4em, 5vw, 3.6em);
-      font-weight: 800; line-height: 1.08;
-      letter-spacing: -1px; margin-bottom: 20px;
+    .hero-name {
+        font-family: var(--font-display);
+        font-size: clamp(3.5rem, 7vw, 5.5rem);
+        font-weight: 900;
+        line-height: 0.95;
+        color: var(--text);
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+    }
+    .hero-name em {
+        font-style: italic;
+        color: var(--amber);
     }
 
-    h1 .accent { color: var(--gold); }
-
-    .hero-sub {
-      font-size: 1.1em; color: var(--muted); max-width: 520px;
-      margin-bottom: 36px; font-weight: 300;
+    .hero-role {
+        font-family: var(--font-display);
+        font-size: clamp(1.1rem, 2vw, 1.5rem);
+        font-weight: 400;
+        font-style: italic;
+        color: var(--slate-light);
+        margin-bottom: 32px;
+        line-height: 1.4;
     }
 
-    .hero-sub strong { color: var(--text); font-weight: 500; }
-
-    .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 48px; }
-
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 13px 24px; border-radius: 10px; font-weight: 600;
-      font-size: 0.93em; cursor: pointer; border: none;
-      text-decoration: none; transition: all 0.25s;
-      font-family: var(--font-body);
+    .hero-manifesto {
+        font-size: 1.05rem;
+        color: var(--text2);
+        max-width: 440px;
+        line-height: 1.8;
+        margin-bottom: 40px;
+        border-left: 2px solid var(--amber-muted);
+        padding-left: 20px;
     }
 
-    .btn-gold { background: var(--gold); color: #0c0f1a; }
-    .btn-gold:hover { background: #ffd84a; transform: translateY(-2px);
-      box-shadow: 0 8px 30px var(--gold-glow); }
-
-    .btn-ghost { background: transparent; color: var(--text);
-      border: 1px solid var(--border); }
-    .btn-ghost:hover { background: var(--surface2); border-color: var(--muted); }
-
-    .hero-stats {
-      display: flex; gap: 30px; flex-wrap: wrap;
+    .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 36px;
     }
 
-    .stat { }
-    .stat-num {
-      font-family: var(--font-head); font-size: 1.9em; font-weight: 800;
-      color: var(--gold); line-height: 1;
+    .badge {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 2px;
+        border: 1px solid var(--border);
+        color: var(--text2);
+        background: transparent;
+        transition: all 0.3s;
     }
-    .stat-label { font-size: 0.78em; color: var(--muted); margin-top: 3px; }
-
-    /* Hero card */
-    .hero-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px; overflow: hidden;
-      position: relative;
+    .badge.amber {
+        border-color: var(--amber-muted);
+        color: var(--amber-light);
+        background: var(--glow-amber);
     }
-
-    .hero-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(91,170,238,0.04), transparent 60%);
-      pointer-events: none;
-    }
-
-    .hero-card-header {
-      background: var(--surface2);
-      padding: 14px 20px;
-      display: flex; align-items: center; gap: 10px;
-      border-bottom: 1px solid var(--border);
+    .badge.slate {
+        border-color: var(--border2);
+        color: var(--slate-light);
+        background: var(--glow-slate);
     }
 
-    .dots { display: flex; gap: 6px; }
-    .dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-r { background: #ff5f57; }
-    .dot-y { background: #febc2e; }
-    .dot-g { background: #28c840; }
-
-    .hero-card-title { font-size: 0.8em; color: var(--muted); font-family: var(--font-head); }
-
-    .upwork-badge {
-      padding: 20px;
-      display: flex; align-items: center; gap: 12px;
-      border-bottom: 1px solid var(--border);
+    .hero-cta {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
     }
 
-    .upwork-logo {
-      width: 36px; height: 36px; background: #14a800;
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      font-size: 1.1em; font-weight: 900; color: white;
+    .btn-primary {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 14px 28px;
+        background: var(--amber);
+        color: var(--bg);
+        border: none;
+        cursor: pointer;
+        border-radius: 2px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+        font-weight: 400;
+    }
+    .btn-primary:hover {
+        background: var(--amber-light);
+        color: var(--bg);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(200,146,42,0.3);
     }
 
-    .upwork-info small { color: var(--muted); font-size: 0.75em; display: block; }
-    .upwork-info strong { color: var(--text); font-size: 0.9em; }
-
-    .top-rated-pill {
-      margin-left: auto; background: rgba(20,168,0,0.15);
-      color: #4ecb8d; font-size: 0.72em; font-weight: 700;
-      padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(78,203,141,0.3);
-      white-space: nowrap;
+    .btn-secondary {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 14px 28px;
+        background: transparent;
+        color: var(--text2);
+        border: 1px solid var(--border);
+        cursor: pointer;
+        border-radius: 2px;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+        border-color: var(--amber-muted);
+        color: var(--amber-light);
+        transform: translateY(-2px);
     }
 
-    .services-list { padding: 16px 20px; display: flex; flex-direction: column; gap: 10px; }
-
-    .service-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 14px; background: var(--bg);
-      border-radius: 10px; border: 1px solid var(--border);
-      transition: border-color 0.25s;
+    /* HERO PROFILE PHOTO */
+    .hero-visual {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 24px;
+        padding-left: 40px;
+        padding-top: 10px;
     }
 
-    .service-row:hover { border-color: rgba(245,200,66,0.3); }
-
-    .service-row-left { display: flex; align-items: center; gap: 10px; }
-    .service-icon { font-size: 1.1em; }
-    .service-name { font-size: 0.85em; font-weight: 500; }
-    .service-price { font-size: 0.8em; color: var(--gold); font-weight: 600; }
-
-    .languages-row {
-      padding: 14px 20px;
-      border-top: 1px solid var(--border);
-      display: flex; gap: 8px; flex-wrap: wrap;
+    .profile-frame {
+        position: relative;
+        width: 240px;
     }
 
-    .lang-tag {
-      display: flex; align-items: center; gap: 5px;
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 20px; padding: 4px 12px; font-size: 0.78em; font-weight: 500;
+    .profile-photo {
+        width: 240px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 2px;
+        filter: grayscale(20%) contrast(1.05);
+        display: block;
+        transition: filter 0.5s;
+    }
+    .profile-photo:hover { filter: grayscale(0%) contrast(1.1); }
+
+    /* Placeholder if no photo */
+    .profile-placeholder {
+        width: 240px;
+        height: 300px;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: var(--text3);
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+    .profile-placeholder i { font-size: 2rem; color: var(--border); }
+    .profile-placeholder::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 10px,
+            rgba(200,146,42,0.02) 10px,
+            rgba(200,146,42,0.02) 20px
+        );
     }
 
-    .lang-flag { font-size: 1.1em; }
+    .profile-frame::after {
+        content: '';
+        position: absolute;
+        bottom: -8px; right: -8px;
+        width: 100%; height: 100%;
+        border: 1px solid var(--amber-muted);
+        border-radius: 2px;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.4;
+    }
 
-    /* ─── SECTION LAYOUT ─── */
-    .section { padding: 90px 5%; position: relative; z-index: 1; }
-    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .upwork-card {
+        width: 240px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 2px;
+        padding: 16px;
+        font-family: var(--font-mono);
+    }
+    .upwork-card .uw-header {
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .upwork-stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        border-bottom: 1px solid var(--border2);
+        font-size: 0.68rem;
+    }
+    .upwork-stat:last-child { border-bottom: none; }
+    .upwork-stat .label { color: var(--text3); }
+    .upwork-stat .value { color: var(--amber-light); }
+
+    /* HERO TAGLINE SCROLL */
+    .tagline-ticker {
+        grid-column: 1 / -1;
+        overflow: hidden;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 12px 0;
+        margin-top: 60px;
+    }
+    .ticker-inner {
+        display: flex;
+        gap: 48px;
+        animation: ticker 28s linear infinite;
+        white-space: nowrap;
+        width: max-content;
+    }
+    .ticker-item {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--text3);
+    }
+    .ticker-item span { color: var(--amber-muted); margin: 0 8px; }
+    @keyframes ticker {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+
+    /* ═══════════════════════════════════════════
+       SECTION ARCHITECTURE
+    ═══════════════════════════════════════════ */
+    section {
+        margin-top: 100px;
+        position: relative;
+    }
 
     .section-label {
-      font-size: 0.75em; font-weight: 700; letter-spacing: 2px;
-      text-transform: uppercase; color: var(--gold);
-      margin-bottom: 12px; display: block;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .section-label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: var(--border);
+        max-width: 120px;
     }
 
     .section-title {
-      font-family: var(--font-head); font-size: clamp(1.8em, 3.5vw, 2.6em);
-      font-weight: 800; line-height: 1.15; letter-spacing: -0.5px;
-      margin-bottom: 16px;
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.1;
+        margin-bottom: 40px;
+    }
+    .section-title em { color: var(--amber); font-style: italic; }
+
+    /* ═══════════════════════════════════════════
+       VIDEO GRID — DUAL ASPECT
+    ═══════════════════════════════════════════ */
+    #videos {
+        margin-top: 80px;
     }
 
-    .section-desc { color: var(--muted); max-width: 560px; font-size: 1em; }
-
-    .section-header { margin-bottom: 50px; }
-
-    .divider { width: 100%; height: 1px; background: var(--border); margin: 0; }
-
-    /* ─── WHAT I DO ─── */
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    .video-layout {
+        display: grid;
+        grid-template-columns: 1.8fr 1fr;
+        gap: 24px;
+        align-items: start;
     }
 
-    .service-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px 24px;
-      transition: all 0.3s; position: relative; overflow: hidden;
+    .video-cell {
+        position: relative;
+        background: var(--bg3);
+        border: 1px solid var(--border2);
+        border-radius: 2px;
+        overflow: hidden;
+        transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .video-cell:hover {
+        border-color: var(--amber-muted);
+        box-shadow: 0 0 40px rgba(200,146,42,0.08);
     }
 
-    .service-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, var(--sky-dim), transparent);
-      opacity: 0; transition: opacity 0.3s;
+    /* Horizontal (pymes) — 16:9 */
+    .video-horizontal { aspect-ratio: 16 / 9; }
+    .video-horizontal video, .video-horizontal iframe {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        border: none; display: block;
     }
 
-    .service-card:hover { border-color: rgba(91,170,238,0.35);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
-
-    .service-card:hover::before { opacity: 1; }
-
-    .service-card.gold-card::before { background: linear-gradient(135deg, var(--gold-dim), transparent); }
-    .service-card.gold-card:hover { border-color: rgba(245,200,66,0.35); }
-
-    .service-card-icon {
-      width: 48px; height: 48px; background: var(--sky-dim);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-size: 1.4em; margin-bottom: 18px; position: relative;
+    /* Vertical (Hormozi) — 9:16 */
+    .video-vertical { aspect-ratio: 9 / 16; }
+    .video-vertical video {
+        width: 100%; height: 100%;
+        object-fit: cover;
+        display: block;
     }
 
-    .gold-card .service-card-icon { background: var(--gold-dim); }
-
-    .service-card h3 {
-      font-family: var(--font-head); font-weight: 700; font-size: 1.05em;
-      margin-bottom: 10px; position: relative;
+    .video-tag {
+        position: absolute;
+        top: 12px; left: 12px;
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        background: rgba(13,15,18,0.85);
+        color: var(--amber-light);
+        border: 1px solid var(--amber-muted);
+        border-radius: 1px;
+        backdrop-filter: blur(8px);
     }
 
-    .service-card p { color: var(--muted); font-size: 0.88em; line-height: 1.6; position: relative; }
+    .video-placeholder {
+        width: 100%; height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        color: var(--text3);
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        text-align: center;
+        background: repeating-linear-gradient(
+            135deg,
+            transparent,
+            transparent 20px,
+            rgba(107,140,174,0.02) 20px,
+            rgba(107,140,174,0.02) 40px
+        );
+        padding: 40px 20px;
+    }
+    .video-placeholder i { font-size: 2.5rem; color: var(--border2); }
 
+    /* ═══════════════════════════════════════════
+       SERVICES — ASYMMETRIC GRID
+    ═══════════════════════════════════════════ */
+    #services .services-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 2px;
+    }
+
+    .service-block {
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        padding: 36px 32px;
+        position: relative;
+        overflow: hidden;
+        transition: background 0.3s, border-color 0.3s;
+    }
+    .service-block:hover {
+        background: var(--surface2);
+        border-color: var(--amber-muted);
+    }
+    .service-block.featured {
+        grid-row: 1 / 3;
+        background: var(--bg3);
+    }
+    .service-block.featured::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 2px;
+        background: linear-gradient(90deg, var(--amber), transparent);
+    }
+
+    .service-icon {
+        font-size: 1.4rem;
+        color: var(--amber-muted);
+        margin-bottom: 16px;
+    }
+
+    .service-name {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 12px;
+        line-height: 1.2;
+    }
+
+    .service-desc {
+        font-size: 0.9rem;
+        color: var(--text2);
+        line-height: 1.7;
+    }
+
+    .service-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 20px;
+    }
     .service-tag {
-      display: inline-block; margin-top: 14px;
-      background: var(--surface2); color: var(--sky);
-      font-size: 0.72em; font-weight: 600; padding: 3px 10px;
-      border-radius: 20px; border: 1px solid rgba(91,170,238,0.2);
-      position: relative;
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        padding: 3px 8px;
+        border: 1px solid var(--border2);
+        color: var(--text3);
+        border-radius: 1px;
     }
 
-    .gold-card .service-tag { color: var(--gold); border-color: rgba(245,200,66,0.2); }
-
-    /* ─── VIDEO PORTFOLIO ─── */
-    .video-section { background: var(--surface); }
-
-    .video-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-
-    .video-card {
-      border-radius: var(--radius); overflow: hidden;
-      border: 1px solid var(--border); background: var(--bg);
-      transition: all 0.3s;
+    /* ═══════════════════════════════════════════
+       EXPERIENCE — TIMELINE
+    ═══════════════════════════════════════════ */
+    #experience .timeline {
+        position: relative;
+        padding-left: 32px;
+    }
+    #experience .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 8px;
+        width: 1px;
+        height: calc(100% - 16px);
+        background: linear-gradient(to bottom, var(--amber-muted), var(--border2), transparent);
     }
 
-    .video-card:hover { border-color: rgba(245,200,66,0.3); transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
-
-    .video-thumb {
-      aspect-ratio: 16/9; position: relative; overflow: hidden;
-      background: var(--surface2); cursor: pointer;
+    .timeline-item {
+        position: relative;
+        margin-bottom: 40px;
+        padding: 28px 32px;
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        border-radius: 2px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+    .timeline-item:hover {
+        border-color: var(--amber-muted);
+        box-shadow: -4px 0 24px var(--glow-amber);
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        left: -36px; top: 32px;
+        width: 8px; height: 8px;
+        background: var(--amber);
+        border-radius: 50%;
+        border: 2px solid var(--bg);
+        box-shadow: 0 0 12px var(--amber-muted);
+    }
+    .timeline-item.icuc::before {
+        background: var(--amber-light);
+        box-shadow: 0 0 20px var(--amber);
     }
 
-    .video-thumb video {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s;
+    .tl-client {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--amber-muted);
+        margin-bottom: 8px;
+    }
+    .tl-client.elite { color: var(--amber-light); }
+
+    .tl-title {
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 6px;
     }
 
-    .video-card:hover .video-thumb video { transform: scale(1.03); }
-
-    .video-play {
-      position: absolute; inset: 0; display: flex; align-items: center;
-      justify-content: center; background: rgba(0,0,0,0.35);
-      transition: background 0.3s;
+    .tl-dates {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--text3);
+        margin-bottom: 16px;
     }
 
-    .video-card:hover .video-play { background: rgba(0,0,0,0.15); }
-
-    .play-btn {
-      width: 56px; height: 56px; background: var(--gold);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      color: #0c0f1a; font-size: 1.3em; padding-left: 4px;
-      box-shadow: 0 8px 30px rgba(245,200,66,0.4);
-      transition: transform 0.25s;
+    .tl-body {
+        font-size: 0.92rem;
+        color: var(--text2);
+        line-height: 1.75;
     }
 
-    .video-card:hover .play-btn { transform: scale(1.1); }
-
-    .video-info { padding: 18px 20px; }
-    .video-info h4 { font-family: var(--font-head); font-size: 0.95em; font-weight: 700; margin-bottom: 5px; }
-    .video-info p { color: var(--muted); font-size: 0.82em; }
-    .video-tags { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
-    .vtag { font-size: 0.7em; font-weight: 600; padding: 3px 9px;
-      background: var(--surface2); border-radius: 20px; color: var(--muted); border: 1px solid var(--border); }
-
-    /* ─── EXPERIENCE ─── */
-    .exp-grid { display: flex; flex-direction: column; gap: 16px; }
-
-    .exp-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px 28px;
-      display: grid; grid-template-columns: 1fr auto; gap: 20px;
-      align-items: start; transition: all 0.25s;
+    .tl-testimonial {
+        margin-top: 16px;
+        padding: 16px;
+        background: var(--glow-amber);
+        border-left: 2px solid var(--amber-muted);
+        font-style: italic;
+        font-size: 0.88rem;
+        color: var(--text2);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, padding 0.3s;
+        padding-top: 0; padding-bottom: 0;
+    }
+    .tl-testimonial.open {
+        max-height: 200px;
+        padding: 16px;
     }
 
-    .exp-card:hover { border-color: rgba(91,170,238,0.3);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    .tl-toggle {
+        background: none;
+        border: none;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--slate-light);
+        cursor: pointer;
+        margin-top: 10px;
+        padding: 0;
+        transition: color 0.3s;
+    }
+    .tl-toggle:hover { color: var(--amber-light); }
 
-    .exp-card.featured { border-color: rgba(245,200,66,0.25);
-      background: linear-gradient(135deg, rgba(245,200,66,0.03), var(--surface)); }
-
-    .exp-featured-badge {
-      font-size: 0.7em; font-weight: 700; color: var(--gold);
-      background: var(--gold-dim); border: 1px solid rgba(245,200,66,0.25);
-      padding: 3px 10px; border-radius: 20px; margin-bottom: 10px;
-      display: inline-block; text-transform: uppercase; letter-spacing: 0.5px;
+    /* ═══════════════════════════════════════════
+       SKILLS
+    ═══════════════════════════════════════════ */
+    #skills .skills-layout {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2px;
     }
 
-    .exp-role {
-      font-family: var(--font-head); font-size: 1.05em; font-weight: 700;
-      margin-bottom: 4px;
+    .skill-block {
+        background: var(--surface);
+        padding: 28px 24px;
+        border: 1px solid var(--border2);
+        transition: border-color 0.3s;
+    }
+    .skill-block:hover { border-color: var(--amber-muted); }
+
+    .skill-block h3 {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--amber-light);
+        margin-bottom: 14px;
     }
 
-    .exp-company { color: var(--sky); font-size: 0.85em; margin-bottom: 12px; font-weight: 500; }
-
-    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 7px; }
-
-    .exp-bullets li {
-      color: var(--muted); font-size: 0.88em; padding-left: 16px; position: relative;
+    .skill-block ul {
+        list-style: none;
+        font-size: 0.88rem;
+        color: var(--text2);
+        line-height: 2;
+    }
+    .skill-block ul li::before {
+        content: '→ ';
+        color: var(--text3);
+        font-family: var(--font-mono);
     }
 
-    .exp-bullets li::before {
-      content: '▹'; color: var(--gold); position: absolute; left: 0; top: 0;
+    /* Languages */
+    .lang-row {
+        display: flex;
+        gap: 2px;
+        margin-top: 2px;
+    }
+    .lang-block {
+        flex: 1;
+        background: var(--bg3);
+        border: 1px solid var(--border);
+        padding: 24px;
+        text-align: center;
+    }
+    .lang-flag {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+    .lang-name {
+        font-family: var(--font-display);
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 4px;
+    }
+    .lang-level {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--amber-muted);
+    }
+    .lang-desc {
+        font-size: 0.8rem;
+        color: var(--text3);
+        margin-top: 6px;
     }
 
-    .exp-bullets li strong { color: var(--text); font-weight: 500; }
-
-    .exp-date {
-      font-size: 0.78em; color: var(--muted); white-space: nowrap;
-      font-weight: 500; text-align: right;
+    /* ═══════════════════════════════════════════
+       3D BOOK + E-COMMERCE
+    ═══════════════════════════════════════════ */
+    #book .book-section-grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 60px;
+        align-items: start;
     }
 
-    .exp-status {
-      display: inline-block; font-size: 0.72em; font-weight: 700;
-      padding: 2px 8px; border-radius: 20px; margin-top: 5px;
+    /* 3D Book */
+    .book-stage {
+        perspective: 1200px;
+        width: 220px;
+        flex-shrink: 0;
     }
 
-    .status-active { background: rgba(78,203,141,0.15); color: var(--green);
-      border: 1px solid rgba(78,203,141,0.25); }
-
-    /* ─── BOOK SECTION ─── */
-    .book-section {
-      background: linear-gradient(135deg, rgba(245,200,66,0.05), var(--bg));
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    }
-
-    .book-inner {
-      display: grid; grid-template-columns: auto 1fr; gap: 70px; align-items: center;
-    }
-
-    /* 3D book CSS */
     .book-3d {
-      perspective: 1200px;
-      width: 200px; flex-shrink: 0;
+        width: 220px;
+        height: 310px;
+        position: relative;
+        transform-style: preserve-3d;
+        transform: rotateY(-25deg) rotateX(4deg);
+        transition: transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        cursor: pointer;
+    }
+    .book-stage:hover .book-3d,
+    .book-3d.spinning {
+        transform: rotateY(160deg) rotateX(0deg);
     }
 
-    .book-wrap {
-      width: 200px; height: 280px;
-      transform-style: preserve-3d;
-      transform: rotateY(-25deg) rotateX(5deg);
-      position: relative;
-      transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
-      animation: float-book 4s ease-in-out infinite;
+    .face {
+        position: absolute;
+        backface-visibility: hidden;
+        overflow: hidden;
+    }
+    .face img { width: 100%; height: 100%; object-fit: cover; }
+    .face.front, .face.back {
+        width: 220px; height: 310px;
+    }
+    .face.spine, .face.right {
+        width: 28px; height: 310px;
+    }
+    .face.top, .face.bottom {
+        width: 220px; height: 28px;
+    }
+    .face.front  { transform: translateZ(14px); }
+    .face.back   { transform: rotateY(180deg) translateZ(14px); }
+    .face.spine  {
+        transform: rotateY(-90deg) translateZ(14px);
+        background: var(--amber-muted);
+    }
+    .face.right  {
+        transform: rotateY(90deg) translateZ(206px);
+        background: #2a2010;
+    }
+    .face.top    {
+        transform: rotateX(90deg) translateZ(14px);
+        background: #2a2010;
+    }
+    .face.bottom {
+        transform: rotateX(-90deg) translateZ(296px);
+        background: #2a2010;
     }
 
-    @keyframes float-book {
-      0%, 100% { transform: rotateY(-25deg) rotateX(5deg) translateY(0); }
-      50% { transform: rotateY(-25deg) rotateX(5deg) translateY(-10px); }
+    /* Placeholder faces */
+    .face-placeholder {
+        width: 100%; height: 100%;
+        background: var(--bg3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: var(--text3);
+        text-align: center;
+        padding: 8px;
+    }
+    .face.front .face-placeholder {
+        background: linear-gradient(160deg, #1a1400 0%, #2a1e00 60%, #1a1000 100%);
+        border: 1px solid var(--amber-muted);
+        flex-direction: column; gap: 8px;
+    }
+    .face.front .face-placeholder .book-title-mini {
+        font-family: var(--font-display);
+        font-size: 0.9rem;
+        color: var(--amber-light);
+        font-weight: 700;
     }
 
-    .book-3d:hover .book-wrap {
-      transform: rotateY(-5deg) rotateX(3deg) translateY(-5px);
-      animation: none;
+    /* Book info */
+    .book-info {
+        padding-top: 8px;
     }
 
-    .book-face {
-      position: absolute;
-      border-radius: 4px 10px 10px 4px;
+    .book-title {
+        font-family: var(--font-display);
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1.1;
+        margin-bottom: 8px;
+    }
+    .book-subtitle {
+        font-family: var(--font-display);
+        font-style: italic;
+        font-size: 1rem;
+        color: var(--text2);
+        margin-bottom: 24px;
     }
 
-    .book-front {
-      width: 200px; height: 280px;
-      background: linear-gradient(135deg, #1a2040, #0c1528);
-      border: 1px solid rgba(245,200,66,0.3);
-      transform: translateZ(20px);
-      display: flex; flex-direction: column;
-      justify-content: space-between; padding: 22px 18px;
-      overflow: hidden;
+    .book-desc {
+        font-size: 0.95rem;
+        color: var(--text2);
+        line-height: 1.8;
+        margin-bottom: 28px;
+        max-width: 480px;
     }
-
-    .book-front::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(245,200,66,0.08) 0%, transparent 60%);
-    }
-
-    .book-front-top { position: relative; }
-
-    .book-imprint {
-      font-size: 0.55em; letter-spacing: 2px; text-transform: uppercase;
-      color: rgba(245,200,66,0.5); font-family: var(--font-head);
-    }
-
-    .book-title-text {
-      font-family: var(--font-head); font-weight: 800;
-      font-size: 0.95em; line-height: 1.2; color: var(--gold);
-      margin-top: 12px;
-    }
-
-    .book-subtitle-text {
-      font-size: 0.6em; color: rgba(232,234,240,0.6);
-      margin-top: 6px; line-height: 1.3;
-    }
-
-    .book-divider-line {
-      width: 40px; height: 2px; background: var(--gold);
-      margin: 10px 0;
-    }
-
-    .book-author {
-      font-size: 0.62em; color: rgba(232,234,240,0.7);
-      font-family: var(--font-head);
-    }
-
-    .book-spine {
-      width: 40px; height: 280px;
-      background: linear-gradient(180deg, #0c1528, #1a2040);
-      border-radius: 4px 0 0 4px;
-      transform: rotateY(-90deg) translateX(-20px);
-      transform-origin: left;
-      display: flex; align-items: center; justify-content: center;
-      border-right: 1px solid rgba(245,200,66,0.2);
-    }
-
-    .book-spine-text {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      font-family: var(--font-head); font-size: 0.65em; font-weight: 700;
-      color: rgba(245,200,66,0.7); letter-spacing: 1px; white-space: nowrap;
-    }
-
-    .book-back {
-      width: 200px; height: 280px;
-      background: #0c1528;
-      transform: rotateY(180deg) translateZ(20px);
-      border: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .book-pages {
-      width: 18px; height: 272px;
-      background: repeating-linear-gradient(
-        to right,
-        #e8e5dc,
-        #e8e5dc 1px,
-        #d4d0c8 1px,
-        #d4d0c8 2px
-      );
-      transform: translateX(182px) translateZ(0px);
-      position: absolute; top: 4px;
-      border-radius: 0 3px 3px 0;
-    }
-
-    .book-info h2 {
-      font-family: var(--font-head); font-size: clamp(1.7em, 3vw, 2.3em);
-      font-weight: 800; line-height: 1.15; letter-spacing: -0.5px; margin-bottom: 14px;
-    }
-
-    .book-desc { color: var(--muted); font-size: 0.95em; margin-bottom: 28px; line-height: 1.7; }
 
     .book-chapters {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 32px;
+        list-style: none;
+        margin-bottom: 32px;
+    }
+    .book-chapters li {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.06em;
+        color: var(--text2);
+        padding: 8px 0;
+        border-bottom: 1px solid var(--border2);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .book-chapters li::before {
+        content: attr(data-num);
+        color: var(--amber-muted);
+        min-width: 20px;
     }
 
-    .book-chapter-item {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 0.82em; color: var(--muted);
+    .price-block {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+    .price-now {
+        font-family: var(--font-display);
+        font-size: 2.4rem;
+        font-weight: 700;
+        color: var(--amber);
+    }
+    .price-orig {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--text3);
+        text-decoration: line-through;
+    }
+    .price-tag {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        padding: 4px 8px;
+        background: rgba(200,146,42,0.15);
+        color: var(--amber-light);
+        border: 1px solid var(--amber-muted);
+        border-radius: 1px;
     }
 
-    .book-chapter-item::before {
-      content: ''; width: 5px; height: 5px;
-      background: var(--gold); border-radius: 50%; flex-shrink: 0;
+    /* ═══════════════════════════════════════════
+       CONSULTING OFFER
+    ═══════════════════════════════════════════ */
+    #consulting {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        padding: 60px;
+        position: relative;
+        overflow: hidden;
+    }
+    #consulting::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 2px;
+        background: linear-gradient(90deg, var(--amber), var(--slate), transparent);
     }
 
-    .book-price {
-      display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px;
+    .consulting-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: start;
     }
 
-    .price-amount {
-      font-family: var(--font-head); font-size: 2.2em; font-weight: 800; color: var(--gold);
+    .consulting-modules {
+        list-style: none;
+    }
+    .consulting-modules li {
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border2);
+        font-size: 0.92rem;
+        color: var(--text2);
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+    }
+    .module-num {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--amber-muted);
+        min-width: 24px;
+        margin-top: 3px;
     }
 
-    .price-note { color: var(--muted); font-size: 0.82em; }
-
-    .book-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-
-    /* Payment modal */
-    .modal-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-      z-index: 200; align-items: center; justify-content: center;
+    .bundle-card {
+        background: var(--bg3);
+        border: 1px solid var(--amber-muted);
+        padding: 36px;
+        position: relative;
+    }
+    .bundle-card::before {
+        content: 'BUNDLE OFFER';
+        position: absolute;
+        top: -10px; left: 20px;
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.15em;
+        padding: 4px 12px;
+        background: var(--amber);
+        color: var(--bg);
     }
 
-    .modal-overlay.open { display: flex; }
-
-    .modal {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 36px; max-width: 440px; width: 90%;
-      position: relative; animation: modalIn 0.3s ease;
+    .bundle-includes {
+        list-style: none;
+        margin: 20px 0;
     }
+    .bundle-includes li {
+        font-size: 0.88rem;
+        color: var(--text2);
+        padding: 6px 0;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+    .bundle-includes li i { color: var(--amber-muted); font-size: 0.8rem; }
 
+    /* Payment sim modal */
+    .payment-modal {
+        display: none;
+        position: fixed; inset: 0;
+        background: rgba(13,15,18,0.92);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px);
+    }
+    .payment-modal.open { display: flex; }
+    .modal-box {
+        background: var(--bg2);
+        border: 1px solid var(--border);
+        padding: 48px;
+        max-width: 480px;
+        width: 90%;
+        position: relative;
+        animation: modalIn 0.4s ease;
+    }
     @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.95) translateY(10px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
     }
-
     .modal-close {
-      position: absolute; top: 16px; right: 16px; background: var(--surface2);
-      border: 1px solid var(--border); color: var(--muted);
-      width: 32px; height: 32px; border-radius: 50%; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; font-size: 1em;
-      transition: all 0.2s;
+        position: absolute;
+        top: 16px; right: 20px;
+        background: none; border: none;
+        color: var(--text3); cursor: pointer;
+        font-size: 1.2rem;
+    }
+    .modal-title {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 8px;
+    }
+    .modal-subtitle {
+        font-size: 0.85rem;
+        color: var(--text2);
+        margin-bottom: 24px;
+    }
+    .pay-options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+    .pay-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px;
+        border: 1px solid var(--border);
+        background: transparent;
+        cursor: pointer;
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        color: var(--text);
+        text-transform: uppercase;
+        transition: all 0.3s;
+        border-radius: 2px;
+        text-decoration: none;
+    }
+    .pay-btn:hover {
+        border-color: var(--amber-muted);
+        background: var(--glow-amber);
+        color: var(--amber-light);
+    }
+    .pay-btn i { font-size: 1.2rem; }
+    .modal-note {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+        color: var(--text3);
+        text-align: center;
+        line-height: 1.6;
     }
 
-    .modal-close:hover { color: var(--text); background: var(--bg); }
-
-    .modal h3 { font-family: var(--font-head); font-size: 1.3em; font-weight: 800; margin-bottom: 8px; }
-    .modal p { color: var(--muted); font-size: 0.88em; margin-bottom: 24px; }
-
-    .modal-price {
-      font-family: var(--font-head); font-size: 1.8em; font-weight: 800;
-      color: var(--gold); margin-bottom: 20px;
+    /* ═══════════════════════════════════════════
+       CALCULATOR — EMBEDDED
+    ═══════════════════════════════════════════ */
+    #calculator {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 48px;
+        align-items: start;
     }
 
-    .modal-input {
-      width: 100%; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px 16px; color: var(--text);
-      font-family: var(--font-body); font-size: 0.9em; margin-bottom: 12px;
-      transition: border-color 0.2s; outline: none;
+    .calc-card {
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        padding: 36px;
+    }
+    .calc-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 24px;
     }
 
-    .modal-input:focus { border-color: var(--gold); }
-
-    .modal-pay-btn {
-      width: 100%; padding: 14px; background: var(--gold); color: #0c0f1a;
-      border: none; border-radius: 10px; font-weight: 700; font-size: 0.95em;
-      cursor: pointer; transition: all 0.25s; font-family: var(--font-body);
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+    .calc-group {
+        margin-bottom: 16px;
     }
-
-    .modal-pay-btn:hover { background: #ffd84a; transform: translateY(-1px);
-      box-shadow: 0 8px 25px var(--gold-glow); }
-
-    .modal-secure { text-align: center; font-size: 0.75em; color: var(--muted);
-      margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 5px; }
-
-    .modal-success { text-align: center; padding: 20px 0; }
-    .modal-success .check { font-size: 3em; margin-bottom: 16px; display: block; }
-    .modal-success h4 { font-family: var(--font-head); font-size: 1.2em; margin-bottom: 8px; }
-    .modal-success p { color: var(--muted); font-size: 0.88em; }
-
-    /* ─── BLOG SECTION ─── */
-    .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-
-    .blog-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px; transition: all 0.3s;
-      text-decoration: none; color: inherit; display: flex; flex-direction: column;
+    .calc-group label {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 6px;
     }
-
-    .blog-card:hover { border-color: rgba(91,170,238,0.3); transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
-
-    .blog-tag {
-      font-size: 0.72em; font-weight: 700; color: var(--sky);
-      text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px;
+    .calc-input, .calc-select {
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--bg3);
+        border: 1px solid var(--border2);
+        border-radius: 2px;
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        transition: border-color 0.3s;
+        appearance: none;
     }
-
-    .blog-card h3 { font-family: var(--font-head); font-size: 0.97em; font-weight: 700;
-      line-height: 1.35; margin-bottom: 10px; }
-
-    .blog-card p { color: var(--muted); font-size: 0.83em; line-height: 1.6; flex-grow: 1; }
-
-    .blog-read-more {
-      margin-top: 16px; color: var(--gold); font-size: 0.82em; font-weight: 600;
-      display: flex; align-items: center; gap: 6px; transition: gap 0.2s;
+    .calc-input:focus, .calc-select:focus {
+        outline: none;
+        border-color: var(--amber-muted);
     }
+    .calc-select option { background: var(--bg2); }
 
-    .blog-card:hover .blog-read-more { gap: 10px; }
-
-    /* ─── CONTACT ─── */
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
-
-    .contact-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 28px; transition: all 0.25s;
-      display: flex; align-items: center; gap: 16px; text-decoration: none; color: inherit;
+    .calc-result {
+        margin-top: 20px;
+        padding: 20px;
+        background: var(--glow-amber);
+        border: 1px solid var(--amber-muted);
+        border-radius: 2px;
+        text-align: center;
+        min-height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    .contact-card:hover { border-color: rgba(245,200,66,0.3); transform: translateY(-2px); }
-
-    .contact-icon {
-      width: 44px; height: 44px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center; font-size: 1.2em;
-      flex-shrink: 0;
+    .result-amount {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--amber);
     }
-
-    .ci-upwork { background: rgba(20,168,0,0.15); color: #4ecb8d; }
-    .ci-email { background: var(--sky-dim); color: var(--sky); }
-    .ci-linkedin { background: rgba(10,102,194,0.15); color: #5baaee; }
-
-    .contact-links { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-
-    .contact-info-text {
-      font-family: var(--font-head); font-size: 0.9em; font-weight: 700;
+    .result-note {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: var(--text3);
+        letter-spacing: 0.08em;
+        display: block;
+        margin-top: 4px;
     }
-
-    .contact-info-sub { color: var(--muted); font-size: 0.78em; margin-top: 2px; }
 
     /* Contact form */
-    .contact-form { display: flex; flex-direction: column; gap: 14px; }
-
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-label { font-size: 0.8em; font-weight: 600; color: var(--muted); }
-
+    .contact-card {
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        padding: 36px;
+    }
+    .contact-card h3 {
+        font-family: var(--font-display);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 24px;
+    }
+    .form-group {
+        margin-bottom: 16px;
+    }
+    .form-group label {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text3);
+        margin-bottom: 6px;
+    }
     .form-input, .form-textarea {
-      background: var(--surface2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px 16px; color: var(--text);
-      font-family: var(--font-body); font-size: 0.9em; outline: none;
-      transition: border-color 0.2s; width: 100%;
+        width: 100%;
+        padding: 12px 14px;
+        background: var(--bg3);
+        border: 1px solid var(--border2);
+        border-radius: 2px;
+        color: var(--text);
+        font-family: var(--font-body);
+        font-size: 0.95rem;
+        transition: border-color 0.3s;
+    }
+    .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: var(--amber-muted);
+    }
+    .form-textarea { resize: vertical; min-height: 100px; }
+
+    /* ═══════════════════════════════════════════
+       BLOG INSIGHTS
+    ═══════════════════════════════════════════ */
+    #insights .blog-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
     }
 
-    .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
-    .form-textarea { resize: vertical; min-height: 110px; }
+    .blog-card {
+        background: var(--surface);
+        border: 1px solid var(--border2);
+        padding: 32px;
+        transition: border-color 0.3s;
+        position: relative;
+    }
+    .blog-card:hover { border-color: var(--amber-muted); }
+    .blog-card.featured {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+        background: var(--bg3);
+    }
 
-    /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--border); padding: 36px 5%;
-      display: flex; justify-content: space-between; align-items: center;
-      flex-wrap: wrap; gap: 20px; position: relative; z-index: 1;
+    .blog-cat {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--amber-muted);
+        margin-bottom: 10px;
+    }
+
+    .blog-title {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.25;
+        margin-bottom: 10px;
+    }
+    .blog-card.featured .blog-title {
+        font-size: 1.8rem;
+    }
+
+    .blog-excerpt {
+        font-size: 0.88rem;
+        color: var(--text2);
+        line-height: 1.7;
+    }
+
+    .blog-read-more {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--slate-light);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 16px;
+        transition: color 0.3s;
+    }
+    .blog-read-more:hover { color: var(--amber-light); }
+    .blog-read-more::after {
+        content: '→';
+        font-family: var(--font-mono);
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    .site-footer {
+        margin-top: 120px;
+        border-top: 1px solid var(--border);
+        padding: 48px 0 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 32px;
     }
 
     .footer-brand {
-      font-family: var(--font-head); font-size: 1em; font-weight: 800; color: var(--gold);
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--amber);
+    }
+    .footer-tagline {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.12em;
+        color: var(--text3);
+        margin-top: 6px;
     }
 
-    .footer-brand span { color: var(--muted); font-size: 0.8em; font-weight: 400;
-      font-family: var(--font-body); display: block; margin-top: 3px; }
+    .footer-links {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+    .footer-links a {
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text3);
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--amber-light); }
 
-    .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer-copy {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+        color: var(--text3);
+        width: 100%;
+        text-align: center;
+        margin-top: 24px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border2);
+    }
 
-    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85em;
-      transition: color 0.2s; }
+    /* ═══════════════════════════════════════════
+       SCROLL REVEAL
+    ═══════════════════════════════════════════ */
+    .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-    .footer-links a:hover { color: var(--text); }
-
-    .footer-copy { color: var(--muted); font-size: 0.78em; }
-
-    /* ─── RESPONSIVE ─── */
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
     @media (max-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 50px; }
-      .hero-card { max-width: 400px; }
-      .services-grid { grid-template-columns: repeat(2, 1fr); }
-      .video-grid { grid-template-columns: 1fr; }
-      .book-inner { grid-template-columns: 1fr; gap: 40px; }
-      .book-3d { margin: 0 auto; }
-      .blog-grid { grid-template-columns: 1fr; }
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-      .exp-card { grid-template-columns: 1fr; }
-      .exp-date { text-align: left; }
+        .hero { grid-template-columns: 1fr; }
+        .hero::after { display: none; }
+        .hero-text { padding-right: 0; }
+        .hero-visual { grid-column: 1; flex-direction: row; flex-wrap: wrap; padding-left: 0; }
+        .video-layout { grid-template-columns: 1fr; }
+        .video-vertical { max-width: 320px; margin: 0 auto; }
+        #services .services-grid { grid-template-columns: 1fr 1fr; }
+        .service-block.featured { grid-row: auto; }
+        #book .book-section-grid { grid-template-columns: 1fr; }
+        .book-stage { margin: 0 auto; }
+        .consulting-grid { grid-template-columns: 1fr; }
+        #calculator { grid-template-columns: 1fr; }
+        #insights .blog-grid { grid-template-columns: 1fr; }
+        .blog-card.featured { grid-template-columns: 1fr; }
+        #skills .skills-layout { grid-template-columns: 1fr 1fr; }
     }
 
     @media (max-width: 600px) {
-      .nav-links { display: none; }
-      .nav-toggle { display: block; }
-      .nav-links.mobile-open {
-        display: flex; flex-direction: column; position: fixed;
-        top: 60px; left: 0; right: 0; background: var(--surface);
-        border-bottom: 1px solid var(--border); padding: 20px;
-        gap: 6px;
-      }
-      .services-grid { grid-template-columns: 1fr; }
-      h1 { font-size: 2.2em; }
-      .book-chapters { grid-template-columns: 1fr; }
-      .hero-stats { gap: 20px; }
+        .wrapper { padding: 80px 16px 40px; }
+        #services .services-grid { grid-template-columns: 1fr; }
+        #skills .skills-layout { grid-template-columns: 1fr; }
+        .lang-row { flex-direction: column; }
+        .top-controls { padding: 10px 16px; }
+        .logo-small { font-size: 0.9rem; }
+        #consulting { padding: 32px 20px; }
+        .modal-box { padding: 28px 20px; }
     }
-
-    /* Animations */
-    .fade-in {
-      opacity: 0; transform: translateY(24px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-  </style>
+    </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <a href="#" class="nav-logo">DH.</a>
-  <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('mobile-open')">
-    <i class="fas fa-bars"></i>
-  </button>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#work">Portfolio</a>
-    <a href="#experience">Experience</a>
-    <a href="#book">Book</a>
-    <a href="blog.html">Blog</a>
-    <a href="#contact" class="cta">Hire Me</a>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-badge">
-        <span></span> Available for new projects
-      </div>
-      <h1>Trilingual <span class="accent">Content</span><br>Specialist</h1>
-      <p class="hero-sub">
-        Hebrew · English · Spanish — <strong>medical-grade precision</strong>, real cultural fluency.
-        MD candidate, Top Rated on Upwork, 100% Job Success Score.
-        Based in Mar del Plata, Argentina.
-      </p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn btn-gold"><i class="fas fa-paper-plane"></i> Start a Project</a>
-        <a href="#work" class="btn btn-ghost"><i class="fas fa-play"></i> See My Work</a>
-        <a href="Curriculum_Vitae_-_Danilo_Hurwitz.pdf" download class="btn btn-ghost"><i class="fas fa-download"></i> Download CV</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num">100%</div>
-          <div class="stat-label">Job Success Score</div>
+<!-- TOP CONTROLS -->
+<div class="top-controls">
+    <div class="logo-small">DH</div>
+    <div class="controls-right">
+        <div class="toggle-wrap">
+            <span class="toggle-label" data-i18n="dark-mode">Dark</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="toggle-knob"></span>
+            </label>
         </div>
-        <div class="stat">
-          <div class="stat-num">14+</div>
-          <div class="stat-label">Jobs Completed</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">$5K+</div>
-          <div class="stat-label">Total Earned</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num">3</div>
-          <div class="stat-label">Languages</div>
-        </div>
-      </div>
+        <select id="langSelect" class="lang-select">
+            <option value="en">EN</option>
+            <option value="es">ES</option>
+            <option value="he">HE</option>
+        </select>
     </div>
-
-    <div class="hero-card">
-      <div class="hero-card-header">
-        <div class="dots">
-          <div class="dot dot-r"></div>
-          <div class="dot dot-y"></div>
-          <div class="dot dot-g"></div>
-        </div>
-        <div class="hero-card-title">danilohurwitz.github.io</div>
-      </div>
-
-      <div class="upwork-badge">
-        <div class="upwork-logo">U</div>
-        <div class="upwork-info">
-          <strong>Danilo Hurwitz</strong>
-          <small>Content Specialist · Translator · Editor</small>
-        </div>
-        <div class="top-rated-pill">⭐ Top Rated</div>
-      </div>
-
-      <div class="services-list">
-        <div class="service-row">
-          <div class="service-row-left">
-            <span class="service-icon">📝</span>
-            <span class="service-name">Content Moderation & QA</span>
-          </div>
-          <span class="service-price">$20/hr</span>
-        </div>
-        <div class="service-row">
-          <div class="service-row-left">
-            <span class="service-icon">🌐</span>
-            <span class="service-name">HE / EN / ES Translation</span>
-          </div>
-          <span class="service-price">$20/hr</span>
-        </div>
-        <div class="service-row">
-          <div class="service-row-left">
-            <span class="service-icon">🎬</span>
-            <span class="service-name">Video Editing & Reels</span>
-          </div>
-          <span class="service-price">$20/hr</span>
-        </div>
-        <div class="service-row">
-          <div class="service-row-left">
-            <span class="service-icon">🩺</span>
-            <span class="service-name">Medical Translation</span>
-          </div>
-          <span class="service-price">$20/hr</span>
-        </div>
-      </div>
-
-      <div class="languages-row">
-        <div class="lang-tag"><span class="lang-flag">🇦🇷</span> Spanish · C2</div>
-        <div class="lang-tag"><span class="lang-flag">🇮🇱</span> Hebrew · C1</div>
-        <div class="lang-tag"><span class="lang-flag">🇺🇸</span> English · C1</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SERVICES -->
-<section class="section" id="services">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="section-label">What I Do</span>
-      <h2 class="section-title">Content that connects.<br>Across languages. Across cultures.</h2>
-      <p class="section-desc">From multilingual content moderation at global scale to frame-perfect video edits — I deliver precision work across the full content spectrum.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card gold-card fade-in">
-        <div class="service-card-icon">📋</div>
-        <h3>Content Moderation & QA</h3>
-        <p>Real-time Hebrew content review and quality assurance for global platforms. Cultural context, sentiment analysis, and zero-error flagging for high-stakes pipelines.</p>
-        <span class="service-tag">★ Currently @ ICUC Social</span>
-      </div>
-      <div class="service-card fade-in">
-        <div class="service-card-icon">🩺</div>
-        <h3>Medical Translation</h3>
-        <p>Clinical trials, informed consents, patient reports, device manuals. As an MD candidate, I apply live medical knowledge — not decade-old terminology.</p>
-        <span class="service-tag">HE → EN → ES</span>
-      </div>
-      <div class="service-card fade-in">
-        <div class="service-card-icon">🎬</div>
-        <h3>Video Editing & Reels</h3>
-        <p>High-impact social media ads, tutorial edits, and multilingual subtitling. From chill brand storytelling to fast-paced Hormozi-style content — I handle both.</p>
-        <span class="service-tag">Premiere · CapCut · SRT</span>
-      </div>
-      <div class="service-card fade-in">
-        <div class="service-card-icon">✍️</div>
-        <h3>Copywriting & SEO</h3>
-        <p>Website copy, blog posts, and marketing content in English and Spanish. Built for the reader and optimized for search engines.</p>
-        <span class="service-tag">EN · ES</span>
-      </div>
-      <div class="service-card fade-in">
-        <div class="service-card-icon">🔤</div>
-        <h3>Subtitling & MTPE</h3>
-        <p>SRT file creation and review, machine translation post-editing, and audio-visual sync for e-learning, corporate, and educational content.</p>
-        <span class="service-tag">Subtitle Edit · .SRT</span>
-      </div>
-      <div class="service-card fade-in">
-        <div class="service-card-icon">🌍</div>
-        <h3>Cultural Adaptation</h3>
-        <p>Not just translation — full localization. Born in Spain, lived in Israel and Argentina. I adapt tone, idioms, and nuance for each market and audience.</p>
-        <span class="service-tag">Castilian · LATAM · IL</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- VIDEO PORTFOLIO -->
-<section class="section video-section" id="work">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="section-label">Video Portfolio</span>
-      <h2 class="section-title">Real work. Real results.</h2>
-      <p class="section-desc">Two distinct styles — proof that I adapt to your brand's voice, not the other way around.</p>
-    </div>
-    <div class="video-grid">
-      <div class="video-card fade-in">
-        <div class="video-thumb" onclick="toggleVideo(this)">
-          <video id="v1" src="Ad.mp4" preload="metadata" loop muted playsinline></video>
-          <div class="video-play">
-            <div class="play-btn"><i class="fas fa-play"></i></div>
-          </div>
-        </div>
-        <div class="video-info">
-          <h4>Brand Story Ad — Chill & Authentic</h4>
-          <p>Relaxed, warm storytelling for a Spanish-speaking SME audience. Clean cuts, calm pacing, subtitles synced to the second.</p>
-          <div class="video-tags">
-            <span class="vtag">Spanish</span>
-            <span class="vtag">SME / Pymes</span>
-            <span class="vtag">Brand Awareness</span>
-            <span class="vtag">30s Ad</span>
-          </div>
-        </div>
-      </div>
-      <div class="video-card fade-in">
-        <div class="video-thumb" onclick="toggleVideo(this)">
-          <video id="v2" src="Ad2.mp4" preload="metadata" loop muted playsinline></video>
-          <div class="video-play">
-            <div class="play-btn"><i class="fas fa-play"></i></div>
-          </div>
-        </div>
-        <div class="video-info">
-          <h4>High-Energy Social Ad — Conversion-First</h4>
-          <p>Fast cuts, bold hooks, kinetic energy. Inspired by direct-response style for social media. Built to stop the scroll and drive action.</p>
-          <div class="video-tags">
-            <span class="vtag">Social Media</span>
-            <span class="vtag">Hormozi Style</span>
-            <span class="vtag">Reels / TikTok</span>
-            <span class="vtag">Conversion</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="text-align:center; margin-top: 30px;" class="fade-in">
-      <a href="https://upwork.com/freelancers/danilohurwitz" target="_blank" class="btn btn-ghost">
-        <i class="fab fa-upwork"></i> See Full Portfolio on Upwork
-      </a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- EXPERIENCE -->
-<section class="section" id="experience">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="section-label">Experience</span>
-      <h2 class="section-title">Where I've delivered.</h2>
-    </div>
-    <div class="exp-grid">
-      <div class="exp-card featured fade-in">
-        <div>
-          <div class="exp-featured-badge">★ Active Contract</div>
-          <div class="exp-role">Content Specialist · Hebrew/English</div>
-          <div class="exp-company">ICUC Social (Remote)</div>
-          <ul class="exp-bullets">
-            <li><strong>Real-time content moderation</strong> for a global social media management agency.</li>
-            <li>Diagnosing cultural context errors and <strong>sentiment misalignments</strong> in Hebrew content.</li>
-            <li>Delivered <strong>115+ hours</strong> of quality-checked output, zero errors reported.</li>
-            <li>Operating inside global rapid-response teams via MS Teams infrastructure.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="exp-date">Nov 2025 – Present</div>
-          <div class="exp-status status-active">● Active</div>
-        </div>
-      </div>
-
-      <div class="exp-card featured fade-in">
-        <div>
-          <div class="exp-featured-badge">★ Active Contract</div>
-          <div class="exp-role">Creative Video Editor — Reels & Ads</div>
-          <div class="exp-company">Ander Gavina (Remote)</div>
-          <ul class="exp-bullets">
-            <li>Creating <strong>high-impact short-form ads</strong> for social platforms (Reels, TikTok).</li>
-            <li>Fast-paced, conversion-optimized edits with hooks, captions, and motion.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="exp-date">Jan 2026 – Present</div>
-          <div class="exp-status status-active">● Active</div>
-        </div>
-      </div>
-
-      <div class="exp-card fade-in">
-        <div>
-          <div class="exp-role">Freelance Medical Translator & Proofreader</div>
-          <div class="exp-company">Upwork · Global Clients</div>
-          <ul class="exp-bullets">
-            <li>Translated <strong>clinical trials, informed consents, device manuals</strong> (HE/EN/ES).</li>
-            <li>MTPE workflows — human-verified machine translation post-editing.</li>
-            <li><strong>100% Job Success Score</strong>. Zero errors reported across all medical projects.</li>
-            <li>"Working with Danilo was exceptional. Five stars!" — verified client review.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="exp-date">May 2023 – Present</div>
-        </div>
-      </div>
-
-      <div class="exp-card fade-in">
-        <div>
-          <div class="exp-role">Video Editor & Subtitle Specialist</div>
-          <div class="exp-company">Upwork · Global Clients</div>
-          <ul class="exp-bullets">
-            <li>Multilingual subtitling (HE/EN/ES) for educational, corporate, and family content.</li>
-            <li>Highlight videos, tutorial adaptations, and SRT file review.</li>
-            <li>Consistent <strong>5-star reviews</strong> for technical quality and attention to detail.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="exp-date">May 2023 – Present</div>
-        </div>
-      </div>
-
-      <div class="exp-card fade-in">
-        <div>
-          <div class="exp-role">MD Candidate</div>
-          <div class="exp-company">Universidad Nacional de Mar del Plata</div>
-          <ul class="exp-bullets">
-            <li>Deep knowledge of Anatomy, Physiology, Pathology — <strong>directly applied to translation accuracy</strong>.</li>
-            <li>Current immersion in live medical terminology and practice.</li>
-          </ul>
-        </div>
-        <div>
-          <div class="exp-date">2023 – 2029 (exp.)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Upwork Reviews -->
-    <div style="margin-top:40px;" class="fade-in">
-      <h3 style="font-family:var(--font-head);font-size:1.1em;font-weight:700;margin-bottom:20px;color:var(--muted);">What clients say</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-          <div style="display:flex;gap:4px;margin-bottom:10px;">⭐⭐⭐⭐⭐</div>
-          <p style="font-size:0.87em;color:var(--muted);font-style:italic;margin-bottom:12px;">"It was a real pleasure working with Danilo. Great communication, quick understanding of requirements, and high-quality results. Totally recommended."</p>
-          <div style="font-size:0.75em;color:var(--sky);">Hebrew Tutorial Video Adaptation</div>
-        </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-          <div style="display:flex;gap:4px;margin-bottom:10px;">⭐⭐⭐⭐⭐</div>
-          <p style="font-size:0.87em;color:var(--muted);font-style:italic;margin-bottom:12px;">"Another great experience working with Danilo. Very professional, communicative, and delivers great results. Highly recommended!"</p>
-          <div style="font-size:0.75em;color:var(--sky);">Hebrew Tutorial Video Adaptation</div>
-        </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;">
-          <div style="display:flex;gap:4px;margin-bottom:10px;">⭐⭐⭐⭐⭐</div>
-          <p style="font-size:0.87em;color:var(--muted);font-style:italic;margin-bottom:12px;">"Danilo's proficiency was exceptional. Working with him on a Hebrew-English MTPE project was an outstanding experience. Five stars!"</p>
-          <div style="font-size:0.75em;color:var(--sky);">Hebrew to English Translation</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- BOOK SECTION -->
-<section class="section book-section" id="book">
-  <div class="section-inner">
-    <div class="book-inner">
-      <!-- 3D Book -->
-      <div class="book-3d">
-        <div class="book-wrap">
-          <div class="book-pages"></div>
-          <div class="book-face book-back"></div>
-          <div class="book-face book-spine">
-            <div class="book-spine-text">MY FIRST STEPS · DANILO HURWITZ</div>
-          </div>
-          <div class="book-face book-front">
-            <div class="book-front-top">
-              <div class="book-imprint">Freelance Field Guide</div>
-              <div class="book-title-text">My First Steps into the Freelance World</div>
-              <div class="book-divider-line"></div>
-              <div class="book-subtitle-text">16 chapters of real, hard-won lessons — from zero to Top Rated</div>
-            </div>
-            <div>
-              <div class="book-author">— Danilo Hurwitz —</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Book Info -->
-      <div class="book-info">
-        <span class="section-label">My Book</span>
-        <h2>The guide I wish I had when I started.</h2>
-        <p class="book-desc">
-          16 chapters of honest, practical lessons from building a Top-Rated Upwork career
-          while studying medicine full-time. No fluff. No "work from the beach" fantasies.
-          Real strategies, real mistakes, real results.
-        </p>
-
-        <div class="book-chapters">
-          <div class="book-chapter-item">The Freelance Mindset</div>
-          <div class="book-chapter-item">Your First 24 Hours</div>
-          <div class="book-chapter-item">Building a Client-Magnet Profile</div>
-          <div class="book-chapter-item">The Sniper Proposal System</div>
-          <div class="book-chapter-item">Pricing & Getting Paid</div>
-          <div class="book-chapter-item">Beating Imposter Syndrome</div>
-          <div class="book-chapter-item">Client Communication Mastery</div>
-          <div class="book-chapter-item">Scaling from $25 to $100/hr</div>
-          <div class="book-chapter-item">Personal Branding on LinkedIn</div>
-          <div class="book-chapter-item">+ 7 more chapters</div>
-        </div>
-
-        <div class="book-price">
-          <div class="price-amount">$9.99</div>
-          <div class="price-note">Instant PDF download · One-time payment</div>
-        </div>
-
-        <div class="book-ctas">
-          <button class="btn btn-gold" onclick="document.getElementById('bookModal').classList.add('open')">
-            <i class="fas fa-bolt"></i> Get the Book — $9.99
-          </button>
-          <a href="blog.html" class="btn btn-ghost">
-            <i class="fas fa-book-open"></i> Free Blog Posts First
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Book Payment Modal -->
-<div class="modal-overlay" id="bookModal">
-  <div class="modal">
-    <button class="modal-close" onclick="document.getElementById('bookModal').classList.remove('open')">
-      <i class="fas fa-times"></i>
-    </button>
-    <div id="modalContent">
-      <h3>Get the Book</h3>
-      <p>Enter your email and you'll receive the PDF download link immediately after payment.</p>
-      <div class="modal-price">$9.99</div>
-      <input type="text" class="modal-input" id="buyerName" placeholder="Your Name">
-      <input type="email" class="modal-input" id="buyerEmail" placeholder="Your Email (for delivery)">
-      <button class="modal-pay-btn" onclick="handleBookPurchase()">
-        <i class="fas fa-lock"></i> Pay with PayPal / Card
-      </button>
-      <div class="modal-secure"><i class="fas fa-shield-alt"></i> Secure payment · Instant delivery</div>
-    </div>
-  </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- BLOG PREVIEW -->
-<section class="section" id="blog">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="section-label">From the Blog</span>
-      <h2 class="section-title">The Freelancer's Compass</h2>
-      <p class="section-desc">Real lessons, no filler. Written from experience, not theory.</p>
-    </div>
-    <div class="blog-grid">
-      <a href="blog/001.html" class="blog-card fade-in">
-        <div class="blog-tag">Journey</div>
-        <h3>From Zero to $1,000/Month While Studying Medicine</h3>
-        <p>How I started freelancing with no clients, no portfolio, and full-time medical school on my plate.</p>
-        <div class="blog-read-more">Read more <i class="fas fa-arrow-right"></i></div>
-      </a>
-      <a href="blog/003.html" class="blog-card fade-in">
-        <div class="blog-tag">Mistakes</div>
-        <h3>Top 5 Mistakes New Freelancers Make (and How to Avoid Them)</h3>
-        <p>Low prices don't attract better clients. Learn the traps before you fall into them.</p>
-        <div class="blog-read-more">Read more <i class="fas fa-arrow-right"></i></div>
-      </a>
-      <a href="blog/004.html" class="blog-card fade-in">
-        <div class="blog-tag">Portfolio</div>
-        <h3>How to Build a Freelance Portfolio With No Clients (Yet)</h3>
-        <p>Every professional started from zero. Here's the smart, fast way to look like you haven't.</p>
-        <div class="blog-read-more">Read more <i class="fas fa-arrow-right"></i></div>
-      </a>
-    </div>
-    <div style="text-align:center;margin-top:30px;" class="fade-in">
-      <a href="blog.html" class="btn btn-ghost"><i class="fas fa-newspaper"></i> View All Posts</a>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="section-inner">
-    <div class="section-header fade-in">
-      <span class="section-label">Let's Work Together</span>
-      <h2 class="section-title">Ready to start?<br>Let's talk.</h2>
-    </div>
-    <div class="contact-grid">
-      <div class="fade-in">
-        <div class="contact-links">
-          <a href="https://upwork.com/freelancers/danilohurwitz" target="_blank" class="contact-card">
-            <div class="contact-icon ci-upwork">U</div>
-            <div>
-              <div class="contact-info-text">Hire on Upwork</div>
-              <div class="contact-info-sub">Top Rated · 100% JSS · Fast response</div>
-            </div>
-          </a>
-          <a href="mailto:dhurwitzbecerra@mdp.edu.ar" class="contact-card">
-            <div class="contact-icon ci-email"><i class="fas fa-envelope"></i></div>
-            <div>
-              <div class="contact-info-text">Send an Email</div>
-              <div class="contact-info-sub">dhurwitzbecerra@mdp.edu.ar</div>
-            </div>
-          </a>
-          <a href="https://linkedin.com/in/danilo-hurwitz" target="_blank" class="contact-card">
-            <div class="contact-icon ci-linkedin"><i class="fab fa-linkedin"></i></div>
-            <div>
-              <div class="contact-info-text">Connect on LinkedIn</div>
-              <div class="contact-info-sub">linkedin.com/in/danilo-hurwitz</div>
-            </div>
-          </a>
+<!-- PAYMENT MODAL -->
+<div class="payment-modal" id="paymentModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+        <div id="modalContent">
+            <!-- populated by JS -->
         </div>
-      </div>
-      <div class="fade-in">
-        <form class="contact-form" onsubmit="sendEmail(event)">
-          <div class="form-group">
-            <label class="form-label">Your Name</label>
-            <input type="text" id="contactName" class="form-input" placeholder="e.g. Maria García" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Your Email</label>
-            <input type="email" id="contactEmail" class="form-input" placeholder="you@example.com" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Tell me about your project</label>
-            <textarea id="contactMessage" class="form-textarea" placeholder="What do you need? Word count, languages, deadline..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center;">
-            <i class="fas fa-paper-plane"></i> Send Message
-          </button>
-        </form>
-      </div>
     </div>
-  </div>
-</section>
+</div>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">
-    DH.
-    <span>© 2026 Danilo Hurwitz. All rights reserved.</span>
-  </div>
-  <div class="footer-links">
-    <a href="#services">Services</a>
-    <a href="#work">Portfolio</a>
-    <a href="blog.html">Blog</a>
-    <a href="#book">Book</a>
-    <a href="tools.html">Tools</a>
-    <a href="Curriculum_Vitae_-_Danilo_Hurwitz.pdf" download>CV</a>
-  </div>
-  <div class="footer-copy">Mar del Plata, Argentina 🇦🇷</div>
-</footer>
+<div class="wrapper">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+        <div class="hero-text">
+            <div class="hero-meta" data-i18n="hero-meta">Content Specialist · Mar del Plata, Argentina</div>
+            <h1 class="hero-name">
+                <em data-i18n="hero-name-em">Danilo</em><br>
+                <span data-i18n="hero-name-last">Hurwitz</span>
+            </h1>
+            <p class="hero-role" data-i18n="hero-role">Trilingual Content Specialist &amp; Medical Student<br>Video Editing · Translation · Storytelling</p>
+            <p class="hero-manifesto" data-i18n="hero-manifesto">
+                I don't just translate words — I adapt culture. I don't just edit video — I craft narratives. From ICUC Social to Upwork's Top Rated, every project gets the same obsessive attention to precision, tone, and impact across Hebrew, English, and Spanish.
+            </p>
+            <div class="hero-badges">
+                <span class="badge amber">⭑ Top Rated · Upwork</span>
+                <span class="badge amber">100% Job Success</span>
+                <span class="badge slate">MD Candidate · UNMdP</span>
+                <span class="badge slate">HE / EN / ES</span>
+                <span class="badge">14+ Projects</span>
+                <span class="badge">ICUC Social Client</span>
+            </div>
+            <div class="hero-cta">
+                <a href="#calculator" class="btn-primary" data-i18n="cta-quote">Get a Quote</a>
+                <a href="blog.html" class="btn-secondary" data-i18n="cta-blog">Read Insights</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="profile-frame">
+                <!-- Replace src with your actual photo path e.g. src="profile.jpg" -->
+                <div class="profile-placeholder">
+                    <i class="fas fa-user"></i>
+                    <span style="padding:0 12px; line-height:1.8">Add your photo here<br><span style="color:var(--amber-muted)">profile.jpg</span></span>
+                </div>
+            </div>
+            <div class="upwork-card">
+                <div class="uw-header">
+                    <span>Upwork · Verified</span>
+                    <span style="color:var(--amber-muted)">Top Rated</span>
+                </div>
+                <div class="upwork-stat">
+                    <span class="label">Job Success</span>
+                    <span class="value">95%</span>
+                </div>
+                <div class="upwork-stat">
+                    <span class="label">Response Time</span>
+                    <span class="value">&lt; 4 hrs</span>
+                </div>
+                <div class="upwork-stat">
+                    <span class="label">Completed Jobs</span>
+                    <span class="value">14</span>
+                </div>
+                <div class="upwork-stat">
+                    <span class="label">Languages</span>
+                    <span class="value">ES / EN / HE</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="tagline-ticker">
+            <div class="ticker-inner" id="tickerInner">
+                <span class="ticker-item">Content Specialist <span>✦</span></span>
+                <span class="ticker-item">Video Editor <span>✦</span></span>
+                <span class="ticker-item">Medical Translation HE · EN · ES <span>✦</span></span>
+                <span class="ticker-item">ICUC Social <span>✦</span></span>
+                <span class="ticker-item">Top Rated Upwork <span>✦</span></span>
+                <span class="ticker-item">MD Candidate <span>✦</span></span>
+                <span class="ticker-item">Storytelling for Social Media <span>✦</span></span>
+                <span class="ticker-item">Short-Form Ad Editing <span>✦</span></span>
+                <span class="ticker-item">Content Specialist <span>✦</span></span>
+                <span class="ticker-item">Video Editor <span>✦</span></span>
+                <span class="ticker-item">Medical Translation HE · EN · ES <span>✦</span></span>
+                <span class="ticker-item">ICUC Social <span>✦</span></span>
+                <span class="ticker-item">Top Rated Upwork <span>✦</span></span>
+                <span class="ticker-item">MD Candidate <span>✦</span></span>
+                <span class="ticker-item">Storytelling for Social Media <span>✦</span></span>
+                <span class="ticker-item">Short-Form Ad Editing <span>✦</span></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ VIDEO WORK ═══ -->
+    <section id="videos" class="reveal">
+        <div class="section-label">Work Samples</div>
+        <h2 class="section-title" data-i18n="videos-title">Two Styles.<br><em>One Standard.</em></h2>
+        <div class="video-layout">
+            <!-- HORIZONTAL — Pymes Ad 16:9 -->
+            <div class="video-cell video-horizontal">
+                <div class="video-tag">Corporate / Pymes Ad</div>
+                <!-- Replace with: <video src="Ad.mp4" controls playsinline></video> -->
+                <div class="video-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <span>Horizontal Ad · 16:9<br><span style="color:var(--amber-muted)">Ad.mp4</span><br>Chill · Brand Awareness · Pymes</span>
+                </div>
+            </div>
+            <!-- VERTICAL — Hormozi Ad 9:16 -->
+            <div class="video-cell video-vertical">
+                <div class="video-tag">Social · Hormozi Style</div>
+                <!-- Replace with: <video src="Ad2.mp4" controls playsinline></video> -->
+                <div class="video-placeholder">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>Vertical Ad · 9:16<br><span style="color:var(--amber-muted)">Ad2.mp4</span><br>High Energy · Reels / TikTok</span>
+                </div>
+            </div>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);margin-top:16px;letter-spacing:0.08em;">
+            To add your videos: replace the placeholder divs with <code style="color:var(--amber-muted)">&lt;video src="Ad.mp4" controls playsinline&gt;&lt;/video&gt;</code>
+        </p>
+    </section>
+
+    <!-- ═══ SERVICES ═══ -->
+    <section id="services" class="reveal">
+        <div class="section-label">What I Do</div>
+        <h2 class="section-title" data-i18n="services-title">Content that <em>converts</em><br>across languages.</h2>
+        <div class="services-grid">
+            <div class="service-block featured">
+                <div class="service-icon"><i class="fas fa-film"></i></div>
+                <div class="service-name" data-i18n="service1-title">Video Editing &amp;<br>Social Content</div>
+                <p class="service-desc" data-i18n="service1-desc">Short-form ads, Reels, and TikToks that retain attention from frame one. I've edited content ranging from calm brand stories for SMEs to high-energy Hormozi-style ads for social media. Multilingual subtitling (HE/EN/ES) included.</p>
+                <div class="service-tags">
+                    <span class="service-tag">Adobe Premiere</span>
+                    <span class="service-tag">DaVinci Resolve</span>
+                    <span class="service-tag">CapCut</span>
+                    <span class="service-tag">Reels / TikTok</span>
+                    <span class="service-tag">Subtitles</span>
+                </div>
+            </div>
+            <div class="service-block">
+                <div class="service-icon"><i class="fas fa-stethoscope"></i></div>
+                <div class="service-name" data-i18n="service2-title">Medical Translation</div>
+                <p class="service-desc" data-i18n="service2-desc">Clinical documents, patient records, MedTech manuals. HE ↔ EN ↔ ES with active medical training precision.</p>
+                <div class="service-tags">
+                    <span class="service-tag">MTPE</span>
+                    <span class="service-tag">Clinical</span>
+                    <span class="service-tag">HE/EN/ES</span>
+                </div>
+            </div>
+            <div class="service-block">
+                <div class="service-icon"><i class="fas fa-pen-nib"></i></div>
+                <div class="service-name" data-i18n="service3-title">Copywriting &amp;<br>Content Strategy</div>
+                <p class="service-desc" data-i18n="service3-desc">SEO copy, ghostwriting, and trilingual content strategy for digital brands and social media.</p>
+                <div class="service-tags">
+                    <span class="service-tag">SEO</span>
+                    <span class="service-tag">Ghostwriting</span>
+                    <span class="service-tag">Brand Voice</span>
+                </div>
+            </div>
+            <div class="service-block">
+                <div class="service-icon"><i class="fas fa-headphones"></i></div>
+                <div class="service-name" data-i18n="service4-title">Audio Review &amp;<br>Transcription</div>
+                <p class="service-desc" data-i18n="service4-desc">Native Hebrew audio review, SRT correction, and AI dataset QA with medical and technical terminology.</p>
+                <div class="service-tags">
+                    <span class="service-tag">SRT</span>
+                    <span class="service-tag">QA</span>
+                    <span class="service-tag">Hebrew</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ EXPERIENCE ═══ -->
+    <section id="experience" class="reveal">
+        <div class="section-label">Track Record</div>
+        <h2 class="section-title" data-i18n="exp-title">Clients who came back.<br><em>Reviews that speak.</em></h2>
+        <div class="timeline">
+
+            <div class="timeline-item icuc">
+                <div class="tl-client elite">ICUC Social · Morgan Manson · Elite Client</div>
+                <div class="tl-title" data-i18n="job-icuc-title">Hebrew/English Content Specialist</div>
+                <div class="tl-dates">Nov 2025 – Present · Hourly · 40 hrs/week limit</div>
+                <p class="tl-body" data-i18n="job-icuc-body">
+                    Trilingual content moderation and creation for ICUC Social, one of the world's leading social media management agencies. Handling Hebrew, English, and Spanish content across multiple brand accounts. Fast-paced environment with strict editorial standards.
+                </p>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTestimonial(this)">
+                <div class="tl-client">Yoram R. · Translation &amp; Subtitles</div>
+                <div class="tl-title" data-i18n="job-yoram-title">Translation, Captions &amp; Subtitles</div>
+                <div class="tl-dates">Apr 2026 – Present · Fixed Price · Active</div>
+                <p class="tl-body" data-i18n="job-yoram-body">
+                    Treatment of first 3 minutes of Hebrew video: full translation, timing, and captions. Precision medical and colloquial register.
+                </p>
+                <button class="tl-toggle">View Details ↓</button>
+                <div class="tl-testimonial">
+                    Job in progress. Milestone 1 active — due Apr 5, 2026.
+                </div>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTestimonial(this)">
+                <div class="tl-client">Ander Gavina</div>
+                <div class="tl-title" data-i18n="job-ander-title">Creative Video Editor — Reels &amp; Ads</div>
+                <div class="tl-dates">Jan 2026 – Present · Fixed Price · Active</div>
+                <p class="tl-body" data-i18n="job-ander-body">
+                    Short-form social content editing. Reels and ad creatives with focus on attention retention and platform-native storytelling.
+                </p>
+                <button class="tl-toggle">View Details ↓</button>
+                <div class="tl-testimonial">
+                    Contract active. Previous milestone completed — awaiting next funding.
+                </div>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTestimonial(this)">
+                <div class="tl-client">Anonymous · 5.0 ★</div>
+                <div class="tl-title" data-i18n="job-adapt-title">Hebrew Tutorial Video Adaptation</div>
+                <div class="tl-dates">Jun 2025 – Oct 2025 · Fixed Price · ★★★★★</div>
+                <p class="tl-body" data-i18n="job-adapt-body">
+                    Localization and subtitle synchronization of Hebrew medical training modules into English.
+                </p>
+                <button class="tl-toggle">Read Testimonial ↓</button>
+                <div class="tl-testimonial">
+                    "It was a real pleasure working with Danilo. Great communication, quick understanding of requirements, and high-quality results. Totally recommended." — 5.0 ★
+                </div>
+            </div>
+
+            <div class="timeline-item" onclick="toggleTestimonial(this)">
+                <div class="tl-client">Anonymous · 5.0 ★</div>
+                <div class="tl-title" data-i18n="job-family-title">Family Video Editing &amp; Subtitling</div>
+                <div class="tl-dates">Oct 2024 – Nov 2024 · Fixed Price · ★★★★★</div>
+                <p class="tl-body" data-i18n="job-family-body">
+                    Professional video editing with synchronized multilingual subtitles for a personal project.
+                </p>
+                <button class="tl-toggle">Read Testimonial ↓</button>
+                <div class="tl-testimonial">
+                    "Danilo did a great work! Was very responsive, created a great, professional video, and made sure anything I need was done perfectly. I'd fully recommend working with him!" — 5.0 ★
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ SKILLS ═══ -->
+    <section id="skills" class="reveal">
+        <div class="section-label">Capabilities</div>
+        <h2 class="section-title" data-i18n="skills-title">The full stack<br><em>of a specialist.</em></h2>
+        <div class="skills-layout">
+            <div class="skill-block">
+                <h3>Video &amp; Content</h3>
+                <ul>
+                    <li>Short-form Reels, TikTok, Shorts</li>
+                    <li>Ad editing (Hormozi / Brand styles)</li>
+                    <li>Multilingual subtitle sync</li>
+                    <li>Thumbnail design &amp; graphics</li>
+                    <li>Platform-native storytelling</li>
+                </ul>
+            </div>
+            <div class="skill-block">
+                <h3>Medical Translation</h3>
+                <ul>
+                    <li>Clinical docs, patient records</li>
+                    <li>MedTech / HealthTech manuals</li>
+                    <li>Academic papers (HE/EN/ES)</li>
+                    <li>MTPE workflows</li>
+                    <li>Healthcare marketing</li>
+                </ul>
+            </div>
+            <div class="skill-block">
+                <h3>Writing &amp; Strategy</h3>
+                <ul>
+                    <li>SEO copywriting (trilingual)</li>
+                    <li>Ghostwriting &amp; blog content</li>
+                    <li>Terminology management &amp; QA</li>
+                    <li>Cross-cultural localization</li>
+                    <li>Style guide implementation</li>
+                </ul>
+            </div>
+            <div class="skill-block">
+                <h3>Software</h3>
+                <ul>
+                    <li>Adobe Premiere Pro</li>
+                    <li>DaVinci Resolve</li>
+                    <li>Photoshop, CapCut</li>
+                    <li>Subtitle Edit, Google Workspace</li>
+                    <li>MS Office (Advanced)</li>
+                </ul>
+            </div>
+            <div class="skill-block">
+                <h3>Other</h3>
+                <ul>
+                    <li>Remote async collaboration</li>
+                    <li>Creator-style adaptation</li>
+                    <li>Medical copywriting</li>
+                    <li>Content moderation (ICUC)</li>
+                    <li>AI content detection &amp; avoidance</li>
+                </ul>
+            </div>
+            <div class="skill-block">
+                <h3>Education</h3>
+                <ul>
+                    <li>MD Candidate — UNMdP</li>
+                    <li>Expected graduation: 2029</li>
+                    <li>Anatomy, physiology, clinical terms</li>
+                    <li>Active research methodology</li>
+                    <li>Born: Málaga, Spain</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div class="lang-row" style="margin-top:2px;">
+            <div class="lang-block">
+                <div class="lang-flag">🇪🇸</div>
+                <div class="lang-name" data-i18n="lang-es">Spanish</div>
+                <div class="lang-level">Native · Bilingual</div>
+                <div class="lang-desc">Born in Málaga — Castilian &amp; LATAM</div>
+            </div>
+            <div class="lang-block">
+                <div class="lang-flag">🇺🇸</div>
+                <div class="lang-name" data-i18n="lang-en">English</div>
+                <div class="lang-level">Fluent · C1 Verified</div>
+                <div class="lang-desc">15+ years · Upwork Verified</div>
+            </div>
+            <div class="lang-block">
+                <div class="lang-flag">🇮🇱</div>
+                <div class="lang-name" data-i18n="lang-he">Hebrew</div>
+                <div class="lang-level">Fluent · C1 Equivalent</div>
+                <div class="lang-desc">10+ years daily immersion</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BOOK ═══ -->
+    <section id="book" class="reveal">
+        <div class="section-label">Published</div>
+        <h2 class="section-title" data-i18n="book-section-title">The freelance guide<br><em>I wish existed</em> when I started.</h2>
+        <div class="book-section-grid">
+            <!-- 3D Book -->
+            <div class="book-stage" onclick="this.querySelector('.book-3d').classList.toggle('spinning')">
+                <div class="book-3d" id="book3d">
+                    <div class="face front">
+                        <!-- Replace with: <img src="tapa_frontal.png" alt="Book cover"> -->
+                        <div class="face-placeholder">
+                            <span class="book-title-mini">My First<br>Steps</span>
+                            <span style="font-size:0.55rem;color:var(--text3)">into the Freelance World</span>
+                            <span style="font-size:0.5rem;color:var(--text3);margin-top:12px">→ Replace with<br>tapa_frontal.png</span>
+                        </div>
+                    </div>
+                    <div class="face back">
+                        <!-- Replace with: <img src="tapa_trasera.png" alt="Back cover"> -->
+                        <div class="face-placeholder" style="background:var(--bg3);border:1px solid var(--border2);">
+                            <span style="font-family:var(--font-display);font-size:0.75rem;color:var(--text2);text-align:center;padding:12px;">→ Replace with<br>tapa_trasera.png</span>
+                        </div>
+                    </div>
+                    <div class="face spine">
+                        <!-- Replace with: <img src="lomo_libro.png" alt="Spine"> -->
+                    </div>
+                    <div class="face right"></div>
+                    <div class="face top"></div>
+                    <div class="face bottom"></div>
+                </div>
+            </div>
+
+            <!-- Book Info -->
+            <div class="book-info">
+                <h3 class="book-title" data-i18n="book-title">My First Steps<br>into the Freelance World</h3>
+                <p class="book-subtitle" data-i18n="book-subtitle">Real lessons for launching a career that actually works.</p>
+                <p class="book-desc" data-i18n="book-desc">
+                    A candid, practical guide built from real experience: landing first clients, building Top Rated status from zero, setting rates with confidence, and avoiding the traps that kill most freelance careers in the first 6 months. No fluff. No generics. Written from Argentina, for the world.
+                </p>
+                <ul class="book-chapters">
+                    <li data-num="01">Why most freelancers quit in the first 3 months</li>
+                    <li data-num="02">Building a profile that actually gets clicks</li>
+                    <li data-num="03">Your first proposal — the exact structure I used</li>
+                    <li data-num="04">Setting rates without underselling yourself</li>
+                    <li data-num="05">Communication that creates repeat clients</li>
+                    <li data-num="06">From first job to Top Rated: the real timeline</li>
+                </ul>
+                <div class="price-block">
+                    <span class="price-now">$9</span>
+                    <span class="price-orig">$19</span>
+                    <span class="price-tag">50% OFF LAUNCH</span>
+                </div>
+                <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="btn-primary" onclick="openPayment('book')" data-i18n="book-cta">Get the Book — $9</button>
+                    <a href="blog.html" class="btn-secondary" data-i18n="book-preview">Read Free Chapter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONSULTING ═══ -->
+    <section id="consulting" class="reveal">
+        <div class="section-label">Mentorship</div>
+        <h2 class="section-title" data-i18n="consulting-title">Your first client<br><em>in under 2 weeks.</em></h2>
+        <div class="consulting-grid">
+            <div>
+                <p style="font-size:0.95rem;color:var(--text2);margin-bottom:28px;line-height:1.8;" data-i18n="consulting-desc">
+                    A focused consulting program: real strategy, live calls, and a specific plan built for your situation. No theory — only what worked for me getting from zero to Top Rated with clients in Israel, the US, and Spain.
+                </p>
+                <ul class="consulting-modules">
+                    <li><span class="module-num">01</span><span data-i18n="mod1">Profile audit &amp; complete rewrite</span></li>
+                    <li><span class="module-num">02</span><span data-i18n="mod2">Niche identification &amp; positioning strategy</span></li>
+                    <li><span class="module-num">03</span><span data-i18n="mod3">First 10 proposals — reviewed and improved live</span></li>
+                    <li><span class="module-num">04</span><span data-i18n="mod4">Rate-setting framework for your skills</span></li>
+                    <li><span class="module-num">05</span><span data-i18n="mod5">Client communication scripts that close</span></li>
+                    <li><span class="module-num">06</span><span data-i18n="mod6">1-on-1 call: 60 min personalized roadmap</span></li>
+                </ul>
+            </div>
+            <div class="bundle-card">
+                <p style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);margin-bottom:16px;letter-spacing:0.1em;">BOOK + CONSULTING BUNDLE</p>
+                <div class="price-block" style="margin-bottom:16px;">
+                    <span class="price-now">$39</span>
+                    <span class="price-orig">$79</span>
+                    <span class="price-tag">Bundle Save</span>
+                </div>
+                <ul class="bundle-includes">
+                    <li><i class="fas fa-book"></i> My First Steps eBook</li>
+                    <li><i class="fas fa-video"></i> 6 consulting modules (async)</li>
+                    <li><i class="fas fa-phone"></i> 60-min live call with Danilo</li>
+                    <li><i class="fas fa-route"></i> Personalized 2-week roadmap</li>
+                    <li><i class="fas fa-infinity"></i> Lifetime book updates</li>
+                </ul>
+                <button class="btn-primary" style="width:100%;margin-top:8px;text-align:center;" onclick="openPayment('bundle')" data-i18n="bundle-cta">Get the Bundle — $39</button>
+                <p style="font-family:var(--font-mono);font-size:0.58rem;color:var(--text3);text-align:center;margin-top:12px;">Consulting only: $35 · Book only: $9</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CALCULATOR + CONTACT ═══ -->
+    <section>
+        <div class="section-label">Tools &amp; Contact</div>
+        <h2 class="section-title" data-i18n="calc-section-title">Estimate your project.<br><em>Let's talk.</em></h2>
+        <div id="calculator">
+            <div class="calc-card">
+                <h3 data-i18n="calc-title">Quick Quote Calculator</h3>
+                <div class="calc-group">
+                    <label data-i18n="calc-label-count">Word / Minute Count</label>
+                    <input type="number" class="calc-input" id="wordCount" placeholder="e.g. 1000" min="1">
+                </div>
+                <div class="calc-group">
+                    <label data-i18n="calc-label-service">Service Type</label>
+                    <select class="calc-select" id="serviceType">
+                        <option value="0.05" data-i18n="calc-opt1">Basic Translation ($0.05/word)</option>
+                        <option value="0.07" data-i18n="calc-opt2">Medical Translation ($0.07/word)</option>
+                        <option value="0.03" data-i18n="calc-opt3">Editing / Proofreading ($0.03/word)</option>
+                        <option value="4.00" data-i18n="calc-opt4">Video Subtitles ($4.00/min)</option>
+                        <option value="0.12" data-i18n="calc-opt5">Copywriting ($0.12/word)</option>
+                    </select>
+                </div>
+                <button class="btn-primary" onclick="calculateQuote()" style="width:100%;margin-top:4px;" data-i18n="calc-btn">Calculate Estimate</button>
+                <div class="calc-result" id="quoteResult">
+                    <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);letter-spacing:0.1em;" data-i18n="calc-placeholder">Enter details above ↑</span>
+                </div>
+                <p style="font-family:var(--font-mono);font-size:0.6rem;color:var(--text3);margin-top:12px;line-height:1.6;" data-i18n="calc-note">Final quotes depend on complexity, language pair, and urgency. Contact for a detailed proposal.</p>
+            </div>
+
+            <div class="contact-card">
+                <h3 data-i18n="contact-title">Get in Touch</h3>
+                <p style="font-size:0.88rem;color:var(--text2);margin-bottom:20px;" data-i18n="contact-desc">Ready to collaborate? Describe your project and I'll reply within 4 hours.</p>
+                <form onsubmit="sendEmail(event)">
+                    <div class="form-group">
+                        <label data-i18n="contact-name">Your Name</label>
+                        <input type="text" class="form-input" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="contact-email">Your Email</label>
+                        <input type="email" class="form-input" id="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="contact-message">Project Details</label>
+                        <textarea class="form-textarea" id="contactMessage" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" style="width:100%;" data-i18n="contact-send">Send Message</button>
+                </form>
+                <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border2);">
+                    <p style="font-family:var(--font-mono);font-size:0.62rem;color:var(--text3);letter-spacing:0.08em;margin-bottom:10px;" data-i18n="newsletter-label">Subscribe for freelance tips:</p>
+                    <form id="newsletterForm" action="https://formspree.io/f/xgvnjkjg" method="POST" style="display:flex;gap:8px;">
+                        <input type="email" name="email" class="form-input" style="flex:1;" placeholder="email@example.com" required>
+                        <button type="submit" class="btn-secondary" style="white-space:nowrap;" data-i18n="newsletter-btn">Subscribe</button>
+                    </form>
+                    <div id="newsletter-status" style="font-family:var(--font-mono);font-size:0.62rem;color:var(--amber-muted);margin-top:8px;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ BLOG / INSIGHTS ═══ -->
+    <section id="insights" class="reveal">
+        <div class="section-label">Insights Hub</div>
+        <h2 class="section-title" data-i18n="blog-section-title">Not a diary.<br><em>A library.</em></h2>
+        <div class="blog-grid">
+            <div class="blog-card featured">
+                <div>
+                    <div class="blog-cat">Anti-AI Design · Tutorial</div>
+                    <h3 class="blog-title">How to Spot (and Fix) AI-Generated Web Design — The "AI Slop" Field Guide</h3>
+                    <p class="blog-excerpt">Everything that makes your website look like it was built in 30 seconds: the Inter font syndrome, purple gradient curse, Tailwind template convergence, and how to inject actual human identity into every pixel.</p>
+                    <a href="blog.html" class="blog-read-more" data-i18n="blog-read-more">Read Full Guide</a>
+                </div>
+                <div>
+                    <div class="blog-cat">Freelance · From the Book</div>
+                    <h3 class="blog-title">Your First Upwork Proposal: The Exact Structure I Used to Get My First Client</h3>
+                    <p class="blog-excerpt">Generic proposals kill careers before they start. Here's the specific framework — subject line, opening, body, closing — that turned my blank profile into a conversation.</p>
+                    <a href="blog.html" class="blog-read-more" data-i18n="blog-read-more">Read Article</a>
+                </div>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-cat">Medical · Translation</div>
+                <h3 class="blog-title">Why AI Can't Replace Medical Translators (And What It Gets Wrong Every Time)</h3>
+                <p class="blog-excerpt">Clinical nuance, legal liability, regional terminology — the real reasons every hospital system needs a human hand on their Hebrew documents.</p>
+                <a href="blog.html" class="blog-read-more">Read Article</a>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-cat">Video · Editing</div>
+                <h3 class="blog-title">Calm vs. High-Energy: Choosing the Right Ad Style for Your Business</h3>
+                <p class="blog-excerpt">Two videos. Two audiences. Two completely different editing philosophies — and why most brands pick the wrong one by default.</p>
+                <a href="blog.html" class="blog-read-more">Read Article</a>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-cat">Freelance · Rate Setting</div>
+                <h3 class="blog-title">Stop Charging $5. How I Set (and Defended) My Rates from Day One</h3>
+                <p class="blog-excerpt">The psychology of freelance pricing, why lowballing destroys your positioning, and the exact script I used when clients pushed back on my $20/hr rate.</p>
+                <a href="blog.html" class="blog-read-more">Read Article</a>
+            </div>
+
+            <div class="blog-card">
+                <div class="blog-cat">Tools · Resources</div>
+                <h3 class="blog-title">The Freelancer's Minimal Toolkit: 6 Tools I Actually Use Daily</h3>
+                <p class="blog-excerpt">No bloated software lists. Just what I open every day: for subtitles, video, communication, invoicing, and staying sane while juggling medical school.</p>
+                <a href="tools.html" class="blog-read-more">See Tools</a>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:32px;">
+            <a href="blog.html" class="btn-secondary" data-i18n="blog-all">View All Insights →</a>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="site-footer">
+        <div>
+            <div class="footer-brand">Danilo Hurwitz</div>
+            <div class="footer-tagline" data-i18n="footer-tagline">Content Specialist · HE / EN / ES · Mar del Plata</div>
+        </div>
+        <div class="footer-links">
+            <a href="https://linkedin.com/in/danilo-hurwitz/" target="_blank">LinkedIn</a>
+            <a href="https://upwork.com/freelancers/danilohurwitz" target="_blank">Upwork</a>
+            <a href="blog.html" data-i18n="footer-blog">Blog</a>
+            <a href="tools.html" data-i18n="footer-tools">Tools</a>
+            <a href="Curriculum_Vitae_-_Danilo_Hurwitz.pdf" download data-i18n="footer-cv">Download CV</a>
+        </div>
+        <p class="footer-copy" data-i18n="footer-copy">© 2026 Danilo Hurwitz. All rights reserved. — Built without Inter, purple gradients, or Tailwind defaults.</p>
+    </footer>
+
+</div><!-- /wrapper -->
 
 <script>
-  // Scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        e.target.style.transitionDelay = (i * 0.07) + 's';
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-  // Video toggle
-  function toggleVideo(thumb) {
-    const video = thumb.querySelector('video');
-    const playDiv = thumb.querySelector('.video-play');
-    if (video.paused) {
-      document.querySelectorAll('video').forEach(v => v.pause());
-      video.play();
-      playDiv.style.display = 'none';
-    } else {
-      video.pause();
-      playDiv.style.display = 'flex';
+/* ═══════════════════════════════════════════
+   TRANSLATIONS
+═══════════════════════════════════════════ */
+const t = {
+    en: {
+        'dark-mode': 'Dark',
+        'hero-meta': 'Content Specialist · Mar del Plata, Argentina',
+        'hero-name-em': 'Danilo',
+        'hero-name-last': 'Hurwitz',
+        'hero-role': 'Trilingual Content Specialist & Medical Student<br>Video Editing · Translation · Storytelling',
+        'hero-manifesto': "I don't just translate words — I adapt culture. I don't just edit video — I craft narratives. From ICUC Social to Upwork's Top Rated, every project gets the same obsessive attention to precision, tone, and impact.",
+        'cta-quote': 'Get a Quote',
+        'cta-blog': 'Read Insights',
+        'videos-title': 'Two Styles.<br><em>One Standard.</em>',
+        'services-title': 'Content that <em>converts</em><br>across languages.',
+        'service1-title': 'Video Editing &<br>Social Content',
+        'service1-desc': 'Short-form ads, Reels, and TikToks that retain attention from frame one. Multilingual subtitling (HE/EN/ES) included.',
+        'service2-title': 'Medical Translation',
+        'service2-desc': 'Clinical documents, patient records, MedTech manuals. HE ↔ EN ↔ ES with active medical training precision.',
+        'service3-title': 'Copywriting &<br>Content Strategy',
+        'service3-desc': 'SEO copy, ghostwriting, and trilingual content strategy for digital brands.',
+        'service4-title': 'Audio Review &<br>Transcription',
+        'service4-desc': 'Native Hebrew audio review, SRT correction, and AI dataset QA.',
+        'exp-title': 'Clients who came back.<br><em>Reviews that speak.</em>',
+        'job-icuc-title': 'Hebrew/English Content Specialist',
+        'job-icuc-body': 'Trilingual content moderation and creation for ICUC Social. Handling HE, EN, ES content across multiple brand accounts with strict editorial standards.',
+        'job-yoram-title': 'Translation, Captions & Subtitles',
+        'job-yoram-body': 'Hebrew video treatment: full translation, timing, and captions.',
+        'job-ander-title': 'Creative Video Editor — Reels & Ads',
+        'job-ander-body': 'Short-form social content editing, Reels and ad creatives with attention retention focus.',
+        'job-adapt-title': 'Hebrew Tutorial Video Adaptation',
+        'job-adapt-body': 'Localization and subtitle synchronization of Hebrew medical training modules.',
+        'job-family-title': 'Family Video Editing & Subtitling',
+        'job-family-body': 'Professional video editing with synchronized multilingual subtitles.',
+        'skills-title': 'The full stack<br><em>of a specialist.</em>',
+        'lang-es': 'Spanish',
+        'lang-en': 'English',
+        'lang-he': 'Hebrew',
+        'book-section-title': 'The freelance guide<br><em>I wish existed</em> when I started.',
+        'book-title': 'My First Steps<br>into the Freelance World',
+        'book-subtitle': 'Real lessons for launching a career that actually works.',
+        'book-desc': "A candid, practical guide built from real experience: landing first clients, building Top Rated status from zero, setting rates with confidence, and avoiding the traps that kill most freelance careers in the first 6 months.",
+        'book-cta': 'Get the Book — $9',
+        'book-preview': 'Read Free Chapter',
+        'consulting-title': 'Your first client<br><em>in under 2 weeks.</em>',
+        'consulting-desc': 'A focused consulting program: real strategy, live calls, and a specific plan built for your situation.',
+        'mod1': 'Profile audit & complete rewrite',
+        'mod2': 'Niche identification & positioning strategy',
+        'mod3': 'First 10 proposals — reviewed and improved live',
+        'mod4': 'Rate-setting framework for your skills',
+        'mod5': 'Client communication scripts that close',
+        'mod6': '1-on-1 call: 60 min personalized roadmap',
+        'bundle-cta': 'Get the Bundle — $39',
+        'calc-section-title': 'Estimate your project.<br><em>Let\'s talk.</em>',
+        'calc-title': 'Quick Quote Calculator',
+        'calc-label-count': 'Word / Minute Count',
+        'calc-label-service': 'Service Type',
+        'calc-opt1': 'Basic Translation ($0.05/word)',
+        'calc-opt2': 'Medical Translation ($0.07/word)',
+        'calc-opt3': 'Editing / Proofreading ($0.03/word)',
+        'calc-opt4': 'Video Subtitles ($4.00/min)',
+        'calc-opt5': 'Copywriting ($0.12/word)',
+        'calc-btn': 'Calculate Estimate',
+        'calc-placeholder': 'Enter details above ↑',
+        'calc-note': 'Final quotes depend on complexity, language pair, and urgency.',
+        'contact-title': 'Get in Touch',
+        'contact-desc': 'Ready to collaborate? Describe your project and I\'ll reply within 4 hours.',
+        'contact-name': 'Your Name',
+        'contact-email': 'Your Email',
+        'contact-message': 'Project Details',
+        'contact-send': 'Send Message',
+        'newsletter-label': 'Subscribe for freelance tips:',
+        'newsletter-btn': 'Subscribe',
+        'blog-section-title': 'Not a diary.<br><em>A library.</em>',
+        'blog-read-more': 'Read Article',
+        'blog-all': 'View All Insights →',
+        'footer-tagline': 'Content Specialist · HE / EN / ES · Mar del Plata',
+        'footer-blog': 'Blog',
+        'footer-tools': 'Tools',
+        'footer-cv': 'Download CV',
+        'footer-copy': '© 2026 Danilo Hurwitz. All rights reserved.',
+    },
+    es: {
+        'dark-mode': 'Oscuro',
+        'hero-meta': 'Content Specialist · Mar del Plata, Argentina',
+        'hero-name-em': 'Danilo',
+        'hero-name-last': 'Hurwitz',
+        'hero-role': 'Content Specialist Trilingüe y Estudiante de Medicina<br>Edición de Video · Traducción · Storytelling',
+        'hero-manifesto': 'No solo traduzco palabras — adapto culturas. No solo edito video — construyo narrativas. Desde ICUC Social hasta Top Rated en Upwork, cada proyecto recibe la misma atención obsesiva a la precisión, el tono y el impacto.',
+        'cta-quote': 'Pedir Presupuesto',
+        'cta-blog': 'Leer Insights',
+        'videos-title': 'Dos estilos.<br><em>Un estándar.</em>',
+        'services-title': 'Contenido que <em>convierte</em><br>en todos los idiomas.',
+        'service1-title': 'Edición de Video &<br>Contenido Social',
+        'service1-desc': 'Ads cortos, Reels y TikToks que retienen atención desde el primer fotograma. Subtitulado multilingüe (HE/EN/ES) incluido.',
+        'service2-title': 'Traducción Médica',
+        'service2-desc': 'Documentos clínicos, informes de pacientes, manuales MedTech. HE ↔ EN ↔ ES con precisión médica activa.',
+        'service3-title': 'Redacción &<br>Estrategia de Contenido',
+        'service3-desc': 'Copy SEO, ghostwriting y estrategia de contenido trilingüe para marcas digitales.',
+        'service4-title': 'Revisión de Audio &<br>Transcripción',
+        'service4-desc': 'Revisión de audio en hebreo nativo, corrección de SRT y QA para datasets de IA.',
+        'exp-title': 'Clientes que volvieron.<br><em>Reseñas que hablan.</em>',
+        'job-icuc-title': 'Content Specialist HE/EN',
+        'job-icuc-body': 'Moderación y creación de contenido trilingüe para ICUC Social, gestión de múltiples cuentas de marca con estándares editoriales estrictos.',
+        'job-yoram-title': 'Traducción, Subtítulos y Captions',
+        'job-yoram-body': 'Tratamiento completo de video en hebreo: traducción, timing y captions.',
+        'job-ander-title': 'Editor de Video Creativo — Reels & Ads',
+        'job-ander-body': 'Edición de contenido social short-form, Reels y creativos publicitarios.',
+        'job-adapt-title': 'Adaptación de Video Tutorial Hebreo',
+        'job-adapt-body': 'Localización y sincronización de subtítulos de módulos de formación médica.',
+        'job-family-title': 'Edición de Video Familiar y Subtitulado',
+        'job-family-body': 'Edición de video profesional con subtítulos multilingüe sincronizados.',
+        'skills-title': 'El stack completo<br><em>de un especialista.</em>',
+        'lang-es': 'Español',
+        'lang-en': 'Inglés',
+        'lang-he': 'Hebreo',
+        'book-section-title': 'La guía freelance<br><em>que ojalá hubiera existido</em> cuando empecé.',
+        'book-title': 'Mis Primeros Pasos<br>en el Mundo Freelance',
+        'book-subtitle': 'Lecciones reales para lanzar una carrera que funcione de verdad.',
+        'book-desc': 'Una guía práctica y honesta basada en experiencia real: conseguir los primeros clientes, construir el estatus Top Rated desde cero, fijar tarifas con confianza y evitar las trampas que destruyen la mayoría de las carreras freelance en los primeros 6 meses.',
+        'book-cta': 'Obtener el Libro — $9',
+        'book-preview': 'Leer Capítulo Gratis',
+        'consulting-title': 'Tu primer cliente<br><em>en menos de 2 semanas.</em>',
+        'consulting-desc': 'Un programa de consultoría enfocado: estrategia real, llamadas en vivo y un plan específico adaptado a tu situación.',
+        'mod1': 'Auditoría y reescritura completa del perfil',
+        'mod2': 'Identificación de nicho y estrategia de posicionamiento',
+        'mod3': 'Las primeras 10 propuestas — revisadas y mejoradas en vivo',
+        'mod4': 'Framework para fijar tarifas según tus habilidades',
+        'mod5': 'Scripts de comunicación con clientes que cierran',
+        'mod6': 'Llamada 1-a-1: 60 min de hoja de ruta personalizada',
+        'bundle-cta': 'Conseguir el Bundle — $39',
+        'calc-section-title': 'Estimá tu proyecto.<br><em>Hablemos.</em>',
+        'calc-title': 'Calculadora de Presupuesto',
+        'calc-label-count': 'Cantidad de Palabras / Minutos',
+        'calc-label-service': 'Tipo de Servicio',
+        'calc-opt1': 'Traducción Básica ($0.05/wd)',
+        'calc-opt2': 'Traducción Médica ($0.07/wd)',
+        'calc-opt3': 'Edición / Corrección ($0.03/wd)',
+        'calc-opt4': 'Subtítulos de Video ($4.00/min)',
+        'calc-opt5': 'Redacción ($0.12/wd)',
+        'calc-btn': 'Calcular Estimación',
+        'calc-placeholder': 'Ingresá los datos arriba ↑',
+        'calc-note': 'El precio final depende de la complejidad, el par de idiomas y la urgencia.',
+        'contact-title': 'Ponete en Contacto',
+        'contact-desc': '¿Listo para colaborar? Describirme tu proyecto y te respondo en menos de 4 horas.',
+        'contact-name': 'Tu Nombre',
+        'contact-email': 'Tu Email',
+        'contact-message': 'Detalles del Proyecto',
+        'contact-send': 'Enviar Mensaje',
+        'newsletter-label': 'Suscribite para tips freelance:',
+        'newsletter-btn': 'Suscribirse',
+        'blog-section-title': 'No es un diario.<br><em>Es una biblioteca.</em>',
+        'blog-read-more': 'Leer Artículo',
+        'blog-all': 'Ver Todos los Insights →',
+        'footer-tagline': 'Content Specialist · HE / EN / ES · Mar del Plata',
+        'footer-blog': 'Blog',
+        'footer-tools': 'Herramientas',
+        'footer-cv': 'Descargar CV',
+        'footer-copy': '© 2026 Danilo Hurwitz. Todos los derechos reservados.',
+    },
+    he: {
+        'dark-mode': 'כהה',
+        'hero-meta': 'מומחה תוכן · מאר דל פלטה, ארגנטינה',
+        'hero-name-em': 'דנילו',
+        'hero-name-last': 'הורוויץ',
+        'hero-role': 'מומחה תוכן תלת-לשוני וסטודנט לרפואה<br>עריכת וידאו · תרגום · סטוריטלינג',
+        'hero-manifesto': 'אני לא רק מתרגם מילים — אני מסגיל תרבויות. אני לא רק עורך וידאו — אני בונה נרטיבים. מ-ICUC Social ועד Top Rated באפוורק, כל פרויקט מקבל את אותה קשב אובססיבי לדיוק, טון והשפעה.',
+        'cta-quote': 'קבלו הצעת מחיר',
+        'cta-blog': 'קראו תובנות',
+        'videos-title': 'שני סגנונות.<br><em>סטנדרט אחד.</em>',
+        'services-title': 'תוכן ש<em>ממיר</em><br>בכל השפות.',
+        'service1-title': 'עריכת וידאו<br>ותוכן סושיאל',
+        'service1-desc': 'מודעות קצרות, Reels ו-TikToks שמחזיקים תשומת לב מהפריים הראשון. כיתוב רב-לשוני כלול.',
+        'service2-title': 'תרגום רפואי',
+        'service2-desc': 'מסמכים קליניים, דוחות מטופלים, מדריכי MedTech. ע→א→ס עם דיוק הכשרה רפואית פעילה.',
+        'service3-title': 'כתיבת תוכן<br>ואסטרטגיה',
+        'service3-desc': 'קופירייטינג SEO, כתיבת רוח ואסטרטגיית תוכן תלת-לשונית.',
+        'service4-title': 'סקירת אודיו<br>ותמלול',
+        'service4-desc': 'סקירת אודיו בעברית שפת אם, תיקון SRT ובדיקת איכות למאגרי AI.',
+        'exp-title': 'לקוחות שחזרו.<br><em>ביקורות שמדברות.</em>',
+        'job-icuc-title': 'מומחה תוכן עברית/אנגלית',
+        'job-icuc-body': 'מודרציה ויצירת תוכן תלת-לשוני עבור ICUC Social. ניהול חשבונות מותג מרובים עם סטנדרטים עריכה קפדניים.',
+        'job-yoram-title': 'תרגום, כיתובים ותת-כותרות',
+        'job-yoram-body': 'טיפול מלא בוידאו עברי: תרגום, תזמון וכיתובים.',
+        'job-ander-title': 'עורך וידאו יצירתי — Reels ומודעות',
+        'job-ander-body': 'עריכת תוכן סושיאל קצר, Reels וקריאייטיבים פרסומיים.',
+        'job-adapt-title': 'התאמת וידאו הדרכה בעברית',
+        'job-adapt-body': 'לוקליזציה וסנכרון תת-כותרות של מודולי הכשרה רפואית.',
+        'job-family-title': 'עריכת וידאו משפחתי וכיתוב',
+        'job-family-body': 'עריכת וידאו מקצועית עם תת-כותרות מסונכרנות רב-לשוניות.',
+        'skills-title': 'הסט המלא<br><em>של מומחה.</em>',
+        'lang-es': 'ספרדית',
+        'lang-en': 'אנגלית',
+        'lang-he': 'עברית',
+        'book-section-title': 'המדריך לפרילנסרים<br><em>שהייתי רוצה שיהיה</em> כשהתחלתי.',
+        'book-title': 'הצעדים הראשונים שלי<br>בעולם הפרילנס',
+        'book-subtitle': 'לקחים אמיתיים להשקת קריירה שעובדת באמת.',
+        'book-desc': 'מדריך כנה ומעשי המבוסס על ניסיון אמיתי: השגת לקוחות ראשונים, בניית מעמד Top Rated מאפס, קביעת תעריפים בביטחון והימנעות מהמלכודות שמרסקות רוב הקריירות הפרילנסריות בחצי השנה הראשונה.',
+        'book-cta': 'קבלו את הספר — $9',
+        'book-preview': 'קראו פרק חינם',
+        'consulting-title': 'הלקוח הראשון שלכם<br><em>תוך פחות מ-2 שבועות.</em>',
+        'consulting-desc': 'תוכנית ייעוץ ממוקדת: אסטרטגיה אמיתית, שיחות חיות ותוכנית ספציפית המותאמת למצבכם.',
+        'mod1': 'ביקורת ושכתוב מלא של הפרופיל',
+        'mod2': 'זיהוי נישה ואסטרטגיית מיצוב',
+        'mod3': '10 הצעות ראשונות — נסקרות ומשופרות בזמן אמת',
+        'mod4': 'מסגרת לקביעת תעריפים לפי הכישורים שלכם',
+        'mod5': 'סקריפטים לתקשורת עם לקוחות שסוגרים עסקאות',
+        'mod6': 'שיחה 1-על-1: 60 דקות מפת דרכים אישית',
+        'bundle-cta': 'קבלו את הבנדל — $39',
+        'calc-section-title': 'הערכת הפרויקט שלכם.<br><em>בואו נדבר.</em>',
+        'calc-title': 'מחשבון הצעת מחיר',
+        'calc-label-count': 'מספר מילים / דקות',
+        'calc-label-service': 'סוג שירות',
+        'calc-opt1': 'תרגום בסיסי ($0.05/מילה)',
+        'calc-opt2': 'תרגום רפואי ($0.07/מילה)',
+        'calc-opt3': 'עריכה / הגהה ($0.03/מילה)',
+        'calc-opt4': 'כתוביות וידאו ($4.00/דקה)',
+        'calc-opt5': 'כתיבת תוכן ($0.12/מילה)',
+        'calc-btn': 'חישוב הערכה',
+        'calc-placeholder': 'הזינו פרטים למעלה ↑',
+        'calc-note': 'המחיר הסופי תלוי במורכבות, זוג השפות ודחיפות.',
+        'contact-title': 'צרו קשר',
+        'contact-desc': 'מוכנים לשתף פעולה? תארו את הפרויקט שלכם ואחזור תוך 4 שעות.',
+        'contact-name': 'שמכם',
+        'contact-email': 'האימייל שלכם',
+        'contact-message': 'פרטי הפרויקט',
+        'contact-send': 'שלחו הודעה',
+        'newsletter-label': 'הירשמו לטיפים לפרילנסרים:',
+        'newsletter-btn': 'הרשמה',
+        'blog-section-title': 'לא יומן.<br><em>ספרייה.</em>',
+        'blog-read-more': 'קראו מאמר',
+        'blog-all': 'צפו בכל התובנות ←',
+        'footer-tagline': 'מומחה תוכן · עב / אנג / ספ · מאר דל פלטה',
+        'footer-blog': 'בלוג',
+        'footer-tools': 'כלים',
+        'footer-cv': 'הורד קורות חיים',
+        'footer-copy': '© 2026 דנילו הורוויץ. כל הזכויות שמורות.',
     }
-    video.addEventListener('pause', () => { playDiv.style.display = 'flex'; });
-    video.addEventListener('play', () => { playDiv.style.display = 'none'; });
-  }
+};
 
-  // Contact form
-  function sendEmail(event) {
+/* ═══════════════════════════════════════════
+   LANGUAGE CHANGE
+═══════════════════════════════════════════ */
+function applyLang(lang) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (t[lang] && t[lang][key]) {
+            el.innerHTML = t[lang][key];
+        }
+    });
+    if (lang === 'he') {
+        document.body.dir = 'rtl';
+        document.documentElement.lang = 'he';
+    } else {
+        document.body.dir = 'ltr';
+        document.documentElement.lang = lang;
+    }
+    localStorage.setItem('lang', lang);
+}
+
+/* ═══════════════════════════════════════════
+   DARK / LIGHT MODE
+═══════════════════════════════════════════ */
+function applyTheme(isLight) {
+    if (isLight) {
+        document.body.classList.add('light');
+        document.body.classList.remove('dark');
+    } else {
+        document.body.classList.remove('light');
+        document.body.classList.add('dark');
+    }
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+
+/* ═══════════════════════════════════════════
+   QUOTE CALCULATOR
+═══════════════════════════════════════════ */
+function calculateQuote() {
+    const count = parseInt(document.getElementById('wordCount').value) || 0;
+    const rate = parseFloat(document.getElementById('serviceType').value);
+    const result = document.getElementById('quoteResult');
+    if (count > 0 && rate) {
+        const total = (count * rate).toFixed(2);
+        result.innerHTML = `<div><span class="result-amount">$${total}</span><span class="result-note">USD · Estimated</span></div>`;
+    } else {
+        result.innerHTML = `<span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text3);">Enter a valid count above</span>`;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT FORM
+═══════════════════════════════════════════ */
+function sendEmail(event) {
     event.preventDefault();
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
-    const message = document.getElementById('contactMessage').value;
-    const subject = encodeURIComponent(`Project Inquiry from ${name}`);
-    const body = encodeURIComponent(`Hi Danilo,\n\n${message}\n\nBest,\n${name}\n${email}`);
-    window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${subject}&body=${body}`;
-  }
+    const msg = document.getElementById('contactMessage').value;
+    const sub = `Project Inquiry from ${name}`;
+    const body = `Hi Danilo,\n\n${msg}\n\nBest,\n${name}\n${email}`;
+    window.location.href = `mailto:dhurwitzbecerra@mdp.edu.ar?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+}
 
-  // Book purchase
-  function handleBookPurchase() {
-    const name = document.getElementById('buyerName').value;
-    const email = document.getElementById('buyerEmail').value;
-    if (!name || !email) { alert('Please fill in your name and email.'); return; }
-    // Redirect to PayPal with item info — replace YOUR_PAYPAL_ID with actual
-    const paypalUrl = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=dhurwitzbecerra@mdp.edu.ar&item_name=My+First+Steps+into+the+Freelance+World+-+Ebook&amount=9.99&currency_code=USD&return=https://danilohurwitz.github.io/main/book-success.html&custom=${encodeURIComponent(email)}`;
-    document.getElementById('modalContent').innerHTML = `
-      <div class="modal-success">
-        <span class="check">🎉</span>
-        <h4>Redirecting to PayPal...</h4>
-        <p>After payment, the PDF will be sent to <strong>${email}</strong> within minutes.</p>
-        <a href="${paypalUrl}" class="btn btn-gold" style="margin-top:16px;display:inline-flex;">
-          <i class="fas fa-lock"></i> Continue to Payment
-        </a>
-      </div>`;
-  }
+/* Newsletter */
+const nlForm = document.getElementById('newsletterForm');
+if (nlForm) {
+    nlForm.addEventListener('submit', async e => {
+        e.preventDefault();
+        const status = document.getElementById('newsletter-status');
+        status.textContent = 'Subscribing...';
+        try {
+            const res = await fetch(e.target.action, {
+                method: 'POST', body: new FormData(e.target),
+                headers: { Accept: 'application/json' }
+            });
+            status.textContent = res.ok ? '✓ Subscribed!' : 'Error. Try again.';
+            if (res.ok) nlForm.reset();
+        } catch { status.textContent = 'Network error.'; }
+    });
+}
 
-  // Close modal on overlay click
-  document.getElementById('bookModal').addEventListener('click', function(e) {
-    if (e.target === this) this.classList.remove('open');
-  });
+/* ═══════════════════════════════════════════
+   PAYMENT MODAL
+═══════════════════════════════════════════ */
+function openPayment(type) {
+    const modal = document.getElementById('paymentModal');
+    const content = document.getElementById('modalContent');
+    const isBundle = type === 'bundle';
+    const price = isBundle ? '$39' : '$9';
+    const title = isBundle ? 'Book + Consulting Bundle' : 'My First Steps — eBook';
+    const desc = isBundle
+        ? 'Book + 6 consulting modules + 60-min live call'
+        : 'Instant PDF download. Lifetime updates included.';
+
+    content.innerHTML = `
+        <h2 class="modal-title">${title}</h2>
+        <p class="modal-subtitle">${price} · ${desc}</p>
+        <div class="pay-options">
+            <a href="https://paypal.me/danilohurwitz" target="_blank" class="pay-btn">
+                <i class="fab fa-paypal"></i> Pay with PayPal
+            </a>
+            <a href="mailto:dhurwitzbecerra@mdp.edu.ar?subject=Purchase: ${encodeURIComponent(title)}&body=Hi Danilo, I'd like to purchase ${encodeURIComponent(title)} for ${price}. Please send me the payment link." class="pay-btn">
+                <i class="fas fa-envelope"></i> Contact to Purchase
+            </a>
+        </div>
+        <p class="modal-note">
+            After payment, you'll receive the download link within 24 hours.<br>
+            Stripe integration coming soon. Questions? <a href="mailto:dhurwitzbecerra@mdp.edu.ar" style="color:var(--amber-muted)">Email me directly.</a>
+        </p>
+    `;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('paymentModal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+document.getElementById('paymentModal').addEventListener('click', e => {
+    if (e.target === document.getElementById('paymentModal')) closeModal();
+});
+
+/* ═══════════════════════════════════════════
+   TIMELINE TESTIMONIALS
+═══════════════════════════════════════════ */
+function toggleTestimonial(el) {
+    const t2 = el.querySelector('.tl-testimonial');
+    const btn = el.querySelector('.tl-toggle');
+    if (!t2) return;
+    t2.classList.toggle('open');
+    if (btn) btn.textContent = t2.classList.contains('open') ? 'Hide ↑' : 'View Details ↓';
+}
+// Make timeline items not fire when clicking the button itself
+document.querySelectorAll('.tl-toggle').forEach(btn => {
+    btn.addEventListener('click', e => e.stopPropagation());
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.timeline-item');
+        toggleTestimonial(item);
+    });
+});
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+const io = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+        if (en.isIntersecting) {
+            en.target.classList.add('in-view');
+            io.unobserve(en.target);
+        }
+    });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+    // Theme
+    const savedTheme = localStorage.getItem('theme');
+    const toggle = document.getElementById('darkModeToggle');
+    if (savedTheme === 'light') {
+        toggle.checked = true;
+        applyTheme(true);
+    }
+    toggle.addEventListener('change', () => applyTheme(toggle.checked));
+
+    // Language
+    const savedLang = localStorage.getItem('lang') || 'en';
+    const langSel = document.getElementById('langSelect');
+    langSel.value = savedLang;
+    applyLang(savedLang);
+    langSel.addEventListener('change', () => applyLang(langSel.value));
+});
 </script>
 </body>
 </html>
