@@ -16,6 +16,7 @@ const DICT = {
     'nav-cta-text': 'Contratarme',
     'banner-strong': 'Top Rated Upwork',
     'banner-text': '95% Job Success Score · +$6K generados · Trilingüe HE/EN/ES',
+    'nav-logo-role': 'Content Specialist',
     'hero-eyebrow': 'Disponible para proyectos · HE / EN / ES',
     'hero-h1-raw': 'Video editor trilingüe para marcas que no pueden permitirse contenido mediocre.',
     'hero-sub': 'Reels, ads comerciales y subtitulación de precisión. Trabajo con clientes Fortune 500 vía ICUC, con ElevenLabs y directo en Upwork desde Mar del Plata.',
@@ -27,9 +28,8 @@ const DICT = {
     'stat-jss': 'Job Success Score',
     'stat-hours': 'Horas facturadas',
     'stat-rating': 'Rating promedio',
-    'proof-label': 'Confianza de clientes globales ·',
-    'proof-upwork-label': 'Verificado',
-    'proof-lang-label': 'nativo/fluido',
+    'proof-label': 'Clientes y plataformas',
+    'proof-projects': 'proyectos',
     'services-label': '01 · Servicios',
     'services-title': 'Un sistema completo de contenido, no una pieza suelta.',
     'services-sub': 'De la edición al copy, del subtítulo a la traducción médica. Todo ejecutado con criterio de agencia y velocidad de freelance top rated.',
@@ -58,6 +58,22 @@ const DICT = {
     'port4-title': 'Brand Presentation',
     'port5-title': 'Hebrew Tutorial Adaptation',
     'port6-title': 'Medical Records Translation',
+    'res-label': '03 · Recursos para freelancers',
+    'res-title': 'Dos caminos para dejar de regalar tu trabajo.',
+    'res-sub': 'Un libro para ordenar tu cabeza y un sistema completo para ejecutarlo. Elegí por dónde arrancar.',
+    'res-book-tag': 'LIBRO · USD 19',
+    'res-course-tag': 'SISTEMA COMPLETO · PREMIUM',
+    'res-course-visual-label': 'DANILO<br>SYSTEM',
+    'res-course-title': 'El sistema completo para cobrar en USD desde tu cuarto.',
+    'res-course-kicker': 'No es otro curso genérico. Es el método exacto que me llevó a Top Rated en Upwork, con templates, scripts de llamadas, propuestas reales ganadas y soporte directo.',
+    'res-c1-raw': '<strong>Módulos en video:</strong> del perfil hasta la primera llamada con cliente enterprise.',
+    'res-c2-raw': '<strong>Templates vivos:</strong> propuestas, contratos, facturas y seguimiento que uso hoy.',
+    'res-c3-raw': '<strong>Acompañamiento directo:</strong> WhatsApp conmigo para dudas reales durante el recorrido.',
+    'res-c4-raw': '<strong>Comunidad:</strong> freelancers hispanos que ya están cobrando afuera.',
+    'res-course-price-label': 'Inversión completa',
+    'res-course-price-val': 'Ver detalles del sistema',
+    'res-course-cta': 'Conocer el sistema',
+    'res-course-note': 'Página completa con todos los detalles',
     'book-label': '03 · Libro',
     'book-title': 'De 0 a 1000 USD freelanceando mientras estudiaba medicina.',
     'book-kicker': 'El sistema exacto que usé para pasar de cero experiencia a Top Rated en Upwork, sin renunciar a mi carrera. No es motivación vacía: es el mapa operacional que me hubiera ahorrado 2 años si lo hubiera tenido.',
@@ -104,13 +120,24 @@ const DICT = {
     'calc-label': '06 · Cotización inteligente',
     'calc-title': 'Estimá tu proyecto en 30 segundos.',
     'calc-sub': 'Seleccioná las variables de tu proyecto y obtené un rango realista en USD.',
-    'calc-q1': 'Tipo de video',
+    'calc-q1': 'Tipo de proyecto',
     'calc-short': 'Short / Reel',
     'calc-ad': 'Ad comercial',
     'calc-long': 'Long form',
+    'calc-translation': 'Traducción',
+    'calc-copy': 'Copywriting',
+    'calc-qty-video': 'Duración del video',
+    'calc-qty-words': 'Cantidad (x100 palabras)',
+    'calc-qty-hint-video': 'Arrastrá para ajustar la duración final del contenido',
+    'calc-qty-hint-words': 'Cada unidad equivale a 100 palabras aproximadas',
+    'calc-unit-min': 'min',
+    'calc-unit-words': 'x100 pal',
+    'calc-per-video': 'por video',
+    'calc-per-trans': 'por proyecto',
+    'calc-per-copy': 'por pieza',
     'calc-q2': 'Urgencia',
-    'calc-normal': 'Normal (5-7d)',
-    'calc-urgente': 'Urgente (48-72h)',
+    'calc-normal': 'Normal (5 a 7d)',
+    'calc-urgente': 'Urgente (48 a 72h)',
     'calc-express': 'Express (24h)',
     'calc-q3': 'Idioma',
     'calc-uno': 'Un idioma',
@@ -157,6 +184,7 @@ const DICT = {
     'nav-mentoria': 'Mentoring',
     'nav-calc': 'Get Quote',
     'nav-cta-text': 'Hire me',
+    'nav-logo-role': 'Content Specialist',
     'banner-strong': 'Top Rated on Upwork',
     'banner-text': '95% Job Success Score · $6K+ earned · Trilingual HE/EN/ES',
     'hero-eyebrow': 'Available for projects · HE / EN / ES',
@@ -170,9 +198,8 @@ const DICT = {
     'stat-jss': 'Job Success Score',
     'stat-hours': 'Billed hours',
     'stat-rating': 'Average rating',
-    'proof-label': 'Trusted by global clients ·',
-    'proof-upwork-label': 'Verified',
-    'proof-lang-label': 'native/fluent',
+    'proof-label': 'Clients and platforms',
+    'proof-projects': 'projects',
     'services-label': '01 · Services',
     'services-title': 'A full content system, not a scattered piece.',
     'services-sub': 'From editing to copy, from subtitles to medical translation. All executed with agency-grade craft and top-rated freelance speed.',
@@ -201,6 +228,22 @@ const DICT = {
     'port4-title': 'Brand Presentation',
     'port5-title': 'Hebrew Tutorial Adaptation',
     'port6-title': 'Medical Records Translation',
+    'res-label': '03 · Freelancer resources',
+    'res-title': 'Two paths to stop giving your work away.',
+    'res-sub': 'A book to organize your thinking and a complete system to execute it. Choose where to start.',
+    'res-book-tag': 'BOOK · USD 19',
+    'res-course-tag': 'FULL SYSTEM · PREMIUM',
+    'res-course-visual-label': 'DANILO<br>SYSTEM',
+    'res-course-title': 'The full system to get paid in USD from your room.',
+    'res-course-kicker': 'Not another generic course. The exact method that took me to Top Rated on Upwork, with templates, call scripts, real winning proposals and direct support.',
+    'res-c1-raw': '<strong>Video modules:</strong> from profile setup to your first enterprise call.',
+    'res-c2-raw': '<strong>Living templates:</strong> proposals, contracts, invoices and follow-up I use today.',
+    'res-c3-raw': '<strong>Direct support:</strong> WhatsApp access for real questions along the journey.',
+    'res-c4-raw': '<strong>Community:</strong> Spanish-speaking freelancers already earning abroad.',
+    'res-course-price-label': 'Full investment',
+    'res-course-price-val': 'See system details',
+    'res-course-cta': 'Discover the system',
+    'res-course-note': 'Full page with all the details',
     'book-label': '03 · Book',
     'book-title': 'From 0 to 1000 USD freelancing while studying medicine.',
     'book-kicker': "The exact system I used to go from zero experience to Top Rated on Upwork without quitting my career. It's not empty motivation: it's the operational map that would have saved me 2 years if I'd had it.",
@@ -247,13 +290,24 @@ const DICT = {
     'calc-label': '06 · Smart quote',
     'calc-title': 'Estimate your project in 30 seconds.',
     'calc-sub': 'Select your project variables and get a realistic USD range.',
-    'calc-q1': 'Video type',
+    'calc-q1': 'Project type',
     'calc-short': 'Short / Reel',
     'calc-ad': 'Commercial ad',
     'calc-long': 'Long form',
+    'calc-translation': 'Translation',
+    'calc-copy': 'Copywriting',
+    'calc-qty-video': 'Video duration',
+    'calc-qty-words': 'Amount (x100 words)',
+    'calc-qty-hint-video': 'Drag to set the final content duration',
+    'calc-qty-hint-words': 'Each unit equals approximately 100 words',
+    'calc-unit-min': 'min',
+    'calc-unit-words': 'x100 wd',
+    'calc-per-video': 'per video',
+    'calc-per-trans': 'per project',
+    'calc-per-copy': 'per piece',
     'calc-q2': 'Urgency',
-    'calc-normal': 'Normal (5-7d)',
-    'calc-urgente': 'Urgent (48-72h)',
+    'calc-normal': 'Normal (5 to 7d)',
+    'calc-urgente': 'Urgent (48 to 72h)',
     'calc-express': 'Express (24h)',
     'calc-q3': 'Language',
     'calc-uno': 'Single language',
@@ -300,6 +354,7 @@ const DICT = {
     'nav-mentoria': 'הדרכה',
     'nav-calc': 'הצעת מחיר',
     'nav-cta-text': 'לשכור אותי',
+    'nav-logo-role': 'מומחה תוכן',
     'banner-strong': 'Top Rated ב-Upwork',
     'banner-text': '95% ציון הצלחה · 6K+ דולר · תלת־לשוני HE/EN/ES',
     'hero-eyebrow': 'זמין לפרויקטים · HE / EN / ES',
@@ -314,6 +369,7 @@ const DICT = {
     'stat-hours': 'שעות חיוב',
     'stat-rating': 'דירוג ממוצע',
     'proof-label': 'לקוחות גלובליים סומכים ·',
+    'proof-projects': 'פרויקטים',
     'proof-upwork-label': 'מאומת',
     'proof-lang-label': 'שפת אם/שוטף',
     'services-label': '01 · שירותים',
@@ -344,6 +400,22 @@ const DICT = {
     'port4-title': 'הצגת מותג',
     'port5-title': 'התאמת מדריך בעברית',
     'port6-title': 'תרגום רשומות רפואיות',
+    'res-label': '03 · משאבים לפרילנסרים',
+    'res-title': 'שני מסלולים להפסיק למכור את הזמן שלך בזול.',
+    'res-sub': 'ספר כדי לסדר את הראש ומערכת שלמה כדי לבצע. תבחרו מאיפה להתחיל.',
+    'res-book-tag': 'ספר · 19 דולר',
+    'res-course-tag': 'מערכת מלאה · פרמיום',
+    'res-course-visual-label': 'DANILO<br>SYSTEM',
+    'res-course-title': 'המערכת המלאה לקבל תשלום בדולרים מהחדר שלך.',
+    'res-course-kicker': 'לא עוד קורס גנרי. השיטה המדויקת שהביאה אותי ל-Top Rated ב-Upwork, עם תבניות, סקריפטים לשיחות, הצעות זוכות אמיתיות ותמיכה ישירה.',
+    'res-c1-raw': '<strong>מודולי וידאו:</strong> מבניית הפרופיל עד השיחה הראשונה עם לקוח ארגוני.',
+    'res-c2-raw': '<strong>תבניות חיות:</strong> הצעות, חוזים, חשבוניות ומעקב שאני משתמש בהם היום.',
+    'res-c3-raw': '<strong>ליווי ישיר:</strong> גישה ל-WhatsApp לשאלות אמיתיות לאורך הדרך.',
+    'res-c4-raw': '<strong>קהילה:</strong> פרילנסרים דוברי ספרדית שכבר מרוויחים בחו"ל.',
+    'res-course-price-label': 'השקעה מלאה',
+    'res-course-price-val': 'לראות פרטי המערכת',
+    'res-course-cta': 'לגלות את המערכת',
+    'res-course-note': 'עמוד מלא עם כל הפרטים',
     'book-label': '03 · ספר',
     'book-title': 'מ-0 ל-1000 דולר בפרילנס בזמן לימודי רפואה.',
     'book-kicker': 'המערכת המדויקת שהשתמשתי בה כדי לעבור מאפס ניסיון ל-Top Rated ב-Upwork בלי לוותר על הקריירה שלי. זו לא מוטיבציה ריקה: זו מפה מבצעית שהייתה חוסכת לי שנתיים אם הייתה לי.',
@@ -390,13 +462,24 @@ const DICT = {
     'calc-label': '06 · הצעת מחיר חכמה',
     'calc-title': 'אומדן הפרויקט שלך ב-30 שניות.',
     'calc-sub': 'בחר את המשתנים של הפרויקט וקבל טווח ריאלי בדולרים.',
-    'calc-q1': 'סוג וידאו',
+    'calc-q1': 'סוג הפרויקט',
     'calc-short': 'Short / Reel',
-    'calc-ad': 'פרסומת מסחרית',
-    'calc-long': 'פורמט ארוך',
+    'calc-ad': 'פרסומת',
+    'calc-long': 'Long form',
+    'calc-translation': 'תרגום',
+    'calc-copy': 'קופירייטינג',
+    'calc-qty-video': 'משך הווידאו',
+    'calc-qty-words': 'כמות (x100 מילים)',
+    'calc-qty-hint-video': 'גרור כדי להגדיר את משך התוכן',
+    'calc-qty-hint-words': 'כל יחידה שווה ל־100 מילים בערך',
+    'calc-unit-min': 'דקות',
+    'calc-unit-words': 'x100 מל',
+    'calc-per-video': 'לווידאו',
+    'calc-per-trans': 'לפרויקט',
+    'calc-per-copy': 'ליחידה',
     'calc-q2': 'דחיפות',
-    'calc-normal': 'רגיל (5-7 ימים)',
-    'calc-urgente': 'דחוף (48-72 שעות)',
+    'calc-normal': 'רגיל (5 עד 7 ימים)',
+    'calc-urgente': 'דחוף (48 עד 72 שעות)',
     'calc-express': 'אקספרס (24 שעות)',
     'calc-q3': 'שפה',
     'calc-uno': 'שפה אחת',
@@ -462,18 +545,37 @@ function applyLang(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     if (d[key] !== undefined) {
-      el.textContent = d[key];
+      // Allow HTML for certain fragile keys (visual-label uses <br>)
+      if (key === 'res-course-visual-label') {
+        el.innerHTML = d[key];
+      } else {
+        el.textContent = d[key];
+      }
     }
   });
 
-  // Raw HTML-supporting fields
+  // Raw HTML-supporting fields (bullets con <strong>)
+  const bookBullets = document.querySelectorAll('.res-book .res-bullets li');
+  const courseBullets = document.querySelectorAll('.res-course .res-bullets li');
   const rawMap = {
     'hero-h1-raw': document.querySelector('.hero h1'),
-    'book-b1-raw': document.querySelector('.book-benefit:nth-child(1) > div:last-child'),
-    'book-b2-raw': document.querySelector('.book-benefit:nth-child(2) > div:last-child'),
-    'book-b3-raw': document.querySelector('.book-benefit:nth-child(3) > div:last-child'),
-    'book-b4-raw': document.querySelector('.book-benefit:nth-child(4) > div:last-child'),
   };
+  // Book bullets (b1..b4)
+  ['book-b1', 'book-b2', 'book-b3', 'book-b4'].forEach((k, i) => {
+    if (bookBullets[i]) {
+      const rawKey = k + '-raw';
+      if (d[rawKey]) bookBullets[i].innerHTML = d[rawKey];
+      else if (d[k]) bookBullets[i].innerHTML = d[k];
+    }
+  });
+  // Course bullets (c1..c4)
+  ['res-c1', 'res-c2', 'res-c3', 'res-c4'].forEach((k, i) => {
+    if (courseBullets[i]) {
+      const rawKey = k + '-raw';
+      if (d[rawKey]) courseBullets[i].innerHTML = d[rawKey];
+      else if (d[k]) courseBullets[i].innerHTML = d[k];
+    }
+  });
   Object.entries(rawMap).forEach(([key, el]) => {
     if (el && d[key]) el.innerHTML = d[key];
   });
@@ -492,7 +594,8 @@ function applyLang(lang) {
   // Save preference
   try { localStorage.setItem('dh-lang', lang); } catch(e) {}
 
-  // Recompute calculator
+  // Recompute calculator (refresh labels of unit/hint)
+  if (typeof updateCalcQtyUI === 'function') updateCalcQtyUI();
   computeCalc();
 }
 
@@ -531,17 +634,25 @@ function detectTheme() {
 }
 
 // ──────────────────────────────────────────────
-// CALCULATOR LOGIC
+// CALCULATOR LOGIC (v2 · qty slider + translation/copy)
 // ──────────────────────────────────────────────
 const calcState = {
-  tipo: 'short',    // short=40 base, ad=120, long=250
-  urg: 'normal',    // normal=1, urgente=1.4, express=1.8
-  idioma: 'uno',    // uno=1, multi=1.5
-  subs: 'no',       // no=1, si=1.15
-  cliente: 'ind'    // ind=1, agency=1.25, enterprise=1.8
+  tipo: 'short',
+  qty: 1,           // minutos (video) o cientos de palabras (translation/copy)
+  urg: 'normal',
+  idioma: 'uno',
+  subs: 'no',
+  cliente: 'ind'
 };
 
-const BASES = { short: [40, 120], ad: [150, 500], long: [300, 900] };
+// Tipos de proyecto · cada uno define: base por unidad, rango de slider, unidad, label
+const TIPO_CONFIG = {
+  short:       { basePerUnit: [35, 90],   min: 0.25, max: 3,   step: 0.25, default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true  },
+  ad:          { basePerUnit: [120, 320], min: 0.5,  max: 5,   step: 0.5,  default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true  },
+  long:        { basePerUnit: [60, 180],  min: 3,    max: 60,  step: 1,    default: 10, unit: 'min',   hasIdioma: true,  hasSubs: true  },
+  translation: { basePerUnit: [18, 55],   min: 1,    max: 50,  step: 1,    default: 5,  unit: 'words', hasIdioma: false, hasSubs: false },
+  copy:        { basePerUnit: [22, 70],   min: 1,    max: 30,  step: 1,    default: 3,  unit: 'words', hasIdioma: true,  hasSubs: false }
+};
 const URG = { normal: 1, urgente: 1.4, express: 1.8 };
 const IDIOMA = { uno: 1, multi: 1.5 };
 const SUBS = { no: 1, si: 1.15 };
@@ -551,35 +662,91 @@ function formatUSD(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
 
-function computeCalc() {
-  const [baseMin, baseMax] = BASES[calcState.tipo];
-  const mult = URG[calcState.urg] * IDIOMA[calcState.idioma] * SUBS[calcState.subs] * CLIENTE[calcState.cliente];
+function formatQty(qty, unit) {
+  if (unit === 'words') return Math.round(qty * 100);
+  // minutos: mostrar decimal solo si no es entero
+  return Number.isInteger(qty) ? qty.toString() : qty.toString();
+}
 
-  const low = baseMin * mult;
-  const high = baseMax * mult;
+function updateCalcQtyUI() {
+  const cfg = TIPO_CONFIG[calcState.tipo];
+  const slider = document.getElementById('calcQty');
+  const qtyNum = document.getElementById('calcQtyNum');
+  const qtyUnit = document.getElementById('calcQtyUnit');
+  const qtyLabel = document.getElementById('calcQtyLabel');
+  const qtyHint = document.getElementById('calcQtyHint');
+  const perUnit = document.getElementById('calcPerUnit');
+  const idiomaGroup = document.getElementById('calcIdiomaGroup');
+  const subsGroup = document.getElementById('calcSubsGroup');
+
+  if (!slider) return;
+
+  slider.min = cfg.min;
+  slider.max = cfg.max;
+  slider.step = cfg.step;
+  if (calcState.qty < cfg.min || calcState.qty > cfg.max) {
+    calcState.qty = cfg.default;
+  }
+  slider.value = calcState.qty;
+
+  if (qtyNum) qtyNum.textContent = formatQty(calcState.qty, cfg.unit);
+
+  const unitKey = cfg.unit === 'words' ? 'calc-unit-words' : 'calc-unit-min';
+  if (qtyUnit) qtyUnit.textContent = DICT[currentLang][unitKey] || (cfg.unit === 'words' ? 'palabras' : 'min');
+
+  const labelKey = cfg.unit === 'words' ? 'calc-qty-words' : 'calc-qty-video';
+  const hintKey = cfg.unit === 'words' ? 'calc-qty-hint-words' : 'calc-qty-hint-video';
+  if (qtyLabel) qtyLabel.textContent = DICT[currentLang][labelKey] || qtyLabel.textContent;
+  if (qtyHint) qtyHint.textContent = DICT[currentLang][hintKey] || qtyHint.textContent;
+
+  const perKey = cfg.unit === 'words'
+    ? (calcState.tipo === 'translation' ? 'calc-per-trans' : 'calc-per-copy')
+    : 'calc-per-video';
+  if (perUnit) perUnit.textContent = DICT[currentLang][perKey] || 'por proyecto';
+
+  if (idiomaGroup) idiomaGroup.style.display = cfg.hasIdioma ? '' : 'none';
+  if (subsGroup) subsGroup.style.display = cfg.hasSubs ? '' : 'none';
+}
+
+function computeCalc() {
+  const cfg = TIPO_CONFIG[calcState.tipo];
+  const [basePerMin, basePerMax] = cfg.basePerUnit;
+
+  const idiomaMult = cfg.hasIdioma ? IDIOMA[calcState.idioma] : 1;
+  const subsMult = cfg.hasSubs ? SUBS[calcState.subs] : 1;
+  const mult = URG[calcState.urg] * idiomaMult * subsMult * CLIENTE[calcState.cliente];
+
+  // Escalado por cantidad: video usa minutos directo, words usa cientos (1 tick = 100 palabras)
+  const qty = calcState.qty;
+  const low = basePerMin * qty * mult;
+  const high = basePerMax * qty * mult;
+
+  // Para proyectos muy cortos (bajo 1 min/palabra), aplicar piso mínimo
+  const floorMin = calcState.tipo === 'short' ? 40 : (calcState.tipo === 'ad' ? 90 : 25);
+  const adjustedLow = Math.max(low, floorMin);
+  const adjustedHigh = Math.max(high, floorMin * 2);
 
   const rangeEl = document.getElementById('calcRange');
-  if (rangeEl) rangeEl.innerHTML = `${formatUSD(low)} <span>–</span> ${formatUSD(high)}`;
+  if (rangeEl) rangeEl.innerHTML = `${formatUSD(adjustedLow)} <span>a</span> ${formatUSD(adjustedHigh)}`;
 
-  // Determine tier message
+  // Tier calculation
   let tierKey = 'calc-tier-mid';
   if (calcState.cliente === 'enterprise') tierKey = 'calc-tier-enterprise';
-  else if (mult >= 2.4) tierKey = 'calc-tier-high';
-  else if (mult <= 1.1 && calcState.tipo === 'short') tierKey = 'calc-tier-low';
+  else if (mult >= 2.4 || adjustedHigh > 800) tierKey = 'calc-tier-high';
+  else if (mult <= 1.1 && adjustedHigh < 150) tierKey = 'calc-tier-low';
 
   const info = DICT[currentLang][tierKey];
   if (info) {
     const infoEl = document.getElementById('calcInfo');
-    if (infoEl) {
-      infoEl.innerHTML = `<strong>${info.t}</strong><span>${info.d}</span>`;
-    }
+    if (infoEl) infoEl.innerHTML = `<strong>${info.t}</strong><span>${info.d}</span>`;
   }
 
-  // Update WA CTA URL with context
+  // Build WhatsApp context message
   const tipoLabel = DICT[currentLang][`calc-${calcState.tipo}`] || calcState.tipo;
   const urgLabel = DICT[currentLang][`calc-${calcState.urg}`] || calcState.urg;
+  const qtyStr = cfg.unit === 'words' ? `${Math.round(qty * 100)} palabras` : `${qty} min`;
   const msg = encodeURIComponent(
-    `Hola Danilo, quiero cotizar un proyecto:\n• Tipo: ${tipoLabel}\n• Urgencia: ${urgLabel}\n• Rango estimado: ${formatUSD(low)}-${formatUSD(high)} USD`
+    `Hola Danilo, quiero cotizar un proyecto:\n· Tipo: ${tipoLabel}\n· Tamaño: ${qtyStr}\n· Urgencia: ${urgLabel}\n· Rango estimado: ${formatUSD(adjustedLow)} a ${formatUSD(adjustedHigh)} USD`
   );
   const cta = document.getElementById('calcCtaBtn');
   if (cta) cta.href = `https://wa.me/5492302219422?text=${msg}`;
@@ -748,12 +915,28 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update UI
       document.querySelectorAll(`.calc-opt[data-field="${field}"]`).forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      if (field === 'tipo') updateCalcQtyUI();
       computeCalc();
     });
   });
+
+  // Calculator quantity slider
+  const calcQtySlider = document.getElementById('calcQty');
+  if (calcQtySlider) {
+    calcQtySlider.addEventListener('input', (e) => {
+      calcState.qty = parseFloat(e.target.value);
+      const qtyNum = document.getElementById('calcQtyNum');
+      const cfg = TIPO_CONFIG[calcState.tipo];
+      if (qtyNum) qtyNum.textContent = formatQty(calcState.qty, cfg.unit);
+      computeCalc();
+    });
+  }
+
+  updateCalcQtyUI();
   computeCalc();
 
-  // Mentoría form
+  // Re-run UI refresh when language changes (already triggered by applyLang hook below)
+  // Mentoría form removed in v2 · nothing to wire up
   document.getElementById('mentSend')?.addEventListener('click', sendMentoriaMsg);
 
   // Book buy
