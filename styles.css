@@ -668,27 +668,27 @@ body.dark nav.site-nav { background: rgba(10,10,10,0.82); }
 .book-price-row {
   display: flex; align-items: baseline; gap: 16px;
   padding: 24px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   margin-bottom: 28px;
 }
 .book-price {
   font-family: 'Syne', sans-serif;
   font-weight: 800;
   font-size: 2.8rem;
-  color: white;
+  color: var(--ink);
   letter-spacing: -0.04em;
 }
 .book-price-cur {
   font-size: 1rem;
-  color: rgba(255,255,255,0.5);
+  color: var(--ink-3);
   font-weight: 500;
   margin-right: 4px;
 }
 .book-price-note {
   font-family: 'DM Mono', monospace;
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.4);
+  color: var(--ink-3);
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
@@ -721,7 +721,7 @@ body.dark .btn-book-buy { background: white; color: #0a0a0a; }
 .book-paypal {
   font-family: 'DM Mono', monospace;
   font-size: 0.72rem;
-  color: rgba(255,255,255,0.4);
+  color: var(--ink-3);
   text-align: center;
   margin-top: 8px;
 }
@@ -1483,7 +1483,7 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   max-width: 640px;
 }
 
-/* ─── CLIENT LOGOS (proof strip v4 · imágenes reales) ─── */
+/* ─── CLIENT LOGOS (proof strip v5 · altura unificada) ─── */
 .proof-logos {
   display: flex;
   flex-wrap: wrap;
@@ -1497,41 +1497,42 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   gap: 8px;
   transition: opacity .2s, transform .2s var(--ease-out);
   opacity: 0.85;
+  height: 28px;
 }
 .plogo:hover { opacity: 1; transform: translateY(-1px); }
+
+/* ALTURA UNIFICADA para todos los logos · 28px */
 .plogo img {
-  height: 24px;
+  height: 28px !important;
   width: auto;
   display: block;
   object-fit: contain;
 }
 
 /* Upwork · su SVG ya viene con su color verde */
-.plogo-upwork img { height: 22px; }
 body.dark .plogo-upwork img {
   filter: brightness(1.25);
 }
 
-/* ICUC · PNG sobre blanco. En light se ve natural. En dark invertimos. */
-.plogo-icuc img { height: 22px; }
+/* ICUC · PNG sobre blanco. En dark invertimos para visibilidad. */
 body.dark .plogo-icuc img {
   filter: invert(1) brightness(1.15);
 }
 
 /* ElevenLabs · swap automático light/dark */
 .plogo-eleven { position: relative; }
-.plogo-eleven img { height: 22px; }
 .plogo-eleven .plogo-img-dark { display: none; }
 body.dark .plogo-eleven .plogo-img-light { display: none; }
 body.dark .plogo-eleven .plogo-img-dark { display: block; }
 
-/* Rating bloque · se oculta en mobile (ya definido abajo) */
+/* Rating bloque */
 .plogo-rating {
   font-size: 0.82rem;
   font-family: 'DM Mono', monospace;
   font-weight: 500;
   color: var(--ink-3);
   gap: 10px;
+  height: auto;
 }
 .plogo-stars {
   color: #f59e0b;
@@ -1966,7 +1967,7 @@ body.dark .res-course {
   inset: 0;
   border-radius: 2px 6px 6px 2px;
   overflow: hidden;
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  background: linear-gradient(135deg, #1a365d 0%, #0a1a3a 50%, #0a0f1f 100%);
   box-shadow:
     inset -3px 0 6px rgba(255,255,255,0.08),
     inset 5px 0 12px rgba(0,0,0,0.4),
@@ -1978,28 +1979,105 @@ body.dark .res-course {
   object-fit: cover;
   display: block;
   position: relative;
-  z-index: 2;
+  z-index: 4;
 }
 
-/* Lomo · rectángulo 3D real detrás de la tapa */
+/* FALLBACK tipográfico · visible siempre, la imagen lo cubre si carga */
+.book-v2-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #f8f6f2;
+  font-family: 'Syne', sans-serif;
+  border-radius: 2px 6px 6px 2px;
+  overflow: hidden;
+}
+.book-v2-fallback::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.04) 0%, transparent 40%),
+    repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.015) 12px 13px);
+  pointer-events: none;
+}
+.bvf-top { display: flex; flex-direction: column; gap: 8px; }
+.bvf-line {
+  width: 40px; height: 2px;
+  background: #f59e0b;
+}
+.bvf-author {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.2em;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+}
+.bvf-mid { flex-grow: 1; display: flex; align-items: center; }
+.bvf-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.7rem;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: white;
+}
+.bvf-bot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+}
+.bvf-subtitle {
+  font-family: 'DM Sans', sans-serif;
+  font-style: italic;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.2;
+}
+.bvf-badge {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: #f59e0b;
+  display: flex; align-items: center; justify-content: center;
+  color: #0a0a0a;
+  font-size: 0.9rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* Lomo · rectángulo 3D real detrás de la tapa · CSS puro, sin imagen */
 .book-v2-spine {
   position: absolute;
   top: 0;
   left: 0;
   width: 22px;
   height: 100%;
-  background: linear-gradient(90deg, #0a0a0a 0%, #1c1c1c 60%, #2a2a2a 100%);
+  background:
+    linear-gradient(90deg, #0a0a0a 0%, #1c1c1c 60%, #2a2a2a 100%),
+    linear-gradient(180deg, transparent 0%, rgba(245,158,11,0.4) 50%, transparent 51%);
+  background-blend-mode: normal, overlay;
   transform: translateX(-22px) rotateY(-90deg);
   transform-origin: right center;
   border-radius: 2px 0 0 2px;
   overflow: hidden;
   box-shadow: inset -2px 0 4px rgba(0,0,0,0.6);
 }
-.book-v2-spine img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.9;
+.book-v2-spine::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 2px;
+  background: #f59e0b;
+  opacity: 0.8;
 }
 
 /* Brillo sobre la tapa */
