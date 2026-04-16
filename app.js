@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    DANILO HURWITZ · APP LOGIC
-   i18n · Calculator · Theme · Animations · Payment Modal
+   i18n · Calculator · Theme · Animations · Payment Modal 
    ══════════════════════════════════════════════════════════════ */
 
 // ──────────────────────────────────────────────
