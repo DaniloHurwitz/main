@@ -18,7 +18,7 @@ const DICT = {
     'banner-text': '95% Job Success Score · +$6K generados · Trilingüe HE/EN/ES',
     'nav-logo-role': 'Content Specialist',
     'hero-eyebrow': 'Disponible para proyectos · HE / EN / ES',
-    'hero-h1-raw': 'Video editor trilingüe para marcas que no pueden permitirse contenido mediocre.',
+    'hero-h1-raw': 'Video editor trilingüe para marcas serias.',
     'hero-sub': 'Reels, ads comerciales y subtitulación de precisión. Trabajo con clientes Fortune 500 vía ICUC, con ElevenLabs y directo en Upwork desde Mar del Plata.',
     'hero-video-badge': 'Presentación',
     'hero-cta-1': 'Empezar un proyecto',
@@ -63,7 +63,7 @@ const DICT = {
     'res-sub': 'Un libro para ordenar tu cabeza y un sistema completo para ejecutarlo. Elegí por dónde arrancar.',
     'res-book-tag': 'LIBRO · USD 19',
     'res-course-tag': 'SISTEMA COMPLETO · PREMIUM',
-    'res-course-visual-label': 'DANILO<br>SYSTEM',
+    'res-course-visual-label': 'Sistema Completo',
     'res-course-title': 'El sistema completo para cobrar en USD desde tu cuarto.',
     'res-course-kicker': 'No es otro curso genérico. Es el método exacto que me llevó a Top Rated en Upwork, con templates, scripts de llamadas, propuestas reales ganadas y soporte directo.',
     'res-c1-raw': '<strong>Módulos en video:</strong> del perfil hasta la primera llamada con cliente enterprise.',
@@ -149,7 +149,7 @@ const DICT = {
     'calc-ind': 'Individual',
     'calc-agency': 'Agencia',
     'calc-enterprise': 'Enterprise',
-    'calc-estimate': 'Estimación aproximada',
+    'calc-estimate': 'Estimado aproximado',
     'calc-per-video': 'por video',
     'calc-tier-title': 'Rango estándar',
     'calc-tier-desc': 'Para proyectos simples con entrega normal y un solo idioma. Ajustá las variables para afinar el presupuesto.',
@@ -188,7 +188,7 @@ const DICT = {
     'banner-strong': 'Top Rated on Upwork',
     'banner-text': '95% Job Success Score · $6K+ earned · Trilingual HE/EN/ES',
     'hero-eyebrow': 'Available for projects · HE / EN / ES',
-    'hero-h1-raw': 'Trilingual video editor for brands that cannot afford mediocre content.',
+    'hero-h1-raw': 'Trilingual video editor for serious brands.',
     'hero-sub': 'Reels, commercial ads and precision subtitling. I work with Fortune 500 clients via ICUC, with ElevenLabs and directly on Upwork from Mar del Plata.',
     'hero-video-badge': 'Intro',
     'hero-cta-1': 'Start a project',
@@ -233,7 +233,7 @@ const DICT = {
     'res-sub': 'A book to organize your thinking and a complete system to execute it. Choose where to start.',
     'res-book-tag': 'BOOK · USD 19',
     'res-course-tag': 'FULL SYSTEM · PREMIUM',
-    'res-course-visual-label': 'DANILO<br>SYSTEM',
+    'res-course-visual-label': 'Full System',
     'res-course-title': 'The full system to get paid in USD from your room.',
     'res-course-kicker': 'Not another generic course. The exact method that took me to Top Rated on Upwork, with templates, call scripts, real winning proposals and direct support.',
     'res-c1-raw': '<strong>Video modules:</strong> from profile setup to your first enterprise call.',
@@ -319,7 +319,7 @@ const DICT = {
     'calc-ind': 'Individual',
     'calc-agency': 'Agency',
     'calc-enterprise': 'Enterprise',
-    'calc-estimate': 'Estimated range',
+    'calc-estimate': 'Approximate estimate',
     'calc-per-video': 'per video',
     'calc-tier-title': 'Standard range',
     'calc-tier-desc': 'For simple projects with normal delivery and a single language. Adjust variables to refine the estimate.',
@@ -358,7 +358,7 @@ const DICT = {
     'banner-strong': 'Top Rated ב-Upwork',
     'banner-text': '95% ציון הצלחה · 6K+ דולר · תלת־לשוני HE/EN/ES',
     'hero-eyebrow': 'זמין לפרויקטים · HE / EN / ES',
-    'hero-h1-raw': 'עורך וידאו תלת-לשוני למותגים שלא יכולים להרשות לעצמם תוכן בינוני.',
+    'hero-h1-raw': 'עורך וידאו תלת-לשוני למותגים רציניים.',
     'hero-sub': 'Reels, פרסומות ותרגום מדויק. עובד עם לקוחות Fortune 500 דרך ICUC, עם ElevenLabs וישירות ב-Upwork ממר דל פלטה.',
     'hero-video-badge': 'הצגה',
     'hero-cta-1': 'להתחיל פרויקט',
@@ -405,7 +405,7 @@ const DICT = {
     'res-sub': 'ספר כדי לסדר את הראש ומערכת שלמה כדי לבצע. תבחרו מאיפה להתחיל.',
     'res-book-tag': 'ספר · 19 דולר',
     'res-course-tag': 'מערכת מלאה · פרמיום',
-    'res-course-visual-label': 'DANILO<br>SYSTEM',
+    'res-course-visual-label': 'מערכת מלאה',
     'res-course-title': 'המערכת המלאה לקבל תשלום בדולרים מהחדר שלך.',
     'res-course-kicker': 'לא עוד קורס גנרי. השיטה המדויקת שהביאה אותי ל-Top Rated ב-Upwork, עם תבניות, סקריפטים לשיחות, הצעות זוכות אמיתיות ותמיכה ישירה.',
     'res-c1-raw': '<strong>מודולי וידאו:</strong> מבניית הפרופיל עד השיחה הראשונה עם לקוח ארגוני.',
@@ -491,7 +491,7 @@ const DICT = {
     'calc-ind': 'פרטי',
     'calc-agency': 'סוכנות',
     'calc-enterprise': 'Enterprise',
-    'calc-estimate': 'טווח משוער',
+    'calc-estimate': 'אומדן משוער',
     'calc-per-video': 'לוידאו',
     'calc-tier-title': 'טווח סטנדרטי',
     'calc-tier-desc': 'לפרויקטים פשוטים עם אספקה רגילה ושפה אחת. התאם את המשתנים לשיפור האומדן.',
@@ -545,12 +545,7 @@ function applyLang(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     if (d[key] !== undefined) {
-      // Allow HTML for certain fragile keys (visual-label uses <br>)
-      if (key === 'res-course-visual-label') {
-        el.innerHTML = d[key];
-      } else {
-        el.textContent = d[key];
-      }
+      el.textContent = d[key];
     }
   });
 
@@ -634,29 +629,35 @@ function detectTheme() {
 }
 
 // ──────────────────────────────────────────────
-// CALCULATOR LOGIC (v2 · qty slider + translation/copy)
 // ──────────────────────────────────────────────
+// CALCULATOR LOGIC (v3 · precio estimado único, calibrado con precios reales)
+// ──────────────────────────────────────────────
+// Referencias del usuario:
+//   · Reel 1min con urgencia 24h = ~20 USD  →  base reel ~11/min, × urgencia express (1.8) = 20
+//   · Subtítulos 1min sin apuro   = ~4 USD
 const calcState = {
   tipo: 'short',
-  qty: 1,           // minutos (video) o cientos de palabras (translation/copy)
+  qty: 1,
   urg: 'normal',
   idioma: 'uno',
   subs: 'no',
   cliente: 'ind'
 };
 
-// Tipos de proyecto · cada uno define: base por unidad, rango de slider, unidad, label
+// basePerUnit ahora es un número único (no rango) · USD por unidad en escenario base
 const TIPO_CONFIG = {
-  short:       { basePerUnit: [35, 90],   min: 0.25, max: 3,   step: 0.25, default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true  },
-  ad:          { basePerUnit: [120, 320], min: 0.5,  max: 5,   step: 0.5,  default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true  },
-  long:        { basePerUnit: [60, 180],  min: 3,    max: 60,  step: 1,    default: 10, unit: 'min',   hasIdioma: true,  hasSubs: true  },
-  translation: { basePerUnit: [18, 55],   min: 1,    max: 50,  step: 1,    default: 5,  unit: 'words', hasIdioma: false, hasSubs: false },
-  copy:        { basePerUnit: [22, 70],   min: 1,    max: 30,  step: 1,    default: 3,  unit: 'words', hasIdioma: true,  hasSubs: false }
+  short:       { basePerUnit: 11,  min: 0.25, max: 3,   step: 0.25, default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true,  minProject: 15 },
+  ad:          { basePerUnit: 45,  min: 0.5,  max: 5,   step: 0.5,  default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true,  minProject: 60 },
+  long:        { basePerUnit: 22,  min: 3,    max: 60,  step: 1,    default: 10, unit: 'min',   hasIdioma: true,  hasSubs: true,  minProject: 80 },
+  translation: { basePerUnit: 9,   min: 1,    max: 50,  step: 1,    default: 5,  unit: 'words', hasIdioma: false, hasSubs: false, minProject: 15 },
+  copy:        { basePerUnit: 15,  min: 1,    max: 30,  step: 1,    default: 3,  unit: 'words', hasIdioma: true,  hasSubs: false, minProject: 25 }
 };
+// Multiplicadores · más realistas
 const URG = { normal: 1, urgente: 1.4, express: 1.8 };
-const IDIOMA = { uno: 1, multi: 1.5 };
-const SUBS = { no: 1, si: 1.15 };
-const CLIENTE = { ind: 1, agency: 1.25, enterprise: 1.8 };
+const IDIOMA = { uno: 1, multi: 1.4 };
+// Subtítulos simples: +4 USD/min fijo para videos (no multiplicador · se suma)
+const SUBS_PER_MIN = 4;
+const CLIENTE = { ind: 1, agency: 1.2, enterprise: 1.6 };
 
 function formatUSD(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
@@ -664,7 +665,6 @@ function formatUSD(n) {
 
 function formatQty(qty, unit) {
   if (unit === 'words') return Math.round(qty * 100);
-  // minutos: mostrar decimal solo si no es entero
   return Number.isInteger(qty) ? qty.toString() : qty.toString();
 }
 
@@ -710,30 +710,38 @@ function updateCalcQtyUI() {
 
 function computeCalc() {
   const cfg = TIPO_CONFIG[calcState.tipo];
-  const [basePerMin, basePerMax] = cfg.basePerUnit;
 
+  // Base por unidad × cantidad
+  let price = cfg.basePerUnit * calcState.qty;
+
+  // Multiplicadores
   const idiomaMult = cfg.hasIdioma ? IDIOMA[calcState.idioma] : 1;
-  const subsMult = cfg.hasSubs ? SUBS[calcState.subs] : 1;
-  const mult = URG[calcState.urg] * idiomaMult * subsMult * CLIENTE[calcState.cliente];
+  price *= URG[calcState.urg];
+  price *= idiomaMult;
+  price *= CLIENTE[calcState.cliente];
 
-  // Escalado por cantidad: video usa minutos directo, words usa cientos (1 tick = 100 palabras)
-  const qty = calcState.qty;
-  const low = basePerMin * qty * mult;
-  const high = basePerMax * qty * mult;
+  // Subtítulos: suma fija por minuto (solo videos)
+  if (cfg.hasSubs && calcState.subs === 'si' && cfg.unit === 'min') {
+    price += SUBS_PER_MIN * calcState.qty;
+  }
 
-  // Para proyectos muy cortos (bajo 1 min/palabra), aplicar piso mínimo
-  const floorMin = calcState.tipo === 'short' ? 40 : (calcState.tipo === 'ad' ? 90 : 25);
-  const adjustedLow = Math.max(low, floorMin);
-  const adjustedHigh = Math.max(high, floorMin * 2);
+  // Piso mínimo de proyecto
+  price = Math.max(price, cfg.minProject);
+
+  // Redondeo "comercial": < 100 al múltiplo de 5, >= 100 al múltiplo de 10
+  let rounded;
+  if (price < 100) rounded = Math.round(price / 5) * 5;
+  else if (price < 500) rounded = Math.round(price / 10) * 10;
+  else rounded = Math.round(price / 25) * 25;
 
   const rangeEl = document.getElementById('calcRange');
-  if (rangeEl) rangeEl.innerHTML = `${formatUSD(adjustedLow)} <span>a</span> ${formatUSD(adjustedHigh)}`;
+  if (rangeEl) rangeEl.innerHTML = `${formatUSD(rounded)}`;
 
-  // Tier calculation
+  // Tier calculation · ahora basado en el precio final
   let tierKey = 'calc-tier-mid';
   if (calcState.cliente === 'enterprise') tierKey = 'calc-tier-enterprise';
-  else if (mult >= 2.4 || adjustedHigh > 800) tierKey = 'calc-tier-high';
-  else if (mult <= 1.1 && adjustedHigh < 150) tierKey = 'calc-tier-low';
+  else if (rounded >= 400) tierKey = 'calc-tier-high';
+  else if (rounded <= 40) tierKey = 'calc-tier-low';
 
   const info = DICT[currentLang][tierKey];
   if (info) {
@@ -744,9 +752,9 @@ function computeCalc() {
   // Build WhatsApp context message
   const tipoLabel = DICT[currentLang][`calc-${calcState.tipo}`] || calcState.tipo;
   const urgLabel = DICT[currentLang][`calc-${calcState.urg}`] || calcState.urg;
-  const qtyStr = cfg.unit === 'words' ? `${Math.round(qty * 100)} palabras` : `${qty} min`;
+  const qtyStr = cfg.unit === 'words' ? `${Math.round(calcState.qty * 100)} palabras` : `${calcState.qty} min`;
   const msg = encodeURIComponent(
-    `Hola Danilo, quiero cotizar un proyecto:\n· Tipo: ${tipoLabel}\n· Tamaño: ${qtyStr}\n· Urgencia: ${urgLabel}\n· Rango estimado: ${formatUSD(adjustedLow)} a ${formatUSD(adjustedHigh)} USD`
+    `Hola Danilo, quiero cotizar un proyecto:\n· Tipo: ${tipoLabel}\n· Tamaño: ${qtyStr}\n· Urgencia: ${urgLabel}\n· Estimado: ${formatUSD(rounded)} USD`
   );
   const cta = document.getElementById('calcCtaBtn');
   if (cta) cta.href = `https://wa.me/5492302219422?text=${msg}`;
