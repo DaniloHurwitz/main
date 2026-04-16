@@ -726,91 +726,13 @@ body.dark .btn-book-buy { background: white; color: #0a0a0a; }
   margin-top: 8px;
 }
 
-/* 3D BOOK MOCKUP */
+/* 3D BOOK MOCKUP (stage compartido por v1 y v2) */
 .book-mockup-stage {
-  perspective: 1800px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 520px;
+  min-height: 360px;
   position: relative;
-}
-.book-3d {
-  width: 280px;
-  height: 400px;
-  position: relative;
-  transform-style: preserve-3d;
-  transform: rotateY(-28deg) rotateX(5deg);
-  transition: transform 1s var(--ease-out);
-  animation: bookIdle 8s ease-in-out infinite;
-}
-.book-mockup-stage:hover .book-3d {
-  transform: rotateY(-12deg) rotateX(2deg) scale(1.02);
-  animation-play-state: paused;
-}
-@keyframes bookIdle {
-  0%,100% { transform: rotateY(-28deg) rotateX(5deg) translateY(0); }
-  50% { transform: rotateY(-32deg) rotateX(3deg) translateY(-8px); }
-}
-.book-face {
-  position: absolute;
-  background: #333;
-  border-radius: 3px 5px 5px 3px;
-  overflow: hidden;
-}
-.book-front {
-  width: 280px; height: 400px;
-  transform: translateZ(22px);
-  box-shadow:
-    inset -3px 0 0 rgba(0,0,0,0.25),
-    inset 4px 0 12px rgba(255,255,255,0.08);
-}
-.book-back {
-  width: 280px; height: 400px;
-  transform: translateZ(-22px) rotateY(180deg);
-}
-.book-spine {
-  width: 44px; height: 400px;
-  left: -22px; top: 0;
-  transform: rotateY(-90deg) translateZ(22px);
-  background: linear-gradient(90deg, #1a1a1a, #0a0a0a);
-  display: flex; align-items: center; justify-content: center;
-}
-.book-top, .book-bottom {
-  width: 280px; height: 44px;
-  background: repeating-linear-gradient(
-    90deg,
-    #f4f1ec 0, #f4f1ec 1px,
-    #e8e4dc 1px, #e8e4dc 2px
-  );
-  left: 0;
-}
-.book-top { top: -22px; transform: rotateX(90deg) translateZ(22px); }
-.book-bottom { bottom: -22px; transform: rotateX(-90deg) translateZ(22px); }
-.book-right-edge {
-  width: 44px; height: 400px;
-  right: -22px; top: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    #f4f1ec 0, #f4f1ec 1px,
-    #e8e4dc 1px, #e8e4dc 2px
-  );
-  transform: rotateY(90deg) translateZ(22px);
-}
-.book-face img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.book-shadow {
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 260px;
-  height: 22px;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.5), transparent 70%);
-  filter: blur(6px);
 }
 
 /* BOOK QUOTES */
@@ -856,12 +778,8 @@ body.dark .btn-book-buy { background: white; color: #0a0a0a; }
 
 @media(max-width:900px) {
   .book-inner { grid-template-columns: 1fr; gap: 48px; }
-  .book-mockup-stage { order: -1; min-height: 440px; }
-  .book-3d { width: 220px; height: 320px; }
-  .book-front, .book-back { width: 220px; height: 320px; }
-  .book-spine { height: 320px; }
-  .book-top, .book-bottom, .book-right-edge { width: 220px; }
-  .book-right-edge { height: 320px; }
+  .book-mockup-stage { order: -1; min-height: 300px; }
+  .book-v2 { width: 180px; }
 }
 
 /* ─── MENTORÍAS ─── */
@@ -1565,7 +1483,7 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   max-width: 640px;
 }
 
-/* ─── CLIENT LOGOS (proof strip v3 · SVGs oficiales) ─── */
+/* ─── CLIENT LOGOS (proof strip v4 · imágenes reales) ─── */
 .proof-logos {
   display: flex;
   flex-wrap: wrap;
@@ -1574,24 +1492,40 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   margin-left: auto;
 }
 .plogo {
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   transition: opacity .2s, transform .2s var(--ease-out);
   opacity: 0.85;
 }
 .plogo:hover { opacity: 1; transform: translateY(-1px); }
-.plogo svg {
+.plogo img {
   height: 24px;
   width: auto;
   display: block;
+  object-fit: contain;
 }
-/* Upwork · verde oficial */
-.plogo-upwork { color: #14a800; }
-body.dark .plogo-upwork { color: #3cbe12; }
-/* ICUC · color ink (se invierte bien en dark) */
-.plogo-icuc { color: var(--ink); }
-/* ElevenLabs · ink en light, blanco en dark */
-.plogo-eleven { color: var(--ink); }
-/* Rating bloque */
+
+/* Upwork · su SVG ya viene con su color verde */
+.plogo-upwork img { height: 22px; }
+body.dark .plogo-upwork img {
+  filter: brightness(1.25);
+}
+
+/* ICUC · PNG sobre blanco. En light se ve natural. En dark invertimos. */
+.plogo-icuc img { height: 22px; }
+body.dark .plogo-icuc img {
+  filter: invert(1) brightness(1.15);
+}
+
+/* ElevenLabs · swap automático light/dark */
+.plogo-eleven { position: relative; }
+.plogo-eleven img { height: 22px; }
+.plogo-eleven .plogo-img-dark { display: none; }
+body.dark .plogo-eleven .plogo-img-light { display: none; }
+body.dark .plogo-eleven .plogo-img-dark { display: block; }
+
+/* Rating bloque · se oculta en mobile (ya definido abajo) */
 .plogo-rating {
   font-size: 0.82rem;
   font-family: 'DM Mono', monospace;
@@ -1666,30 +1600,6 @@ body.dark .res-course {
 .res-book .book-mockup-stage {
   min-height: 380px;
   margin: -10px 0 10px;
-}
-.res-book .book-3d {
-  width: 220px; height: 310px;
-}
-.res-book .book-front,
-.res-book .book-back { width: 220px; height: 310px; }
-.res-book .book-spine {
-  width: 36px; height: 310px;
-  left: -18px; top: 0;
-  transform: rotateY(-90deg) translateZ(18px);
-}
-.res-book .book-front { transform: translateZ(18px); }
-.res-book .book-back { transform: translateZ(-18px) rotateY(180deg); }
-.res-book .book-top, .res-book .book-bottom { width: 220px; height: 36px; }
-.res-book .book-top { top: -18px; transform: rotateX(90deg) translateZ(18px); }
-.res-book .book-bottom { bottom: -18px; transform: rotateX(-90deg) translateZ(18px); }
-.res-book .book-right-edge {
-  width: 36px; height: 310px;
-  right: -18px; top: 0;
-  transform: rotateY(90deg) translateZ(18px);
-}
-@keyframes bookIdle {
-  0%,100% { transform: rotateY(-28deg) rotateX(5deg) translateY(0); }
-  50% { transform: rotateY(-32deg) rotateX(3deg) translateY(-8px); }
 }
 
 /* Course visual (lado derecho) · ahora video 16:9 */
@@ -2018,87 +1928,130 @@ body.dark .res-course {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   BOOK MOCKUP v2 (simplificado · tapa + lomo, sin 6 caras)
+   BOOK MOCKUP v3 (robusto · tapa + lomo, con fallback si img falla)
    ═══════════════════════════════════════════════════════════════ */
+.book-mockup-stage {
+  perspective: 1800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 380px;
+  padding: 20px 40px;
+  position: relative;
+}
 .book-v2 {
   position: relative;
-  width: 220px;
-  aspect-ratio: 3 / 4;
-  transform: perspective(1400px) rotateY(-18deg) rotateX(3deg);
+  width: 240px;
+  height: 340px;
+  transform: perspective(1600px) rotateY(-22deg) rotateX(2deg);
   transition: transform .7s var(--ease-out);
-  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.25))
-          drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  filter:
+    drop-shadow(0 30px 40px rgba(0,0,0,0.3))
+    drop-shadow(0 10px 18px rgba(0,0,0,0.18));
   animation: bookIdleV2 7s ease-in-out infinite;
+  transform-style: preserve-3d;
 }
 .book-mockup-stage:hover .book-v2 {
-  transform: perspective(1400px) rotateY(-10deg) rotateX(1deg) scale(1.03);
+  transform: perspective(1600px) rotateY(-12deg) rotateX(1deg) scale(1.04);
   animation-play-state: paused;
 }
 @keyframes bookIdleV2 {
-  0%,100% { transform: perspective(1400px) rotateY(-18deg) rotateX(3deg) translateY(0); }
-  50%     { transform: perspective(1400px) rotateY(-22deg) rotateX(2deg) translateY(-6px); }
+  0%,100% { transform: perspective(1600px) rotateY(-22deg) rotateX(2deg) translateY(0); }
+  50%     { transform: perspective(1600px) rotateY(-26deg) rotateX(1deg) translateY(-6px); }
 }
+
+/* Tapa frontal · contenedor con fondo de respaldo por si la imagen no carga */
 .book-v2-cover {
   position: absolute;
   inset: 0;
   border-radius: 2px 6px 6px 2px;
   overflow: hidden;
-  background: #1a1a1a;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   box-shadow:
-    inset -2px 0 4px rgba(255,255,255,0.06),
-    inset 3px 0 8px rgba(0,0,0,0.3);
+    inset -3px 0 6px rgba(255,255,255,0.08),
+    inset 5px 0 12px rgba(0,0,0,0.4),
+    inset 0 0 0 1px rgba(255,255,255,0.04);
 }
 .book-v2-cover img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  position: relative;
+  z-index: 2;
 }
+
+/* Lomo · rectángulo 3D real detrás de la tapa */
 .book-v2-spine {
   position: absolute;
   top: 0;
-  left: -14px;
-  width: 14px;
+  left: 0;
+  width: 22px;
   height: 100%;
-  background: linear-gradient(90deg, #0f0f0f, #1c1c1c 60%, #252525);
-  transform: skewY(-6deg) translateY(6px);
+  background: linear-gradient(90deg, #0a0a0a 0%, #1c1c1c 60%, #2a2a2a 100%);
+  transform: translateX(-22px) rotateY(-90deg);
   transform-origin: right center;
   border-radius: 2px 0 0 2px;
   overflow: hidden;
-  box-shadow: inset -1px 0 0 rgba(0,0,0,0.5);
+  box-shadow: inset -2px 0 4px rgba(0,0,0,0.6);
 }
 .book-v2-spine img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.75;
-  mix-blend-mode: luminosity;
-}
-/* Brillo suave sobre la tapa */
-.book-v2-cover::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(115deg, rgba(255,255,255,0.08) 0%, transparent 35%);
-  pointer-events: none;
-}
-.book-shadow {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 18px;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.35), transparent 70%);
-  filter: blur(8px);
-  z-index: -1;
-}
-body.dark .book-shadow {
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.7), transparent 70%);
+  opacity: 0.9;
 }
 
-/* Tamaño compacto dentro de res-book */
-.res-book .book-v2 { width: 180px; }
-.res-book .book-mockup-stage { min-height: 280px; }
+/* Brillo sobre la tapa */
+.book-v2-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255,255,255,0.12) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* Páginas visibles del lado derecho (efecto 3D) */
+.book-v2-cover::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: -8px;
+  bottom: 4px;
+  width: 10px;
+  background: repeating-linear-gradient(
+    0deg,
+    #f4f1ec 0,
+    #f4f1ec 1px,
+    #d8d3cc 1px,
+    #d8d3cc 2px
+  );
+  border-radius: 0 3px 3px 0;
+  transform: skewY(-2deg);
+  z-index: 1;
+}
+
+/* Sombra de soporte */
+.book-shadow {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  height: 20px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.45), transparent 70%);
+  filter: blur(10px);
+  z-index: 0;
+}
+body.dark .book-shadow {
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.8), transparent 70%);
+}
+
+/* Compact dentro de res-book (card con mockup) */
+.res-book .book-mockup-stage { min-height: 360px; }
+.res-book .book-v2 { width: 200px; height: 280px; }
+.res-book .book-v2-spine { width: 18px; transform: translateX(-18px) rotateY(-90deg); }
 
 /* ═══════════════════════════════════════════════════════════════
    MOBILE SCROLL REDUCTION (aggressive · menos repetido)
