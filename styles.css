@@ -1565,7 +1565,7 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   max-width: 640px;
 }
 
-/* ─── CLIENT LOGOS (proof strip v2) ─── */
+/* ─── CLIENT LOGOS (proof strip v3 · SVGs oficiales) ─── */
 .proof-logos {
   display: flex;
   flex-wrap: wrap;
@@ -1575,37 +1575,23 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
 }
 .plogo {
   display: inline-flex; align-items: center; gap: 8px;
-  color: var(--ink-2);
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 0.96rem;
-  letter-spacing: -0.01em;
-  opacity: 0.78;
-  transition: opacity .2s;
+  transition: opacity .2s, transform .2s var(--ease-out);
+  opacity: 0.85;
 }
-.plogo:hover { opacity: 1; }
-.plogo-mark {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 22px; height: 22px;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 0.72rem;
-  border-radius: 4px;
+.plogo:hover { opacity: 1; transform: translateY(-1px); }
+.plogo svg {
+  height: 24px;
+  width: auto;
+  display: block;
 }
-.plogo-eleven-mark {
-  background: linear-gradient(135deg, #8B5CF6, #EC4899);
-  color: white;
-  font-size: 0.68rem;
-}
-.plogo-upwork svg { height: 14px; width: auto; color: #14a800; }
-body.dark .plogo-upwork svg { color: #4ade80; }
-.plogo-stars {
-  color: #f59e0b;
-  letter-spacing: 0.05em;
-  font-size: 0.88rem;
-}
+/* Upwork · verde oficial */
+.plogo-upwork { color: #14a800; }
+body.dark .plogo-upwork { color: #3cbe12; }
+/* ICUC · color ink (se invierte bien en dark) */
+.plogo-icuc { color: var(--ink); }
+/* ElevenLabs · ink en light, blanco en dark */
+.plogo-eleven { color: var(--ink); }
+/* Rating bloque */
 .plogo-rating {
   font-size: 0.82rem;
   font-family: 'DM Mono', monospace;
@@ -1613,7 +1599,11 @@ body.dark .plogo-upwork svg { color: #4ade80; }
   color: var(--ink-3);
   gap: 10px;
 }
-.plogo-rating span:first-child { color: #f59e0b; font-family: inherit; }
+.plogo-stars {
+  color: #f59e0b;
+  letter-spacing: 0.05em;
+  font-size: 0.88rem;
+}
 
 /* ─── RESOURCES SECTION (libro + landing gancho) ─── */
 .resources-section {
@@ -1702,48 +1692,45 @@ body.dark .res-course {
   50% { transform: rotateY(-32deg) rotateX(3deg) translateY(-8px); }
 }
 
-/* Course visual (lado derecho) */
+/* Course visual (lado derecho) · ahora video 16:9 */
 .res-course-visual {
   position: relative;
-  height: 380px;
-  display: flex; align-items: center; justify-content: center;
+  aspect-ratio: 16 / 9;
+  width: 100%;
   overflow: hidden;
   border-radius: var(--r-lg);
-  background: radial-gradient(ellipse at center, rgba(26,79,214,0.08), transparent 70%);
+  background: #0a0a0a;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
 }
-body.dark .res-course-visual {
-  background: radial-gradient(ellipse at center, rgba(94,135,240,0.12), transparent 70%);
+.res-course-visual video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.rcv-layer {
+.res-course-visual::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.55));
+  pointer-events: none;
+}
+.rcv-play-badge {
   position: absolute;
-  border: 1px solid var(--line-strong);
-  border-radius: 50%;
-  opacity: 0.5;
+  bottom: 14px; left: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(10,10,10,0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 7px 12px;
+  border-radius: 100px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.92);
+  z-index: 2;
 }
-.rcv-1 { width: 280px; height: 280px; animation: rotate 22s linear infinite; }
-.rcv-2 { width: 200px; height: 200px; animation: rotate 15s linear infinite reverse; border-style: dashed; }
-.rcv-3 { width: 130px; height: 130px; animation: rotate 10s linear infinite; }
-@keyframes rotate { to { transform: rotate(360deg); } }
-.rcv-center {
-  position: relative; z-index: 2;
-  text-align: center;
-}
-.rcv-mark {
-  font-size: 3.2rem;
-  color: var(--accent);
-  line-height: 1;
-  margin-bottom: 10px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-}
-.rcv-label {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.1rem;
-  letter-spacing: 0.05em;
-  color: var(--ink);
-  line-height: 1.1;
-}
+.rcv-play-badge svg { color: var(--accent); }
 
 .res-card-body { display: flex; flex-direction: column; gap: 16px; flex-grow: 1; }
 .res-card-body h3 {
@@ -2028,4 +2015,119 @@ body.dark .res-course-visual {
   .res-card { padding: 22px 16px; }
   .service-text h3 { font-size: 1.2rem; }
   .calc-opt { font-size: 0.7rem; padding: 9px 4px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOOK MOCKUP v2 (simplificado · tapa + lomo, sin 6 caras)
+   ═══════════════════════════════════════════════════════════════ */
+.book-v2 {
+  position: relative;
+  width: 220px;
+  aspect-ratio: 3 / 4;
+  transform: perspective(1400px) rotateY(-18deg) rotateX(3deg);
+  transition: transform .7s var(--ease-out);
+  filter: drop-shadow(0 30px 40px rgba(0,0,0,0.25))
+          drop-shadow(0 8px 16px rgba(0,0,0,0.15));
+  animation: bookIdleV2 7s ease-in-out infinite;
+}
+.book-mockup-stage:hover .book-v2 {
+  transform: perspective(1400px) rotateY(-10deg) rotateX(1deg) scale(1.03);
+  animation-play-state: paused;
+}
+@keyframes bookIdleV2 {
+  0%,100% { transform: perspective(1400px) rotateY(-18deg) rotateX(3deg) translateY(0); }
+  50%     { transform: perspective(1400px) rotateY(-22deg) rotateX(2deg) translateY(-6px); }
+}
+.book-v2-cover {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px 6px 6px 2px;
+  overflow: hidden;
+  background: #1a1a1a;
+  box-shadow:
+    inset -2px 0 4px rgba(255,255,255,0.06),
+    inset 3px 0 8px rgba(0,0,0,0.3);
+}
+.book-v2-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.book-v2-spine {
+  position: absolute;
+  top: 0;
+  left: -14px;
+  width: 14px;
+  height: 100%;
+  background: linear-gradient(90deg, #0f0f0f, #1c1c1c 60%, #252525);
+  transform: skewY(-6deg) translateY(6px);
+  transform-origin: right center;
+  border-radius: 2px 0 0 2px;
+  overflow: hidden;
+  box-shadow: inset -1px 0 0 rgba(0,0,0,0.5);
+}
+.book-v2-spine img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+  mix-blend-mode: luminosity;
+}
+/* Brillo suave sobre la tapa */
+.book-v2-cover::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(255,255,255,0.08) 0%, transparent 35%);
+  pointer-events: none;
+}
+.book-shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 18px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.35), transparent 70%);
+  filter: blur(8px);
+  z-index: -1;
+}
+body.dark .book-shadow {
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.7), transparent 70%);
+}
+
+/* Tamaño compacto dentro de res-book */
+.res-book .book-v2 { width: 180px; }
+.res-book .book-mockup-stage { min-height: 280px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE SCROLL REDUCTION (aggressive · menos repetido)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Servicios: mostrar solo 2 de los 4 en mobile */
+  .service-block:nth-child(n+4) { display: none; }
+
+  /* Testimonials: mostrar solo el primero */
+  .testim-card:nth-child(n+2) { display: none; }
+
+  /* Portfolio ya limita a 4 desde antes, ahora a 3 */
+  .portfolio-item:nth-child(n+4) { display: none; }
+
+  /* Proof strip: ocultar rating en mobile (queda el label + 3 logos) */
+  .plogo-rating { display: none; }
+
+  /* Book quotes en mobile: sólo 1 */
+  .book-quote:nth-child(n+2) { display: none; }
+
+  /* Ajustes finos libro v2 mobile */
+  .book-v2 { width: 150px; }
+  .res-book .book-v2 { width: 140px; }
+  .res-book .book-mockup-stage { min-height: 220px; }
+
+  /* Hero stats: solo 2 en mobile (proyectos + JSS) */
+  .hero-stats > div:nth-child(n+3) { display: none; }
+
+  /* Footer: colapsar columnas secundarias */
+  .footer-col:nth-child(n+3) { display: none; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
 }
