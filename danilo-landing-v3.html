@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentoría Freelance — Danilo Hurwitz</title>
+<meta name="description" content="Sistema probado para conseguir tu primer contrato en USD. Diagnóstico previo obligatorio. No apto para todos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0d0d;
+  --ink-2: #3a3a3a;
+  --ink-3: #6b6b6b;
+  --paper: #f8f6f2;
+  --paper-2: #efecea;
+  --paper-3: #e8e4df;
+  --line: rgba(0,0,0,0.09);
+  --line-strong: rgba(0,0,0,0.18);
+  --accent: #1a4fd6;
+  --accent-light: #e8eefb;
+  --accent-2: #d4381e;
+  --success: #14532d;
+  --success-bg: #dcfce7;
+  --warn: #78350f;
+  --warn-bg: #fef3c7;
+  --r: 6px;
+  --r-lg: 12px;
+  --r-xl: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+h1,h2,h3,h4,h5 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul { list-style: none; }
+
+/* ─── LAYOUT ─── */
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
+.wrap-sm { max-width: 820px; margin: 0 auto; padding: 0 28px; }
+.wrap-xs { max-width: 640px; margin: 0 auto; padding: 0 28px; }
+section { padding: 88px 0; }
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(248,246,242,0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 28px; max-width: 1160px; margin: 0 auto;
+}
+.nav-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem;
+  letter-spacing: -0.03em; display: flex; align-items: center; gap: 10px;
+}
+.nav-logo-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+.nav-links { display: flex; gap: 32px; font-size: 0.875rem; font-weight: 500; }
+.nav-links a { color: var(--ink-2); transition: color 0.2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta {
+  background: var(--ink); color: var(--paper);
+  padding: 10px 20px; border-radius: var(--r);
+  font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.01em; font-family: 'Syne', sans-serif;
+  transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.82; }
+@media(max-width:768px) {
+  .nav-links { display: none; }
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 94vh; display: flex; align-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  position: relative; overflow: hidden;
+}
+.hero-texture {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px),
+    repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.03) 39px, rgba(255,255,255,0.03) 40px);
+}
+.hero-accent-line {
+  position: absolute; top: 0; right: 18%;
+  width: 1px; height: 100%; background: rgba(255,255,255,0.06);
+}
+.hero-content { position: relative; z-index: 2; padding: 80px 0; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: rgba(255,255,255,0.45); letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 36px;
+}
+.hero-eyebrow-dot { width: 6px; height: 6px; background: #4ade80; border-radius: 50%; }
+.hero h1 {
+  font-size: clamp(2.8rem, 6.5vw, 5rem);
+  font-weight: 800; color: white;
+  max-width: 820px; margin-bottom: 28px;
+}
+.hero h1 em { font-style: normal; color: #93c5fd; }
+.hero-sub {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: rgba(255,255,255,0.55);
+  max-width: 540px; margin-bottom: 48px;
+  font-weight: 300; line-height: 1.75;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 16px; }
+.btn-hero-primary {
+  background: white; color: var(--ink);
+  padding: 16px 32px; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.9rem; letter-spacing: -0.01em;
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-hero-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-hero-secondary {
+  background: transparent; color: rgba(255,255,255,0.6);
+  padding: 16px 28px; border-radius: var(--r);
+  border: 1px solid rgba(255,255,255,0.15);
+  font-size: 0.875rem; font-weight: 400;
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-hero-secondary:hover { border-color: rgba(255,255,255,0.35); color: rgba(255,255,255,0.9); }
+.hero-fine {
+  font-size: 0.76rem; color: rgba(255,255,255,0.25);
+  font-family: 'DM Mono', monospace; margin-top: 8px;
+}
+.hero-stats {
+  display: flex; flex-wrap: wrap; gap: 48px;
+  margin-top: 72px; padding-top: 48px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.hero-stat-n {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 2rem; color: white; display: block;
+}
+.hero-stat-l {
+  font-size: 0.75rem; color: rgba(255,255,255,0.35);
+  font-family: 'DM Mono', monospace; margin-top: 4px;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+/* ─── SIGNAL BANNER ─── */
+.signal-banner {
+  background: var(--accent-2); color: white;
+  padding: 14px 28px; text-align: center;
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.01em;
+}
+.signal-banner strong { font-family: 'Syne', sans-serif; font-weight: 700; }
+
+/* ─── SECTION LABELS ─── */
+.s-label {
+  font-family: 'DM Mono', monospace; font-size: 0.68rem;
+  color: var(--ink-3); letter-spacing: 0.12em;
+  text-transform: uppercase; display: block; margin-bottom: 16px;
+}
+.s-title { font-size: clamp(1.75rem, 3.5vw, 2.6rem); margin-bottom: 18px; }
+.s-sub { font-size: 1rem; color: var(--ink-2); max-width: 520px; line-height: 1.75; }
+
+/* ─── PROBLEMA ─── */
+.problema-section { background: var(--paper-2); }
+.problema-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; border: 1px solid var(--line); border-radius: var(--r-xl);
+  overflow: hidden; margin-top: 56px;
+}
+.problema-item {
+  padding: 36px 32px; background: var(--paper);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.problema-item:nth-child(2n) { border-right: none; }
+.problema-item:nth-child(n+5) { border-bottom: none; }
+.problema-x {
+  width: 28px; height: 28px; background: #fee2e2;
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 12px; color: #991b1b;
+  font-weight: 700; margin-bottom: 16px;
+}
+.problema-item h4 { font-size: 1rem; margin-bottom: 8px; }
+.problema-item p { font-size: 0.875rem; color: var(--ink-2); line-height: 1.65; }
+@media(max-width:640px) {
+  .problema-grid { grid-template-columns: 1fr; }
+  .problema-item { border-right: none !important; }
+  .problema-item:last-child { border-bottom: none !important; }
+}
+
+/* ─── MÉTODO / PROCESO ─── */
+.proceso-steps { margin-top: 64px; }
+.paso {
+  display: grid; grid-template-columns: 72px 1fr;
+  gap: 32px; padding: 40px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.paso:last-child { border-bottom: none; }
+.paso-num {
+  font-family: 'DM Mono', monospace; font-size: 0.7rem;
+  color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em;
+  padding-top: 6px;
+}
+.paso-body h3 { font-size: 1.25rem; margin-bottom: 10px; }
+.paso-body p { font-size: 0.9rem; color: var(--ink-2); line-height: 1.75; max-width: 580px; }
+.paso-tag {
+  display: inline-block; margin-top: 14px;
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: var(--accent); background: var(--accent-light);
+  padding: 4px 12px; border-radius: 4px; letter-spacing: 0.04em;
+}
+@media(max-width:600px) {
+  .paso { grid-template-columns: 1fr; gap: 8px; }
+}
+
+/* ─── PROMESA ─── */
+.promesa-section { background: var(--ink); color: white; }
+.promesa-box {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-xl); padding: 64px;
+  position: relative; overflow: hidden;
+}
+.promesa-box::before {
+  content: '"';
+  position: absolute; top: -20px; left: 48px;
+  font-size: 18rem; font-family: 'Syne', sans-serif;
+  color: rgba(255,255,255,0.03); line-height: 1; pointer-events: none;
+}
+.promesa-text {
+  font-size: clamp(1.3rem, 2.8vw, 2rem);
+  font-weight: 300; line-height: 1.55; color: rgba(255,255,255,0.85);
+  max-width: 680px; position: relative; z-index: 2;
+  margin-bottom: 40px;
+}
+.promesa-text strong { color: white; font-weight: 600; }
+.promesa-fine {
+  font-size: 0.82rem; color: rgba(255,255,255,0.3);
+  border-top: 1px solid rgba(255,255,255,0.07);
+  padding-top: 24px; font-style: italic; max-width: 540px;
+}
+@media(max-width:640px) {
+  .promesa-box { padding: 36px 28px; }
+}
+
+/* ─── AUTORIDAD ─── */
+.autoridad-section { background: var(--paper-2); }
+.autoridad-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start; margin-top: 56px;
+}
+.card-autoridad {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--r-xl); padding: 40px; overflow: hidden; position: relative;
+}
+.card-upwork-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--success-bg); color: var(--success);
+  padding: 6px 14px; border-radius: var(--r);
+  font-size: 0.75rem; font-weight: 600; margin-bottom: 24px;
+  font-family: 'DM Mono', monospace; letter-spacing: 0.04em;
+}
+.card-upwork-badge::before {
+  content: ''; width: 6px; height: 6px;
+  background: var(--success); border-radius: 50%;
+}
+.avatar-dh {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--ink); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+.card-autoridad h3 { font-size: 1.4rem; margin-bottom: 6px; }
+.card-autoridad .tag-line { font-size: 0.875rem; color: var(--ink-3); margin-bottom: 28px; }
+.metrics-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-bottom: 28px;
+}
+.metric-box {
+  background: var(--paper-2); border-radius: var(--r);
+  padding: 14px 16px;
+}
+.metric-box .val {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 1.2rem; color: var(--ink);
+}
+.metric-box .lbl { font-size: 0.72rem; color: var(--ink-3); margin-top: 3px; }
+.skills-wrap { display: flex; flex-wrap: wrap; gap: 7px; }
+.skill-chip {
+  background: var(--paper-3); border: 1px solid var(--line);
+  border-radius: 4px; padding: 4px 10px;
+  font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ink-2);
+}
+.texto-autoridad {}
+.texto-autoridad p { font-size: 0.95rem; color: var(--ink-2); line-height: 1.8; margin-bottom: 16px; }
+.bio-items { margin-top: 28px; }
+.bio-item {
+  display: flex; gap: 14px; padding: 14px 0;
+  border-bottom: 1px solid var(--line); align-items: flex-start;
+  font-size: 0.875rem; color: var(--ink-2);
+}
+.bio-item:last-child { border-bottom: none; }
+.bio-arrow { color: var(--accent); flex-shrink: 0; font-size: 0.8rem; margin-top: 3px; }
+@media(max-width:768px) {
+  .autoridad-inner { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* ─── TRIAGE ─── */
+.triage-section { background: var(--paper); }
+.triage-intro {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start; margin-bottom: 56px;
+}
+.triage-wrapper {
+  background: var(--ink); border-radius: var(--r-xl);
+  overflow: hidden; box-shadow: 0 32px 64px -16px rgba(0,0,0,0.28);
+}
+.triage-hdr {
+  padding: 28px 36px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.triage-hdr-title {
+  font-family: 'Syne', sans-serif; font-size: 0.875rem;
+  font-weight: 700; color: white;
+}
+.triage-hdr-sub { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-top: 3px; }
+.triage-prog-badge {
+  font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  color: rgba(255,255,255,0.5); white-space: nowrap;
+}
+.triage-bar { height: 2px; background: rgba(255,255,255,0.06); }
+.triage-bar-fill {
+  height: 100%; background: #93c5fd;
+  transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.triage-body { padding: 40px 36px; }
+.q-slide { display: none; }
+.q-slide.active {
+  display: block;
+  animation: fadeUp 0.35s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.q-step {
+  font-family: 'DM Mono', monospace; font-size: 0.65rem;
+  color: rgba(255,255,255,0.28); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 12px;
+}
+.q-text {
+  font-family: 'Syne', sans-serif; font-size: 1.1rem;
+  font-weight: 700; color: white; line-height: 1.35; margin-bottom: 28px;
+}
+.q-opts { display: flex; flex-direction: column; gap: 8px; }
+.q-opt {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--r); cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  color: rgba(255,255,255,0.75); font-size: 0.875rem;
+}
+.q-opt:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.15);
+}
+.q-opt.selected {
+  background: rgba(147,197,253,0.12);
+  border-color: rgba(147,197,253,0.4);
+  color: white;
+}
+.q-radio {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.2);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.q-opt.selected .q-radio {
+  border-color: #93c5fd; background: #93c5fd;
+}
+.q-opt.selected .q-radio::after {
+  content: ''; width: 5px; height: 5px;
+  background: var(--ink); border-radius: 50%;
+}
+.triage-ftr {
+  padding: 0 36px 36px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.btn-t-back {
+  font-size: 0.82rem; color: rgba(255,255,255,0.3);
+  padding: 8px; cursor: pointer; font-weight: 500;
+  background: none; border: none; font-family: inherit;
+  transition: color 0.15s;
+}
+.btn-t-back:hover { color: rgba(255,255,255,0.6); }
+.btn-t-next {
+  background: white; color: var(--ink);
+  padding: 12px 28px; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.85rem; border: none; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 0.35; pointer-events: none;
+}
+.btn-t-next.ready { opacity: 1; pointer-events: all; }
+.btn-t-next.ready:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* EMAIL STEP */
+.email-step { display: none; }
+.email-step.active { display: block; animation: fadeUp 0.35s ease both; }
+.email-input-group {
+  display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap;
+}
+.email-input {
+  flex: 1; min-width: 180px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--r); padding: 13px 16px;
+  color: white; font-size: 0.9rem; font-family: inherit;
+  outline: none; transition: border-color 0.15s;
+}
+.email-input::placeholder { color: rgba(255,255,255,0.25); }
+.email-input:focus { border-color: rgba(147,197,253,0.5); }
+.btn-send {
+  background: white; color: var(--ink);
+  padding: 13px 24px; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.85rem; border: none; cursor: pointer;
+  transition: opacity 0.2s; white-space: nowrap;
+}
+.btn-send:hover { opacity: 0.85; }
+
+/* RESULTADO */
+.result-view { display: none; }
+.result-view.active { display: block; animation: fadeUp 0.45s ease both; }
+.result-badge-elite {
+  display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.72rem;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 6px 16px; border-radius: 4px; margin-bottom: 20px;
+}
+.badge-elite { background: rgba(74,222,128,0.15); color: #4ade80; }
+.badge-potential { background: rgba(250,204,21,0.15); color: #facc15; }
+.badge-novil { background: rgba(248,113,113,0.15); color: #f87171; }
+.result-score-line {
+  font-family: 'Syne', sans-serif; font-size: 2.5rem;
+  font-weight: 800; color: white; margin-bottom: 10px;
+}
+.result-msg {
+  font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7;
+  margin-bottom: 28px; max-width: 480px;
+}
+.result-actions { display: flex; flex-direction: column; gap: 10px; }
+.btn-result-buy {
+  background: white; color: var(--ink);
+  padding: 15px 28px; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem;
+  border: none; cursor: pointer; text-align: center;
+  transition: opacity 0.2s; display: block; width: 100%;
+}
+.btn-result-buy:hover { opacity: 0.86; }
+.btn-result-wait {
+  background: transparent; color: rgba(255,255,255,0.4);
+  padding: 14px 28px; border-radius: var(--r);
+  font-size: 0.82rem; border: 1px solid rgba(255,255,255,0.08);
+  cursor: pointer; text-align: center; display: block; width: 100%;
+  font-family: inherit; transition: border-color 0.2s, color 0.2s;
+}
+.btn-result-wait:hover { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); }
+
+@media(max-width:768px) {
+  .triage-intro { grid-template-columns: 1fr; gap: 36px; }
+  .triage-body { padding: 32px 24px; }
+  .triage-ftr { padding: 0 24px 28px; }
+  .triage-hdr { padding: 24px; }
+}
+
+/* ─── PRICING ─── */
+.pricing-section { background: var(--paper-2); }
+.pricing-inner {
+  display: grid; grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px; align-items: start; margin-top: 56px;
+}
+.plan-card {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--r-xl); overflow: hidden;
+}
+.plan-card-head {
+  padding: 32px; border-bottom: 1px solid var(--line);
+}
+.plan-badge {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 12px; border-radius: 4px; margin-bottom: 18px;
+}
+.badge-recommended {
+  background: var(--ink); color: white;
+}
+.badge-flexible { background: var(--paper-3); color: var(--ink-2); }
+.plan-price {
+  font-family: 'Syne', sans-serif; font-size: 3rem;
+  font-weight: 800; letter-spacing: -0.04em; color: var(--ink);
+  display: flex; align-items: baseline; gap: 6px;
+}
+.plan-price-cur { font-size: 1.2rem; font-weight: 500; color: var(--ink-3); margin-bottom: 4px; }
+.plan-price-sub { font-size: 0.8rem; color: var(--ink-3); font-weight: 400; font-family: 'DM Sans', sans-serif; }
+.plan-name { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.plan-desc { font-size: 0.875rem; color: var(--ink-2); line-height: 1.65; margin-bottom: 0; }
+.plan-card-body { padding: 28px 32px; }
+.plan-feat-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.plan-feat {
+  display: flex; gap: 12px; align-items: flex-start;
+  font-size: 0.875rem; color: var(--ink-2); line-height: 1.5;
+}
+.feat-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--ink); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; flex-shrink: 0; margin-top: 2px; font-weight: 700;
+}
+.btn-plan {
+  display: block; width: 100%; text-align: center;
+  padding: 15px; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: 0.9rem; border: none; cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-plan-primary { background: var(--ink); color: white; }
+.btn-plan-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+.btn-plan-secondary {
+  background: transparent; color: var(--ink);
+  border: 1.5px solid var(--ink);
+}
+.btn-plan-secondary:hover { background: var(--ink); color: white; }
+.plan-note { font-size: 0.72rem; color: var(--ink-3); text-align: center; margin-top: 10px; }
+
+/* ─── PLAN STATES (triage-gated) ─── */
+.plan-card.plan-locked .btn-plan {
+  opacity: 0.38; cursor: not-allowed; pointer-events: none;
+}
+.plan-card.plan-locked .plan-card-head {
+  opacity: 0.55;
+}
+.plan-card.plan-locked::after {
+  content: 'Completá el diagnóstico para desbloquear';
+  display: block; text-align: center;
+  font-family: 'DM Mono', monospace; font-size: 0.68rem;
+  color: var(--ink-3); letter-spacing: 0.06em;
+  padding: 10px 20px 16px;
+  border-top: 1px solid var(--line);
+}
+.plan-card.plan-featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+.plan-card.plan-hidden {
+  display: none;
+}
+
+/* GARANTÍA */
+.garantia-box {
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: var(--r-xl); padding: 32px; margin-top: 0;
+}
+.garantia-icon {
+  width: 40px; height: 40px; background: var(--success-bg);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 18px; margin-bottom: 18px;
+}
+.garantia-box h4 { font-size: 1rem; margin-bottom: 10px; }
+.garantia-box p { font-size: 0.85rem; color: var(--ink-2); line-height: 1.7; }
+.risk-list { margin-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+.risk-item {
+  display: flex; gap: 10px; font-size: 0.82rem;
+  color: var(--ink-2); align-items: flex-start;
+}
+.risk-bullet {
+  width: 16px; height: 16px; background: var(--success-bg);
+  border-radius: 50%; display: flex; align-items: center;
+  justify-content: center; font-size: 8px; color: var(--success);
+  font-weight: 700; flex-shrink: 0; margin-top: 2px;
+}
+@media(max-width:768px) {
+  .pricing-inner { grid-template-columns: 1fr; }
+}
+
+/* ─── FAQ ─── */
+.faq-section { background: var(--paper); }
+.faq-list { margin-top: 56px; border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  width: 100%; text-align: left; padding: 24px 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--paper); cursor: pointer; gap: 16px;
+  font-size: 0.95rem; font-weight: 600; font-family: 'Syne', sans-serif;
+  color: var(--ink); transition: background 0.15s; border: none;
+}
+.faq-q:hover { background: var(--paper-2); }
+.faq-icon {
+  width: 24px; height: 24px; flex-shrink: 0;
+  border: 1px solid var(--line-strong); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; transition: transform 0.25s; color: var(--ink-2);
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4,0,0.2,1), padding 0.25s;
+  padding: 0 32px;
+}
+.faq-a-inner { padding-bottom: 24px; font-size: 0.9rem; color: var(--ink-2); line-height: 1.75; }
+.faq-item.open .faq-a { max-height: 400px; }
+
+/* ─── FINAL CTA ─── */
+.final-cta { background: var(--ink); color: white; padding: 120px 0; }
+.final-cta-inner { text-align: center; max-width: 680px; margin: 0 auto; padding: 0 28px; }
+.final-cta h2 {
+  font-size: clamp(2rem, 5vw, 3.2rem); color: white;
+  margin-bottom: 20px;
+}
+.final-cta p {
+  font-size: 1rem; color: rgba(255,255,255,0.5);
+  margin-bottom: 40px; line-height: 1.75;
+}
+.btn-final {
+  background: white; color: var(--ink);
+  padding: 18px 40px; border-radius: var(--r);
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-final:hover { opacity: 0.88; transform: translateY(-2px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink); color: rgba(255,255,255,0.3);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px 0;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+  max-width: 1160px; margin: 0 auto; padding: 0 28px;
+  font-size: 0.8rem;
+}
+.footer-logo {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  color: rgba(255,255,255,0.6); font-size: 0.9rem;
+}
+
+/* ─── MODAL PAGO ─── */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.65);
+  z-index: 9999; display: flex; align-items: center;
+  justify-content: center; padding: 20px;
+  opacity: 0; pointer-events: none; transition: opacity 0.25s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal-box {
+  background: var(--paper); border-radius: var(--r-xl);
+  max-width: 520px; width: 100%; padding: 40px;
+  position: relative; max-height: 90vh; overflow-y: auto;
+  transform: translateY(12px); transition: transform 0.25s;
+}
+.modal-overlay.open .modal-box { transform: translateY(0); }
+.modal-close {
+  position: absolute; top: 20px; right: 20px;
+  width: 32px; height: 32px; border-radius: 50%;
+  background: var(--paper-2); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--ink-2); transition: background 0.15s;
+}
+.modal-close:hover { background: var(--paper-3); }
+.modal-plan-tag {
+  display: inline-block; font-family: 'DM Mono', monospace;
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em;
+  background: var(--ink); color: white; padding: 4px 12px;
+  border-radius: 4px; margin-bottom: 20px;
+}
+.modal-box h3 { font-size: 1.4rem; margin-bottom: 6px; }
+.modal-box .modal-sub { font-size: 0.85rem; color: var(--ink-2); margin-bottom: 28px; }
+.field-group { margin-bottom: 18px; }
+.field-label {
+  display: block; font-size: 0.78rem; font-weight: 600;
+  color: var(--ink-2); margin-bottom: 7px; font-family: 'Syne', sans-serif;
+}
+.field-input {
+  width: 100%; padding: 12px 14px;
+  background: var(--paper-2); border: 1px solid var(--line);
+  border-radius: var(--r); font-size: 0.9rem; font-family: inherit;
+  color: var(--ink); outline: none; transition: border-color 0.15s;
+}
+.field-input:focus { border-color: var(--accent); }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.btn-pay-submit {
+  width: 100%; padding: 16px; background: var(--ink); color: white;
+  border: none; border-radius: var(--r); cursor: pointer;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+  margin-top: 8px; transition: opacity 0.2s;
+}
+.btn-pay-submit:hover { opacity: 0.82; }
+.modal-divider {
+  text-align: center; font-size: 0.78rem; color: var(--ink-3);
+  margin: 20px 0; position: relative;
+}
+.modal-divider::before, .modal-divider::after {
+  content: ''; position: absolute; top: 50%;
+  width: calc(50% - 28px); height: 1px; background: var(--line);
+}
+.modal-divider::before { left: 0; }
+.modal-divider::after { right: 0; }
+.btn-mp {
+  width: 100%; padding: 14px; border: 1.5px solid #00b1ea;
+  border-radius: var(--r); cursor: pointer; font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.85rem; color: #00b1ea;
+  background: transparent; transition: background 0.15s, color 0.15s;
+}
+.btn-mp:hover { background: #00b1ea; color: white; }
+.modal-fine {
+  font-size: 0.72rem; color: var(--ink-3); text-align: center;
+  margin-top: 16px; line-height: 1.6;
+}
+
+/* ─── TOAST ─── */
+.toast-container {
+  position: fixed; bottom: 24px; right: 24px;
+  display: flex; flex-direction: column; gap: 10px; z-index: 99999;
+}
+.toast {
+  background: var(--ink); color: white;
+  padding: 14px 20px; border-radius: var(--r-lg);
+  font-size: 0.85rem; max-width: 320px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  animation: slideToast 0.3s ease;
+  border-left: 3px solid rgba(255,255,255,0.2);
+}
+.toast.ok { border-left-color: #4ade80; }
+.toast.err { border-left-color: #f87171; }
+.toast strong { display: block; margin-bottom: 3px; font-family: 'Syne', sans-serif; }
+@keyframes slideToast {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* ─── REVEAL ─── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.shown { opacity: 1; transform: translateY(0); }
+.rd1 { transition-delay: 0.1s; }
+.rd2 { transition-delay: 0.2s; }
+.rd3 { transition-delay: 0.3s; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:480px) {
+  section { padding: 64px 0; }
+  .triage-body { padding: 24px 18px; }
+  .triage-ftr { padding: 0 18px 24px; }
+  .triage-hdr { padding: 20px 18px; }
+  .modal-box { padding: 28px 20px; }
+  .plan-card-head, .plan-card-body { padding: 24px; }
+}
+@media(max-width:640px) {
+  .tyc-grid { grid-template-columns: 1fr !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-logo-dot"></div>
+      Danilo Hurwitz
+    </div>
+    <div class="nav-links">
+      <a href="#metodo">Método</a>
+      <a href="#triage">Diagnóstico</a>
+      <a href="#pricing">Inversión</a>
+    </div>
+    <a href="#triage" class="nav-cta">Verificar si califico →</a>
+  </div>
+</nav>
+
+<!-- SIGNAL BANNER -->
+<div class="signal-banner">
+  <strong>Acceso por diagnóstico previo.</strong> No todos los perfiles son aceptados — así funciona.
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-texture"></div>
+  <div class="hero-accent-line"></div>
+  <div class="wrap hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Mentoría freelance · Cupos limitados
+    </div>
+    <h1>De tus habilidades actuales<br>a tu primer contrato <em>en USD</em></h1>
+    <p class="hero-sub">
+      Un sistema real, construido desde cero por alguien que factura en el mercado global mientras estudia medicina. Sin promesas imposibles. Sin gurú. Solo proceso.
+    </p>
+    <div class="hero-actions">
+      <a href="#triage" class="btn-hero-primary">Hacer el diagnóstico gratuito →</a>
+      <a href="#metodo" class="btn-hero-secondary">Ver cómo funciona</a>
+    </div>
+    <p class="hero-fine">Diagnóstico sin costo · Resultado en 3 minutos · Acceso condicionado</p>
+    <div class="hero-stats">
+      <div>
+        <span class="hero-stat-n">+$1K</span>
+        <span class="hero-stat-l">USD/mes comprobados</span>
+      </div>
+      <div>
+        <span class="hero-stat-n">100%</span>
+        <span class="hero-stat-l">Job Success en Upwork</span>
+      </div>
+      <div>
+        <span class="hero-stat-n">★ 5.0</span>
+        <span class="hero-stat-l">Rating promedio clientes</span>
+      </div>
+      <div>
+        <span class="hero-stat-n">7 días</span>
+        <span class="hero-stat-l">Primer contrato — caso real</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problema-section" id="problema">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label">El problema real</span>
+      <h2 class="s-title">Por qué la mayoría no arranca aunque tiene habilidades</h2>
+      <p class="s-sub">No es falta de talento. Es falta de sistema, de posicionamiento y de alguien que ya lo recorrió.</p>
+    </div>
+    <div class="problema-grid">
+      <div class="problema-item reveal rd1">
+        <div class="problema-x">✕</div>
+        <h4>No saben cómo posicionarse</h4>
+        <p>Tienen habilidades reales pero no saben cómo articularlas para el mercado internacional. El problema no es la habilidad, es el packaging.</p>
+      </div>
+      <div class="problema-item reveal rd2">
+        <div class="problema-x">✕</div>
+        <h4>Propuestas que no abren</h4>
+        <p>Copian formatos genéricos, ponen el precio equivocado, no entienden qué busca el cliente al otro lado. El proceso de propuesta es un sistema, no intuición.</p>
+      </div>
+      <div class="problema-item reveal rd1">
+        <div class="problema-x">✕</div>
+        <h4>Miedo a parecer "caro" o "poco experiencia"</h4>
+        <p>Bajan precios para competir y entran en la trampa del race to the bottom. La solución es posicionamiento de especialista, no de generalista barato.</p>
+      </div>
+      <div class="problema-item reveal rd2">
+        <div class="problema-x">✕</div>
+        <h4>Información desorganizada y contradictoria</h4>
+        <p>YouTube, Reddit, cursos genéricos. Nada adaptado a su perfil. Lo que funciona para un diseñador en México no es lo mismo que para un traductor en Argentina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROMESA -->
+<section class="promesa-section">
+  <div class="wrap-sm">
+    <div class="promesa-box reveal">
+      <p class="promesa-text">
+        No te voy a prometer ingresos específicos. Te voy a dar <strong>el sistema exacto</strong> que uso: cómo identificar tu nicho, construir tu perfil, escribir propuestas que funcionan, y establecer precios que no te devalúen. <strong>El resultado depende de tu ejecución.</strong> Mi trabajo es que no pierdas tiempo en lo que no sirve.
+      </p>
+      <p class="promesa-fine">
+        Esta es la promesa honesta. Si buscás garantías de ingresos específicos, esto no es para vos — y el diagnóstico lo va a confirmar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- MÉTODO -->
+<section id="metodo">
+  <div class="wrap-sm">
+    <div class="reveal">
+      <span class="s-label">El método</span>
+      <h2 class="s-title">Tres fases. Un sistema repetible.</h2>
+      <p class="s-sub">No son módulos sueltos. Es un proceso secuencial donde cada paso depende del anterior.</p>
+    </div>
+    <div class="proceso-steps">
+      <div class="paso reveal">
+        <div class="paso-num">Fase 01</div>
+        <div class="paso-body">
+          <h3>Diagnóstico y posicionamiento</h3>
+          <p>Identificamos exactamente qué ofrecés, para quién, y a qué precio tiene sentido. No es opinión — es análisis del mercado real. La mayoría tarda semanas en esto; lo hacemos en la primera semana.</p>
+          <span class="paso-tag">→ Resultado: perfil y propuesta de valor clara</span>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">Fase 02</div>
+        <div class="paso-body">
+          <h3>Configuración de perfil y primeras propuestas</h3>
+          <p>Perfil de Upwork optimizado, propuestas escritas con lógica de conversión, criterios para elegir qué trabajos aplicar y cuáles ignorar. No mandamos 50 propuestas — mandamos las correctas.</p>
+          <span class="paso-tag">→ Resultado: primeros contratos o feedback accionable</span>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">Fase 03</div>
+        <div class="paso-body">
+          <h3>Retención, escalado y sistema</h3>
+          <p>Cómo trabajar con clientes para que vuelvan, cómo subir tarifas sin perder trabajo, cómo construir reputación que atrae sin buscar activamente. Acá es donde el freelancing deja de ser precario.</p>
+          <span class="paso-tag">→ Resultado: ingresos predecibles en 60–90 días</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUTORIDAD -->
+<section class="autoridad-section" id="about">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label">Quién da la mentoría</span>
+      <h2 class="s-title">Operador real. No teórico.</h2>
+    </div>
+    <div class="autoridad-inner">
+      <div class="card-autoridad reveal">
+        <div class="card-upwork-badge">Top Rated · Upwork</div>
+        <div class="avatar-dh">DH</div>
+        <h3>Danilo Hurwitz</h3>
+        <p class="tag-line">Estudiante de medicina · Freelancer activo · Trilingüe</p>
+        <div class="metrics-grid">
+          <div class="metric-box">
+            <div class="val">+$1K</div>
+            <div class="lbl">USD/mes activos</div>
+          </div>
+          <div class="metric-box">
+            <div class="val">★ 5.0</div>
+            <div class="lbl">Rating promedio</div>
+          </div>
+          <div class="metric-box">
+            <div class="val">100%</div>
+            <div class="lbl">Job Success Score</div>
+          </div>
+          <div class="metric-box">
+            <div class="val">ES/EN/HE</div>
+            <div class="lbl">Tres idiomas activos</div>
+          </div>
+        </div>
+        <div class="skills-wrap">
+          <span class="skill-chip">Traducción médica</span>
+          <span class="skill-chip">Edición de video</span>
+          <span class="skill-chip">Proofreading</span>
+          <span class="skill-chip">CapCut</span>
+          <span class="skill-chip">Subtitle Edit</span>
+          <span class="skill-chip">Upwork</span>
+        </div>
+      </div>
+      <div class="texto-autoridad reveal rd2">
+        <p>Arranqué en Upwork sin portfolio y con errores que hoy puedo articular con claridad. Bajé precios cuando no debía, apliqué a trabajos equivocados, escribí propuestas que nadie leía. Eso también es data.</p>
+        <p>Hoy tengo un sistema que funciona en paralelo a medicina. No soy un gurú de contenido que "da clases" sobre algo que no hace. Soy alguien que opera el sistema todos los días y puede transferir eso.</p>
+        <p>Lo que enseño es exactamente lo que hago. No hay distancia entre el contenido de la mentoría y mi realidad actual.</p>
+        <div class="bio-items">
+          <div class="bio-item">
+            <span class="bio-arrow">→</span>
+            <span>Nacido en España, vivió en Israel, opera desde Argentina — comprensión cultural real del cliente internacional</span>
+          </div>
+          <div class="bio-item">
+            <span class="bio-arrow">→</span>
+            <span>Nicho de alta precisión: traducción médica + contenido técnico — el menos saturado y mejor pago</span>
+          </div>
+          <div class="bio-item">
+            <span class="bio-arrow">→</span>
+            <span>Autor del libro "My First Steps into the Freelance World" — el método existe antes de la mentoría</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIAGE -->
+<section class="triage-section" id="triage">
+  <div class="wrap">
+    <div class="triage-intro">
+      <div class="reveal">
+        <span class="s-label">Diagnóstico previo obligatorio</span>
+        <h2 class="s-title">Primero confirmamos que podemos trabajar juntos</h2>
+        <p class="s-sub">No todos los perfiles son aptos para esta mentoría. El diagnóstico lo determina — sin costo, sin compromiso. Si no calificás, te decimos con honestidad qué necesitás primero.</p>
+      </div>
+      <div class="reveal rd2">
+        <p style="font-size:0.875rem; color:var(--ink-2); line-height:1.75; margin-bottom:18px;">
+          Requerimientos mínimos para ser aceptado:
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;align-items:center;font-size:0.875rem;color:var(--ink-2);">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">✓</div>
+            Inglés mínimo nivel B2 (conversacional)
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;font-size:0.875rem;color:var(--ink-2);">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">✓</div>
+            Al menos una habilidad concreta y desarrollada
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;font-size:0.875rem;color:var(--ink-2);">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">✓</div>
+            Computadora propia con acceso estable a internet
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;font-size:0.875rem;color:var(--ink-2);">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">✓</div>
+            Mínimo 10 horas semanales disponibles para trabajar
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;font-size:0.875rem;color:var(--ink-2);">
+            <div style="width:20px;height:20px;border-radius:50%;background:var(--ink);color:white;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;">✓</div>
+            Mentalidad orientada a resultado, no a curso
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WIDGET TRIAGE -->
+    <div class="triage-wrapper reveal">
+      <!-- Header -->
+      <div class="triage-hdr">
+        <div>
+          <div class="triage-hdr-title">Diagnóstico de viabilidad</div>
+          <div class="triage-hdr-sub">Resultado inmediato — 3 minutos</div>
+        </div>
+        <div class="triage-prog-badge" id="progBadge">1 / 7</div>
+      </div>
+      <div class="triage-bar"><div class="triage-bar-fill" id="progBar" style="width:14%"></div></div>
+
+      <!-- Questions -->
+      <div class="triage-body" id="triageBody">
+        <!-- Q1 -->
+        <div class="q-slide active" data-q="0">
+          <div class="q-step">Paso 01 / 07</div>
+          <div class="q-text">¿Cuál es tu nivel de inglés?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="0" onclick="pick(this,0)"><div class="q-radio"></div>No tengo inglés o nivel muy básico (A1–A2)</div>
+            <div class="q-opt" data-val="5" onclick="pick(this,0)"><div class="q-radio"></div>Puedo leer y escribir básico (B1 — Intermedio)</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,0)"><div class="q-radio"></div>Me comunico bien por escrito y en llamadas (B2)</div>
+            <div class="q-opt" data-val="20" onclick="pick(this,0)"><div class="q-radio"></div>Inglés fluido / nativo / certificado (C1–C2)</div>
+          </div>
+        </div>
+        <!-- Q2 -->
+        <div class="q-slide" data-q="1">
+          <div class="q-step">Paso 02 / 07</div>
+          <div class="q-text">¿Qué habilidad principal tenés para ofrecer?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="5" onclick="pick(this,1)"><div class="q-radio"></div>Todavía no sé bien qué podría ofrecer</div>
+            <div class="q-opt" data-val="10" onclick="pick(this,1)"><div class="q-radio"></div>Tengo una idea pero no la desarrollé completamente</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,1)"><div class="q-radio"></div>Tengo una habilidad concreta (diseño, edición, escritura, traducción, etc.)</div>
+            <div class="q-opt" data-val="20" onclick="pick(this,1)"><div class="q-radio"></div>Tengo habilidades en nicho especializado (médico, legal, tech, etc.)</div>
+          </div>
+        </div>
+        <!-- Q3 -->
+        <div class="q-slide" data-q="2">
+          <div class="q-step">Paso 03 / 07</div>
+          <div class="q-text">¿Tenés equipo propio y conexión estable a internet?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="0" onclick="pick(this,2)"><div class="q-radio"></div>No tengo computadora propia o la conexión es muy inestable</div>
+            <div class="q-opt" data-val="8" onclick="pick(this,2)"><div class="q-radio"></div>Tengo computadora pero la conexión es irregular a veces</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,2)"><div class="q-radio"></div>Sí, tengo computadora propia y conexión suficientemente estable</div>
+          </div>
+        </div>
+        <!-- Q4 -->
+        <div class="q-slide" data-q="3">
+          <div class="q-step">Paso 04 / 07</div>
+          <div class="q-text">¿Cuántas horas por semana podés dedicarle a esto de forma real?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="0" onclick="pick(this,3)"><div class="q-radio"></div>Menos de 5 horas — no tengo mucho tiempo</div>
+            <div class="q-opt" data-val="8" onclick="pick(this,3)"><div class="q-radio"></div>Entre 5 y 10 horas por semana</div>
+            <div class="q-opt" data-val="12" onclick="pick(this,3)"><div class="q-radio"></div>Entre 10 y 20 horas por semana</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,3)"><div class="q-radio"></div>Más de 20 horas — esto es prioridad</div>
+          </div>
+        </div>
+        <!-- Q5 -->
+        <div class="q-slide" data-q="4">
+          <div class="q-step">Paso 05 / 07</div>
+          <div class="q-text">¿Cuál es tu expectativa principal de esta mentoría?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="0" onclick="pick(this,4)"><div class="q-radio"></div>Quiero que me garanticen resultados específicos de ingresos</div>
+            <div class="q-opt" data-val="5" onclick="pick(this,4)"><div class="q-radio"></div>Quiero motivación y contenido teórico sobre freelancing</div>
+            <div class="q-opt" data-val="12" onclick="pick(this,4)"><div class="q-radio"></div>Quiero un sistema claro y feedback para ejecutar por mi cuenta</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,4)"><div class="q-radio"></div>Quiero proceso y herramientas. Los resultados los pongo yo con ejecución.</div>
+          </div>
+        </div>
+        <!-- Q6 -->
+        <div class="q-slide" data-q="5">
+          <div class="q-step">Paso 06 / 07</div>
+          <div class="q-text">¿Tenés o estás dispuesto a abrir una cuenta de Upwork?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="3" onclick="pick(this,5)"><div class="q-radio"></div>No, y prefiero otras plataformas</div>
+            <div class="q-opt" data-val="10" onclick="pick(this,5)"><div class="q-radio"></div>No, pero estoy abierto a abrirla si tiene sentido</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,5)"><div class="q-radio"></div>Sí, ya tengo cuenta o estoy listo para abrir una</div>
+          </div>
+        </div>
+        <!-- Q7 -->
+        <div class="q-slide" data-q="6">
+          <div class="q-step">Paso 07 / 07</div>
+          <div class="q-text">Si el sistema funciona pero los primeros contratos tardan más de lo esperado, ¿cómo reaccionás?</div>
+          <div class="q-opts">
+            <div class="q-opt" data-val="0" onclick="pick(this,6)"><div class="q-radio"></div>Necesito ver resultados rápidos o pierdo la motivación fácilmente</div>
+            <div class="q-opt" data-val="8" onclick="pick(this,6)"><div class="q-radio"></div>Puedo esperar un poco pero necesito alguna señal de progreso</div>
+            <div class="q-opt" data-val="15" onclick="pick(this,6)"><div class="q-radio"></div>Itero, ajusto y sigo — entiendo que construir toma tiempo</div>
+          </div>
+        </div>
+
+        <!-- Email step -->
+        <div class="email-step" id="emailStep">
+          <div class="q-step">Último paso</div>
+          <div class="q-text">¿A dónde enviamos tu diagnóstico?</div>
+          <p style="font-size:0.82rem;color:rgba(255,255,255,0.4);margin-bottom:4px;line-height:1.65;">
+            Tu resultado llega de inmediato. También lo recibimos nosotros para hacer seguimiento si calificás.
+          </p>
+          <div class="email-input-group">
+            <input class="email-input" type="email" id="emailInput" placeholder="tu@email.com">
+            <button class="btn-send" onclick="submitTriage()">Ver resultado →</button>
+          </div>
+          <p style="font-size:0.68rem;color:rgba(255,255,255,0.2);margin-top:10px;font-family:'DM Mono',monospace;">
+            Sin spam. Solo el diagnóstico y seguimiento si aplica.
+          </p>
+        </div>
+
+        <!-- Result -->
+        <div class="result-view" id="resultView">
+          <div class="result-badge-elite" id="resultBadge">—</div>
+          <div class="result-score-line" id="resultScore">—</div>
+          <p class="result-msg" id="resultMsg">—</p>
+          <div class="result-actions" id="resultActions"></div>
+        </div>
+      </div>
+
+      <div class="triage-ftr" id="triageFtr">
+        <button class="btn-t-back" id="backBtn" onclick="goBack()">← Anterior</button>
+        <button class="btn-t-next" id="nextBtn" onclick="goNext()">Siguiente →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUENTE TRIAGE → PRICING -->
+<section style="background: var(--paper-3); padding: 56px 0; border-top: 1px solid var(--line);">
+  <div class="wrap-xs">
+    <div class="reveal" style="text-align: center; margin-bottom: 40px;">
+      <span class="s-label">Antes de ver los precios</span>
+      <h3 style="font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:700; margin-bottom:12px; letter-spacing:-0.02em;">¿En qué punto estás vos?</h3>
+      <p style="font-size:0.9rem; color:var(--ink-2); line-height:1.75; max-width:480px; margin:0 auto;">El diagnóstico de arriba no es un filtro arbitrario — es para ubicarte en uno de estos tres escenarios. Identificate con el tuyo.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;" class="reveal">
+      <div style="padding:20px 24px; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); display:flex; gap:16px; align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--success-bg);color:var(--success);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;font-family:'Syne',sans-serif;">A</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:5px;">Tenés habilidad, inglés y tiempo — pero no sabés por dónde arrancar</div>
+          <div style="font-size:0.82rem;color:var(--ink-2);line-height:1.65;">Este es el perfil ideal. Tenés los insumos, falta el sistema. La mentoría toma exactamente ese punto de partida.</div>
+        </div>
+      </div>
+      <div style="padding:20px 24px; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); display:flex; gap:16px; align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:var(--warn-bg);color:var(--warn);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;font-family:'Syne',sans-serif;">B</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:5px;">Tenés algo, pero no está del todo definido todavía</div>
+          <div style="font-size:0.82rem;color:var(--ink-2);line-height:1.65;">Hay potencial pero falta claridad. El diagnóstico identifica exactamente qué reforzar. En la mayoría de los casos, es más rápido de resolver de lo que parece.</div>
+        </div>
+      </div>
+      <div style="padding:20px 24px; background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); display:flex; gap:16px; align-items:flex-start;">
+        <div style="width:32px;height:32px;border-radius:50%;background:#fee2e2;color:#991b1b;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;flex-shrink:0;font-family:'Syne',sans-serif;">C</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;margin-bottom:5px;">Todavía no estás listo — y eso está bien</div>
+          <div style="font-size:0.82rem;color:var(--ink-2);line-height:1.65;">No tiene sentido invertir si los elementos básicos no están. Preferimos decírtelo ahora que después. El diagnóstico te dice qué trabajar antes de volver.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label">Inversión</span>
+      <h2 class="s-title">Tres opciones. Según dónde estás.</h2>
+      <div id="pricingLockNotice" style="display:inline-flex; align-items:center; gap:10px; margin-bottom:14px; padding:10px 16px; background:var(--paper-3); border-radius:var(--r); border:1px solid var(--line-strong);">
+        <span style="font-size:1rem;">🔒</span>
+        <span style="font-size:0.82rem; color:var(--ink-2);">Los botones se activan después de completar el <a href="#triage" style="color:var(--accent); font-weight:600;">diagnóstico</a>.</span>
+      </div>
+      <div style="display:inline-flex; align-items:center; gap:8px; margin-bottom:14px; padding:7px 14px; background:var(--warn-bg); border-radius:var(--r); border:1px solid rgba(120,53,15,0.12);">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--warn);flex-shrink:0;"></span>
+        <span style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--warn); letter-spacing:0.04em;">Trabajo con pocos perfiles por semana para mantener seguimiento real</span>
+      </div>
+      <p class="s-sub">Cada plan tiene un nivel de acompañamiento distinto. Más precio = más tiempo directo con Danilo. Elegí según lo que necesitás.</p>
+    </div>
+    <div class="pricing-inner">
+      <div>
+        <!-- PLAN PREMIUM -->
+        <div class="plan-card reveal plan-locked" id="planPremium">
+          <div class="plan-card-head">
+            <span class="plan-badge badge-recommended">Recomendado</span>
+            <div class="plan-price">
+              <span class="plan-price-cur">USD</span>
+              <span>147</span>
+              <span class="plan-price-sub">pago único</span>
+            </div>
+            <div class="plan-name" style="margin-top:12px;">Premium</div>
+            <p class="plan-desc" style="margin-top:6px;">El sistema completo más acompañamiento directo. Para quien quiere feedback en cada paso clave.</p>
+          </div>
+          <div class="plan-card-body">
+            <ul class="plan-feat-list">
+              <li class="plan-feat"><div class="feat-check">✓</div>Videos del método completo (fases 1, 2 y 3)</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>1 llamada 1:1 de arranque (60 min)</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Revisión de perfil de Upwork + feedback escrito</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Revisión de primeras 3 propuestas con correcciones</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Canal de seguimiento por mensajes (privado)</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Plantillas de propuestas (ES + EN)</li>
+            </ul>
+            <button class="btn-plan btn-plan-primary" onclick="openPay('full')">Desbloquear acceso Premium →</button>
+            <p class="plan-note">Solo para perfiles aprobados en el diagnóstico</p>
+          </div>
+        </div>
+
+        <!-- PLAN INTERMEDIO -->
+        <div class="plan-card reveal plan-locked" id="planIntermedio" style="margin-top:16px;">
+          <div class="plan-card-head">
+            <span class="plan-badge badge-flexible">Intermedio</span>
+            <div class="plan-price">
+              <span class="plan-price-cur">USD</span>
+              <span>97</span>
+              <span class="plan-price-sub">pago único</span>
+            </div>
+            <div class="plan-name" style="margin-top:12px;">Con llamada de arranque</div>
+            <p class="plan-desc" style="margin-top:6px;">Los videos más una llamada inicial para definir tu posicionamiento y una revisión de perfil.</p>
+          </div>
+          <div class="plan-card-body">
+            <ul class="plan-feat-list">
+              <li class="plan-feat"><div class="feat-check">✓</div>Videos del método completo (fases 1, 2 y 3)</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>1 llamada 1:1 de arranque (60 min)</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Revisión de perfil de Upwork + feedback escrito</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Plantillas de propuestas (ES + EN)</li>
+            </ul>
+            <button class="btn-plan btn-plan-secondary" onclick="openPay('intermedio')">Acceder al plan intermedio →</button>
+            <p class="plan-note">Solo para perfiles aprobados en el diagnóstico</p>
+          </div>
+        </div>
+
+        <!-- PLAN BÁSICO -->
+        <div class="plan-card reveal plan-locked" id="planBasico" style="margin-top:16px;">
+          <div class="plan-card-head">
+            <span class="plan-badge" style="background:var(--paper-3);color:var(--ink-2);">Básico</span>
+            <div class="plan-price">
+              <span class="plan-price-cur">USD</span>
+              <span>47</span>
+              <span class="plan-price-sub">pago único</span>
+            </div>
+            <div class="plan-name" style="margin-top:12px;">Solo el sistema</div>
+            <p class="plan-desc" style="margin-top:6px;">Acceso a todos los videos y soporte por mensaje de texto. Sin llamadas. Para quien prefiere ejecutar a su ritmo.</p>
+          </div>
+          <div class="plan-card-body">
+            <ul class="plan-feat-list">
+              <li class="plan-feat"><div class="feat-check">✓</div>Videos del método completo (fases 1, 2 y 3)</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Soporte por mensaje de texto</li>
+              <li class="plan-feat"><div class="feat-check">✓</div>Plantillas de propuestas (ES + EN)</li>
+            </ul>
+            <button class="btn-plan btn-plan-secondary" onclick="openPay('basico')">Acceder al plan básico →</button>
+            <p class="plan-note">Sin llamadas · Autoguiado · Acceso inmediato</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- GARANTÍA + LÓGICA -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="garantia-box reveal rd2">
+          <div class="garantia-icon">🛡</div>
+          <h4>Política de salida sin riesgo</h4>
+          <p>Si después de la primera llamada 1:1 y de ver el contenido de la Fase 1 considerás que la mentoría no es lo que esperabas, devolvemos el 100% del pago. Sin formularios complicados. Sin "te lo descontamos". Reembolso completo.</p>
+          <div style="margin: 16px 0 4px; padding: 14px 16px; background: var(--success-bg); border-radius: var(--r); border-left: 3px solid #16a34a;">
+            <p style="font-size:0.82rem; color: var(--success); font-weight: 500; margin: 0; line-height: 1.65;">
+              <strong style="font-family:'Syne',sans-serif;">En la primera sesión:</strong> evaluamos si tu perfil es viable para los objetivos que tenés. Si la conclusión es que no tiene sentido avanzar, el reembolso es completo — sin discusión.
+            </p>
+          </div>
+          <div class="risk-list">
+            <div class="risk-item"><div class="risk-bullet">✓</div>Plazo de 7 días desde el acceso inicial</div>
+            <div class="risk-item"><div class="risk-bullet">✓</div>Solo enviás un email con tu motivo</div>
+            <div class="risk-item"><div class="risk-bullet">✓</div>Sin preguntas que buscan retenerte</div>
+            <div class="risk-item"><div class="risk-bullet">✓</div>Aplica a los tres planes</div>
+          </div>
+        </div>
+
+        <div class="garantia-box reveal rd2" style="background:var(--warn-bg);border-color:rgba(120,53,15,0.15);">
+          <h4 style="color:var(--warn);">¿Por qué no todo por $47?</h4>
+          <p style="color:#92400e;">El plan básico existe para quien prefiere ejecutar solo con el sistema. Pero sin feedback directo, la mayoría itera más lento — o no itera.</p>
+          <div style="margin-top:14px; display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.82rem;color:#92400e;">
+              <span style="flex-shrink:0;font-weight:700;">→</span>
+              <span>Un contrato promedio en Upwork para perfiles como el tuyo vale entre $100 y $400 USD. Cualquier plan se cubre con el primero.</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.82rem;color:#92400e;">
+              <span style="flex-shrink:0;font-weight:700;">→</span>
+              <span>Probando solo, el costo real no es el precio del plan — es el tiempo perdido, las propuestas ignoradas y los meses sin tracción.</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;font-size:0.82rem;color:#92400e;">
+              <span style="flex-shrink:0;font-weight:700;">→</span>
+              <span>Elegí el nivel de acompañamiento según cuánto querés acelerar el proceso.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="garantia-box reveal rd2">
+          <h4>Qué NO incluye esta mentoría</h4>
+          <p>No es un curso pasivo que podés hacer en pijama. No incluye "comunidad de Discord" con miles de personas. No garantiza ingresos específicos. No es para alguien que busca el atajo más corto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="wrap-sm">
+    <div class="reveal">
+      <span class="s-label">Preguntas frecuentes</span>
+      <h2 class="s-title">Lo que la gente pregunta antes de decidir</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Qué pasa si no califica en el diagnóstico?
+          <div class="faq-icon">+</div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Recibís un resultado honesto con lo que necesitás trabajar primero. No es una puerta cerrada para siempre — es un mapa de dónde estás. Algunos perfiles no están listos hoy pero pueden estarlo en 60 días si trabajan en lo correcto. Te decimos exactamente qué es.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          No tengo experiencia en Upwork, ¿igual sirve?
+          <div class="faq-icon">+</div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Sí. De hecho, es mejor arrancar sin hábitos incorrectos. La mentoría está diseñada para buildear desde cero: perfil, primeras propuestas, primeros contratos. Lo que importa no es experiencia en la plataforma, sino la habilidad que vas a ofrecer y el inglés para comunicarla.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Me garantizás que voy a ganar X cantidad de dinero?
+          <div class="faq-icon">+</div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          No. Nadie que sea honesto puede garantizarte eso. Lo que sí puedo garantizarte es el acceso al sistema exacto que yo uso, feedback directo sobre tu perfil y propuestas, y las herramientas para que tu ejecución sea eficiente. El resultado final depende de tu trabajo. Si buscás una garantía de ingresos, ninguna mentoría legítima puede dártela.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Qué pasa si pago y no es lo que esperaba?
+          <div class="faq-icon">+</div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Tenés 7 días desde el acceso inicial para decidir. Si después de ver el contenido de la Fase 1 y hacer la primera llamada considerás que no es para vos, enviás un email y te devolvemos el 100%. Sin condiciones raras ni porcentajes retenidos.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuánto tiempo duran las llamadas y cuándo las agendo?
+          <div class="faq-icon">+</div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Las llamadas son de 60 minutos cada una, por videollamada. Las agendás vos en los horarios disponibles una vez que tenés acceso. La primera llamada es en la primera semana, la segunda al final del proceso (semana 6–8). Los cupos son limitados — por eso solo aceptamos perfiles que pasaron el diagnóstico.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          ¿Es apto para cualquier país?
+          <div class="faq-icon">+</div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Sí. Upwork opera globalmente y el sistema aplica desde cualquier país. Los pagos en USD funcionan independientemente de donde estés. El único requisito es el inglés y la habilidad — no el país.
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉRMINOS -->
+<section style="background: var(--paper-2); padding: 56px 0; border-top: 1px solid var(--line);">
+  <div class="wrap-sm">
+    <div class="reveal">
+      <span class="s-label">Condiciones de uso</span>
+      <h3 style="font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;margin-bottom:24px;letter-spacing:-0.02em;">Lo que acordás al acceder</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div style="padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;margin-bottom:8px;">Sin garantía de ingresos</div>
+          <p style="font-size:0.8rem;color:var(--ink-2);line-height:1.7;margin:0;">Esta mentoría provee un sistema, herramientas y feedback. Los resultados económicos dependen exclusivamente de la ejecución del usuario. No existe garantía de ingresos específicos, ni implícita ni explícita.</p>
+        </div>
+        <div style="padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;margin-bottom:8px;">Responsabilidad del usuario</div>
+          <p style="font-size:0.8rem;color:var(--ink-2);line-height:1.7;margin:0;">El acceso al contenido es personal e intransferible. El usuario es responsable de aplicar el sistema con criterio propio. Danilo Hurwitz no es responsable por decisiones tomadas a partir del contenido.</p>
+        </div>
+        <div style="padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;margin-bottom:8px;">Política de reembolso</div>
+          <p style="font-size:0.8rem;color:var(--ink-2);line-height:1.7;margin:0;">Reembolso completo disponible dentro de los 7 días posteriores al acceso, siempre que se haya realizado la primera llamada 1:1 y revisado el contenido de la Fase 1. Solicitarlo por email a la dirección de contacto.</p>
+        </div>
+        <div style="padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;margin-bottom:8px;">Acceso y uso del contenido</div>
+          <p style="font-size:0.8rem;color:var(--ink-2);line-height:1.7;margin:0;">El contenido de la mentoría es propiedad de Danilo Hurwitz. Queda prohibida su reproducción, distribución o reventa bajo cualquier forma. El acceso es válido para el período contratado.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner reveal">
+    <h2>El primer paso no cuesta nada.</h2>
+    <p>Hacé el diagnóstico. Tardás 3 minutos. Si calificás, te explicamos los próximos pasos. Si no, te decimos exactamente qué falta.</p>
+    <a href="#triage" class="btn-final">Hacer el diagnóstico gratuito →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Danilo Hurwitz</div>
+    <div><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2541444b4c494a4d5057524c515f0b524a574e654248444c490b464a48">[email&#160;protected]</a></div>
+    <div>© 2025 · Mentoría Freelance · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<!-- MODAL PAGO -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closePay()">✕</button>
+    <div class="modal-plan-tag" id="payPlanTag">—</div>
+    <h3>Completar acceso</h3>
+    <p class="modal-sub">Una vez procesado el pago recibís acceso inmediato al contenido y confirmación por email.</p>
+    <div class="field-group">
+      <label class="field-label">Nombre completo</label>
+      <input class="field-input" id="pName" type="text" placeholder="Tu nombre">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Email</label>
+      <input class="field-input" id="pEmail" type="email" placeholder="tu@email.com">
+    </div>
+    <div class="field-group">
+      <label class="field-label">Número de tarjeta</label>
+      <input class="field-input" id="pCard" type="text" placeholder="0000 0000 0000 0000" maxlength="19" oninput="fmtCard(this)">
+    </div>
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">Vencimiento</label>
+        <input class="field-input" id="pExp" type="text" placeholder="MM/AA" maxlength="5" oninput="fmtExp(this)">
+      </div>
+      <div class="field-group">
+        <label class="field-label">CVV</label>
+        <input class="field-input" id="pCvv" type="text" placeholder="123" maxlength="4">
+      </div>
+    </div>
+    <button class="btn-pay-submit" onclick="processCard()">Confirmar pago →</button>
+    <div class="modal-divider">o pagá con</div>
+    <button class="btn-mp" onclick="openMP()">Mercado Pago</button>
+    <p class="modal-fine">Pago encriptado · Política de reembolso activa 7 días · Solo para perfiles aprobados</p>
+  </div>
+</div>
+
+<!-- TOASTS -->
+<div class="toast-container" id="toasts"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── TRIAGE ENGINE ── */
+const TOTAL = 7;
+let step = 0;
+let scores = new Array(TOTAL).fill(null);
+let answers = new Array(TOTAL).fill(null);
+
+function pick(el, q) {
+  el.closest('.q-opts').querySelectorAll('.q-opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  scores[q] = +el.dataset.val;
+  answers[q] = el.textContent.trim();
+  document.getElementById('nextBtn').classList.add('ready');
+}
+
+function goNext() {
+  if (scores[step] === null) return;
+  step++;
+  updateTriage();
+}
+
+function goBack() {
+  if (step > 0) { step--; updateTriage(); }
+}
+
+function updateTriage() {
+  document.querySelectorAll('.q-slide').forEach((s, i) => {
+    s.classList.toggle('active', i === step && step < TOTAL);
+  });
+  const eSt = document.getElementById('emailStep');
+  const rVw = document.getElementById('resultView');
+  const ftr = document.getElementById('triageFtr');
+
+  eSt.classList.toggle('active', step === TOTAL);
+  rVw.classList.remove('active');
+  ftr.style.display = (step === TOTAL || step > TOTAL) ? 'none' : 'flex';
+
+  const pct = Math.round(((step + 1) / (TOTAL + 1)) * 100);
+  document.getElementById('progBar').style.width = pct + '%';
+  document.getElementById('progBadge').textContent = step < TOTAL ? (step + 1) + ' / ' + TOTAL : 'Diagnóstico';
+  document.getElementById('nextBtn').classList.remove('ready');
+  if (scores[step] !== null && step < TOTAL) {
+    const cur = document.querySelectorAll('.q-slide')[step];
+    if (cur) {
+      cur.querySelectorAll('.q-opt').forEach(o => {
+        if (+o.dataset.val === scores[step]) o.classList.add('selected');
+      });
+      document.getElementById('nextBtn').classList.add('ready');
+    }
+  }
+  document.getElementById('backBtn').style.visibility = step === 0 ? 'hidden' : 'visible';
+}
+
+function submitTriage() {
+  const em = document.getElementById('emailInput').value.trim();
+  if (!em || !em.includes('@')) { toast('err', 'Email inválido', 'Ingresá un email válido.'); return; }
+  const total = scores.reduce((a, b) => a + (b || 0), 0);
+  showResult(total, em);
+}
+
+function unlockPlans(tier) {
+  const premium    = document.getElementById('planPremium');
+  const intermedio = document.getElementById('planIntermedio');
+  const basico     = document.getElementById('planBasico');
+  const notice     = document.getElementById('pricingLockNotice');
+
+  // Quitar lock de todos primero
+  [premium, intermedio, basico].forEach(p => {
+    p.classList.remove('plan-locked', 'plan-featured', 'plan-hidden');
+  });
+  if (notice) notice.style.display = 'none';
+
+  if (tier === 'elite') {
+    // Ve los tres, Premium destacado
+    premium.classList.add('plan-featured');
+  } else if (tier === 'potential') {
+    // Ve los tres, Intermedio destacado
+    intermedio.classList.add('plan-featured');
+  } else {
+    // No califica: solo ve el básico
+    premium.classList.add('plan-hidden');
+    intermedio.classList.add('plan-hidden');
+    basico.classList.add('plan-featured');
+  }
+
+  // Scroll suave a pricing
+  setTimeout(() => {
+    document.getElementById('pricing').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 600);
+}
+
+function showResult(score, email) {
+  document.getElementById('emailStep').classList.remove('active');
+  document.getElementById('resultView').classList.add('active');
+  document.getElementById('progBar').style.width = '100%';
+  document.getElementById('progBadge').textContent = 'Resultado';
+
+  let badge, badgeClass, scoreText, msg, actionsHTML;
+
+  if (score >= 75) {
+    badgeClass = 'badge-elite';
+    badge = 'Perfil viable ✓';
+    scoreText = score + ' / 100 — Calificás';
+    msg = 'Tu perfil cumple los requisitos mínimos para acceder a la mentoría. Podemos trabajar juntos. El siguiente paso es elegir el plan y coordinar la primera llamada.';
+    actionsHTML = `
+      <button class="btn-result-buy" onclick="closeTriage();openPay('full')">Calificaste — Desbloquear acceso Premium USD 147 →</button>
+      <button class="btn-result-buy" onclick="closeTriage();openPay('intermedio')" style="background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.12);">Plan intermedio — USD 97</button>
+    `;
+  } else if (score >= 45) {
+    badgeClass = 'badge-potential';
+    badge = 'Perfil con potencial';
+    scoreText = score + ' / 100 — Perfil intermedio';
+    msg = 'Tenés algunos elementos clave, pero hay aspectos que conviene reforzar antes de arrancar. Te contactamos por email con una evaluación personalizada y los pasos concretos.';
+    actionsHTML = `
+      <button class="btn-result-buy" onclick="closeTriage()">Entendido, espero el email →</button>
+    `;
+  } else {
+    badgeClass = 'badge-novil';
+    badge = 'Preparación necesaria';
+    scoreText = score + ' / 100 — No apto aún';
+    msg = 'En este momento tu perfil no cumple los requisitos para sacarle el máximo provecho a la mentoría. Eso no es un problema permanente. Te enviamos por email exactamente qué trabajar para calificar.';
+    actionsHTML = `
+      <button class="btn-result-wait" onclick="closeTriage()">De acuerdo, voy a trabajar en eso</button>
+    `;
+  }
+
+  document.getElementById('resultBadge').textContent = badge;
+  document.getElementById('resultBadge').className = 'result-badge-elite ' + badgeClass;
+  document.getElementById('resultScore').textContent = scoreText;
+  document.getElementById('resultMsg').textContent = msg;
+  document.getElementById('resultActions').innerHTML = actionsHTML;
+
+  const tier = score >= 75 ? 'elite' : score >= 45 ? 'potential' : 'novil';
+  unlockPlans(tier);
+  sendLead(email, score, tier);
+}
+
+function closeTriage() {
+  document.getElementById('triage').scrollIntoView({ behavior: 'smooth' });
+}
+
+function sendLead(email, score, tier) {
+  fetch('https://formspree.io/f/TU_FORM_ID', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ email, score, tier, answers, subject: `Lead triage: ${email} — score ${score} (${tier})` })
+  }).catch(() => {});
+}
+
+/* ── PAYMENT ── */
+let currentPlan = '';
+function openPay(plan) {
+  currentPlan = plan;
+  const labels = { full: 'Premium — USD 147', intermedio: 'Intermedio — USD 97', basico: 'Básico — USD 47' };
+  document.getElementById('payPlanTag').textContent = labels[plan] || plan;
+  document.getElementById('payModal').classList.add('open');
+}
+function closePay() { document.getElementById('payModal').classList.remove('open'); }
+document.getElementById('payModal').addEventListener('click', e => { if (e.target === document.getElementById('payModal')) closePay(); });
+
+function fmtCard(el) { let v = el.value.replace(/\D/g,'').substring(0,16); el.value = v.replace(/(.{4})/g,'$1 ').trim(); }
+function fmtExp(el) { let v = el.value.replace(/\D/g,''); if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2,4); el.value = v; }
+
+function processCard() {
+  const name = document.getElementById('pName').value.trim();
+  const num = document.getElementById('pCard').value.replace(/\s/g,'');
+  const exp = document.getElementById('pExp').value;
+  const cvv = document.getElementById('pCvv').value;
+  const mail = document.getElementById('pEmail').value.trim();
+  if (!name || num.length < 16 || exp.length < 5 || cvv.length < 3 || !mail) {
+    toast('err', 'Campos incompletos', 'Completá todos los datos.'); return;
+  }
+  // Stripe: const stripe = Stripe('pk_live_TU_KEY');
+  toast('ok', 'Procesando...', 'Conectando con la pasarela de pago.');
+  setTimeout(() => { closePay(); toast('ok', 'Pago confirmado', 'Revisá tu email — el acceso está activo.'); }, 2200);
+}
+
+function openMP() {
+  // window.location.href = 'https://www.mercadopago.com.ar/checkout/v1/redirect?pref_id=TU_PREFERENCE_ID';
+  toast('ok', 'Mercado Pago', 'Configurá tu cuenta en developers.mercadopago.com y reemplazá la URL.');
+}
+
+/* ── FAQ ── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── TOAST ── */
+function toast(type, title, msg) {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.innerHTML = `<strong>${title}</strong>${msg}`;
+  document.getElementById('toasts').appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); }, 4500);
+}
+
+/* ── REVEAL ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('shown'); obs.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 1px 20px rgba(0,0,0,0.06)' : 'none';
+});
+
+/* ── SMOOTH SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>-e 
+</body>
+</html>
