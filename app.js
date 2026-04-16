@@ -119,38 +119,35 @@ const DICT = {
     'testim3-name': 'Family Video Editing',
     'calc-label': '06 · Cotización inteligente',
     'calc-title': 'Estimá tu proyecto en 30 segundos.',
-    'calc-sub': 'Seleccioná las variables de tu proyecto y obtené un rango realista en USD.',
+    'calc-sub': 'Seleccioná las variables de tu proyecto y obtené un estimado realista en USD.',
     'calc-q1': 'Tipo de proyecto',
-    'calc-short': 'Short / Reel',
+    'calc-reel': 'Reel / Short',
     'calc-ad': 'Ad comercial',
-    'calc-long': 'Long form',
+    'calc-long': 'Video largo',
+    'calc-subs': 'Subtitulado',
     'calc-translation': 'Traducción',
     'calc-copy': 'Copywriting',
-    'calc-qty-video': 'Duración del video',
-    'calc-qty-words': 'Cantidad (x100 palabras)',
-    'calc-qty-hint-video': 'Arrastrá para ajustar la duración final del contenido',
-    'calc-qty-hint-words': 'Cada unidad equivale a 100 palabras aproximadas',
+    'calc-qty-video': 'Duración',
+    'calc-qty-words': 'Cantidad de palabras',
+    'calc-qty-hint-video': 'Elegí un preset o ingresá tu duración',
+    'calc-qty-hint-words': 'Elegí un preset o ingresá cantidad exacta de palabras',
     'calc-unit-min': 'min',
-    'calc-unit-words': 'x100 pal',
-    'calc-per-video': 'por video',
-    'calc-per-trans': 'por proyecto',
-    'calc-per-copy': 'por pieza',
+    'calc-unit-words': 'palabras',
+    'calc-per-video': 'estimado total',
+    'calc-per-trans': 'estimado total',
+    'calc-per-copy': 'estimado total',
+    'calc-per-subs': 'estimado total',
+    'calc-custom': 'Personalizado',
     'calc-q2': 'Urgencia',
     'calc-normal': 'Normal (5 a 7d)',
     'calc-urgente': 'Urgente (48 a 72h)',
     'calc-express': 'Express (24h)',
-    'calc-q3': 'Idioma',
-    'calc-uno': 'Un idioma',
-    'calc-multi': 'Multi-idioma (2-3)',
-    'calc-q4': 'Subtítulos',
-    'calc-subs-no': 'No',
-    'calc-subs-si': 'Sí (incluidos)',
-    'calc-q5': 'Tipo de cliente',
-    'calc-ind': 'Individual',
-    'calc-agency': 'Agencia',
-    'calc-enterprise': 'Enterprise',
+    'calc-q3': 'Idiomas del proyecto',
+    'calc-lang-es': 'Español',
+    'calc-lang-en': 'Inglés',
+    'calc-lang-he': 'Hebreo',
+    'calc-lang-hint': 'Seleccioná los idiomas que necesita el proyecto',
     'calc-estimate': 'Estimado aproximado',
-    'calc-per-video': 'por video',
     'calc-tier-title': 'Rango estándar',
     'calc-tier-desc': 'Para proyectos simples con entrega normal y un solo idioma. Ajustá las variables para afinar el presupuesto.',
     'calc-cta': 'Pedir propuesta formal',
@@ -289,38 +286,35 @@ const DICT = {
     'testim3-name': 'Family Video Editing',
     'calc-label': '06 · Smart quote',
     'calc-title': 'Estimate your project in 30 seconds.',
-    'calc-sub': 'Select your project variables and get a realistic USD range.',
+    'calc-sub': 'Select your project variables and get a realistic USD estimate.',
     'calc-q1': 'Project type',
-    'calc-short': 'Short / Reel',
+    'calc-reel': 'Reel / Short',
     'calc-ad': 'Commercial ad',
-    'calc-long': 'Long form',
+    'calc-long': 'Long video',
+    'calc-subs': 'Subtitling',
     'calc-translation': 'Translation',
     'calc-copy': 'Copywriting',
-    'calc-qty-video': 'Video duration',
-    'calc-qty-words': 'Amount (x100 words)',
-    'calc-qty-hint-video': 'Drag to set the final content duration',
-    'calc-qty-hint-words': 'Each unit equals approximately 100 words',
+    'calc-qty-video': 'Duration',
+    'calc-qty-words': 'Word count',
+    'calc-qty-hint-video': 'Pick a preset or enter your own duration',
+    'calc-qty-hint-words': 'Pick a preset or enter the exact word count',
     'calc-unit-min': 'min',
-    'calc-unit-words': 'x100 wd',
-    'calc-per-video': 'per video',
-    'calc-per-trans': 'per project',
-    'calc-per-copy': 'per piece',
+    'calc-unit-words': 'words',
+    'calc-per-video': 'total estimate',
+    'calc-per-trans': 'total estimate',
+    'calc-per-copy': 'total estimate',
+    'calc-per-subs': 'total estimate',
+    'calc-custom': 'Custom',
     'calc-q2': 'Urgency',
     'calc-normal': 'Normal (5 to 7d)',
     'calc-urgente': 'Urgent (48 to 72h)',
     'calc-express': 'Express (24h)',
-    'calc-q3': 'Language',
-    'calc-uno': 'Single language',
-    'calc-multi': 'Multi-language (2-3)',
-    'calc-q4': 'Subtitles',
-    'calc-subs-no': 'No',
-    'calc-subs-si': 'Yes (included)',
-    'calc-q5': 'Client type',
-    'calc-ind': 'Individual',
-    'calc-agency': 'Agency',
-    'calc-enterprise': 'Enterprise',
+    'calc-q3': 'Project languages',
+    'calc-lang-es': 'Spanish',
+    'calc-lang-en': 'English',
+    'calc-lang-he': 'Hebrew',
+    'calc-lang-hint': 'Select the languages your project needs',
     'calc-estimate': 'Approximate estimate',
-    'calc-per-video': 'per video',
     'calc-tier-title': 'Standard range',
     'calc-tier-desc': 'For simple projects with normal delivery and a single language. Adjust variables to refine the estimate.',
     'calc-cta': 'Request formal proposal',
@@ -630,34 +624,40 @@ function detectTheme() {
 
 // ──────────────────────────────────────────────
 // ──────────────────────────────────────────────
-// CALCULATOR LOGIC (v3 · precio estimado único, calibrado con precios reales)
+// CALCULATOR LOGIC (v4 · presets + input libre + idiomas multi, sin cliente)
 // ──────────────────────────────────────────────
-// Referencias del usuario:
-//   · Reel 1min con urgencia 24h = ~20 USD  →  base reel ~11/min, × urgencia express (1.8) = 20
-//   · Subtítulos 1min sin apuro   = ~4 USD
+// Calibración con precios reales del usuario:
+//   · Reel 1min normal = ~20 USD  →  base 20/min
+//   · Reel 1min urgente = ~25 USD →  multiplicador urgente 1.25
+//   · Subtítulos 1min sin apuro = 4 USD/min
 const calcState = {
-  tipo: 'short',
+  tipo: 'reel',
   qty: 1,
   urg: 'normal',
-  idioma: 'uno',
-  subs: 'no',
-  cliente: 'ind'
+  langs: ['es']  // multi-select: ['es', 'en', 'he']
 };
 
-// basePerUnit ahora es un número único (no rango) · USD por unidad en escenario base
+// Configuración por tipo de proyecto
+// basePerUnit: USD por unidad · unit: 'min' | 'words' (words = cada 100 palabras)
+// presets: valores rápidos del usuario · defaultQty: valor inicial
 const TIPO_CONFIG = {
-  short:       { basePerUnit: 11,  min: 0.25, max: 3,   step: 0.25, default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true,  minProject: 15 },
-  ad:          { basePerUnit: 45,  min: 0.5,  max: 5,   step: 0.5,  default: 1,  unit: 'min',   hasIdioma: true,  hasSubs: true,  minProject: 60 },
-  long:        { basePerUnit: 22,  min: 3,    max: 60,  step: 1,    default: 10, unit: 'min',   hasIdioma: true,  hasSubs: true,  minProject: 80 },
-  translation: { basePerUnit: 9,   min: 1,    max: 50,  step: 1,    default: 5,  unit: 'words', hasIdioma: false, hasSubs: false, minProject: 15 },
-  copy:        { basePerUnit: 15,  min: 1,    max: 30,  step: 1,    default: 3,  unit: 'words', hasIdioma: true,  hasSubs: false, minProject: 25 }
+  reel:        { basePerUnit: 20, minProject: 18, unit: 'min',   defaultQty: 1,  presets: [1, 2, 3, 5] },
+  ad:          { basePerUnit: 60, minProject: 60, unit: 'min',   defaultQty: 1,  presets: [1, 2, 3, 5] },
+  long:        { basePerUnit: 30, minProject: 80, unit: 'min',   defaultQty: 10, presets: [5, 10, 20, 30] },
+  subs:        { basePerUnit: 4,  minProject: 8,  unit: 'min',   defaultQty: 5,  presets: [2, 5, 10, 20] },
+  translation: { basePerUnit: 10, minProject: 12, unit: 'words', defaultQty: 5,  presets: [2, 5, 10, 20] },
+  copy:        { basePerUnit: 15, minProject: 20, unit: 'words', defaultQty: 3,  presets: [1, 3, 5, 10] }
 };
-// Multiplicadores · más realistas
-const URG = { normal: 1, urgente: 1.4, express: 1.8 };
-const IDIOMA = { uno: 1, multi: 1.4 };
-// Subtítulos simples: +4 USD/min fijo para videos (no multiplicador · se suma)
-const SUBS_PER_MIN = 4;
-const CLIENTE = { ind: 1, agency: 1.2, enterprise: 1.6 };
+
+// Multiplicador por urgencia
+const URG = { normal: 1, urgente: 1.25, express: 1.6 };
+
+// Multiplicador por cantidad de idiomas (cada idioma extra suma 40%)
+// 1 idioma = 1, 2 idiomas = 1.4, 3 idiomas = 1.8
+function langsMultiplier(langs) {
+  const n = langs.length || 1;
+  return 1 + (n - 1) * 0.4;
+}
 
 function formatUSD(n) {
   return '$' + Math.round(n).toLocaleString('en-US');
@@ -670,29 +670,43 @@ function formatQty(qty, unit) {
 
 function updateCalcQtyUI() {
   const cfg = TIPO_CONFIG[calcState.tipo];
-  const slider = document.getElementById('calcQty');
   const qtyNum = document.getElementById('calcQtyNum');
   const qtyUnit = document.getElementById('calcQtyUnit');
+  const qtyInputUnit = document.getElementById('calcQtyInputUnit');
   const qtyLabel = document.getElementById('calcQtyLabel');
   const qtyHint = document.getElementById('calcQtyHint');
   const perUnit = document.getElementById('calcPerUnit');
-  const idiomaGroup = document.getElementById('calcIdiomaGroup');
-  const subsGroup = document.getElementById('calcSubsGroup');
+  const qtyInput = document.getElementById('calcQtyInput');
+  const presetsWrap = document.getElementById('calcPresets');
 
-  if (!slider) return;
+  if (calcState.qty < 1) calcState.qty = cfg.defaultQty;
 
-  slider.min = cfg.min;
-  slider.max = cfg.max;
-  slider.step = cfg.step;
-  if (calcState.qty < cfg.min || calcState.qty > cfg.max) {
-    calcState.qty = cfg.default;
+  // Update presets buttons según tipo
+  if (presetsWrap) {
+    const presetBtns = presetsWrap.querySelectorAll('.calc-preset:not(#calcPresetCustom)');
+    cfg.presets.forEach((val, i) => {
+      if (presetBtns[i]) {
+        presetBtns[i].dataset.preset = val;
+        const unitLabel = cfg.unit === 'words' ? 'x100' : '';
+        presetBtns[i].textContent = cfg.unit === 'words' ? `${val * 100}` : `${val}`;
+      }
+    });
+    // Activar el preset que matchee con qty actual, o "Personalizado"
+    presetBtns.forEach(b => b.classList.remove('active'));
+    const customBtn = document.getElementById('calcPresetCustom');
+    if (customBtn) customBtn.classList.remove('active');
+    const matched = Array.from(presetBtns).find(b => parseFloat(b.dataset.preset) === calcState.qty);
+    if (matched) matched.classList.add('active');
+    else if (customBtn) customBtn.classList.add('active');
   }
-  slider.value = calcState.qty;
 
+  // Update textos
   if (qtyNum) qtyNum.textContent = formatQty(calcState.qty, cfg.unit);
 
   const unitKey = cfg.unit === 'words' ? 'calc-unit-words' : 'calc-unit-min';
-  if (qtyUnit) qtyUnit.textContent = DICT[currentLang][unitKey] || (cfg.unit === 'words' ? 'palabras' : 'min');
+  const unitText = DICT[currentLang][unitKey] || (cfg.unit === 'words' ? 'palabras' : 'min');
+  if (qtyUnit) qtyUnit.textContent = unitText;
+  if (qtyInputUnit) qtyInputUnit.textContent = unitText;
 
   const labelKey = cfg.unit === 'words' ? 'calc-qty-words' : 'calc-qty-video';
   const hintKey = cfg.unit === 'words' ? 'calc-qty-hint-words' : 'calc-qty-hint-video';
@@ -701,47 +715,44 @@ function updateCalcQtyUI() {
 
   const perKey = cfg.unit === 'words'
     ? (calcState.tipo === 'translation' ? 'calc-per-trans' : 'calc-per-copy')
-    : 'calc-per-video';
-  if (perUnit) perUnit.textContent = DICT[currentLang][perKey] || 'por proyecto';
+    : (calcState.tipo === 'subs' ? 'calc-per-subs' : 'calc-per-video');
+  if (perUnit) perUnit.textContent = DICT[currentLang][perKey] || 'estimado total';
 
-  if (idiomaGroup) idiomaGroup.style.display = cfg.hasIdioma ? '' : 'none';
-  if (subsGroup) subsGroup.style.display = cfg.hasSubs ? '' : 'none';
+  // Input numérico valor
+  if (qtyInput) {
+    qtyInput.value = cfg.unit === 'words' ? (calcState.qty * 100) : calcState.qty;
+    qtyInput.min = cfg.unit === 'words' ? 100 : 1;
+    qtyInput.max = cfg.unit === 'words' ? 50000 : 180;
+    qtyInput.step = cfg.unit === 'words' ? 50 : 1;
+  }
 }
 
 function computeCalc() {
   const cfg = TIPO_CONFIG[calcState.tipo];
 
-  // Base por unidad × cantidad
+  // Precio base × cantidad
   let price = cfg.basePerUnit * calcState.qty;
 
   // Multiplicadores
-  const idiomaMult = cfg.hasIdioma ? IDIOMA[calcState.idioma] : 1;
   price *= URG[calcState.urg];
-  price *= idiomaMult;
-  price *= CLIENTE[calcState.cliente];
+  price *= langsMultiplier(calcState.langs);
 
-  // Subtítulos: suma fija por minuto (solo videos)
-  if (cfg.hasSubs && calcState.subs === 'si' && cfg.unit === 'min') {
-    price += SUBS_PER_MIN * calcState.qty;
-  }
-
-  // Piso mínimo de proyecto
+  // Piso mínimo
   price = Math.max(price, cfg.minProject);
 
-  // Redondeo "comercial": < 100 al múltiplo de 5, >= 100 al múltiplo de 10
+  // Redondeo comercial
   let rounded;
   if (price < 100) rounded = Math.round(price / 5) * 5;
   else if (price < 500) rounded = Math.round(price / 10) * 10;
   else rounded = Math.round(price / 25) * 25;
 
   const rangeEl = document.getElementById('calcRange');
-  if (rangeEl) rangeEl.innerHTML = `${formatUSD(rounded)}`;
+  if (rangeEl) rangeEl.textContent = formatUSD(rounded);
 
-  // Tier calculation · ahora basado en el precio final
+  // Tier
   let tierKey = 'calc-tier-mid';
-  if (calcState.cliente === 'enterprise') tierKey = 'calc-tier-enterprise';
-  else if (rounded >= 400) tierKey = 'calc-tier-high';
-  else if (rounded <= 40) tierKey = 'calc-tier-low';
+  if (rounded >= 400) tierKey = 'calc-tier-high';
+  else if (rounded <= 30) tierKey = 'calc-tier-low';
 
   const info = DICT[currentLang][tierKey];
   if (info) {
@@ -749,12 +760,14 @@ function computeCalc() {
     if (infoEl) infoEl.innerHTML = `<strong>${info.t}</strong><span>${info.d}</span>`;
   }
 
-  // Build WhatsApp context message
+  // WhatsApp context
   const tipoLabel = DICT[currentLang][`calc-${calcState.tipo}`] || calcState.tipo;
   const urgLabel = DICT[currentLang][`calc-${calcState.urg}`] || calcState.urg;
   const qtyStr = cfg.unit === 'words' ? `${Math.round(calcState.qty * 100)} palabras` : `${calcState.qty} min`;
+  const langNames = { es: 'Español', en: 'Inglés', he: 'Hebreo' };
+  const langsStr = calcState.langs.map(l => langNames[l]).join(', ');
   const msg = encodeURIComponent(
-    `Hola Danilo, quiero cotizar un proyecto:\n· Tipo: ${tipoLabel}\n· Tamaño: ${qtyStr}\n· Urgencia: ${urgLabel}\n· Estimado: ${formatUSD(rounded)} USD`
+    `Hola Danilo, quiero cotizar un proyecto:\n· Tipo: ${tipoLabel}\n· Tamaño: ${qtyStr}\n· Urgencia: ${urgLabel}\n· Idiomas: ${langsStr}\n· Estimado: ${formatUSD(rounded)} USD`
   );
   const cta = document.getElementById('calcCtaBtn');
   if (cta) cta.href = `https://wa.me/5492302219422?text=${msg}`;
@@ -914,7 +927,7 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTheme(newT);
   });
 
-  // Calculator options
+  // Calculator: tipo/urgencia options
   document.querySelectorAll('.calc-opt').forEach(btn => {
     btn.addEventListener('click', () => {
       const field = btn.dataset.field;
@@ -923,22 +936,74 @@ document.addEventListener('DOMContentLoaded', () => {
       // Update UI
       document.querySelectorAll(`.calc-opt[data-field="${field}"]`).forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      if (field === 'tipo') updateCalcQtyUI();
+      if (field === 'tipo') {
+        const cfg = TIPO_CONFIG[val];
+        calcState.qty = cfg.defaultQty;
+        updateCalcQtyUI();
+      }
       computeCalc();
     });
   });
 
-  // Calculator quantity slider
-  const calcQtySlider = document.getElementById('calcQty');
-  if (calcQtySlider) {
-    calcQtySlider.addEventListener('input', (e) => {
-      calcState.qty = parseFloat(e.target.value);
-      const qtyNum = document.getElementById('calcQtyNum');
+  // Calculator: presets
+  document.querySelectorAll('.calc-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.id === 'calcPresetCustom') {
+        // Focus on custom input
+        const customInput = document.getElementById('calcQtyInput');
+        if (customInput) {
+          customInput.focus();
+          customInput.select();
+        }
+        document.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        return;
+      }
+      calcState.qty = parseFloat(btn.dataset.preset);
+      document.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateCalcQtyUI();
+      computeCalc();
+    });
+  });
+
+  // Calculator: custom input numérico
+  const calcQtyInput = document.getElementById('calcQtyInput');
+  if (calcQtyInput) {
+    calcQtyInput.addEventListener('input', (e) => {
       const cfg = TIPO_CONFIG[calcState.tipo];
+      let val = parseFloat(e.target.value);
+      if (isNaN(val) || val < 1) val = 1;
+      // Si es words, el input muestra palabras enteras · internamente /100
+      calcState.qty = cfg.unit === 'words' ? (val / 100) : val;
+      // Activar "Personalizado"
+      document.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
+      document.getElementById('calcPresetCustom')?.classList.add('active');
+      // Update qty display pero no re-set input
+      const qtyNum = document.getElementById('calcQtyNum');
       if (qtyNum) qtyNum.textContent = formatQty(calcState.qty, cfg.unit);
       computeCalc();
     });
   }
+
+  // Calculator: idiomas multi-select
+  document.querySelectorAll('.calc-lang').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.lang;
+      const idx = calcState.langs.indexOf(lang);
+      if (idx >= 0) {
+        // Deseleccionar · pero nunca dejar vacío
+        if (calcState.langs.length > 1) {
+          calcState.langs.splice(idx, 1);
+          btn.classList.remove('active');
+        }
+      } else {
+        calcState.langs.push(lang);
+        btn.classList.add('active');
+      }
+      computeCalc();
+    });
+  });
 
   updateCalcQtyUI();
   computeCalc();
