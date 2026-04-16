@@ -169,7 +169,7 @@
       <div class="service-media">
         <div class="service-media-label">AD · 16:9</div>
         <video autoplay muted loop playsinline>
-          <source src="assets/AD.mp4" type="video/mp4">
+          <source src="assets/Ad.mp4" type="video/mp4">
         </video>
         <div class="service-play-overlay"><div class="service-play-icon">▶</div></div>
       </div>
@@ -267,7 +267,7 @@
 
     <div class="portfolio-grid">
       <div class="p-item p-wide reveal">
-        <video autoplay muted loop playsinline><source src="assets/AD.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline><source src="assets/Ad.mp4" type="video/mp4"></video>
         <div class="p-item-info">
           <h4 data-i18n="port1-title">Highlight Video Project</h4>
           <span class="p-tag">AD · 5.0 ★ · Nov 2025</span>
@@ -295,7 +295,7 @@
         </div>
       </div>
       <div class="p-item p-med reveal">
-        <video autoplay muted loop playsinline><source src="assets/AD.mp4" type="video/mp4"></video>
+        <video autoplay muted loop playsinline><source src="assets/Ad.mp4" type="video/mp4"></video>
         <div class="p-item-info">
           <h4 data-i18n="port5-title">Hebrew Tutorial Adaptation</h4>
           <span class="p-tag">HE/EN · 5.0 ★ · 2025</span>
@@ -329,8 +329,24 @@
 
         <div class="book-mockup-stage">
           <div class="book-v2">
-            <div class="book-v2-spine"><img src="assets/lomo_libro.png" alt=""></div>
-            <div class="book-v2-cover"><img src="assets/tapa_frontal.png" alt="Tapa frontal del libro"></div>
+            <div class="book-v2-spine" aria-hidden="true"></div>
+            <div class="book-v2-cover">
+              <!-- Fallback tipográfico que se ve SI la imagen no carga -->
+              <div class="book-v2-fallback" aria-hidden="true">
+                <div class="bvf-top">
+                  <div class="bvf-line"></div>
+                  <div class="bvf-author">DANILO HURWITZ</div>
+                </div>
+                <div class="bvf-mid">
+                  <div class="bvf-title">De 0<br>a 1000<br>USD</div>
+                </div>
+                <div class="bvf-bot">
+                  <div class="bvf-subtitle">Freelance<br>sin renunciar</div>
+                  <div class="bvf-badge">★</div>
+                </div>
+              </div>
+              <img src="assets/tapa_frontal.png" alt="" onerror="this.style.display='none'">
+            </div>
           </div>
           <div class="book-shadow"></div>
         </div>
@@ -465,9 +481,10 @@
         <div class="calc-group">
           <label class="calc-label" data-i18n="calc-q1">Tipo de proyecto</label>
           <div class="calc-options">
-            <button class="calc-opt active" data-field="tipo" data-val="short" data-i18n="calc-short">Short / Reel</button>
+            <button class="calc-opt active" data-field="tipo" data-val="reel" data-i18n="calc-reel">Reel / Short</button>
             <button class="calc-opt" data-field="tipo" data-val="ad" data-i18n="calc-ad">Ad comercial</button>
-            <button class="calc-opt" data-field="tipo" data-val="long" data-i18n="calc-long">Long form</button>
+            <button class="calc-opt" data-field="tipo" data-val="long" data-i18n="calc-long">Video largo</button>
+            <button class="calc-opt" data-field="tipo" data-val="subs" data-i18n="calc-subs">Subtitulado</button>
             <button class="calc-opt" data-field="tipo" data-val="translation" data-i18n="calc-translation">Traducción</button>
             <button class="calc-opt" data-field="tipo" data-val="copy" data-i18n="calc-copy">Copywriting</button>
           </div>
@@ -475,11 +492,26 @@
 
         <div class="calc-group">
           <label class="calc-label">
-            <span id="calcQtyLabel" data-i18n="calc-qty-video">Duración del video</span>
+            <span id="calcQtyLabel" data-i18n="calc-qty-video">Duración</span>
             <span class="calc-qty-value"><span id="calcQtyNum">1</span> <span id="calcQtyUnit" data-i18n="calc-unit-min">min</span></span>
           </label>
-          <input type="range" class="calc-range-input" id="calcQty" min="1" max="60" value="1" step="1">
-          <div class="calc-range-hint" id="calcQtyHint" data-i18n="calc-qty-hint-video">Arrastrá para ajustar la duración final del contenido</div>
+
+          <!-- Presets rápidos · cambian según tipo -->
+          <div class="calc-presets" id="calcPresets">
+            <button class="calc-preset active" data-preset="1">1</button>
+            <button class="calc-preset" data-preset="2">2</button>
+            <button class="calc-preset" data-preset="5">5</button>
+            <button class="calc-preset" data-preset="10">10</button>
+            <button class="calc-preset" data-preset="custom" id="calcPresetCustom" data-i18n="calc-custom">Personalizado</button>
+          </div>
+
+          <!-- Input numérico libre (aparece cuando eligen "Personalizado" o modifican) -->
+          <div class="calc-custom-input" id="calcCustomInput">
+            <input type="number" id="calcQtyInput" min="1" max="500" value="1">
+            <span id="calcQtyInputUnit" class="calc-custom-unit" data-i18n="calc-unit-min">min</span>
+          </div>
+
+          <div class="calc-range-hint" id="calcQtyHint" data-i18n="calc-qty-hint-video">Elegí un preset o ingresá tu duración</div>
         </div>
 
         <div class="calc-group">
@@ -491,29 +523,23 @@
           </div>
         </div>
 
-        <div class="calc-group" id="calcIdiomaGroup">
-          <label class="calc-label" data-i18n="calc-q3">Idioma</label>
-          <div class="calc-options calc-opt-2col">
-            <button class="calc-opt active" data-field="idioma" data-val="uno" data-i18n="calc-uno">Un idioma</button>
-            <button class="calc-opt" data-field="idioma" data-val="multi" data-i18n="calc-multi">Multi idioma (2 a 3)</button>
-          </div>
-        </div>
-
-        <div class="calc-group" id="calcSubsGroup">
-          <label class="calc-label" data-i18n="calc-q4">Subtítulos</label>
-          <div class="calc-options calc-opt-2col">
-            <button class="calc-opt active" data-field="subs" data-val="no" data-i18n="calc-subs-no">No</button>
-            <button class="calc-opt" data-field="subs" data-val="si" data-i18n="calc-subs-si">Sí (incluidos)</button>
-          </div>
-        </div>
-
         <div class="calc-group">
-          <label class="calc-label" data-i18n="calc-q5">Tipo de cliente</label>
-          <div class="calc-options">
-            <button class="calc-opt active" data-field="cliente" data-val="ind" data-i18n="calc-ind">Individual</button>
-            <button class="calc-opt" data-field="cliente" data-val="agency" data-i18n="calc-agency">Agencia</button>
-            <button class="calc-opt" data-field="cliente" data-val="enterprise" data-i18n="calc-enterprise">Enterprise</button>
+          <label class="calc-label" data-i18n="calc-q3">Idiomas del proyecto</label>
+          <div class="calc-langs">
+            <button class="calc-lang active" data-lang="es">
+              <span class="calc-lang-flag">🇦🇷</span>
+              <span data-i18n="calc-lang-es">Español</span>
+            </button>
+            <button class="calc-lang" data-lang="en">
+              <span class="calc-lang-flag">🇬🇧</span>
+              <span data-i18n="calc-lang-en">Inglés</span>
+            </button>
+            <button class="calc-lang" data-lang="he">
+              <span class="calc-lang-flag">🇮🇱</span>
+              <span data-i18n="calc-lang-he">Hebreo</span>
+            </button>
           </div>
+          <div class="calc-range-hint" data-i18n="calc-lang-hint">Seleccioná los idiomas que necesita el proyecto</div>
         </div>
       </div>
 
@@ -521,7 +547,7 @@
         <div>
           <div class="calc-result-label" data-i18n="calc-estimate">Estimado aproximado</div>
           <div class="calc-range" id="calcRange">$20</div>
-          <div class="calc-range-cur">USD · <span id="calcPerUnit" data-i18n="calc-per-video">por video</span></div>
+          <div class="calc-range-cur">USD · <span id="calcPerUnit" data-i18n="calc-per-video">estimado total</span></div>
 
           <div class="calc-tier-info" id="calcInfo">
             <strong data-i18n="calc-tier-title">Rango estándar</strong>
