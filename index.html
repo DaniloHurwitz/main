@@ -71,7 +71,7 @@
           <span data-i18n="hero-eyebrow">Disponible para proyectos · HE / EN / ES</span>
         </div>
 
-        <h1 class="reveal rd1" data-i18n="hero-h1">Video editor trilingüe para marcas que no pueden permitirse contenido mediocre.</h1>
+        <h1 class="reveal rd1" data-i18n="hero-h1">Video editor trilingüe para marcas serias.</h1>
 
         <p class="hero-sub reveal rd2" data-i18n="hero-sub">
           Reels, ads comerciales y subtitulación de precisión. Trabajo con clientes Fortune 500 vía ICUC, con ElevenLabs y directo en Upwork desde Mar del Plata.
@@ -127,19 +127,44 @@
     <div class="proof-inner">
       <div class="proof-label" data-i18n="proof-label">Clientes y plataformas</div>
       <div class="proof-logos">
-        <div class="plogo plogo-upwork">
-          <svg viewBox="0 0 56 16" fill="currentColor" aria-label="Upwork"><circle cx="7" cy="11" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 11c0-2.5 1.5-4.5 3.5-4.5S17 8.5 17 11v.3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><text x="20" y="13.2" font-family="Inter, sans-serif" font-size="9" font-weight="700" letter-spacing="-0.01em">upwork</text></svg>
+
+        <!-- UPWORK · verde oficial (#14a800), wordmark con "U" circular -->
+        <div class="plogo plogo-upwork" aria-label="Upwork">
+          <svg viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="currentColor">
+              <path d="M20 7.5c-5.52 0-10 4.48-10 10 0 1.42.3 2.77.84 4l-2.54 11h4.2l1.86-8.1c1.68 1.32 3.8 2.1 6.1 2.1 5.52 0 10-4.48 10-10s-4.48-10-10-10zm0 16c-3.32 0-6-2.68-6-6s2.68-6 6-6 6 2.68 6 6-2.68 6-6 6z"/>
+              <text x="36" y="27" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="-0.3">upwork</text>
+            </g>
+          </svg>
         </div>
-        <div class="plogo plogo-icuc">
-          <span class="plogo-mark">◐</span><span>ICUC</span>
+
+        <!-- ICUC · wordmark geométrico con punto medio -->
+        <div class="plogo plogo-icuc" aria-label="ICUC">
+          <svg viewBox="0 0 110 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="currentColor">
+              <text x="0" y="26" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800" letter-spacing="1.5">ICUC</text>
+              <circle cx="104" cy="23" r="2.6"/>
+            </g>
+          </svg>
         </div>
-        <div class="plogo plogo-eleven">
-          <span class="plogo-mark plogo-eleven-mark">11</span><span>ElevenLabs</span>
+
+        <!-- ELEVENLABS · "II" monograma + wordmark -->
+        <div class="plogo plogo-eleven" aria-label="ElevenLabs">
+          <svg viewBox="0 0 170 36" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <g fill="currentColor">
+              <rect x="2" y="8" width="4" height="20" rx="0.5"/>
+              <rect x="10" y="8" width="4" height="20" rx="0.5"/>
+              <text x="22" y="26" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" letter-spacing="-0.3">ElevenLabs</text>
+            </g>
+          </svg>
         </div>
-        <div class="plogo plogo-rating">
+
+        <!-- RATING badge (se mantiene) -->
+        <div class="plogo plogo-rating" aria-label="Rating">
           <span class="plogo-stars">★★★★★</span>
           <span>5.0 · 17 <span data-i18n="proof-projects">proyectos</span></span>
         </div>
+
       </div>
     </div>
   </div>
@@ -318,13 +343,9 @@
         <div class="res-card-tag" data-i18n="res-book-tag">LIBRO · USD 19</div>
 
         <div class="book-mockup-stage">
-          <div class="book-3d" id="book3d">
-            <div class="book-face book-back"><img src="assets/tapa_trasera.png" alt="Contratapa"></div>
-            <div class="book-face book-spine"><img src="assets/lomo_libro.png" alt="Lomo"></div>
-            <div class="book-face book-top"></div>
-            <div class="book-face book-bottom"></div>
-            <div class="book-face book-right-edge"></div>
-            <div class="book-face book-front"><img src="assets/tapa_frontal.png" alt="Tapa frontal"></div>
+          <div class="book-v2">
+            <div class="book-v2-spine"><img src="assets/lomo_libro.png" alt=""></div>
+            <div class="book-v2-cover"><img src="assets/tapa_frontal.png" alt="Tapa frontal del libro"></div>
           </div>
           <div class="book-shadow"></div>
         </div>
@@ -359,12 +380,12 @@
         <div class="res-card-tag res-card-tag-premium" data-i18n="res-course-tag">SISTEMA COMPLETO · PREMIUM</div>
 
         <div class="res-course-visual">
-          <div class="rcv-layer rcv-1"></div>
-          <div class="rcv-layer rcv-2"></div>
-          <div class="rcv-layer rcv-3"></div>
-          <div class="rcv-center">
-            <div class="rcv-mark">◆</div>
-            <div class="rcv-label" data-i18n="res-course-visual-label">DANILO<br>SYSTEM</div>
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/curso-preview-poster.jpg">
+            <source src="assets/curso-preview.mp4" type="video/mp4">
+          </video>
+          <div class="rcv-play-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+            <span data-i18n="res-course-visual-label">Sistema Completo</span>
           </div>
         </div>
 
@@ -513,8 +534,8 @@
 
       <div class="calc-result">
         <div>
-          <div class="calc-result-label" data-i18n="calc-estimate">Estimación aproximada</div>
-          <div class="calc-range" id="calcRange">$40 <span>–</span> $120</div>
+          <div class="calc-result-label" data-i18n="calc-estimate">Estimado aproximado</div>
+          <div class="calc-range" id="calcRange">$20</div>
           <div class="calc-range-cur">USD · <span id="calcPerUnit" data-i18n="calc-per-video">por video</span></div>
 
           <div class="calc-tier-info" id="calcInfo">
