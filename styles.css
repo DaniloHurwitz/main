@@ -1626,16 +1626,16 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   gap: 44px;
   margin-left: auto;
 }
-/* TODOS los logos al mismo ANCHO visual · forzado por contenedor fijo */
+/* TODOS los logos al mismo ANCHO visual · 3 logos equidistantes */
 .plogo {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   transition: opacity .2s, transform .2s var(--ease-out);
   opacity: 0.85;
-  width: 180px;
-  height: 50px;
-  flex-shrink: 0;
+  width: 240px;
+  height: 60px;
+  flex: 1;
 }
 .plogo:hover { opacity: 1; transform: translateY(-1px); }
 .plogo img {
@@ -2067,16 +2067,6 @@ body.dark .res-course {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   BOOK MOCKUP v3 (robusto · tapa + lomo, con fallback si img falla)
-   ═══════════════════════════════════════════════════════════════ */
-.book-mockup-stage {
-  perspective: 1800px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 380px;
-  padding: 20px 40px;
-  position: relative;
    MOBILE SCROLL REDUCTION (aggressive · menos repetido)
    ═══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
