@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danilo Hurwitz · Trilingual Content Specialist (HE/EN/ES)</title>
+<meta name="description" content="Editor de video y especialista en contenido digital trilingüe. Top Rated en Upwork. Reels, ads, subtitulación y traducción para marcas globales.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<meta property="og:title" content="Danilo Hurwitz · Trilingual Content Specialist">
+<meta property="og:description" content="Video editor trilingüe. Reels, ads, subtitulación y traducción para marcas globales. Top Rated en Upwork.">
+<meta property="og:image" content="assets/og-image.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Danilo Hurwitz · HE/EN/ES Content Specialist">
+<meta name="twitter:image" content="assets/og-image.jpg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <div class="nav-logo-mark">DH</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Danilo Hurwitz</span>
+        <span class="nav-logo-role" data-i18n="nav-logo-role">Content Specialist</span>
+      </div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="#services" data-i18n="nav-services">Servicios</a>
+      <a href="#portfolio" data-i18n="nav-portfolio">Trabajos</a>
+      <a href="#book" data-i18n="nav-book">Libro</a>
+      <a href="#calc" data-i18n="nav-calc">Cotizar</a>
+      <a href="#contact" data-i18n="nav-contact">Contacto</a>
+    </div>
+    <div class="nav-tools">
+      <div class="lang-switch">
+        <button data-lang="es" class="active">ES</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="he">HE</button>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+      </button>
+      <a href="https://wa.me/5492302219422" target="_blank" class="nav-cta">
+        <span data-i18n="nav-cta-text">Contratarme</span>
+        <span>→</span>
+      </a>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO CINEMATIC -->
+<section class="hero" id="top">
+  <div class="hero-texture"></div>
+  <div class="hero-accent-line"></div>
+
+  <div class="wrap hero-content">
+    <div class="hero-split">
+      <div class="hero-text">
+        <div class="hero-eyebrow reveal">
+          <span class="hero-eyebrow-dot"></span>
+          <span data-i18n="hero-eyebrow">Solo 3 cupos este mes · HE / EN / ES</span>
+        </div>
+
+        <h1 class="reveal rd1" data-i18n="hero-h1">Contenido que no parece barato.</h1>
+
+        <p class="hero-sub reveal rd2" data-i18n="hero-sub">
+          Reels, ads y subtitulación para marcas globales. +95% Job Success en Upwork, clientes Fortune 500 vía ICUC y proyectos con ElevenLabs.
+        </p>
+
+        <div class="hero-actions reveal rd3">
+          <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20trabajar%20con%20vos." target="_blank" class="btn-hero-primary">
+            <span data-i18n="hero-cta-1">Empezar un proyecto</span>
+            <span>→</span>
+          </a>
+          <a href="#portfolio" class="btn-hero-secondary">
+            <span data-i18n="hero-cta-2">Ver trabajos</span>
+          </a>
+        </div>
+        <p class="hero-fine reveal rd3" data-i18n="hero-fine">Respuesta en &lt; 4 horas · Mar del Plata, Argentina</p>
+
+        <div class="hero-socials reveal rd3">
+          <a href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank" rel="noopener" class="btn-hero-social btn-upwork">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M18.6 6.8c-1.5 0-2.7.9-3.3 2.4l-.2-.9C14.7 5.5 12.8 4 10.5 4 7.9 4 5.7 6 5.7 8.8c0 .6.1 1.1.2 1.6L4 18h3.5l1.4-6.3c1.1.9 2.5 1.5 4 1.5h.1c.2 0 .4 0 .6-.1l-.8 4.9h3.4l1.2-4.9c1.1-.4 1.9-1.4 1.9-2.6.1-2.4-1.3-4.7-4.7-4.7z"/></svg>
+            <span>Upwork</span>
+            <span>→</span>
+          </a>
+          <a href="https://www.linkedin.com/in/danilohurwitz" target="_blank" rel="noopener" class="btn-hero-social btn-linkedin">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 118.3 6.5a1.78 1.78 0 01-1.8 1.75zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93A1.74 1.74 0 0013 14.19V19h-3v-9h2.9v1.3a3.11 3.11 0 012.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+            <span>LinkedIn</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-video-frame reveal rd2">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg">
+          <source src="assets/hero.mp4" type="video/mp4">
+        </video>
+        <button class="vid-mute-btn" aria-label="Mute/Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-on" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+        <div class="hero-video-badge">
+          <span class="hvb-dot"></span>
+          <span data-i18n="hero-video-badge">Presentación</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF / AUTHORITY STRIP -->
+<div class="proof-strip">
+  <div class="wrap">
+    <div class="proof-inner">
+      <div class="proof-label" data-i18n="proof-label">Clientes y plataformas</div>
+      <div class="proof-logos">
+
+        <!-- UPWORK · SVG oficial Wikimedia -->
+        <a class="plogo plogo-upwork" href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank" rel="noopener" aria-label="Upwork">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Upwork-logo.svg" alt="Upwork" loading="lazy">
+        </a>
+
+        <!-- ICUC · PNG oficial -->
+        <div class="plogo plogo-icuc" aria-label="ICUC">
+          <img src="https://influencermarketinghub.com/wp-content/uploads/2024/01/image-9-1.png" alt="ICUC" loading="lazy">
+        </div>
+
+        <!-- ELEVENLABS · se swappea light/dark con CSS -->
+        <div class="plogo plogo-eleven" aria-label="ElevenLabs">
+          <img class="plogo-img-light" src="https://upload.wikimedia.org/wikipedia/commons/f/f0/ElevenLabs_logo.png" alt="ElevenLabs" loading="lazy">
+          <img class="plogo-img-dark" src="https://upload.wikimedia.org/wikipedia/commons/a/a2/ElevenLabs_Logo_02.png" alt="ElevenLabs" loading="lazy">
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- STATS STRIP (compacto, no sección) -->
+<div class="stats-strip">
+  <div class="wrap">
+    <div class="stats-row">
+      <div class="sstrip"><strong>95%</strong><span data-i18n="stat-jss">Job Success</span></div>
+      <div class="sstrip-sep"></div>
+      <div class="sstrip"><strong>5.0 ★</strong><span data-i18n="stat-rating-label">Rating Upwork</span></div>
+      <div class="sstrip-sep"></div>
+      <div class="sstrip"><strong>450+</strong><span data-i18n="stat-hours">Horas facturadas</span></div>
+      <div class="sstrip-sep"></div>
+      <div class="sstrip"><strong>HE/EN/ES</strong><span data-i18n="stat-langs-label">Nativo</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES NARRATIVE -->
+<section class="services-section" id="services">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom: 72px;">
+      <span class="s-label" data-i18n="services-label">01 · Servicios</span>
+      <h2 class="s-title" data-i18n="services-title">Un sistema completo de contenido, no una pieza suelta.</h2>
+      <p class="s-sub" data-i18n="services-sub">De la edición al copy, del subtítulo a la traducción médica. Todo ejecutado con criterio de agencia y velocidad de freelance top rated.</p>
+    </div>
+
+    <!-- SERVICE 1: ADS -->
+    <div class="service-block reveal">
+      <div class="service-media">
+        <div class="service-media-label">AD · 16:9</div>
+        <video autoplay muted loop playsinline>
+          <source src="assets/Ad.mp4" type="video/mp4">
+        </video>
+        <button class="vid-mute-btn" aria-label="Mute/Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-on" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+      </div>
+      <div class="service-text">
+        <span class="s-label" data-i18n="srv1-label">Commercial Ads</span>
+        <h3 data-i18n="srv1-title">Tus ads dejan de parecer amateur en 72 horas.</h3>
+        <p data-i18n="srv1-p1">Hook en 3 segundos, ritmo calibrado a cada plataforma, CTAs que empujan al click. YouTube, Meta, TikTok. Multilingüe si lo necesitás.</p>
+        <div class="service-specs">
+          <span class="spec-chip">Premiere Pro</span>
+          <span class="spec-chip">After Effects</span>
+          <span class="spec-chip">Motion Graphics</span>
+          <span class="spec-chip">Color Grading</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICE 2: STRATEGY + EDITING -->
+    <div class="service-block reverse reveal">
+      <div class="service-media vertical">
+        <div class="service-media-label">REEL · 9:16</div>
+        <video autoplay muted loop playsinline>
+          <source src="assets/Fitness.mp4" type="video/mp4">
+        </video>
+        <button class="vid-mute-btn" aria-label="Mute/Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-on" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+      </div>
+      <div class="service-text">
+        <span class="s-label" data-i18n="srv2-label">Short-Form Social</span>
+        <h3 data-i18n="srv2-title">Reels que la gente no scrollea.</h3>
+        <p data-i18n="srv2-p1">+30 reels/mes para creadores de +200K. Hooks visuales, subtítulos dinámicos, turnaround de 24-48h. El algoritmo recompensa retención, y eso empieza en el primer cuadro.</p>
+        <div class="service-specs">
+          <span class="spec-chip">Reels / TikTok / Shorts</span>
+          <span class="spec-chip">Hooks &amp; Retention</span>
+          <span class="spec-chip">Subtítulos dinámicos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICE 3: SUBTITLING + LOCALIZATION -->
+    <div class="service-block reveal">
+      <div class="service-media">
+        <div class="service-media-label">SUBS · 16:9</div>
+        <video autoplay muted loop playsinline>
+          <source src="assets/Yaniv.mp4" type="video/mp4">
+        </video>
+        <button class="vid-mute-btn" aria-label="Mute/Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-on" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+      </div>
+      <div class="service-text">
+        <span class="s-label" data-i18n="srv3-label">Subtitling &amp; Localization</span>
+        <h3 data-i18n="srv3-title">Subtitulación y localización trilingüe.</h3>
+        <p data-i18n="srv3-p1">.srt sincronizado al frame, adaptación cultural real (no Google Translate), HE/EN/ES. Especialización en traducción médica con respaldo académico UNMdP.</p>
+        <div class="service-specs">
+          <span class="spec-chip">Aegisub</span>
+          <span class="spec-chip">Subtitle Edit</span>
+          <span class="spec-chip">HE ↔ EN ↔ ES</span>
+          <span class="spec-chip spec-chip-medical">Precisión Médica (UNMdP)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SERVICE 4: ECOMMERCE / BRAND -->
+    <div class="service-block reverse reveal">
+      <div class="service-media">
+        <div class="service-media-label">BRAND · 1:1</div>
+        <video autoplay muted loop playsinline>
+          <source src="assets/presentation.mp4" type="video/mp4">
+        </video>
+        <button class="vid-mute-btn" aria-label="Mute/Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-on" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+      </div>
+      <div class="service-text">
+        <span class="s-label" data-i18n="srv4-label">Brand &amp; Ecommerce</span>
+        <h3 data-i18n="srv4-title">Contenido para ecommerce y branding.</h3>
+        <p data-i18n="srv4-p1">Product videos, brand storytelling, ecommerce. Experiencia directa con Fortune 500 vía ICUC. Volumen + calidad, sin excusas.</p>
+        <div class="service-specs">
+          <span class="spec-chip">Product Videos</span>
+          <span class="spec-chip">Brand Storytelling</span>
+          <span class="spec-chip">Fortune 500 (vía ICUC)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CÓMO TRABAJO -->
+<section class="process-section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label" data-i18n="proc-label">Proceso</span>
+      <h2 class="s-title" data-i18n="proc-title">De tu idea a contenido listo en 4 pasos.</h2>
+    </div>
+    <div class="process-grid">
+      <div class="proc-step reveal">
+        <div class="proc-num">01</div>
+        <h4 data-i18n="proc-s1-title">Brief rápido</h4>
+        <p data-i18n="proc-s1-desc">Me mandás un WhatsApp con lo que necesitás. Sin formularios eternos.</p>
+      </div>
+      <div class="proc-step reveal rd1">
+        <div class="proc-num">02</div>
+        <h4 data-i18n="proc-s2-title">Propuesta en &lt;4h</h4>
+        <p data-i18n="proc-s2-desc">Te paso presupuesto, timeline y alcance. Sin letra chica.</p>
+      </div>
+      <div class="proc-step reveal rd2">
+        <div class="proc-num">03</div>
+        <h4 data-i18n="proc-s3-title">Primera versión</h4>
+        <p data-i18n="proc-s3-desc">Entrega en 24 a 72h según el proyecto. Comunicación directa mientras trabajo.</p>
+      </div>
+      <div class="proc-step reveal rd3">
+        <div class="proc-num">04</div>
+        <h4 data-i18n="proc-s4-title">Ajustes finales</h4>
+        <p data-i18n="proc-s4-desc">Revisiones incluidas hasta que quede perfecto. Entrega en todos los formatos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section class="about-section">
+  <div class="wrap">
+    <div class="about-inner reveal">
+      <div class="about-photo">
+        <img src="assets/danilo-photo.jpg" alt="Danilo Hurwitz" loading="lazy">
+        <div class="about-photo-fallback">DH</div>
+      </div>
+      <div class="about-text">
+        <span class="s-label" data-i18n="about-label">Sobre mí</span>
+        <h2 class="s-title" data-i18n="about-title">Danilo Hurwitz</h2>
+        <p data-i18n="about-p1">Estudiante de medicina en UNMdP y editor trilingüe (hebreo, inglés, español). Empecé freelanceando entre clases y hoy trabajo con marcas globales.</p>
+        <p data-i18n="about-p2">Top Rated en Upwork con 95% Job Success Score. Trabajo directo con ICUC (moderación para Fortune 500) y ElevenLabs. Desde Mar del Plata para el mundo.</p>
+        <div class="about-tags">
+          <span class="spec-chip">Mar del Plata, AR</span>
+          <span class="spec-chip">UNMdP · Medicina</span>
+          <span class="spec-chip">HE / EN / ES</span>
+          <span class="spec-chip">Top Rated · Upwork</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- PORTFOLIO REAL -->
+<section class="portfolio-section" id="portfolio">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label" data-i18n="port-label">02 · Trabajos</span>
+      <h2 class="s-title" data-i18n="port-title">Proyectos reales. Resultados verificables.</h2>
+    </div>
+
+    <div class="port-grid">
+      <div class="port-card port-wide reveal">
+        <div class="port-video">
+          <video muted loop playsinline preload="metadata" poster="assets/ad-poster.jpg">
+            <source src="assets/Ad.mp4" type="video/mp4">
+          </video>
+          <div class="port-overlay">
+            <span class="port-play">▶</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <h4 data-i18n="port1-title">Commercial Ad · Highlight Reel</h4>
+          <div class="port-meta">
+            <span class="port-tag">AD · 16:9</span>
+            <span class="port-tag">Premiere Pro</span>
+            <span class="port-rating">★ 5.0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="port-card reveal rd1">
+        <div class="port-video port-video-vert">
+          <video muted loop playsinline preload="metadata" poster="assets/fitness-poster.jpg">
+            <source src="assets/Fitness.mp4" type="video/mp4">
+          </video>
+          <div class="port-overlay">
+            <span class="port-play">▶</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <h4 data-i18n="port2-title">Fitness Reel · Social Ad</h4>
+          <div class="port-meta">
+            <span class="port-tag">REEL · 9:16</span>
+            <span class="port-tag">After Effects</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="port-card reveal rd2">
+        <div class="port-video">
+          <video muted loop playsinline preload="metadata" poster="assets/yaniv-poster.jpg">
+            <source src="assets/Yaniv.mp4" type="video/mp4">
+          </video>
+          <div class="port-overlay">
+            <span class="port-play">▶</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <h4 data-i18n="port3-title">Hebrew Subtitling · Oral History</h4>
+          <div class="port-meta">
+            <span class="port-tag">HE → EN</span>
+            <span class="port-tag port-tag-medical">Medical</span>
+            <span class="port-rating">★ 5.0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="port-card port-wide reveal rd3">
+        <div class="port-video">
+          <video muted loop playsinline preload="metadata" poster="assets/presentation-poster.jpg">
+            <source src="assets/presentation.mp4" type="video/mp4">
+          </video>
+          <div class="port-overlay">
+            <span class="port-play">▶</span>
+          </div>
+        </div>
+        <div class="port-info">
+          <h4 data-i18n="port4-title">Brand Video · Ecommerce Campaign</h4>
+          <div class="port-meta">
+            <span class="port-tag">BRAND · 16:9</span>
+            <span class="port-tag">Fortune 500 (vía ICUC)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label" data-i18n="test-label">03 · Testimonios</span>
+      <h2 class="s-title" data-i18n="test-title">100% cinco estrellas. Verificado en Upwork.</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testim-card reveal">
+        <div class="testim-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testim-text" data-i18n="testim1-text">"Fue un verdadero placer trabajar con Danilo. Gran comunicación, entendimiento rápido de los requerimientos y resultados de alta calidad. Totalmente recomendado."</p>
+        <div class="testim-meta">
+          <div class="testim-initial">H</div>
+          <div class="testim-info">
+            <strong data-i18n="testim1-name">Hebrew Tutorial Video Adaptation</strong>
+            <span>UPWORK · JUN 2025 · <em class="testim-verified">Verificado ✓</em></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testim-card reveal rd1">
+        <div class="testim-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testim-text" data-i18n="testim2-text">"Otra gran experiencia trabajando con Danilo. Muy profesional, comunicativo y entrega excelentes resultados. Altamente recomendado!"</p>
+        <div class="testim-meta">
+          <div class="testim-initial">V</div>
+          <div class="testim-info">
+            <strong data-i18n="testim2-name">Video Adaptation Project</strong>
+            <span>UPWORK · OCT 2025 · <em class="testim-verified">Verificado ✓</em></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testim-card reveal rd2">
+        <div class="testim-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testim-text" data-i18n="testim3-text">"Danilo hizo un gran trabajo. Muy receptivo, creó un video profesional y se aseguró de que todo lo que necesitaba se hiciera perfectamente. Lo recomiendo totalmente."</p>
+        <div class="testim-meta">
+          <div class="testim-initial">F</div>
+          <div class="testim-info">
+            <strong data-i18n="testim3-name">Family Video Editing</strong>
+            <span>UPWORK · OCT 2024 · <em class="testim-verified">Verificado ✓</em></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECURSOS FREELANCER (BOOK + COURSE SPLIT) -->
+<section class="resources-section" id="book">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom: 56px; max-width: 820px;">
+      <span class="s-label" data-i18n="res-label">04 · Recursos para freelancers</span>
+      <h2 class="s-title" data-i18n="res-title">Dos caminos para dejar de regalar tu trabajo.</h2>
+      <p class="s-sub" data-i18n="res-sub">Un libro para ordenar tu cabeza y un sistema completo para ejecutarlo. Elegí por dónde arrancar.</p>
+    </div>
+
+    <div class="resources-grid">
+
+      <!-- LEFT: LIBRO -->
+      <div class="res-card res-book reveal">
+        <div class="res-card-tag" data-i18n="res-book-tag">LIBRO · USD 19</div>
+
+        <div class="book-mockup-stage">
+          <div class="book-3d" id="book3d">
+            <div class="book-face book-front"><img src="assets/tapa_frontal.png" alt="My First Steps Into the Freelance World"></div>
+            <div class="book-face book-back"><img src="assets/tapa_trasera.png" alt="Contratapa"></div>
+            <div class="book-face book-spine"><img src="assets/lomo_libro.png" alt="Lomo"></div>
+            <div class="book-face book-pages-top"></div>
+            <div class="book-face book-pages-bottom"></div>
+            <div class="book-face book-pages-right"></div>
+          </div>
+          <div class="book-shadow"></div>
+        </div>
+
+        <div class="res-card-body">
+          <h3 data-i18n="book-title">De 0 a 1000 USD freelanceando mientras estudiaba medicina.</h3>
+          <p class="res-card-kicker" data-i18n="book-kicker">El sistema que usé para pasar de cero experiencia a Top Rated en Upwork sin dejar la facu. Sin motivación vacía: el mapa operacional que me hubiera ahorrado dos años.</p>
+
+          <ul class="res-bullets">
+            <li data-i18n="book-b1"><strong>Posicionamiento real:</strong> cómo elegir un nicho que vende en USD sin ser el más barato.</li>
+            <li data-i18n="book-b2"><strong>Primeras propuestas:</strong> plantillas que usé y que siguen funcionando hoy.</li>
+            <li data-i18n="book-b3"><strong>Retención y escalado:</strong> de proyectos sueltos a contratos recurrentes.</li>
+            <li data-i18n="book-b4"><strong>Todo en paralelo:</strong> sin abandonar la facultad ni vivir a café.</li>
+          </ul>
+
+          <div class="res-card-footer">
+            <div>
+              <div class="book-price"><span class="book-price-cur">USD</span>19</div>
+              <div class="book-price-note" data-i18n="book-price-note">PDF · 180 páginas · Entrega inmediata</div>
+            </div>
+            <button class="btn-book-buy" id="buyBookBtn">
+              <span data-i18n="book-buy">Comprar ahora</span>
+              <span>→</span>
+            </button>
+          </div>
+          <p class="book-paypal" data-i18n="book-pay">MercadoPago · PayPal · Al email</p>
+          <div class="book-proof">
+            <span class="book-proof-item">✓ <span data-i18n="book-proof-1">7 días de garantía</span></span>
+            <span class="book-proof-item">✓ <span data-i18n="book-proof-2">Soporte por WhatsApp</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: SISTEMA COMPLETO -->
+      <div class="res-card res-course reveal rd1">
+        <div class="res-card-tag res-card-tag-premium" data-i18n="res-course-tag">SISTEMA COMPLETO · PREMIUM</div>
+
+        <div class="res-course-visual">
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/curso-preview-poster.jpg">
+            <source src="assets/curso-preview.mp4" type="video/mp4">
+          </video>
+          <div class="rcv-play-badge">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M8 5v14l11-7z"/></svg>
+            <span data-i18n="res-course-visual-label">Sistema Completo</span>
+          </div>
+        </div>
+
+        <div class="res-card-body">
+          <h3 data-i18n="res-course-title">El sistema completo para cobrar en USD desde tu cuarto.</h3>
+          <p class="res-card-kicker" data-i18n="res-course-kicker">No es otro curso genérico. Es el método exacto que me llevó a Top Rated en Upwork, con templates, scripts de llamadas, propuestas reales ganadas y soporte directo.</p>
+
+          <ul class="res-bullets">
+            <li data-i18n="res-c1"><strong>Módulos en video:</strong> del perfil hasta la primera llamada con cliente enterprise.</li>
+            <li data-i18n="res-c2"><strong>Templates vivos:</strong> propuestas, contratos, facturas y seguimiento que uso hoy.</li>
+            <li data-i18n="res-c3"><strong>Acompañamiento directo:</strong> WhatsApp conmigo para dudas reales durante el recorrido.</li>
+            <li data-i18n="res-c4"><strong>Comunidad:</strong> freelancers hispanos que ya están cobrando afuera.</li>
+          </ul>
+
+          <div class="res-card-footer">
+            <div>
+              <div class="res-course-price" data-i18n="res-course-price-label">Inversión completa</div>
+              <div class="res-course-price-value" data-i18n="res-course-price-val">Ver detalles del sistema</div>
+            </div>
+            <a href="danilo-landing-v3.html" class="btn-course-cta">
+              <span data-i18n="res-course-cta">Conocer el sistema</span>
+              <span>→</span>
+            </a>
+          </div>
+          <p class="book-paypal" data-i18n="res-course-note">Página completa con todos los detalles</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section" id="calc">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="s-label" data-i18n="calc-label">05 · Cotización inteligente</span>
+      <h2 class="s-title" data-i18n="calc-title">Estimá tu proyecto en 30 segundos.</h2>
+      <p class="s-sub" data-i18n="calc-sub">Seleccioná las variables de tu proyecto y obtené un rango realista en USD.</p>
+    </div>
+
+    <div class="calc-inner">
+      <div class="calc-form reveal">
+        <div class="calc-group">
+          <label class="calc-label" data-i18n="calc-q1">Tipo de proyecto</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="tipo" data-val="reel" data-i18n="calc-reel">Reel / Short</button>
+            <button class="calc-opt" data-field="tipo" data-val="ad" data-i18n="calc-ad">Ad comercial</button>
+            <button class="calc-opt" data-field="tipo" data-val="long" data-i18n="calc-long">Video largo</button>
+            <button class="calc-opt" data-field="tipo" data-val="subs" data-i18n="calc-subs">Subtitulado</button>
+            <button class="calc-opt" data-field="tipo" data-val="translation" data-i18n="calc-translation">Traducción</button>
+            <button class="calc-opt" data-field="tipo" data-val="copy" data-i18n="calc-copy">Copywriting</button>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <label class="calc-label">
+            <span id="calcQtyLabel" data-i18n="calc-qty-video">Duración</span>
+            <span class="calc-qty-value"><span id="calcQtyNum">1</span> <span id="calcQtyUnit" data-i18n="calc-unit-min">min</span></span>
+          </label>
+
+          <!-- Presets rápidos · cambian según tipo -->
+          <div class="calc-presets" id="calcPresets">
+            <button class="calc-preset active" data-preset="1">1</button>
+            <button class="calc-preset" data-preset="2">2</button>
+            <button class="calc-preset" data-preset="5">5</button>
+            <button class="calc-preset" data-preset="10">10</button>
+            <button class="calc-preset" data-preset="custom" id="calcPresetCustom" data-i18n="calc-custom">Personalizado</button>
+          </div>
+
+          <!-- Input numérico libre (aparece cuando eligen "Personalizado" o modifican) -->
+          <div class="calc-custom-input" id="calcCustomInput">
+            <input type="number" id="calcQtyInput" min="1" max="500" value="1">
+            <span id="calcQtyInputUnit" class="calc-custom-unit" data-i18n="calc-unit-min">min</span>
+          </div>
+
+          <div class="calc-range-hint" id="calcQtyHint" data-i18n="calc-qty-hint-video">Elegí un preset o ingresá tu duración</div>
+        </div>
+
+        <div class="calc-group">
+          <label class="calc-label" data-i18n="calc-q2">Urgencia</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="urg" data-val="normal" data-i18n="calc-normal">Normal (5 a 7d)</button>
+            <button class="calc-opt" data-field="urg" data-val="urgente" data-i18n="calc-urgente">Urgente (48 a 72h)</button>
+            <button class="calc-opt" data-field="urg" data-val="express" data-i18n="calc-express">Express (24h)</button>
+          </div>
+        </div>
+
+        <div class="calc-group">
+          <label class="calc-label" data-i18n="calc-q3">Idiomas del proyecto</label>
+          <div class="calc-langs">
+            <button class="calc-lang active" data-lang="es">
+              <span class="calc-lang-flag">🇦🇷</span>
+              <span data-i18n="calc-lang-es">Español</span>
+            </button>
+            <button class="calc-lang" data-lang="en">
+              <span class="calc-lang-flag">🇬🇧</span>
+              <span data-i18n="calc-lang-en">Inglés</span>
+            </button>
+            <button class="calc-lang" data-lang="he">
+              <span class="calc-lang-flag">🇮🇱</span>
+              <span data-i18n="calc-lang-he">Hebreo</span>
+            </button>
+          </div>
+          <div class="calc-range-hint" data-i18n="calc-lang-hint">Seleccioná los idiomas que necesita el proyecto</div>
+        </div>
+      </div>
+
+      <div class="calc-result">
+        <div>
+          <div class="calc-result-label" data-i18n="calc-estimate">Estimado aproximado</div>
+          <div class="calc-range" id="calcRange">$20</div>
+          <div class="calc-range-cur">USD · <span id="calcPerUnit" data-i18n="calc-per-video">estimado total</span></div>
+
+          <div class="calc-tier-info" id="calcInfo">
+            <strong data-i18n="calc-tier-title">Rango estándar</strong>
+            <span data-i18n="calc-tier-desc">Para proyectos simples con entrega normal y un solo idioma. Ajustá las variables para afinar el presupuesto.</span>
+          </div>
+        </div>
+
+        <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20cotizar%20un%20proyecto." target="_blank" class="btn-calc-cta" id="calcCtaBtn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.4-.8-2-.2-.5-.4-.4-.6-.5H8.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3z"/></svg>
+          <span data-i18n="calc-cta">Pedir propuesta formal</span>
+        </a>
+        <p class="calc-trust" data-i18n="calc-trust">Estimado orientativo. Propuesta exacta en menos de 4 horas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="contact">
+  <div class="final-cta-inner">
+    <h2 data-i18n="final-title">Los cupos de este mes se agotan rápido.</h2>
+    <p data-i18n="final-desc">Respondo en menos de 4 horas. Sin formularios, sin ida y vuelta. Mandame un WhatsApp y arrancamos hoy.</p>
+    <div class="final-actions">
+      <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20contratarte." target="_blank" class="btn-final-primary">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.4-.8-2-.2-.5-.4-.4-.6-.5H8.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15l-1.3 4.9 5-1.3A10 10 0 1012 2zm0 18.3a8.3 8.3 0 01-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.3 8.3 0 1112 20.3z"/></svg>
+        <span data-i18n="final-cta-1">Contratarme ahora</span>
+      </a>
+      <a href="assets/CV_Danilo_Hurwitz.pdf" target="_blank" class="btn-final-secondary" download>
+        <span data-i18n="final-cta-2">Descargar CV</span>
+        <span>↗</span>
+      </a>
+    </div>
+    <p class="final-alt" data-i18n="final-alt">O escribime a <a href="mailto:danilo@hurwitz.dev" class="final-email">danilo@hurwitz.dev</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h4>Danilo Hurwitz</h4>
+      <p data-i18n="footer-tagline">Trilingual Content Specialist. Video editing, traducción y consultoría desde Mar del Plata, Argentina. Disponible para proyectos internacionales.</p>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="footer-h-work">Trabajo</h5>
+      <ul>
+        <li><a href="#services" data-i18n="nav-services">Servicios</a></li>
+        <li><a href="#portfolio" data-i18n="nav-portfolio">Portfolio</a></li>
+        <li><a href="#calc" data-i18n="nav-calc">Cotizar</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="footer-h-products">Productos</h5>
+      <ul>
+        <li><a href="#book" data-i18n="nav-book">Libro</a></li>
+        <li><a href="danilo-landing-v3.html" data-i18n="res-course-cta">Sistema completo</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-i18n="footer-h-connect">Contacto</h5>
+      <ul>
+        <li><a href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank">Upwork ↗</a></li>
+        <li><a href="https://linkedin.com/in/danilohurwitz" target="_blank">LinkedIn ↗</a></li>
+        <li><a href="https://wa.me/5492302219422" target="_blank">WhatsApp ↗</a></li>
+        <li><a href="assets/CV_Danilo_Hurwitz.pdf" target="_blank" data-i18n="footer-cv">CV (PDF) ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DANILO HURWITZ · MAR DEL PLATA, AR</span>
+    <span data-i18n="footer-built">BUILT WITH PRECISION · HE/EN/ES</span>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/5492302219422" target="_blank" class="wa-float" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.6-1.4-.8-2-.2-.5-.4-.4-.6-.5H8.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2 0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.6-.6 1.8-1.3.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2a10 10 0 00-8.6 15l-1.3 4.9 5-1.3A10 10 0 1012 2zm0 18.3a8.3 8.3 0 01-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.3 8.3 0 1112 20.3z"/></svg>
+</a>
+
+<!-- MODAL PAYMENT -->
+<div class="modal-overlay" id="payModal">
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">×</button>
+    <h3 data-i18n="modal-title">Elegí cómo pagar</h3>
+    <p class="modal-sub" data-i18n="modal-sub">De 0 a 1000 USD Freelanceando · entrega automática al email tras confirmar el pago.</p>
+
+    <div class="pay-options">
+      <button class="pay-option" id="payMP">
+        <div class="pay-option-icon mp">MP</div>
+        <div class="pay-option-text">
+          <strong>MercadoPago</strong>
+          <span data-i18n="pay-mp-desc">Tarjeta, efectivo o débito (ARS/USD)</span>
+        </div>
+        <div class="pay-option-arrow">→</div>
+      </button>
+
+      <button class="pay-option" id="payPP">
+        <div class="pay-option-icon pp">PP</div>
+        <div class="pay-option-text">
+          <strong>PayPal</strong>
+          <span data-i18n="pay-pp-desc">Pago internacional en USD</span>
+        </div>
+        <div class="pay-option-arrow">→</div>
+      </button>
+
+      <button class="pay-option" id="payWA">
+        <div class="pay-option-icon" style="background:#25D366;color:white;">WA</div>
+        <div class="pay-option-text">
+          <strong data-i18n="pay-wa">Pagar por WhatsApp</strong>
+          <span data-i18n="pay-wa-desc">Coordiná con Danilo directamente</span>
+        </div>
+        <div class="pay-option-arrow">→</div>
+      </button>
+    </div>
+
+    <p class="modal-fine" data-i18n="modal-fine">Acceso inmediato al PDF tras la confirmación del pago. Soporte directo por WhatsApp.</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-sticky-cta" id="mobileStickyBar">
+  <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte." target="_blank">
+    <span data-i18n="mobile-cta">Escribime ahora</span>
+    <span>→</span>
+  </a>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
