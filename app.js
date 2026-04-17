@@ -1009,6 +1009,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Mentoría form removed in v2 · nothing to wire up
   document.getElementById('mentSend')?.addEventListener('click', sendMentoriaMsg);
 
+  // Video mute/unmute buttons
+  document.querySelectorAll('.vid-mute-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const media = btn.closest('.service-media') || btn.closest('.hero-video-frame');
+      if (!media) return;
+      const video = media.querySelector('video');
+      if (!video) return;
+      video.muted = !video.muted;
+      const iconOff = btn.querySelector('.icon-vol-off');
+      const iconOn = btn.querySelector('.icon-vol-on');
+      if (iconOff) iconOff.style.display = video.muted ? '' : 'none';
+      if (iconOn) iconOn.style.display = video.muted ? 'none' : '';
+    });
+  });
+
   // Book buy
   document.getElementById('buyBookBtn')?.addEventListener('click', openPayModal);
   document.getElementById('modalClose')?.addEventListener('click', closePayModal);
