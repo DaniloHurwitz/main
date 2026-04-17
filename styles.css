@@ -382,12 +382,14 @@ body.dark nav.site-nav { background: rgba(10,10,10,0.82); }
   background: var(--paper-2);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  padding: 32px 0;
+  padding: 40px 0;
   overflow: hidden;
 }
 .proof-inner {
-  display: flex; align-items: center; gap: 48px;
-  flex-wrap: wrap; justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
 }
 .proof-label {
   font-family: 'DM Mono', monospace;
@@ -395,6 +397,15 @@ body.dark nav.site-nav { background: rgba(10,10,10,0.82); }
   color: var(--ink-3);
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+/* Logos ocupan TODO el ancho, distribuidos uniformemente */
+.proof-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 24px;
+  margin-left: 0;
 }
 .proof-badges {
   display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
@@ -1497,13 +1508,13 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
   gap: 8px;
   transition: opacity .2s, transform .2s var(--ease-out);
   opacity: 0.85;
-  height: 28px;
+  height: 40px;
 }
 .plogo:hover { opacity: 1; transform: translateY(-1px); }
 
-/* ALTURA UNIFICADA para todos los logos · 28px */
+/* ALTURA UNIFICADA para todos los logos · 40px */
 .plogo img {
-  height: 28px !important;
+  height: 40px !important;
   width: auto;
   display: block;
   object-fit: contain;
@@ -1967,7 +1978,7 @@ body.dark .res-course {
   inset: 0;
   border-radius: 2px 6px 6px 2px;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a365d 0%, #0a1a3a 50%, #0a0f1f 100%);
+  background: #1a1a1a;
   box-shadow:
     inset -3px 0 6px rgba(255,255,255,0.08),
     inset 5px 0 12px rgba(0,0,0,0.4),
@@ -1979,77 +1990,9 @@ body.dark .res-course {
   object-fit: cover;
   display: block;
   position: relative;
-  z-index: 4;
+  z-index: 2;
 }
 
-/* FALLBACK tipográfico · visible siempre, la imagen lo cubre si carga */
-.book-v2-fallback {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  padding: 18px 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: #f8f6f2;
-  font-family: 'Syne', sans-serif;
-  border-radius: 2px 6px 6px 2px;
-  overflow: hidden;
-}
-.book-v2-fallback::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.04) 0%, transparent 40%),
-    repeating-linear-gradient(45deg, transparent 0 12px, rgba(255,255,255,0.015) 12px 13px);
-  pointer-events: none;
-}
-.bvf-top { display: flex; flex-direction: column; gap: 8px; }
-.bvf-line {
-  width: 40px; height: 2px;
-  background: #f59e0b;
-}
-.bvf-author {
-  font-family: 'DM Mono', monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.7);
-  text-transform: uppercase;
-}
-.bvf-mid { flex-grow: 1; display: flex; align-items: center; }
-.bvf-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.7rem;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  color: white;
-}
-.bvf-bot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 8px;
-}
-.bvf-subtitle {
-  font-family: 'DM Sans', sans-serif;
-  font-style: italic;
-  font-size: 0.7rem;
-  font-weight: 300;
-  color: rgba(255,255,255,0.65);
-  line-height: 1.2;
-}
-.bvf-badge {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  background: #f59e0b;
-  display: flex; align-items: center; justify-content: center;
-  color: #0a0a0a;
-  font-size: 0.9rem;
-  font-weight: 800;
-  flex-shrink: 0;
-}
 
 /* Lomo · rectángulo 3D real detrás de la tapa · CSS puro, sin imagen */
 .book-v2-spine {
