@@ -1564,9 +1564,9 @@ body.dark .nav-logo-mark { background: var(--accent); color: white; }
 .hero-text { max-width: 640px; }
 .hero-video-frame {
   position: relative;
-  aspect-ratio: 9 / 14;
+  aspect-ratio: 16 / 9;
   width: 100%;
-  max-width: 420px;
+  max-width: 520px;
   justify-self: end;
   border-radius: 14px;
   overflow: hidden;
