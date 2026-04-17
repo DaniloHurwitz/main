@@ -104,32 +104,13 @@
 
       <div class="hero-video-frame reveal rd2">
         <video autoplay muted loop playsinline preload="auto" poster="assets/presentation-poster.jpg">
-          <source src="assets/presentation.mp4" type="video/mp4">
+          <source src="assets/hero.mp4" type="video/mp4">
         </video>
         <button class="vid-mute-btn" aria-label="Mute/Unmute"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-off"><path d="M11 5L6 9H2v6h4l5 4V5z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-vol-on" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
         <div class="hero-video-badge">
           <span class="hvb-dot"></span>
           <span data-i18n="hero-video-badge">Presentación</span>
         </div>
-      </div>
-    </div>
-
-    <div class="hero-stats reveal rd4">
-      <div>
-        <span class="hero-stat-n">17+</span>
-        <span class="hero-stat-l" data-i18n="stat-projects">Proyectos completados</span>
-      </div>
-      <div>
-        <span class="hero-stat-n">95%</span>
-        <span class="hero-stat-l" data-i18n="stat-jss">Job Success Score</span>
-      </div>
-      <div>
-        <span class="hero-stat-n">450+</span>
-        <span class="hero-stat-l" data-i18n="stat-hours">Horas facturadas</span>
-      </div>
-      <div>
-        <span class="hero-stat-n">★ 5.0</span>
-        <span class="hero-stat-l" data-i18n="stat-rating">Rating promedio</span>
       </div>
     </div>
   </div>
@@ -264,56 +245,70 @@
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="portfolio-section" id="portfolio">
+<!-- RESULTS & TESTIMONIALS -->
+<section class="results-section" id="portfolio">
   <div class="wrap">
-    <div class="reveal">
-      <span class="s-label" data-i18n="port-label">02 · Portfolio</span>
-      <h2 class="s-title" data-i18n="port-title">Trabajos reales. Resultados verificables.</h2>
-      <p class="s-sub" data-i18n="port-sub">17 proyectos completados en Upwork con 5 estrellas recurrentes. Una muestra acotada.</p>
+
+    <!-- STATS IMPACTANTES -->
+    <div class="results-stats reveal">
+      <div class="rstat">
+        <span class="rstat-n">17+</span>
+        <span class="rstat-l" data-i18n="stat-projects">Proyectos completados</span>
+      </div>
+      <div class="rstat">
+        <span class="rstat-n">5.0</span>
+        <span class="rstat-l">Rating perfecto</span>
+      </div>
+      <div class="rstat">
+        <span class="rstat-n">95%</span>
+        <span class="rstat-l" data-i18n="stat-jss">Job Success Score</span>
+      </div>
+      <div class="rstat">
+        <span class="rstat-n">3</span>
+        <span class="rstat-l" data-i18n="rstat-langs">Idiomas nativos</span>
+      </div>
     </div>
 
-    <div class="portfolio-grid">
-      <div class="p-item p-wide reveal">
-        <video autoplay muted loop playsinline><source src="assets/Ad.mp4" type="video/mp4"></video>
-        <div class="p-item-info">
-          <h4 data-i18n="port1-title">Highlight Video Project</h4>
-          <span class="p-tag">AD · 5.0 ★ · Nov 2025</span>
+    <!-- TESTIMONIOS -->
+    <div class="reveal" style="margin-top: 72px;">
+      <span class="s-label" data-i18n="test-label">02 · Testimonios</span>
+      <h2 class="s-title" data-i18n="test-title">Lo que dicen los clientes.</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testim-card reveal">
+        <div class="testim-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testim-text" data-i18n="testim1-text">"Fue un verdadero placer trabajar con Danilo. Gran comunicación, entendimiento rápido de los requerimientos y resultados de alta calidad. Totalmente recomendado."</p>
+        <div class="testim-meta">
+          <div class="testim-initial">H</div>
+          <div class="testim-info">
+            <strong data-i18n="testim1-name">Hebrew Tutorial Video Adaptation</strong>
+            <span>UPWORK · JUN 2025</span>
+          </div>
         </div>
       </div>
-      <div class="p-item p-tall reveal rd1">
-        <video autoplay muted loop playsinline><source src="assets/Fitness.mp4" type="video/mp4"></video>
-        <div class="p-item-info">
-          <h4 data-i18n="port2-title">Fitness Reel · Social Ad</h4>
-          <span class="p-tag">9:16 · Engagement +40%</span>
+
+      <div class="testim-card reveal rd1">
+        <div class="testim-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testim-text" data-i18n="testim2-text">"Otra gran experiencia trabajando con Danilo. Muy profesional, comunicativo y entrega excelentes resultados. Altamente recomendado!"</p>
+        <div class="testim-meta">
+          <div class="testim-initial">V</div>
+          <div class="testim-info">
+            <strong data-i18n="testim2-name">Video Adaptation Project</strong>
+            <span>UPWORK · OCT 2025</span>
+          </div>
         </div>
       </div>
-      <div class="p-item p-square reveal rd2">
-        <video autoplay muted loop playsinline><source src="assets/Moto.mp4" type="video/mp4"></video>
-        <div class="p-item-info">
-          <h4 data-i18n="port3-title">Moto Ecommerce</h4>
-          <span class="p-tag">Product Video · 2025</span>
-        </div>
-      </div>
-      <div class="p-item p-square reveal rd3">
-        <video autoplay muted loop playsinline><source src="assets/presentation.mp4" type="video/mp4"></video>
-        <div class="p-item-info">
-          <h4 data-i18n="port4-title">Brand Presentation</h4>
-          <span class="p-tag">Corporate · 16:9</span>
-        </div>
-      </div>
-      <div class="p-item p-med reveal">
-        <video autoplay muted loop playsinline><source src="assets/Ad.mp4" type="video/mp4"></video>
-        <div class="p-item-info">
-          <h4 data-i18n="port5-title">Hebrew Tutorial Adaptation</h4>
-          <span class="p-tag">HE/EN · 5.0 ★ · 2025</span>
-        </div>
-      </div>
-      <div class="p-item p-med reveal rd1">
-        <video autoplay muted loop playsinline><source src="assets/Moto.mp4" type="video/mp4"></video>
-        <div class="p-item-info">
-          <h4 data-i18n="port6-title">Medical Records Translation</h4>
-          <span class="p-tag">HE → EN · $270 Fixed</span>
+
+      <div class="testim-card reveal rd2">
+        <div class="testim-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testim-text" data-i18n="testim3-text">"Danilo hizo un gran trabajo. Muy receptivo, creó un video profesional y se aseguró de que todo lo que necesitaba se hiciera perfectamente. Lo recomiendo totalmente."</p>
+        <div class="testim-meta">
+          <div class="testim-initial">F</div>
+          <div class="testim-info">
+            <strong data-i18n="testim3-name">Family Video Editing</strong>
+            <span>UPWORK · OCT 2024</span>
+          </div>
         </div>
       </div>
     </div>
@@ -411,54 +406,6 @@
         </div>
       </div>
 
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="testimonials-section">
-  <div class="wrap">
-    <div class="reveal">
-      <span class="s-label" data-i18n="test-label">05 · Testimonios</span>
-      <h2 class="s-title" data-i18n="test-title">Lo que dicen los clientes.</h2>
-    </div>
-
-    <div class="testimonials-grid">
-      <div class="testim-card reveal">
-        <div class="testim-rating">★★★★★</div>
-        <p class="testim-text" data-i18n="testim1-text">"Fue un verdadero placer trabajar con Danilo. Gran comunicación, entendimiento rápido de los requerimientos y resultados de alta calidad. Totalmente recomendado."</p>
-        <div class="testim-meta">
-          <div class="testim-initial">H</div>
-          <div class="testim-info">
-            <strong data-i18n="testim1-name">Hebrew Tutorial Video Adaptation</strong>
-            <span>UPWORK · JUN 2025</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testim-card reveal rd1">
-        <div class="testim-rating">★★★★★</div>
-        <p class="testim-text" data-i18n="testim2-text">"Otra gran experiencia trabajando con Danilo. Muy profesional, comunicativo y entrega excelentes resultados. ¡Altamente recomendado!"</p>
-        <div class="testim-meta">
-          <div class="testim-initial">V</div>
-          <div class="testim-info">
-            <strong data-i18n="testim2-name">Video Adaptation Project</strong>
-            <span>UPWORK · OCT 2025</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="testim-card reveal rd2">
-        <div class="testim-rating">★★★★★</div>
-        <p class="testim-text" data-i18n="testim3-text">"Danilo hizo un gran trabajo. Muy receptivo, creó un video profesional y se aseguró de que todo lo que necesitaba se hiciera perfectamente. Lo recomiendo totalmente."</p>
-        <div class="testim-meta">
-          <div class="testim-initial">F</div>
-          <div class="testim-info">
-            <strong data-i18n="testim3-name">Family Video Editing</strong>
-            <span>UPWORK · OCT 2024</span>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
