@@ -1,6 +1,6 @@
 /* ══════════════════════════════════════════════════════════════
    DANILO HURWITZ · TRILINGUAL CONTENT SPECIALIST
-   Design System · Premium Agency × Portfolio × Funnel 
+   Design System · Premium Agency × Portfolio × Funnel
    ══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -2161,4 +2161,127 @@ body.dark .book-shadow {
   /* Footer: colapsar columnas secundarias */
   .footer-col:nth-child(n+3) { display: none; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CALCULATOR v4 · presets + input libre + lang multi-select
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Presets row */
+.calc-presets {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.calc-preset {
+  padding: 10px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all .2s;
+  min-width: 48px;
+  text-align: center;
+}
+.calc-preset:hover {
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+.calc-preset.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+#calcPresetCustom {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.78rem;
+  padding: 10px 14px;
+}
+
+/* Custom input libre */
+.calc-custom-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+.calc-custom-input input {
+  width: 120px;
+  padding: 10px 14px;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+}
+.calc-custom-input input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(26,79,214,0.12);
+}
+.calc-custom-unit {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Lang multi-select (3 botones toggle) */
+.calc-langs {
+  display: flex;
+  gap: 10px;
+}
+.calc-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  background: var(--paper);
+  border: 2px solid var(--line);
+  border-radius: var(--r);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all .2s;
+  flex: 1;
+  justify-content: center;
+}
+.calc-lang:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.calc-lang.active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+body.dark .calc-lang.active {
+  background: rgba(94,135,240,0.15);
+  color: #93b4ff;
+}
+.calc-lang-flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+/* Override: esconder slider viejo (ahora se usa presets + input) */
+.calc-range-input { display: none; }
+
+@media (max-width: 768px) {
+  .calc-presets { gap: 6px; }
+  .calc-preset { padding: 9px 12px; font-size: 0.76rem; min-width: 40px; }
+  .calc-langs { flex-direction: column; gap: 8px; }
+  .calc-lang { justify-content: flex-start; }
+  .calc-custom-input input { width: 100px; }
 }
