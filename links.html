@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danilo Hurwitz · Links</title>
+<meta name="description" content="Accesos directos a portfolio, mentoría y libro de Danilo Hurwitz.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ══════════════════════════════════════════════════════════════
+     DANILO HURWITZ · LINKS HUB
+     Estética Premium · Portfolio × Funnel
+     ══════════════════════════════════════════════════════════════ */
+
+  :root {
+    --ink: #0d0d0d;
+    --ink-2: #3a3a3a;
+    --ink-3: #6b6b6b;
+    --paper: #f8f6f2;
+    --paper-2: #efecea;
+    --paper-3: #e8e4df;
+    --line: rgba(0,0,0,0.09);
+    --line-strong: rgba(0,0,0,0.18);
+    --accent: #1a4fd6;
+    --accent-light: #e8eefb;
+    --success: #14532d;
+    --success-bg: #dcfce7;
+    --r: 6px;
+    --r-lg: 12px;
+    --r-xl: 20px;
+    --ease-out: cubic-bezier(.22,1,.36,1);
+  }
+
+  body.dark {
+    --ink: #f8f6f2;
+    --ink-2: #c8c4be;
+    --ink-3: #8a8680;
+    --paper: #0a0a0a;
+    --paper-2: #141414;
+    --paper-3: #1d1d1d;
+    --line: rgba(255,255,255,0.08);
+    --line-strong: rgba(255,255,255,0.16);
+    --accent: #5e87f0;
+    --accent-light: rgba(94,135,240,0.12);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    font-size: 16px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background .4s var(--ease-out), color .4s var(--ease-out);
+    padding: 32px 20px;
+  }
+  body.rtl { direction: rtl; text-align: right; }
+
+  /* ─── CONTENEDOR PRINCIPAL ─── */
+  .hub-container {
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* ─── HEADER / AVATAR ─── */
+  .hub-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 3px solid var(--line-strong);
+    background: var(--paper-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hub-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .hub-avatar-fallback {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    color: var(--ink);
+    background: var(--paper-3);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+
+  .hub-bio {
+    font-size: 0.9rem;
+    color: var(--ink-2);
+    margin-bottom: 24px;
+    max-width: 380px;
+  }
+
+  /* ─── BADGES DE AUTORIDAD ─── */
+  .hub-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .hub-badge {
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .hub-badge.top-rated {
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .hub-badge.top-rated::before {
+    content: '★';
+    font-size: 0.8rem;
+    margin-right: 2px;
+  }
+
+  /* ─── LISTA DE LINKS (TARJETAS ESTILIZADAS) ─── */
+  .links-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+
+  .link-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: transform .3s var(--ease-out), border-color .3s, box-shadow .3s;
+    text-decoration: none;
+    color: var(--ink);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  }
+  body.dark .link-card {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .link-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.06);
+  }
+  body.dark .link-card:hover {
+    box-shadow: 0 12px 24px rgba(0,0,0,0.4);
+  }
+
+  .link-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+  body.rtl .link-info {
+    text-align: right;
+    align-items: flex-end;
+  }
+  .link-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
+  }
+  .link-desc {
+    font-size: 0.75rem;
+    color: var(--ink-3);
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.02em;
+  }
+  .link-arrow {
+    font-size: 1.2rem;
+    color: var(--ink-3);
+    transition: transform .2s;
+  }
+  .link-card:hover .link-arrow {
+    transform: translateX(3px);
+    color: var(--accent);
+  }
+  body.rtl .link-card:hover .link-arrow {
+    transform: translateX(-3px);
+  }
+
+  /* ─── FOOTER / HERRAMIENTAS ─── */
+  .hub-footer {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  /* Toggle de tema y selector de idioma (idéntico a index) */
+  .lang-switch {
+    display: flex;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 3px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+  }
+  .lang-switch button {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: var(--ink-3);
+    transition: all .2s;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .lang-switch button.active {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .theme-toggle {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--paper-2);
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background .2s, transform .4s var(--ease-out);
+  }
+  .theme-toggle:hover { background: var(--paper-3); transform: rotate(25deg); }
+  .theme-toggle svg { width: 16px; height: 16px; stroke: var(--ink-2); }
+
+  /* ─── COPYRIGHT ─── */
+  .hub-copy {
+    margin-top: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 480px) {
+    body { padding: 20px 16px; }
+    .link-card { padding: 16px 20px; }
+  }
+</style>
+</head>
+<body class="">
+
+<div class="hub-container">
+  <!-- AVATAR -->
+  <div class="hub-avatar">
+    <!-- Reemplaza con tu foto real si está en /assets/danilo-photo.jpg -->
+    <img src="assets/danilo-photo.jpg" alt="Danilo Hurwitz" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+    <div class="hub-avatar-fallback" style="display: none;">DH</div>
+  </div>
+
+  <h1 data-i18n="about-title">Danilo Hurwitz</h1>
+  <p class="hub-bio" data-i18n="hub-bio">Estudiante de medicina & Freelancer Top Rated. Te ayudo a cobrar en USD sin vender humo.</p>
+
+  <div class="hub-badges">
+    <span class="hub-badge top-rated">Top Rated Upwork</span>
+    <span class="hub-badge">95% JSS</span>
+    <span class="hub-badge">+$6K</span>
+    <span class="hub-badge">HE/EN/ES</span>
+  </div>
+
+  <!-- LISTA DE ENLACES PRINCIPALES -->
+  <div class="links-list">
+    <!-- 1. Portfolio (Servicios de Edición) -->
+    <a href="/" class="link-card">
+      <span class="link-info">
+        <span class="link-title" data-i18n="link-portfolio">Portfolio & Servicios</span>
+        <span class="link-desc" data-i18n="link-portfolio-desc">Edición de video · Reels · Subtitulado</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- 2. Mentoría / Sistema Completo (danilo-landing-v3.html) -->
+    <a href="/danilo-landing-v3.html" class="link-card">
+      <span class="link-info">
+        <span class="link-title" data-i18n="link-mentoria">Sistema de Mentoría</span>
+        <span class="link-desc" data-i18n="link-mentoria-desc">Diagnóstico + Protocolo para Upwork</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- 3. Libro (Puedes apuntar directamente al modal de pago o a una landing) -->
+    <a href="#" onclick="alert('Configura aquí tu link de pago del libro (MercadoPago/PayPal)'); return false;" class="link-card">
+      <span class="link-info">
+        <span class="link-title" data-i18n="link-libro">Libro: Mis Primeros Pasos</span>
+        <span class="link-desc" data-i18n="link-libro-desc">De 0 a 1000 USD · 180 págs. · USD 19</span>
+      </span>
+      <span class="link-arrow">→</span>
+    </a>
+
+    <!-- 4. Instagram (opcional) -->
+    <a href="https://instagram.com/danilohurwitz" target="_blank" class="link-card">
+      <span class="link-info">
+        <span class="link-title" data-i18n="link-ig">Instagram</span>
+        <span class="link-desc" data-i18n="link-ig-desc">Tips diarios de freelance</span>
+      </span>
+      <span class="link-arrow">↗</span>
+    </a>
+  </div>
+
+  <!-- FOOTER CON HERRAMIENTAS -->
+  <div class="hub-footer">
+    <div class="lang-switch">
+      <button data-lang="es" class="active">ES</button>
+      <button data-lang="en">EN</button>
+      <button data-lang="he">HE</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+    </button>
+  </div>
+  <div class="hub-copy" data-i18n="footer-built">BUILT WITH PRECISION · HE/EN/ES</div>
+</div>
+
+<script>
+  (function() {
+    // ══════════════════════════════════════════════════════════════
+    // TRADUCCIONES I18N (ES/EN/HE)
+    // ══════════════════════════════════════════════════════════════
+    const DICT = {
+      es: {
+        'about-title': 'Danilo Hurwitz',
+        'hub-bio': 'Estudiante de medicina & Freelancer Top Rated. Te ayudo a cobrar en USD sin vender humo.',
+        'link-portfolio': 'Portfolio & Servicios',
+        'link-portfolio-desc': 'Edición de video · Reels · Subtitulado',
+        'link-mentoria': 'Sistema de Mentoría',
+        'link-mentoria-desc': 'Diagnóstico + Protocolo para Upwork',
+        'link-libro': 'Libro: Mis Primeros Pasos',
+        'link-libro-desc': 'De 0 a 1000 USD · 180 págs. · USD 19',
+        'link-ig': 'Instagram',
+        'link-ig-desc': 'Tips diarios de freelance',
+        'footer-built': 'BUILT WITH PRECISION · HE/EN/ES'
+      },
+      en: {
+        'about-title': 'Danilo Hurwitz',
+        'hub-bio': 'Medical student & Top Rated Freelancer. I help you earn in USD without the BS.',
+        'link-portfolio': 'Portfolio & Services',
+        'link-portfolio-desc': 'Video Editing · Reels · Subtitling',
+        'link-mentoria': 'Mentorship System',
+        'link-mentoria-desc': 'Diagnostic + Upwork Protocol',
+        'link-libro': 'Book: My First Steps',
+        'link-libro-desc': '0 to 1000 USD · 180 pages · $19',
+        'link-ig': 'Instagram',
+        'link-ig-desc': 'Daily freelance tips',
+        'footer-built': 'BUILT WITH PRECISION · HE/EN/ES'
+      },
+      he: {
+        'about-title': 'דנילו הורביץ',
+        'hub-bio': 'סטודנט לרפואה ופרילנסר Top Rated. עוזר לך להרוויח בדולרים בלי בולשיט.',
+        'link-portfolio': 'פורטפוליו ושירותים',
+        'link-portfolio-desc': 'עריכת וידאו · Reels · כתוביות',
+        'link-mentoria': 'מערכת מנטורינג',
+        'link-mentoria-desc': 'אבחון + פרוטוקול Upwork',
+        'link-libro': 'ספר: הצעדים הראשונים שלי',
+        'link-libro-desc': 'מ-0 ל-1000 דולר · 180 עמודים · $19',
+        'link-ig': 'אינסטגרם',
+        'link-ig-desc': 'טיפים יומיים לפרילנסרים',
+        'footer-built': 'BUILT WITH PRECISION · HE/EN/ES'
+      }
+    };
+
+    let currentLang = 'es';
+
+    function applyLang(lang) {
+      currentLang = lang;
+      const d = DICT[lang];
+      if (!d) return;
+
+      document.documentElement.lang = lang;
+      document.documentElement.dataset.lang = lang;
+      document.body.classList.toggle('rtl', lang === 'he');
+
+      if (lang === 'he') {
+        document.body.style.fontFamily = "'Heebo', 'DM Sans', sans-serif";
+      } else {
+        document.body.style.fontFamily = "'DM Sans', sans-serif";
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (d[key] !== undefined) el.textContent = d[key];
+      });
+
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+
+      try { localStorage.setItem('dh-lang', lang); } catch(e) {}
+    }
+
+    function detectLang() {
+      try {
+        const saved = localStorage.getItem('dh-lang');
+        if (saved && DICT[saved]) return saved;
+      } catch(e) {}
+      const nav = (navigator.language || 'es').toLowerCase();
+      if (nav.startsWith('he') || nav.startsWith('iw')) return 'he';
+      if (nav.startsWith('en')) return 'en';
+      return 'es';
+    }
+
+    // TEMA OSCURO/CLARO
+    function applyTheme(theme) {
+      document.body.classList.toggle('dark', theme === 'dark');
+      try { localStorage.setItem('dh-theme', theme); } catch(e) {}
+      const icon = document.querySelector('#themeToggle svg');
+      if (theme === 'dark') {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+      } else {
+        icon.innerHTML = '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>';
+      }
+    }
+
+    function detectTheme() {
+      try {
+        const saved = localStorage.getItem('dh-theme');
+        if (saved) return saved;
+      } catch(e) {}
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    // INICIALIZACIÓN
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLang(detectLang());
+      applyTheme(detectTheme());
+
+      document.querySelectorAll('.lang-switch button').forEach(btn => {
+        btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+      });
+
+      document.getElementById('themeToggle').addEventListener('click', () => {
+        const newT = document.body.classList.contains('dark') ? 'light' : 'dark';
+        applyTheme(newT);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
