@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": 1,
-    "updatedAt": "2026-04-25T07:59:05.048Z",
+    "updatedAt": "2026-04-25T16:00:24.653Z",
     "webhookUrl": "https://discord.com/api/webhooks/1497505488634380402/ukym03L_Fdo8uLnf9aZRsNibSecRYQtfMy39k7meVztpPanPZC7ChWQNhj5OjaWJJsYh"
   },
   "users": [
@@ -12,6 +12,14 @@
       "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
       "role": "admin",
       "createdAt": "2026-04-25T00:00:00Z"
+    },
+    {
+      "id": "2it2sho6",
+      "email": "escueladanilohurwitz@gmail.com",
+      "name": "Danilo Hurwitz",
+      "passwordHash": "96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e",
+      "role": "student",
+      "createdAt": "2026-04-25T16:00:24.652Z"
     }
   ],
   "progress": {}
