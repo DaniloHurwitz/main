@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Mentoría Freelance</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d0d0d;--ink2:#3a3a3a;--ink3:#6b6b6b;--paper:#f8f6f2;--paper2:#efecea;--paper3:#e4e0db;--accent:#1a4fd6;--accent-bg:#e8eefb;--red:#d4381e;--green:#22c55e;--green-bg:#dcfce7;--green-tx:#14532d;--warn:#f59e0b;--warn-bg:#fef3c7;--warn-tx:#78350f;--red-bg:#fee2e2;--red-tx:#991b1b;--line:rgba(0,0,0,.09);--r:6px;--r-lg:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.65}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+input,select{font-family:inherit}
+.mono{font-family:'DM Mono',monospace}
+.wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:100;background:rgba(248,246,242,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1060px;margin:0 auto}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:-.03em}
+.nav-dot{width:8px;height:8px;background:var(--red);border-radius:50%}
+
+/* SETUP */
+.setup-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px}
+.setup-card{width:100%;max-width:480px}
+.setup-card h2{margin-bottom:8px}
+.setup-card p{color:var(--ink3);font-size:.9rem;margin-bottom:28px}
+
+/* FORMS */
+.field{display:block;margin-bottom:16px}
+.field-label{display:block;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.field-input{width:100%;padding:10px 14px;border-radius:var(--r);border:1px solid var(--line);font-size:.88rem;background:#fff;outline:none;transition:border-color .15s}
+.field-input:focus{border-color:var(--accent)}
+textarea.field-input{resize:vertical;min-height:80px}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border-radius:var(--r);font-family:'Syne',sans-serif;font-weight:600;font-size:.82rem;transition:opacity .15s}
+.btn:hover{opacity:.85}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-green{background:var(--green);color:#fff}
+.btn-red{background:var(--red-bg);color:var(--red-tx)}
+.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink2)}
+.btn-sm{padding:6px 14px;font-size:.75rem}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--line)}
+.tab{padding:10px 18px;border-radius:var(--r) var(--r) 0 0;font-size:.82rem;font-weight:400;color:var(--ink3);border:1px solid transparent;margin-bottom:-1px;transition:all .15s}
+.tab.active{font-weight:600;color:var(--accent);background:#fff;border-color:var(--line);border-bottom-color:#fff}
+
+/* TABLE */
+.tbl{width:100%;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;background:#fff}
+.tbl-row{display:grid;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.05);gap:12px}
+.tbl-row:last-child{border-bottom:none}
+.tbl-row:hover{background:#faf9f7}
+.tbl-head{background:var(--paper2);font-family:'DM Mono',monospace;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.tbl-head:hover{background:var(--paper2)}
+
+/* STATUS */
+.badge{display:inline-block;padding:3px 10px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.04em}
+.badge-green{background:var(--green-bg);color:var(--green-tx)}
+.badge-warn{background:var(--warn-bg);color:var(--warn-tx)}
+.badge-red{background:var(--red-bg);color:var(--red-tx)}
+.badge-grey{background:var(--paper3);color:var(--ink3)}
+
+/* TOAST */
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;padding:12px 24px;border-radius:8px;font-size:.85rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.1);animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* CALLOUT */
+.callout{border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.88rem}
+.callout-info{background:var(--accent-bg);border-left:3px solid var(--accent);color:#1e3a8a}
+.callout-warn{background:var(--warn-bg);border-left:3px solid var(--warn);color:var(--warn-tx)}
+
+/* DETAIL PANEL */
+.detail{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
+.detail h3{margin-bottom:16px}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:200;animation:fadeIn .2s ease}
+.modal{background:var(--paper);border-radius:var(--r-lg);padding:32px;width:100%;max-width:440px;max-height:90vh;overflow-y:auto}
+.modal h3{margin-bottom:16px}
+
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+// ─── CHAPTERS (reference only, no content needed in admin) ───
+const CHAPTERS = [
+  {id:"1.1",phase:1,title:"Qué sos antes de ser freelancer"},
+  {id:"1.2",phase:1,title:"Elegir la plataforma correcta"},
+  {id:"1.3",phase:1,title:"Definir el nicho con precisión"},
+  {id:"1.4",phase:1,title:"Construir el perfil que filtra clientes"},
+  {id:"1.5",phase:1,title:"Tarifas de arranque"},
+  {id:"2.1",phase:2,title:"Leer un job posting como operador"},
+  {id:"2.2",phase:2,title:"La estructura de la propuesta que funciona"},
+  {id:"2.3",phase:2,title:"Cuánto cobrar y cómo presentarlo"},
+  {id:"2.4",phase:2,title:"Iterar sin quemarse"},
+  {id:"2.5",phase:2,title:"La entrevista"},
+  {id:"3.1",phase:3,title:"Ejecutar el primer contrato"},
+  {id:"3.2",phase:3,title:"Conseguir la primera review"},
+  {id:"3.3",phase:3,title:"Construir historial deliberadamente"},
+  {id:"3.4",phase:3,title:"Subir tarifas sin perder clientes"},
+];
+
+// ─── STATE ───
+let state = {
+  connected: false,
+  pat: '',
+  owner: localStorage.getItem('mentoria_owner') || '',
+  repo: localStorage.getItem('mentoria_repo') || '',
+  dbPath: localStorage.getItem('mentoria_dbpath') || 'db.json',
+  db: null,
+  dbSha: null,
+  tab: 'users',
+  selectedUserId: null,
+  modal: null, // 'createUser' | 'editWebhook' | null
+  toast: null,
+  saving: false,
+};
+
+// ─── CRYPTO ───
+async function sha256(text) {
+  const data = new TextEncoder().encode(text);
+  const buf = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+// ─── GITHUB API ───
+async function ghGet() {
+  const url = `https://api.github.com/repos/${state.owner}/${state.repo}/contents/${state.dbPath}`;
+  const r = await fetch(url, { headers: { Authorization: `Bearer ${state.pat}`, Accept: 'application/vnd.github.v3+json' }});
+  if (!r.ok) throw new Error(`GitHub GET failed: ${r.status}`);
+  const data = await r.json();
+  const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g,''))));
+  return { json: JSON.parse(content), sha: data.sha };
+}
+
+async function ghPut(db, sha, message) {
+  const jsonStr = JSON.stringify(db, null, 2);
+  const encoded = btoa(unescape(encodeURIComponent(jsonStr)));
+  const url = `https://api.github.com/repos/${state.owner}/${state.repo}/contents/${state.dbPath}`;
+  const r = await fetch(url, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${state.pat}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, content: encoded, sha })
+  });
+  if (!r.ok) { const e = await r.json().catch(()=>({})); throw new Error(`GitHub PUT failed: ${r.status} ${e.message||''}`); }
+  const data = await r.json();
+  return data.content.sha;
+}
+
+async function loadDb() {
+  const { json, sha } = await ghGet();
+  state.db = json;
+  state.dbSha = sha;
+}
+
+async function saveDb(message) {
+  state.saving = true;
+  render();
+  try {
+    state.db.meta.updatedAt = new Date().toISOString();
+    state.dbSha = await ghPut(state.db, state.dbSha, message || 'Update db.json');
+    toast('Guardado en GitHub', 'success');
+  } catch(e) {
+    toast('Error al guardar: ' + e.message, 'error');
+    // Reload to get fresh SHA in case of conflict
+    try { await loadDb(); } catch(_){}
+  }
+  state.saving = false;
+  render();
+}
+
+// ─── TOAST ───
+function toast(msg, type) {
+  state.toast = { msg, type };
+  render();
+  setTimeout(() => { state.toast = null; render(); }, 3500);
+}
+
+// ─── CONNECT ───
+async function connect(e) {
+  e.preventDefault();
+  const form = new FormData(e.target);
+  state.pat = form.get('pat');
+  state.owner = form.get('owner');
+  state.repo = form.get('repo');
+  state.dbPath = form.get('dbpath') || 'db.json';
+  localStorage.setItem('mentoria_owner', state.owner);
+  localStorage.setItem('mentoria_repo', state.repo);
+  localStorage.setItem('mentoria_dbpath', state.dbPath);
+  try {
+    await loadDb();
+    state.connected = true;
+    toast('Conectado a GitHub', 'success');
+  } catch(e) {
+    toast('Error de conexión: ' + e.message, 'error');
+  }
+  render();
+}
+
+// ─── USER MANAGEMENT ───
+function genId() { return Math.random().toString(36).slice(2,10); }
+
+async function createUser(e) {
+  e.preventDefault();
+  const form = new FormData(e.target);
+  const email = form.get('email').trim().toLowerCase();
+  const name = form.get('name').trim();
+  const password = form.get('password');
+  if (state.db.users.find(u => u.email === email)) { toast('Ya existe un usuario con ese email', 'error'); return; }
+  const hash = await sha256(password);
+  state.db.users.push({ id: genId(), email, name, passwordHash: hash, role: 'student', createdAt: new Date().toISOString() });
+  state.modal = null;
+  await saveDb(`Crear usuario: ${name}`);
+}
+
+async function deleteUser(id) {
+  const u = state.db.users.find(x => x.id === id);
+  if (!u || u.role === 'admin') return;
+  if (!confirm(`¿Eliminar a ${u.name}?`)) return;
+  state.db.users = state.db.users.filter(x => x.id !== id);
+  delete state.db.progress[id];
+  if (state.selectedUserId === id) state.selectedUserId = null;
+  await saveDb(`Eliminar usuario: ${u.name}`);
+}
+
+async function approveChapter(userId, chapterId) {
+  if (!state.db.progress[userId]) state.db.progress[userId] = {};
+  state.db.progress[userId][chapterId] = { approved: true, approvedAt: new Date().toISOString() };
+  const u = state.db.users.find(x => x.id === userId);
+  await saveDb(`Aprobar ${chapterId} para ${u?.name||userId}`);
+}
+
+async function revokeChapter(userId, chapterId) {
+  if (!state.db.progress[userId]) return;
+  delete state.db.progress[userId][chapterId];
+  const u = state.db.users.find(x => x.id === userId);
+  await saveDb(`Revocar ${chapterId} para ${u?.name||userId}`);
+}
+
+async function saveWebhook(e) {
+  e.preventDefault();
+  const form = new FormData(e.target);
+  state.db.meta.webhookUrl = form.get('webhook').trim();
+  state.modal = null;
+  await saveDb('Actualizar webhook URL');
+}
+
+async function refreshDb() {
+  try { await loadDb(); toast('Base de datos recargada', 'success'); } catch(e) { toast('Error al recargar: '+e.message, 'error'); }
+  render();
+}
+
+// ─── RENDER ───
+function render() {
+  document.getElementById('app').innerHTML = state.connected ? renderMain() : renderSetup();
+  bindEvents();
+}
+
+function renderSetup() {
+  return `
+  <div class="setup-page">
+    <div class="setup-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:32px">
+        <div class="nav-dot"></div>
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;letter-spacing:-.03em">Admin · Mentoría Freelance</span>
+      </div>
+      <h2>Conectar a GitHub</h2>
+      <p>Ingresá tus credenciales para gestionar la base de datos del curso.</p>
+      <form onsubmit="connect(event)">
+        <label class="field">
+          <span class="field-label">Personal Access Token</span>
+          <input class="field-input" type="password" name="pat" required placeholder="ghp_...">
+        </label>
+        <label class="field">
+          <span class="field-label">Owner (usuario u organización)</span>
+          <input class="field-input" type="text" name="owner" value="${state.owner}" required placeholder="danilohurwitz">
+        </label>
+        <label class="field">
+          <span class="field-label">Repositorio</span>
+          <input class="field-input" type="text" name="repo" value="${state.repo}" required placeholder="mentoria-freelance">
+        </label>
+        <label class="field">
+          <span class="field-label">Path del archivo DB</span>
+          <input class="field-input" type="text" name="dbpath" value="${state.dbPath}" placeholder="db.json">
+        </label>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:8px">Conectar</button>
+      </form>
+      <div class="callout callout-info" style="margin-top:24px">
+        <strong>¿Cómo crear el PAT?</strong><br>
+        GitHub → Settings → Developer Settings → Personal Access Tokens → Fine-grained tokens.<br>
+        Permisos: <span class="mono" style="font-size:.78rem">Contents: Read and write</span> sobre el repo del curso.
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderMain() {
+  const students = state.db.users.filter(u => u.role === 'student');
+  const su = state.selectedUserId ? state.db.users.find(u => u.id === state.selectedUserId) : null;
+  const suProg = su ? (state.db.progress[su.id] || {}) : {};
+
+  // Count pending approvals (we don't track submissions in db.json, but we show chapters that are approved)
+  const webhookSet = !!state.db.meta.webhookUrl;
+
+  return `
+  <!-- NAV -->
+  <nav>
+    <div class="nav-in">
+      <div class="nav-logo"><div class="nav-dot"></div>Admin · Mentoría</div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <button onclick="refreshDb()" class="btn btn-ghost btn-sm">↻ Recargar DB</button>
+        <span class="mono" style="font-size:.72rem;color:var(--ink3)">${state.owner}/${state.repo}</span>
+        <span class="badge badge-green">Conectado</span>
+      </div>
+    </div>
+  </nav>
+  ${state.toast ? `<div class="toast" style="background:${state.toast.type==='error'?'var(--red-bg)':state.toast.type==='success'?'var(--green-bg)':'var(--accent-bg)'};color:${state.toast.type==='error'?'var(--red-tx)':state.toast.type==='success'?'var(--green-tx)':'#1e3a8a'};border:1px solid ${state.toast.type==='error'?'#fecaca':state.toast.type==='success'?'#bbf7d0':'#bfdbfe'}">${state.toast.msg}</div>` : ''}
+
+  <div class="wrap" style="padding-top:36px;padding-bottom:80px">
+    <div style="margin-bottom:28px">
+      <span class="mono" style="font-size:.7rem;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase">Panel de administración</span>
+      <h1 style="font-size:1.8rem;margin-top:8px">Gestión del curso</h1>
+    </div>
+
+    <!-- Config bar -->
+    <div style="display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap">
+      <button onclick="state.modal='editWebhook';render()" class="btn btn-ghost btn-sm">
+        ${webhookSet ? '✓' : '⚠'} Webhook ${webhookSet ? 'configurado' : 'sin configurar'}
+      </button>
+      <span class="mono" style="font-size:.72rem;color:var(--ink3);padding:6px 0">
+        Última actualización: ${new Date(state.db.meta.updatedAt).toLocaleString('es-AR')}
+      </span>
+    </div>
+
+    ${!webhookSet ? '<div class="callout callout-warn"><strong>Webhook no configurado.</strong> Los alumnos no podrán enviarte notificaciones de entrega. Configuralo haciendo click arriba.</div>' : ''}
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab ${state.tab==='users'?'active':''}" onclick="state.tab='users';state.selectedUserId=null;render()">Alumnos (${students.length})</button>
+      <button class="tab ${state.tab==='overview'?'active':''}" onclick="state.tab='overview';render()">Vista general</button>
+    </div>
+
+    ${state.tab === 'users' ? renderUsersTab(students, su, suProg) : ''}
+    ${state.tab === 'overview' ? renderOverviewTab(students) : ''}
+  </div>
+
+  ${state.modal === 'createUser' ? renderCreateUserModal() : ''}
+  ${state.modal === 'editWebhook' ? renderWebhookModal() : ''}
+  ${state.saving ? '<div style="position:fixed;inset:0;background:rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;z-index:300"><div style="background:#fff;padding:24px 36px;border-radius:12px;font-family:\'Syne\',sans-serif;font-weight:600">Guardando en GitHub...</div></div>' : ''}
+  `;
+}
+
+function renderUsersTab(students, su, suProg) {
+  return `
+  <div style="display:grid;grid-template-columns:${su ? '320px 1fr' : '1fr'};gap:24px">
+    <!-- User list -->
+    <div>
+      <button onclick="state.modal='createUser';render()" class="btn btn-primary btn-sm" style="width:100%;margin-bottom:12px">+ Crear alumno</button>
+      <div class="tbl">
+        ${students.length === 0 ? '<div style="padding:32px;text-align:center;color:var(--ink3);font-size:.9rem">No hay alumnos registrados</div>' :
+        students.map(u => {
+          const prog = state.db.progress[u.id] || {};
+          const done = CHAPTERS.filter(c => prog[c.id]?.approved).length;
+          return `
+          <div class="tbl-row" style="grid-template-columns:36px 1fr 48px;cursor:pointer;${state.selectedUserId===u.id?'background:var(--accent-bg)':''}" onclick="state.selectedUserId='${u.id}';render()">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--paper2);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;color:var(--ink2)">${u.name[0]}</div>
+            <div>
+              <div style="font-weight:500;font-size:.88rem">${u.name}</div>
+              <div style="font-size:.75rem;color:var(--ink3)">${u.email}</div>
+            </div>
+            <span class="mono" style="font-size:.72rem;color:var(--ink3);text-align:right">${done}/${CHAPTERS.length}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <!-- User detail -->
+    ${su ? `
+    <div class="detail">
+      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:20px">
+        <div>
+          <h3>${su.name}</h3>
+          <p style="font-size:.82rem;color:var(--ink3)">${su.email} · Registrado ${new Date(su.createdAt).toLocaleDateString('es-AR')}</p>
+        </div>
+        <button onclick="deleteUser('${su.id}')" class="btn btn-red btn-sm">Eliminar</button>
+      </div>
+      <div class="tbl">
+        <div class="tbl-row tbl-head" style="grid-template-columns:56px 1fr 120px 120px">
+          <span>#</span><span>Capítulo</span><span>Estado</span><span>Acción</span>
+        </div>
+        ${CHAPTERS.map(ch => {
+          const cp = suProg[ch.id];
+          const approved = cp?.approved;
+          return `
+          <div class="tbl-row" style="grid-template-columns:56px 1fr 120px 120px">
+            <span class="mono" style="font-size:.72rem;color:var(--ink3)">${ch.id}</span>
+            <span style="font-size:.85rem">${ch.title}</span>
+            <span>${approved ? '<span class="badge badge-green">Aprobado</span>' : '<span class="badge badge-grey">Pendiente</span>'}</span>
+            <span>
+              ${approved
+                ? `<button onclick="revokeChapter('${su.id}','${ch.id}')" class="btn btn-ghost btn-sm">Revocar</button>`
+                : `<button onclick="approveChapter('${su.id}','${ch.id}')" class="btn btn-green btn-sm">Aprobar</button>`
+              }
+            </span>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '<div style="padding:48px;text-align:center;color:var(--ink3);border:1px dashed var(--line);border-radius:var(--r-lg)">Seleccioná un alumno para ver su progreso</div>'}
+  </div>`;
+}
+
+function renderOverviewTab(students) {
+  return `
+  <div class="tbl">
+    <div class="tbl-row tbl-head" style="grid-template-columns:160px repeat(${CHAPTERS.length}, 1fr)">
+      <span>Alumno</span>
+      ${CHAPTERS.map(c => `<span style="font-size:.6rem;writing-mode:vertical-rl;transform:rotate(180deg);height:48px">${c.id}</span>`).join('')}
+    </div>
+    ${students.length === 0 ? '<div style="padding:24px;text-align:center;color:var(--ink3)">Sin alumnos</div>' :
+    students.map(u => {
+      const prog = state.db.progress[u.id] || {};
+      return `
+      <div class="tbl-row" style="grid-template-columns:160px repeat(${CHAPTERS.length}, 1fr)">
+        <span style="font-size:.82rem;font-weight:500">${u.name}</span>
+        ${CHAPTERS.map(c => {
+          const a = prog[c.id]?.approved;
+          return `<span style="text-align:center"><span class="status-dot" style="background:${a?'var(--green)':'var(--paper3)'}"></span></span>`;
+        }).join('')}
+      </div>`;
+    }).join('')}
+  </div>
+  <p style="margin-top:12px;font-size:.78rem;color:var(--ink3)">
+    <span class="status-dot" style="background:var(--green)"></span> = Aprobado &nbsp;&nbsp;
+    <span class="status-dot" style="background:var(--paper3)"></span> = Pendiente
+  </p>`;
+}
+
+function renderCreateUserModal() {
+  return `
+  <div class="modal-overlay" onclick="if(event.target===this){state.modal=null;render()}">
+    <div class="modal">
+      <h3>Crear alumno</h3>
+      <form onsubmit="createUser(event)">
+        <label class="field">
+          <span class="field-label">Nombre completo</span>
+          <input class="field-input" type="text" name="name" required>
+        </label>
+        <label class="field">
+          <span class="field-label">Email</span>
+          <input class="field-input" type="email" name="email" required>
+        </label>
+        <label class="field">
+          <span class="field-label">Contraseña inicial</span>
+          <input class="field-input" type="text" name="password" required placeholder="El alumno puede cambiarla después">
+        </label>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button type="button" onclick="state.modal=null;render()" class="btn btn-ghost">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Crear</button>
+        </div>
+      </form>
+    </div>
+  </div>`;
+}
+
+function renderWebhookModal() {
+  return `
+  <div class="modal-overlay" onclick="if(event.target===this){state.modal=null;render()}">
+    <div class="modal">
+      <h3>Configurar webhook</h3>
+      <p style="font-size:.88rem;color:var(--ink2);margin-bottom:16px">URL del webhook de Discord, Slack o Zapier donde los alumnos enviarán notificaciones de entrega.</p>
+      <form onsubmit="saveWebhook(event)">
+        <label class="field">
+          <span class="field-label">Webhook URL</span>
+          <input class="field-input" type="url" name="webhook" value="${state.db?.meta?.webhookUrl||''}" placeholder="https://discord.com/api/webhooks/...">
+        </label>
+        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+          <button type="button" onclick="state.modal=null;render()" class="btn btn-ghost">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+      <div class="callout callout-info" style="margin-top:16px;font-size:.82rem">
+        <strong>Discord:</strong> Server Settings → Integrations → Webhooks → New Webhook → Copy URL
+      </div>
+    </div>
+  </div>`;
+}
+
+function bindEvents() { /* All events use inline handlers */ }
+
+// Init
+render();
+</script>
+</body>
+</html>
