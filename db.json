@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": 1,
-    "updatedAt": "2026-04-25T07:52:16.532Z",
+    "updatedAt": "2026-04-25T07:52:37.107Z",
     "webhookUrl": "https://discord.com/api/webhooks/1497505488634380402/ukym03L_Fdo8uLnf9aZRsNibSecRYQtfMy39k7meVztpPanPZC7ChWQNhj5OjaWJJsYh"
   },
   "users": [
@@ -12,6 +12,14 @@
       "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
       "role": "admin",
       "createdAt": "2026-04-25T00:00:00Z"
+    },
+    {
+      "id": "lk4izoym",
+      "email": "sadsa@dsa.sd",
+      "name": "Danilo Hurwitz",
+      "passwordHash": "16ecab1875791e2b6ed0c9a6dae5a12a79d92120e1c3afbd3a9c8535ce44666d",
+      "role": "student",
+      "createdAt": "2026-04-25T07:52:37.107Z"
     }
   ],
   "progress": {}
