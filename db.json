@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": 1,
-    "updatedAt": "2026-04-25T07:50:24.456Z",
+    "updatedAt": "2026-04-25T07:50:35.814Z",
     "webhookUrl": ""
   },
   "users": [
@@ -22,5 +22,12 @@
       "createdAt": "2026-04-25T07:50:24.455Z"
     }
   ],
-  "progress": {}
+  "progress": {
+    "wcwdmwqs": {
+      "1.2": {
+        "approved": true,
+        "approvedAt": "2026-04-25T07:50:35.812Z"
+      }
+    }
+  }
 }
