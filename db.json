@@ -1,7 +1,7 @@
 {
   "meta": {
     "version": 1,
-    "updatedAt": "2026-04-25T16:02:17.502Z",
+    "updatedAt": "2026-04-25T16:02:18.557Z",
     "webhookUrl": "https://discord.com/api/webhooks/1497505488634380402/ukym03L_Fdo8uLnf9aZRsNibSecRYQtfMy39k7meVztpPanPZC7ChWQNhj5OjaWJJsYh"
   },
   "users": [
@@ -63,6 +63,10 @@
       "2.5": {
         "approved": true,
         "approvedAt": "2026-04-25T16:02:17.501Z"
+      },
+      "3.1": {
+        "approved": true,
+        "approvedAt": "2026-04-25T16:02:18.557Z"
       }
     }
   }
