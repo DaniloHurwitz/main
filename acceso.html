@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentoría Freelance — Danilo Hurwitz</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d0d0d;--ink2:#3a3a3a;--ink3:#6b6b6b;--paper:#f8f6f2;--paper2:#efecea;--paper3:#e4e0db;--accent:#1a4fd6;--accent-bg:#e8eefb;--green:#22c55e;--green-bg:#dcfce7;--green-tx:#14532d;--warn:#f59e0b;--warn-bg:#fef3c7;--warn-tx:#78350f;--red-bg:#fee2e2;--red-tx:#991b1b;--line:rgba(0,0,0,.09);--r:6px;--r-lg:12px}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--paper);color:var(--ink);font-size:16px;line-height:1.65;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Syne',sans-serif;font-weight:700;line-height:1.2;letter-spacing:-.02em}
+button{font-family:inherit;cursor:pointer;border:none;background:none}input,textarea,select{font-family:inherit}a{color:var(--accent);text-decoration:none}
+.mono{font-family:'DM Mono',monospace}.wrap{max-width:1060px;margin:0 auto;padding:0 28px}.wrap-sm{max-width:900px;margin:0 auto;padding:0 28px}
+nav{position:sticky;top:0;z-index:100;background:rgba(248,246,242,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;max-width:1060px;margin:0 auto;flex-wrap:wrap;gap:8px}
+.nav-logo{display:flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:800;font-size:.9rem;letter-spacing:-.03em;cursor:pointer}
+.nav-dot{width:8px;height:8px;background:var(--accent);border-radius:50%}
+.btn{padding:10px 20px;border-radius:var(--r);font-family:'Syne',sans-serif;font-weight:600;font-size:.82rem;transition:opacity .15s;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{opacity:.85}.btn-primary{background:var(--ink);color:#fff}.btn-green{background:var(--green);color:#fff}.btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink2)}.btn-sm{padding:6px 14px;font-size:.75rem}.btn-accent{background:var(--accent);color:#fff}
+.field{display:block;margin-bottom:16px}
+.field-label{display:block;font-family:'DM Mono',monospace;font-size:.7rem;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.field-input{width:100%;padding:10px 14px;border-radius:var(--r);border:1px solid var(--line);font-size:.88rem;background:#fff;outline:none}
+.field-input:focus{border-color:var(--accent)}textarea.field-input{resize:vertical;min-height:120px;line-height:1.7}
+.badge{display:inline-block;padding:3px 10px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.7rem;letter-spacing:.04em}
+.badge-green{background:var(--green-bg);color:var(--green-tx)}.badge-warn{background:var(--warn-bg);color:var(--warn-tx)}.badge-grey{background:var(--paper3);color:var(--ink3)}.badge-blue{background:var(--accent-bg);color:var(--accent)}.badge-red{background:var(--red-bg);color:var(--red-tx)}
+.callout{border-radius:8px;padding:14px 18px;margin-bottom:20px;font-size:.88rem}
+.callout-info{background:var(--accent-bg);border-left:3px solid var(--accent);color:#1e3a8a}
+.callout-green{background:var(--green-bg);border-left:3px solid var(--green);color:var(--green-tx)}
+.callout-warn{background:var(--warn-bg);border-left:3px solid var(--warn);color:var(--warn-tx)}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:9999;padding:12px 24px;border-radius:8px;font-size:.85rem;font-weight:500;box-shadow:0 4px 20px rgba(0,0,0,.1);animation:toastIn .3s ease}
+@keyframes toastIn{from{opacity:0;transform:translateX(-50%) translateY(-10px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+.fade{animation:fadeIn .35s ease both}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.ch-row{display:grid;grid-template-columns:48px 1fr 90px 130px;align-items:center;gap:14px;padding:16px 18px;border-bottom:1px solid rgba(0,0,0,.05);transition:background .1s;cursor:pointer}
+.ch-row:last-child{border-bottom:none}.ch-row:hover{background:#faf9f7}.ch-row.locked{opacity:.45;cursor:not-allowed}
+.ch-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.tabs{display:flex;gap:2px;margin-bottom:24px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{padding:10px 16px;font-size:.82rem;color:var(--ink3);border:1px solid transparent;border-radius:var(--r) var(--r) 0 0;margin-bottom:-1px;transition:all .15s}
+.tab.active{font-weight:600;color:var(--accent);background:#fff;border-color:var(--line);border-bottom-color:#fff}
+.quiz-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:var(--r);border:1px solid var(--line);font-size:.88rem;text-align:left;width:100%;transition:all .12s;margin-bottom:6px;cursor:pointer;background:#fff}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-bg)}
+.quiz-opt.selected{border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.quiz-opt.correct{border-color:var(--green);background:var(--green-bg);color:var(--green-tx)}
+.quiz-opt.wrong{border-color:#ef4444;background:var(--red-bg);color:var(--red-tx)}
+.quiz-dot{width:20px;height:20px;border-radius:50%;border:2px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700}
+.prac-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;transition:border-color .15s;cursor:pointer;margin-bottom:10px}
+.prac-card:hover{border-color:var(--accent)}
+.kw-tag{display:inline-block;padding:3px 9px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.72rem;margin:2px}
+.kw-hit{background:var(--green-bg);color:var(--green-tx)}.kw-miss{background:var(--red-bg);color:var(--red-tx)}.kw-bad{background:var(--warn-bg);color:var(--warn-tx)}
+.fb-row{display:flex;align-items:start;gap:8px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.04);font-size:.84rem}.fb-row:last-child{border-bottom:none}
+.fb-icon{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:700}
+.chat-av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.7rem;font-weight:700}
+.typing-dots span{animation:blink 1.4s infinite;font-size:1.2rem;letter-spacing:3px}
+.typing-dots span:nth-child(2){animation-delay:.2s}.typing-dots span:nth-child(3){animation-delay:.4s}
+.chat-input-bar{display:flex;gap:8px;padding:12px;background:var(--paper2);border-radius:0 0 var(--r-lg) var(--r-lg);border-top:1px solid var(--line)}
+.chat-input-bar input{flex:1;padding:10px 14px;border-radius:20px;border:1px solid var(--line);font-size:.88rem;background:#fff;outline:none}
+.chat-input-bar button{padding:8px 18px;border-radius:20px;background:var(--accent);color:#fff;font-weight:600;font-size:.82rem}
+@media(max-width:700px){.ch-row{grid-template-columns:40px 1fr 70px}.ch-row>:nth-child(4){display:none}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ═══ CHAPTERS & PHASES ═══
+var CH=[
+{id:"1.1",p:1,t:"Qué sos antes de ser freelancer",dur:"15 min",del:"Lista de habilidades ordenada por mercado",d:"Tu inventario real de habilidades, idiomas y contexto."},
+{id:"1.2",p:1,t:"Elegir la plataforma correcta",dur:"12 min",del:"Decisión documentada de plataforma + argumentos",d:"Por qué Upwork y no Fiverr o salir directo."},
+{id:"1.3",p:1,t:"Definir el nicho con precisión",dur:"18 min",del:"Nicho escrito en una oración",d:"No 'traducción'. Traducción médica, inglés–español, para publicaciones."},
+{id:"1.4",p:1,t:"Construir el perfil que filtra clientes",dur:"20 min",del:"Borrador completo de perfil listo para revisión",d:"Foto, título, overview y tarifas. El perfil como filtro."},
+{id:"1.5",p:1,t:"Tarifas de arranque",dur:"14 min",del:"Tarifa definida con justificación escrita",d:"Cómo fijar la primera tarifa sin regalarlo."},
+{id:"2.1",p:2,t:"Leer un job posting como operador",dur:"16 min",del:"Lista de criterios de filtro personales",d:"Qué señales buscar antes de escribir una propuesta."},
+{id:"2.2",p:2,t:"La estructura de la propuesta que funciona",dur:"20 min",del:"Template base propio (3 variantes)",d:"Primer párrafo, cuerpo, cierre. La lógica detrás de cada línea."},
+{id:"2.3",p:2,t:"Cuánto cobrar y cómo presentarlo",dur:"15 min",del:"Decisión de modelo de precio por tipo de trabajo",d:"Fixed vs hourly, cómo anclar el precio."},
+{id:"2.4",p:2,t:"Iterar sin quemarse",dur:"13 min",del:"Tabla de seguimiento: propuestas / respuestas / hipótesis",d:"Cómo leer las métricas, qué ajustar."},
+{id:"2.5",p:2,t:"La entrevista",dur:"17 min",del:"Lista de preguntas propias para entrevista",d:"Qué preguntar, qué evaluar, cuándo decir que no."},
+{id:"3.1",p:3,t:"Ejecutar el primer contrato",dur:"18 min",del:"Protocolo de comunicación propio (checklist)",d:"Comunicación, entrega, expectativas."},
+{id:"3.2",p:3,t:"Conseguir la primera review",dur:"12 min",del:"Mensaje tipo para solicitar review",d:"Cómo pedirla, cómo capitalizar la buena."},
+{id:"3.3",p:3,t:"Construir historial deliberadamente",dur:"15 min",del:"Plan de los próximos 3 proyectos objetivo",d:"Elegir proyectos para posicionarse mejor."},
+{id:"3.4",p:3,t:"Subir tarifas sin perder clientes",dur:"14 min",del:"Decisión de nueva tarifa + mensaje de transición",d:"Cuándo subir, cómo comunicarlo."}];
+var PH=[{id:1,n:"Posicionamiento",d:"Quién sos, qué ofrecés, a quién"},{id:2,n:"Sistema de propuestas",d:"Cómo escribir, cuánto cobrar, cómo iterar"},{id:3,n:"Primer contrato y más allá",d:"Conseguir el primero, construir historial, escalar"}];
+
+// ═══ QUIZZES (5 per chapter, all Spanish) ═══
+var Q={"1.1":[{q:"¿Qué debe reflejar tu inventario de habilidades?",o:["Lo que aspirás a ser","Lo que ya podés entregar bajo presión a un cliente real","Todo lo que alguna vez estudiaste","Las habilidades más populares en Upwork"],c:1},{q:"¿Cuál es el error más común al armar el inventario?",o:["Ser demasiado honesto","Incluir habilidades aspiracionales que todavía no dominás","No incluir idiomas","Poner pocas habilidades"],c:1},{q:"¿Para qué sirve cruzar tu inventario con búsquedas en la plataforma?",o:["Para copiar perfiles exitosos","Para validar demanda real y dimensionar la competencia","Para encontrar clientes directamente","Para definir tu tarifa"],c:1},{q:"¿Qué información va en 'Contexto de credibilidad'?",o:["Tu CV completo","Background que te posiciona para un nicho específico (estudios, país, industria)","Solo certificaciones oficiales","Tu experiencia laboral formal"],c:1},{q:"Si dudás de si una habilidad entra en tu inventario, ¿qué te preguntás?",o:["¿Me gusta hacerlo?","¿Puedo entregarlo a un cliente real, bajo presión, con calidad profesional?","¿Lo aprendí en la universidad?","¿Otros freelancers lo ofrecen?"],c:1}],
+"1.2":[{q:"¿Por qué se recomienda Upwork sobre Fiverr para servicios profesionales?",o:["Es más barato","Permite relaciones de largo plazo y proyectos complejos","Tiene más usuarios","Es más fácil de usar"],c:1},{q:"¿Cuál es la estrategia correcta al elegir plataformas?",o:["Registrarse en todas a la vez","Enfocarse en UNA plataforma principal","Usar solo redes sociales","Esperar a tener portfolio"],c:1},{q:"¿Qué ventaja tiene Upwork sobre clientes directos al principio?",o:["Paga más","Tiene sistema de Escrow que protege el pago","Es más fácil de usar","Los clientes son mejores"],c:1},{q:"¿Cuándo tiene sentido buscar clientes fuera de la plataforma?",o:["Desde el día uno","Cuando ya tenés reputación y sistema de cobro propio","Nunca","Solo si no conseguís nada en Upwork"],c:1},{q:"¿Qué riesgo tiene Fiverr para servicios complejos?",o:["No permite esos servicios","Te posiciona como commodity con precios race-to-the-bottom","No tiene protección de pago","Los clientes son peores"],c:1}],
+"1.3":[{q:"¿Qué diferencia a un nicho de una categoría amplia?",o:["El nicho es más caro","Especifica qué hacés, para quién, y con qué diferencial","Limita tus oportunidades","No hay diferencia real"],c:1},{q:"¿Por qué el especialista cobra más que el generalista?",o:["Tiene más experiencia","Resuelve un problema específico y urgente con expertise demostrable","Trabaja menos horas","Tiene mejor marketing"],c:1},{q:"¿Cuál es el resultado de micro-nicharse?",o:["Menos clientes y menos ingresos","Menos competencia, tarifas más altas, mejores clientes","Demasiada especialización es mala","No tiene impacto real"],c:1},{q:"¿Cuáles son los 3 círculos para encontrar tu nicho?",o:["Precio, Calidad, Velocidad","Habilidades, Conocimiento/Pasión, Demanda de mercado","Idiomas, Ubicación, Experiencia","Plataforma, Servicio, Cliente"],c:1},{q:"Un freelancer que dice 'hago de todo' transmite...",o:["Versatilidad profesional","Falta de expertise y desesperación","Ambición","Flexibilidad valorada por clientes"],c:1}],
+"1.4":[{q:"¿Cuál es el propósito principal del perfil?",o:["Mostrar tu CV completo","Funcionar como filtro que atrae al cliente correcto y repele al incorrecto","Impresionar con logros académicos","Competir por precio"],c:1},{q:"¿Qué estructura debe seguir el resumen del perfil?",o:["Cronológico como un CV","AIDA: Atención, Interés, Deseo, Acción","Lista de habilidades","Carta de presentación formal"],c:1},{q:"¿Por qué las primeras 2 líneas del overview son críticas?",o:["Porque son las más largas","Son lo único que ve el cliente en el preview antes de hacer click","Porque van en negrita","No son más importantes que el resto"],c:1},{q:"Un título como 'Freelancer' o 'Trabajador dedicado' es malo porque...",o:["Es demasiado corto","No comunica nicho, habilidad ni diferenciador — es genérico e invisible","No es profesional","La plataforma lo penaliza"],c:1},{q:"¿Qué tipo de foto NO debés usar?",o:["Headshot profesional con buena luz","Selfie en un bar con lentes de sol","Foto reciente y nítida","Foto con fondo limpio y simple"],c:1}],
+"1.5":[{q:"¿Por qué es peligroso empezar con tarifas muy bajas?",o:["Los clientes no te toman en serio","Quemás tiempo en trabajo de bajo valor sin construir reputación relevante","La plataforma te penaliza","No es peligroso, es lo recomendable"],c:1},{q:"¿Cuál es la estrategia correcta de tarifa inicial?",o:["La más alta posible","La más baja para ganar volumen","Un sweet spot que señale competencia sin ser inalcanzable","Igual a la del competidor más exitoso"],c:2},{q:"¿Qué pasó cuando Danilo subió a $45/hr prematuramente?",o:["Consiguió mejores clientes","Silencio total — no tenía la prueba social para justificar ese precio","Le fue exactamente igual","Los clientes negociaron a la baja"],c:1},{q:"¿Qué comunica tu precio a un cliente potencial?",o:["Solo cuánto cuesta contratarte","Tu nivel de competencia, confiabilidad y valor percibido","Nada importante","Tu nivel de desesperación"],c:1},{q:"La tarifa de $25/hr fue estratégica porque...",o:["Era la más baja del mercado","Señalaba competencia profesional sin ser inalcanzable para un freelancer nuevo","Era un número redondo fácil de recordar","La eligió al azar"],c:1}],
+"2.1":[{q:"¿Qué es lo primero que evaluás en un job posting?",o:["El presupuesto ofrecido","Si el cliente tiene método de pago verificado e historial de contratación","La cantidad de propuestas recibidas","Si el cliente es de tu mismo país"],c:1},{q:"¿Cuándo es mejor NO aplicar a un trabajo?",o:["Cuando el presupuesto es bajo","Cuando el cliente es completamente nuevo, sin historial ni pago verificado","Cuando hay muchos otros aplicantes","Cuando es precio fijo"],c:1},{q:"¿Por qué importa aplicar rápido (primeras horas)?",o:["Porque la plataforma te da un bonus","Porque el cliente ve las primeras propuestas y frecuentemente contrata rápido","Porque después se cierra el posting","No importa la velocidad"],c:1},{q:"¿Qué filtro de presupuesto conviene para los primeros trabajos?",o:["Solo proyectos de +$500","$50-$200 fixed price para victorias rápidas y primeras reviews","Solo contratos por hora","Sin filtro de presupuesto"],c:1},{q:"Un job post con alcance vago y presupuesto 'a definir' es señal de...",o:["Un cliente flexible y abierto","Un cliente que no sabe lo que quiere — riesgo alto de problemas","Un proyecto grande y lucrativo","Una oportunidad premium"],c:1}],
+"2.2":[{q:"¿Cuál es la proporción ideal de una propuesta ganadora?",o:["100% sobre vos y tus logros","50% vos, 50% el cliente","70% problema del cliente, 30% vos como solución","90% sobre el cliente"],c:2},{q:"¿Qué debe lograr el primer párrafo de tu propuesta?",o:["Presentarte formalmente con tu nombre y título","Demostrar que leíste y entendés el problema específico del cliente","Listar todas tus habilidades relevantes","Mencionar tu tarifa desde el inicio"],c:1},{q:"¿Por qué la 'propuesta masiva' (copy-paste) no funciona?",o:["Porque las plataformas la detectan automáticamente","Porque es genérica y no demuestra comprensión del problema del cliente","Porque gasta demasiados Connects","Porque es demasiado larga"],c:1},{q:"¿Qué es el UVP en una propuesta?",o:["Un formato de video profesional","Tu Propuesta de Valor Única — por qué vos y no otro freelancer","Un tipo de modelo de pricing","Una certificación de plataforma"],c:1},{q:"¿Cuál es el cierre ideal de una propuesta?",o:["'Espero su respuesta, gracias'","Un llamado a acción confiado con próximo paso concreto","'Puedo empezar inmediatamente, contratáme'","'Mi tarifa es negociable'"],c:1}],
+"2.3":[{q:"¿Cómo calculás un precio fijo correctamente?",o:["Copiás lo que cobra la competencia","Horas estimadas × tarifa + buffer del 20-30%","Ponés el número más bajo posible","Le preguntás al cliente cuánto quiere pagar"],c:1},{q:"¿Qué señala una tarifa descrita como 'negociable'?",o:["Flexibilidad profesional","Falta de confianza e invitación al regateo","Experiencia en ventas","Orientación al cliente"],c:1},{q:"¿Cuándo conviene cobrar por hora vs precio fijo?",o:["Siempre por hora, es más seguro","Por hora para scope indefinido, fijo para entregables claros","Siempre precio fijo, es más profesional","Depende exclusivamente del cliente"],c:1},{q:"El buffer del 20-30% en un precio fijo cubre...",o:["Solo ganancia extra","Revisiones, comunicación con el cliente e imprevistos técnicos","La comisión de la plataforma","Los impuestos"],c:1},{q:"El 'script del Por Qué' para justificar tu tarifa debe enfocarse en...",o:["Explicar por qué sos caro comparado con otros","El valor, expertise y tranquilidad que entregás al cliente","Compararte punto por punto con la competencia","Detallar tus gastos personales y costos fijos"],c:1}],
+"2.4":[{q:"¿Cada cuánto deberías revisar tus métricas de propuestas?",o:["Todos los días obsesivamente","Semanalmente, con hipótesis de mejora documentadas","Solo cuando no conseguís trabajo por un mes","Nunca, es pérdida de tiempo"],c:1},{q:"Si mandaste 15 propuestas sin respuesta, ¿cuál es el approach correcto?",o:["Bajar la tarifa dramáticamente","Analizar el patrón, ajustar UNA variable, y probar de nuevo","Cambiar de plataforma","Dejar de aplicar por un mes para 'resetear'"],c:1},{q:"¿Qué es un test A/B de propuestas?",o:["Mandar la misma propuesta a todos","Cambiar UNA variable entre propuestas y comparar resultados","Usar dos plataformas simultáneamente","Escribir en dos idiomas distintos"],c:1},{q:"¿Cuántas propuestas 'de precisión' conviene mandar por día?",o:["50+ para maximizar chances","3-5 hiper-personalizadas","Solo 1, bien pensada","Todas las que puedas, sin límite"],c:1},{q:"La 'mentalidad de datos' implica tratar cada propuesta rechazada como...",o:["Un fracaso personal","Un experimento con hipótesis medible y datos para mejorar","Una obligación cumplida","Un gasto de Connects perdido"],c:1}],
+"2.5":[{q:"¿Para qué sirve la entrevista previa a un contrato?",o:["Solo para que el cliente te evalúe a vos","Para que ambas partes evalúen si hay buen fit","Para negociar el precio final","Para demostrar habilidades técnicas en vivo"],c:1},{q:"¿Cuándo es correcto decir 'no' a un proyecto?",o:["Nunca, todo trabajo es bueno al principio","Cuando las señales muestran riesgo: scope vago, sin presupuesto, mala comunicación","Solo si la tarifa es muy baja","Solo si no tenés tiempo disponible"],c:1},{q:"¿Qué pregunta inteligente podés hacer en la entrevista?",o:["'¿Cuánto paga exactamente?'","'¿Cuál es el resultado ideal de este proyecto para usted?'","'¿Hay otros candidatos compitiendo?'","'¿Puedo empezar mañana mismo?'"],c:1},{q:"¿Qué red flag buscás en el comportamiento del cliente durante la entrevista?",o:["Que haga preguntas técnicas difíciles","Que no pueda definir el alcance ni el resultado esperado","Que tenga un presupuesto limitado pero claro","Que sea de otro país o timezone"],c:1},{q:"¿Cómo te posicionás como 'socio' en vez de 'contratado'?",o:["Diciendo explícitamente 'soy el mejor del mercado'","Sugiriendo mejoras y mostrando comprensión profunda del problema del cliente","Bajando tu precio para parecer accesible","Aceptando todo lo que diga sin cuestionar"],c:1}],
+"3.1":[{q:"¿Qué debés mandar dentro de las primeras 2 horas de aceptar un contrato?",o:["Un saludo casual y simpático","Un mensaje de kick-off con alcance, entregables, timeline y preguntas clarificadoras","Tu factura anticipada","Nada, esperá que el cliente te diga qué hacer"],c:1},{q:"¿Qué es el scope creep y cómo lo manejás?",o:["Ignoralo para no molestar al cliente","Referí al acuerdo original y cotizá el trabajo adicional por separado","Hacé todo gratis para mantener la relación","Rechazás el trabajo entero"],c:1},{q:"¿Para qué sirve el check-in de mitad de camino?",o:["Para pedir más plata","Para dar tranquilidad al cliente y demostrar proactividad profesional","Para renegociar condiciones","No sirve para nada, molesta al cliente"],c:1},{q:"Si anticipás un posible retraso, ¿qué hacés?",o:["Esperás a que pase el deadline y después explicás","Comunicás ANTES del plazo con explicación clara y nueva fecha propuesta","Entregás lo que tengas, incompleto","No decís nada y rezás que no se note"],c:1},{q:"El mensaje de kick-off profesional debe incluir...",o:["Solo un saludo cordial","Alcance confirmado, entregables específicos, timeline, preguntas y descripción de tu proceso","Tu CV y portfolio completo","Tu tarifa reiterada por las dudas"],c:1}],
+"3.2":[{q:"¿Por qué son cruciales las reviews en los primeros contratos?",o:["Para sentirte bien con vos mismo","Son tu prueba social principal y afectan directamente tu JSS y visibilidad","Para competir exclusivamente por precio","No son tan importantes al principio"],c:1},{q:"¿Cuál es la mejor forma de pedir una review?",o:["Presionar al cliente repetidamente hasta que la deje","Incluir un pedido profesional y sutil en tu mensaje de entrega final","Nunca pedirla, es poco profesional","Pedir explícitamente 5 estrellas"],c:1},{q:"¿Qué es el 'mensaje de entrega 5 estrellas'?",o:["Pedir 5 estrellas directamente","Un mensaje de cierre que resalta el valor entregado e invita al feedback profesionalmente","Solo adjuntar los archivos finales sin contexto","Un template genérico igual para todos los clientes"],c:1},{q:"Si un cliente no deja review después de cerrar el contrato, ¿qué impacto tiene?",o:["Ninguno real","'No feedback given' puede bajar tu JSS y afectar tu visibilidad","Solo es molesto pero intrascendente","Perdés el dinero cobrado"],c:1},{q:"¿Cuándo es el mejor momento para pedir la review?",o:["Antes de entregar el trabajo","Justo al entregar el trabajo final, cuando la satisfacción es más alta","Una semana después de entregar","Al principio del proyecto, como condición"],c:1}],
+"3.3":[{q:"¿Cómo elegís tus próximos proyectos estratégicamente?",o:["Aceptando todo lo que aparezca","Eligiendo los que mejor posicionen tu perfil para el nicho objetivo","Solo los que paguen más a corto plazo","Solo los más fáciles y rápidos"],c:1},{q:"Los primeros 5-10 proyectos deben priorizar...",o:["Máximo ingreso posible","Reviews de 5 estrellas y diversidad relevante de portfolio","Solo un tipo de trabajo repetitivo","Clientes grandes y corporativos"],c:1},{q:"¿Qué es más valioso al principio: $500 sin review o $50 con review de 5 estrellas?",o:["Siempre el de $500","El de $50 con review — la prueba social vale más que el ingreso inmediato","Son exactamente iguales en valor","Depende exclusivamente del nicho"],c:1},{q:"¿Cuántos proyectos necesitás para subir tarifas creíblemente?",o:["1-2 son suficientes","10-15 con reviews consistentes de 5 estrellas","50+ como mínimo","La cantidad no importa, solo el tiempo"],c:1},{q:"El 'costo de oportunidad' de aceptar un proyecto mal pago es...",o:["Un concepto teórico sin aplicación real","Las horas que perdés que podrías invertir en actividades de mayor retorno","Solo la diferencia de precio entre lo que cobraste y lo ideal","No existe si estás empezando"],c:1}],
+"3.4":[{q:"¿Cuál es la señal más fuerte de que es momento de subir tarifas?",o:["Sentir que merecés ganar más","Estar consistentemente saturado, rechazando buenos proyectos","Tener un badge de Top Rated","Haber completado 10 proyectos"],c:1},{q:"¿Cómo comunicás un aumento de tarifa a clientes existentes?",o:["Sin aviso, simplemente subís","Con 30-60 días de aviso, agradecimiento y período de transición","Nunca les avisás, solo aplica a clientes nuevos","Les das un ultimátum"],c:1},{q:"¿Por qué son peligrosos los saltos drásticos de tarifa?",o:["No lo son, siempre conviene cobrar más","Sin prueba social nueva que justifique el premium, los clientes desaparecen","La plataforma te penaliza","Los clientes se enojan y dejan malas reviews"],c:1},{q:"La 'escalera de valor' implica...",o:["Cobrar cada vez más sin cambiar nada","Ofrecer servicios escalonados de menor a mayor valor y precio","Solo subir tarifas periódicamente","Tener la mayor cantidad de clientes posible"],c:1},{q:"¿Cuál es el aumento de tarifa recomendado por vez?",o:["Duplicar directamente","20-30% gradual, justificado por pruebas y resultados recientes","$1 por mes de forma imperceptible","50% mínimo para que se note"],c:1}]};
+
+// ═══ PROPOSAL SCENARIOS (Spanish) ═══
+var PROP=[
+{id:"urgente",t:"Proyecto urgente con deadline ajustado",job:{t:"Necesito [tu servicio] urgente — 48hs",d:"Tengo un proyecto de 10 páginas/archivos que necesito terminado para pasado mañana. Debe ser profesional y preciso, va para un cliente importante. Tengo el presupuesto definido y el pago verificado. Ya contraté freelancers antes ($15K gastados en la plataforma).",cl:"María G.",pr:"$500",post:"Hace 2 horas"},
+kw:["urgente","deadline","48","plazo","calidad","preciso","experiencia","proceso","entrega","priorizar","revisar","resultado","profesional"],
+bad:["estimado señor","soy un","por favor considere","puedo hacer","contráteme","tengo experiencia","trabajador","detallista","estoy disponible","gracias por su consideración","hago de todo"],
+tips:["Arrancá reconociendo la urgencia del cliente, no presentándote","Mencioná tu proceso para garantizar calidad bajo presión","Proponé un timeline concreto con checkpoints","Hacé una pregunta inteligente sobre el proyecto","Terminá con un llamado a acción específico (ej: 'hagamos una llamada de 5 min')"]},
+{id:"largo",t:"Colaboración a largo plazo",job:{t:"Busco freelancer para trabajo recurrente — 2-3 entregas/semana",d:"Necesito alguien confiable para mi negocio/canal/empresa. Entregas semanales consistentes, buena comunicación, y que entienda mi estilo. Busco relación de largo plazo. Pago verificado, $40K gastados en plataforma.",cl:"Tomás R.",pr:"$150/entrega",post:"Hace 5 horas"},
+kw:["largo plazo","consistente","confiable","semanal","comunicación","estilo","proceso","calidad","disponibilidad","entrega","compromiso","equipo"],
+bad:["estimado señor","soy un","por favor","contráteme","hago de todo","barato","prueba gratis","principiante"],
+tips:["Enfocate en tu capacidad de ser consistente a largo plazo","Mencioná tu disponibilidad semanal concreta","Ofrecé una primera entrega con descuento (no gratis)","Preguntá sobre su guía de estilo o preferencias","Mostrá que entendés la diferencia entre 'un proyecto' y 'una relación de trabajo'"]},
+{id:"presupuesto",t:"Cliente con presupuesto limitado",job:{t:"Necesito [servicio] — presupuesto ajustado pero proyecto interesante",d:"Soy una startup/emprendimiento y necesito trabajo de calidad pero mi presupuesto es limitado. El proyecto tiene potencial de crecer. Busco alguien que entienda la etapa en la que estamos.",cl:"Lucía M.",pr:"$200 total",post:"Hace 1 hora"},
+kw:["presupuesto","alcance","ajustar","valor","resultado","calidad","priorizar","etapa","invertir","scope","entregable","propuesta"],
+bad:["estimado señor","soy un","contráteme","hago de todo","barato","gratis","sin problema","puedo bajar"],
+tips:["No bajes tu tarifa — ofrecé ajustar el alcance al presupuesto","Mostrá que entendés su situación sin ser condescendiente","Proponé un entregable reducido pero de alta calidad","Mencioná la posibilidad de crecer juntos si el primer proyecto sale bien","Nunca trabajes gratis como 'prueba'"]}];
+
+// ═══ CHAT MULTI-TURN SCENARIOS (Spanish, cross-discipline) ═══
+var CHATS=[
+{id:"inicio",lvl:"Principiante",t:"Tu primer mensaje después de ser contratado",cl:"Martín López",ctx:"Acabás de aceptar tu primer contrato en la plataforma. El cliente te manda un mensaje breve. Tenés que responder profesionalmente y establecer las bases del proyecto.",
+stages:[
+{clientMsg:"¡Hola! Gracias por aceptar. Te pasé los archivos. Avisáme cuándo podés arrancar.",
+must:["alcance","entrega","plazo","pregunta"],should:["proceso","borrador","guía","audiencia","formato"],avoid:["dale","arranco","ok","listo"],
+good:"Perfecto, me gusta tu organización. Respecto a la guía de estilo, no tengo una formal pero te paso algunos ejemplos de trabajos anteriores que me gustaron. ¿Te sirve?",
+neutral:"Ok, gracias por la info. Arrancá cuando puedas y cualquier cosa me avisás.",
+bad:"Mm, solo necesito que hagas el trabajo. No es tan complicado. ¿Podés empezar hoy?"},
+{clientMsg:null,
+must:["ejemplo","recibido","revisar","confirmar"],should:["estructura","propuesta","checkpoint","avance"],avoid:["bueno","dale","ok"],
+good:"Me parece muy bien. Me gusta que propongas un checkpoint intermedio, así me quedo tranquilo. Dale, avanzá.",
+neutral:"Ok, arrancá. Después vemos.",
+bad:"No sé, hacelo como te parezca. Necesito que esté rápido."},
+{clientMsg:null,
+must:["avance","progreso","fecha","parcial"],should:["feedback","ajuste","dirección","confirmar"],avoid:["listo","terminé","ya está"],
+good:"¡Excelente comunicación! Me encanta que me mantengas al tanto. Todo bien por ahora, seguí así.",
+neutral:"Recibido. Seguí.",
+bad:"¿Todavía no terminaste? Pensé que iba a ser más rápido."}
+]},
+{id:"extra",lvl:"Intermedio",t:"El cliente pide trabajo extra sin pagar",cl:"Carolina Méndez",ctx:"Terminaste el trabajo acordado (con 2 rondas de revisión incluidas). El cliente te pide cambios adicionales significativos que exceden el alcance original.",
+stages:[
+{clientMsg:"¡Hola! Gracias por las revisiones. Se lo mostré a mi jefa y quiere varios cambios más en la estructura y algunos contenidos nuevos. ¿Podés actualizarlo para hoy?",
+must:["alcance","original","adicional","costo","cotizar","revisión"],should:["entender","presupuesto","enviar","estimación"],avoid:["sí claro","no hay problema","gratis","por supuesto","dale"],
+good:"Entiendo, tenés razón. ¿Cuánto costaría el trabajo adicional? Mandáme un presupuesto y lo veo con mi jefa.",
+neutral:"Hmm, pero ya hicimos revisiones. ¿No podés incluir estos cambios?",
+bad:"Pero son cambios menores, no debería llevar mucho. ¿No podés hacerlo como gesto?"},
+{clientMsg:null,
+must:["precio","detalle","plazo","entrega"],should:["milestone","desglose","confirmar","avanzar"],avoid:["regalo","descuento","gratis"],
+good:"Me parece justo. Aprobado, avanzá. ¿Para cuándo lo tendrías?",
+neutral:"Está un poco caro pero bueno, avanzá.",
+bad:"Es mucho. ¿No podés hacerlo por la mitad?"},
+{clientMsg:null,
+must:["confirmar","entrega","fecha","recibido"],should:["calidad","revisión","disponible"],avoid:["supongo","creo","quizás"],
+good:"Perfecto, quedo a la espera. Muy profesional todo, gracias.",
+neutral:"Ok, gracias.",
+bad:"Bueno, espero que esta vez salga bien."}
+]},
+{id:"precio",lvl:"Avanzado",t:"El cliente dice que otro cobra menos",cl:"Roberto Sánchez",ctx:"Un cliente potencial te contactó por tu perfil pero dice que encontró a alguien que cobra la mitad de tu tarifa. Querés mantener tu precio sin perder la oportunidad.",
+stages:[
+{clientMsg:"Me gusta mucho tu perfil y tu portfolio, pero la verdad es que encontré otro freelancer que cobra la mitad. Tu tarifa me parece cara. ¿Podés igualar su precio?",
+must:["valor","calidad","expertise","resultado","diferencia","inversión"],should:["entender","presupuesto","alcance","garantía","portfolio"],avoid:["bajo","igualo","descuento","necesito el trabajo","puedo bajar"],
+good:"Interesante lo que decís sobre la diferencia. La verdad es que tuve malas experiencias con freelancers baratos antes. ¿Qué garantías me das?",
+neutral:"Entiendo tu punto pero el presupuesto es el que es. ¿Hay algún punto medio?",
+bad:"No me convence. Si no bajás, contrato al otro."},
+{clientMsg:null,
+must:["review","resultado","proceso","calidad","cliente"],should:["ejemplo","caso","confianza","demostrar"],avoid:["por favor","necesito","bajo","descuento","desesperado"],
+good:"Me convencés. Tenés razón que lo barato sale caro. Avancemos con tu tarifa original.",
+neutral:"Ok, vamos con una prueba chica y vemos. ¿Te parece?",
+bad:"Sigo sin estar seguro. Dejáme pensarlo."},
+{clientMsg:null,
+must:["confirmar","comenzar","disponibilidad","siguiente"],should:["alcance","propuesta","kick-off"],avoid:["cualquier cosa","lo que sea","cuando quieras"],
+good:"Dale, arrancamos. Mandáme la propuesta formal y coordinamos.",
+neutral:"Bueno, empecemos con algo chico a ver qué tal.",
+bad:"Voy a seguir buscando opciones por ahora."}
+]},
+{id:"fantasma",lvl:"Avanzado",t:"El cliente desaparece a mitad del proyecto",cl:"Diego Fernández",ctx:"Estás al 60% del proyecto. Le mandaste un update hace 3 días pidiendo feedback necesario para continuar y no respondió. Necesitás resolver la situación profesionalmente.",
+stages:[
+{clientMsg:"(Hace 3 días mandaste un update pidiendo feedback sobre la dirección del trabajo. Sin respuesta.)",
+must:["seguimiento","feedback","continuar","respuesta","fecha","plazo"],should:["entender","ocupado","prioridad","pausa","proyecto"],avoid:["hola?","estás ahí","por qué no respondés","me ignorás"],
+good:"Perdón, estuve a full con un tema interno. Dame hasta mañana que te mando todo el feedback.",
+neutral:"(Sigue sin responder — pasan 2 días más)",
+bad:"(Sigue sin responder — pasan 2 días más)"},
+{clientMsg:null,
+must:["contrato","cerrar","completado","pago","fecha","límite"],should:["entender","profesional","retomar","pausa"],avoid:["enojado","molesto","último aviso","urgente"],
+good:"Tenés razón, disculpá. Retomemos, te mando el feedback ahora mismo.",
+neutral:"Hola, sí, perdón. Surgieron cosas. ¿Podemos retomar la semana que viene?",
+bad:"(Sigue sin responder)"},
+{clientMsg:null,
+must:["cierre","factura","entregado","contrato","próximo"],should:["disponible","futuro","completar"],avoid:["amenaza","abogado","denuncia"],
+good:"Listo, cerremos bien. Gracias por tu paciencia y profesionalismo.",
+neutral:"Ok, entiendo. Cerremos el contrato.",
+bad:"Bueno, hacé lo que tengas que hacer."}
+]}];
+
+// ═══ JOB ANALYSIS (Spanish) ═══
+var JOBAN=[
+{t:"Proyecto urgente con cliente verificado",d:"Necesito [servicio profesional] urgente. 10 páginas/archivos. Debe ser preciso y profesional, va para un cliente importante. Presupuesto: $500. Pago verificado. 12 proyectos publicados, $15K gastados.",
+flags:[{t:"Método de pago verificado",y:"green"},{t:"$15K gastados = cliente serio con historial",y:"green"},{t:"Presupuesto concreto ($500) = sabe lo que quiere",y:"green"},{t:"Alcance claro (10 páginas, entregable definido)",y:"green"},{t:"'Urgente' puede significar deadline irreal — preguntar timeline exacto",y:"warn"}]},
+{t:"Proyecto vago sin historial",d:"Busco alguien para ayudarme con varias tareas. Español, inglés, quizás otros idiomas. Varios documentos. Precio a negociar. Los detalles los paso después.",
+flags:[{t:"'Varias tareas' = scope indefinido = riesgo alto de scope creep",y:"red"},{t:"'Precio a negociar' = no tiene presupuesto claro ni expectativas",y:"red"},{t:"'Los detalles después' = no sabe lo que quiere, va a improvisar",y:"red"},{t:"Sin verificación de pago visible",y:"red"},{t:"Sin historial de contratación = primer uso de la plataforma",y:"warn"}]},
+{t:"Trabajo recurrente con volumen",d:"Canal educativo / empresa con presencia online. Necesito alguien para entregas semanales consistentes. Herramientas específicas requeridas. $150/entrega. 5 freelancers contratados antes, $40K gastados. Pago verificado.",
+flags:[{t:"$40K gastados = presupuesto real, cliente serio",y:"green"},{t:"Presencia establecida = no es un amateur",y:"green"},{t:"Herramientas específicas = sabe lo que necesita",y:"green"},{t:"5 freelancers antes = ¿por qué tantos? Posible problema de retención",y:"warn"},{t:"Entregas semanales = volumen alto, verificar que tengas la capacidad antes de aceptar",y:"warn"}]}];
+
+// ═══ MESSAGE EVALUATOR (Spanish) ═══
+var MSGEV=[
+{t:"Responder a un cliente insatisfecho",ctx:"El cliente te dice: 'La calidad no es lo que esperaba. Hay varios errores que no deberían estar.'",
+rs:[{text:"Lamento que no cumpla tus expectativas. ¿Podrías señalarme los puntos específicos que te preocupan? Quiero entender exactamente qué necesitás y hacer las correcciones correspondientes. La precisión es mi prioridad.",label:"Profesional y resolutiva",sc:3,fb:"Excelente: no te ponés a la defensiva, pedís específicos, y ofrecés corregir. Mostrás ownership del problema."},
+{text:"Revisé todo y está correcto. Quizás no estés familiarizado con la terminología técnica.",label:"Defensiva",sc:1,fb:"Terrible: cuestionás la competencia del cliente. Aunque tengas razón técnicamente, esta respuesta destruye la relación."},
+{text:"Perdón, ya lo arreglo todo.",label:"Sumisa sin clarificar",sc:2,fb:"Aceptás culpa sin entender el problema. Podrías terminar rehaciendo trabajo que estaba bien."}]},
+{t:"Pedido urgente fuera de horario",ctx:"Son las 11pm de un viernes. El cliente manda: 'Necesito esto para mañana a las 8am. ¿Podés?'",
+rs:[{text:"Entiendo la urgencia. Para pedidos fuera de horario aplico un recargo del 30% por urgencia. Si te sirve, puedo priorizarlo esta noche y entregarlo antes de las 8am. ¿Avanzo?",label:"Profesional con recargo de urgencia",sc:3,fb:"Perfecto: respetás tu tiempo con un recargo justificado, mostrás disponibilidad, y dejás la decisión al cliente."},
+{text:"¡Sí claro, ya me pongo!",label:"Aceptar sin condiciones",sc:1,fb:"Te entrena a estar disponible 24/7 sin compensación. Establece un precedente peligroso para la relación."},
+{text:"No trabajo fines de semana. El lunes a primera hora lo tenés.",label:"Rechazo rígido sin alternativa",sc:2,fb:"Pone límites pero pierde la oportunidad. Ofrecer con recargo es mejor que rechazar directamente."}]},
+{t:"Primer mensaje después de aceptar un contrato",ctx:"Acabás de aceptar un contrato. Tenés que mandar tu primer mensaje al cliente.",
+rs:[{text:"¡Hola! Gracias por elegirme. Para asegurar el mejor resultado: (1) Confirmo el alcance: [descripción del proyecto, deadline]. (2) ¿Hay alguna guía de estilo o referencia que deba seguir? (3) ¿Quién es la audiencia objetivo? Mi proceso es: versión inicial → revisión propia → QA final. Te mando un avance parcial el [fecha] para feedback temprano. Estoy disponible por mensajes de la plataforma en horario [X].",label:"Kick-off completo y profesional",sc:3,fb:"Modelo perfecto: confirmás alcance, hacés preguntas inteligentes, describís tu proceso, ofrecés checkpoint temprano, y establecés canal y horarios."},
+{text:"¡Gracias! Arranco y te aviso cuando esté listo.",label:"Mínimo esfuerzo",sc:1,fb:"No confirmás nada, no establecés expectativas, no hacés preguntas. El cliente no sabe qué esperar de vos."},
+{text:"¡Gracias por la oportunidad! Estoy muy entusiasmado. Voy a revisar los archivos y empezar. Cualquier duda avisáme.",label:"Entusiasta pero vago",sc:2,fb:"Buena actitud pero falta estructura: no confirmás alcance, no proponés timeline, la pregunta es demasiado abierta."}]}];
+
+// ═══ RESOURCES (Spanish) ═══
+var RES=[{cat:"Plataformas",items:[{n:"Upwork",u:"https://www.upwork.com",d:"Plataforma principal recomendada"},{n:"LinkedIn",u:"https://www.linkedin.com",d:"Networking y marca personal"}]},{cat:"Productividad",items:[{n:"Toggl Track",u:"https://toggl.com/track",d:"Time tracking gratuito"},{n:"Notion",u:"https://www.notion.so",d:"Gestión de proyectos"},{n:"Trello",u:"https://trello.com",d:"Kanban board simple"}]},{cat:"Herramientas",items:[{n:"Subtitle Edit",u:"https://www.nikse.dk/subtitleedit",d:"Subtitulado profesional (gratis)"},{n:"CapCut",u:"https://www.capcut.com",d:"Edición de video gratuita"},{n:"Grammarly",u:"https://www.grammarly.com",d:"Revisión de inglés"},{n:"Canva",u:"https://www.canva.com",d:"Diseño rápido"}]},{cat:"Facturación",items:[{n:"Wave",u:"https://www.waveapps.com",d:"Facturación 100% gratis"},{n:"Loom",u:"https://www.loom.com",d:"Video propuestas"}]},{cat:"Contacto",items:[{n:"Web de Danilo",u:"https://danilohurwitz.github.io",d:"Portfolio y cotizador"},{n:"Email",u:"mailto:escueladanilohurwitz@gmail.com",d:"Soporte directo"}]}];
+
+// ═══ STATE ═══
+var S={view:'login',db:null,user:null,chapterId:null,chapterTab:'video',practiceTab:'proposals',practiceSub:null,toastMsg:null,toastType:'info',chatTyping:false};
+
+// ═══ UTILS ═══
+async function sha256(t){var d=new TextEncoder().encode(t);var b=await crypto.subtle.digest('SHA-256',d);return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,'0');}).join('');}
+function lsG(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
+function lsS(k,v){localStorage.setItem(k,JSON.stringify(v));}
+function lp(k){return lsG('m_'+k)||{};}
+function lpS(k,d){lsS('m_'+k,Object.assign({},lp(k),d));}
+function toast(m,t){S.toastMsg=m;S.toastType=t||'info';render();setTimeout(function(){S.toastMsg=null;render();},3500);}
+
+// ═══ DB & AUTH ═══
+async function loadDb(){var r=await fetch('./db.json?t='+Date.now());if(!r.ok)throw new Error('db.json no encontrado');S.db=await r.json();}
+async function login(e){e.preventDefault();var fd=new FormData(e.target);var email=fd.get('email').trim().toLowerCase();var pw=fd.get('password');try{await loadDb();var h=await sha256(pw);var u=S.db.users.find(function(x){return x.email===email&&x.passwordHash===h;});if(!u){toast('Email o contraseña incorrectos','error');return;}S.user=u;lsS('m_sess',{id:u.id});S.view='dashboard';render();}catch(err){toast('Error: '+err.message,'error');}}
+function logout(){localStorage.removeItem('m_sess');S.user=null;S.view='login';S.chapterId=null;render();}
+async function tryResume(){var s=lsG('m_sess');if(s){try{await loadDb();var u=S.db.users.find(function(x){return x.id===s.id;});if(u){S.user=u;S.view='dashboard';}}catch(e){}}render();}
+function isUnlocked(id){var i=CH.findIndex(function(c){return c.id===id;});if(i===0)return true;var p=S.db.progress[S.user.id];return p&&p[CH[i-1].id]&&p[CH[i-1].id].approved;}
+function chSt(id){var p=S.db.progress[S.user.id];if(p&&p[id]&&p[id].approved)return'approved';if(lp(id).submitted)return'submitted';return isUnlocked(id)?'available':'locked';}
+async function sendWH(chId,det){var url=S.db.meta.webhookUrl;if(!url)return;var ch=CH.find(function(c){return c.id===chId;});try{await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content:'\ud83d\udce9 **Entrega** \u2014 '+S.user.name+' ('+S.user.email+')',embeds:[{title:'Cap '+chId+': '+ch.t,description:det,color:3447003}]})});}catch(e){}}
+async function submitCh(chId){var l=lp(chId);var d='Entregable: '+CH.find(function(c){return c.id===chId;}).del+'\n';if(l.quizScore!=null)d+='Quiz: '+l.quizScore+'/'+(Q[chId]||[]).length+'\n';lpS(chId,{submitted:true});await sendWH(chId,d);toast('Entrega enviada. Tu mentor la revisará.','success');render();}
+
+// ═══ RENDER ═══
+function render(){
+  var h='';
+  if(S.toastMsg){var bg=S.toastType==='error'?'var(--red-bg)':S.toastType==='success'?'var(--green-bg)':'var(--accent-bg)';var cl=S.toastType==='error'?'var(--red-tx)':S.toastType==='success'?'var(--green-tx)':'#1e3a8a';h+='<div class="toast" style="background:'+bg+';color:'+cl+'">'+S.toastMsg+'</div>';}
+  if(S.view==='login')h+=rLogin();
+  else{h+=rNav();if(S.view==='dashboard')h+=rDash();if(S.view==='chapter')h+=rCh();if(S.view==='practice')h+=rPrac();if(S.view==='resources')h+=rRes();}
+  document.getElementById('app').innerHTML=h;
+  // Bind word count
+  var ta=document.getElementById('propText'),wc=document.getElementById('propWC');
+  if(ta&&wc){var u=function(){wc.textContent=ta.value.trim().split(/\s+/).filter(Boolean).length+' palabras';};ta.addEventListener('input',u);u();}
+  // Scroll chat to bottom
+  var ct=document.getElementById('chatThread');if(ct)ct.scrollTop=ct.scrollHeight;
+  // Focus chat input
+  var ci=document.getElementById('chatMsgInput');if(ci&&!S.chatTyping)ci.focus();
+}
+
+function rLogin(){return '<div style="min-height:100vh;display:flex"><div style="flex:1;background:var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:60px;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.025) 39px,rgba(255,255,255,.025) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.025) 39px,rgba(255,255,255,.025) 40px)"></div><div style="position:relative;z-index:2"><div style="display:flex;align-items:center;gap:10px;margin-bottom:40px"><div style="width:6px;height:6px;background:#4ade80;border-radius:50%"></div><span class="mono" style="font-size:.72rem;color:rgba(255,255,255,.4);letter-spacing:.12em;text-transform:uppercase">Plataforma activa</span></div><h1 style="font-size:clamp(2rem,5vw,3.2rem);font-weight:800;line-height:1.1;letter-spacing:-.03em;margin-bottom:20px">Mentor\u00eda<br>Freelance</h1><p style="font-size:1rem;color:rgba(255,255,255,.5);max-width:400px;line-height:1.7;font-weight:300">Sistema probado para conseguir tu primer contrato en USD. 14 cap\u00edtulos, ejercicios pr\u00e1cticos, simulaciones reales.</p><div style="display:flex;gap:40px;margin-top:56px;padding-top:32px;border-top:1px solid rgba(255,255,255,.07)"><div><span style="font-family:Syne,sans-serif;font-weight:800;font-size:1.6rem;display:block">14</span><span class="mono" style="font-size:.7rem;color:rgba(255,255,255,.3);text-transform:uppercase">Cap\u00edtulos</span></div><div><span style="font-family:Syne,sans-serif;font-weight:800;font-size:1.6rem;display:block">3</span><span class="mono" style="font-size:.7rem;color:rgba(255,255,255,.3);text-transform:uppercase">Fases</span></div><div><span style="font-family:Syne,sans-serif;font-weight:800;font-size:1.6rem;display:block">~3h</span><span class="mono" style="font-size:.7rem;color:rgba(255,255,255,.3);text-transform:uppercase">Contenido</span></div></div></div></div><div style="flex:1;display:flex;align-items:center;justify-content:center;padding:40px"><div class="fade" style="width:100%;max-width:380px"><h2 style="font-size:1.5rem;margin-bottom:6px">Iniciar sesi\u00f3n</h2><p style="color:var(--ink3);font-size:.9rem;margin-bottom:28px">Acced\u00e9 a tu cuenta para continuar</p><form onsubmit="login(event)"><label class="field"><span class="field-label">Email</span><input class="field-input" type="email" name="email" required placeholder="tu@email.com"></label><label class="field"><span class="field-label">Contrase\u00f1a</span><input class="field-input" type="password" name="password" required placeholder="\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"></label><button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:13px">Entrar</button></form></div></div></div>';}
+
+function rNav(){var p=S.view==='practice';return '<nav><div class="nav-in"><div class="nav-logo" onclick="S.view=\'dashboard\';S.chapterId=null;render()"><div class="nav-dot"></div>Mentor\u00eda Freelance</div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><button onclick="S.view=\'practice\';S.practiceTab=\'proposals\';S.practiceSub=null;render()" class="btn '+(p?'btn-accent':'btn-ghost')+' btn-sm">\ud83c\udfaf Pr\u00e1ctica</button><button onclick="S.view=\'resources\';render()" class="btn btn-ghost btn-sm">Recursos</button><div style="display:flex;align-items:center;gap:6px;padding:5px 12px;background:var(--paper2);border-radius:var(--r);font-size:.82rem"><span style="font-weight:500">'+S.user.name.split(' ')[0]+'</span></div><button onclick="logout()" class="btn btn-ghost btn-sm" style="color:var(--ink3)">Salir</button></div></div></nav>';}
+
+function rDash(){
+  var prog=S.db.progress[S.user.id]||{},done=CH.filter(function(c){return prog[c.id]&&prog[c.id].approved;}).length,pct=Math.round(done/CH.length*100);
+  var h='<div class="wrap" style="padding-top:36px;padding-bottom:80px"><div class="fade"><span class="mono" style="font-size:.7rem;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase">Dashboard</span><h1 style="font-size:clamp(1.5rem,3vw,2rem);margin-top:6px;margin-bottom:14px">Hola, '+S.user.name.split(' ')[0]+'</h1><div style="display:flex;align-items:center;gap:14px;margin-bottom:6px"><div style="flex:1;height:5px;background:var(--paper3);border-radius:3px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:'+(pct===100?'var(--green)':'var(--accent)')+';border-radius:3px"></div></div><span class="mono" style="font-size:.75rem;color:var(--ink3)">'+pct+'%</span></div><p style="font-size:.82rem;color:var(--ink3);margin-bottom:32px">'+done+' de '+CH.length+' cap\u00edtulos aprobados</p></div>';
+  h+='<div class="fade" style="background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:24px 28px;margin-bottom:40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px"><div><h3 style="font-size:1.05rem;color:#fff;margin-bottom:4px">\ud83c\udfaf Zona de Pr\u00e1ctica</h3><p style="font-size:.85rem;color:rgba(255,255,255,.55)">Simulador de propuestas, chat con clientes, an\u00e1lisis de job posts y m\u00e1s.</p></div><button onclick="S.view=\'practice\';S.practiceTab=\'proposals\';S.practiceSub=null;render()" class="btn" style="background:#fff;color:var(--ink)">Ir a pr\u00e1ctica \u2192</button></div>';
+  PH.forEach(function(ph,pi){var chs=CH.filter(function(c){return c.p===ph.id;});
+    h+='<div class="fade" style="margin-bottom:40px;animation-delay:'+pi*.08+'s"><div style="display:flex;align-items:center;gap:10px;margin-bottom:16px"><span class="mono" style="font-size:.68rem;color:#fff;background:var(--ink);padding:3px 10px;border-radius:4px">FASE '+ph.id+'</span><div><h3 style="font-size:1.05rem">'+ph.n+'</h3><p style="font-size:.8rem;color:var(--ink3)">'+ph.d+'</p></div></div><div class="card">';
+    chs.forEach(function(ch){var st=chSt(ch.id),lk=st==='locked';var ic=st==='approved'?'\u2713':st==='submitted'?'\u23f3':lk?'\ud83d\udd12':'\u25b6';var iBg=st==='approved'?'var(--green-bg)':st==='submitted'?'var(--warn-bg)':lk?'var(--paper2)':'var(--accent-bg)';var iCl=st==='approved'?'var(--green-tx)':st==='submitted'?'var(--warn-tx)':lk?'var(--ink3)':'var(--accent)';var lb=st==='approved'?'Aprobado':st==='submitted'?'Enviado':lk?'Bloqueado':'Disponible';var bc=st==='approved'?'badge-green':st==='submitted'?'badge-warn':lk?'badge-grey':'badge-blue';
+      h+='<div class="ch-row'+(lk?' locked':'')+'" onclick="'+(lk?'return':'S.chapterId=\''+ch.id+'\';S.chapterTab=\'video\';S.view=\'chapter\';render()')+'"><div class="ch-icon" style="background:'+iBg+';color:'+iCl+'">'+ic+'</div><div><span class="mono" style="font-size:.65rem;color:var(--ink3)">'+ch.id+'</span><div style="font-family:Syne,sans-serif;font-weight:600;font-size:.9rem;margin-top:1px">'+ch.t+'</div><div style="font-size:.78rem;color:var(--ink3);margin-top:2px">'+ch.d+'</div></div><span style="display:flex;align-items:center;gap:4px;font-size:.75rem;color:var(--ink3)">\u23f1 '+ch.dur+'</span><span class="badge '+bc+'">'+lb+'</span></div>';});
+    h+='</div></div>';});
+  return h+'</div>';}
+
+function rCh(){var ch=CH.find(function(c){return c.id===S.chapterId;});if(!ch)return'';var st=chSt(ch.id);if(st==='locked'){S.view='dashboard';render();return'';}var hasQ=!!Q[ch.id];var tabs=[{id:'video',l:'Video + Contenido'}];if(hasQ)tabs.push({id:'quiz',l:'Quiz ('+Q[ch.id].length+')'});
+  var h='<div class="wrap-sm" style="padding-top:28px;padding-bottom:80px"><button onclick="S.view=\'dashboard\';S.chapterId=null;render()" class="fade" style="display:flex;align-items:center;gap:5px;color:var(--ink3);font-size:.85rem;margin-bottom:20px;padding:0;background:none;border:none">\u2190 Volver</button><div class="fade" style="margin-bottom:24px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="mono" style="font-size:.7rem;color:#fff;background:var(--ink);padding:3px 10px;border-radius:4px">'+ch.id+'</span><span class="mono" style="font-size:.72rem;color:var(--ink3)">\u23f1 '+ch.dur+'</span></div><h1 style="font-size:clamp(1.3rem,3vw,1.8rem)">'+ch.t+'</h1><p style="color:var(--ink2);font-size:.92rem;margin-top:6px">'+ch.d+'</p></div><div class="tabs">'+tabs.map(function(t){return'<button class="tab'+(S.chapterTab===t.id?' active':'')+'" onclick="S.chapterTab=\''+t.id+'\';render()">'+t.l+'</button>';}).join('')+'</div><div class="fade">';
+  if(S.chapterTab==='video'){
+    h+='<div style="background:var(--ink);border-radius:var(--r-lg);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;margin-bottom:24px;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,.02) 39px,rgba(255,255,255,.02) 40px)"></div><div style="position:relative;z-index:2;text-align:center"><div style="width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;border:2px solid rgba(255,255,255,.2);font-size:1.2rem">\u25b6</div><p class="mono" style="font-size:.8rem;color:rgba(255,255,255,.4)">'+ch.id+' \u2014 '+ch.t+'</p></div></div>';
+    h+='<div class="callout callout-green"><span class="mono" style="font-size:.68rem;text-transform:uppercase;font-weight:500">Entregable</span><p style="font-weight:500;margin-top:4px">'+ch.del+'</p></div>';
+    if(st==='approved')h+='<div class="callout callout-green">\u2705 <strong>Aprobado.</strong> Pod\u00e9s avanzar al siguiente.</div>';
+    else if(st==='submitted')h+='<div class="callout callout-warn">\u23f3 <strong>Entrega enviada</strong> \u2014 tu mentor la revisar\u00e1.</div>';
+    else h+='<div style="display:flex;align-items:center;justify-content:space-between;padding:18px;background:#fff;border-radius:var(--r);border:1px solid var(--line);margin-top:16px"><div><span class="mono" style="font-size:.68rem;color:var(--ink3);text-transform:uppercase">Estado</span><p style="font-size:.88rem;font-weight:500;margin-top:3px">\ud83d\udcd6 En progreso</p></div><button onclick="submitCh(\''+ch.id+'\')" class="btn btn-primary">Enviar entrega</button></div>';}
+  if(S.chapterTab==='quiz')h+=rQuiz(ch);
+  return h+'</div></div>';}
+
+function rQuiz(ch){var quiz=Q[ch.id]||[],l=lp(ch.id),done=l.quizAnswers&&Object.keys(l.quizAnswers).length===quiz.length&&l.quizScore!=null,ans=l.quizAnswers||{};
+  var h='<h3 style="font-size:1.1rem;margin-bottom:16px">Quiz \u2014 Cap\u00edtulo '+ch.id+' ('+quiz.length+' preguntas)</h3>';
+  quiz.forEach(function(q,qi){h+='<div class="fade" style="background:#fff;border-radius:var(--r);padding:18px;margin-bottom:10px;border:1px solid var(--line);animation-delay:'+qi*.04+'s"><p style="font-weight:500;margin-bottom:10px">'+(qi+1)+'. '+q.q+'</p>';
+    q.o.forEach(function(opt,oi){var sel=ans[qi]===oi,cls='quiz-opt';if(done&&oi===q.c)cls+=' correct';else if(done&&sel&&oi!==q.c)cls+=' wrong';else if(!done&&sel)cls+=' selected';var ds=done&&oi===q.c?'background:var(--green);border-color:var(--green);color:#fff':done&&sel&&oi!==q.c?'background:#ef4444;border-color:#ef4444;color:#fff':!done&&sel?'background:var(--accent);border-color:var(--accent);color:#fff':'';var dt=done&&oi===q.c?'\u2713':done&&sel&&oi!==q.c?'\u2717':!done&&sel?'\u2713':'';
+      h+='<button class="'+cls+'" '+(done?'disabled':'')+' onclick="qAns('+qi+','+oi+')"><span class="quiz-dot" style="'+ds+'">'+dt+'</span>'+opt+'</button>';});h+='</div>';});
+  if(!done){var ok=Object.keys(ans).length===quiz.length;h+='<button onclick="qSub(\''+ch.id+'\')" class="btn btn-primary" style="margin-top:8px;'+(ok?'':'opacity:.4;pointer-events:none')+'">Enviar respuestas</button>';}
+  else{var sc=l.quizScore,pf=sc===quiz.length;h+='<div class="callout '+(pf?'callout-green':'callout-warn')+'" style="margin-top:8px"><strong>'+sc+'/'+quiz.length+(pf?' \u2014 \u00a1Perfecto!':'')+'</strong><br><span style="font-size:.84rem">'+(pf?'Dominio total.':'Revis\u00e1 las incorrectas.')+'</span></div>';}
+  return h;}
+
+// ═══ PRACTICE SECTION ═══
+function rPrac(){var tabs=[{id:'proposals',l:'\u270d\ufe0f Propuestas'},{id:'chat',l:'\ud83d\udcac Chat con clientes'},{id:'jobs',l:'\ud83d\udd0d Job posts'},{id:'msgs',l:'\ud83d\udce9 Mensajes'}];
+  return '<div class="wrap-sm" style="padding-top:28px;padding-bottom:80px"><button onclick="S.view=\'dashboard\';render()" class="fade" style="display:flex;align-items:center;gap:5px;color:var(--ink3);font-size:.85rem;margin-bottom:20px;padding:0;background:none;border:none">\u2190 Dashboard</button><div class="fade" style="margin-bottom:28px"><span class="mono" style="font-size:.7rem;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase">Zona de pr\u00e1ctica</span><h1 style="font-size:clamp(1.4rem,3vw,1.8rem);margin-top:6px">Practic\u00e1 sin riesgo</h1><p style="color:var(--ink2);font-size:.92rem;margin-top:6px">Simulaciones con feedback autom\u00e1tico. Equivocate ac\u00e1, no con clientes reales.</p></div><div class="tabs">'+tabs.map(function(t){return'<button class="tab'+(S.practiceTab===t.id?' active':'')+'" onclick="S.practiceTab=\''+t.id+'\';S.practiceSub=null;render()">'+t.l+'</button>';}).join('')+'</div><div class="fade">'+(S.practiceTab==='proposals'?rPropList():S.practiceTab==='chat'?rChatList():S.practiceTab==='jobs'?rJobAn():rMsgEv())+'</div></div>';}
+
+// ── Proposals ──
+function rPropList(){if(S.practiceSub!=null)return rPropSim(PROP[S.practiceSub]);var h='<h3 style="margin-bottom:6px">Simulador de Propuestas</h3><p style="color:var(--ink3);font-size:.88rem;margin-bottom:20px">Eleg\u00ed un escenario, escrib\u00ed tu propuesta, y el sistema analiza keywords, frases d\u00e9biles y estructura.</p>';PROP.forEach(function(sc,i){h+='<div class="prac-card" onclick="S.practiceSub='+i+';render()"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h4 style="font-size:.95rem">'+sc.t+'</h4><span class="badge badge-blue">'+sc.job.pr+'</span></div><p style="font-size:.84rem;color:var(--ink3)">'+sc.job.d.slice(0,120)+'...</p></div>';});return h;}
+function rPropSim(sc){var saved=lp('prop_'+sc.id);return '<button onclick="S.practiceSub=null;render()" style="display:flex;align-items:center;gap:5px;color:var(--ink3);font-size:.84rem;margin-bottom:16px;padding:0;background:none;border:none">\u2190 Volver</button><div style="background:#fff;border-radius:var(--r);padding:18px;margin-bottom:16px;border:1px solid var(--line)"><span class="mono" style="font-size:.68rem;color:var(--ink3);text-transform:uppercase">Publicaci\u00f3n de trabajo</span><h4 style="margin-top:6px;margin-bottom:6px">'+sc.job.t+'</h4><p style="font-size:.88rem;color:var(--ink2);line-height:1.65;margin-bottom:10px">'+sc.job.d+'</p><div class="mono" style="font-size:.75rem;color:var(--ink3);display:flex;gap:14px;flex-wrap:wrap"><span>'+sc.job.cl+'</span><span>'+sc.job.pr+'</span><span>'+sc.job.post+'</span></div></div><div class="callout callout-info"><span class="mono" style="font-size:.68rem;text-transform:uppercase;font-weight:500">Tips</span><div style="margin-top:6px">'+sc.tips.map(function(t){return'<p style="font-size:.84rem;margin-bottom:3px">\u2192 '+t+'</p>';}).join('')+'</div></div><textarea class="field-input" id="propText" placeholder="Escrib\u00ed tu propuesta...">'+(saved.text||'')+'</textarea><div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px"><span class="mono" style="font-size:.75rem;color:var(--ink3)" id="propWC">0 palabras</span><button onclick="analyzeProp(\''+sc.id+'\')" class="btn btn-primary">Analizar propuesta</button></div><div id="propResult"></div>';}
+
+// ── Chat Multi-Turn ──
+function rChatList(){if(S.practiceSub!=null)return rChatSim(CHATS[S.practiceSub]);var h='<h3 style="margin-bottom:6px">Chat con Clientes</h3><p style="color:var(--ink3);font-size:.88rem;margin-bottom:20px">Conversaciones reales de varios turnos. Escrib\u00eds, el cliente responde seg\u00fan lo que dijiste, y al final recib\u00eds un an\u00e1lisis completo.</p>';
+  CHATS.forEach(function(sc,i){var lv=sc.lvl==='Principiante'?'badge-green':sc.lvl==='Intermedio'?'badge-blue':sc.lvl==='Avanzado'?'badge-warn':'badge-red';var cv=lp('cv_'+sc.id);var done=cv.done;
+    h+='<div class="prac-card" onclick="S.practiceSub='+i+';render()"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h4 style="font-size:.95rem">'+sc.t+'</h4><div style="display:flex;gap:6px"><span class="badge '+lv+'">'+sc.lvl+'</span>'+(done?'<span class="badge badge-green">\u2713 Completado</span>':'')+'</div></div><p style="font-size:.84rem;color:var(--ink3)">'+sc.ctx.slice(0,100)+'...</p></div>';});return h;}
+
+function rChatSim(sc){
+  var cv=lp('cv_'+sc.id);
+  if(!cv.msgs)cv={msgs:[],stage:0,scores:[],done:false};
+  var stg=sc.stages[cv.stage]||sc.stages[sc.stages.length-1];
+
+  // Build initial client message if first stage and no msgs yet
+  if(cv.msgs.length===0&&stg.clientMsg){cv.msgs=[{from:'client',text:stg.clientMsg}];lpS('cv_'+sc.id,cv);}
+
+  var h='<button onclick="S.practiceSub=null;render()" style="display:flex;align-items:center;gap:5px;color:var(--ink3);font-size:.84rem;margin-bottom:16px;padding:0;background:none;border:none">\u2190 Volver</button>';
+  h+='<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><h3 style="font-size:1.1rem">'+sc.t+'</h3><span class="badge badge-blue">'+sc.lvl+'</span></div>';
+  h+='<p style="font-size:.85rem;color:var(--ink3);margin-bottom:16px">'+sc.ctx+'</p>';
+
+  // Chat thread
+  h+='<div style="background:#fff;border:1px solid var(--line);border-radius:'+(cv.done?'var(--r-lg)':'var(--r-lg) var(--r-lg) 0 0')+';max-height:450px;overflow-y:auto;padding:18px" id="chatThread">';
+  cv.msgs.forEach(function(m){
+    var isC=m.from==='client';
+    h+='<div style="display:flex;gap:10px;margin-bottom:14px;flex-direction:'+(isC?'row':'row-reverse')+'"><div class="chat-av" style="background:'+(isC?'var(--accent-bg)':'var(--green-bg)')+';color:'+(isC?'var(--accent)':'var(--green-tx)')+'">'+(isC?sc.cl[0]:'T')+'</div><div style="max-width:75%;padding:10px 14px;border-radius:12px;font-size:.88rem;line-height:1.6;background:'+(isC?'var(--paper2)':'var(--accent-bg)')+';color:var(--ink2)"><span class="mono" style="font-size:.68rem;color:var(--ink3);display:block;margin-bottom:2px">'+(isC?sc.cl:'Vos')+'</span>'+m.text+'</div></div>';
+  });
+  // Typing indicator
+  if(S.chatTyping){h+='<div style="display:flex;gap:10px;margin-bottom:14px"><div class="chat-av" style="background:var(--accent-bg);color:var(--accent)">'+sc.cl[0]+'</div><div style="padding:10px 14px;border-radius:12px;background:var(--paper2)"><span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></div></div>';}
+  h+='</div>';
+
+  // Input bar or analysis
+  if(!cv.done&&!S.chatTyping){
+    h+='<div class="chat-input-bar"><input type="text" id="chatMsgInput" placeholder="Escrib\u00ed tu mensaje..." onkeydown="if(event.key===\'Enter\')sendChatMsg(\''+sc.id+'\')"><button onclick="sendChatMsg(\''+sc.id+'\')">Enviar</button></div>';
+    h+='<p class="mono" style="font-size:.72rem;color:var(--ink3);margin-top:8px;text-align:center">Turno '+(cv.stage+1)+' de '+sc.stages.length+'</p>';
+  } else if(cv.done){
+    // Full analysis
+    h+=renderChatAnalysis(sc,cv);
+  }
+  // Reset button
+  if(cv.done||cv.msgs.length>1){h+='<button onclick="lpS(\'cv_'+sc.id+'\',{msgs:[],stage:0,scores:[],done:false});render()" class="btn btn-ghost btn-sm" style="margin-top:12px">\u21bb Reiniciar conversaci\u00f3n</button>';}
+  return h;
+}
+
+function renderChatAnalysis(sc,cv){
+  var totalPossible=0,totalScore=0;
+  sc.stages.forEach(function(stg,i){totalPossible+=stg.must.length+stg.should.length;});
+  cv.scores.forEach(function(s){totalScore+=s.hits+s.bonuses;});
+  var pct=Math.round((totalScore/Math.max(1,totalPossible))*100);
+  var grade=pct>=80?'Excelente':pct>=60?'Bueno':pct>=40?'Aceptable':'Necesita trabajo';
+  var gradeBg=pct>=80?'var(--green-bg)':pct>=60?'var(--accent-bg)':pct>=40?'var(--warn-bg)':'var(--red-bg)';
+  var gradeTx=pct>=80?'var(--green-tx)':pct>=60?'var(--accent)':pct>=40?'var(--warn-tx)':'var(--red-tx)';
+
+  var h='<div class="fade" style="background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);padding:24px;margin-top:20px">';
+  h+='<div style="display:flex;align-items:center;gap:14px;margin-bottom:20px"><div style="width:56px;height:56px;border-radius:50%;background:'+gradeBg+';display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-weight:800;font-size:1.3rem;color:'+gradeTx+'">'+pct+'%</div><div><h3 style="font-size:1.15rem">An\u00e1lisis de la conversaci\u00f3n</h3><p style="font-size:.88rem;color:var(--ink3)">Calificaci\u00f3n: <strong>'+grade+'</strong></p></div></div>';
+
+  cv.scores.forEach(function(s,i){
+    h+='<div style="padding:14px 0;border-top:1px solid var(--line)"><p style="font-weight:600;font-size:.88rem;margin-bottom:8px">Turno '+(i+1)+'</p>';
+    if(s.hitList.length)s.hitList.forEach(function(k){h+='<div class="fb-row"><div class="fb-icon" style="background:var(--green-bg);color:var(--green-tx)">\u2713</div><span><strong>Acierto:</strong> mencionaste "'+k+'"</span></div>';});
+    if(s.missList.length)s.missList.forEach(function(k){h+='<div class="fb-row"><div class="fb-icon" style="background:var(--red-bg);color:var(--red-tx)">\u2717</div><span><strong>Falt\u00f3:</strong> no mencionaste "'+k+'"</span></div>';});
+    if(s.bonusList.length)s.bonusList.forEach(function(k){h+='<div class="fb-row"><div class="fb-icon" style="background:var(--accent-bg);color:var(--accent)">+</div><span><strong>Bonus:</strong> incluiste "'+k+'"</span></div>';});
+    if(s.errorList.length)s.errorList.forEach(function(k){h+='<div class="fb-row"><div class="fb-icon" style="background:var(--warn-bg);color:var(--warn-tx)">\u26a0</div><span><strong>Error:</strong> usaste "'+k+'" \u2014 debilita tu posici\u00f3n</span></div>';});
+    h+='</div>';
+  });
+  h+='</div>';
+  return h;
+}
+
+// ── Job Analysis ──
+function rJobAn(){var h='<h3 style="margin-bottom:6px">Analizador de Job Postings</h3><p style="color:var(--ink3);font-size:.88rem;margin-bottom:20px">Identific\u00e1 green flags y red flags en publicaciones reales.</p>';
+  JOBAN.forEach(function(jp,i){var saved=lp('ja_'+i),rev=saved.revealed;
+    h+='<div class="fade" style="background:#fff;border-radius:var(--r);padding:20px;margin-bottom:14px;border:1px solid var(--line)"><h4 style="font-size:.95rem;margin-bottom:8px">'+jp.t+'</h4><p style="font-size:.86rem;color:var(--ink2);line-height:1.6;margin-bottom:14px">'+jp.d+'</p>';
+    if(!rev)h+='<button onclick="lpS(\'ja_'+i+'\',{revealed:true});render()" class="btn btn-primary btn-sm">Revelar an\u00e1lisis</button>';
+    else{h+='<div style="border-top:1px solid var(--line);padding-top:12px">';jp.flags.forEach(function(f){var c=f.y==='green'?'var(--green-tx)':f.y==='red'?'var(--red-tx)':'var(--warn-tx)';var bg=f.y==='green'?'var(--green-bg)':f.y==='red'?'var(--red-bg)':'var(--warn-bg)';var ic=f.y==='green'?'\u2705':f.y==='red'?'\ud83d\udea9':'\u26a0\ufe0f';h+='<div class="fb-row"><div class="fb-icon" style="background:'+bg+';color:'+c+';font-size:.65rem">'+ic+'</div><span>'+f.t+'</span></div>';});h+='</div>';}
+    h+='</div>';});return h;}
+
+// ── Message Evaluator ──
+function rMsgEv(){var h='<h3 style="margin-bottom:6px">Evaluador de Mensajes</h3><p style="color:var(--ink3);font-size:.88rem;margin-bottom:20px">Ante cada situaci\u00f3n, eleg\u00ed la mejor respuesta. Feedback detallado.</p>';
+  MSGEV.forEach(function(sc,si){var saved=lp('msg_'+si),rev=saved.selected!=null;
+    h+='<div class="fade" style="background:#fff;border-radius:var(--r-lg);padding:20px;margin-bottom:16px;border:1px solid var(--line)"><h4 style="font-size:.95rem;margin-bottom:6px">'+sc.t+'</h4><p style="font-size:.85rem;color:var(--ink3);margin-bottom:14px;padding:10px;background:var(--paper2);border-radius:var(--r);font-style:italic">'+sc.ctx+'</p>';
+    sc.rs.forEach(function(r,ri){var isSel=saved.selected===ri,stars=r.sc;var bg='#fff',border='1px solid var(--line)';if(rev&&isSel){border='2px solid '+(stars>=3?'var(--green)':stars>=2?'var(--warn)':'var(--red-tx)');bg=stars>=3?'var(--green-bg)':stars>=2?'var(--warn-bg)':'var(--red-bg)';}
+      h+='<button style="text-align:left;padding:14px;border-radius:var(--r);background:'+bg+';border:'+border+';margin-bottom:6px;width:100%;cursor:'+(rev?'default':'pointer')+'" '+(rev?'disabled':'')+' onclick="lpS(\'msg_'+si+'\',{selected:'+ri+'});render()"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-family:Syne,sans-serif;font-weight:600;font-size:.86rem">'+r.label+'</span>'+(rev?'<span class="mono" style="font-size:.72rem">'+ '\u2605'.repeat(stars)+'\u2606'.repeat(3-stars)+'</span>':'')+'</div><p style="font-size:.84rem;color:var(--ink2);line-height:1.55">'+r.text+'</p>'+(rev&&isSel?'<div style="margin-top:10px;padding:10px;background:rgba(0,0,0,.03);border-radius:var(--r);font-size:.82rem;color:var(--ink2);font-style:italic">\ud83d\udca1 '+r.fb+'</div>':'')+'</button>';});
+    h+='</div>';});return h;}
+
+// ── Resources ──
+function rRes(){var h='<div class="wrap-sm" style="padding-top:36px;padding-bottom:80px"><button onclick="S.view=\'dashboard\';render()" class="fade" style="display:flex;align-items:center;gap:5px;color:var(--ink3);font-size:.85rem;margin-bottom:20px;padding:0;background:none;border:none">\u2190 Volver</button><div class="fade" style="margin-bottom:32px"><span class="mono" style="font-size:.7rem;color:var(--ink3);letter-spacing:.12em;text-transform:uppercase">Biblioteca</span><h1 style="font-size:1.6rem;margin-top:6px">Recursos y herramientas</h1></div>';
+  RES.forEach(function(cat,ci){h+='<div class="fade" style="margin-bottom:28px"><h3 style="font-size:1rem;margin-bottom:10px;display:flex;align-items:center;gap:8px"><span style="width:4px;height:14px;background:var(--accent);border-radius:2px"></span>'+cat.cat+'</h3>';
+    cat.items.forEach(function(item){h+='<a href="'+item.u+'" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:#fff;border-radius:var(--r);border:1px solid var(--line);margin-bottom:4px;color:inherit"><div><p style="font-weight:500;font-size:.88rem">'+item.n+'</p><p style="font-size:.78rem;color:var(--ink3);margin-top:1px">'+item.d+'</p></div><span style="color:var(--ink3)">\u2197</span></a>';});
+    h+='</div>';});return h+'</div>';}
+
+// ═══ HANDLERS ═══
+window.qAns=function(qi,oi){var l=lp(S.chapterId);var a=l.quizAnswers||{};a[qi]=oi;lpS(S.chapterId,{quizAnswers:a});render();};
+window.qSub=function(chId){var quiz=Q[chId]||[],l=lp(chId),a=l.quizAnswers||{},s=0;quiz.forEach(function(q,i){if(a[i]===q.c)s++;});lpS(chId,{quizScore:s});render();};
+
+window.analyzeProp=function(scId){
+  var ta=document.getElementById('propText');if(!ta||ta.value.length<50){toast('M\u00ednimo 50 caracteres','error');return;}
+  var sc=PROP.find(function(s){return s.id===scId;});var text=ta.value,lower=text.toLowerCase();
+  lpS('prop_'+scId,{text:text});
+  var fk=sc.kw.filter(function(k){return lower.indexOf(k)>-1;}),fb=sc.bad.filter(function(p){return lower.indexOf(p)>-1;});
+  var wc=text.trim().split(/\s+/).filter(Boolean).length;
+  var score=Math.min(10,Math.round((fk.length/sc.kw.length)*5+Math.max(0,3-fb.length)+(wc>=80&&wc<=300?2:wc>=50?1:0)));
+  var sBg=score>=8?'var(--green-bg)':score>=5?'var(--warn-bg)':'var(--red-bg)',sTx=score>=8?'var(--green-tx)':score>=5?'var(--warn-tx)':'var(--red-tx)';
+  document.getElementById('propResult').innerHTML='<div class="fade" style="margin-top:20px;background:#fff;border-radius:var(--r);padding:20px;border:1px solid var(--line)"><div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><div style="width:44px;height:44px;border-radius:50%;background:'+sBg+';display:flex;align-items:center;justify-content:center;font-family:Syne,sans-serif;font-weight:800;font-size:1.1rem;color:'+sTx+'">'+score+'</div><div><p style="font-family:Syne,sans-serif;font-weight:700">'+score+'/10</p><p style="font-size:.82rem;color:var(--ink3)">'+(score>=8?'Propuesta fuerte':score>=5?'Aceptable':'Necesita trabajo')+'</p></div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div><span class="mono" style="font-size:.68rem;color:var(--green-tx)">Keywords ('+fk.length+'/'+sc.kw.length+')</span><div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:3px">'+sc.kw.map(function(k){return'<span class="kw-tag '+(fk.indexOf(k)>-1?'kw-hit':'kw-miss')+'">'+k+'</span>';}).join('')+'</div></div><div><span class="mono" style="font-size:.68rem;color:'+(fb.length?'var(--red-tx)':'var(--green-tx)')+'">Frases d\u00e9biles ('+fb.length+')</span><div style="margin-top:6px">'+(fb.length===0?'<p style="font-size:.82rem;color:var(--green-tx)">\u2713 Ninguna</p>':fb.map(function(p){return'<span class="kw-tag kw-bad">\u26a0 "'+p+'"</span>';}).join(''))+'</div></div></div></div>';};
+
+// ═══ MULTI-TURN CHAT ENGINE ═══
+window.sendChatMsg=function(scId){
+  var input=document.getElementById('chatMsgInput');if(!input||!input.value.trim())return;
+  var sc=CHATS.find(function(s){return s.id===scId;});
+  var cv=lp('cv_'+scId);if(!cv.msgs)cv={msgs:[],stage:0,scores:[],done:false};
+  var stg=sc.stages[cv.stage];
+  var text=input.value.trim();var lower=text.toLowerCase();
+
+  // Add user message
+  cv.msgs.push({from:'user',text:text});
+
+  // Score this turn
+  var hits=stg.must.filter(function(k){return lower.indexOf(k)>-1;});
+  var misses=stg.must.filter(function(k){return lower.indexOf(k)===-1;});
+  var bonuses=stg.should.filter(function(k){return lower.indexOf(k)>-1;});
+  var errors=stg.avoid.filter(function(k){return lower.indexOf(k)>-1;});
+  var turnScore=hits.length-errors.length*2;
+  cv.scores.push({hits:hits.length,misses:misses.length,bonuses:bonuses.length,errors:errors.length,hitList:hits,missList:misses,bonusList:bonuses,errorList:errors});
+
+  // Pick client response
+  var quality=turnScore>=Math.ceil(stg.must.length*0.6)?'good':turnScore>=1?'neutral':'bad';
+  var nextStage=cv.stage+1;
+  var isLast=nextStage>=sc.stages.length;
+
+  lpS('cv_'+scId,cv);
+  S.chatTyping=true;
+  render();
+
+  // Simulate typing delay
+  setTimeout(function(){
+    S.chatTyping=false;
+    cv=lp('cv_'+scId);
+    // Add client response
+    var reply=stg[quality]||stg.neutral;
+    cv.msgs.push({from:'client',text:reply});
+    cv.stage=nextStage;
+    if(isLast)cv.done=true;
+    lpS('cv_'+scId,cv);
+    render();
+  },1200+Math.random()*800);
+};
+
+window.S=S;window.submitCh=submitCh;window.login=login;window.logout=logout;window.lpS=lpS;window.lp=lp;
+tryResume();
+</script></body></html>
