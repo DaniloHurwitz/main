@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Química Orgánica</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f0e17;
+    --surface: #1a1828;
+    --surface2: #231f35;
+    --accent: #e8a838;
+    --accent2: #c96e6e;
+    --green: #6ecb8a;
+    --red: #e06c6c;
+    --text: #ede9f6;
+    --muted: #8b87a8;
+    --border: rgba(255,255,255,0.07);
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── BG decoration ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(232,168,56,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -200px; left: -200px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(110,203,138,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ── SCREENS ── */
+  .screen { display: none; animation: fadeIn 0.4s ease; }
+  .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem 1.5rem; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── HOME ── */
+  #home { gap: 2.5rem; }
+
+  .home-badge {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(232,168,56,0.1);
+    border: 1px solid rgba(232,168,56,0.25);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+  }
+
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    line-height: 1.1;
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+
+  .subtitle {
+    color: var(--muted);
+    text-align: center;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 480px;
+  }
+
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 680px;
+  }
+
+  .topic-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.1rem 1.3rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .topic-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .topic-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .topic-card:hover::before { opacity: 1; }
+
+  .topic-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+  .topic-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+  .topic-count { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+  .topic-done {
+    position: absolute;
+    top: 0.6rem; right: 0.7rem;
+    font-size: 0.68rem;
+    background: rgba(110,203,138,0.15);
+    color: var(--green);
+    border: 1px solid rgba(110,203,138,0.3);
+    padding: 0.15rem 0.5rem;
+    border-radius: 100px;
+  }
+
+  /* ── QUIZ SCREEN ── */
+  #quiz {
+    justify-content: flex-start;
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    gap: 0;
+  }
+
+  .quiz-header {
+    width: 100%; max-width: 680px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .back-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .back-btn:hover { color: var(--text); border-color: var(--accent); }
+
+  .quiz-meta { flex: 1; }
+  .quiz-topic-name { font-size: 0.8rem; font-weight: 600; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+  .quiz-progress-text { font-size: 0.78rem; color: var(--muted); margin-top: 0.1rem; }
+
+  .progress-bar {
+    width: 100%; max-width: 680px;
+    height: 4px;
+    background: var(--surface2);
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #f0c060);
+    border-radius: 100px;
+    transition: width 0.4s ease;
+  }
+
+  .question-card {
+    width: 100%; max-width: 680px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .q-number { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.75rem; }
+
+  .q-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+  }
+
+  .options { display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .opt {
+    background: var(--surface2);
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    cursor: pointer;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    text-align: left;
+    color: var(--text);
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  .opt:hover:not([disabled]) { border-color: var(--accent); background: rgba(232,168,56,0.07); }
+  .opt.correct { border-color: var(--green); background: rgba(110,203,138,0.1); color: var(--green); }
+  .opt.wrong   { border-color: var(--red);   background: rgba(224,108,108,0.1); color: var(--red); }
+  .opt.reveal  { border-color: var(--green); background: rgba(110,203,138,0.07); color: var(--green); opacity: 0.7; }
+  .opt[disabled] { cursor: default; }
+
+  .explanation {
+    width: 100%; max-width: 680px;
+    background: var(--surface2);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 1.25rem;
+    animation: fadeIn 0.3s ease;
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--text); }
+
+  .encouragement {
+    width: 100%; max-width: 680px;
+    text-align: center;
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--accent);
+    padding: 0.5rem 0;
+    min-height: 1.8rem;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .next-btn {
+    background: var(--accent);
+    color: #1a1000;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    padding: 0.85rem 2.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: none;
+    margin-top: 0.5rem;
+    align-self: flex-end;
+    width: 100%;
+    max-width: 680px;
+  }
+  .next-btn:hover { background: #f0c060; transform: translateY(-1px); }
+  .next-btn.show { display: block; }
+
+  /* ── RESULT SCREEN ── */
+  #result { gap: 1.8rem; text-align: center; }
+
+  .result-circle {
+    width: 140px; height: 140px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.8rem;
+    position: relative;
+  }
+  .result-circle svg {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+  }
+  .result-circle .score-text { position: relative; z-index: 1; }
+  .result-circle .score-label { font-size: 0.75rem; font-family: 'DM Sans', sans-serif; color: var(--muted); position: relative; z-index: 1; margin-top: -4px; }
+
+  .result-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  .result-title em { font-style: italic; color: var(--accent); }
+
+  .result-msg {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 420px;
+  }
+
+  .parcial-note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 420px;
+  }
+  .parcial-note strong { color: var(--text); }
+
+  .result-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #1a1000;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.88rem;
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #f0c060; transform: translateY(-1px); }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.8rem 1.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
+
+  .stars { font-size: 1.6rem; letter-spacing: 0.2rem; }
+</style>
+</head>
+<body>
+
+<!-- HOME -->
+<div id="home" class="screen active">
+  <div class="home-badge">Parcial · Química Orgánica</div>
+  <h1>Practicá.<br><em>Promocioná.</em></h1>
+  <p class="subtitle">20 preguntas por tema, nivel facultad. En el parcial son 10 — con 7 aprobás. Acá entrenás el doble para llegar sobrada.</p>
+  <div class="topics-grid" id="topicsGrid"></div>
+</div>
+
+<!-- QUIZ -->
+<div id="quiz" class="screen">
+  <div class="quiz-header">
+    <button class="back-btn" onclick="goHome()">←</button>
+    <div class="quiz-meta">
+      <div class="quiz-topic-name" id="quizTopicName"></div>
+      <div class="quiz-progress-text" id="quizProgressText"></div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="question-card">
+    <div class="q-number" id="qNumber"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="options"></div>
+  </div>
+  <div class="explanation" id="explanation"></div>
+  <div class="encouragement" id="encouragement"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Siguiente →</button>
+</div>
+
+<!-- RESULT -->
+<div id="result" class="screen">
+  <div class="stars" id="resultStars"></div>
+  <div class="result-circle" id="resultCircle">
+    <svg viewBox="0 0 140 140">
+      <circle cx="70" cy="70" r="62" fill="none" stroke="var(--surface2)" stroke-width="8"/>
+      <circle cx="70" cy="70" r="62" fill="none" id="resultArc"
+        stroke="var(--accent)" stroke-width="8"
+        stroke-linecap="round"
+        stroke-dasharray="389.6" stroke-dashoffset="389.6"/>
+    </svg>
+    <div class="score-text" id="resultScore"></div>
+    <div class="score-label">de 20</div>
+  </div>
+  <div class="result-title" id="resultTitle"></div>
+  <div class="result-msg" id="resultMsg"></div>
+  <div class="parcial-note" id="parcialNote"></div>
+  <div class="result-btns">
+    <button class="btn-primary" onclick="retryTopic()">Reintentar tema</button>
+    <button class="btn-secondary" onclick="goHome()">Elegir otro tema</button>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const topics = [
+  {
+    id: "atomica",
+    name: "Teoría Atómica",
+    icon: "⚛️",
+    questions: [
+      { q: "¿Cuál es la carga del electrón?", opts: ["Positiva", "Negativa", "Neutra", "Variable según el elemento"], ans: 1, exp: "El electrón tiene carga negativa. El protón tiene carga positiva y el neutrón es neutro." },
+      { q: "El número atómico de un elemento indica:", opts: ["La masa del átomo", "La cantidad de neutrones", "La cantidad de protones", "La cantidad de electrones en el último nivel"], ans: 2, exp: "El número atómico (Z) es igual a la cantidad de protones en el núcleo. En un átomo neutro, también equivale al número de electrones." },
+      { q: "¿Qué modelo atómico introdujo los orbitales en lugar de órbitas definidas?", opts: ["Modelo de Dalton", "Modelo de Bohr", "Modelo mecano-cuántico", "Modelo de Thomson"], ans: 2, exp: "El modelo mecano-cuántico (Schrödinger) reemplazó las órbitas circulares de Bohr por orbitales: regiones de probabilidad de encontrar al electrón." },
+      { q: "El número másico (A) de un elemento es:", opts: ["Protones + Electrones", "Protones + Neutrones", "Solo los neutrones", "Electrones + Neutrones"], ans: 1, exp: "A = Z + N. Es la suma de protones y neutrones. Los electrones tienen masa despreciable." },
+      { q: "¿Cuántos electrones caben en el nivel n=2?", opts: ["2", "6", "8", "18"], ans: 2, exp: "Cada nivel n puede albergar hasta 2n² electrones. Para n=2: 2×4 = 8 electrones." },
+      { q: "Dos átomos son isótopos si tienen:", opts: ["Mismo número de neutrones, distinto de protones", "Mismo número de protones, distinto de neutrones", "Mismo número másico", "Misma cantidad de electrones y neutrones"], ans: 1, exp: "Los isótopos son átomos del mismo elemento (mismos protones, Z igual) pero con diferente número de neutrones y por lo tanto distinto A." },
+      { q: "La configuración electrónica del carbono (Z=6) es:", opts: ["1s² 2s² 2p⁶", "1s² 2s² 2p²", "1s² 2s¹ 2p³", "1s² 2p⁴"], ans: 1, exp: "C tiene 6 electrones: 1s² 2s² 2p². Los dos últimos se ubican en el subnivel 2p." },
+      { q: "¿En qué subnivel se ubican los electrones de valencia del nitrógeno (Z=7)?", opts: ["1s", "2s", "2p", "3s"], ans: 2, exp: "Los electrones de valencia de N son los de n=2: dos en 2s y tres en 2p. El último electrón entra en 2p." },
+      { q: "Según la regla de Hund, los electrones en un subnivel:", opts: ["Se aparean primero antes de ocupar orbitales vacíos", "Ocupan orbitales distintos con espines paralelos antes de aparearse", "Se ubican siempre en el orbital de menor energía", "Comparten orbital con espines antiparalelos desde el principio"], ans: 1, exp: "La regla de Hund establece que los electrones ocupan orbitales vacíos del mismo subnivel con espines paralelos antes de aparearse." },
+      { q: "¿Qué principio establece que dos electrones en el mismo orbital deben tener espines opuestos?", opts: ["Principio de Aufbau", "Regla de Hund", "Principio de exclusión de Pauli", "Principio de incertidumbre de Heisenberg"], ans: 2, exp: "El principio de exclusión de Pauli dice que ningún electrón puede tener los 4 números cuánticos idénticos, por lo tanto dos electrones en el mismo orbital deben diferir en el espín." },
+      { q: "El subnivel 'p' puede contener como máximo:", opts: ["2 electrones", "6 electrones", "10 electrones", "14 electrones"], ans: 1, exp: "El subnivel p tiene 3 orbitales y cada orbital alberga 2 electrones → máximo 6 electrones." },
+      { q: "La electronegatividad de los elementos en la tabla periódica:", opts: ["Aumenta de derecha a izquierda y de arriba a abajo", "Aumenta de izquierda a derecha y de abajo a arriba", "Aumenta de izquierda a derecha y de arriba a abajo", "No sigue ningún patrón"], ans: 1, exp: "La electronegatividad aumenta hacia el flúor (arriba a la derecha) y disminuye hacia los metales alcalinos (abajo a la izquierda)." },
+      { q: "¿Cuántos orbitales tiene el subnivel 'd'?", opts: ["3", "5", "7", "10"], ans: 1, exp: "El subnivel d tiene 5 orbitales, lo que le permite contener hasta 10 electrones." },
+      { q: "El radio atómico en un período (fila) de la tabla periódica:", opts: ["Aumenta de izquierda a derecha", "Disminuye de izquierda a derecha", "Permanece constante", "Es irregular"], ans: 1, exp: "Al avanzar en un período, aumenta el número de protones sin agregar nuevos niveles, lo que genera mayor atracción sobre los electrones y reduce el radio atómico." },
+      { q: "¿Cuál es el número cuántico principal del tercer nivel de energía?", opts: ["n = 1", "n = 2", "n = 3", "n = 4"], ans: 2, exp: "El número cuántico principal n indica el nivel de energía. El tercer nivel tiene n = 3." },
+      { q: "¿Qué modelo introdujo la idea de que los electrones circulan en órbitas de energía fija?", opts: ["Dalton", "Rutherford", "Bohr", "Thomson"], ans: 2, exp: "Bohr (1913) propuso que los electrones orbitan el núcleo en niveles de energía fijos, sin emitir radiación mientras se mantienen en esa órbita." },
+      { q: "Los metales alcalinos (grupo 1) tienen en común:", opts: ["2 electrones de valencia", "1 electrón de valencia en el subnivel s", "Capa de valencia completa", "Alta electronegatividad"], ans: 1, exp: "El grupo 1 tiene configuración ns¹, un solo electrón de valencia. Por eso son muy reactivos y forman cationes 1+." },
+      { q: "Un anión se forma cuando un átomo:", opts: ["Pierde protones", "Gana electrones", "Pierde electrones", "Gana neutrones"], ans: 1, exp: "Un anión es un ion de carga negativa, formado cuando el átomo gana electrones. Ejemplo: Cl⁻." },
+      { q: "La energía de ionización es la energía necesaria para:", opts: ["Unir dos átomos", "Retirar un electrón de un átomo gaseoso", "Agregar un electrón a un átomo", "Dividir el núcleo atómico"], ans: 1, exp: "La primera energía de ionización es la energía mínima para remover el electrón más externo de un átomo neutro en estado gaseoso." },
+      { q: "¿Qué partícula subatómica se encuentra fuera del núcleo?", opts: ["Protón", "Neutrón", "Electrón", "Quark"], ans: 2, exp: "Los electrones orbitan alrededor del núcleo. Protones y neutrones están dentro del núcleo." },
+    ]
+  },
+  {
+    id: "carbono",
+    name: "Química del Carbono",
+    icon: "🔗",
+    questions: [
+      { q: "¿Cuántos electrones de valencia tiene el carbono?", opts: ["2", "4", "6", "8"], ans: 1, exp: "El carbono tiene Z=6, configuración 1s²2s²2p². Tiene 4 electrones de valencia, lo que le permite formar 4 enlaces covalentes." },
+      { q: "La hibridación sp³ del carbono genera una geometría:", opts: ["Lineal", "Trigonal plana", "Tetraédrica", "Piramidal"], ans: 2, exp: "La hibridación sp³ combina 1 orbital s y 3 orbitales p → 4 orbitales híbridos iguales con geometría tetraédrica (~109.5°)." },
+      { q: "Un carbono con hibridación sp² forma:", opts: ["4 enlaces simples", "1 doble enlace y 2 simples", "2 dobles enlaces", "1 triple enlace"], ans: 1, exp: "El carbono sp² tiene 3 orbitales híbridos (para enlaces σ) y 1 orbital p puro que participa en el doble enlace (enlace π)." },
+      { q: "¿Qué tipo de hibridación tiene el carbono en un triple enlace (como en los alquinos)?", opts: ["sp³", "sp²", "sp", "sp³d"], ans: 2, exp: "En los alquinos, el carbono es sp: híbrida 1 orbital s y 1 orbital p → 2 orbitales sp lineales, dejando 2 orbitales p puros para los dos enlaces π del triple enlace." },
+      { q: "La cadena carbonada más larga en una molécula se llama:", opts: ["Cadena principal", "Cadena lateral", "Radical", "Sustituyente"], ans: 0, exp: "La cadena principal es la cadena carbonada más larga de la molécula y es la base para la nomenclatura IUPAC." },
+      { q: "¿Cuál de los siguientes es una propiedad característica del carbono que permite la química orgánica?", opts: ["Alta electronegatividad", "Capacidad de formar largas cadenas consigo mismo (catenación)", "Ser un metal", "Tener 6 electrones de valencia"], ans: 1, exp: "La catenación es la capacidad del carbono de formar enlaces estables con otros átomos de carbono, generando cadenas, ramas y anillos de longitud variable." },
+      { q: "Un carbono primario es aquel que está unido a:", opts: ["1 carbono vecino", "2 carbonos vecinos", "3 carbonos vecinos", "4 carbonos vecinos"], ans: 0, exp: "Carbono primario: unido a 1 C. Secundario: a 2 C. Terciario: a 3 C. Cuaternario: a 4 C." },
+      { q: "¿Qué tipo de enlace es más fuerte, σ (sigma) o π (pi)?", opts: ["σ, porque hay superposición frontal de orbitales", "π, porque hay superposición lateral de orbitales", "Son iguales en energía", "Depende del elemento"], ans: 0, exp: "El enlace σ es más fuerte porque la superposición frontal de orbitales es mayor. El enlace π (lateral) es más débil y más reactivo." },
+      { q: "La fórmula molecular del metano es:", opts: ["C₂H₆", "CH₄", "C₂H₄", "CH₂"], ans: 1, exp: "El metano es el alcano más simple: un carbono sp³ con 4 hidrógenos. Fórmula general de alcanos: CₙH₂ₙ₊₂. Para n=1: CH₄." },
+      { q: "Un grupo metilo (–CH₃) es un ejemplo de:", opts: ["Cadena principal", "Función oxigenada", "Sustituyente alquilo", "Compuesto aromático"], ans: 2, exp: "Los grupos alquilo (–CₙH₂ₙ₊₁) son sustituyentes derivados de alcanos por remoción de un H. El más simple es el metilo –CH₃." },
+      { q: "El ángulo de enlace en una molécula con carbono sp³ es aproximadamente:", opts: ["120°", "180°", "109.5°", "90°"], ans: 2, exp: "La geometría tetraédrica del carbono sp³ da un ángulo de enlace de 109.5°." },
+      { q: "¿Cuántos enlaces puede formar el carbono simultáneamente?", opts: ["2", "3", "4", "6"], ans: 2, exp: "El carbono tiene 4 electrones de valencia y puede formar exactamente 4 enlaces covalentes (simples, dobles o triples en combinación)." },
+      { q: "La fórmula general de los alquenos es:", opts: ["CₙH₂ₙ₊₂", "CₙH₂ₙ", "CₙH₂ₙ₋₂", "CₙH₂ₙ₊₁"], ans: 1, exp: "Los alquenos tienen un doble enlace C=C, lo que reduce en 2 los H respecto a los alcanos: CₙH₂ₙ." },
+      { q: "¿Cuál de los siguientes compuestos es inorgánico a pesar de contener carbono?", opts: ["Metano", "Dióxido de carbono (CO₂)", "Etanol", "Glucosa"], ans: 1, exp: "El CO₂ es un compuesto inorgánico del carbono. La química orgánica estudia los compuestos de carbono con H, y usualmente O, N, S, etc., pero excluye óxidos simples y carbonatos." },
+      { q: "Una cadena carbonada ramificada es aquella que tiene:", opts: ["Solo un átomo de carbono", "Un anillo cerrado", "Ramificaciones que salen de la cadena principal", "Heteroátomos en la cadena"], ans: 2, exp: "Una cadena ramificada tiene sustituyentes (grupos alquilo u otros) que salen de la cadena carbonada principal." },
+      { q: "El ángulo de enlace en el carbono sp² es:", opts: ["109.5°", "120°", "180°", "90°"], ans: 1, exp: "La geometría trigonal plana del carbono sp² tiene ángulos de 120° entre los tres sustituyentes en el mismo plano." },
+      { q: "¿Cuál es la diferencia entre una fórmula molecular y una fórmula estructural?", opts: ["La molecular indica los tipos de átomos; la estructural también muestra los enlaces", "La molecular es siempre más larga", "La estructural solo se usa para anillos", "No hay diferencia real"], ans: 0, exp: "La fórmula molecular indica cuántos átomos de cada elemento hay (ej: C₂H₆O). La fórmula estructural muestra cómo están conectados (enlace por enlace)." },
+      { q: "¿Qué es un heteroátomo en química orgánica?", opts: ["Un carbono cuaternario", "Un átomo distinto de C y H presente en la cadena orgánica", "Un carbono con hibridación sp", "Un radical libre"], ans: 1, exp: "Heteroátomos son átomos como O, N, S, P, halogens, etc., que se incorporan a cadenas o anillos orgánicos. Son responsables de las distintas funciones orgánicas." },
+      { q: "La cadena carbonada del propano tiene:", opts: ["2 carbonos", "3 carbonos", "4 carbonos", "5 carbonos"], ans: 1, exp: "El prefijo 'prop-' indica 3 carbonos. El propano es el alcano de 3 C: CH₃–CH₂–CH₃." },
+      { q: "¿Cuál de los siguientes compuestos tiene un triple enlace C≡C?", opts: ["Etano", "Eteno", "Etino (acetileno)", "Benceno"], ans: 2, exp: "El etino (acetileno, HC≡CH) es el alquino más simple. Los carbonos son sp con geometría lineal y un triple enlace (1 σ + 2 π)." },
+    ]
+  },
+  {
+    id: "hidrocarburos",
+    name: "Hidrocarburos",
+    icon: "⛓️",
+    questions: [
+      { q: "¿Cuál es el nombre IUPAC del alcano con 5 carbonos en cadena lineal?", opts: ["Butano", "Hexano", "Pentano", "Propano"], ans: 2, exp: "El prefijo 'pent-' indica 5 carbonos. Serie: met(1), et(2), prop(3), but(4), pent(5), hex(6), hept(7), oct(8), non(9), dec(10)." },
+      { q: "El ciclobutano es:", opts: ["Un alqueno de 4 carbonos", "Un alcano cíclico de 4 carbonos", "Un alquino de 4 carbonos", "Un hidrocarburo aromático"], ans: 1, exp: "El ciclobutano es un cicloalcano de 4 C en anillo saturado. Fórmula: C₄H₈. El prefijo 'ciclo' indica anillo." },
+      { q: "¿Qué sufijo IUPAC indica la presencia de un doble enlace?", opts: ["-ano", "-ino", "-eno", "-il"], ans: 2, exp: "Los alquenos terminan en -eno (propeno, buteno). Los alcanos en -ano. Los alquinos en -ino." },
+      { q: "El 2-metilpropano es otro nombre para:", opts: ["Butano", "Isobutano", "Pentano", "Propeno"], ans: 1, exp: "El isobutano (nombre común) es el 2-metilpropano en IUPAC: propano con un grupo metilo en C2. Ambos nombres son correctos." },
+      { q: "¿En qué posición se debe numerar la cadena para el 1-buteno?", opts: ["El doble enlace en C1–C2", "El doble enlace en C2–C3", "El doble enlace en C3–C4", "No importa la posición"], ans: 0, exp: "El 1-buteno tiene el doble enlace comenzando en C1. Se numera desde el extremo que le da el número más bajo al doble enlace." },
+      { q: "¿Cuál es la fórmula molecular del ciclohexano?", opts: ["C₆H₁₂", "C₆H₆", "C₆H₁₄", "C₆H₁₀"], ans: 0, exp: "Los cicloalcanos tienen fórmula CₙH₂ₙ. Para n=6: C₆H₁₂. El ciclohexano es saturado pero la forma cíclica quita 2 H respecto al hexano lineal." },
+      { q: "El nombre del CH₃–CH₂–CH₂–CH₃ es:", opts: ["Propano", "Butano", "Pentano", "Metano"], ans: 1, exp: "Tiene 4 carbonos en cadena lineal → butano. Terminación -ano porque es alcano saturado sin ramificaciones." },
+      { q: "¿Cuántos hidrógenos tiene el propino (CH≡C–CH₃)?", opts: ["6", "4", "8", "2"], ans: 1, exp: "El propino es HC≡C–CH₃. Contando: 1H (HC≡) + 0H (≡C–) + 3H (–CH₃) = 4H. Fórmula: C₃H₄." },
+      { q: "Los alcanos son compuestos:", opts: ["Insaturados con dobles enlaces", "Saturados, solo enlaces simples", "Aromáticos", "Con oxígeno en la cadena"], ans: 1, exp: "Los alcanos son hidrocarburos saturados: solo tienen enlaces simples C–C y C–H. Son los más estables y menos reactivos de los hidrocarburos." },
+      { q: "El 2-buteno tiene el doble enlace entre:", opts: ["C1 y C2", "C2 y C3", "C3 y C4", "C1 y C4"], ans: 1, exp: "El número indica el carbono de inicio del doble enlace. 2-buteno: C2=C3 (butano con doble enlace empezando en C2)." },
+      { q: "¿Cuál es el nombre del HC≡CH?", opts: ["Eteno", "Etino", "Etano", "Metino"], ans: 1, exp: "HC≡CH es el etino, también llamado acetileno. 2 carbonos (et-) con triple enlace (-ino)." },
+      { q: "Un cicloalcano con n carbonos tiene la fórmula:", opts: ["CₙH₂ₙ₊₂", "CₙH₂ₙ", "CₙH₂ₙ₋₂", "CₙHₙ"], ans: 1, exp: "CₙH₂ₙ, igual que los alquenos. El anillo quita 2H respecto al alcano lineal, lo mismo que un doble enlace, aunque la estructura es muy distinta." },
+      { q: "Para nombrar una cadena ramificada en IUPAC, la cadena principal es:", opts: ["La más corta", "La que tiene más sustituyentes", "La más larga", "La que tiene el grupo funcional principal"], ans: 2, exp: "La cadena principal es la cadena carbonada más larga. Si hay empate, se elige la que tiene más ramificaciones o el grupo funcional de mayor prioridad." },
+      { q: "¿Cómo se llama el sustituyente –C₂H₅?", opts: ["Metilo", "Propilo", "Etilo", "Butilo"], ans: 2, exp: "El grupo etilo es –CH₂CH₃ (–C₂H₅), derivado del etano. El metilo es –CH₃, el propilo –C₃H₇." },
+      { q: "El 3-metilpentano es un alcano con:", opts: ["5 C en la cadena principal y un metilo en C3", "6 C en cadena lineal", "3 C con un pentilo", "Doble enlace en C3"], ans: 0, exp: "3-metilpentano: cadena de 5 C (pent-) + un grupo metilo (–CH₃) en la posición 3. Total: 6 C." },
+      { q: "Los alquinos se caracterizan por tener:", opts: ["Un doble enlace C=C", "Un triple enlace C≡C", "Un anillo de carbono", "Un grupo OH"], ans: 1, exp: "Los alquinos tienen un triple enlace C≡C (1 enlace σ + 2 enlaces π). Son más insaturados que los alquenos." },
+      { q: "¿Cuál es el ángulo de enlace en el ciclohexano en silla?", opts: ["60°", "90°", "109.5°", "120°"], ans: 2, exp: "En la conformación silla del ciclohexano, los carbonos son sp³ y mantienen ángulos de ~109.5°, la conformación más estable por minimizar tensión angular y torsional." },
+      { q: "El nombre del compuesto CH₂=CH₂ es:", opts: ["Etano", "Etino", "Eteno", "Metileno"], ans: 2, exp: "CH₂=CH₂ es el eteno (etileno): 2 carbonos con un doble enlace. Es el alqueno más simple." },
+      { q: "¿Cuántos carbonos tiene el hexano?", opts: ["4", "5", "6", "7"], ans: 2, exp: "El prefijo 'hex-' indica 6 carbonos. Hexano: CH₃–(CH₂)₄–CH₃." },
+      { q: "Los hidrocarburos alifáticos son aquellos que:", opts: ["Contienen anillo bencénico", "No tienen anillo bencénico en su estructura", "Tienen solo átomos de carbono e hidrógeno con anillos cualquiera", "Son siempre gaseosos"], ans: 1, exp: "Alifáticos (del griego 'grasa') son los hidrocarburos sin anillo bencénico aromático. Incluye alcanos, alquenos, alquinos y cicloalcanos." },
+    ]
+  },
+  {
+    id: "isomeria",
+    name: "Isomería",
+    icon: "🪞",
+    questions: [
+      { q: "Dos compuestos isómeros tienen:", opts: ["Misma fórmula estructural", "Misma fórmula molecular pero distinta estructura", "Distinta fórmula molecular", "Mismas propiedades físicas siempre"], ans: 1, exp: "Los isómeros tienen igual fórmula molecular (mismos tipos y cantidades de átomos) pero diferente disposición o conectividad, lo que les da distintas propiedades." },
+      { q: "La isomería de cadena ocurre cuando:", opts: ["Difieren en la posición del doble enlace", "Difieren en la longitud o ramificación de la cadena carbonada principal", "Difieren en la orientación espacial", "Difieren en el grupo funcional"], ans: 1, exp: "La isomería de cadena (o de esqueleto) implica diferente arreglo de la cadena carbonada: lineal vs. ramificada, o diferente punto de ramificación." },
+      { q: "El butano y el 2-metilpropano son isómeros de:", opts: ["Posición", "Cadena", "Función", "Geométrica"], ans: 1, exp: "Ambos tienen fórmula C₄H₁₀ pero el butano es lineal y el 2-metilpropano (isobutano) tiene ramificación. Son isómeros de cadena." },
+      { q: "La isomería de posición difiere en:", opts: ["La longitud de la cadena", "La posición del doble enlace, triple enlace o sustituyente en la cadena", "La orientación espacial de los grupos", "El tipo de función química"], ans: 1, exp: "En la isomería de posición, la misma cadena y el mismo grupo están presentes, pero el grupo ocupa una posición diferente sobre la cadena principal." },
+      { q: "El 1-buteno y el 2-buteno son isómeros de:", opts: ["Cadena", "Posición", "Función", "Conformación"], ans: 1, exp: "Ambos son C₄H₈ con un doble enlace, pero en posiciones distintas (C1–C2 vs C2–C3). Son isómeros de posición." },
+      { q: "La isomería geométrica cis/trans se presenta cuando:", opts: ["Hay libre rotación alrededor del enlace", "No hay libre rotación (doble enlace) y cada carbono tiene 2 sustituyentes distintos", "Los compuestos tienen distinta fórmula molecular", "Hay un carbono quiral"], ans: 1, exp: "La isomería cis/trans requiere: (1) restricción de rotación (doble enlace o anillo) y (2) que cada carbono del doble enlace tenga 2 sustituyentes distintos." },
+      { q: "En el isómero CIS de un alqueno, los grupos iguales están:", opts: ["En lados opuestos del doble enlace", "En el mismo lado del doble enlace", "Arriba y abajo del plano del anillo", "No tienen posición definida"], ans: 1, exp: "Cis: grupos iguales (o de mayor prioridad) al mismo lado. Trans: grupos iguales a lados opuestos del doble enlace." },
+      { q: "¿Cuál de estos compuestos puede presentar isomería cis/trans?", opts: ["CH₃–CH₃ (etano)", "CH₂=CH₂ (eteno)", "CH₃–CH=CH–CH₃ (2-buteno)", "HC≡CH (etino)"], ans: 2, exp: "El 2-buteno tiene el doble enlace C2=C3, con un CH₃ en cada carbono. Al tener 2 sustituyentes distintos en cada C del doble enlace, puede ser cis o trans." },
+      { q: "Un carbono quiral (estereogénico) es el que tiene:", opts: ["Un doble enlace", "4 sustituyentes iguales", "4 sustituyentes todos distintos entre sí", "Al menos un H"], ans: 2, exp: "Un carbono quiral tiene 4 sustituyentes diferentes. Genera isomería óptica porque no es superponible con su imagen especular." },
+      { q: "Los enantiómeros son:", opts: ["Isómeros de cadena", "Isómeros geométricos cis/trans", "Imágenes especulares no superponibles entre sí", "Isómeros de posición"], ans: 2, exp: "Los enantiómeros son un par de moléculas quirales que son imagen especular una de la otra y no pueden superponerse. Son como las manos: la izquierda no es superponible con la derecha." },
+      { q: "La isomería óptica requiere:", opts: ["Un doble enlace en la molécula", "Al menos un carbono quiral", "Libre rotación en la cadena", "Un anillo aromático"], ans: 1, exp: "La isomería óptica se da por la presencia de uno o más carbonos quirales (asimétricos) que generan moléculas no superponibles con su espejo." },
+      { q: "Los isómeros de función tienen:", opts: ["La misma cadena y mismo grupo funcional en distinta posición", "La misma fórmula molecular pero diferente grupo funcional", "La misma fórmula molecular y misma estructura", "Diferente fórmula molecular"], ans: 1, exp: "Los isómeros de función (o de grupo funcional) tienen la misma fórmula molecular pero pertenecen a distintas familias. Ej: alcoholes y éteres son isómeros de función con fórmula CₙH₂ₙ₊₂O." },
+      { q: "El 1-propanol y el 2-propanol son isómeros de:", opts: ["Cadena", "Posición", "Función", "Óptica"], ans: 1, exp: "Ambos son C₃H₈O con grupo –OH, pero en distinta posición (C1 vs C2). Son isómeros de posición." },
+      { q: "¿Cuántos isómeros de cadena tiene el pentano (C₅H₁₂)?", opts: ["1", "2", "3", "4"], ans: 2, exp: "El pentano tiene 3 isómeros de cadena: n-pentano (lineal), isopentano (2-metilbutano) y neopentano (2,2-dimetilpropano)." },
+      { q: "La designación R y S en isomería óptica se asigna según:", opts: ["El peso molecular del sustituyente", "La dirección de giro de la luz polarizada", "Las reglas de prioridad de Cahn-Ingold-Prelog", "La posición en la cadena principal"], ans: 2, exp: "Las reglas CIP (Cahn-Ingold-Prelog) asignan prioridades a los sustituyentes del carbono quiral. Si la secuencia de mayor a menor prioridad es horaria → R; antihoraria → S." },
+      { q: "El etanol (CH₃CH₂OH) y el dimetil éter (CH₃–O–CH₃) son isómeros de:", opts: ["Cadena", "Posición", "Función", "Geométrica"], ans: 2, exp: "Ambos tienen fórmula C₂H₆O, pero el etanol es un alcohol (–OH) y el dimetil éter es un éter (–O–). Son isómeros de función." },
+      { q: "¿Puede el 1-buteno presentar isomería geométrica?", opts: ["Sí, porque tiene doble enlace", "No, porque el C1 del doble enlace tiene 2 H iguales", "Sí, porque tiene 4 carbonos", "No, porque es un alcano"], ans: 1, exp: "El 1-buteno (CH₂=CH–CH₂–CH₃) no tiene isomería cis/trans porque el C1 lleva dos H idénticos. Para cis/trans se necesitan 2 sustituyentes distintos en CADA carbono del doble enlace." },
+      { q: "Dos moléculas diastereómeras son:", opts: ["Enantiómeros entre sí", "Isómeros que no son imágenes especulares entre sí", "Idénticas en todas sus propiedades", "Isómeros de cadena"], ans: 1, exp: "Los diastereómeros son estereoisómeros que no son imágenes especulares entre sí. Incluyen isómeros cis/trans y moléculas con múltiples carbonos quirales que no son enantiómeros." },
+      { q: "La isomería de cadena y la isomería de posición son subtipos de:", opts: ["Estereoisomería", "Isomería constitucional (plana)", "Isomería óptica", "Isomería geométrica"], ans: 1, exp: "La isomería constitucional (o estructural o plana) engloba diferencias en la conectividad de los átomos: cadena, posición y función son sus subtipos." },
+      { q: "¿Cuál de los siguientes pares son isómeros de posición?", opts: ["Butano y 2-metilpropano", "1-buteno y 2-buteno", "Etanol y dimetil éter", "Metano y etano"], ans: 1, exp: "El 1-buteno y el 2-buteno tienen la misma fórmula C₄H₈ y el mismo tipo de enlace (doble), pero en distintas posiciones de la cadena. Son isómeros de posición." },
+    ]
+  },
+  {
+    id: "oxigenadas",
+    name: "Funciones Oxigenadas",
+    icon: "🧪",
+    questions: [
+      { q: "¿Cuál es el grupo funcional de los alcoholes?", opts: ["–COOH", "–OH", "–CHO", "–CO–"], ans: 1, exp: "Los alcoholes tienen el grupo hidroxilo –OH unido a un carbono saturado (sp³). Ejemplo: etanol CH₃CH₂OH." },
+      { q: "¿Qué función orgánica tiene el grupo –COOH?", opts: ["Alcohol", "Aldehído", "Ácido carboxílico", "Cetona"], ans: 2, exp: "El grupo carboxilo –COOH es el grupo funcional de los ácidos carboxílicos. Contiene tanto un carbonilo (C=O) como un hidroxilo (–OH) unidos al mismo carbono." },
+      { q: "Los éteres tienen la estructura general:", opts: ["R–OH", "R–CO–R'", "R–O–R'", "R–CHO"], ans: 2, exp: "Los éteres tienen un oxígeno enlazado a dos grupos alquilo o arilo: R–O–R'. El dimetil éter (CH₃–O–CH₃) es el más simple." },
+      { q: "Un aldehído se distingue de una cetona porque:", opts: ["Tiene el grupo C=O en el interior de la cadena", "Tiene el grupo C=O en el extremo de la cadena (C terminal)", "Contiene oxígeno y nitrógeno", "Tiene dos grupos carbonilo"], ans: 1, exp: "En los aldehídos, el grupo carbonilo (–CHO) está en el carbono terminal. En las cetonas, el C=O está en un carbono interno de la cadena." },
+      { q: "¿Cuál es el nombre del CH₃–CO–CH₃?", opts: ["Propanal", "Propanona (acetona)", "Propanol", "Ácido propanoico"], ans: 1, exp: "CH₃–CO–CH₃ es la propanona (acetona), una cetona de 3 carbonos. El carbonilo está en C2, flanqueado por dos metilos." },
+      { q: "El sufijo IUPAC para los alcoholes es:", opts: ["-al", "-ol", "-ona", "-oico"], ans: 1, exp: "Los alcoholes terminan en -ol (metanol, etanol, propan-1-ol). Los aldehídos en -al, las cetonas en -ona, los ácidos en -oico." },
+      { q: "¿Qué son los ésteres?", opts: ["Compuestos con –OH ácido y básico a la vez", "Productos de la reacción de un ácido carboxílico con un alcohol", "Aldehídos con doble cadena", "Éteres con grupo ácido"], ans: 1, exp: "Los ésteres se forman por esterificación: ácido carboxílico + alcohol → éster + agua. Tienen la estructura R–COO–R'. Son responsables de muchos aromas naturales." },
+      { q: "El metanol (CH₃OH) es un alcohol:", opts: ["Secundario", "Terciario", "Primario", "Cuaternario"], ans: 2, exp: "Un alcohol es primario si el carbono que lleva el –OH está unido a solo 1 carbono (o ninguno). El metanol tiene C con 0 carbonos vecinos → alcohol primario." },
+      { q: "¿Cuál de las siguientes es una cetona?", opts: ["CH₃CH₂OH", "CH₃CHO", "CH₃COCH₃", "CH₃COOH"], ans: 2, exp: "CH₃COCH₃ (propanona/acetona) es una cetona: carbonilo interno. CH₃CH₂OH es alcohol, CH₃CHO es aldehído, CH₃COOH es ácido carboxílico." },
+      { q: "El grupo funcional de los aldehídos es:", opts: ["–OH", "–COOH", "–CHO", "–O–"], ans: 2, exp: "El grupo –CHO (formilo) es el grupo funcional de los aldehídos. Siempre está en el carbono terminal y tiene H unido al carbonilo." },
+      { q: "El ácido acético (vinagre) tiene la fórmula:", opts: ["CH₃OH", "CH₃CHO", "CH₃COOH", "CH₃OCH₃"], ans: 2, exp: "El ácido acético es CH₃COOH (ácido etanoico). Es el componente ácido del vinagre y un ácido carboxílico de 2 carbonos." },
+      { q: "¿Qué función orgánica se forma cuando un ácido reacciona con un alcohol?", opts: ["Aldehído", "Cetona", "Éter", "Éster"], ans: 3, exp: "La reacción de esterificación entre un ácido carboxílico (–COOH) y un alcohol (–OH) produce un éster (–COO–) y agua. Es una reacción reversible." },
+      { q: "Un alcohol secundario tiene el –OH en un carbono unido a:", opts: ["1 carbono", "2 carbonos", "3 carbonos", "4 carbonos"], ans: 1, exp: "Alcohol secundario: el carbono del –OH está unido a 2 otros carbonos. Ejemplo: propan-2-ol (CH₃–CHOH–CH₃)." },
+      { q: "¿Cuál es el nombre IUPAC del HCHO?", opts: ["Etanal", "Metanal (formaldehído)", "Propanona", "Ácido metanoico"], ans: 1, exp: "HCHO es el metanal (formaldehído): el aldehído más simple, un solo carbono con el grupo –CHO. Es un antiséptico y conservante conocido." },
+      { q: "Los ácidos carboxílicos son más ácidos que los alcoholes porque:", opts: ["Tienen más carbonos", "El grupo –COOH puede ceder H⁺ estabilizando la carga por resonancia", "Tienen más oxígenos", "Son líquidos a temperatura ambiente"], ans: 1, exp: "El anión carboxilato (–COO⁻) se estabiliza por resonancia (la carga se deslocaliza entre los dos O), lo que hace que el –COOH ceda el H⁺ más fácilmente que el –OH de un alcohol." },
+      { q: "El sufijo '-ona' en nomenclatura IUPAC indica:", opts: ["Un alcohol", "Un ácido carboxílico", "Una cetona", "Un aldehído"], ans: 2, exp: "Las cetonas terminan en -ona: propanona, butanona, pentan-2-ona, etc. El carbonilo está en posición interna." },
+      { q: "¿Qué propiedad tienen en común los alcoholes y los ácidos carboxílicos?", opts: ["Ambos tienen C=O", "Ambos pueden formar puentes de hidrógeno por tener –OH", "Ambos son ésteres", "Ambos son insolubles en agua"], ans: 1, exp: "Tanto alcoholes como ácidos carboxílicos tienen grupo –OH y pueden formar puentes de hidrógeno entre moléculas, lo que eleva sus puntos de ebullición." },
+      { q: "El propan-2-ol tiene el grupo –OH en:", opts: ["El primer carbono", "El segundo carbono", "El tercer carbono", "El carbono terminal"], ans: 1, exp: "El '2' en propan-2-ol indica que el –OH está en el C2. La cadena es: CH₃–CHOH–CH₃. Es un alcohol secundario." },
+      { q: "¿Cuál es el grupo funcional de los éteres?", opts: ["C=O", "–OH", "–O– (oxígeno entre dos carbonos)", "–COOH"], ans: 2, exp: "El grupo éter es –O– enlazado a dos grupos alquilo o arilo. No tiene H en el oxígeno, por lo que no forma puentes de H como los alcoholes." },
+      { q: "El ácido fórmico (ácido metanoico) tiene la estructura:", opts: ["CH₃COOH", "HCOOH", "CH₃CHO", "HCHO"], ans: 1, exp: "El ácido fórmico es HCOOH: el ácido carboxílico más simple, con solo 1 carbono. Es responsable del ardor de las picaduras de hormigas." },
+    ]
+  },
+  {
+    id: "aromaticos",
+    name: "Compuestos Aromáticos",
+    icon: "⬡",
+    questions: [
+      { q: "¿Cuál es la fórmula molecular del benceno?", opts: ["C₆H₁₂", "C₆H₆", "C₆H₅OH", "C₆H₅CH₃"], ans: 1, exp: "El benceno es C₆H₆: 6 carbonos en anillo con un hidrógeno cada uno. Es el compuesto aromático más simple." },
+      { q: "El benceno es aromático porque:", opts: ["Tiene olor agradable", "Es cíclico con 4n+2 electrones π deslocalizados (regla de Hückel)", "Tiene solo dobles enlaces", "Contiene oxígeno en el anillo"], ans: 1, exp: "La aromaticidad se define por la regla de Hückel: molécula cíclica, plana, conjugada con 4n+2 electrones π (n = entero). El benceno tiene 6 electrones π (n=1). El olor es una coincidencia histórica del nombre." },
+      { q: "Los electrones π en el benceno están:", opts: ["Fijos entre pares de carbonos específicos", "Deslocalizados sobre todo el anillo", "Solo en los dobles enlaces alternos", "Ausentes, todos son simples"], ans: 1, exp: "En el benceno, los 6 electrones π forman una nube electrónica deslocalizada sobre todo el anillo. Por eso no hay dobles enlaces fijos sino un híbrido de resonancia." },
+      { q: "El tolueno es el benceno con:", opts: ["Un grupo –OH", "Un grupo –CH₃ (metilo)", "Un grupo –NH₂", "Un átomo de cloro"], ans: 1, exp: "El tolueno (metilbenceno) es benceno + un grupo metilo –CH₃. Fórmula: C₇H₈. Es un disolvente común." },
+      { q: "El fenol es el benceno con:", opts: ["Un grupo –CH₃", "Un grupo –COOH", "Un grupo –OH", "Un grupo –NH₂"], ans: 2, exp: "El fenol (hidroxibenceno) tiene un grupo –OH unido directamente al anillo bencénico. Es más ácido que los alcoholes comunes debido a la estabilización por resonancia del anión fenóxido." },
+      { q: "¿Cómo se llama el benceno con dos grupos metilo?", opts: ["Tolueno", "Xileno (dimetilbenceno)", "Estireno", "Fenol"], ans: 1, exp: "El xileno (dimetilbenceno) tiene dos grupos metilo en el anillo. Puede ser orto (1,2), meta (1,3) o para (1,4) según la posición de los metilos." },
+      { q: "En el benceno disustitiuido, la posición 'orto' (o-) significa:", opts: ["Sustituyentes en carbonos 1 y 3", "Sustituyentes en carbonos 1 y 2 (adyacentes)", "Sustituyentes en carbonos 1 y 4", "Sustituyentes en el mismo carbono"], ans: 1, exp: "Orto (o-): posiciones 1,2 (adyacentes). Meta (m-): posiciones 1,3. Para (p-): posiciones 1,4. Es la nomenclatura tradicional para bencenos disustituidos." },
+      { q: "¿Cuál es el nombre del C₆H₅–COOH?", opts: ["Ácido bencenoico", "Ácido benzoico", "Fenol", "Tolueno"], ans: 1, exp: "El ácido benzoico (C₆H₅–COOH) es el ácido carboxílico del benceno. Se usa como conservante alimentario (E210)." },
+      { q: "La reacción característica del benceno es la sustitución electrófila aromática (SEA) porque:", opts: ["El benceno prefiere la adición para ganar H", "El benceno prefiere la sustitución para mantener la aromaticidad del anillo", "El benceno no reacciona nunca", "El benceno solo hace reacciones de eliminación"], ans: 1, exp: "El benceno reacciona por sustitución (no adición) para conservar su sistema aromático estabilizante. La adición destruiría la aromaticidad y sería energéticamente desfavorable." },
+      { q: "El estireno (vinilbenceno) tiene la estructura:", opts: ["C₆H₅–CH₃", "C₆H₅–CH=CH₂", "C₆H₅–OH", "C₆H₅–CH₂–CH₃"], ans: 1, exp: "El estireno es C₆H₅–CH=CH₂: benceno + grupo vinilo (–CH=CH₂). Es monómero del poliestireno." },
+      { q: "¿Cuántos carbonos tiene el anillo del benceno?", opts: ["4", "5", "6", "8"], ans: 2, exp: "El benceno tiene 6 carbonos en su anillo hexagonal. Cada carbono tiene hibridación sp² y contribuye con 1 electrón al sistema π." },
+      { q: "En la posición 'para', los sustituyentes están en:", opts: ["Carbonos 1 y 2", "Carbonos 1 y 3", "Carbonos 1 y 4 (opuestos)", "El mismo carbono"], ans: 2, exp: "Para (p-): las posiciones 1 y 4 son opuestas en el anillo hexagonal. Es la configuración más simétrica del benceno disustituido." },
+      { q: "¿Cuál de estos no es un compuesto aromático?", opts: ["Benceno", "Tolueno", "Ciclohexano", "Naftaleno"], ans: 2, exp: "El ciclohexano (C₆H₁₂) es un cicloalcano saturado, NO aromático. El naftaleno es aromático (2 anillos bencénicos fusionados)." },
+      { q: "El grupo fenilo (C₆H₅–) es:", opts: ["Un benceno completo", "El benceno con un H removido (usado como sustituyente)", "Un alqueno cíclico", "Un éter aromático"], ans: 1, exp: "El grupo fenilo (Ph– o C₆H₅–) es el benceno sin un hidrógeno, usado como sustituyente en nomenclatura. Ej: el cloruro de fenilo es C₆H₅–Cl." },
+      { q: "El anisol es el éter metílico del fenol. Su estructura es:", opts: ["C₆H₅–OH", "C₆H₅–CH₃", "C₆H₅–O–CH₃", "C₆H₅–COOH"], ans: 2, exp: "El anisol (metoxibenceno) es C₆H₅–O–CH₃: benceno con un grupo metoxi (–OCH₃). Es el éter formado entre fenol y metanol." },
+      { q: "La anilina tiene la estructura C₆H₅–NH₂. ¿Qué función química tiene?", opts: ["Alcohol aromático", "Amina aromática", "Ácido carboxílico aromático", "Aldehído aromático"], ans: 1, exp: "La anilina (aminobenceno) tiene el grupo amino –NH₂ unido al anillo bencénico. Es una amina aromática, precursora de colorantes y fármacos." },
+      { q: "¿Por qué el benceno es más estable de lo esperado para un trieno cíclico?", opts: ["Por su tamaño", "Por la energía de resonancia (deslocalización de electrones π)", "Por tener solo carbonos sp³", "Por la temperatura de fusión alta"], ans: 1, exp: "El benceno es ~150 kJ/mol más estable que un ciclohexatrieno hipotético. Esta energía de resonancia (estabilización aromática) se debe a la deslocalización de los 6 electrones π sobre los 6 carbonos." },
+      { q: "El o-xileno (orto-xileno) tiene los dos grupos metilo en:", opts: ["Posiciones 1 y 3", "Posiciones 1 y 4", "Posiciones 1 y 2", "Posiciones 2 y 4"], ans: 2, exp: "Orto siempre indica posiciones 1 y 2 (adyacentes). El o-xileno (1,2-dimetilbenceno) tiene los dos –CH₃ en carbonos vecinos." },
+      { q: "¿Cuál es el nombre sistemático del benceno con un grupo –Cl en posición 1 y –CH₃ en posición 4?", opts: ["orto-clorotolueno", "meta-clorotolueno", "para-clorotolueno", "1-cloro-4-tolueno"], ans: 2, exp: "Posiciones 1 y 4 son PARA. Hay un cloro y un metilo → para-clorotolueno (o 4-clorotolueno en IUPAC). El tolueno es el benceno con metilo, se numera C1 en el metilo." },
+      { q: "Los hidrocarburos aromáticos policíclicos (HAP) como el naftaleno se caracterizan por:", opts: ["Tener un solo anillo bencénico", "Tener dos o más anillos bencénicos fusionados", "Contener heteroátomos en el anillo", "Ser alifáticos con estructura cíclica"], ans: 1, exp: "Los HAP tienen 2 o más anillos aromáticos fusionados compartiendo lados. El naftaleno (2 anillos) y el antraceno (3 anillos) son ejemplos comunes." },
+    ]
+  }
+];
+
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let currentTopic = null;
+let currentQ = 0;
+let score = 0;
+let answered = false;
+let shuffled = [];
+let scores = {};
+
+// ── ENCOURAGEMENT ─────────────────────────────────────────────────────────────
+const correctPhrases = [
+  "¡Exacto! Eso es química en tu cabeza.",
+  "Perfecta. Vas a romperla en el parcial.",
+  "¡Muy bien! Eso ya lo tenés.",
+  "¡Sí! Seguí así.",
+  "Correcto. La facultad no sabe lo que le viene.",
+  "¡Excelente! Una más.",
+  "Ese es tu nivel. No lo bajes.",
+  "¡Dale! Imparable.",
+  "Bien ahí. Cada respuesta es un paso al 10.",
+];
+const wrongPhrases = [
+  "Está bien, ahora lo sabés para siempre.",
+  "Esa era difícil. Ya la tenés marcada.",
+  "Error de ahora, acierto en el parcial.",
+  "Nadie nace sabiendo. Lo acabás de aprender.",
+  "Una de más para estudiar. Vas bien.",
+  "El que erró acá, no erra el miércoles.",
+];
+
+function pickRandom(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+// ── INIT ───────────────────────────────────────────────────────────────────────
+function initHome() {
+  const grid = document.getElementById('topicsGrid');
+  grid.innerHTML = '';
+  topics.forEach(t => {
+    const pct = scores[t.id] !== undefined ? Math.round(scores[t.id] / t.questions.length * 100) : null;
+    const card = document.createElement('div');
+    card.className = 'topic-card';
+    card.onclick = () => startTopic(t.id);
+    card.innerHTML = `
+      ${pct !== null ? `<span class="topic-done">${pct}% ✓</span>` : ''}
+      <div class="topic-icon">${t.icon}</div>
+      <div class="topic-name">${t.name}</div>
+      <div class="topic-count">20 preguntas</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function startTopic(id) {
+  currentTopic = topics.find(t => t.id === id);
+  shuffled = [...currentTopic.questions].sort(() => Math.random() - 0.5);
+  currentQ = 0;
+  score = 0;
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = shuffled[currentQ];
+  answered = false;
+
+  document.getElementById('quizTopicName').textContent = currentTopic.name;
+  document.getElementById('quizProgressText').textContent = `Pregunta ${currentQ + 1} de ${shuffled.length}`;
+  document.getElementById('progressFill').style.width = `${(currentQ / shuffled.length) * 100}%`;
+  document.getElementById('qNumber').textContent = `Pregunta ${currentQ + 1}`;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('encouragement').textContent = '';
+  document.getElementById('explanation').classList.remove('show');
+  document.getElementById('explanation').innerHTML = '';
+  document.getElementById('nextBtn').classList.remove('show');
+
+  const opts = document.getElementById('options');
+  opts.innerHTML = '';
+  q.opts.forEach((o, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'opt';
+    btn.textContent = o;
+    btn.onclick = () => selectAnswer(i);
+    opts.appendChild(btn);
+  });
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+
+  const q = shuffled[currentQ];
+  const btns = document.querySelectorAll('.opt');
+
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.ans) b.classList.add(idx === q.ans ? 'correct' : 'reveal');
+  });
+
+  const isCorrect = idx === q.ans;
+  if (isCorrect) {
+    score++;
+    btns[idx].classList.add('correct');
+  } else {
+    btns[idx].classList.add('wrong');
+  }
+
+  document.getElementById('explanation').innerHTML = `<strong>¿Por qué?</strong> ${q.exp}`;
+  document.getElementById('explanation').classList.add('show');
+  document.getElementById('encouragement').textContent = isCorrect ? pickRandom(correctPhrases) : pickRandom(wrongPhrases);
+  document.getElementById('nextBtn').classList.add('show');
+  document.getElementById('nextBtn').textContent = currentQ + 1 < shuffled.length ? 'Siguiente →' : 'Ver resultado →';
+}
+
+function nextQuestion() {
+  currentQ++;
+  if (currentQ < shuffled.length) {
+    renderQuestion();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  scores[currentTopic.id] = score;
+  showScreen('result');
+
+  const pct = score / shuffled.length;
+  const equivOf10 = Math.round(score / 2); // 20 preguntas → equivalente a /10
+
+  // Circle
+  const circumference = 2 * Math.PI * 62;
+  const arc = document.getElementById('resultArc');
+  arc.style.strokeDashoffset = circumference * (1 - pct);
+  arc.style.stroke = pct >= 0.7 ? 'var(--green)' : pct >= 0.5 ? 'var(--accent)' : 'var(--red)';
+
+  document.getElementById('resultScore').textContent = score;
+  document.getElementById('resultScore').style.color = pct >= 0.7 ? 'var(--green)' : pct >= 0.5 ? 'var(--accent)' : 'var(--red)';
+
+  let stars, title, msg;
+  if (score >= 18) {
+    stars = '⭐⭐⭐';
+    title = '¡Maestra del tema!';
+    msg = 'Esto está dominado. En el parcial, este tema lo cerrás con los ojos cerrados.';
+  } else if (score >= 14) {
+    stars = '⭐⭐';
+    title = 'Muy sólida.';
+    msg = 'El nivel está muy bien. Repasá lo que te escapó y el miércoles lo vas a clavar.';
+  } else if (score >= 10) {
+    stars = '⭐';
+    title = 'Buen arranque.';
+    msg = 'Tenés la base. Unos repasos más y este tema deja de darte vueltas.';
+  } else {
+    stars = '💪';
+    title = 'Más práctica, más confianza.';
+    msg = 'Este tema pide un poco más de atención. Es normal — para eso estás practicando ahora y no el miércoles.';
+  }
+
+  document.getElementById('resultStars').textContent = stars;
+  document.getElementById('resultTitle').innerHTML = title.includes('!') ? `<em>${title}</em>` : title;
+  document.getElementById('resultMsg').textContent = msg;
+
+  const parcialEquiv = Math.round(score / 2);
+  const promoText = parcialEquiv >= 7
+    ? `Equivalente estimado en el parcial real (10 preguntas): <strong>${parcialEquiv}/10 — ¡Promoción! 🎉</strong>`
+    : `Equivalente estimado en el parcial real (10 preguntas): <strong>${parcialEquiv}/10</strong> — el umbral de promoción es 7/10. ¡Seguí practicando!`;
+
+  document.getElementById('parcialNote').innerHTML = promoText;
+  initHome();
+}
+
+function retryTopic() { startTopic(currentTopic.id); }
+
+function goHome() {
+  initHome();
+  showScreen('home');
+}
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({ top: 0 });
+}
+
+// Start
+initHome();
+document.getElementById('home').classList.add('active');
+</script>
+</body>
+</html>
