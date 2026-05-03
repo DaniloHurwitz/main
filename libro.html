@@ -717,27 +717,19 @@
     <h3>Elegí cómo pagar</h3>
     <p class="modal-sub">"Mis Primeros Pasos en el Mundo Freelance" · USD 19</p>
     <div class="pay-options">
-      <button class="pay-option" onclick="payWith('mp')">
-        <div class="pay-option-icon mp">MP</div>
+      <button class="pay-option" onclick="payWith('gumroad')">
+        <div class="pay-option-icon pp">GR</div>
         <div class="pay-option-text">
-          <strong>MercadoPago</strong>
-          <span>Tarjeta, efectivo o débito (ARS/USD)</span>
-        </div>
-        <div>→</div>
-      </button>
-      <button class="pay-option" onclick="payWith('pp')">
-        <div class="pay-option-icon pp">PP</div>
-        <div class="pay-option-text">
-          <strong>PayPal</strong>
-          <span>Pago internacional en USD</span>
+          <strong>Pago Internacional</strong>
+          <span>Tarjeta o PayPal en USD (entrega automática)</span>
         </div>
         <div>→</div>
       </button>
       <button class="pay-option" onclick="payWith('wa')">
         <div class="pay-option-icon" style="background:#25D366;color:white;">WA</div>
         <div class="pay-option-text">
-          <strong>WhatsApp</strong>
-          <span>Coordiná con Danilo directamente</span>
+          <strong>Pago Argentina</strong>
+          <span>Coordiná por WhatsApp (MercadoPago/transferencia)</span>
         </div>
         <div>→</div>
       </button>
@@ -775,14 +767,9 @@
   }
   
   function payWith(method) {
-    if (method === 'mp') {
-      // Reemplazar con URL real de MercadoPago
-      window.open('https://link.mercadopago.com.ar/danilohurwitz', '_blank');
-      showToast('Abriendo MercadoPago...');
-    } else if (method === 'pp') {
-      // Reemplazar con URL real de PayPal
-      window.open('https://paypal.me/danilohurwitz/19', '_blank');
-      showToast('Abriendo PayPal...');
+    if (method === 'gumroad') {
+      window.open('https://danilohurwitz.gumroad.com/l/freelance', '_blank');
+      showToast('Abriendo página de pago...');
     } else if (method === 'wa') {
       const msg = encodeURIComponent('Hola Danilo, quiero comprar el libro "Mis Primeros Pasos en el Mundo Freelance". ¿Cómo coordinamos el pago?');
       window.open(`https://wa.me/5492302219422?text=${msg}`, '_blank');
