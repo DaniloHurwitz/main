@@ -508,9 +508,35 @@
 <div class="sec-head"><h2>Integración</h2><span class="sec-badge b-mix">Mixtos</span><span class="sec-count">54 – 55</span></div>
 
 <div class="ex" id="e54">
-  <div class="ex-top"><span class="ex-num">#54</span><p class="ex-q">Identificá la función oxigenada y dá el nombre IUPAC de cada uno:<br><br>A) <span class="f">CH₃–CH₂–OH</span><br>B) <span class="f">CH₃–CHO</span><br>C) <span class="f">CH₃–CO–CH₃</span><br>D) <span class="f">CH₃–COOH</span><br>E) <span class="f">CH₃–COO–CH₃</span></p><span class="ex-kind">Serie integrada</span></div>
-  <textarea class="atx" id="i54" style="min-height:110px" placeholder="A: función – nombre&#10;B: función – nombre&#10;C: función – nombre&#10;D: función – nombre&#10;E: función – nombre"></textarea>
-  <button class="cbtn" onclick="chkTx('54',['etanol','etanal','propanona','acido etanoico','metil etanoato'],['alcohol','aldehido','cetona','acido','ester'])">Verificar</button>
+  <div class="ex-top"><span class="ex-num">#54</span><p class="ex-q">Identificá la función oxigenada y dá el nombre IUPAC de cada uno:</p><span class="ex-kind">Serie integrada</span></div>
+  <div style="display:grid;gap:.5rem;margin-bottom:.5rem">
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+      <span style="font-family:'Source Code Pro',monospace;font-size:.88rem;color:var(--accent2);min-width:170px">A) CH₃–CH₂–OH</span>
+      <input class="ain" id="i54a" style="max-width:170px" placeholder="función…">
+      <input class="ain" id="i54b" style="max-width:170px" placeholder="nombre IUPAC…">
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+      <span style="font-family:'Source Code Pro',monospace;font-size:.88rem;color:var(--accent2);min-width:170px">B) CH₃–CHO</span>
+      <input class="ain" id="i54c" style="max-width:170px" placeholder="función…">
+      <input class="ain" id="i54d" style="max-width:170px" placeholder="nombre IUPAC…">
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+      <span style="font-family:'Source Code Pro',monospace;font-size:.88rem;color:var(--accent2);min-width:170px">C) CH₃–CO–CH₃</span>
+      <input class="ain" id="i54e" style="max-width:170px" placeholder="función…">
+      <input class="ain" id="i54f" style="max-width:170px" placeholder="nombre IUPAC…">
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+      <span style="font-family:'Source Code Pro',monospace;font-size:.88rem;color:var(--accent2);min-width:170px">D) CH₃–COOH</span>
+      <input class="ain" id="i54g" style="max-width:170px" placeholder="función…">
+      <input class="ain" id="i54h" style="max-width:200px" placeholder="nombre IUPAC…">
+    </div>
+    <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
+      <span style="font-family:'Source Code Pro',monospace;font-size:.88rem;color:var(--accent2);min-width:170px">E) CH₃–COO–CH₃</span>
+      <input class="ain" id="i54i" style="max-width:170px" placeholder="función…">
+      <input class="ain" id="i54j" style="max-width:200px" placeholder="nombre IUPAC…">
+    </div>
+  </div>
+  <button class="cbtn" onclick="chk54()">Verificar todo</button>
   <div class="fb" id="f54"></div>
 </div>
 
@@ -615,6 +641,43 @@ function mc(btn,id,res){
   setFb(id,ok,ok?'✓ Correcto.':'✗ Incorrecto. La opción verde es la correcta.');
 }
 
+function chk54(){
+  if(done.has('54'))return;
+  const pairs=[
+    {fa:'i54a',na:'i54b',accF:['alcohol'],accN:['etanol']},
+    {fa:'i54c',na:'i54d',accF:['aldehido','aldehído'],accN:['etanal']},
+    {fa:'i54e',na:'i54f',accF:['cetona'],accN:['propanona','propan-2-ona']},
+    {fa:'i54g',na:'i54h',accF:['acido carboxilico','ácido carboxilico','acido','ácido'],accN:['acido etanoico','ácido etanoico']},
+    {fa:'i54i',na:'i54j',accF:['ester','éster'],accN:['metil etanoato']},
+  ];
+  const labels=['A','B','C','D','E'];
+  let allFilled=true;
+  pairs.forEach(p=>{if(!norm(document.getElementById(p.fa).value)||!norm(document.getElementById(p.na).value))allFilled=false;});
+  if(!allFilled)return;
+
+  let errors=[];
+  pairs.forEach((p,i)=>{
+    const vf=norm(document.getElementById(p.fa).value);
+    const vn=norm(document.getElementById(p.na).value);
+    const okF=p.accF.some(a=>norm(a)===vf||vf.includes(norm(a)));
+    const okN=p.accN.some(a=>norm(a)===vn);
+    if(!okF||!okN)errors.push(labels[i]+': función esperada <strong>'+p.accF[0]+'</strong>, nombre <strong>'+p.accN[0]+'</strong>');
+  });
+
+  pairs.forEach(p=>{
+    document.getElementById(p.fa).disabled=true;
+    document.getElementById(p.na).disabled=true;
+  });
+  document.getElementById('e54').querySelector('.cbtn').disabled=true;
+
+  const ok=errors.length===0;
+  done.add('54');answered++;
+  if(ok)correct++;else wrong++;
+  upd();
+  if(ok){setFb('54',true,'✓ Perfecto, los 5 correctos.');}
+  else{setFb('54',false,'✗ Errores en: '+errors.join(' · '));}
+}
+
 function toggleCS(btn){
   btn.classList.toggle('open');
   document.getElementById('csb').classList.toggle('show');
@@ -627,7 +690,7 @@ function resetAll(){
     ex.className='ex';
     ex.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('oc','ow');});
     ex.querySelectorAll('.cbtn').forEach(b=>b.disabled=false);
-    ex.querySelectorAll('.ain,.atx').forEach(inp=>{inp.disabled=false;inp.value='';inp.style.borderColor='';});
+    ex.querySelectorAll('input,textarea').forEach(inp=>{inp.disabled=false;inp.value='';inp.style.borderColor='';});
     ex.querySelectorAll('.fb').forEach(fb=>{fb.className='fb';fb.innerHTML='';});
   });
 }
