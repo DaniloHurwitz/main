@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Funciones Oxigenadas — Ejercicios</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Code+Pro:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117;--surface:#161b22;--surface2:#1c2330;--border:#30363d;
+    --accent:#e8c547;--accent2:#58a6ff;--accent3:#3fb950;--danger:#f85149;
+    --text:#e6edf3;--muted:#7d8590;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;padding:2rem 1rem 5rem}
+  .noise{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.4}
+  .container{max-width:860px;margin:0 auto;position:relative;z-index:1}
+  header{text-align:center;margin-bottom:3rem}
+  .tag{display:inline-block;font-family:'Source Code Pro',monospace;font-size:.72rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);background:rgba(232,197,71,.1);border:1px solid rgba(232,197,71,.3);padding:.3rem .9rem;border-radius:2px;margin-bottom:1rem}
+  h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;line-height:1.1;color:var(--text);margin-bottom:.6rem}
+  h1 span{color:var(--accent)}
+  .subtitle{color:var(--muted);font-size:.95rem;font-weight:300;max-width:500px;margin:0 auto;line-height:1.6}
+  .scoreboard{display:flex;gap:.75rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap}
+  .score-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.65rem 1.25rem;text-align:center;min-width:110px}
+  .score-card .sn{font-family:'Source Code Pro',monospace;font-size:1.7rem;font-weight:600;line-height:1}
+  .score-card .sl{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.2rem}
+  .score-card.t .sn{color:var(--accent2)}.score-card.c .sn{color:var(--accent3)}.score-card.w .sn{color:var(--danger)}
+  .prog-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:.9rem 1.4rem;margin-bottom:2rem}
+  .prog-top{display:flex;justify-content:space-between;margin-bottom:.45rem;font-size:.78rem;color:var(--muted)}
+  .prog-bg{background:var(--surface2);border-radius:99px;height:5px;overflow:hidden}
+  .prog-fill{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent3));border-radius:99px;transition:width .4s ease;width:0%}
+  .cs-wrap{background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:2rem;overflow:hidden}
+  .cs-toggle{width:100%;background:none;border:none;color:var(--text);padding:.9rem 1.4rem;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:.6rem;text-align:left}
+  .cs-toggle:hover{background:rgba(255,255,255,.03)}
+  .cs-toggle .arr{margin-left:auto;color:var(--muted);font-size:.75rem;transition:transform .2s}
+  .cs-toggle.open .arr{transform:rotate(180deg)}
+  .cs-body{display:none;padding:0 1.4rem 1.2rem;border-top:1px solid var(--border)}
+  .cs-body.show{display:block}
+  .cs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.65rem;margin-top:.9rem}
+  .cs-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.7rem .9rem}
+  .cs-card h4{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.35rem;font-family:'Source Code Pro',monospace}
+  .cs-card p{font-size:.82rem;color:var(--text);line-height:1.5}
+  .cs-card .fc{font-family:'Source Code Pro',monospace;color:var(--accent2);font-size:.78rem}
+  .sec-head{display:flex;align-items:center;gap:.8rem;margin:2.5rem 0 1.1rem;padding-bottom:.65rem;border-bottom:1px solid var(--border)}
+  .sec-head h2{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700}
+  .sec-badge{font-family:'Source Code Pro',monospace;font-size:.68rem;padding:.2rem .55rem;border-radius:3px;font-weight:600;text-transform:uppercase;letter-spacing:.1em}
+  .b-alc{background:rgba(88,166,255,.12);color:var(--accent2);border:1px solid rgba(88,166,255,.25)}
+  .b-ald{background:rgba(232,197,71,.12);color:var(--accent);border:1px solid rgba(232,197,71,.25)}
+  .b-cet{background:rgba(188,140,255,.12);color:#bc8cff;border:1px solid rgba(188,140,255,.25)}
+  .b-ac{background:rgba(248,81,73,.12);color:var(--danger);border:1px solid rgba(248,81,73,.25)}
+  .b-est{background:rgba(63,185,80,.12);color:var(--accent3);border:1px solid rgba(63,185,80,.25)}
+  .b-et{background:rgba(255,166,77,.12);color:#ffa64d;border:1px solid rgba(255,166,77,.25)}
+  .b-mix{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}
+  .sec-count{margin-left:auto;font-family:'Source Code Pro',monospace;font-size:.72rem;color:var(--muted)}
+  .ex{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.1rem 1.4rem;margin-bottom:.65rem;transition:border-color .2s}
+  .ex:hover{border-color:#444c56}
+  .ex.ok{background:#152a1e;border-color:var(--accent3)}
+  .ex.err{background:#2a1515;border-color:var(--danger)}
+  .ex-top{display:flex;align-items:flex-start;gap:.9rem;margin-bottom:.85rem}
+  .ex-num{font-family:'Source Code Pro',monospace;font-size:.7rem;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:.12rem .45rem;white-space:nowrap;flex-shrink:0;margin-top:3px}
+  .ex-q{font-size:.97rem;line-height:1.55;color:var(--text);flex:1}
+  .ex-q .f{font-family:'Source Code Pro',monospace;font-size:.9rem;color:var(--accent2);background:rgba(88,166,255,.07);padding:.08rem .35rem;border-radius:3px}
+  .ex-kind{font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-family:'Source Code Pro',monospace;flex-shrink:0;margin-top:4px}
+  .irow{display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}
+  .ain{flex:1;min-width:180px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.5rem .8rem;font-size:.88rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s}
+  .ain:focus{border-color:var(--accent2)}
+  .ain:disabled{opacity:.65;cursor:default}
+  .ain.wide{min-width:300px}
+  .cbtn{background:var(--accent);color:#0d1117;border:none;border-radius:6px;padding:.5rem 1rem;font-size:.82rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s;white-space:nowrap}
+  .cbtn:hover{opacity:.82}
+  .cbtn:disabled{opacity:.35;cursor:default}
+  .atx{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.6rem .85rem;font-size:.88rem;color:var(--text);font-family:'DM Sans',sans-serif;outline:none;resize:vertical;min-height:72px;transition:border-color .15s;margin-bottom:.45rem}
+  .atx:focus{border-color:var(--accent2)}
+  .atx:disabled{opacity:.65;cursor:default}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+  @media(max-width:580px){.opts{grid-template-columns:1fr}}
+  .opt{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:.55rem .85rem;font-size:.86rem;color:var(--text);cursor:pointer;text-align:left;transition:all .15s;font-family:'DM Sans',sans-serif}
+  .opt:hover:not(:disabled){border-color:var(--accent2);background:rgba(88,166,255,.07);color:var(--accent2)}
+  .opt:disabled{cursor:default}
+  .opt.oc{background:rgba(63,185,80,.13);border-color:var(--accent3);color:var(--accent3);font-weight:500}
+  .opt.ow{background:rgba(248,81,73,.1);border-color:var(--danger);color:var(--danger)}
+  .fb{display:none;margin-top:.65rem;padding:.55rem .85rem;border-radius:6px;font-size:.83rem;line-height:1.5}
+  .fb.show{display:block}
+  .fb.ok{background:rgba(63,185,80,.09);border:1px solid rgba(63,185,80,.28);color:#7ee787}
+  .fb.err{background:rgba(248,81,73,.09);border:1px solid rgba(248,81,73,.28);color:#ff7b72}
+  .reset-btn{display:block;margin:2.5rem auto 0;background:transparent;border:1px solid var(--border);color:var(--muted);padding:.6rem 1.6rem;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:.83rem;cursor:pointer;transition:all .15s}
+  .reset-btn:hover{border-color:var(--danger);color:var(--danger)}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="container">
+
+<header>
+  <div class="tag">Química Orgánica</div>
+  <h1>Funciones <span>Oxigenadas</span></h1>
+  <p class="subtitle">55 ejercicios: nombrar, completar, escribir fórmulas, clasificar, desarrollar. Sin trampa de opciones.</p>
+</header>
+
+<div class="scoreboard">
+  <div class="score-card t"><div class="sn" id="sc-t">0</div><div class="sl">Respondidos</div></div>
+  <div class="score-card c"><div class="sn" id="sc-c">0</div><div class="sl">Correctos</div></div>
+  <div class="score-card w"><div class="sn" id="sc-w">0</div><div class="sl">Incorrectos</div></div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-top"><span>Progreso</span><span id="prog-txt">0 / 55</span></div>
+  <div class="prog-bg"><div class="prog-fill" id="prog-fill"></div></div>
+</div>
+
+<div class="cs-wrap">
+  <button class="cs-toggle" onclick="toggleCS(this)">📋 Guía rápida de grupos funcionales <span class="arr">▼</span></button>
+  <div class="cs-body" id="csb">
+    <div class="cs-grid">
+      <div class="cs-card"><h4>Alcohol</h4><p><span class="fc">–OH</span> hidroxilo · sufijo <strong>-ol</strong><br>Ej: etanol, propan-2-ol</p></div>
+      <div class="cs-card"><h4>Aldehído</h4><p><span class="fc">–CHO</span> carbonilo terminal · sufijo <strong>-al</strong><br>Ej: metanal, etanal</p></div>
+      <div class="cs-card"><h4>Cetona</h4><p><span class="fc">C=O</span> carbonilo interno · sufijo <strong>-ona</strong><br>Ej: propanona, butan-2-ona</p></div>
+      <div class="cs-card"><h4>Ácido carboxílico</h4><p><span class="fc">–COOH</span> · <strong>ácido …-oico</strong><br>Ej: ácido etanoico (acético)</p></div>
+      <div class="cs-card"><h4>Éster</h4><p><span class="fc">–COO–</span> · <strong>alquil …-oato</strong><br>Ej: etil etanoato</p></div>
+      <div class="cs-card"><h4>Éter</h4><p><span class="fc">R–O–R'</span> · prefijo <strong>alcoxi–</strong><br>Ej: etoxietano, metoxipropano</p></div>
+      <div class="cs-card"><h4>Diol / Triol</h4><p><span class="fc">–(OH)n</span> · sufijo <strong>-diol / -triol</strong><br>Ej: etanodiol, propano-1,2,3-triol</p></div>
+      <div class="cs-card"><h4>Sufijos resumen</h4><p>alcohol: <strong>-ol</strong> · aldehído: <strong>-al</strong><br>cetona: <strong>-ona</strong> · ácido: <strong>-oico</strong><br>éster: <strong>-oato</strong> · éter: <strong>-oxi</strong></p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ALCOHOLES -->
+<div class="sec-head"><h2>Alcoholes</h2><span class="sec-badge b-alc">–OH</span><span class="sec-count">1 – 10</span></div>
+
+<div class="ex" id="e1">
+  <div class="ex-top"><span class="ex-num">#01</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–OH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i1" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('1',['metanol'])">Verificar</button></div>
+  <div class="fb" id="f1"></div>
+</div>
+
+<div class="ex" id="e2">
+  <div class="ex-top"><span class="ex-num">#02</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH₂–OH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i2" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('2',['etanol'])">Verificar</button></div>
+  <div class="fb" id="f2"></div>
+</div>
+
+<div class="ex" id="e3">
+  <div class="ex-top"><span class="ex-num">#03</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH(OH)–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i3" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('3',['propan-2-ol','2-propanol'])">Verificar</button></div>
+  <div class="fb" id="f3"></div>
+</div>
+
+<div class="ex" id="e4">
+  <div class="ex-top"><span class="ex-num">#04</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">(CH₃)₃C–OH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i4" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('4',['2-metilpropan-2-ol','2-metil-2-propanol'])">Verificar</button></div>
+  <div class="fb" id="f4"></div>
+</div>
+
+<div class="ex" id="e5">
+  <div class="ex-top"><span class="ex-num">#05</span><p class="ex-q">Indicá si el <strong>butan-2-ol</strong> es alcohol primario, secundario o terciario. Justificá brevemente.</p><span class="ex-kind">Clasificar</span></div>
+  <textarea class="atx" id="i5" placeholder="Tipo y justificación…"></textarea>
+  <button class="cbtn" onclick="chkTx('5',['secundario'],['dos carbon','c-2','c2','dos sustituy','unido a dos'])">Verificar</button>
+  <div class="fb" id="f5"></div>
+</div>
+
+<div class="ex" id="e6">
+  <div class="ex-top"><span class="ex-num">#06</span><p class="ex-q">El <strong>etilenglicol</strong> es un diol de 2 carbonos. Escribí su nombre IUPAC.</p><span class="ex-kind">Completar</span></div>
+  <div class="irow"><input class="ain" id="i6" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('6',['etanodiol','etano-1,2-diol'])">Verificar</button></div>
+  <div class="fb" id="f6"></div>
+</div>
+
+<div class="ex" id="e7">
+  <div class="ex-top"><span class="ex-num">#07</span><p class="ex-q">Dá el nombre IUPAC de la glicerina: <span class="f">HOCH₂–CH(OH)–CH₂OH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i7" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('7',['propano-1,2,3-triol'])">Verificar</button></div>
+  <div class="fb" id="f7"></div>
+</div>
+
+<div class="ex" id="e8">
+  <div class="ex-top"><span class="ex-num">#08</span><p class="ex-q">Escribí la fórmula semidesarrollada del <strong>pentan-3-ol</strong>.</p><span class="ex-kind">Fórmula</span></div>
+  <div class="irow"><input class="ain wide" id="i8" placeholder="CH₃–…"><button class="cbtn" onclick="chk('8',['ch3-ch2-ch(oh)-ch2-ch3','ch3ch2ch(oh)ch2ch3','ch3–ch2–ch(oh)–ch2–ch3'])">Verificar</button></div>
+  <div class="fb" id="f8"></div>
+</div>
+
+<div class="ex" id="e9">
+  <div class="ex-top"><span class="ex-num">#09</span><p class="ex-q">¿Cuál de estas fórmulas corresponde al <strong>butan-1-ol</strong>?</p><span class="ex-kind">Opción múltiple</span></div>
+  <div class="opts">
+    <button class="opt" onclick="mc(this,'9','w')">CH₃–CH(OH)–CH₂–CH₃</button>
+    <button class="opt" onclick="mc(this,'9','c')">CH₃–CH₂–CH₂–CH₂–OH</button>
+    <button class="opt" onclick="mc(this,'9','w')">HO–CH₂–CH₂–OH</button>
+    <button class="opt" onclick="mc(this,'9','w')">CH₃–CH₂–CH(OH)–CH₃</button>
+  </div>
+  <div class="fb" id="f9"></div>
+</div>
+
+<div class="ex" id="e10">
+  <div class="ex-top"><span class="ex-num">#10</span><p class="ex-q">¿Por qué el etanol tiene mayor punto de ebullición que el éter etílico, siendo ambos C₄H₁₀O? Explicá en una o dos líneas.</p><span class="ex-kind">Desarrollo</span></div>
+  <textarea class="atx" id="i10" placeholder="Explicación…"></textarea>
+  <button class="cbtn" onclick="chkTx('10',['puente de hidrogeno','enlace de hidrogeno','puente de h'],['oh','hidroxilo','mayor interaccion'])">Verificar</button>
+  <div class="fb" id="f10"></div>
+</div>
+
+<!-- ALDEHÍDOS -->
+<div class="sec-head"><h2>Aldehídos</h2><span class="sec-badge b-ald">–CHO</span><span class="sec-count">11 – 20</span></div>
+
+<div class="ex" id="e11">
+  <div class="ex-top"><span class="ex-num">#11</span><p class="ex-q">Dá el nombre IUPAC del <strong>formaldehído</strong>: <span class="f">HCHO</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i11" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('11',['metanal'])">Verificar</button></div>
+  <div class="fb" id="f11"></div>
+</div>
+
+<div class="ex" id="e12">
+  <div class="ex-top"><span class="ex-num">#12</span><p class="ex-q">Dá el nombre IUPAC del <strong>acetaldehído</strong>: <span class="f">CH₃–CHO</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i12" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('12',['etanal'])">Verificar</button></div>
+  <div class="fb" id="f12"></div>
+</div>
+
+<div class="ex" id="e13">
+  <div class="ex-top"><span class="ex-num">#13</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH₂–CHO</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i13" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('13',['propanal'])">Verificar</button></div>
+  <div class="fb" id="f13"></div>
+</div>
+
+<div class="ex" id="e14">
+  <div class="ex-top"><span class="ex-num">#14</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH₂–CH₂–CHO</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i14" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('14',['butanal'])">Verificar</button></div>
+  <div class="fb" id="f14"></div>
+</div>
+
+<div class="ex" id="e15">
+  <div class="ex-top"><span class="ex-num">#15</span><p class="ex-q">Escribí la fórmula semidesarrollada del <strong>pentanal</strong>.</p><span class="ex-kind">Fórmula</span></div>
+  <div class="irow"><input class="ain wide" id="i15" placeholder="CH₃–…–CHO"><button class="cbtn" onclick="chk('15',['ch3-ch2-ch2-ch2-cho','ch3–ch2–ch2–ch2–cho','ch3ch2ch2ch2cho'])">Verificar</button></div>
+  <div class="fb" id="f15"></div>
+</div>
+
+<div class="ex" id="e16">
+  <div class="ex-top"><span class="ex-num">#16</span><p class="ex-q">Completá: "Los aldehídos tienen siempre el grupo carbonilo en el carbono __________ , por eso su sufijo IUPAC es __________ ."</p><span class="ex-kind">Completar doble</span></div>
+  <div class="irow" style="flex-wrap:wrap;gap:.5rem">
+    <input class="ain" id="i16a" style="max-width:160px" placeholder="posición del C=O">
+    <input class="ain" id="i16b" style="max-width:110px" placeholder="sufijo">
+    <button class="cbtn" onclick="chk2('16',['terminal','1','c-1','c 1'],['al','-al'])">Verificar</button>
+  </div>
+  <div class="fb" id="f16"></div>
+</div>
+
+<div class="ex" id="e17">
+  <div class="ex-top"><span class="ex-num">#17</span><p class="ex-q">De las tres fórmulas, identificá cuál es el aldehído y escribí su nombre IUPAC:<br><br>A) <span class="f">CH₃–CO–CH₃</span> &nbsp; B) <span class="f">CH₃–CH₂–CHO</span> &nbsp; C) <span class="f">CH₃–COOH</span></p><span class="ex-kind">Identificar + Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i17" placeholder="Letra: nombre IUPAC (ej: B: propanal)"><button class="cbtn" onclick="chk('17',['b: propanal','b propanal','b) propanal'])">Verificar</button></div>
+  <div class="fb" id="f17"></div>
+</div>
+
+<div class="ex" id="e18">
+  <div class="ex-top"><span class="ex-num">#18</span><p class="ex-q">¿Qué diferencia estructural hay entre un aldehído y una cetona? Una línea.</p><span class="ex-kind">Desarrollo</span></div>
+  <textarea class="atx" id="i18" placeholder="Diferencia…"></textarea>
+  <button class="cbtn" onclick="chkTx('18',['terminal','c-1','extremo','final'],['carbonilo','c=o','cetona.*interno','interno.*cetona'])">Verificar</button>
+  <div class="fb" id="f18"></div>
+</div>
+
+<div class="ex" id="e19">
+  <div class="ex-top"><span class="ex-num">#19</span><p class="ex-q">Dá el nombre IUPAC de la <strong>acroleína</strong>: <span class="f">CH₂=CH–CHO</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i19" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('19',['propenal','prop-2-enal'])">Verificar</button></div>
+  <div class="fb" id="f19"></div>
+</div>
+
+<div class="ex" id="e20">
+  <div class="ex-top"><span class="ex-num">#20</span><p class="ex-q">El <strong>metanal</strong> se conoce comercialmente como __________ y se usa para conservar tejidos biológicos.</p><span class="ex-kind">Nombre común</span></div>
+  <div class="irow"><input class="ain" id="i20" placeholder="Nombre común…"><button class="cbtn" onclick="chk('20',['formaldehido','formaldehído','formalina','formol'])">Verificar</button></div>
+  <div class="fb" id="f20"></div>
+</div>
+
+<!-- CETONAS -->
+<div class="sec-head"><h2>Cetonas</h2><span class="sec-badge b-cet">C=O interno</span><span class="sec-count">21 – 30</span></div>
+
+<div class="ex" id="e21">
+  <div class="ex-top"><span class="ex-num">#21</span><p class="ex-q">Dá el nombre IUPAC de la <strong>acetona</strong>: <span class="f">CH₃–CO–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i21" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('21',['propanona','propan-2-ona'])">Verificar</button></div>
+  <div class="fb" id="f21"></div>
+</div>
+
+<div class="ex" id="e22">
+  <div class="ex-top"><span class="ex-num">#22</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CO–CH₂–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i22" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('22',['butan-2-ona','2-butanona','butanona'])">Verificar</button></div>
+  <div class="fb" id="f22"></div>
+</div>
+
+<div class="ex" id="e23">
+  <div class="ex-top"><span class="ex-num">#23</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CO–CH₂–CH₂–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i23" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('23',['pentan-2-ona','2-pentanona'])">Verificar</button></div>
+  <div class="fb" id="f23"></div>
+</div>
+
+<div class="ex" id="e24">
+  <div class="ex-top"><span class="ex-num">#24</span><p class="ex-q">Escribí la fórmula semidesarrollada de la <strong>pentan-3-ona</strong>.</p><span class="ex-kind">Fórmula</span></div>
+  <div class="irow"><input class="ain wide" id="i24" placeholder="CH₃–…"><button class="cbtn" onclick="chk('24',['ch3-ch2-co-ch2-ch3','ch3–ch2–co–ch2–ch3','ch3ch2coch2ch3'])">Verificar</button></div>
+  <div class="fb" id="f24"></div>
+</div>
+
+<div class="ex" id="e25">
+  <div class="ex-top"><span class="ex-num">#25</span><p class="ex-q">¿Por qué no existe una cetona de 2 carbonos? Justificá en una línea.</p><span class="ex-kind">Justificar</span></div>
+  <textarea class="atx" id="i25" placeholder="Justificación…"></textarea>
+  <button class="cbtn" onclick="chkTx('25',['carbon.*cada lado','un carbon a cada','c=o.*interno','necesita.*carbon','dos carbon'],['interno','al menos','tiene que'])">Verificar</button>
+  <div class="fb" id="f25"></div>
+</div>
+
+<div class="ex" id="e26">
+  <div class="ex-top"><span class="ex-num">#26</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH₂–CO–CH₂–CH₂–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i26" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('26',['hexan-3-ona','3-hexanona'])">Verificar</button></div>
+  <div class="fb" id="f26"></div>
+</div>
+
+<div class="ex" id="e27">
+  <div class="ex-top"><span class="ex-num">#27</span><p class="ex-q">Completá: "Aldehídos y cetonas comparten el grupo funcional __________ , pero en los aldehídos ese grupo está en posición __________ de la cadena."</p><span class="ex-kind">Completar doble</span></div>
+  <div class="irow" style="flex-wrap:wrap;gap:.5rem">
+    <input class="ain" id="i27a" style="max-width:160px" placeholder="grupo funcional">
+    <input class="ain" id="i27b" style="max-width:140px" placeholder="posición">
+    <button class="cbtn" onclick="chk2('27',['carbonilo','c=o','co'],['terminal','1','c-1'])">Verificar</button>
+  </div>
+  <div class="fb" id="f27"></div>
+</div>
+
+<div class="ex" id="e28">
+  <div class="ex-top"><span class="ex-num">#28</span><p class="ex-q">La <strong>propanona</strong> se conoce popularmente como __________ y es el solvente del quitaesmalte.</p><span class="ex-kind">Nombre común</span></div>
+  <div class="irow"><input class="ain" id="i28" placeholder="Nombre común…"><button class="cbtn" onclick="chk('28',['acetona'])">Verificar</button></div>
+  <div class="fb" id="f28"></div>
+</div>
+
+<div class="ex" id="e29">
+  <div class="ex-top"><span class="ex-num">#29</span><p class="ex-q">Indicá la función oxigenada de cada uno:<br>A) <span class="f">CH₃–CHO</span> &nbsp; B) <span class="f">CH₃–CO–CH₃</span> &nbsp; C) <span class="f">CH₃–CH₂–OH</span></p><span class="ex-kind">Clasificar</span></div>
+  <div class="irow"><input class="ain wide" id="i29" placeholder="A: … / B: … / C: …"><button class="cbtn" onclick="chk('29',['a: aldehido / b: cetona / c: alcohol','a aldehido b cetona c alcohol','a: aldehído / b: cetona / c: alcohol'])">Verificar</button></div>
+  <div class="fb" id="f29"></div>
+</div>
+
+<div class="ex" id="e30">
+  <div class="ex-top"><span class="ex-num">#30</span><p class="ex-q">Dá el nombre IUPAC de esta dicetona: <span class="f">CH₃–CO–CO–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i30" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('30',['butano-2,3-diona','2,3-butanodiona','butanodiona'])">Verificar</button></div>
+  <div class="fb" id="f30"></div>
+</div>
+
+<!-- ÁCIDOS CARBOXÍLICOS -->
+<div class="sec-head"><h2>Ácidos Carboxílicos</h2><span class="sec-badge b-ac">–COOH</span><span class="sec-count">31 – 40</span></div>
+
+<div class="ex" id="e31">
+  <div class="ex-top"><span class="ex-num">#31</span><p class="ex-q">Dá el nombre IUPAC del <strong>ácido fórmico</strong>: <span class="f">HCOOH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i31" placeholder="Ácido …"><button class="cbtn" onclick="chk('31',['acido metanoico','ácido metanoico'])">Verificar</button></div>
+  <div class="fb" id="f31"></div>
+</div>
+
+<div class="ex" id="e32">
+  <div class="ex-top"><span class="ex-num">#32</span><p class="ex-q">Dá el nombre IUPAC del <strong>ácido acético</strong> (vinagre): <span class="f">CH₃–COOH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i32" placeholder="Ácido …"><button class="cbtn" onclick="chk('32',['acido etanoico','ácido etanoico'])">Verificar</button></div>
+  <div class="fb" id="f32"></div>
+</div>
+
+<div class="ex" id="e33">
+  <div class="ex-top"><span class="ex-num">#33</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH₂–COOH</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i33" placeholder="Ácido …"><button class="cbtn" onclick="chk('33',['acido propanoico','ácido propanoico'])">Verificar</button></div>
+  <div class="fb" id="f33"></div>
+</div>
+
+<div class="ex" id="e34">
+  <div class="ex-top"><span class="ex-num">#34</span><p class="ex-q">El <strong>ácido butírico</strong> (olor a manteca rancia) tiene 4 carbonos. Dá su nombre IUPAC.</p><span class="ex-kind">Nombre común → IUPAC</span></div>
+  <div class="irow"><input class="ain wide" id="i34" placeholder="Ácido …"><button class="cbtn" onclick="chk('34',['acido butanoico','ácido butanoico'])">Verificar</button></div>
+  <div class="fb" id="f34"></div>
+</div>
+
+<div class="ex" id="e35">
+  <div class="ex-top"><span class="ex-num">#35</span><p class="ex-q">Escribí la fórmula semidesarrollada del <strong>ácido pentanoico</strong>.</p><span class="ex-kind">Fórmula</span></div>
+  <div class="irow"><input class="ain wide" id="i35" placeholder="CH₃–…–COOH"><button class="cbtn" onclick="chk('35',['ch3-ch2-ch2-ch2-cooh','ch3–ch2–ch2–ch2–cooh','ch3(ch2)3cooh','ch3ch2ch2ch2cooh'])">Verificar</button></div>
+  <div class="fb" id="f35"></div>
+</div>
+
+<div class="ex" id="e36">
+  <div class="ex-top"><span class="ex-num">#36</span><p class="ex-q">El <strong>ácido oxálico</strong> tiene 2 carbonos y 2 grupos –COOH. Dá su nombre IUPAC.</p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i36" placeholder="Ácido …"><button class="cbtn" onclick="chk('36',['acido etanodioico','ácido etanodioico'])">Verificar</button></div>
+  <div class="fb" id="f36"></div>
+</div>
+
+<div class="ex" id="e37">
+  <div class="ex-top"><span class="ex-num">#37</span><p class="ex-q">El <strong>ácido láctico</strong> tiene la fórmula <span class="f">CH₃–CH(OH)–COOH</span>. Dá su nombre IUPAC completo.</p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i37" placeholder="Ácido …"><button class="cbtn" onclick="chk('37',['acido 2-hidroxipropanoico','ácido 2-hidroxipropanoico'])">Verificar</button></div>
+  <div class="fb" id="f37"></div>
+</div>
+
+<div class="ex" id="e38">
+  <div class="ex-top"><span class="ex-num">#38</span><p class="ex-q">¿Por qué los ácidos carboxílicos son más ácidos que los alcoholes si ambos tienen oxígeno? Explicá en una o dos líneas.</p><span class="ex-kind">Desarrollo</span></div>
+  <textarea class="atx" id="i38" placeholder="Explicación…"></textarea>
+  <button class="cbtn" onclick="chkTx('38',['resonancia','estabiliz','carga.*distribuida','distribucion.*carga','coo-','carboxilato'],['base conjugada','anion','coo','c=o'])">Verificar</button>
+  <div class="fb" id="f38"></div>
+</div>
+
+<div class="ex" id="e39">
+  <div class="ex-top"><span class="ex-num">#39</span><p class="ex-q">Completá: "La esterificación es la reacción entre un __________ y un __________ para formar un __________ y agua."</p><span class="ex-kind">Completar triple</span></div>
+  <div class="irow" style="flex-wrap:wrap;gap:.5rem">
+    <input class="ain" id="i39a" style="max-width:170px" placeholder="reactivo 1">
+    <input class="ain" id="i39b" style="max-width:140px" placeholder="reactivo 2">
+    <input class="ain" id="i39c" style="max-width:120px" placeholder="producto">
+    <button class="cbtn" onclick="chk3('39',['acido','acido carboxilico','ácido','ácido carboxilico'],['alcohol'],['ester','éster'])">Verificar</button>
+  </div>
+  <div class="fb" id="f39"></div>
+</div>
+
+<div class="ex" id="e40">
+  <div class="ex-top"><span class="ex-num">#40</span><p class="ex-q">¿Cuál de estas fórmulas corresponde a un <strong>ácido carboxílico</strong>?</p><span class="ex-kind">Opción múltiple</span></div>
+  <div class="opts">
+    <button class="opt" onclick="mc(this,'40','w')">CH₃–CO–CH₃</button>
+    <button class="opt" onclick="mc(this,'40','w')">CH₃–CHO</button>
+    <button class="opt" onclick="mc(this,'40','c')">CH₃–CH₂–COOH</button>
+    <button class="opt" onclick="mc(this,'40','w')">CH₃–O–CH₃</button>
+  </div>
+  <div class="fb" id="f40"></div>
+</div>
+
+<!-- ÉSTERES -->
+<div class="sec-head"><h2>Ésteres</h2><span class="sec-badge b-est">–COO–</span><span class="sec-count">41 – 48</span></div>
+
+<div class="ex" id="e41">
+  <div class="ex-top"><span class="ex-num">#41</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–COO–CH₂–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i41" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('41',['etil etanoato'])">Verificar</button></div>
+  <div class="fb" id="f41"></div>
+</div>
+
+<div class="ex" id="e42">
+  <div class="ex-top"><span class="ex-num">#42</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">HCOO–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i42" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('42',['metil metanoato'])">Verificar</button></div>
+  <div class="fb" id="f42"></div>
+</div>
+
+<div class="ex" id="e43">
+  <div class="ex-top"><span class="ex-num">#43</span><p class="ex-q">El éster <strong>propil butanoato</strong> se forma a partir de ¿qué ácido y qué alcohol? Escribí ambos.</p><span class="ex-kind">Descomponer</span></div>
+  <div class="irow" style="flex-wrap:wrap;gap:.5rem">
+    <input class="ain" id="i43a" style="max-width:210px" placeholder="Ácido…">
+    <input class="ain" id="i43b" style="max-width:170px" placeholder="Alcohol…">
+    <button class="cbtn" onclick="chk2('43',['acido butanoico','ácido butanoico','butanoico'],['propanol','propan-1-ol','1-propanol'])">Verificar</button>
+  </div>
+  <div class="fb" id="f43"></div>
+</div>
+
+<div class="ex" id="e44">
+  <div class="ex-top"><span class="ex-num">#44</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–CH₂–COO–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i44" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('44',['metil propanoato'])">Verificar</button></div>
+  <div class="fb" id="f44"></div>
+</div>
+
+<div class="ex" id="e45">
+  <div class="ex-top"><span class="ex-num">#45</span><p class="ex-q">Escribí la fórmula del éster que se forma entre el <strong>ácido acético</strong> y el <strong>propan-1-ol</strong>. Dá también su nombre IUPAC.</p><span class="ex-kind">Construir + Nombrar</span></div>
+  <textarea class="atx" id="i45" placeholder="Fórmula: …  /  Nombre: …"></textarea>
+  <button class="cbtn" onclick="chkTx('45',['ch3-coo-ch2-ch2-ch3','ch3cooch2ch2ch3','ch3–coo–ch2–ch2–ch3'],['propil etanoato'])">Verificar</button>
+  <div class="fb" id="f45"></div>
+</div>
+
+<div class="ex" id="e46">
+  <div class="ex-top"><span class="ex-num">#46</span><p class="ex-q">Los triglicéridos son ésteres de ácidos grasos con __________ . Explicá en una línea su formación.</p><span class="ex-kind">Completar + Desarrollo</span></div>
+  <textarea class="atx" id="i46" placeholder="Completar y explicar…"></textarea>
+  <button class="cbtn" onclick="chkTx('46',['glicerol','glicerina','propano-1,2,3-triol'],['esterificacion','ester','tres acido','tres grupos','tres moleculas'])">Verificar</button>
+  <div class="fb" id="f46"></div>
+</div>
+
+<div class="ex" id="e47">
+  <div class="ex-top"><span class="ex-num">#47</span><p class="ex-q">El acetato de isoamilo huele a banana. ¿A qué función oxigenada pertenece? Dá su nombre IUPAC.</p><span class="ex-kind">Identificar + Nombrar</span></div>
+  <div class="irow"><input class="ain wide" id="i47" placeholder="Función: … / Nombre: …"><button class="cbtn" onclick="chk('47',['ester, isoamil etanoato','éster, isoamil etanoato','ester isoamil etanoato','éster isoamil etanoato'])">Verificar</button></div>
+  <div class="fb" id="f47"></div>
+</div>
+
+<div class="ex" id="e48">
+  <div class="ex-top"><span class="ex-num">#48</span><p class="ex-q">¿Cuál es la fórmula general de un <strong>éster</strong>?</p><span class="ex-kind">Opción múltiple</span></div>
+  <div class="opts">
+    <button class="opt" onclick="mc(this,'48','w')">R–OH</button>
+    <button class="opt" onclick="mc(this,'48','w')">R–COOH</button>
+    <button class="opt" onclick="mc(this,'48','c')">R–COO–R'</button>
+    <button class="opt" onclick="mc(this,'48','w')">R–CHO</button>
+  </div>
+  <div class="fb" id="f48"></div>
+</div>
+
+<!-- ÉTERES -->
+<div class="sec-head"><h2>Éteres</h2><span class="sec-badge b-et">R–O–R'</span><span class="sec-count">49 – 53</span></div>
+
+<div class="ex" id="e49">
+  <div class="ex-top"><span class="ex-num">#49</span><p class="ex-q">Dá el nombre IUPAC del <strong>éter etílico</strong>: <span class="f">CH₃CH₂–O–CH₂CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i49" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('49',['etoxietano'])">Verificar</button></div>
+  <div class="fb" id="f49"></div>
+</div>
+
+<div class="ex" id="e50">
+  <div class="ex-top"><span class="ex-num">#50</span><p class="ex-q">Dá el nombre IUPAC de: <span class="f">CH₃–O–CH₂–CH₃</span></p><span class="ex-kind">Nombrar</span></div>
+  <div class="irow"><input class="ain" id="i50" placeholder="Nombre IUPAC…"><button class="cbtn" onclick="chk('50',['metoxietano'])">Verificar</button></div>
+  <div class="fb" id="f50"></div>
+</div>
+
+<div class="ex" id="e51">
+  <div class="ex-top"><span class="ex-num">#51</span><p class="ex-q">Completá: "Para nombrar un éter se nombra el grupo alcoxilo más __________ con el sufijo __________ seguido del alcano mayor."</p><span class="ex-kind">Completar doble</span></div>
+  <div class="irow" style="flex-wrap:wrap;gap:.5rem">
+    <input class="ain" id="i51a" style="max-width:140px" placeholder="tamaño">
+    <input class="ain" id="i51b" style="max-width:110px" placeholder="sufijo">
+    <button class="cbtn" onclick="chk2('51',['corto','pequeño','menor'],['oxi','-oxi'])">Verificar</button>
+  </div>
+  <div class="fb" id="f51"></div>
+</div>
+
+<div class="ex" id="e52">
+  <div class="ex-top"><span class="ex-num">#52</span><p class="ex-q">El etoxietano y el butan-1-ol tienen ambos fórmula C₄H₁₀O. ¿Qué tipo de isomería existe entre ellos? Explicá en una línea.</p><span class="ex-kind">Isomería</span></div>
+  <textarea class="atx" id="i52" placeholder="Tipo y explicación…"></textarea>
+  <button class="cbtn" onclick="chkTx('52',['isomeria funcional','isomeros funcionales'],['mismo formula','distinto grupo','diferente funcion','misma formula'])">Verificar</button>
+  <div class="fb" id="f52"></div>
+</div>
+
+<div class="ex" id="e53">
+  <div class="ex-top"><span class="ex-num">#53</span><p class="ex-q">Escribí la fórmula del <strong>metoxipropano</strong>.</p><span class="ex-kind">Fórmula</span></div>
+  <div class="irow"><input class="ain wide" id="i53" placeholder="CH₃–O–…"><button class="cbtn" onclick="chk('53',['ch3-o-ch2-ch2-ch3','ch3–o–ch2–ch2–ch3','ch3och2ch2ch3'])">Verificar</button></div>
+  <div class="fb" id="f53"></div>
+</div>
+
+<!-- INTEGRACIÓN -->
+<div class="sec-head"><h2>Integración</h2><span class="sec-badge b-mix">Mixtos</span><span class="sec-count">54 – 55</span></div>
+
+<div class="ex" id="e54">
+  <div class="ex-top"><span class="ex-num">#54</span><p class="ex-q">Identificá la función oxigenada y dá el nombre IUPAC de cada uno:<br><br>A) <span class="f">CH₃–CH₂–OH</span><br>B) <span class="f">CH₃–CHO</span><br>C) <span class="f">CH₃–CO–CH₃</span><br>D) <span class="f">CH₃–COOH</span><br>E) <span class="f">CH₃–COO–CH₃</span></p><span class="ex-kind">Serie integrada</span></div>
+  <textarea class="atx" id="i54" style="min-height:110px" placeholder="A: función – nombre&#10;B: función – nombre&#10;C: función – nombre&#10;D: función – nombre&#10;E: función – nombre"></textarea>
+  <button class="cbtn" onclick="chkTx('54',['etanol','etanal','propanona','acido etanoico','metil etanoato'],['alcohol','aldehido','cetona','acido','ester'])">Verificar</button>
+  <div class="fb" id="f54"></div>
+</div>
+
+<div class="ex" id="e55">
+  <div class="ex-top"><span class="ex-num">#55</span><p class="ex-q">La aspirina tiene el nombre IUPAC <strong>ácido 2-acetoxibenzoico</strong>. ¿Cuántas funciones oxigenadas distintas tiene y cuáles son? Nombralas.</p><span class="ex-kind">Desarrollo integrador</span></div>
+  <textarea class="atx" id="i55" placeholder="Cantidad y nombres de las funciones oxigenadas…"></textarea>
+  <button class="cbtn" onclick="chkTx('55',['acido carboxilico','ester'],['dos','2','cooh','coo'])">Verificar</button>
+  <div class="fb" id="f55"></div>
+</div>
+
+<button class="reset-btn" onclick="resetAll()">↺ Reiniciar todos los ejercicios</button>
+</div>
+
+<script>
+const TOTAL=55;
+let answered=0,correct=0,wrong=0;
+const done=new Set();
+
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().replace(/\s+/g,' ');}
+
+function upd(){
+  document.getElementById('sc-t').textContent=answered;
+  document.getElementById('sc-c').textContent=correct;
+  document.getElementById('sc-w').textContent=wrong;
+  document.getElementById('prog-txt').textContent=answered+' / '+TOTAL;
+  document.getElementById('prog-fill').style.width=(answered/TOTAL*100)+'%';
+}
+
+function setFb(id,ok,msg){
+  const fb=document.getElementById('f'+id);
+  fb.className='fb show '+(ok?'ok':'err');
+  fb.innerHTML=msg;
+  document.getElementById('e'+id).classList.add(ok?'ok':'err');
+}
+
+function reg(id,ok){
+  done.add(id);answered++;
+  if(ok)correct++;else wrong++;
+  upd();
+}
+
+function chk(id,acc){
+  if(done.has(id))return;
+  const inp=document.getElementById('i'+id);
+  const v=norm(inp.value);
+  if(!v)return;
+  const ok=acc.some(a=>norm(a)===v);
+  inp.disabled=true;
+  document.getElementById('e'+id).querySelector('.cbtn').disabled=true;
+  reg(id,ok);
+  setFb(id,ok,ok?'✓ Correcto.':'✗ Incorrecto. Respuesta: <strong>'+acc[0]+'</strong>');
+}
+
+function chk2(id,acc1,acc2){
+  if(done.has(id))return;
+  const v1=norm(document.getElementById('i'+id+'a').value);
+  const v2=norm(document.getElementById('i'+id+'b').value);
+  if(!v1||!v2)return;
+  const ok=acc1.some(a=>norm(a)===v1)&&acc2.some(a=>norm(a)===v2);
+  ['a','b'].forEach(s=>{const el=document.getElementById('i'+id+s);if(el)el.disabled=true;});
+  document.getElementById('e'+id).querySelector('.cbtn').disabled=true;
+  reg(id,ok);
+  setFb(id,ok,ok?'✓ Correcto.':'✗ Incorrecto. Esperado: <strong>'+acc1[0]+' / '+acc2[0]+'</strong>');
+}
+
+function chk3(id,acc1,acc2,acc3){
+  if(done.has(id))return;
+  const v1=norm(document.getElementById('i'+id+'a').value);
+  const v2=norm(document.getElementById('i'+id+'b').value);
+  const v3=norm(document.getElementById('i'+id+'c').value);
+  if(!v1||!v2||!v3)return;
+  const ok=acc1.some(a=>norm(a)===v1)&&acc2.some(a=>norm(a)===v2)&&acc3.some(a=>norm(a)===v3);
+  ['a','b','c'].forEach(s=>{const el=document.getElementById('i'+id+s);if(el)el.disabled=true;});
+  document.getElementById('e'+id).querySelector('.cbtn').disabled=true;
+  reg(id,ok);
+  setFb(id,ok,ok?'✓ Correcto.':'✗ Incorrecto. Esperado: <strong>'+acc1[0]+' + '+acc2[0]+' → '+acc3[0]+'</strong>');
+}
+
+function chkTx(id,reqA,reqB){
+  if(done.has(id))return;
+  const inp=document.getElementById('i'+id);
+  const v=norm(inp.value);
+  if(!v||v.length<3)return;
+  const okA=reqA.some(k=>v.includes(norm(k)));
+  const okB=reqB?reqB.some(k=>v.includes(norm(k))):true;
+  const ok=okA&&okB;
+  inp.disabled=true;
+  const btn=document.getElementById('e'+id).querySelector('.cbtn');
+  if(btn)btn.disabled=true;
+  reg(id,ok);
+  setFb(id,ok,ok?'✓ Bien. Tu respuesta incluye los conceptos clave.':'✗ Falta mencionar: <strong>'+reqA[0]+(reqB?' + '+reqB[0]:'')+'</strong>. Revisá y reintentá en el próximo repaso.');
+}
+
+function mc(btn,id,res){
+  if(done.has(id))return;
+  const ex=document.getElementById('e'+id);
+  ex.querySelectorAll('.opt').forEach(b=>b.disabled=true);
+  const ok=res==='c';
+  btn.classList.add(ok?'oc':'ow');
+  if(!ok)ex.querySelectorAll('.opt').forEach(b=>{if(b.getAttribute('onclick').includes(",'c'"))b.classList.add('oc');});
+  reg(id,ok);
+  setFb(id,ok,ok?'✓ Correcto.':'✗ Incorrecto. La opción verde es la correcta.');
+}
+
+function toggleCS(btn){
+  btn.classList.toggle('open');
+  document.getElementById('csb').classList.toggle('show');
+}
+
+function resetAll(){
+  if(!confirm('¿Reiniciar todos los ejercicios?'))return;
+  answered=0;correct=0;wrong=0;done.clear();upd();
+  document.querySelectorAll('.ex').forEach(ex=>{
+    ex.className='ex';
+    ex.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('oc','ow');});
+    ex.querySelectorAll('.cbtn').forEach(b=>b.disabled=false);
+    ex.querySelectorAll('.ain,.atx').forEach(inp=>{inp.disabled=false;inp.value='';inp.style.borderColor='';});
+    ex.querySelectorAll('.fb').forEach(fb=>{fb.className='fb';fb.innerHTML='';});
+  });
+}
+</script>
+</body>
+</html>
