@@ -201,7 +201,7 @@ body.dark nav.site-nav { background: rgba(14,14,12,0.88); }
   max-height: 520px;
   background: var(--paper-3);
 }
-.hero-reel video {
+.hero-reel img {
   width: 100%; height: 100%;
   object-fit: cover;
 }
