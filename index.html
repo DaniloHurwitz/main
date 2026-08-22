@@ -481,72 +481,925 @@
   </div>
 </section>
 
+```html
 <!-- CALCULATOR -->
 <section class="calc-section" id="cotizar">
   <div class="wrap">
+
     <div class="calc-header reveal">
       <h2>Estimá tu proyecto</h2>
-      <p>Seleccioná las variables y obtené un rango orientativo en USD. Después hablamos y te paso una propuesta exacta.</p>
+      <p>
+        Elegí el tipo de contenido, el volumen y la complejidad.
+        Vas a obtener una referencia orientativa en USD. Después
+        te envío una propuesta exacta según el proyecto.
+      </p>
     </div>
+
     <div class="calc-inner reveal rd1">
+
       <div class="calc-form">
+
+        <!-- TIPO DE PROYECTO -->
         <div class="calc-group">
           <label class="calc-label">Tipo de proyecto</label>
+
           <div class="calc-options">
-            <button class="calc-opt active" data-field="tipo" data-val="reel">Reel / Short</button>
-            <button class="calc-opt" data-field="tipo" data-val="ad">Ad comercial</button>
-            <button class="calc-opt" data-field="tipo" data-val="long">Video largo</button>
-            <button class="calc-opt" data-field="tipo" data-val="intro">Intro / Outro</button>
+            <button
+              class="calc-opt active"
+              data-field="tipo"
+              data-val="reel">
+              Reel / Short
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="tipo"
+              data-val="ad">
+              Ad comercial
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="tipo"
+              data-val="long">
+              Video largo
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="tipo"
+              data-val="intro">
+              Intro / Outro
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="tipo"
+              data-val="monthly">
+              Paquete mensual
+            </button>
           </div>
         </div>
+
+
+        <!-- CANTIDAD / DURACIÓN -->
         <div class="calc-group">
+
           <label class="calc-label">
             <span id="calcQtyLabel">Duración</span>
-            <span class="calc-qty-value"><span id="calcQtyNum">1</span> <span id="calcQtyUnit">min</span></span>
+
+            <span class="calc-qty-value">
+              <span id="calcQtyNum">1</span>
+              <span id="calcQtyUnit">min</span>
+            </span>
           </label>
+
+
+          <!-- PROJECT PRESETS -->
           <div class="calc-presets" id="calcPresets">
-            <button class="calc-preset active" data-preset="1">1</button>
-            <button class="calc-preset" data-preset="2">2</button>
-            <button class="calc-preset" data-preset="5">5</button>
-            <button class="calc-preset" data-preset="10">10</button>
-            <button class="calc-preset" data-preset="custom" id="calcPresetCustom">Personalizado</button>
+
+            <button
+              class="calc-preset active"
+              data-preset="1">
+              1
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="2">
+              2
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="5">
+              5
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="10">
+              10
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="custom"
+              id="calcPresetCustom">
+              Personalizado
+            </button>
+
           </div>
-          <div class="calc-custom-input" id="calcCustomInput">
-            <input type="number" id="calcQtyInput" min="1" max="180" value="1">
-            <span id="calcQtyInputUnit" class="calc-custom-unit">min</span>
+
+
+          <!-- MONTHLY PRESETS -->
+          <div
+            class="calc-presets"
+            id="calcMonthlyPresets"
+            style="display:none;">
+
+            <button
+              class="calc-preset active"
+              data-preset="4">
+              4 piezas
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="8">
+              8 piezas
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="12">
+              12 piezas
+            </button>
+
+            <button
+              class="calc-preset"
+              data-preset="20">
+              20 piezas
+            </button>
+
           </div>
+
+
+          <div
+            class="calc-custom-input"
+            id="calcCustomInput">
+
+            <input
+              type="number"
+              id="calcQtyInput"
+              min="1"
+              max="180"
+              value="1">
+
+            <span
+              id="calcQtyInputUnit"
+              class="calc-custom-unit">
+              min
+            </span>
+
+          </div>
+
         </div>
+
+
+        <!-- URGENCY -->
         <div class="calc-group">
-          <label class="calc-label">Urgencia</label>
+
+          <label class="calc-label">
+            Urgencia
+          </label>
+
           <div class="calc-options">
-            <button class="calc-opt active" data-field="urg" data-val="normal">Normal (5-7 días)</button>
-            <button class="calc-opt" data-field="urg" data-val="urgente">Urgente (48-72h)</button>
-            <button class="calc-opt" data-field="urg" data-val="express">Express (24h)</button>
+
+            <button
+              class="calc-opt active"
+              data-field="urg"
+              data-val="normal">
+              Normal (5–7 días)
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="urg"
+              data-val="urgente">
+              Urgente (48–72h)
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="urg"
+              data-val="express">
+              Express (24h)
+            </button>
+
           </div>
+
         </div>
-        <div class="calc-group">
-          <label class="calc-label">Complejidad</label>
+
+
+        <!-- COMPLEXITY -->
+        <div
+          class="calc-group"
+          id="calcComplexityGroup">
+
+          <label class="calc-label">
+            Complejidad
+          </label>
+
           <div class="calc-options">
-            <button class="calc-opt active" data-field="complex" data-val="basic">Cortes + subtítulos</button>
-            <button class="calc-opt" data-field="complex" data-val="mid">+ Motion graphics</button>
-            <button class="calc-opt" data-field="complex" data-val="high">+ Color + efectos</button>
+
+            <button
+              class="calc-opt active"
+              data-field="complex"
+              data-val="basic">
+              Cortes + subtítulos
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="complex"
+              data-val="mid">
+              + Motion graphics
+            </button>
+
+            <button
+              class="calc-opt"
+              data-field="complex"
+              data-val="high">
+              + Color + efectos
+            </button>
+
           </div>
+
         </div>
+
+
+        <!-- MONTHLY INFO -->
+        <div
+          class="calc-monthly-info"
+          id="calcMonthlyInfo"
+          style="display:none;">
+
+          <div class="calc-tier-info">
+
+            <strong>Contenido recurrente</strong>
+
+            <span>
+              Los paquetes mensuales tienen un precio por pieza
+              menor que los proyectos individuales e incluyen
+              prioridad de agenda.
+            </span>
+
+          </div>
+
+        </div>
+
       </div>
+
+
+      <!-- RESULT -->
       <div class="calc-result">
-        <div class="calc-result-label">Estimado aproximado</div>
-        <div class="calc-range" id="calcRange">$20</div>
-        <div class="calc-range-note">USD · estimado total</div>
-        <div class="calc-tier-info" id="calcInfo">
-          <strong>Rango estándar</strong>
-          <span>Para proyectos simples con entrega normal.</span>
+
+        <div class="calc-result-label">
+          Referencia orientativa
         </div>
-        <a href="#" target="_blank" class="btn-primary calc-cta" id="calcCtaBtn">Pedir propuesta formal →</a>
-        <p class="calc-trust">Propuesta exacta en menos de 4 horas.</p>
+
+        <div
+          class="calc-range"
+          id="calcRange">
+          $30
+        </div>
+
+        <div class="calc-range-note">
+          USD · estimado total
+        </div>
+
+
+        <div
+          class="calc-tier-info"
+          id="calcInfo">
+
+          <strong>
+            Reel estándar
+          </strong>
+
+          <span>
+            Edición short-form con cortes, subtítulos y
+            ritmo orientado a retención.
+          </span>
+
+        </div>
+
+
+        <!-- MONTHLY VALUE -->
+        <div
+          class="calc-monthly-value"
+          id="calcMonthlyValue"
+          style="display:none;">
+
+          <span>
+            Precio aproximado por pieza
+          </span>
+
+          <strong id="calcPerPiece">
+            $27.50
+          </strong>
+
+        </div>
+
+
+        <a
+          href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20cotizar%20un%20proyecto."
+          target="_blank"
+          class="btn-primary calc-cta"
+          id="calcCtaBtn">
+          Pedir propuesta formal →
+        </a>
+
+
+        <p class="calc-trust">
+          Propuesta exacta en menos de 4 horas.
+        </p>
+
       </div>
+
     </div>
   </div>
 </section>
+
+
+<script>
+/*
+ * DANILO HURWITZ
+ * Pricing calculator
+ *
+ * BASE PRICES
+ *
+ * Reel:
+ * $30 / min 1
+ *
+ * Ad:
+ * $45 / min 1
+ *
+ * Long:
+ * $80 / min
+ *
+ * Intro:
+ * $40 base
+ *
+ * Monthly:
+ * 4  = $120  ($30/piece)
+ * 8  = $220  ($27.50/piece)
+ * 12 = $315  ($26.25/piece)
+ * 20 = $500  ($25/piece)
+ *
+ * Urgency:
+ * Normal   = x1
+ * Urgent   = x1.15
+ * Express  = x1.30
+ *
+ * Complexity:
+ * Basic = x1
+ * Mid   = x1.25
+ * High  = x1.50
+ */
+
+
+const calcState = {
+  tipo: "reel",
+  qty: 1,
+  urg: "normal",
+  complex: "basic"
+};
+
+
+const calcPrices = {
+
+  reel: 30,
+
+  ad: 45,
+
+  long: 80,
+
+  intro: 40
+
+};
+
+
+const monthlyPackages = {
+
+  4: 120,
+
+  8: 220,
+
+  12: 315,
+
+  20: 500
+
+};
+
+
+const urgencyMultiplier = {
+
+  normal: 1,
+
+  urgente: 1.15,
+
+  express: 1.30
+
+};
+
+
+const complexityMultiplier = {
+
+  basic: 1,
+
+  mid: 1.25,
+
+  high: 1.50
+
+};
+
+
+const range = document.getElementById("calcRange");
+const info = document.getElementById("calcInfo");
+
+const qtyNum = document.getElementById("calcQtyNum");
+const qtyLabel = document.getElementById("calcQtyLabel");
+const qtyUnit = document.getElementById("calcQtyUnit");
+
+const presets = document.getElementById("calcPresets");
+const monthlyPresets =
+  document.getElementById("calcMonthlyPresets");
+
+const customInput =
+  document.getElementById("calcCustomInput");
+
+const customInputField =
+  document.getElementById("calcQtyInput");
+
+const customInputUnit =
+  document.getElementById("calcQtyInputUnit");
+
+const complexityGroup =
+  document.getElementById("calcComplexityGroup");
+
+const monthlyInfo =
+  document.getElementById("calcMonthlyInfo");
+
+const monthlyValue =
+  document.getElementById("calcMonthlyValue");
+
+const perPiece =
+  document.getElementById("calcPerPiece");
+
+const cta =
+  document.getElementById("calcCtaBtn");
+
+
+/* -----------------------------
+   TYPE SELECTOR
+----------------------------- */
+
+document.querySelectorAll(
+  '.calc-opt[data-field="tipo"]'
+).forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '.calc-opt[data-field="tipo"]'
+      )
+      .forEach(btn =>
+        btn.classList.remove("active")
+      );
+
+    button.classList.add("active");
+
+    calcState.tipo =
+      button.dataset.val;
+
+    updateCalculator();
+
+  });
+
+});
+
+
+/* -----------------------------
+   URGENCY
+----------------------------- */
+
+document.querySelectorAll(
+  '.calc-opt[data-field="urg"]'
+).forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '.calc-opt[data-field="urg"]'
+      )
+      .forEach(btn =>
+        btn.classList.remove("active")
+      );
+
+    button.classList.add("active");
+
+    calcState.urg =
+      button.dataset.val;
+
+    updateCalculator();
+
+  });
+
+});
+
+
+/* -----------------------------
+   COMPLEXITY
+----------------------------- */
+
+document.querySelectorAll(
+  '.calc-opt[data-field="complex"]'
+).forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    document
+      .querySelectorAll(
+        '.calc-opt[data-field="complex"]'
+      )
+      .forEach(btn =>
+        btn.classList.remove("active")
+      );
+
+    button.classList.add("active");
+
+    calcState.complex =
+      button.dataset.val;
+
+    updateCalculator();
+
+  });
+
+});
+
+
+/* -----------------------------
+   PRESETS
+----------------------------- */
+
+document
+  .querySelectorAll("#calcPresets .calc-preset")
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(
+          "#calcPresets .calc-preset"
+        )
+        .forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+      button.classList.add("active");
+
+      if (
+        button.dataset.preset === "custom"
+      ) {
+
+        customInput.style.display = "flex";
+
+      } else {
+
+        customInput.style.display = "none";
+
+        calcState.qty =
+          Number(button.dataset.preset);
+
+        qtyNum.textContent =
+          calcState.qty;
+
+      }
+
+      updateCalculator();
+
+    });
+
+  });
+
+
+/* -----------------------------
+   MONTHLY PRESETS
+----------------------------- */
+
+document
+  .querySelectorAll(
+    "#calcMonthlyPresets .calc-preset"
+  )
+  .forEach(button => {
+
+    button.addEventListener("click", () => {
+
+      document
+        .querySelectorAll(
+          "#calcMonthlyPresets .calc-preset"
+        )
+        .forEach(btn =>
+          btn.classList.remove("active")
+        );
+
+      button.classList.add("active");
+
+      calcState.qty =
+        Number(button.dataset.preset);
+
+      qtyNum.textContent =
+        calcState.qty;
+
+      updateCalculator();
+
+    });
+
+  });
+
+
+/* -----------------------------
+   CUSTOM INPUT
+----------------------------- */
+
+customInputField.addEventListener(
+  "input",
+  () => {
+
+    let value =
+      Number(customInputField.value);
+
+    if (value < 1) value = 1;
+
+    calcState.qty = value;
+
+    qtyNum.textContent = value;
+
+    updateCalculator();
+
+  }
+);
+
+
+/* -----------------------------
+   CALCULATOR
+----------------------------- */
+
+function updateCalculator() {
+
+  const isMonthly =
+    calcState.tipo === "monthly";
+
+
+  /* MONTHLY MODE */
+
+  if (isMonthly) {
+
+    qtyLabel.textContent =
+      "Cantidad de piezas";
+
+    qtyUnit.textContent =
+      "piezas";
+
+    customInput.style.display =
+      "none";
+
+    presets.style.display =
+      "none";
+
+    monthlyPresets.style.display =
+      "flex";
+
+    complexityGroup.style.display =
+      "none";
+
+    monthlyInfo.style.display =
+      "block";
+
+    monthlyValue.style.display =
+      "block";
+
+
+    const packageSize =
+      calcState.qty;
+
+    const packagePrice =
+      monthlyPackages[packageSize]
+      || packageSize * 25;
+
+
+    const urgency =
+      urgencyMultiplier[
+        calcState.urg
+      ];
+
+
+    const finalPrice =
+      Math.round(
+        packagePrice * urgency
+      );
+
+
+    const piecePrice =
+      (
+        finalPrice / packageSize
+      ).toFixed(2);
+
+
+    range.textContent =
+      "$" + finalPrice;
+
+
+    perPiece.textContent =
+      "$" + piecePrice;
+
+
+    info.innerHTML = `
+      <strong>
+        Paquete mensual · ${packageSize} piezas
+      </strong>
+
+      <span>
+        Contenido recurrente con prioridad de agenda
+        y precio por pieza reducido por volumen.
+      </span>
+    `;
+
+
+    updateCTA();
+
+    return;
+
+  }
+
+
+  /* NORMAL PROJECT MODE */
+
+  presets.style.display =
+    "flex";
+
+  monthlyPresets.style.display =
+    "none";
+
+  monthlyInfo.style.display =
+    "none";
+
+  monthlyValue.style.display =
+    "none";
+
+  complexityGroup.style.display =
+    "block";
+
+
+  if (calcState.tipo === "long") {
+
+    qtyLabel.textContent =
+      "Duración";
+
+    qtyUnit.textContent =
+      "min";
+
+  } else {
+
+    qtyLabel.textContent =
+      "Duración";
+
+    qtyUnit.textContent =
+      "min";
+
+  }
+
+
+  const basePrice =
+    calcPrices[
+      calcState.tipo
+    ] || 30;
+
+
+  let total;
+
+
+  if (calcState.tipo === "intro") {
+
+    total =
+      basePrice;
+
+  } else {
+
+    total =
+      basePrice *
+      calcState.qty;
+
+  }
+
+
+  total *=
+    urgencyMultiplier[
+      calcState.urg
+    ];
+
+
+  total *=
+    complexityMultiplier[
+      calcState.complex
+    ];
+
+
+  total =
+    Math.round(total);
+
+
+  range.textContent =
+    "$" + total;
+
+
+  const names = {
+
+    reel: "Reel / Short",
+
+    ad: "Ad comercial",
+
+    long: "Video largo",
+
+    intro: "Intro / Outro"
+
+  };
+
+
+  const descriptions = {
+
+    reel:
+      "Edición short-form con cortes, subtítulos y ritmo orientado a retención.",
+
+    ad:
+      "Pieza publicitaria pensada para captar atención, comunicar el mensaje y cerrar con un CTA.",
+
+    long:
+      "Edición de video largo con estructura narrativa, ritmo y limpieza visual.",
+
+    intro:
+      "Intro / Outro personalizada para reforzar identidad y posicionamiento."
+
+  };
+
+
+  info.innerHTML = `
+    <strong>
+      ${names[calcState.tipo]}
+    </strong>
+
+    <span>
+      ${descriptions[calcState.tipo]}
+    </span>
+  `;
+
+
+  updateCTA();
+
+}
+
+
+/* -----------------------------
+   WHATSAPP CTA
+----------------------------- */
+
+function updateCTA() {
+
+  let message = "";
+
+  if (calcState.tipo === "monthly") {
+
+    message =
+      `Hola Danilo, quiero cotizar un paquete mensual de ${calcState.qty} piezas.`;
+
+  } else {
+
+    const projectNames = {
+
+      reel: "Reel / Short",
+
+      ad: "Ad comercial",
+
+      long: "Video largo",
+
+      intro: "Intro / Outro"
+
+    };
+
+    message =
+      `Hola Danilo, quiero cotizar: ${projectNames[calcState.tipo]}, ${calcState.qty} min.`;
+
+  }
+
+
+  cta.href =
+    "https://wa.me/5492302219422?text=" +
+    encodeURIComponent(message);
+
+}
+
+
+/* INITIALIZE */
+
+updateCalculator();
+
+</script>
+```
+
 
 <!-- CONTACT -->
 <section class="contact-section" id="contacto">
