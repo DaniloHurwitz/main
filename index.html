@@ -498,33 +498,18 @@
 
       <div class="calc-form">
 
-        <!-- TIPO DE PROYECTO -->
         <div class="calc-group">
           <label class="calc-label">Tipo de proyecto</label>
-
           <div class="calc-options">
-            <button class="calc-opt active" data-field="tipo" data-val="reel">
-              Reel / Short
-            </button>
-            <button class="calc-opt" data-field="tipo" data-val="ad">
-              Ad comercial
-            </button>
-            <button class="calc-opt" data-field="tipo" data-val="long">
-              Video largo
-            </button>
-            <button class="calc-opt" data-field="tipo" data-val="intro">
-              Intro / Outro
-            </button>
-            <button class="calc-opt" data-field="tipo" data-val="monthly">
-              Paquete mensual
-            </button>
+            <button class="calc-opt active" data-field="tipo" data-val="reel">Reel / Short</button>
+            <button class="calc-opt" data-field="tipo" data-val="ad">Ad comercial</button>
+            <button class="calc-opt" data-field="tipo" data-val="long">Video largo</button>
+            <button class="calc-opt" data-field="tipo" data-val="intro">Intro / Outro</button>
+            <button class="calc-opt" data-field="tipo" data-val="monthly">Paquete mensual</button>
           </div>
         </div>
 
-
-        <!-- CANTIDAD / DURACIÓN -->
-        <div class="calc-group">
-
+        <div class="calc-group" id="calcDurGroup">
           <label class="calc-label">
             <span id="calcQtyLabel">Duración</span>
             <span class="calc-qty-value">
@@ -532,8 +517,6 @@
               <span id="calcQtyUnit">min</span>
             </span>
           </label>
-
-          <!-- PRESETS por pieza -->
           <div class="calc-presets" id="calcPresets">
             <button class="calc-preset active" data-preset="1">1</button>
             <button class="calc-preset" data-preset="2">2</button>
@@ -541,24 +524,18 @@
             <button class="calc-preset" data-preset="10">10</button>
             <button class="calc-preset" data-preset="custom" id="calcPresetCustom">Personalizado</button>
           </div>
-
-          <!-- PRESETS paquete mensual -->
           <div class="calc-presets" id="calcMonthlyPresets" style="display:none;">
             <button class="calc-preset active" data-preset="4">4 piezas</button>
             <button class="calc-preset" data-preset="8">8 piezas</button>
             <button class="calc-preset" data-preset="12">12 piezas</button>
             <button class="calc-preset" data-preset="20">20 piezas</button>
           </div>
-
           <div class="calc-custom-input" id="calcCustomInput">
             <input type="number" id="calcQtyInput" min="1" max="180" value="1">
             <span id="calcQtyInputUnit" class="calc-custom-unit">min</span>
           </div>
-
         </div>
 
-
-        <!-- URGENCIA -->
         <div class="calc-group" id="calcUrgGroup">
           <label class="calc-label">Urgencia</label>
           <div class="calc-options">
@@ -568,8 +545,6 @@
           </div>
         </div>
 
-
-        <!-- COMPLEJIDAD -->
         <div class="calc-group" id="calcComplexityGroup">
           <label class="calc-label">Complejidad</label>
           <div class="calc-options">
@@ -579,57 +554,37 @@
           </div>
         </div>
 
-
-        <!-- INFO paquete mensual -->
         <div class="calc-monthly-info" id="calcMonthlyInfo" style="display:none;">
           <div class="calc-tier-info">
             <strong>Contenido recurrente</strong>
-            <span>
-              Los paquetes mensuales tienen un precio por pieza menor que
-              los proyectos individuales e incluyen prioridad de agenda.
-            </span>
+            <span>Los paquetes mensuales tienen un precio por pieza menor que los proyectos individuales e incluyen prioridad de agenda.</span>
           </div>
         </div>
 
       </div>
 
-
-      <!-- RESULT -->
       <div class="calc-result">
-
         <div class="calc-result-label">Referencia orientativa</div>
-
         <div class="calc-range" id="calcRange">$55 – $70</div>
-
         <div class="calc-range-note">USD · estimado total</div>
-
         <div class="calc-tier-info" id="calcInfo">
           <strong>Reel estándar</strong>
           <span>Edición short-form con cortes, subtítulos y ritmo orientado a retención.</span>
         </div>
-
-        <!-- Precio por pieza — solo visible en modo mensual -->
         <div class="calc-monthly-value" id="calcMonthlyValue" style="display:none;">
           <span>Precio por pieza</span>
-          <strong id="calcPerPiece">$55</strong>
+          <strong id="calcPerPiece">$50</strong>
         </div>
-
-        <a
-          href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20cotizar%20un%20proyecto."
-          target="_blank"
-          class="btn-primary calc-cta"
-          id="calcCtaBtn">
+        <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20cotizar%20un%20proyecto."
+           target="_blank" class="btn-primary calc-cta" id="calcCtaBtn">
           Pedir propuesta formal →
         </a>
-
         <p class="calc-trust">Propuesta exacta en menos de 4 horas.</p>
-
       </div>
 
     </div>
   </div>
 </section>
-
 
 <script>
 (function () {
@@ -689,7 +644,7 @@
   const monthlyInfo    = document.getElementById("calcMonthlyInfo");
   const monthlyVal     = document.getElementById("calcMonthlyValue");
   const perPieceEl     = document.getElementById("calcPerPiece");
-  const durGroup       = presets.closest(".calc-group");
+  const durGroup       = document.getElementById("calcDurGroup");
 
   function update() {
     state.monthly ? renderMonthly() : renderUnit();
@@ -731,9 +686,8 @@
     ctaBtn.href = `https://wa.me/5492302219422?text=${msg}`;
   }
 
-  function setDurVisibility(tipo) {
-    const hide = BASE[tipo].fixedDur;
-    durGroup.style.display = hide ? "none" : "";
+  function setDurVisibility(tipo, isMonthly) {
+    durGroup.style.display = isMonthly || BASE[tipo].fixedDur ? "none" : "";
   }
 
   function setMonthlyMode(on) {
@@ -747,7 +701,8 @@
     complexGroup.style.display = on ? "none" : "";
     monthlyInfo.style.display  = on ? ""     : "none";
     monthlyVal.style.display   = on ? ""     : "none";
-    durGroup.style.display     = on ? "none" : (BASE[state.tipo].fixedDur ? "none" : "");
+
+    setDurVisibility(state.tipo, on);
 
     document.getElementById("calcQtyLabel").textContent = on ? "Volumen mensual" : "Duración";
     qtyUnit.textContent = on ? "" : "min";
@@ -765,24 +720,21 @@
     update();
   }
 
-  // Botones de tipo
   document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(btn => {
     btn.addEventListener("click", () => {
       document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
-
       if (btn.dataset.val === "monthly") {
         setMonthlyMode(true);
       } else {
         if (state.monthly) setMonthlyMode(false);
         state.tipo = btn.dataset.val;
-        setDurVisibility(state.tipo);
+        setDurVisibility(state.tipo, false);
         update();
       }
     });
   });
 
-  // Urgencia y complejidad
   document.querySelectorAll('.calc-opt:not([data-field="tipo"])').forEach(btn => {
     btn.addEventListener("click", () => {
       const field = btn.dataset.field;
@@ -793,7 +745,6 @@
     });
   });
 
-  // Presets duración
   presets.querySelectorAll(".calc-preset").forEach(btn => {
     btn.addEventListener("click", () => {
       presets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
@@ -817,7 +768,6 @@
     update();
   });
 
-  // Presets paquete mensual
   monthlyPresets.querySelectorAll(".calc-preset").forEach(btn => {
     btn.addEventListener("click", () => {
       monthlyPresets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
@@ -828,141 +778,11 @@
     });
   });
 
-  // Init
   customInp.style.display = "none";
   update();
 
 })();
 </script>
-
-
-    rangeEl.textContent = `$${lo} – $${hi}`;
-
-    const tier = TIER_INFO[state.tipo];
-    infoEl.innerHTML = `<strong>${tier.label}</strong><span>${tier.desc}</span>`;
-
-    const msg = encodeURIComponent(
-      `Hola Danilo, quiero cotizar:\n· Tipo: ${tier.label}\n· Duración: ${state.qty} min\n· Urgencia: ${state.urg}\n· Complejidad: ${state.complex}\n· Estimado: $${lo}–${hi} USD`
-    );
-    ctaBtn.href = `https://wa.me/5492302219422?text=${msg}`;
-  }
-
-  function renderMonthly() {
-    const qty  = state.monthlyQty;
-    const pack = PACKS[qty] || PACKS[20];
-
-    rangeEl.textContent = `$${pack.total}`;
-    perPieceEl.textContent = `$${pack.perPiece % 1 === 0 ? pack.perPiece : pack.perPiece.toFixed(1)}`;
-
-    infoEl.innerHTML = `<strong>Paquete mensual · ${qty} piezas</strong><span>Precio por pieza menor al unitario. Incluye prioridad de agenda y comunicación directa por WhatsApp.</span>`;
-
-    const msg = encodeURIComponent(
-      `Hola Danilo, me interesa un paquete mensual de ${qty} piezas (~$${pack.total} USD/mes).`
-    );
-    ctaBtn.href = `https://wa.me/5492302219422?text=${msg}`;
-  }
-
-  // ─── Modo mensual on/off ──────────────────────────────────────────
-  function setMonthlyMode(on) {
-    state.monthly = on;
-
-    presets.style.display        = on ? "none" : "";
-    monthlyPresets.style.display = on ? "" : "none";
-    customInp.style.display      = "none";
-
-    urgGroup.style.display     = on ? "none" : "";
-    complexGroup.style.display = on ? "none" : "";
-    monthlyInfo.style.display  = on ? "" : "none";
-    monthlyVal.style.display   = on ? "" : "none";
-
-    // label
-    document.getElementById("calcQtyLabel").textContent = on ? "Volumen mensual" : "Duración";
-    qtyUnit.textContent = on ? "" : "min";
-
-    if (on) {
-      // activa el primer preset mensual
-      const first = monthlyPresets.querySelector(".calc-preset");
-      monthlyPresets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
-      first.classList.add("active");
-      state.monthlyQty = parseInt(first.dataset.preset);
-      qtyNum.textContent = state.monthlyQty + " piezas";
-    } else {
-      qtyNum.textContent = state.qty;
-    }
-
-    update();
-  }
-
-  // ─── Botones de tipo ──────────────────────────────────────────────
-  document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      if (btn.dataset.val === "monthly") {
-        setMonthlyMode(true);
-      } else {
-        if (state.monthly) setMonthlyMode(false);
-        state.tipo = btn.dataset.val;
-        update();
-      }
-    });
-  });
-
-  // ─── Otros botones de opción (urg, complex) ───────────────────────
-  document.querySelectorAll('.calc-opt:not([data-field="tipo"])').forEach(btn => {
-    btn.addEventListener("click", () => {
-      const field = btn.dataset.field;
-      document.querySelectorAll(`.calc-opt[data-field="${field}"]`).forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      state[field] = btn.dataset.val;
-      update();
-    });
-  });
-
-  // ─── Presets por pieza ────────────────────────────────────────────
-  presets.querySelectorAll(".calc-preset").forEach(btn => {
-    btn.addEventListener("click", () => {
-      presets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      if (btn.dataset.preset === "custom") {
-        customInp.style.display = "flex";
-        state.qty = parseInt(qtyInput.value) || 1;
-      } else {
-        customInp.style.display = "none";
-        state.qty = parseInt(btn.dataset.preset);
-        qtyNum.textContent = state.qty;
-      }
-      update();
-    });
-  });
-
-  qtyInput.addEventListener("input", () => {
-    const v = Math.max(1, Math.min(180, parseInt(qtyInput.value) || 1));
-    state.qty = v;
-    qtyNum.textContent = v;
-    update();
-  });
-
-  // ─── Presets paquete mensual ──────────────────────────────────────
-  monthlyPresets.querySelectorAll(".calc-preset").forEach(btn => {
-    btn.addEventListener("click", () => {
-      monthlyPresets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      state.monthlyQty = parseInt(btn.dataset.preset);
-      qtyNum.textContent = state.monthlyQty + " piezas";
-      update();
-    });
-  });
-
-  // ─── Init ─────────────────────────────────────────────────────────
-  customInp.style.display = "none";
-  update();
-
-})();
-</script>
-
 
 <!-- CONTACT -->
 <section class="contact-section" id="contacto">
