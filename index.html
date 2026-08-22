@@ -495,9 +495,9 @@
     </div>
 
     <div class="calc-inner reveal rd1">
-
       <div class="calc-form">
 
+        <!-- TIPO -->
         <div class="calc-group">
           <label class="calc-label">Tipo de proyecto</label>
           <div class="calc-options">
@@ -505,10 +505,12 @@
             <button class="calc-opt" data-field="tipo" data-val="ad">Ad comercial</button>
             <button class="calc-opt" data-field="tipo" data-val="long">Video largo</button>
             <button class="calc-opt" data-field="tipo" data-val="intro">Intro / Outro</button>
+            <button class="calc-opt" data-field="tipo" data-val="subs">Subtitulado</button>
             <button class="calc-opt" data-field="tipo" data-val="monthly">Paquete mensual</button>
           </div>
         </div>
 
+        <!-- DURACIÓN (reel / long) -->
         <div class="calc-group" id="calcDurGroup">
           <label class="calc-label">
             <span id="calcQtyLabel">Duración</span>
@@ -524,18 +526,69 @@
             <button class="calc-preset" data-preset="10">10</button>
             <button class="calc-preset" data-preset="custom" id="calcPresetCustom">Personalizado</button>
           </div>
-          <div class="calc-presets" id="calcMonthlyPresets" style="display:none;">
+          <div class="calc-custom-input" id="calcCustomInput" style="display:none;">
+            <input type="number" id="calcQtyInput" min="1" max="180" value="1">
+            <span class="calc-custom-unit">min</span>
+          </div>
+        </div>
+
+        <!-- VOLUMEN MENSUAL -->
+        <div class="calc-group" id="calcMonthlyQtyGroup" style="display:none;">
+          <label class="calc-label">
+            <span>Volumen mensual</span>
+            <span class="calc-qty-value"><span id="calcQtyNum2">4 piezas</span></span>
+          </label>
+          <div class="calc-presets" id="calcMonthlyPresets">
             <button class="calc-preset active" data-preset="4">4 piezas</button>
             <button class="calc-preset" data-preset="8">8 piezas</button>
             <button class="calc-preset" data-preset="12">12 piezas</button>
             <button class="calc-preset" data-preset="20">20 piezas</button>
           </div>
-          <div class="calc-custom-input" id="calcCustomInput">
-            <input type="number" id="calcQtyInput" min="1" max="180" value="1">
-            <span id="calcQtyInputUnit" class="calc-custom-unit">min</span>
+        </div>
+
+        <!-- IDIOMA ORIGEN (subtitulado) -->
+        <div class="calc-group" id="calcSubsLangSrcGroup" style="display:none;">
+          <label class="calc-label">Idioma origen</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="subsLangSrc" data-val="es">Español</button>
+            <button class="calc-opt" data-field="subsLangSrc" data-val="en">Inglés</button>
+            <button class="calc-opt" data-field="subsLangSrc" data-val="he">Hebreo</button>
           </div>
         </div>
 
+        <!-- IDIOMA DESTINO (subtitulado) -->
+        <div class="calc-group" id="calcSubsLangDstGroup" style="display:none;">
+          <label class="calc-label">Idioma de los subtítulos</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="subsLangDst" data-val="es">Español</button>
+            <button class="calc-opt" data-field="subsLangDst" data-val="en">Inglés</button>
+            <button class="calc-opt" data-field="subsLangDst" data-val="he">Hebreo</button>
+          </div>
+        </div>
+
+        <!-- DURACIÓN SUBTITULADO -->
+        <div class="calc-group" id="calcSubsDurGroup" style="display:none;">
+          <label class="calc-label">
+            <span>Duración del video</span>
+            <span class="calc-qty-value">
+              <span id="calcSubsQtyNum">1</span>
+              <span> min</span>
+            </span>
+          </label>
+          <div class="calc-presets" id="calcSubsPresets">
+            <button class="calc-preset active" data-preset="1">1</button>
+            <button class="calc-preset" data-preset="5">5</button>
+            <button class="calc-preset" data-preset="10">10</button>
+            <button class="calc-preset" data-preset="20">20</button>
+            <button class="calc-preset" data-preset="custom" id="calcSubsPresetCustom">Personalizado</button>
+          </div>
+          <div class="calc-custom-input" id="calcSubsCustomInput" style="display:none;">
+            <input type="number" id="calcSubsQtyInput" min="1" max="180" value="1">
+            <span class="calc-custom-unit">min</span>
+          </div>
+        </div>
+
+        <!-- URGENCIA -->
         <div class="calc-group" id="calcUrgGroup">
           <label class="calc-label">Urgencia</label>
           <div class="calc-options">
@@ -545,6 +598,7 @@
           </div>
         </div>
 
+        <!-- COMPLEJIDAD (edición) -->
         <div class="calc-group" id="calcComplexityGroup">
           <label class="calc-label">Complejidad</label>
           <div class="calc-options">
@@ -554,6 +608,16 @@
           </div>
         </div>
 
+        <!-- ENTREGA SUBTITULADO -->
+        <div class="calc-group" id="calcSubsDelivGroup" style="display:none;">
+          <label class="calc-label">Formato de entrega</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="subsDeliv" data-val="file">Archivo SRT / VTT</button>
+            <button class="calc-opt" data-field="subsDeliv" data-val="burned">Quemado al video</button>
+          </div>
+        </div>
+
+        <!-- INFO mensual -->
         <div class="calc-monthly-info" id="calcMonthlyInfo" style="display:none;">
           <div class="calc-tier-info">
             <strong>Contenido recurrente</strong>
@@ -563,6 +627,7 @@
 
       </div>
 
+      <!-- RESULTADO -->
       <div class="calc-result">
         <div class="calc-result-label">Referencia orientativa</div>
         <div class="calc-range" id="calcRange">$55 – $70</div>
@@ -581,7 +646,6 @@
         </a>
         <p class="calc-trust">Propuesta exacta en menos de 4 horas.</p>
       </div>
-
     </div>
   </div>
 </section>
@@ -589,6 +653,7 @@
 <script>
 (function () {
 
+  // ─── PRECIOS EDICIÓN ─────────────────────────────────────────────
   const BASE = {
     reel:  { min: 55,  max: 70,  fixedDur: false },
     ad:    { min: 90,  max: 120, fixedDur: true  },
@@ -607,11 +672,23 @@
   const COMPLEX = { basic: 1, mid: 1.3, high: 1.6 };
   const URG     = { normal: 1, urgente: 1.3, express: 1.55 };
 
+  // ─── PRECIOS SUBTITULADO ─────────────────────────────────────────
+  // Base por minuto según par de idiomas:
+  // mismo idioma (solo timing/formato): $4/min
+  // es↔en: $8/min  |  es↔he o en↔he: $14/min (hebreo RTL, más complejo)
+  // +$3/min si se quema al video
+  function subsBasePerMin(src, dst) {
+    if (src === dst) return 4;
+    if ((src === 'he') || (dst === 'he')) return 14;
+    return 8; // es↔en
+  }
+
+  // ─── PAQUETES MENSUALES ──────────────────────────────────────────
   const PACKS = {
-    4:  { total: 200,  perPiece: 50   },
-    8:  { total: 380,  perPiece: 47.5 },
-    12: { total: 540,  perPiece: 45   },
-    20: { total: 840,  perPiece: 42   },
+    4:  { total: 200, perPiece: 50   },
+    8:  { total: 380, perPiece: 47.5 },
+    12: { total: 540, perPiece: 45   },
+    20: { total: 840, perPiece: 42   },
   };
 
   const TIER_INFO = {
@@ -619,35 +696,84 @@
     ad:    { label: "Ad comercial",  desc: "Hook, mensaje y CTA integrados. Funciona como pieza de performance, no solo como video bonito." },
     long:  { label: "Video largo",   desc: "Edición de retención para YouTube u otras plataformas. Mantiene al espectador sin sobrestimulación." },
     intro: { label: "Intro / Outro", desc: "Pieza de identidad para YouTube o redes. Define el tono del canal en los primeros segundos." },
+    subs:  { label: "Subtitulado",   desc: "Transcripción, traducción y timing manual. Entrega en SRT/VTT o quemado al video." },
   };
 
+  // ─── ESTADO ──────────────────────────────────────────────────────
   const state = {
-    tipo: "reel",
-    urg: "normal",
-    complex: "basic",
+    tipo: 'reel',
+    urg: 'normal',
+    complex: 'basic',
     qty: 1,
     monthly: false,
     monthlyQty: 4,
+    // subtitulado
+    subsLangSrc: 'es',
+    subsLangDst: 'en',
+    subsQty: 1,
+    subsDeliv: 'file',
   };
 
-  const rangeEl        = document.getElementById("calcRange");
-  const infoEl         = document.getElementById("calcInfo");
-  const ctaBtn         = document.getElementById("calcCtaBtn");
-  const qtyNum         = document.getElementById("calcQtyNum");
-  const qtyUnit        = document.getElementById("calcQtyUnit");
-  const customInp      = document.getElementById("calcCustomInput");
-  const qtyInput       = document.getElementById("calcQtyInput");
-  const presets        = document.getElementById("calcPresets");
-  const monthlyPresets = document.getElementById("calcMonthlyPresets");
-  const urgGroup       = document.getElementById("calcUrgGroup");
-  const complexGroup   = document.getElementById("calcComplexityGroup");
-  const monthlyInfo    = document.getElementById("calcMonthlyInfo");
-  const monthlyVal     = document.getElementById("calcMonthlyValue");
-  const perPieceEl     = document.getElementById("calcPerPiece");
-  const durGroup       = document.getElementById("calcDurGroup");
+  // ─── ELEMENTOS ───────────────────────────────────────────────────
+  const rangeEl            = document.getElementById('calcRange');
+  const infoEl             = document.getElementById('calcInfo');
+  const ctaBtn             = document.getElementById('calcCtaBtn');
+  const qtyNum             = document.getElementById('calcQtyNum');
+  const qtyNum2            = document.getElementById('calcQtyNum2');
+  const qtyUnit            = document.getElementById('calcQtyUnit');
+  const customInp          = document.getElementById('calcCustomInput');
+  const qtyInput           = document.getElementById('calcQtyInput');
+  const presets            = document.getElementById('calcPresets');
+  const monthlyPresets     = document.getElementById('calcMonthlyPresets');
+  const urgGroup           = document.getElementById('calcUrgGroup');
+  const complexGroup       = document.getElementById('calcComplexityGroup');
+  const monthlyInfo        = document.getElementById('calcMonthlyInfo');
+  const monthlyVal         = document.getElementById('calcMonthlyValue');
+  const perPieceEl         = document.getElementById('calcPerPiece');
+  const durGroup           = document.getElementById('calcDurGroup');
+  const monthlyQtyGroup    = document.getElementById('calcMonthlyQtyGroup');
+  const subsLangSrcGroup   = document.getElementById('calcSubsLangSrcGroup');
+  const subsLangDstGroup   = document.getElementById('calcSubsLangDstGroup');
+  const subsDurGroup       = document.getElementById('calcSubsDurGroup');
+  const subsDelivGroup     = document.getElementById('calcSubsDelivGroup');
+  const subsPresets        = document.getElementById('calcSubsPresets');
+  const subsCustomInp      = document.getElementById('calcSubsCustomInput');
+  const subsQtyInput       = document.getElementById('calcSubsQtyInput');
+  const subsQtyNum         = document.getElementById('calcSubsQtyNum');
 
+  // ─── VISIBILIDAD DE GRUPOS ───────────────────────────────────────
+  function show(el) { if (el) el.style.display = ''; }
+  function hide(el) { if (el) el.style.display = 'none'; }
+
+  function applyVisibility() {
+    const t = state.tipo;
+    const isMonthly = t === 'monthly';
+    const isSubs    = t === 'subs';
+    const isFixed   = !isSubs && !isMonthly && BASE[t] && BASE[t].fixedDur;
+
+    // dur group (reel / long)
+    isMonthly || isSubs || isFixed ? hide(durGroup) : show(durGroup);
+    // monthly qty
+    isMonthly ? show(monthlyQtyGroup) : hide(monthlyQtyGroup);
+    // subs groups
+    isSubs ? show(subsLangSrcGroup) : hide(subsLangSrcGroup);
+    isSubs ? show(subsLangDstGroup) : hide(subsLangDstGroup);
+    isSubs ? show(subsDurGroup)     : hide(subsDurGroup);
+    isSubs ? show(subsDelivGroup)   : hide(subsDelivGroup);
+    // urgencia y complejidad
+    isMonthly ? hide(urgGroup)     : show(urgGroup);
+    isMonthly || isSubs ? hide(complexGroup) : show(complexGroup);
+    // info mensual y precio por pieza
+    isMonthly ? show(monthlyInfo) : hide(monthlyInfo);
+    isMonthly ? show(monthlyVal)  : hide(monthlyVal);
+  }
+
+  // ─── RENDER ──────────────────────────────────────────────────────
   function update() {
-    state.monthly ? renderMonthly() : renderUnit();
+    applyVisibility();
+    if (state.tipo === 'monthly') renderMonthly();
+    else if (state.tipo === 'subs') renderSubs();
+    else renderUnit();
   }
 
   function renderUnit() {
@@ -655,105 +781,87 @@
     const dm   = base.fixedDur ? 1 : durMult(state.qty);
     const cm   = COMPLEX[state.complex];
     const um   = URG[state.urg];
-
-    const lo = Math.round(base.min * dm * cm * um / 5) * 5;
-    const hi = Math.round(base.max * dm * cm * um / 5) * 5;
+    const lo   = Math.round(base.min * dm * cm * um / 5) * 5;
+    const hi   = Math.round(base.max * dm * cm * um / 5) * 5;
 
     rangeEl.textContent = `$${lo} – $${hi}`;
-
     const tier = TIER_INFO[state.tipo];
     infoEl.innerHTML = `<strong>${tier.label}</strong><span>${tier.desc}</span>`;
 
-    const durLine = base.fixedDur ? "" : `\n· Duración: ${state.qty} min`;
-    const msg = encodeURIComponent(
+    const durLine = base.fixedDur ? '' : `\n· Duración: ${state.qty} min`;
+    ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
       `Hola Danilo, quiero cotizar:\n· Tipo: ${tier.label}${durLine}\n· Urgencia: ${state.urg}\n· Complejidad: ${state.complex}\n· Estimado: $${lo}–${hi} USD`
-    );
-    ctaBtn.href = `https://wa.me/5492302219422?text=${msg}`;
+    )}`;
+  }
+
+  function renderSubs() {
+    const base    = subsBasePerMin(state.subsLangSrc, state.subsLangDst);
+    const burnAdd = state.subsDeliv === 'burned' ? 3 : 0;
+    const urgM    = URG[state.urg];
+    const mins    = state.subsQty;
+
+    const lo = Math.round((base + burnAdd) * mins * urgM / 5) * 5;
+    const hi = Math.round((base + burnAdd + 2) * mins * urgM / 5) * 5;
+
+    rangeEl.textContent = `$${lo} – $${hi}`;
+
+    const langLabel = { es: 'Español', en: 'Inglés', he: 'Hebreo' };
+    const sameLang  = state.subsLangSrc === state.subsLangDst;
+    const desc = sameLang
+      ? `Subtítulos en ${langLabel[state.subsLangDst]} (mismo idioma). Timing, formato y entrega ${state.subsDeliv === 'burned' ? 'quemados al video' : 'en archivo SRT/VTT'}.`
+      : `Traducción y subtítulos de ${langLabel[state.subsLangSrc]} a ${langLabel[state.subsLangDst]}. Entrega ${state.subsDeliv === 'burned' ? 'quemados al video' : 'en archivo SRT/VTT'}.`;
+
+    infoEl.innerHTML = `<strong>Subtitulado</strong><span>${desc}</span>`;
+
+    ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
+      `Hola Danilo, quiero cotizar subtitulado:\n· Origen: ${langLabel[state.subsLangSrc]}\n· Destino: ${langLabel[state.subsLangDst]}\n· Duración: ${mins} min\n· Entrega: ${state.subsDeliv === 'burned' ? 'Quemado al video' : 'SRT/VTT'}\n· Urgencia: ${state.urg}\n· Estimado: $${lo}–${hi} USD`
+    )}`;
   }
 
   function renderMonthly() {
-    const qty  = state.monthlyQty;
-    const pack = PACKS[qty] || PACKS[20];
-
+    const pack = PACKS[state.monthlyQty] || PACKS[20];
     rangeEl.textContent    = `$${pack.total}`;
     perPieceEl.textContent = `$${pack.perPiece % 1 === 0 ? pack.perPiece : pack.perPiece.toFixed(1)}`;
-
-    infoEl.innerHTML = `<strong>Paquete mensual · ${qty} piezas</strong><span>Precio por pieza menor al unitario. Incluye prioridad de agenda y comunicación directa por WhatsApp.</span>`;
-
-    const msg = encodeURIComponent(
-      `Hola Danilo, me interesa un paquete mensual de ${qty} piezas (~$${pack.total} USD/mes).`
-    );
-    ctaBtn.href = `https://wa.me/5492302219422?text=${msg}`;
+    infoEl.innerHTML = `<strong>Paquete mensual · ${state.monthlyQty} piezas</strong><span>Precio por pieza menor al unitario. Incluye prioridad de agenda y comunicación directa por WhatsApp.</span>`;
+    ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
+      `Hola Danilo, me interesa un paquete mensual de ${state.monthlyQty} piezas (~$${pack.total} USD/mes).`
+    )}`;
   }
 
-  function setDurVisibility(tipo, isMonthly) {
-    durGroup.style.display = isMonthly || BASE[tipo].fixedDur ? "none" : "";
-  }
-
-  function setMonthlyMode(on) {
-    state.monthly = on;
-
-    presets.style.display        = on ? "none" : "";
-    monthlyPresets.style.display = on ? ""     : "none";
-    customInp.style.display      = "none";
-
-    urgGroup.style.display     = on ? "none" : "";
-    complexGroup.style.display = on ? "none" : "";
-    monthlyInfo.style.display  = on ? ""     : "none";
-    monthlyVal.style.display   = on ? ""     : "none";
-
-    setDurVisibility(state.tipo, on);
-
-    document.getElementById("calcQtyLabel").textContent = on ? "Volumen mensual" : "Duración";
-    qtyUnit.textContent = on ? "" : "min";
-
-    if (on) {
-      const first = monthlyPresets.querySelector(".calc-preset");
-      monthlyPresets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
-      first.classList.add("active");
-      state.monthlyQty = parseInt(first.dataset.preset);
-      qtyNum.textContent = state.monthlyQty + " piezas";
-    } else {
-      qtyNum.textContent = state.qty;
-    }
-
-    update();
-  }
-
+  // ─── EVENTOS: TIPO ───────────────────────────────────────────────
   document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      if (btn.dataset.val === "monthly") {
-        setMonthlyMode(true);
-      } else {
-        if (state.monthly) setMonthlyMode(false);
-        state.tipo = btn.dataset.val;
-        setDurVisibility(state.tipo, false);
-        update();
-      }
-    });
-  });
-
-  document.querySelectorAll('.calc-opt:not([data-field="tipo"])').forEach(btn => {
-    btn.addEventListener("click", () => {
-      const field = btn.dataset.field;
-      document.querySelectorAll(`.calc-opt[data-field="${field}"]`).forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      state[field] = btn.dataset.val;
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.calc-opt[data-field="tipo"]').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      state.tipo = btn.dataset.val;
+      if (state.tipo !== 'monthly') state.monthly = false;
+      else state.monthly = true;
       update();
     });
   });
 
-  presets.querySelectorAll(".calc-preset").forEach(btn => {
-    btn.addEventListener("click", () => {
-      presets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      if (btn.dataset.preset === "custom") {
-        customInp.style.display = "flex";
+  // ─── EVENTOS: URG / COMPLEX / SUBS FIELDS ───────────────────────
+  ['urg', 'complex', 'subsLangSrc', 'subsLangDst', 'subsDeliv'].forEach(field => {
+    document.querySelectorAll(`.calc-opt[data-field="${field}"]`).forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll(`.calc-opt[data-field="${field}"]`).forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        state[field] = btn.dataset.val;
+        update();
+      });
+    });
+  });
+
+  // ─── EVENTOS: PRESETS DURACIÓN EDICIÓN ──────────────────────────
+  presets.querySelectorAll('.calc-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      presets.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.dataset.preset === 'custom') {
+        show(customInp);
         state.qty = parseInt(qtyInput.value) || 1;
       } else {
-        customInp.style.display = "none";
+        hide(customInp);
         state.qty = parseInt(btn.dataset.preset);
         qtyNum.textContent = state.qty;
       }
@@ -761,24 +869,49 @@
     });
   });
 
-  qtyInput.addEventListener("input", () => {
+  qtyInput.addEventListener('input', () => {
     const v = Math.max(1, Math.min(180, parseInt(qtyInput.value) || 1));
     state.qty = v;
     qtyNum.textContent = v;
     update();
   });
 
-  monthlyPresets.querySelectorAll(".calc-preset").forEach(btn => {
-    btn.addEventListener("click", () => {
-      monthlyPresets.querySelectorAll(".calc-preset").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
+  // ─── EVENTOS: PRESETS MENSUAL ────────────────────────────────────
+  monthlyPresets.querySelectorAll('.calc-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      monthlyPresets.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
       state.monthlyQty = parseInt(btn.dataset.preset);
-      qtyNum.textContent = state.monthlyQty + " piezas";
+      qtyNum2.textContent = state.monthlyQty + ' piezas';
       update();
     });
   });
 
-  customInp.style.display = "none";
+  // ─── EVENTOS: PRESETS DURACIÓN SUBTITULADO ──────────────────────
+  subsPresets.querySelectorAll('.calc-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      subsPresets.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      if (btn.dataset.preset === 'custom') {
+        show(subsCustomInp);
+        state.subsQty = parseInt(subsQtyInput.value) || 1;
+      } else {
+        hide(subsCustomInp);
+        state.subsQty = parseInt(btn.dataset.preset);
+        subsQtyNum.textContent = state.subsQty;
+      }
+      update();
+    });
+  });
+
+  subsQtyInput.addEventListener('input', () => {
+    const v = Math.max(1, Math.min(180, parseInt(subsQtyInput.value) || 1));
+    state.subsQty = v;
+    subsQtyNum.textContent = v;
+    update();
+  });
+
+  // ─── INIT ────────────────────────────────────────────────────────
   update();
 
 })();
