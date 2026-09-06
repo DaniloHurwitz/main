@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador clínico  -  Tamizaje y Ciencias del Diagnóstico</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PANTALLA: HOME
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-home" class="screen active">
+  <header class="topbar">
+    <span class="topbar-logo">Tamizaje &amp; <span>Diagnóstico</span></span>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-actions">
+      <button class="btn btn-topbar-mode" id="btn-random" title="Caso aleatorio del programa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 3 21 3 21 8"/><polyline points="8 21 3 21 3 16"/>
+          <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+        </svg>
+        Al azar
+      </button>
+      <button class="btn btn-topbar-mode btn-endless" id="btn-endless" title="Consultas encadenadas  -  perdés si fallás el diagnóstico">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/>
+        </svg>
+        Modo interminable
+      </button>
+    </div>
+  </header>
+
+  <main class="home-body">
+    <div class="home-content">
+      <p class="home-eyebrow">Simulador de consulta</p>
+      <h1 class="home-title">Practicá la consulta médica</h1>
+      <p class="home-subtitle">Anamnesis, examen físico y razonamiento diagnóstico con pacientes virtuales.</p>
+
+      <!-- Botones de modo centrales (visibles en mobile Y desktop) -->
+      <div class="home-mode-buttons">
+        <button class="btn btn-home-mode btn-home-random" id="btn-random">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 3 21 3 21 8"/><polyline points="8 21 3 21 3 16"/>
+            <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+          Caso al azar
+        </button>
+        <button class="btn btn-home-mode btn-home-endless" id="btn-endless">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/>
+          </svg>
+          Modo interminable
+        </button>
+      </div>
+
+      <div class="case-list-section">
+        <div class="case-list-header">Casos disponibles</div>
+        <div id="case-list"></div>
+      </div>
+
+      <div class="home-footer">
+        <a href="disclaimer.html" class="disclaimer-link" target="_blank" rel="noopener">
+          Descargo de responsabilidad
+        </a>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PANTALLA: CONSULTA
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-consultation" class="screen">
+  <header class="topbar">
+    <span class="topbar-logo">Tamizaje &amp; <span>Diagnóstico</span></span>
+    <span class="topbar-meta" id="topbar-topic"></span>
+    <div class="topbar-spacer"></div>
+
+    <div class="timer" id="timer-box">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+      </svg>
+      <span id="timer-display">10:00</span>
+    </div>
+
+    <button class="btn btn-secondary" id="btn-study">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+        <line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
+      </svg>
+      Solicitar estudio
+    </button>
+
+    <button class="btn btn-danger" id="btn-end">
+      Finalizar consulta
+    </button>
+  </header>
+
+  <div class="consult-layout">
+    <!-- Sidebar / ficha clínica -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header" id="sidebar-toggle">
+        <div class="sidebar-section-label">Motivo de consulta</div>
+        <div class="sidebar-chief-complaint" id="sidebar-chief"></div>
+        <div class="sidebar-meta" id="sidebar-context"></div>
+      </div>
+
+      <div class="sidebar-body" id="sidebar-body">
+        <div class="sidebar-empty">
+          <div class="sidebar-empty-text">La ficha se completa a medida que explorás la consulta.</div>
+        </div>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="progress-row">
+          <span class="progress-label">Cobertura clínica</span>
+          <span class="progress-value" id="progress-value">0/0</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+        </div>
+        <div class="trust-row">
+          <span class="trust-label">Confianza del paciente</span>
+          <div class="trust-dots">
+            <div class="trust-dot"></div>
+            <div class="trust-dot"></div>
+            <div class="trust-dot"></div>
+            <div class="trust-dot"></div>
+            <div class="trust-dot"></div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Área de consulta -->
+    <main class="consult-main">
+      <!-- Imagen del paciente  -  fondo de la consulta -->
+      <div class="patient-backdrop" id="patient-backdrop">
+        <img id="patient-img" src="" alt="Paciente" class="patient-img" />
+      </div>
+      <section class="transcript-area" id="transcript-area" aria-label="Transcripción de la consulta" aria-live="polite"></section>
+
+      <section class="input-area">
+        <div class="status-bar" id="status-bar"></div>
+        <div class="input-row">
+          <textarea
+            class="input-field"
+            id="input-field"
+            rows="2"
+            placeholder="Escribí o hablá  -  Enter para enviar"
+            aria-label="Mensaje al paciente"
+          ></textarea>
+          <button class="btn btn-exam-panel-trigger" id="btn-exam-panel" aria-label="Abrir panel de examen físico" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4.5 6.375a4.125 4.125 0 1 0 8.25 0 4.125 4.125 0 0 0-8.25 0"/>
+              <path d="M14.25 6.75a3.75 3.75 0 1 0 7.5 0 3.75 3.75 0 0 0-7.5 0"/>
+              <path d="M1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122z"/>
+              <path d="M17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003z"/>
+            </svg>
+            Examen físico
+          </button>
+          <button class="btn btn-ghost btn-icon listening" id="btn-mic" aria-label="Micrófono activo  -  clic para silenciar" title="Micrófono activo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </button>
+          <button class="btn btn-primary" id="btn-send">
+            Enviar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+        <div class="input-hint" id="input-hint">Modo texto · Ejemplos: "¿Cuándo empezó?" · "Quiero examinar la lesión" · "¿Usó preservativo?"</div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MODAL: ESTUDIOS
+     ══════════════════════════════════════════════════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MODAL: ORDEN MÉDICA (hoja de prescripción)
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="study-modal" role="dialog" aria-modal="true">
+  <div class="modal prescription-modal">
+
+    <!-- Encabezado del hospital -->
+    <div class="rx-header">
+      <div class="rx-hospital-name">Hospital General "Dr. Ramón Carrillo"</div>
+      <div class="rx-hospital-sub">Unidad Asistencial — Mar del Plata, Buenos Aires</div>
+      <div class="rx-header-row">
+        <div class="rx-field-group">
+          <label class="rx-label">Fecha</label>
+          <input type="text" class="rx-input rx-input-short" id="rx-fecha" placeholder="dd/mm/aaaa" maxlength="10"/>
+        </div>
+        <div class="rx-field-group">
+          <label class="rx-label">N° de orden</label>
+          <input type="text" class="rx-input rx-input-short" id="rx-numero" placeholder="Ej: 0042" maxlength="6" readonly/>
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-divider-thick"></div>
+
+    <!-- Sección paciente -->
+    <div class="rx-section">
+      <div class="rx-section-title">Datos del paciente</div>
+      <div class="rx-row">
+        <div class="rx-field-group rx-grow">
+          <label class="rx-label">Apellido y nombre</label>
+          <input type="text" class="rx-input" id="rx-paciente-nombre" placeholder="Apellido, Nombre"/>
+        </div>
+        <div class="rx-field-group">
+          <label class="rx-label">DNI</label>
+          <input type="text" class="rx-input rx-input-medium" id="rx-dni" placeholder="00.000.000" maxlength="11"/>
+        </div>
+      </div>
+      <div class="rx-row">
+        <div class="rx-field-group rx-grow">
+          <label class="rx-label">Cobertura médica / Obra social</label>
+          <select class="rx-input rx-select" id="rx-obra-social">
+            <option value="">Seleccioná la cobertura...</option>
+            <optgroup label="Obras sociales nacionales">
+              <option>OSDE</option>
+              <option>Swiss Medical</option>
+              <option>Galeno</option>
+              <option>IOMA (Pcia. de Buenos Aires)</option>
+              <option>PAMI (Jubilados y pensionados)</option>
+              <option>OSECAC</option>
+              <option>OSPEDYC</option>
+              <option>OSPRERA</option>
+              <option>Medifé</option>
+              <option>OMINT</option>
+              <option>OSPIA</option>
+              <option>Sancor Salud</option>
+              <option>Federada Salud</option>
+            </optgroup>
+            <optgroup label="Sin cobertura">
+              <option>Sin obra social (paciente particular)</option>
+              <option>Sin obra social (PUCO — sin datos)</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="rx-field-group">
+          <label class="rx-label">N° de afiliado</label>
+          <input type="text" class="rx-input rx-input-medium" id="rx-afiliado" placeholder="Opcional"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-divider"></div>
+
+    <!-- Sección estudios -->
+    <div class="rx-section">
+      <div class="rx-section-title">Se solicita</div>
+      <div class="rx-study-suggested" id="rx-study-suggested"></div>
+      <textarea class="rx-input rx-textarea" id="rx-estudios" placeholder="Describí los estudios solicitados, con indicación clínica si corresponde.
+Ej: Hemograma completo. VDRL. Test VIH 4ª generación. Indicación: ITS en investigación." rows="4"></textarea>
+    </div>
+
+    <div class="rx-divider"></div>
+
+    <!-- Sección médico -->
+    <div class="rx-section rx-section-doctor">
+      <div class="rx-row">
+        <div class="rx-field-group rx-grow">
+          <label class="rx-label">Médico solicitante</label>
+          <input type="text" class="rx-input" id="rx-medico-nombre" placeholder="Dr. / Dra. Apellido, Nombre"/>
+        </div>
+        <div class="rx-field-group">
+          <label class="rx-label">Matrícula</label>
+          <input type="text" class="rx-input rx-input-short" id="rx-matricula" placeholder="MP 00000"/>
+        </div>
+      </div>
+      <div class="rx-firma-line">
+        <div class="rx-firma-slot">Firma y sello</div>
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="rx-actions">
+      <button class="btn btn-ghost" id="modal-close">Cancelar</button>
+      <button class="btn btn-primary" id="rx-submit">Emitir orden</button>
+    </div>
+
+    <div class="rx-error" id="rx-error"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PANTALLA: DIAGNÓSTICO
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-diagnosis" class="screen">
+  <header class="topbar">
+    <span class="topbar-logo">Tamizaje &amp; <span>Diagnóstico</span></span>
+    <div class="topbar-spacer"></div>
+    <button class="btn btn-secondary" id="btn-home-from-diag">Volver al inicio</button>
+  </header>
+
+  <div class="form-screen-body">
+    <div class="form-content">
+      <p class="form-eyebrow">Paso 1 de 2</p>
+      <h1 class="form-title">Formulario diagnóstico</h1>
+      <p class="form-subtitle">Completá tu razonamiento clínico antes de ver la evaluación. No vas a poder modificarlo después.</p>
+
+      <div class="form-group">
+        <label class="form-label" for="diag-input">
+          Diagnóstico presuntivo
+          <span class="form-label-hint">(obligatorio)</span>
+        </label>
+        <input type="text" class="form-input" id="diag-input" placeholder="Ej: Sífilis primaria" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="diff-input">Diagnósticos diferenciales</label>
+        <input type="text" class="form-input" id="diff-input" placeholder="Ej: Herpes genital, chancro blando" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="studies-input">Estudios solicitados o a solicitar</label>
+        <input type="text" class="form-input" id="studies-input" placeholder="Ej: VDRL, FTA-ABS, test de VIH" />
+      </div>
+
+      <p class="form-error" id="diag-error"></p>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-diag-submit">Continuar a la reflexión</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PANTALLA: REFLEXIÓN
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-reflection" class="screen">
+  <header class="topbar">
+    <span class="topbar-logo">Tamizaje &amp; <span>Diagnóstico</span></span>
+    <div class="topbar-spacer"></div>
+    <button class="btn btn-secondary" id="btn-home-from-reflection">Volver al inicio</button>
+  </header>
+
+  <div class="form-screen-body">
+    <div class="form-content">
+      <p class="form-eyebrow">Paso 2 de 2</p>
+      <h1 class="form-title">Reflexión sobre la consulta</h1>
+      <p class="form-subtitle">Antes de ver la evaluación, tomá un momento. Tus respuestas van a compararse con los resultados objetivos.</p>
+
+      <div style="color:var(--text-2);font-size:0.9rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:0.375rem">
+        <p>· ¿Cómo te sentiste durante la consulta?</p>
+        <p>· ¿Qué creés que hiciste bien?</p>
+        <p>· ¿Qué podrías haber hecho mejor?</p>
+        <p>· ¿Qué te resultó difícil?</p>
+      </div>
+
+      <div class="form-group">
+        <textarea class="form-textarea" id="reflection-textarea" rows="6" placeholder="Escribí tu reflexión aquí..."></textarea>
+      </div>
+
+      <p class="form-error" id="reflection-error"></p>
+
+      <div class="form-actions">
+        <button class="btn btn-primary" id="btn-reflection-submit">Ver evaluación</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PANTALLA: EVALUACIÓN
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div id="screen-evaluation" class="screen">
+  <header class="topbar">
+    <span class="topbar-logo">Tamizaje &amp; <span>Diagnóstico</span></span>
+    <div class="topbar-spacer"></div>
+    <button class="btn btn-secondary" id="btn-repeat">Repetir caso</button>
+    <button class="btn btn-primary" id="btn-new-case">Nuevo caso</button>
+  </header>
+
+  <div class="form-screen-body">
+    <div class="form-content" style="max-width:720px">
+      <div id="eval-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MODAL: SELECCIÓN DE MODO POR CASO (Práctica / Examen)
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="case-mode-overlay" role="dialog" aria-modal="true">
+  <div class="modal case-mode-modal">
+    <div class="case-mode-header">
+      <div>
+        <p class="form-eyebrow" id="case-mode-topic">Caso clínico</p>
+        <h2 class="case-mode-title">¿Con qué modo querés practicar?</h2>
+      </div>
+    </div>
+    <div class="case-mode-grid">
+      <button class="case-mode-btn" id="btn-mode-practice">
+        <div class="case-mode-btn-icon practice">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div class="case-mode-btn-label">Práctica</div>
+        <div class="case-mode-btn-desc">Sin límite de tiempo. La ficha lateral muestra qué datos revelaste. Ideal para aprender.</div>
+      </button>
+      <button class="case-mode-btn" id="btn-mode-exam">
+        <div class="case-mode-btn-icon exam">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="4" rx="1"/><path d="M5 4h-1a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1"/>
+            <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+          </svg>
+        </div>
+        <div class="case-mode-btn-label">Examen</div>
+        <div class="case-mode-btn-desc">Timer de 10 minutos. Sin pistas en la ficha. Condiciones reales de parcial.</div>
+      </button>
+    </div>
+    <button class="btn btn-ghost" id="btn-case-mode-cancel" style="margin-top:0.5rem;width:100%;font-size:0.875rem;color:var(--text-3)">Cancelar</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MODAL: FIN DEL MODO INTERMINABLE
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="endless-end-overlay" role="dialog" aria-modal="true">
+  <div class="modal endless-end-modal">
+    <div class="endless-end-icon">💀</div>
+    <h2 class="endless-end-title">Se terminó la racha</h2>
+    <p class="endless-end-subtitle" id="endless-end-desc">Diagnóstico incorrecto  -  la racha se cortó.</p>
+    <div class="endless-score-box">
+      <div class="endless-score-num" id="endless-score-num">0</div>
+      <div class="endless-score-label">casos correctos seguidos</div>
+    </div>
+    <div class="endless-end-diag">
+      <div style="font-size:0.8125rem;color:var(--text-3);margin-bottom:0.25rem">Tu diagnóstico</div>
+      <div id="endless-student-diag" style="font-weight:600;color:var(--danger)"></div>
+      <div style="font-size:0.8125rem;color:var(--text-3);margin:0.5rem 0 0.25rem">Diagnóstico correcto</div>
+      <div id="endless-correct-diag" style="font-weight:600;color:var(--text-1)"></div>
+    </div>
+    <button class="btn btn-primary" id="btn-endless-retry" style="width:100%;margin-top:1.25rem">Volver a empezar</button>
+    <button class="btn btn-ghost" id="btn-endless-home" style="width:100%;margin-top:0.5rem;font-size:0.875rem">Ir al inicio</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     OVERLAY: SELECCIÓN DE MODO (aparece al iniciar cada simulación)
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="mode-overlay" role="dialog" aria-modal="true">
+  <div class="modal mode-modal">
+    <p class="form-eyebrow" style="text-align:center;margin-bottom:0.5rem">Antes de empezar</p>
+    <h2 class="mode-modal-title">¿Cómo querés consultar?</h2>
+    <p class="mode-modal-desc">Podés cambiar el modo en cualquier momento durante la consulta.</p>
+    <div class="mode-choice-grid">
+      <button class="mode-choice-btn" id="btn-mode-call" data-mode="call">
+        <div class="mode-choice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+            <path d="M19 10v1a7 7 0 0 1-14 0v-1"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="8" y1="22" x2="16" y2="22"/>
+          </svg>
+        </div>
+        <div class="mode-choice-label">Modo llamada</div>
+        <div class="mode-choice-desc">El micrófono escucha todo el tiempo. Lo que decís aparece en el campo de texto  -  vos decidís cuándo enviar.</div>
+      </button>
+      <button class="mode-choice-btn" id="btn-mode-chat" data-mode="chat">
+        <div class="mode-choice-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <div class="mode-choice-label">Modo texto</div>
+        <div class="mode-choice-desc">Escribís tus preguntas y acciones clínicas directamente. Sin micrófono.</div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     OVERLAY: DONACIÓN (aparece después de cada ronda)
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="donation-overlay" role="dialog" aria-modal="true">
+  <div class="modal donation-modal">
+    <div class="donation-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </div>
+    <h2 class="donation-title">Gracias por usar el simulador</h2>
+    <p class="donation-desc">
+      Cada consulta tiene un costo real de inteligencia artificial. Si este simulador te resulta útil para tu formación, cualquier colaboración ayuda a mantenerlo funcionando.
+    </p>
+    <a
+      href="https://mpago.la/1p19Beg"
+      target="_blank"
+      rel="noopener"
+      class="btn donation-btn"
+    >
+      Colaborar con $2.500
+    </a>
+    <button class="btn btn-ghost donation-skip" id="btn-donation-skip">
+      Continuar sin donar
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     MODAL: PANEL DE EXAMEN FÍSICO INTERACTIVO
+     ══════════════════════════════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="exam-panel-overlay" role="dialog" aria-modal="true" aria-label="Panel de examen físico">
+  <div class="modal exam-panel-modal">
+    <div class="exam-panel-header">
+      <div>
+        <h3 class="exam-panel-title">Examen físico</h3>
+        <p class="exam-panel-subtitle">Seleccioná los exámenes a realizar. Los pertinentes suman puntos; los innecesarios los restan.</p>
+      </div>
+      <button class="btn btn-ghost btn-icon" id="btn-exam-panel-close" aria-label="Cerrar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div id="exam-panel-list" class="exam-panel-list"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     SCRIPTS  -  orden importante: casos → motor → servicios → ui → app
+     ══════════════════════════════════════════════════════════════════════════ -->
+<script src="data/cases.js"></script>
+<script src="js/simulation.js"></script>
+<script src="js/speech.js"></script>
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
