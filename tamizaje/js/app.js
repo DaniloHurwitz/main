@@ -397,9 +397,8 @@
       examResults   = result.examResults || [];
       newStudies    = result.newStudies  || [];
 
-      // Exámenes físicos detectados por texto (no del panel — esos ya tienen su burbuja)
+      // Exámenes físicos detectados por texto
       examResults.forEach(er => {
-        // Solo agregar si no fue ya procesado por el panel interactivo
         const alreadyInPanel = simState.examPanelUsed?.includes(er.examId);
         if (!alreadyInPanel) {
           const t = { type: "exam", examId: er.examId, text: er.result };
@@ -408,9 +407,13 @@
         }
       });
 
-      // Estudios: anotar como pendientes
-      newStudies.forEach(s => {
-        const t = { type: "study-pending", label: s.label, text: `${s.label} — resultado disponible al finalizar la consulta.` };
+      // Estudios: solo anotar los que están indicados en ESTE caso
+      const caseStudyIds = new Set(
+        (caseData.hidden_state.studies?.indicated || []).map(s => s.id)
+      );
+      const relevantStudies = newStudies.filter(s => caseStudyIds.has(s.id));
+      relevantStudies.forEach(s => {
+        const t = { type: "study-pending", label: s.label, text: `${s.label} - resultado disponible al finalizar la consulta.` };
         simState.transcript.push(t);
         UI.appendTurn(t);
       });
@@ -676,21 +679,20 @@
       simState.finalStudiesText   = document.getElementById("studies-input").value.trim();
 
       if (endlessMode) {
-        // Verificar si el diagnóstico es correcto (comparación simple)
-        const correct = checkDiagnosisCorrect(diag, caseData);
-        if (correct) {
-          endlessScore++;
-          // Actualizar badge
-          const badge = document.getElementById("sim-mode-badge");
-          if (badge) badge.textContent = `♾ Racha: ${endlessScore}`;
-          // Siguiente caso aleatorio
-          const keys = Object.keys(CASES);
-          const nextId = keys[Math.floor(Math.random() * keys.length)];
-          startSimulation(nextId);
-        } else {
-          // Mostrar modal de fin de racha
-          showEndlessEnd(diag);
-        }
+        // Usar LLM para comparar semánticamente — con fallback local
+        UI.setStatus("processing", "Evaluando diagnóstico...");
+        ApiService.getDiagnosisMatch(diag, caseData).then(correct => {
+          UI.setStatus(null);
+          if (correct) {
+            endlessScore++;
+            const badge = document.getElementById("sim-mode-badge");
+            if (badge) badge.textContent = `♾ Racha: ${endlessScore}`;
+            const keys = Object.keys(CASES);
+            startSimulation(keys[Math.floor(Math.random() * keys.length)]);
+          } else {
+            showEndlessEnd(diag);
+          }
+        });
         return;
       }
 
