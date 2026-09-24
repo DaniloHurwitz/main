@@ -1819,33 +1819,28 @@ function initPremiere() {
   onResize(() => { sizeCanvas(); if (REDUCED) paint(); });
 }
 
-// ─── 002 · EDITADO / CRUDO: el mismo proyecto antes y después de pasar por la timeline ───
-// Aparece solo si existe assets/Fitness_antes.mp4. Si las dos versiones duran lo mismo, al
-// cambiar se sigue desde el mismo segundo; si no, cada una corre con su propio tiempo.
+// ─── 002 · CRUDO / EDITADO: el crudo chico adelante, el editado grande atrás ───
+// Aparece solo si existe assets/Fitness_antes.mp4. Si duran lo mismo, el crudo sigue al
+// editado segundo a segundo (play, pausa, saltos en la barra).
 function initAB() {
-  const box = $('#ab'), media = box?.closest('.cc-media');
-  if (!box || !media) return;
-  const main = $('video[data-auto]', media), raw = $('.ab-raw', media), dur = $('#abDur');
-  const btns = $$('button', box);
-  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); raw.preload = 'metadata'; raw.load(); } }, { rootMargin: '100% 0px' }).observe(media);
-  // si duran lo mismo es la misma toma: se comparan sincronizados, segundo a segundo
-  const label = () => {
-    if (!raw.duration || !main.duration) return;
-    dur.textContent = Math.abs(raw.duration - main.duration) < 0.6 ? 'mismo segundo, sincronizado' : `crudo ${mmss(raw.duration)} → editado ${mmss(main.duration)}`;
-  };
+  const pip = $('#abPip'), media = pip?.closest('.cc-media');
+  if (!pip || !media) return;
+  const main = $('video[data-auto]', media), raw = $('.ab-raw', pip), tag = $('.ab-tag--edit', media);
+  const reveal = $('#cutReveal');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); raw.preload = 'auto'; raw.load(); } }, { rootMargin: '100% 0px' }).observe(media);
   const synced = () => raw.duration && main.duration && Math.abs(raw.duration - main.duration) < 0.6;
-  raw.addEventListener('loadedmetadata', () => { box.hidden = false; label(); });
-  main.addEventListener('loadedmetadata', label);
-  raw.addEventListener('error', () => { box.hidden = true; }, true);
-  function set(mode) {
-    const isRaw = mode === 'raw';
-    btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.ab === mode)));
-    media.classList.toggle('is-raw', isRaw);
-    if (isRaw) { if (synced()) raw.currentTime = main.currentTime; main.pause(); raw.muted = main.muted; main.muted = true; raw.play().catch(() => {}); }
-    else { if (synced()) main.currentTime = raw.currentTime; raw.pause(); if (!raw.muted) { raw.muted = true; main.muted = false; } main.play().catch(() => {}); }
+  raw.addEventListener('loadedmetadata', () => { pip.hidden = false; tag.hidden = false; follow(); });
+  raw.addEventListener('error', () => { pip.hidden = true; }, true);
+  function follow() {
+    if (pip.hidden) return;
+    if (synced() && Math.abs(raw.currentTime - main.currentTime) > 0.25) raw.currentTime = main.currentTime;
+    if (main.paused) raw.pause(); else raw.play().catch(() => {});
   }
-  btns.forEach(b => b.addEventListener('click', () => set(b.dataset.ab)));
-  raw.addEventListener('click', () => { raw.muted = !raw.muted; if (!raw.muted) muteAllExcept(raw); });
+  ['play', 'pause', 'seeked'].forEach(ev => main.addEventListener(ev, follow));
+  main.addEventListener('timeupdate', () => { if (synced() && Math.abs(raw.currentTime - main.currentTime) > 0.4) raw.currentTime = main.currentTime; });
+  // entra después del corte que revela el video
+  onScroll.push(() => { const v = parseFloat(getComputedStyle(reveal).getPropertyValue('--edge')) || 0; pip.style.setProperty('--pip', clamp((v - 70) / 30)); });
+  if (REDUCED) pip.style.setProperty('--pip', 1);
 }
 
 // ─── TU VISITA, EDITADA ───
