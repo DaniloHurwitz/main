@@ -34,7 +34,7 @@
     <a href="#cotizar">Cotizar</a>
   </nav>
   <button class="nav-keys" id="navKeys" aria-label="Atajos de teclado"><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></button>
-  <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte." target="_blank" rel="noopener" class="nav-cta magnetic">Contratar</a>
+  <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte." target="_blank" rel="noopener" class="nav-cta">Contratar</a>
   <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
 </header>
 
@@ -86,7 +86,7 @@
         </h1>
         <p class="hero-desc">Edición de video para marcas y creadores que necesitan contenido que la gente realmente mire. Reels, ads, YouTube: con criterio de retención, no solo estética.</p>
         <div class="hero-actions">
-          <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20trabajar%20con%20vos." target="_blank" rel="noopener" class="btn btn-accent magnetic">Empezar un proyecto</a>
+          <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20trabajar%20con%20vos." target="_blank" rel="noopener" class="btn btn-accent">Empezar un proyecto</a>
           <a href="#trabajo" class="btn btn-ghost">Ver trabajos</a>
         </div>
         <p class="hero-badge"><strong>Top Rated</strong> en Upwork · <strong>100%</strong> Job Success · <strong>ES / EN / HE</strong></p>
@@ -132,8 +132,13 @@
     <div class="note"><h3>Por qué así</h3><p>Su audiencia ya consume contenido fitness todo el día. El ritmo visual tiene que competir con el scroll, no con otros coaches.</p></div>
   </div>
   <div class="cc-media" data-player>
+    <div class="ab" id="ab" role="radiogroup" aria-label="Ver la versión" hidden>
+      <button role="radio" aria-checked="true" data-ab="edit">Editado</button>
+      <button role="radio" aria-checked="false" data-ab="raw">Crudo</button>
+      <span class="ab-dur" id="abDur"></span>
+    </div>
     <div class="cc-reveal" id="cutReveal">
-      <div class="player-screen"><video data-title="002 · Inazio Coach" muted loop playsinline controls preload="none" poster="assets/posters/fitness.webp" data-auto><source src="assets/Fitness.mp4" type="video/mp4"></video></div>
+      <div class="player-screen"><video data-title="002 · Inazio Coach" muted loop playsinline controls preload="none" poster="assets/posters/fitness.webp" data-auto><source src="assets/Fitness.mp4" type="video/mp4"></video><video class="ab-raw" data-title="002 · Inazio Coach (crudo)" muted loop playsinline preload="none"><source src="assets/Fitness_antes.mp4" type="video/mp4"></video><span class="ab-tag">Crudo · como llegó</span></div>
       <span class="razor" aria-hidden="true"></span>
     </div>
     <div class="player-bar">
@@ -335,7 +340,7 @@
           </div>
         </div>
       </article>
-      <div class="lc-end"><p>¿Tu negocio es el próximo?</p><a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20tengo%20un%20negocio%20y%20quiero%20videos." target="_blank" rel="noopener" class="btn btn-accent magnetic">Escribime</a></div>
+      <div class="lc-end"><p>¿Tu negocio es el próximo?</p><a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20tengo%20un%20negocio%20y%20quiero%20videos." target="_blank" rel="noopener" class="btn btn-accent">Escribime</a></div>
     </div>
     <div class="locals-bar" aria-hidden="true"><i id="localsBar"></i></div>
   </div>
@@ -761,15 +766,29 @@
     <button class="slide-knob" id="slideKnob" aria-label="Escribirme por WhatsApp">→</button>
   </div>
   <p class="final-alt"><a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte." target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:ediciones@danilohurwitz.app">ediciones@danilohurwitz.app</a></p>
+
+  <!-- tu visita, editada: la retención de quien está mirando, calculada en su navegador -->
+  <div class="visit" id="visit" hidden>
+    <p class="v-k"><span>Tu visita, editada</span><span class="v-tc" id="visitTc">00:00:00:00</span></p>
+    <p class="v-h" id="visitH"></p>
+    <div class="v-tl" aria-hidden="true"><span class="v-name">V1</span><div class="v-lane" id="visitLane"></div></div>
+    <p class="v-note">Esto es lo que miro en cada video: dónde se queda la gente y dónde se va. Se calcula en tu navegador mientras mirás; no se guarda ni se envía a ningún lado.</p>
+  </div>
+
+  <!-- créditos finales -->
+  <dl class="credits" id="credits">
+    <div><dt>Edición y montaje</dt><dd>Danilo Hurwitz</dd></div>
+    <div><dt>Trabajos en esta página</dt><dd>MDA · Inazio Coach · Cosami · Aitor Zabaleta Korta · MV Steelframe · Almacén de Colchones · CAOS Club · Clínica Dental Alvaro Sainz</dd></div>
+    <div><dt>Herramientas</dt><dd>Premiere Pro · After Effects · DaVinci Resolve · CapCut</dd></div>
+    <div><dt>Idiomas</dt><dd>Español · English · <span lang="he">עברית</span></dd></div>
+    <div><dt>Perfiles</dt><dd><a href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank" rel="noopener">Upwork</a> · <a href="https://www.linkedin.com/in/danilohurwitz" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://wa.me/5492302219422" target="_blank" rel="noopener">WhatsApp</a></dd></div>
+    <div><dt>Editado en</dt><dd>Mar del Plata, Argentina</dd></div>
+  </dl>
+  <p class="fin">Fin <span>© 2026</span></p>
 </section>
 
 </main>
 
-<footer class="foot">
-  <span>© 2026 Danilo Hurwitz · Mar del Plata</span>
-  <span class="foot-keys">Atajos de edición: <kbd>J</kbd> anterior · <kbd>K</kbd> pausa · <kbd>L</kbd> siguiente</span>
-  <span><a href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank" rel="noopener">Upwork</a> <a href="https://linkedin.com/in/danilohurwitz" target="_blank" rel="noopener">LinkedIn</a> <a href="https://wa.me/5492302219422" target="_blank" rel="noopener">WhatsApp</a></span>
-</footer>
 
 <dialog class="lb" id="lightbox" aria-label="Antes y después del color grading">
   <div class="lb-bar"><span>Programa: Clínica Dental Alvaro Sainz</span><span class="lb-mode">Vista de comparación</span><button class="lb-x" data-close aria-label="Cerrar">✕</button></div>

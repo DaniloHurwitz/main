@@ -660,32 +660,6 @@ function initCarousel() {
   go(0);
 }
 
-// ─── SOBRE MÍ: tilt card ───
-function initTilt() {
-  const el = $('#tilt');
-  if (!el || !FINE || REDUCED) return;
-  el.addEventListener('pointermove', e => {
-    const r = el.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    el.style.transition = 'transform .1s';
-    el.style.transform = `perspective(900px) rotateY(${(x - 0.5) * 12}deg) rotateX(${(0.5 - y) * 10}deg)`;
-    el.style.setProperty('--gx', x * 100 + '%'); el.style.setProperty('--gy', y * 100 + '%');
-  });
-  el.addEventListener('pointerleave', () => { el.style.transition = ''; el.style.transform = ''; });
-}
-
-// ─── BOTONES MAGNÉTICOS ───
-function initMagnetic() {
-  if (!FINE || REDUCED) return;
-  $$('.magnetic').forEach(b => {
-    b.addEventListener('pointermove', e => {
-      const r = b.getBoundingClientRect();
-      b.style.transition = 'transform .15s';
-      b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.3}px, ${(e.clientY - r.top - r.height / 2) * 0.4}px)`;
-    });
-    b.addEventListener('pointerleave', () => { b.style.transition = 'transform .6s cubic-bezier(.34,1.56,.64,1)'; b.style.transform = ''; });
-  });
-}
-
 // ─── CIERRE: deslizá para escribirme ───
 function initSlide() {
   const slide = $('#slide'), knob = $('#slideKnob');
@@ -1845,6 +1819,95 @@ function initPremiere() {
   onResize(() => { sizeCanvas(); if (REDUCED) paint(); });
 }
 
+// ─── 002 · EDITADO / CRUDO: el mismo proyecto antes y después de pasar por la timeline ───
+// Aparece solo si existe assets/Fitness_antes.mp4. Si las dos versiones duran lo mismo, al
+// cambiar se sigue desde el mismo segundo; si no, cada una corre con su propio tiempo.
+function initAB() {
+  const box = $('#ab'), media = box?.closest('.cc-media');
+  if (!box || !media) return;
+  const main = $('video[data-auto]', media), raw = $('.ab-raw', media), dur = $('#abDur');
+  const btns = $$('button', box);
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); raw.preload = 'metadata'; raw.load(); } }, { rootMargin: '100% 0px' }).observe(media);
+  // si duran lo mismo es la misma toma: se comparan sincronizados, segundo a segundo
+  const label = () => {
+    if (!raw.duration || !main.duration) return;
+    dur.textContent = Math.abs(raw.duration - main.duration) < 0.6 ? 'mismo segundo, sincronizado' : `crudo ${mmss(raw.duration)} → editado ${mmss(main.duration)}`;
+  };
+  const synced = () => raw.duration && main.duration && Math.abs(raw.duration - main.duration) < 0.6;
+  raw.addEventListener('loadedmetadata', () => { box.hidden = false; label(); });
+  main.addEventListener('loadedmetadata', label);
+  raw.addEventListener('error', () => { box.hidden = true; }, true);
+  function set(mode) {
+    const isRaw = mode === 'raw';
+    btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.ab === mode)));
+    media.classList.toggle('is-raw', isRaw);
+    if (isRaw) { if (synced()) raw.currentTime = main.currentTime; main.pause(); raw.muted = main.muted; main.muted = true; raw.play().catch(() => {}); }
+    else { if (synced()) main.currentTime = raw.currentTime; raw.pause(); if (!raw.muted) { raw.muted = true; main.muted = false; } main.play().catch(() => {}); }
+  }
+  btns.forEach(b => b.addEventListener('click', () => set(b.dataset.ab)));
+  raw.addEventListener('click', () => { raw.muted = !raw.muted; if (!raw.muted) muteAllExcept(raw); });
+}
+
+// ─── TU VISITA, EDITADA ───
+// Mientras mirás, el sitio anota cuánto tiempo pasás en cada sección (solo en tu navegador,
+// no se guarda ni se envía). Al final te la muestra como una timeline: tu propia retención.
+function initVisit() {
+  const box = $('#visit'), lane = $('#visitLane'), head = $('#visitH'), tcEl = $('#visitTc');
+  if (!box) return;
+  box.hidden = false;
+  const CASES = /^00[1-5]/;
+  const segs = [];                                          // [{ label, t }] en el orden en que los viste
+  let lastAct = performance.now(), last = performance.now(), total = 0, inView = false;
+  ['scroll', 'pointermove', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, () => { lastAct = performance.now(); }, { passive: true }));
+  setInterval(() => {
+    const now = performance.now(), dt = (now - last) / 1000; last = now;
+    if (document.hidden || now - lastAct > 45000) return;   // pestaña oculta o nadie mirando: no cuenta
+    const label = chapterLabel(currentChapter());
+    const cur = segs[segs.length - 1];
+    if (cur && cur.label === label) cur.t += dt; else segs.push({ label, t: dt });
+    total += dt;
+    if (inView) render();
+  }, 250);
+  const fmt = t => t < 60 ? `${Math.round(t)} s` : `${Math.floor(t / 60)} min ${Math.round(t % 60)} s`;
+  const name = l => l.replace(/^00\d · /, '');
+  let lastHead = '';
+  function render() {
+    tcEl.textContent = tc(total);
+    // la timeline: cortes chicos (< 1 s) se funden con el anterior, como un ripple
+    const clips = [];
+    segs.forEach(s => { const c = clips[clips.length - 1]; if (c && (c.label === s.label || s.t < 1)) c.t += s.t; else clips.push({ ...s }); });
+    const sums = {};
+    segs.forEach(s => { sums[s.label] = (sums[s.label] || 0) + s.t; });
+    const ranked = Object.entries(sums).filter(([l]) => l !== 'Contacto' && l !== 'Inicio').sort((a, b) => b[1] - a[1]);
+    const top = ranked[0]?.[0];
+    while (lane.children.length > clips.length) lane.lastChild.remove();
+    clips.forEach((c, i) => {
+      let el = lane.children[i];
+      if (!el) { el = document.createElement('span'); el.innerHTML = '<b></b><i></i>'; lane.append(el); }
+      el.style.setProperty('--w', c.t.toFixed(2));
+      el.className = (CASES.test(c.label) ? 'case' : '') + (c.label === top ? ' top' : '') + (i === clips.length - 1 ? ' now' : '');
+      el.firstChild.textContent = name(c.label); el.lastChild.textContent = fmt(c.t);
+      el.title = `${c.label} · ${fmt(c.t)}`;
+    });
+    // el titular: dónde te quedaste y dónde te fuiste
+    let h;
+    const passed = ranked.filter(([, t]) => t >= 0.5);
+    if (total < 25 || passed.length < 3) h = `Llegaste al final en <em>${fmt(total)}</em>. Casi lo mismo que tarda alguien en pasar de largo un reel.`;
+    else {
+      const low = passed[passed.length - 1];
+      h = `Te quedaste <em>${fmt(ranked[0][1])}</em> en ${name(ranked[0][0])} y pasaste en <em>${fmt(low[1])}</em> por ${name(low[0])}.`;
+    }
+    if (h !== lastHead) { lastHead = h; head.innerHTML = h; }
+  }
+  new IntersectionObserver(([e]) => { inView = e.isIntersecting; if (inView) render(); }).observe(box);
+}
+
+// ─── Si cambiás de pestaña, la secuencia queda en pausa ───
+function initTabTitle() {
+  const t = document.title;
+  document.addEventListener('visibilitychange', () => { document.title = document.hidden ? '❚❚ En pausa · Danilo Hurwitz' : t; });
+}
+
 // ─── INIT ───
 document.addEventListener('DOMContentLoaded', () => {
   // los videos traen controles nativos para cuando no hay JS; con JS usamos los nuestros
@@ -1862,8 +1925,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initServices();
   initCounters();
   initCarousel();
-  initTilt();
-  initMagnetic();
   initSlide();
   initCalculator();
   initNavMeta();
@@ -1878,6 +1939,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initRise();
   initPremiere();
+  initAB();
+  initVisit();
+  initTabTitle();
 
   const range = $('#calcRange');
   if (range) new MutationObserver(() => { range.classList.remove('bump'); void range.offsetWidth; range.classList.add('bump'); })
