@@ -273,6 +273,9 @@ function initDevices() {
 
     size();
     onResize(() => { size(); sec._lw = 0; update(); });
+    // si la caja cambia de tamaño por cualquier motivo (barra del navegador, fuentes, orientación),
+    // se recalcula la homografía: si no, la pantalla queda chica y corrida
+    new ResizeObserver(() => { if (box.offsetWidth !== bw || box.offsetHeight !== bh) { size(); update(); } }).observe(box);
     onScroll.push(() => { if (inView) update(); });
     update();
   });
