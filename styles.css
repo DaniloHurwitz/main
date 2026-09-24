@@ -605,8 +605,8 @@ html:not(.js) .svc-wrap { grid-template-columns: 1fr; }
 /* dock de herramientas: se magnifica bajo el puntero */
 .tooldock { display: flex; align-items: flex-end; gap: 10px; margin-top: 30px; height: 88px; }
 .tooldock li { position: relative; display: flex; flex-direction: column; align-items: center; transform-origin: 50% 100%; transition: transform .18s ease-out; }
-.tooldock span { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: var(--bone-ink); color: var(--bone); font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; }
-.tooldock li:nth-child(odd) span { background: #2a2640; color: var(--accent); }
+.tooldock span { display: block; width: 52px; height: 52px; }
+.tooldock img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.18)); }
 .tooldock em { position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); white-space: nowrap; font-style: normal; font-size: 0.72rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: var(--bone-ink); color: var(--bone); opacity: 0; transition: opacity .2s; pointer-events: none; }
 .tooldock li:hover em { opacity: 1; }
 @media (hover: none) { .tooldock { height: auto; flex-wrap: wrap; } .tooldock em { position: static; transform: none; opacity: 1; background: none; color: var(--fg-2); padding: 4px 0 0; } }
@@ -877,8 +877,8 @@ html:not(.js) .stage, html:not(.js) .monitor-sec, html:not(.js) .studio { height
 html:not(.js) .stage-sticky, html:not(.js) .mon-sticky, html:not(.js) .locals-sticky, html:not(.js) .studio-sticky { position: relative; height: auto; min-height: 0; overflow: visible; }
 html:not(.js) .stage-sticky, html:not(.js) .mon-sticky { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: calc(var(--nav-h) + 6vh) var(--pad) 8vh; }
 html:not(.js) .device-box { position: relative; inset: auto; width: 100%; height: auto; transform: none; background: center / 100% 100% no-repeat; }
-html:not(.js) .phone-box { order: 2; max-width: 520px; justify-self: center; background-image: url("assets/phone/0072.webp"); }
-html:not(.js) .mon-box { background-image: url("assets/monitor/0072.webp"); }
+html:not(.js) .phone-box { order: 2; max-width: 520px; justify-self: center; background-image: url("assets/devices/phone/0072.webp"); }
+html:not(.js) .mon-box { background-image: url("assets/devices/monitor/0072.webp"); }
 html:not(.js) .device-screen { transform: none; width: auto; height: auto; pointer-events: auto; }
 html:not(.js) .phone-screen { left: 28.62%; top: 11.92%; right: 28.62%; bottom: 11.92%; border-radius: 9% / 4.2%; }
 html:not(.js) .mon-screen { left: 17.2%; top: 11.13%; right: 17.3%; bottom: 33.6%; }
