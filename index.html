@@ -423,6 +423,11 @@
         <li>El sonido modifica la percepción de la energía de un video</li>
         <li>La jerarquía visual guía el ojo sin que el espectador lo note</li>
       </ol>
+      <div class="rule-now" id="ruleNow" aria-hidden="true">
+        <p class="rn-meta"><i class="rn-mk"></i><b id="rnNum">01 / 06</b><span id="rnTc">Marcador · 00:00:00:00</span></p>
+        <p class="rn-text" id="rnText"><span>Los primeros 2 segundos deciden si alguien se queda</span></p>
+        <ol class="rn-ticks" id="rnTicks"><li></li><li></li><li></li><li></li><li></li><li></li></ol>
+      </div>
     </div>
   </div>
 </section>
@@ -431,6 +436,20 @@
 <!-- ══ SERVICIOS: lista desplegable nativa (funciona con toque) ══ -->
 <section class="services" id="servicios">
   <div class="sec-head"><h2>Qué hago</h2></div>
+  <div class="svc-wrap">
+  <div class="svc-mon" id="svcMon" aria-hidden="true">
+    <div class="sm-bar"><span>Ajustes de secuencia</span><span class="sm-tc" id="smTc">00:00:00:00</span></div>
+    <div class="sm-stage">
+      <div class="sm-frame" id="smFrame">
+        <img class="sm-img is-on" alt="" src="assets/posters/mda.webp">
+        <img class="sm-img" alt="" src="assets/posters/mda.webp">
+        <span class="sm-safe"></span>
+        <p class="sm-cap" id="smCap"></p>
+        <i class="sm-c sm-c1"></i><i class="sm-c sm-c2"></i><i class="sm-c sm-c3"></i><i class="sm-c sm-c4"></i>
+      </div>
+    </div>
+    <div class="sm-meta"><b id="smRes">1080 × 1920</b><span id="smRatio">9:16</span><span id="smUse">Reels · TikTok · Shorts</span></div>
+  </div>
   <div class="svc">
     <details class="svc-item" name="svc" open>
       <summary><span class="svc-n">01</span><span class="svc-name">Short-form y redes</span><span class="ratio" style="--r:0.5625" aria-hidden="true"><i></i></span><span class="svc-plus" aria-hidden="true"></span></summary>
@@ -453,6 +472,7 @@
       <div class="svc-body"><p>Subtítulos en archivo SRT/VTT o quemados al video, y adaptación de videos entre español, inglés y hebreo. Probalo acá abajo.</p></div>
     </details>
   </div>
+  </div>
 </section>
 
 <!-- ══ SUBTÍTULOS: demo en vivo con el archivo SRT al lado ══ -->
@@ -469,11 +489,17 @@
   </div>
   <div class="subs-demo">
     <div class="subs-screen">
-      <div class="subs-wave" aria-hidden="true"></div>
+      <img class="subs-bg" src="assets/posters/testeo_intro.webp" alt="" loading="lazy" decoding="async">
       <span class="subs-tc" id="subsTc">00:00:00:00</span>
+      <span class="subs-lang" id="subsLang">ES</span>
       <p class="subs-line" id="subsLine" lang="es">Los primeros 2 segundos deciden si alguien se queda.</p>
     </div>
-    <pre class="srt" id="srt" aria-label="Archivo de subtítulos"></pre>
+    <div class="subs-tl" aria-hidden="true">
+      <div class="st-wave" id="stWave"></div>
+      <div class="st-cues" id="stCues"></div>
+      <span class="st-ph" id="stPh"></span>
+    </div>
+    <ol class="srt" id="srt" aria-label="Archivo de subtítulos"></ol>
   </div>
 </section>
 
