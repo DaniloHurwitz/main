@@ -877,8 +877,8 @@ html:not(.js) .stage, html:not(.js) .monitor-sec, html:not(.js) .studio { height
 html:not(.js) .stage-sticky, html:not(.js) .mon-sticky, html:not(.js) .locals-sticky, html:not(.js) .studio-sticky { position: relative; height: auto; min-height: 0; overflow: visible; }
 html:not(.js) .stage-sticky, html:not(.js) .mon-sticky { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; padding: calc(var(--nav-h) + 6vh) var(--pad) 8vh; }
 html:not(.js) .device-box { position: relative; inset: auto; width: 100%; height: auto; transform: none; background: center / 100% 100% no-repeat; }
-html:not(.js) .phone-box { order: 2; max-width: 520px; justify-self: center; background-image: url("assets/phone/0072.webp"); }
-html:not(.js) .mon-box { background-image: url("assets/monitor/0072.webp"); }
+html:not(.js) .phone-box { order: 2; max-width: 520px; justify-self: center; background-image: url("assets/devices/phone/0072.webp"); }
+html:not(.js) .mon-box { background-image: url("assets/devices/monitor/0072.webp"); }
 html:not(.js) .device-screen { transform: none; width: auto; height: auto; pointer-events: auto; }
 html:not(.js) .phone-screen { left: 28.62%; top: 11.92%; right: 28.62%; bottom: 11.92%; border-radius: 9% / 4.2%; }
 html:not(.js) .mon-screen { left: 17.2%; top: 11.13%; right: 17.3%; bottom: 33.6%; }
