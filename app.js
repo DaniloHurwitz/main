@@ -1820,15 +1820,20 @@ function initPremiere() {
 }
 
 // ─── 002 · EDITADO / CRUDO: el mismo proyecto antes y después de pasar por la timeline ───
-// Aparece solo si existe assets/Fitness_antes.mp4. Cada versión corre con su propio tiempo:
-// no son cuadro a cuadro, la gracia es ver cuánto se cortó y cómo cambia el ritmo.
+// Aparece solo si existe assets/Fitness_antes.mp4. Si las dos versiones duran lo mismo, al
+// cambiar se sigue desde el mismo segundo; si no, cada una corre con su propio tiempo.
 function initAB() {
   const box = $('#ab'), media = box?.closest('.cc-media');
   if (!box || !media) return;
   const main = $('video[data-auto]', media), raw = $('.ab-raw', media), dur = $('#abDur');
   const btns = $$('button', box);
   new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); raw.preload = 'metadata'; raw.load(); } }, { rootMargin: '100% 0px' }).observe(media);
-  const label = () => { if (raw.duration && main.duration) dur.textContent = `crudo ${mmss(raw.duration)} → editado ${mmss(main.duration)}`; };
+  // si duran lo mismo es la misma toma: se comparan sincronizados, segundo a segundo
+  const label = () => {
+    if (!raw.duration || !main.duration) return;
+    dur.textContent = Math.abs(raw.duration - main.duration) < 0.6 ? 'mismo segundo, sincronizado' : `crudo ${mmss(raw.duration)} → editado ${mmss(main.duration)}`;
+  };
+  const synced = () => raw.duration && main.duration && Math.abs(raw.duration - main.duration) < 0.6;
   raw.addEventListener('loadedmetadata', () => { box.hidden = false; label(); });
   main.addEventListener('loadedmetadata', label);
   raw.addEventListener('error', () => { box.hidden = true; }, true);
@@ -1836,8 +1841,8 @@ function initAB() {
     const isRaw = mode === 'raw';
     btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.ab === mode)));
     media.classList.toggle('is-raw', isRaw);
-    if (isRaw) { main.pause(); raw.muted = main.muted; main.muted = true; raw.play().catch(() => {}); }
-    else { raw.pause(); if (!raw.muted) { raw.muted = true; main.muted = false; } main.play().catch(() => {}); }
+    if (isRaw) { if (synced()) raw.currentTime = main.currentTime; main.pause(); raw.muted = main.muted; main.muted = true; raw.play().catch(() => {}); }
+    else { if (synced()) main.currentTime = raw.currentTime; raw.pause(); if (!raw.muted) { raw.muted = true; main.muted = false; } main.play().catch(() => {}); }
   }
   btns.forEach(b => b.addEventListener('click', () => set(b.dataset.ab)));
   raw.addEventListener('click', () => { raw.muted = !raw.muted; if (!raw.muted) muteAllExcept(raw); });
