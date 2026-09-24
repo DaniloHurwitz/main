@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/phone/0001.webp">
-<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>
@@ -132,14 +132,13 @@
     <div class="note"><h3>Por qué así</h3><p>Su audiencia ya consume contenido fitness todo el día. El ritmo visual tiene que competir con el scroll, no con otros coaches.</p></div>
   </div>
   <div class="cc-media" data-player>
-    <div class="ab" id="ab" role="radiogroup" aria-label="Ver la versión" hidden>
-      <button role="radio" aria-checked="true" data-ab="edit">Editado</button>
-      <button role="radio" aria-checked="false" data-ab="raw">Crudo</button>
-      <span class="ab-dur" id="abDur"></span>
-    </div>
     <div class="cc-reveal" id="cutReveal">
-      <div class="player-screen"><video data-title="002 · Inazio Coach" muted loop playsinline controls preload="none" poster="assets/posters/fitness.webp" data-auto><source src="assets/Fitness.mp4" type="video/mp4"></video><video class="ab-raw" data-title="002 · Inazio Coach (crudo)" muted loop playsinline preload="none"><source src="assets/Fitness_antes.mp4" type="video/mp4"></video><span class="ab-tag">Crudo · como llegó</span></div>
+      <div class="player-screen"><video data-title="002 · Inazio Coach" muted loop playsinline controls preload="none" poster="assets/posters/fitness.webp" data-auto><source src="assets/Fitness.mp4" type="video/mp4"></video><span class="ab-tag ab-tag--edit" hidden>Editado</span></div>
       <span class="razor" aria-hidden="true"></span>
+      <figure class="ab-pip" id="abPip" hidden>
+        <video class="ab-raw" data-title="002 · Inazio Coach (crudo)" muted loop playsinline preload="none"><source src="assets/Fitness_antes.mp4" type="video/mp4"></video>
+        <figcaption>Crudo</figcaption>
+      </figure>
     </div>
     <div class="player-bar">
             <button class="p-play" aria-label="Pausar"><svg class="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/></svg></button>
@@ -796,6 +795,6 @@
   <p class="lb-cap">Izquierda, el material como salió de cámara. Derecha, con la corrección de color.</p>
 </dialog>
 
-<script src="app.js?v=14"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>
