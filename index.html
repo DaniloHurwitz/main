@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danilo Hurwitz · Editor de video</title>
+<meta name="description" content="Editor de video para marcas y creadores. Reels, ads, YouTube, subtítulos en español, inglés y hebreo. Top Rated en Upwork con 100% de Job Success. Mar del Plata, Argentina.">
+<meta property="og:title" content="Danilo Hurwitz · Editor de video">
+<meta property="og:description" content="Estudio cómo las personas consumen información. Después edito.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0e0f11">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/phone/0001.webp">
+<link rel="stylesheet" href="styles.css?v=13">
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<header class="nav">
+  <a href="#top" class="nav-id"><strong>Danilo Hurwitz</strong><span>Editor de video</span></a>
+  <span class="nav-chapter" aria-live="polite"><i id="navChapter">Inicio</i></span>
+  <nav class="nav-links" aria-label="Secciones">
+    <a href="#trabajo">Trabajo</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#sobre-mi">Sobre mí</a>
+    <a href="#cotizar">Cotizar</a>
+  </nav>
+  <button class="nav-keys" id="navKeys" aria-label="Atajos de teclado"><kbd>J</kbd><kbd>K</kbd><kbd>L</kbd></button>
+  <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte." target="_blank" rel="noopener" class="nav-cta magnetic">Contratar</a>
+  <span class="nav-progress" id="navProgress" aria-hidden="true"></span>
+</header>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Mini-player: si activás el sonido y seguís scrolleando, el video te acompaña -->
+<div class="dock" id="dock" aria-label="Video en reproducción" hidden>
+  <canvas class="dock-canvas" id="dockCanvas"></canvas>
+  <div class="dock-ui">
+    <span class="dock-title" id="dockTitle"></span>
+    <div class="dock-btns">
+      <button id="dockPlay" aria-label="Pausar">Pausa</button>
+      <button id="dockBack" aria-label="Volver al video">Volver</button>
+      <button id="dockClose" aria-label="Cerrar y silenciar">✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- Progreso de la "bobina" de trabajos -->
+<nav class="reel" id="reel" aria-label="Progreso de trabajos">
+  <a href="#top" data-seg="0"><span><i></i></span><b>001</b></a>
+  <a href="#caso-inazio" data-seg="1"><span><i></i></span><b>002</b></a>
+  <a href="#caso-cosami" data-seg="2"><span><i></i></span><b>003</b></a>
+  <a href="#caso-aitor" data-seg="3"><span><i></i></span><b>004</b></a>
+  <a href="#locales" data-seg="4"><span><i></i></span><b>005</b></a>
+</nav>
+
+<main>
+
+<!-- ══ 001 · HERO + iPHONE: gira con el scroll y reproduce el reel de MDA ══ -->
+<section class="stage device-sec" id="top" data-device="phone">
+  <div class="stage-sticky">
+    <div class="phone-box device-box">
+      <canvas class="device-canvas" width="1000" height="1220" aria-hidden="true"></canvas>
+      <div class="phone-screen device-screen">
+        <video data-title="001 · MDA" muted loop playsinline preload="none"><source src="assets/mda.mp4" type="video/mp4"></video>
+        <span class="phone-island"></span>
+        <span class="phone-glare"></span>
+        <button class="phone-snd" aria-label="Escuchar con sonido desde el inicio"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg><em>Escuchar</em></button>
+      </div>
+    </div>
+
+    <div class="stage-copy">
+      <div class="hero-copy" id="heroCopy">
+        <h1 class="hero-title" id="heroTitle" aria-label="Estudio cómo las personas consumen información. Después edito.">
+          <span class="w">Estudio</span> <span class="w">cómo</span> <span class="w">las</span> <span class="w">personas</span>
+          <span class="w">consumen</span> <span class="w">información.</span>
+          <span class="w w-cut">Después</span> <span class="w w-cut">edito.</span>
+        </h1>
+        <p class="hero-desc">Edición de video para marcas y creadores que necesitan contenido que la gente realmente mire. Reels, ads, YouTube: con criterio de retención, no solo estética.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20trabajar%20con%20vos." target="_blank" rel="noopener" class="btn btn-accent magnetic">Empezar un proyecto</a>
+          <a href="#caso-inazio" class="btn btn-ghost">Ver trabajos</a>
+        </div>
+        <p class="hero-badge"><strong>Top Rated</strong> en Upwork · <strong>100%</strong> Job Success · <strong>ES / EN / HE</strong></p>
+      </div>
+
+      <div class="steps-case" id="trabajo" data-steps-from="0.36" aria-label="Caso 001, MDA">
+        <div class="sc" data-step="0">
+          <p class="sc-kicker"><span>001</span> MDA · Agencia · 9:16 · Reel</p>
+          <h2 class="sc-title">El reel de una agencia que trabaja con marcas grandes</h2>
+        </div>
+        <div class="sc" data-step="1"><h3>Qué es</h3><p>El reel de presentación de MDA, una agencia con la que estoy trabajando hoy. Tocá la pantalla para escucharlo.</p></div>
+        <div class="sc sc--brands" data-step="2"><h3>Qué aparece en el reel</h3>
+          <ul class="brands"><li>Selección Española femenina de fútbol</li><li>Juegos Olímpicos de Invierno</li><li>El Corte Inglés</li></ul>
+          <p class="sc-fine">Proyectos de la agencia que muestra el reel.</p>
+        </div>
+        <ol class="sc-dots" aria-hidden="true"></ol>
+      </div>
+    </div>
+
+    <p class="stage-cue">Scrolleá: el iPhone se da vuelta</p>
+  </div>
+</section>
+
+<div class="marquee" id="marquee" aria-label="Datos de Upwork y clientes">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>Top Rated en Upwork</span><i>/</i><span>100% Job Success</span><i>/</i><span>648 horas facturadas</span><i>/</i><span>21 contratos</span><i>/</i><span>Español · Inglés · Hebreo</span><i>/</i><span>Clientes Fortune 500 vía ICUC</span><i>/</i>
+  </div>
+</div>
+
+<a class="upnext" href="#caso-inazio" data-upnext>
+  <span class="un-label">A continuación</span>
+  <span class="un-title"><b>002</b> Inazio Coach · un ad de fitness y un perfil que sumó 50K seguidores</span>
+  <span class="un-bar" aria-hidden="true"><i></i></span>
+</a>
+
+<!-- ══ 002 · INAZIO: el video se revela con un corte + la prueba ══ -->
+<section class="case-cut" id="caso-inazio" data-category="ad" data-format="9:16">
+  <div class="cc-text">
+    <p class="kicker"><span>002</span> Inazio Coach · 9:16 · Reel publicitario</p>
+    <h2 class="case-h">Ad de fitness para un creador con audiencia establecida</h2>
+    <div class="note"><h3>Qué necesitaba</h3><p>Un anuncio vertical para redes que comunicara su servicio de coaching sin perder la identidad visual que su audiencia ya reconoce.</p></div>
+    <div class="note"><h3>Qué hice</h3><p>Edición de ritmo alto con hook en los primeros 2 segundos, subtítulos dinámicos, cortes sincronizados con la música y un CTA integrado en la narrativa.</p></div>
+    <div class="note"><h3>Por qué así</h3><p>Su audiencia ya consume contenido fitness todo el día. El ritmo visual tiene que competir con el scroll, no con otros coaches.</p></div>
+  </div>
+  <div class="cc-media" data-player>
+    <div class="cc-reveal" id="cutReveal">
+      <div class="player-screen"><video data-title="002 · Inazio Coach" muted loop playsinline preload="none" data-auto><source src="assets/Fitness.mp4" type="video/mp4"></video></div>
+      <span class="razor" aria-hidden="true"></span>
+    </div>
+    <div class="player-bar">
+            <button class="p-play" aria-label="Pausar"><svg class="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg><svg class="i-pause" viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z" fill="currentColor"/></svg></button>
+            <div class="p-scrub" role="slider" tabindex="0" aria-label="Posición del video" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="p-fill"></span><span class="p-knob"></span></div>
+            <span class="p-time">0:00</span>
+            <button class="p-snd" aria-label="Activar sonido" aria-pressed="false"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+          </div>
+  </div>
+  <div class="proof" aria-label="Resultado del caso Inazio Coach">
+    <div class="proof-num"><span data-count="50" data-prefix="+" data-suffix="K">+50K</span></div>
+    <div class="proof-side">
+      <p class="proof-txt">seguidores sumó el perfil entre enero y agosto de 2026: de 188K a 238K. Arrastrá para comparar.</p>
+      <div class="ba" data-ba tabindex="0" role="slider" aria-label="Comparar perfil de enero y agosto de 2026" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+        <img src="assets/ina-ahora.png" alt="Agosto 2026 - 238K seguidores" class="ba-after" draggable="false">
+        <img src="assets/ina-antes.png" alt="Enero 2026 - 188K seguidores" class="ba-before" draggable="false" style="clip-path: inset(0 50% 0 0);">
+        <div class="ba-handle" style="left: 50%;"><span></span></div>
+        <span class="ba-date ba-date-before">Ene 2026</span>
+        <span class="ba-date ba-date-after">Ago 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<a class="upnext" href="#caso-cosami" data-upnext>
+  <span class="un-label">A continuación</span>
+  <span class="un-title"><b>003</b> Cosami · scrolleá y scrubbeás el corte cuadro por cuadro</span>
+  <span class="un-bar" aria-hidden="true"><i></i></span>
+</a>
+
+<!-- ══ 003 · COSAMI: scrolleás y scrubbeás el video cuadro por cuadro ══ -->
+<section class="case-scrub" id="caso-cosami" data-category="brand" data-format="9:16">
+  <div class="cs-media">
+    <div class="cs-sticky">
+      <div class="scrub" id="scrub" data-frames="assets/cosami/" data-frame-count="0" data-ext="jpg">
+        <canvas class="scrub-canvas" aria-hidden="true"></canvas>
+        <video class="scrub-video" data-title="003 · Cosami" muted playsinline preload="metadata"><source src="assets/Cosami%20Edit2.mp4" type="video/mp4"></video>
+        <span class="scrub-tc" id="scrubTc">00:00:00:00</span>
+      </div>
+      <div class="scrub-ui">
+        <span class="scrub-hint" id="scrubHint">Scrolleá para scrubbear el corte</span>
+        <button class="btn btn-ghost btn-sm" id="scrubPlay">Ver con sonido</button>
+      </div>
+    </div>
+  </div>
+  <div class="cs-text">
+    <div class="cs-block">
+      <p class="kicker"><span>003</span> Cosami · 9:16 · Branding, storytelling</p>
+      <h2 class="case-h">Contenido de marca para una empresa de salsas con 60 años de tradición</h2>
+    </div>
+    <div class="cs-block note"><h3>Qué necesitaba</h3><p>Un video que comunicara la identidad de Cosami, una fábrica de salsas y conservas fundada en 1964 en el Valle del Ebro, España. No era un producto nuevo buscando atención; era una marca con historia buscando presencia digital.</p></div>
+    <div class="cs-block note"><h3>Qué hice</h3><p>Edición atmosférica: guitarra española, planos de producto con textura, ritmo dinámico que respeta la tradición sin sentirse anticuado.</p></div>
+    <div class="cs-block note"><h3>Por qué así</h3><p>Cosami vende confianza, origen y sabor. El ritmo del video tiene que sentirse como abrir una buena botella, elegante y con música tradicional. La edición adapta el registro al ADN de la marca.</p></div>
+  </div>
+</section>
+
+<a class="upnext" href="#caso-aitor" data-upnext>
+  <span class="un-label">A continuación</span>
+  <span class="un-title"><b>004</b> Aitor Zabaleta Korta · una intro de YouTube en pantalla grande</span>
+  <span class="un-bar" aria-hidden="true"><i></i></span>
+</a>
+
+<!-- ══ 004 · AITOR: el monitor gira y la intro se reproduce en pantalla ══ -->
+<section class="monitor-sec device-sec" id="caso-aitor" data-device="monitor" data-category="youtube" data-format="16:9">
+  <div class="stage-sticky mon-sticky">
+    <div class="mon-box device-box">
+      <canvas class="device-canvas" width="1200" height="800" aria-hidden="true"></canvas>
+      <div class="mon-screen device-screen">
+        <video data-title="004 · Aitor Zabaleta Korta" muted loop playsinline preload="none"><source src="assets/testeo_intro.mp4" type="video/mp4"></video>
+        <span class="phone-glare"></span>
+        <button class="phone-snd" aria-label="Escuchar con sonido desde el inicio"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg><em>Escuchar</em></button>
+      </div>
+    </div>
+    <div class="mon-copy steps-case" data-steps-from="0.42">
+      <div class="sc" data-step="0">
+        <p class="sc-kicker"><span>004</span> Aitor Zabaleta Korta · 16:9 · Intro de YouTube</p>
+        <h2 class="sc-title">Intro de YouTube para un Doctor en Ciencias del Deporte con 276K seguidores</h2>
+      </div>
+      <div class="sc" data-step="1"><h3>Qué necesitaba</h3><p>Una introducción para su canal que reflejara su perfil: Doctor en CAFYD, investigador en biomecánica, y creador en @fuerzaadiario. Profesional sin perder cercanía.</p></div>
+      <div class="sc" data-step="2"><h3>Qué hice</h3><p>Edición horizontal para YouTube: ritmo que establece autoridad, transiciones limpias, tipografía que refuerza el posicionamiento académico-deportivo.</p></div>
+      <div class="sc" data-step="3"><h3>Por qué así</h3><p>Una intro de YouTube no puede sentirse como un reel acelerado, pero tampoco aburrir. El balance: energía contenida de alguien que sabe de lo que habla.</p></div>
+      <ol class="sc-dots" aria-hidden="true"></ol>
+    </div>
+  </div>
+</section>
+
+<a class="upnext" href="#locales" data-upnext>
+  <span class="un-label">A continuación</span>
+  <span class="un-title"><b>005</b> Negocios locales · cinco marcas, cinco presupuestos, la misma exigencia</span>
+  <span class="un-bar" aria-hidden="true"><i></i></span>
+</a>
+
+<!-- ══ 005 · NEGOCIOS LOCALES: carrusel horizontal ══ -->
+<section class="locals" id="locales">
+  <div class="locals-sticky">
+    <header class="locals-head">
+      <p class="kicker"><span>005</span> Negocios locales y cuentas chicas</p>
+      <h2>Cada presupuesto, la misma exigencia</h2>
+      <p class="locals-sub">Edición adaptada a lo que cada negocio necesita y puede invertir, sin bajar la calidad. <span class="locals-hint">Arrastrá o scrolleá →</span></p>
+    </header>
+    <div class="locals-track" id="localsTrack">
+      <article class="lc">
+        <div class="lc-inner">
+          <div class="lc-face lc-front">
+            <div class="lc-phone">
+              <video data-title="MV Steelframe" muted loop playsinline preload="none" data-auto><source src="assets/Ad1.mp4" type="video/mp4"></video>
+              <span class="lc-progress" aria-hidden="true"><i></i></span>
+              <button class="lc-snd" aria-label="Escuchar MV Steelframe"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Constructora local · construcción en seco</p>
+              <h3>MV Steelframe</h3>
+              <p class="lc-desc">Anuncio centrado en el proceso: estructura, materiales, resultado. Música que transmite solidez sin parecer un infomercial.</p>
+              <ul class="lc-tags"><li>Anuncio social</li><li>Proceso</li><li>Música</li></ul>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="lc">
+        <div class="lc-inner">
+          <div class="lc-face lc-front">
+            <div class="lc-phone">
+              <video data-title="Almacén de Colchones" muted loop playsinline preload="none" data-auto><source src="assets/colchones.mp4" type="video/mp4"></video>
+              <span class="lc-progress" aria-hidden="true"><i></i></span>
+              <button class="lc-snd" aria-label="Escuchar Almacén de Colchones"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Mar del Plata · colchones</p>
+              <h3>Almacén de Colchones</h3>
+              <p class="lc-desc">Texto dinámico, transiciones y B-roll.</p>
+              <ul class="lc-tags"><li>Texto dinámico</li><li>Transiciones</li><li>B-roll</li></ul>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="lc">
+        <div class="lc-inner">
+          <div class="lc-face lc-front">
+            <div class="lc-phone">
+              <video data-title="CAOS Club" muted loop playsinline preload="none" data-auto><source src="assets/caos.mp4" type="video/mp4"></video>
+              <span class="lc-progress" aria-hidden="true"><i></i></span>
+              <button class="lc-snd" aria-label="Escuchar CAOS Club"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Gimnasio · España</p>
+              <h3>CAOS Club</h3>
+              <p class="lc-desc">Subtítulos simples y cortes simples.</p>
+              <ul class="lc-tags"><li>Subtítulos</li><li>Cortes simples</li></ul>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="lc lc--flip">
+        <div class="lc-inner">
+          <div class="lc-face lc-front">
+            <div class="lc-phone">
+              <video data-title="Clínica Dental Alvaro Sainz" muted loop playsinline preload="none" data-auto><source src="assets/Sainz.mp4" type="video/mp4"></video>
+              <span class="lc-progress" aria-hidden="true"><i></i></span>
+              <button class="lc-snd" aria-label="Escuchar Clínica Dental Alvaro Sainz"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Clínica dental</p>
+              <h3>Clínica Dental Alvaro Sainz</h3>
+              <p class="lc-desc">Videos informativos y serios, con color grading.</p>
+              <ul class="lc-tags"><li>Informativo</li><li>Color grading</li></ul><button class="lc-flip-btn btn btn-accent btn-sm" data-flip>Ver antes / después del color</button>
+            </div>
+          </div>
+          <div class="lc-face lc-back" aria-label="Antes y después del color grading">
+            <div class="gba" data-ba data-mode="split-h" data-src="assets/color-grading.png" tabindex="0" role="slider" aria-label="Comparar antes y después del color" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+              <div class="gba-layer gba-after"></div>
+              <div class="gba-layer gba-before ba-before" style="clip-path: inset(0 50% 0 0);"></div>
+              <div class="ba-handle" style="left: 50%;"><span></span></div>
+              <span class="ba-date ba-date-before">Antes</span>
+              <span class="ba-date ba-date-after">Después</span>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Color grading</p>
+              <h3>Clínica Dental Alvaro Sainz</h3>
+              <p class="lc-desc">Arrastrá para comparar el material original con la corrección de color.</p>
+              <button class="lc-flip-btn btn btn-ghost btn-sm" data-unflip>Volver al video</button>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="lc">
+        <div class="lc-inner">
+          <div class="lc-face lc-front">
+            <div class="lc-phone">
+              <video data-title="Finanzas personales" muted loop playsinline preload="none" data-auto><source src="assets/finanza.mp4" type="video/mp4"></video>
+              <span class="lc-progress" aria-hidden="true"><i></i></span>
+              <button class="lc-snd" aria-label="Escuchar Finanzas personales"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Cuenta de finanzas personales</p>
+              <h3>Finanzas personales</h3>
+              <p class="lc-desc">Un video sencillo y rápido: movido como para reels, sin motion graphics.</p>
+              <ul class="lc-tags"><li>Ritmo de reel</li><li>Sin motion</li></ul>
+            </div>
+          </div>
+        </div>
+      </article>
+      <div class="lc-end"><p>¿Tu negocio es el próximo?</p><a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20tengo%20un%20negocio%20y%20quiero%20videos." target="_blank" rel="noopener" class="btn btn-accent magnetic">Escribime</a></div>
+    </div>
+    <div class="locals-bar" aria-hidden="true"><i id="localsBar"></i></div>
+  </div>
+</section>
+
+<!-- ══ ENFOQUE: el texto se "lee" con el scroll ══ -->
+<section class="focus" id="enfoque">
+  <h2 class="focus-kicker">Mi enfoque no empieza en la timeline</h2>
+  <p class="focus-read" id="focusRead">Antes de abrir Premiere, pienso en la persona que va a ver el video. Cuánto tiempo le va a dar antes de decidir si sigue o scrollea. Qué información necesita primero. En qué momento pierde interés y por qué.</p>
+  <div class="focus-cols">
+    <div class="focus-text">
+      <p>Estudio Medicina en la Universidad Nacional de Mar del Plata. No lo digo para impresionar, sino porque cambió mi forma de pensar el contenido. Estudiar cómo funciona la atención, la percepción, la memoria, la forma en que el cerebro procesa información visual y auditiva, me dio un framework que aplico cada vez que edito.</p>
+      <p>No soy neurocientífico. Pero pensar analíticamente sobre las personas (cómo procesan, qué retienen, qué ignoran) es algo que hago todo el día, en la facu y en la timeline.</p>
+    </div>
+    <div class="rules">
+      <h3>Qué tengo en cuenta al editar</h3>
+      <ol>
+        <li>Los primeros 2 segundos deciden si alguien se queda</li>
+        <li>El ritmo de corte afecta la retención más que el contenido mismo</li>
+        <li>Los cambios visuales previenen el decaimiento de la atención</li>
+        <li>Los subtítulos cambian cómo se comprende un mensaje</li>
+        <li>El sonido modifica la percepción de la energía de un video</li>
+        <li>La jerarquía visual guía el ojo sin que el espectador lo note</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ SERVICIOS: lista desplegable nativa (funciona con toque) ══ -->
+<section class="services" id="servicios">
+  <div class="sec-head"><h2>Qué hago</h2></div>
+  <div class="svc">
+    <details class="svc-item" name="svc" open>
+      <summary><span class="svc-n">01</span><span class="svc-name">Short-form y redes</span><span class="ratio" style="--r:0.5625" aria-hidden="true"><i></i></span><span class="svc-plus" aria-hidden="true"></span></summary>
+      <div class="svc-body"><p>Reels, TikToks, Shorts, ads verticales. Hooks, subtítulos dinámicos, ritmo calibrado. Entrega express en 24–72 h si hace falta.</p></div>
+    </details>
+    <details class="svc-item" name="svc">
+      <summary><span class="svc-n">02</span><span class="svc-name">YouTube y long-form</span><span class="ratio" style="--r:1.7778" aria-hidden="true"><i></i></span><span class="svc-plus" aria-hidden="true"></span></summary>
+      <div class="svc-body"><p>Videos largos, intros, contenido educativo. Edición que mantiene al espectador sin sobrestimulación.</p></div>
+    </details>
+    <details class="svc-item" name="svc">
+      <summary><span class="svc-n">03</span><span class="svc-name">Ads y contenido comercial</span><span class="ratio" style="--r:0.8" aria-hidden="true"><i></i></span><span class="svc-plus" aria-hidden="true"></span></summary>
+      <div class="svc-body"><p>Publicidad para redes y plataformas. Hook, mensaje, CTA, editado para que funcione como pieza de performance, no solo como video bonito.</p></div>
+    </details>
+    <details class="svc-item" name="svc">
+      <summary><span class="svc-n">04</span><span class="svc-name">Contenido de marca</span><span class="ratio" style="--r:1" aria-hidden="true"><i></i></span><span class="svc-plus" aria-hidden="true"></span></summary>
+      <div class="svc-body"><p>Videos de producto, storytelling, piezas institucionales. El registro visual se adapta a la identidad de cada marca.</p></div>
+    </details>
+    <details class="svc-item" name="svc">
+      <summary><span class="svc-n">05</span><span class="svc-name">Subtítulos y adaptación</span><span class="ratio ratio--subs" style="--r:1.7778" aria-hidden="true"><i></i></span><span class="svc-plus" aria-hidden="true"></span></summary>
+      <div class="svc-body"><p>Subtítulos en archivo SRT/VTT o quemados al video, y adaptación de videos entre español, inglés y hebreo. Probalo acá abajo.</p></div>
+    </details>
+  </div>
+</section>
+
+<!-- ══ SUBTÍTULOS: demo en vivo con el archivo SRT al lado ══ -->
+<section class="subs" id="subtitulos">
+  <div class="subs-copy">
+    <h2>Un mismo mensaje, tres idiomas</h2>
+    <p>Subtitulado y adaptación entre español, inglés y hebreo, con el hebreo de derecha a izquierda como corresponde. Es el tipo de proyecto de las reseñas de más abajo.</p>
+    <div class="seg" id="seg" role="radiogroup" aria-label="Idioma de los subtítulos">
+      <span class="seg-ind" aria-hidden="true"></span>
+      <button role="radio" aria-checked="true" data-lang="es">Español</button>
+      <button role="radio" aria-checked="false" data-lang="en">English</button>
+      <button role="radio" aria-checked="false" data-lang="he">עברית</button>
+    </div>
+  </div>
+  <div class="subs-demo">
+    <div class="subs-screen">
+      <div class="subs-wave" aria-hidden="true"></div>
+      <span class="subs-tc" id="subsTc">00:00:00:00</span>
+      <p class="subs-line" id="subsLine" lang="es">Los primeros 2 segundos deciden si alguien se queda.</p>
+    </div>
+    <pre class="srt" id="srt" aria-label="Archivo de subtítulos"></pre>
+  </div>
+</section>
+
+<!-- ══ PROCESO: la laptop se abre y el proceso corre en una timeline ══ -->
+<section class="studio device-sec" id="proceso" data-device="laptop">
+  <div class="studio-sticky">
+    <header class="studio-head">
+      <h2>Cómo trabajo</h2>
+      <p>Cuatro pasos. Mismo orden en todos los proyectos.</p>
+    </header>
+    <div class="laptop-box device-box">
+      <canvas class="device-canvas" width="1200" height="750" aria-hidden="true"></canvas>
+      <div class="laptop-screen device-screen" id="laptopScreen" aria-hidden="true">
+        <span class="ls-notch"></span>
+        <div class="ls-bar"><span>tu-proyecto.prproj</span><span class="ls-tc" id="lsTc">00:00:00:00</span></div>
+        <div class="ls-monitor">
+            <div class="ls-step is-on" data-step="0"><span class="ls-n">Paso 1 de 4</span><h3>Brief por WhatsApp</h3><p>Me contás qué necesitás. Sin formularios, sin reuniones innecesarias. Si hace falta una llamada, la hacemos.</p></div>
+            <div class="ls-step" data-step="1"><span class="ls-n">Paso 2 de 4</span><h3>Propuesta en menos de 4 horas</h3><p>Presupuesto, timeline y alcance. Claro, sin letra chica. Si no encaja, no pasa nada.</p></div>
+            <div class="ls-step" data-step="2"><span class="ls-n">Paso 3 de 4</span><h3>Primera versión</h3><p>En 5 a 7 días, o en 24–72 h si es urgente. Comunicación directa mientras trabajo, no desaparezco.</p></div>
+            <div class="ls-step" data-step="3"><span class="ls-n">Paso 4 de 4</span><h3>Ajustes y entrega final</h3><p>Revisiones incluidas hasta que quede bien. Entrega en todos los formatos que necesites.</p></div>
+        </div>
+        <div class="ls-timeline">
+          <div class="ls-ruler" id="lsRuler"></div>
+          <div class="ls-track"><span class="ls-name">V1</span><div class="ls-lane"><span class="ls-clip" data-step="0" style="--x:0;--w:25"><b>Brief por WhatsApp</b><em>Día 0</em></span><span class="ls-clip" data-step="1" style="--x:25;--w:25"><b>Propuesta en menos de 4 horas</b><em>< 4 h</em></span><span class="ls-clip" data-step="2" style="--x:50;--w:25"><b>Primera versión</b><em>5–7 días</em></span><span class="ls-clip" data-step="3" style="--x:75;--w:25"><b>Ajustes y entrega final</b><em>Entrega</em></span></div></div>
+          <div class="ls-track"><span class="ls-name">A1</span><div class="ls-lane ls-audio"></div></div>
+          <span class="ls-playhead" id="lsPlayhead"></span>
+        </div>
+      </div>
+    </div>
+    <div class="studio-caption" id="studioCaption"><div class="sc-cap is-on" data-step="0"><span>Paso 1 de 4 · Día 0</span><h3>Brief por WhatsApp</h3><p>Me contás qué necesitás. Sin formularios, sin reuniones innecesarias. Si hace falta una llamada, la hacemos.</p></div><div class="sc-cap" data-step="1"><span>Paso 2 de 4 · < 4 h</span><h3>Propuesta en menos de 4 horas</h3><p>Presupuesto, timeline y alcance. Claro, sin letra chica. Si no encaja, no pasa nada.</p></div><div class="sc-cap" data-step="2"><span>Paso 3 de 4 · 5–7 días</span><h3>Primera versión</h3><p>En 5 a 7 días, o en 24–72 h si es urgente. Comunicación directa mientras trabajo, no desaparezco.</p></div><div class="sc-cap" data-step="3"><span>Paso 4 de 4 · Entrega</span><h3>Ajustes y entrega final</h3><p>Revisiones incluidas hasta que quede bien. Entrega en todos los formatos que necesites.</p></div></div>
+  </div>
+  <ol class="sr-only"><li>Brief por WhatsApp: Me contás qué necesitás. Sin formularios, sin reuniones innecesarias. Si hace falta una llamada, la hacemos.</li><li>Propuesta en menos de 4 horas: Presupuesto, timeline y alcance. Claro, sin letra chica. Si no encaja, no pasa nada.</li><li>Primera versión: En 5 a 7 días, o en 24–72 h si es urgente. Comunicación directa mientras trabajo, no desaparezco.</li><li>Ajustes y entrega final: Revisiones incluidas hasta que quede bien. Entrega en todos los formatos que necesites.</li></ol>
+</section>
+
+<!-- ══ CONFIANZA: números reales + carrusel de reseñas ══ -->
+<section class="trust" id="resenas">
+  <div class="stats">
+    <div class="stat"><strong data-count="100" data-suffix="%">100%</strong><span>Job Success Score</span></div>
+    <div class="stat"><strong data-count="648">648</strong><span>horas facturadas</span></div>
+    <div class="stat"><strong data-count="21">21</strong><span>contratos: 15 terminados, 6 en curso</span></div>
+    <div class="stat stat--word"><strong>Top Rated</strong><span>en Upwork</span></div>
+  </div>
+  <div class="carousel" id="carousel">
+    <div class="car-track" id="carTrack">
+      <blockquote class="review"><p>“Fue un verdadero placer trabajar con Danilo. Gran comunicación, entendimiento rápido de los requerimientos y resultados de alta calidad. Totalmente recomendado.”</p><footer><cite>Hebrew Tutorial Video Adaptation</cite><span>Upwork · junio 2025 · ★★★★★</span></footer></blockquote>
+      <blockquote class="review"><p>“Otra gran experiencia trabajando con Danilo. Muy profesional, comunicativo y entrega excelentes resultados. ¡Altamente recomendado!”</p><footer><cite>Hebrew Tutorial Video Adaptation (segundo contrato)</cite><span>Upwork · octubre 2025 · ★★★★★</span></footer></blockquote>
+      <blockquote class="review"><p>“Danilo hizo un gran trabajo. Muy receptivo, creó un video profesional y se aseguró de que todo lo que necesitaba se hiciera perfectamente. Lo recomiendo totalmente.”</p><footer><cite>Family Video Editing</cite><span>Upwork · octubre 2024 · ★★★★★</span></footer></blockquote>
+    </div>
+    <div class="car-ui">
+      <button class="car-btn" id="carPrev" aria-label="Reseña anterior">←</button>
+      <div class="car-dots" id="carDots"></div>
+      <button class="car-btn" id="carNext" aria-label="Reseña siguiente">→</button>
+    </div>
+  </div>
+  <p class="trust-note">Reseñas públicas de mi perfil de Upwork, traducidas del inglés. Los números salen del mismo perfil.</p>
+</section>
+
+<!-- ══ SOBRE MÍ ══ -->
+<section class="about" id="sobre-mi">
+  <figure class="about-card" id="tilt">
+    <img src="assets/danilo-photo.jpg" alt="Danilo Hurwitz" loading="lazy">
+    <figcaption><span>Danilo Hurwitz</span><span>Mar del Plata, AR</span></figcaption>
+  </figure>
+  <div class="about-text">
+    <h2>Estudio Medicina. Edito video. Hablo tres idiomas.</h2>
+    <p>Tengo 21 años, estudio Medicina en la UNMdP y edito video desde hace más de 3 años. Empecé freelanceando entre clases. Hoy trabajo con creadores de +200K seguidores, marcas españolas con 60 años de historia y empresas vía ICUC para clientes Fortune 500.</p>
+    <p>Top Rated en Upwork con 100% de Job Success Score. Trabajo desde Mar del Plata para clientes en España, Estados Unidos, Israel y el resto de Latinoamérica.</p>
+    <p>Hablo español nativo, inglés (B2/C1, aprendido solo a los 7 años) y hebreo oral (viví 6 años en Israel). Los idiomas no son mi servicio principal, pero sí un contexto que me permite trabajar con equipos y audiencias internacionales sin fricción.</p>
+    <ul class="tooldock" id="tooldock" aria-label="Herramientas"><li><span>Pr</span><em>Premiere Pro</em></li><li><span>Ae</span><em>After Effects</em></li><li><span>Dv</span><em>DaVinci Resolve</em></li><li><span>Cc</span><em>CapCut</em></li><li><span>Ps</span><em>Photoshop</em></li></ul>
+    <div class="clients-row">
+      <img src="https://influencermarketinghub.com/wp-content/uploads/2024/01/image-9-1.png" alt="ICUC Social" loading="lazy" class="logo-icuc">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/ElevenLabs_Logo_02.png" alt="ElevenLabs" loading="lazy" class="logo-eleven">
+      <img src="assets/inazio-logo.png" alt="Inazio Coach" loading="lazy" class="logo-inazio">
+    </div>
+    <p class="about-links"><a href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank" rel="noopener">Upwork ↗</a><a href="https://www.linkedin.com/in/danilohurwitz" target="_blank" rel="noopener">LinkedIn ↗</a></p>
+  </div>
+</section>
+
+<!-- ══ COTIZAR ══ -->
+<section class="calc-section" id="cotizar">
+  <div class="sec-head">
+    <h2>Estimá tu proyecto</h2>
+    <p>Elegí el tipo de contenido, el volumen y la complejidad. Vas a obtener una referencia orientativa en USD. Después te envío una propuesta exacta según el proyecto.</p>
+  </div>
+    <div class="calc-inner">
+      <div class="calc-form">
+
+        <!-- TIPO -->
+        <div class="calc-group">
+          <label class="calc-label">Tipo de proyecto</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="tipo" data-val="reel">Reel / Short</button>
+            <button class="calc-opt" data-field="tipo" data-val="ad">Ad comercial</button>
+            <button class="calc-opt" data-field="tipo" data-val="long">Video largo</button>
+            <button class="calc-opt" data-field="tipo" data-val="intro">Intro / Outro</button>
+            <button class="calc-opt" data-field="tipo" data-val="subs">Subtitulado</button>
+            <button class="calc-opt" data-field="tipo" data-val="monthly">Paquete mensual</button>
+          </div>
+        </div>
+
+        <!-- DURACIÓN (reel / long) -->
+        <div class="calc-group" id="calcDurGroup">
+          <label class="calc-label">
+            <span id="calcQtyLabel">Duración</span>
+            <span class="calc-qty-value">
+              <span id="calcQtyNum">1</span>
+              <span id="calcQtyUnit">min</span>
+            </span>
+          </label>
+          <div class="calc-presets" id="calcPresets">
+            <button class="calc-preset active" data-preset="1">1</button>
+            <button class="calc-preset" data-preset="2">2</button>
+            <button class="calc-preset" data-preset="5">5</button>
+            <button class="calc-preset" data-preset="10">10</button>
+            <button class="calc-preset" data-preset="custom" id="calcPresetCustom">Personalizado</button>
+          </div>
+          <div class="calc-custom-input" id="calcCustomInput" style="display:none;">
+            <input type="number" id="calcQtyInput" min="1" max="180" value="1">
+            <span class="calc-custom-unit">min</span>
+          </div>
+        </div>
+
+        <!-- VOLUMEN MENSUAL -->
+        <div class="calc-group" id="calcMonthlyQtyGroup" style="display:none;">
+          <label class="calc-label">
+            <span>Volumen mensual</span>
+            <span class="calc-qty-value"><span id="calcQtyNum2">4 piezas</span></span>
+          </label>
+          <div class="calc-presets" id="calcMonthlyPresets">
+            <button class="calc-preset active" data-preset="4">4 piezas</button>
+            <button class="calc-preset" data-preset="8">8 piezas</button>
+            <button class="calc-preset" data-preset="12">12 piezas</button>
+            <button class="calc-preset" data-preset="20">20 piezas</button>
+          </div>
+        </div>
+
+        <!-- IDIOMA ORIGEN (subtitulado) -->
+        <div class="calc-group" id="calcSubsLangSrcGroup" style="display:none;">
+          <label class="calc-label">Idioma origen</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="subsLangSrc" data-val="es">Español</button>
+            <button class="calc-opt" data-field="subsLangSrc" data-val="en">Inglés</button>
+            <button class="calc-opt" data-field="subsLangSrc" data-val="he">Hebreo</button>
+          </div>
+        </div>
+
+        <!-- IDIOMA DESTINO (subtitulado) -->
+        <div class="calc-group" id="calcSubsLangDstGroup" style="display:none;">
+          <label class="calc-label">Idioma de los subtítulos</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="subsLangDst" data-val="es">Español</button>
+            <button class="calc-opt" data-field="subsLangDst" data-val="en">Inglés</button>
+            <button class="calc-opt" data-field="subsLangDst" data-val="he">Hebreo</button>
+          </div>
+        </div>
+
+        <!-- DURACIÓN SUBTITULADO -->
+        <div class="calc-group" id="calcSubsDurGroup" style="display:none;">
+          <label class="calc-label">
+            <span>Duración del video</span>
+            <span class="calc-qty-value">
+              <span id="calcSubsQtyNum">1</span>
+              <span> min</span>
+            </span>
+          </label>
+          <div class="calc-presets" id="calcSubsPresets">
+            <button class="calc-preset active" data-preset="1">1</button>
+            <button class="calc-preset" data-preset="5">5</button>
+            <button class="calc-preset" data-preset="10">10</button>
+            <button class="calc-preset" data-preset="20">20</button>
+            <button class="calc-preset" data-preset="custom" id="calcSubsPresetCustom">Personalizado</button>
+          </div>
+          <div class="calc-custom-input" id="calcSubsCustomInput" style="display:none;">
+            <input type="number" id="calcSubsQtyInput" min="1" max="180" value="1">
+            <span class="calc-custom-unit">min</span>
+          </div>
+        </div>
+
+        <!-- URGENCIA -->
+        <div class="calc-group" id="calcUrgGroup">
+          <label class="calc-label">Urgencia</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="urg" data-val="normal">Normal (5–7 días)</button>
+            <button class="calc-opt" data-field="urg" data-val="urgente">Urgente (48–72h)</button>
+            <button class="calc-opt" data-field="urg" data-val="express">Express (24h)</button>
+          </div>
+        </div>
+
+        <!-- COMPLEJIDAD (edición) -->
+        <div class="calc-group" id="calcComplexityGroup">
+          <label class="calc-label">Complejidad</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="complex" data-val="basic">Cortes + subtítulos</button>
+            <button class="calc-opt" data-field="complex" data-val="mid">+ IA generativa</button>
+            <button class="calc-opt" data-field="complex" data-val="high">+ Motion + efectos</button>
+          </div>
+        </div>
+
+        <!-- ENTREGA SUBTITULADO -->
+        <div class="calc-group" id="calcSubsDelivGroup" style="display:none;">
+          <label class="calc-label">Formato de entrega</label>
+          <div class="calc-options">
+            <button class="calc-opt active" data-field="subsDeliv" data-val="file">Archivo SRT / VTT</button>
+            <button class="calc-opt" data-field="subsDeliv" data-val="burned">Quemado al video</button>
+          </div>
+        </div>
+
+        <!-- INFO mensual -->
+        <div class="calc-monthly-info" id="calcMonthlyInfo" style="display:none;">
+          <div class="calc-tier-info">
+            <strong>Contenido recurrente</strong>
+            <span>Los paquetes mensuales tienen un precio por pieza menor que los proyectos individuales e incluyen prioridad de agenda.</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RESULTADO -->
+      <div class="calc-result">
+        <div class="calc-result-label">Referencia orientativa</div>
+        <div class="calc-range" id="calcRange">$55 – $70</div>
+        <div class="calc-range-note">USD · estimado total</div>
+        <div class="calc-tier-info" id="calcInfo">
+          <strong>Reel estándar</strong>
+          <span>Edición short-form con cortes, subtítulos y ritmo orientado a retención.</span>
+        </div>
+        <div class="calc-monthly-value" id="calcMonthlyValue" style="display:none;">
+          <span>Precio por pieza</span>
+          <strong id="calcPerPiece">$50</strong>
+        </div>
+        <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20cotizar%20un%20proyecto."
+           target="_blank" rel="noopener" class="btn btn-accent calc-cta" id="calcCtaBtn">
+          Pedir propuesta formal
+        </a>
+        <p class="calc-trust">Propuesta exacta en menos de 4 horas.</p>
+      </div>
+    </div>
+    </section>
+
+<!-- ══ CIERRE ══ -->
+<section class="final" id="contacto">
+  <h2 class="final-title">¿Tenés un proyecto?</h2>
+  <p class="final-sub">Respondo en menos de 4 horas. Sin formularios, sin burocracia.</p>
+  <div class="slide" id="slide" data-href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte.">
+    <span class="slide-text">Deslizá para escribirme</span>
+    <button class="slide-knob" id="slideKnob" aria-label="Escribirme por WhatsApp">→</button>
+  </div>
+  <p class="final-alt"><a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20quiero%20contratarte." target="_blank" rel="noopener">WhatsApp</a> · <a href="mailto:ediciones@danilohurwitz.app">ediciones@danilohurwitz.app</a></p>
+</section>
+
+</main>
+
+<footer class="foot">
+  <span>© 2026 Danilo Hurwitz · Mar del Plata</span>
+  <span class="foot-keys">Atajos de edición: <kbd>J</kbd> anterior · <kbd>K</kbd> pausa · <kbd>L</kbd> siguiente</span>
+  <span><a href="https://www.upwork.com/freelancers/danilohurwitz" target="_blank" rel="noopener">Upwork</a> <a href="https://linkedin.com/in/danilohurwitz" target="_blank" rel="noopener">LinkedIn</a> <a href="https://wa.me/5492302219422" target="_blank" rel="noopener">WhatsApp</a></span>
+</footer>
+
+<script src="app.js?v=13"></script>
+</body>
+</html>
