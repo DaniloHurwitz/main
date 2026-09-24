@@ -474,63 +474,143 @@ function initRead() {
   });
 }
 
-// ─── SUBTÍTULOS: selector magnético ES / EN / HE ───
+// ─── SUBTÍTULOS: un editor de subtítulos de verdad, en ES / EN / HE ───
+// Una frase de 8 s partida en 4 subtítulos. El cabezal recorre la onda, el subtítulo
+// activo se enciende en la pista, en el archivo SRT y en pantalla, palabra por palabra.
 function initSubs() {
   const seg = $('#seg'), line = $('#subsLine');
   if (!seg || !line) return;
+  const DUR = 8;
+  const TIMES = [[0.2, 1.8], [1.8, 3.7], [4.1, 5.9], [5.9, 7.7]];
   const TXT = {
-    es: { t: 'Los primeros *2 segundos* deciden si alguien se queda.', dir: 'ltr' },
-    en: { t: 'The first *2 seconds* decide whether someone stays.', dir: 'ltr' },
-    he: { t: '*שתי השניות* הראשונות קובעות אם מישהו נשאר.', dir: 'rtl' }
+    es: { dir: 'ltr', cues: ['Los primeros 2 segundos', 'deciden si alguien se queda.', 'Por eso lo importante', 'va primero, no al final.'] },
+    en: { dir: 'ltr', cues: ['The first 2 seconds', 'decide whether someone stays.', "That's why the key message", 'comes first, not last.'] },
+    he: { dir: 'rtl', cues: ['שתי השניות הראשונות', 'קובעות אם מישהו נשאר.', 'לכן המסר החשוב', 'בא ראשון, לא בסוף.'] }
   };
   const btns = $$('button', seg), ind = $('.seg-ind', seg);
-  let auto = true, idx = 0;
+  const srt = $('#srt'), cuesEl = $('#stCues'), ph = $('#stPh'), tl = $('.subs-tl'), tcEl = $('#subsTc'), langEl = $('#subsLang');
+  const srtTime = t => { const ms = Math.round(t * 1000); return `00:00:${String(Math.floor(ms / 1000)).padStart(2, '0')},${String(ms % 1000).padStart(3, '0')}`; };
+  let lang = 'es', auto = true, idx = 0, active = -2, words = [];
 
   function moveInd(b) { ind.style.width = b.offsetWidth + 'px'; ind.style.transform = `translateX(${b.offsetLeft - 5}px)`; }
-  function set(lang) {
-    const d = TXT[lang];
-    btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.lang === lang)));
-    moveInd($(`[data-lang="${lang}"]`, seg));
-    line.lang = lang; line.dir = d.dir;
-    const srt = $('#srt');
-    if (srt) srt.innerHTML = `1\n<b>00:00:00,000 --> 00:00:02,000</b>\n<span dir="${d.dir}">${d.t.replace(/\*/g, '')}</span>`;
-    let hl = false, i = 0;
-    line.innerHTML = d.t.split(' ').map(w => {
-      if (w.startsWith('*')) hl = true;
-      const clean = w.replace(/\*/g, '');
-      const html = `<span class="sw${hl ? ' hl' : ''}" style="animation-delay:${(i++) * 70}ms">${clean}</span>`;
-      if (w.endsWith('*') || w.endsWith('*.')) hl = false;
-      return html;
-    }).join(' ');
+  function set(l) {
+    lang = l; const d = TXT[l];
+    btns.forEach(b => b.setAttribute('aria-checked', String(b.dataset.lang === l)));
+    moveInd($(`[data-lang="${l}"]`, seg));
+    line.lang = l; line.dir = d.dir; langEl.textContent = l.toUpperCase();
+    srt.innerHTML = ''; cuesEl.innerHTML = '';
+    d.cues.forEach((c, i) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<b>${i + 1}</b><em>${srtTime(TIMES[i][0])} --> ${srtTime(TIMES[i][1])}</em>`;
+      const sp = document.createElement('span'); sp.dir = d.dir; sp.textContent = c; li.append(sp); srt.append(li);
+      const k = document.createElement('span'); k.dir = d.dir; k.textContent = c;
+      k.style.left = (TIMES[i][0] / DUR * 100) + '%'; k.style.width = ((TIMES[i][1] - TIMES[i][0]) / DUR * 100 - 0.6) + '%';
+      cuesEl.append(k);
+    });
+    active = -2; render(REDUCED ? 1 : t);
+  }
+  function render(time) {
+    const i = TIMES.findIndex(([a, b]) => time >= a && time < b);
+    if (i !== active) {
+      active = i;
+      $$('li', srt).forEach((li, k) => li.classList.toggle('on', k === i));
+      $$('span', cuesEl).forEach((c, k) => c.classList.toggle('on', k === i));
+      line.classList.toggle('off', i < 0);
+      if (i >= 0) {
+        line.textContent = '';
+        words = TXT[lang].cues[i].split(' ').map(w => { const b = document.createElement('b'); b.textContent = w; return b; });
+        words.forEach((b, k) => { if (k) line.append(' '); line.append(b); });
+      }
+    }
+    if (i >= 0) {
+      const [a, b] = TIMES[i], n = Math.floor((time - a) / (b - a) * words.length);
+      words.forEach((w, k) => { w.classList.toggle('now', k === n); w.classList.toggle('said', k < n); });
+    }
+    ph.style.setProperty('--x', (time / DUR * (tl.offsetWidth - 24)) + 'px');
+    tcEl.textContent = tc(time);
   }
   btns.forEach((b, i) => {
     b.addEventListener('click', () => { auto = false; idx = i; set(b.dataset.lang); });
     if (FINE) b.addEventListener('pointerenter', () => moveInd(b));
   });
   seg.addEventListener('pointerleave', () => moveInd($('[aria-checked="true"]', seg)));
+  $('#stWave').style.setProperty('--wave', waveSVG(5, 110));
+  let t = 0;
   set('es');
-  const box = $('.subs-screen'); if (box) $('.subs-wave', box).style.setProperty('--wave', waveSVG(5, 90));
   onResize(() => moveInd($('[aria-checked="true"]', seg)));
   document.fonts?.ready.then(() => moveInd($('[aria-checked="true"]', seg)));
+  if (REDUCED) return;
 
-  // el timecode corre solo mientras la demo está a la vista
-  const tcEl = $('#subsTc'), t0 = performance.now();
-  let inView = false, ticking = false;
+  // el reloj corre solo con la demo a la vista; al terminar cada vuelta cambia de idioma (si nadie tocó)
+  let inView = false, running = false, last = 0;
   function tick(now) {
-    if (!inView) { ticking = false; return; }
-    if (tcEl) tcEl.textContent = tc(((now - t0) / 1000) % 2);
+    if (!inView) { running = false; return; }
+    t += Math.min(50, now - last) / 1000; last = now;
+    if (t >= DUR) { t = 0; if (auto) { idx = (idx + 1) % btns.length; set(btns[idx].dataset.lang); } }
+    render(t);
     requestAnimationFrame(tick);
   }
-  // mientras nadie lo toque, cambia solo de idioma
   new IntersectionObserver(([e]) => {
     inView = e.isIntersecting;
-    if (inView && !ticking && !REDUCED) { ticking = true; requestAnimationFrame(tick); }
+    if (inView && !running) { running = true; last = performance.now(); requestAnimationFrame(tick); }
   }).observe($('.subs') || seg);
-  setInterval(() => {
-    if (!auto || !inView || REDUCED) return;
-    idx = (idx + 1) % btns.length;
-    set(btns[idx].dataset.lang);
-  }, 3200);
+}
+
+// ─── SERVICIOS: un monitor de secuencia que cambia de formato con cada servicio ───
+// Muestra trabajo real (los posters) en la relación de aspecto de cada servicio y
+// avanza solo mientras nadie toque la lista.
+function initServices() {
+  const mon = $('#svcMon'), frame = $('#smFrame');
+  if (!mon || !frame) return;
+  const items = $$('.svc-item'), stage = $('.sm-stage', mon), imgs = $$('.sm-img', frame);
+  const cap = $('#smCap'), res = $('#smRes'), ratio = $('#smRatio'), use = $('#smUse'), tcEl = $('#smTc');
+  const F = [
+    { r: 9 / 16, img: 'mda', res: '1080 × 1920', ratio: '9:16', use: 'Reels · TikTok · Shorts', cap: '' },
+    { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9', use: 'YouTube · intros · largos', cap: '' },
+    { r: 4 / 5, img: 'fitness', res: '1080 × 1350', ratio: '4:5', use: 'Feed · ads', cap: '' },
+    { r: 1, img: 'cosami-edit2', res: '1080 × 1080', ratio: '1:1', use: 'Marca · producto', cap: '' },
+    { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9 + SRT', use: 'Subtítulos · ES / EN / HE', cap: 'Lo importante va <b>primero</b>' }
+  ];
+  let cur = -1, flip = 0, auto = true, run = 0, inView = false, running = false, last = 0, clock = 0;
+  const HOLD = 4500;
+  function fit(i) {
+    const W = stage.clientWidth * 0.84, H = stage.clientHeight * 0.84, r = F[i].r;
+    let w = W, h = W / r;
+    if (h > H) { h = H; w = H * r; }
+    frame.style.width = Math.round(w) + 'px'; frame.style.height = Math.round(h) + 'px';
+  }
+  function show(i) {
+    if (i === cur) return;
+    cur = i; const f = F[i];
+    fit(i);
+    const next = imgs[flip = 1 - flip];
+    next.src = `assets/posters/${f.img}.webp`;
+    imgs.forEach(im => im.classList.toggle('is-on', im === next));
+    cap.innerHTML = f.cap; res.textContent = f.res; ratio.textContent = f.ratio; use.textContent = f.use;
+  }
+  items.forEach((d, i) => {
+    d.addEventListener('toggle', () => { if (d.open) show(i); });
+    $('summary', d).addEventListener('click', () => { auto = false; items.forEach(x => x.style.removeProperty('--run')); });
+  });
+  const open = items.findIndex(d => d.open);
+  show(open < 0 ? 0 : open);
+  onResize(() => fit(cur));
+  if (REDUCED) return;
+  function tick(now) {
+    if (!inView) { running = false; return; }
+    const dt = Math.min(50, now - last); last = now;
+    clock += dt / 1000; tcEl.textContent = tc(clock);
+    if (auto && DESKTOP()) {
+      run += dt;
+      $('summary', items[cur]).style.setProperty('--run', Math.min(1, run / HOLD));
+      if (run >= HOLD) { run = 0; items[cur].querySelector('summary').style.removeProperty('--run'); items[(cur + 1) % items.length].open = true; }
+    }
+    requestAnimationFrame(tick);
+  }
+  new IntersectionObserver(([e]) => {
+    inView = e.isIntersecting;
+    if (inView && !running) { running = true; last = performance.now(); requestAnimationFrame(tick); }
+  }, { threshold: 0.35 }).observe($('.svc-wrap'));
 }
 
 // ─── CONTADORES (solo números reales) ───
@@ -1559,9 +1639,24 @@ function initPremiere() {
   }
   const tool = name => { pr.classList.toggle('razor', name === 'razor'); $$('#prTools i', pr).forEach(i => i.classList.toggle('on', i.dataset.tool === name)); };
   const ws = name => $$('.pr-ws b', pr).forEach(b => b.classList.toggle('on', b.dataset.ws === name));
+  const rulesBox = $('.rules'), rnText = $('#rnText'), rnNum = $('#rnNum'), rnTc = $('#rnTc'), ticks = $$('#rnTicks li');
+  const seenRules = new Set();
+  let shownRule = -1;
+  function marker(rule) {                                     // la regla del paso actual, como un marcador de Premiere
+    if (rule < 0 || rule === shownRule || !rnText) return;
+    shownRule = rule; seenRules.add(rule);
+    rulesBox.classList.add('is-live');
+    const old = $('span', rnText);
+    if (old) { old.className = 'out'; setTimeout(() => old.remove(), 460); }
+    const sp = document.createElement('span'); sp.textContent = rules[rule].textContent; rnText.append(sp);
+    rnNum.textContent = `${String(rule + 1).padStart(2, '0')} / 06`;
+    rnTc.textContent = 'Marcador · ' + tc(T);
+    ticks.forEach((li, i) => { li.classList.toggle('now', i === rule); li.classList.toggle('done', seenRules.has(i) && i !== rule); });
+  }
   function step(tag, msg, key, rule) {
     stepEl.textContent = tag; msgEl.textContent = msg; keyEl.textContent = key;
     rules.forEach((li, i) => li.classList.toggle('is-now', i === rule));
+    marker(rule);
   }
   const LUM = [['0,0', 50], ['0,0', 50], ['0,0', 50], ['0,0', 50], ['0,0', 50], ['0,0', 50], ['100', 50]];
   const LUM_OK = [['9,6', 63], ['2,1', 54], ['0,3', 53], ['24,0', 69], ['−18,0', 38], ['12,0', 58], ['118', 61]];
@@ -1735,6 +1830,7 @@ function initPremiere() {
     T = 1.2; sizeCanvas(); paint();
   }
 
+  if (!REDUCED) marker(0);
   photo.onload = () => { preview(REDUCED ? 'lumetri' : 'acam'); if (REDUCED) { sizeCanvas(); paint(); } };
   let started = false;
   new IntersectionObserver(([e]) => {
@@ -1763,6 +1859,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPlayers();
   initRead();
   initSubs();
+  initServices();
   initCounters();
   initCarousel();
   initTilt();
