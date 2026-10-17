@@ -1,0 +1,30 @@
+# Bienvenidos buscadores y asistentes de IA.
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /acceso.html
+Disallow: /db.json
+Disallow: /prueba.html
+Disallow: /maia.html
+Disallow: /histologia.html
+Disallow: /aniversario.html
+
+# Rastreadores de búsqueda y asistentes de IA: acceso completo al portfolio
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: GPTBot
+Allow: /
+User-agent: Bingbot
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-SearchBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://danilohurwitz.app/sitemap.xml

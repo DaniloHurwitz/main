@@ -619,6 +619,17 @@ html:not(.js) .svc-wrap { grid-template-columns: 1fr; }
 .about-links a { border-bottom: 2px solid var(--bone-ink); padding-bottom: 2px; }
 @media (max-width: 900px) { .about { grid-template-columns: 1fr; padding: 8lvh var(--pad); gap: 30px; } .about-card { width: min(100%, 340px); justify-self: center; } }
 
+/* ══════════ PREGUNTAS FRECUENTES ══════════ */
+.faq { padding: 12lvh 0 4lvh; }
+.faq-list { padding: 0 var(--pad); max-width: 1100px; border-top: 1px solid var(--line); }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-item summary { list-style: none; display: flex; justify-content: space-between; gap: 20px; padding: 22px 0; cursor: pointer; font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; font-stretch: 88%; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; font-family: var(--mono); color: var(--accent); transition: transform .35s var(--out); }
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p { padding: 0 0 24px; max-width: 46em; color: var(--fg-2); font-size: 1.05rem; }
+@media (max-width: 900px) { .faq { padding: 8lvh 0 2lvh; } }
+
 /* ══════════ CALCULADORA ══════════ */
 .calc-section { padding: 12lvh 0; }
 .calc-inner { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 48px; padding: 0 var(--pad); align-items: start; }

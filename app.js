@@ -984,7 +984,7 @@ const CHAPTERS = [
   ['#top', 'Inicio', 'Inicio'], ['#caso-inazio', '002 · Inazio Coach', '002 · Inazio'], ['#caso-cosami', '003 · Cosami', '003 · Cosami'],
   ['#caso-aitor', '004 · Aitor Zabaleta Korta', '004 · Aitor'], ['#locales', '005 · Negocios locales', '005 · Locales'],
   ['#enfoque', 'Enfoque', 'Enfoque'], ['#servicios', 'Servicios', 'Servicios'], ['#subtitulos', 'Subtítulos', 'Subtítulos'], ['#proceso', 'Cómo trabajo', 'Proceso'],
-  ['#resenas', 'Reseñas', 'Reseñas'], ['#sobre-mi', 'Sobre mí', 'Sobre mí'], ['#cotizar', 'Cotizar', 'Cotizar'], ['#contacto', 'Contacto', 'Contacto']
+  ['#resenas', 'Reseñas', 'Reseñas'], ['#sobre-mi', 'Sobre mí', 'Sobre mí'], ['#preguntas', 'Preguntas', 'Preguntas'], ['#cotizar', 'Cotizar', 'Cotizar'], ['#contacto', 'Contacto', 'Contacto']
 ];
 // las posiciones se miden una vez y se vuelven a medir solo si cambia el alto de la página
 let chapterTops = [];
