@@ -1,30 +1,9 @@
-# Bienvenidos buscadores y asistentes de IA.
+# Bienvenidos buscadores y asistentes de IA (OAI-SearchBot, ChatGPT-User, GPTBot,
+# Bingbot, Googlebot, Google-Extended, PerplexityBot, ClaudeBot, Claude-SearchBot,
+# Applebot, DuckDuckBot, YandexBot): todos usan estas reglas.
+# Las páginas que no son del portfolio llevan <meta name="robots" content="noindex">.
 User-agent: *
 Allow: /
-Disallow: /admin.html
-Disallow: /acceso.html
 Disallow: /db.json
-Disallow: /prueba.html
-Disallow: /maia.html
-Disallow: /histologia.html
-Disallow: /aniversario.html
-
-# Rastreadores de búsqueda y asistentes de IA: acceso completo al portfolio
-User-agent: OAI-SearchBot
-Allow: /
-User-agent: ChatGPT-User
-Allow: /
-User-agent: GPTBot
-Allow: /
-User-agent: Bingbot
-Allow: /
-User-agent: PerplexityBot
-Allow: /
-User-agent: ClaudeBot
-Allow: /
-User-agent: Claude-SearchBot
-Allow: /
-User-agent: Google-Extended
-Allow: /
 
 Sitemap: https://danilohurwitz.app/sitemap.xml
