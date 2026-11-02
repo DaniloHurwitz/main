@@ -673,6 +673,7 @@ function initSlide() {
   function set(v) { x = clamp(v, 0, max()); knob.style.transform = `translateX(${x}px)`; slide.style.setProperty('--fill', (x + knob.offsetWidth / 2 + 6) + 'px'); }
   function openWA() {
     text.textContent = 'Abriendo WhatsApp…';
+    if (window.umami) window.umami.track('click-whatsapp', { via: 'slide' });
     window.open(href, '_blank', 'noopener');
     setTimeout(() => { text.textContent = 'Deslizá para escribirme'; knob.classList.add('is-back'); set(0); }, 1600);
   }
