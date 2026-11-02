@@ -4,6 +4,5 @@
 # Las páginas que no son del portfolio llevan <meta name="robots" content="noindex">.
 User-agent: *
 Allow: /
-Disallow: /db.json
 
 Sitemap: https://danilohurwitz.app/sitemap.xml
