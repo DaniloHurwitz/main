@@ -913,3 +913,25 @@ html:not(.js) .locals-track { width: auto; overflow-x: auto; }
   .stage-cue::after { animation: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+/* ── Gratis: guía + consultoría ── */
+.free { padding: 12lvh 0 4lvh; }
+.free-grid { padding: 0 var(--pad); display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px; max-width: 1200px; }
+.free-card { background: var(--bg-2); border-radius: 22px; box-shadow: 0 0 0 1px var(--line); padding: clamp(22px, 3vw, 36px); display: flex; flex-direction: column; gap: 14px; }
+.free-card h3 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-stretch: 82%; text-transform: uppercase; line-height: 1; }
+.free-card p, .free-card li { color: var(--fg-2); }
+.free-card ul { display: grid; gap: 8px; margin: 2px 0; }
+.free-card li { padding-left: 22px; position: relative; }
+.free-card li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 10px; height: 2px; background: var(--accent); }
+.free-k { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; }
+.free-note { font-size: 0.92rem; color: var(--fg-3) !important; }
+.free-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 6px; }
+.free-guide { flex-direction: row; align-items: center; gap: clamp(18px, 3vw, 34px); }
+.free-guide img { width: clamp(120px, 16vw, 200px); border-radius: 10px; box-shadow: 0 18px 40px rgba(0,0,0,0.45); flex: none; }
+.free-body { display: flex; flex-direction: column; gap: 14px; align-self: stretch; justify-content: center; }
+@media (max-width: 900px) { .free { padding: 8lvh 0 2lvh; } .free-grid { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .free-guide { flex-direction: column; align-items: flex-start; } .free-guide img { width: 150px; } }
+.free-guide img { height: auto; aspect-ratio: 636 / 900; align-self: flex-start; object-fit: cover; }
+.free-grid { width: 100%; max-width: none; box-sizing: border-box; }
+.free-card { min-width: 0; }
+@media (max-width: 520px) { .free-guide { align-items: stretch; } }
