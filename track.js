@@ -10,5 +10,6 @@ document.addEventListener('click', function (e) {
   else if (h.indexOf('upwork.com') > -1) name = 'click-upwork';
   else if (h.indexOf('linkedin.com') > -1) name = 'click-linkedin';
   else if (h.indexOf('instagram.com') > -1) name = 'click-instagram';
+  else if (a.getAttribute('href') === '/' && location.pathname.indexOf('/guia-de-grabacion') === 0) name = 'ver-portfolio-desde-guia';
   if (name) window.umami.track(name, { page: location.pathname });
 });
