@@ -137,7 +137,7 @@ function quadToMatrix(w, h, q) {
   return `matrix3d(${a},${d},0,${g},${b},${e},0,${hh},0,0,1,0,${c},${f},0,1)`;
 }
 
-// progreso 0–1 de una sección fija. Se mide contra el alto del sticky (100svh), que no
+// progreso 0-1 de una sección fija. Se mide contra el alto del sticky (100svh), que no
 // cambia cuando el navegador del celular esconde su barra (innerHeight sí cambia).
 const secProgress = sec => {
   const st = sec._st || (sec._st = sec.firstElementChild);
@@ -787,7 +787,7 @@ function initCalculator() {
     if (l && opts) { opts.setAttribute('role', 'group'); opts.setAttribute('aria-label', ($('span', l) || l).textContent.trim()); }
   });
   const syncPressed = () => $$('.calc-opt, .calc-preset').forEach(b => b.setAttribute('aria-pressed', String(b.classList.contains('active'))));
-  const fmtRange = (lo, hi) => lo === hi ? `$${lo}` : `$${lo} – $${hi}`;
+  const fmtRange = (lo, hi) => lo === hi ? `$${lo}` : `$${lo} - $${hi}`;
   const optLabel = field => ($(`.calc-opt.active[data-field="${field}"]`)?.textContent || '').trim();
 
   // ─── VISIBILIDAD DE GRUPOS ───────────────────────────────────────
@@ -840,7 +840,7 @@ function initCalculator() {
 
     const durLine = base.fixedDur ? '' : `\n· Duración: ${state.qty} min`;
     ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
-      `Hola Danilo, quiero cotizar:\n· Tipo: ${tier.label}${durLine}\n· Urgencia: ${optLabel('urg')}\n· Complejidad: ${optLabel('complex')}\n· Estimado: ${fmtRange(lo, hi).replace(' – ', '–')} USD`
+      `Hola Danilo, quiero cotizar:\n· Tipo: ${tier.label}${durLine}\n· Urgencia: ${optLabel('urg')}\n· Complejidad: ${optLabel('complex')}\n· Estimado: ${fmtRange(lo, hi).replace(' - ', '-')} USD`
     )}`;
   }
 
@@ -864,7 +864,7 @@ function initCalculator() {
     infoEl.innerHTML = `<strong>Subtitulado</strong><span>${desc}</span>`;
 
     ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
-      `Hola Danilo, quiero cotizar subtitulado:\n· Origen: ${langLabel[state.subsLangSrc]}\n· Destino: ${langLabel[state.subsLangDst]}\n· Duración: ${mins} min\n· Entrega: ${state.subsDeliv === 'burned' ? 'Quemado al video' : 'SRT/VTT'}\n· Urgencia: ${optLabel('urg')}\n· Estimado: ${fmtRange(lo, hi).replace(' – ', '–')} USD`
+      `Hola Danilo, quiero cotizar subtitulado:\n· Origen: ${langLabel[state.subsLangSrc]}\n· Destino: ${langLabel[state.subsLangDst]}\n· Duración: ${mins} min\n· Entrega: ${state.subsDeliv === 'burned' ? 'Quemado al video' : 'SRT/VTT'}\n· Urgencia: ${optLabel('urg')}\n· Estimado: ${fmtRange(lo, hi).replace(' - ', '-')} USD`
     )}`;
   }
 

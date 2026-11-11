@@ -376,7 +376,7 @@ kbd { display: inline-grid; place-items: center; min-width: 22px; height: 22px; 
 }
 
 /* desktop: el título es el primer panel del carrusel, así las tarjetas tienen todo el alto */
-.locals.is-pinned .locals-sticky { padding: calc(var(--nav-h) + 58px) 0 3lvh; }   /* deja lugar a la bobina 001–005 */
+.locals.is-pinned .locals-sticky { padding: calc(var(--nav-h) + 58px) 0 3lvh; }   /* deja lugar a la bobina 001-005 */
 .locals-track > .locals-head { flex: 0 0 auto; align-self: center; display: block; width: clamp(300px, 27vw, 440px); margin: 0; padding: 0 28px 0 0; }
 .locals-track > .locals-head h2 { font-size: clamp(2.2rem, 3.4vw, 3.8rem); }
 .locals-track > .locals-head .kicker { margin-bottom: 14px; }
