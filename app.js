@@ -1189,6 +1189,37 @@ function initBA() {
   });
 }
 
+// ─── COLOR: dos videos sincronizados, el sin corregir se descubre con la barra ───
+function initBAV() {
+  $$('[data-bav]').forEach(c => {
+    const after = $('.bav-after', c), before = $('.bav-before', c), handle = $('.ba-handle', c);
+    const apply = pct => {
+      pct = clamp(pct, 2, 98);
+      before.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      handle.style.left = pct + '%';
+      c.setAttribute('aria-valuenow', Math.round(pct));
+    };
+    let drag = false;
+    const at = x => { const r = c.getBoundingClientRect(); apply((x - r.left) / r.width * 100); };
+    c.addEventListener('pointerdown', e => { drag = true; c.setPointerCapture(e.pointerId); at(e.clientX); e.stopPropagation(); });
+    c.addEventListener('click', e => e.stopPropagation());   // no dispara el sonido del dispositivo
+    c.addEventListener('pointermove', e => { if (drag) at(e.clientX); });
+    c.addEventListener('pointerup', () => drag = false);
+    c.addEventListener('keydown', e => {
+      const d = { ArrowLeft: -5, ArrowRight: 5 }[e.key];
+      if (d) { e.preventDefault(); apply((+c.getAttribute('aria-valuenow') || 50) + d); }
+    });
+    // el "antes" carga cuando el card se acerca y sigue al "después" segundo a segundo
+    new IntersectionObserver(([e], o) => { if (e.isIntersecting) { o.disconnect(); before.preload = 'auto'; before.load(); } }, { rootMargin: '100% 0px' }).observe(c);
+    const follow = () => {
+      if (Math.abs(before.currentTime - after.currentTime) > 0.15) before.currentTime = after.currentTime;
+      if (after.paused) before.pause(); else before.play().catch(() => {});
+    };
+    ['play', 'pause', 'seeked'].forEach(ev => after.addEventListener(ev, follow));
+    after.addEventListener('timeupdate', () => { if (Math.abs(before.currentTime - after.currentTime) > 0.3) before.currentTime = after.currentTime; });
+  });
+}
+
 // ─── 005 · NEGOCIOS LOCALES: carrusel horizontal ───
 // Desktop: el scroll vertical lo mueve de costado (sección fija).
 // Mobile: se desliza con el dedo, con snap en cada tarjeta.
@@ -1269,6 +1300,7 @@ function initLocals() {
 
   cards.forEach(card => {
     const v = $('video', card), snd = $('.lc-snd', card), prog = $('.lc-progress i', card);
+    if (!snd) return;   // tarjeta sin sonido (comparación de color)
     const front = $('.lc-front', card), back = $('.lc-back', card);
     const setSound = on => {
       if (on) { muteAllExcept(v); v.currentTime = 0; v.play().catch(() => {}); }
@@ -1932,6 +1964,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDock();
   initToolDock();
   initBA();
+  initBAV();
   initLocals();
   initReveal();
   initAnchors();
