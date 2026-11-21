@@ -935,3 +935,26 @@ html:not(.js) .locals-track { width: auto; overflow-x: auto; }
 .free-grid { width: 100%; max-width: none; box-sizing: border-box; }
 .free-card { min-width: 0; }
 @media (max-width: 520px) { .free-guide { align-items: stretch; } }
+
+/* Color grading: dos videos sincronizados con barra antes/después */
+.lc-bav { cursor: ew-resize; touch-action: pan-y; user-select: none; }
+.lc-bav video { position: absolute; inset: 0; cursor: ew-resize; pointer-events: none; }
+.lc-bav .ba-date { bottom: 12px; }
+
+.case-color { padding: 10lvh var(--pad); display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 64px; align-items: center; }
+.col-phone { justify-self: center; width: auto; max-width: 100%; height: min(72svh, 660px); aspect-ratio: 9 / 16; }
+.col-text .case-h { margin-bottom: 18px; }
+.col-lead { color: var(--fg-2); max-width: 46ch; line-height: 1.5; }
+.col-text .lc-tags { margin-top: 18px; }
+.col-fine { margin-top: 14px; font-size: 0.82rem; color: var(--fg-2); }
+@media (max-width: 800px) { .case-color { grid-template-columns: 1fr; gap: 28px; padding: 8lvh var(--pad) 6lvh; } .col-phone { height: min(70svh, 560px); } }
+
+/* Casos intercalados en desktop: inicio (MDA) a la derecha, Inazio a la izquierda, Cosami a la derecha, color a la izquierda, Aitor a la derecha */
+@media (min-width: 901px) {
+  .case-cut { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
+  .case-cut .cc-media { order: -1; }
+  .case-scrub { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); }
+  .case-scrub .cs-media { order: 2; }
+  .mon-box { left: auto; right: 1vw; }
+  .mon-copy { right: auto; left: var(--pad); }
+}
