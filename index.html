@@ -23,6 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/devices/phone/0001.webp">
 <link rel="stylesheet" href="styles.css?v=24">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="06fef583-5052-45f8-b0da-2c816085c12e" data-domains="danilohurwitz.app"></script>
 <script defer src="/track.js"></script>
@@ -34,7 +35,7 @@
   <a href="#top" class="nav-id"><strong>Danilo Hurwitz</strong><span>Editor de video</span></a>
   <span class="nav-mid"><span class="nav-chapter" aria-live="polite"><i id="navChapter">Inicio</i></span><span class="nav-tc" id="navTc" aria-hidden="true">00:00:00:00</span></span>
   <nav class="nav-links" aria-label="Secciones">
-    <a href="#caso-inazio">Trabajo</a>
+    <a href="#trabajo">Trabajo</a>
     <a href="#servicios">Servicios</a>
     <a href="#sobre-mi">Sobre mí</a>
     <a href="#gratis">Gratis</a>
@@ -71,21 +72,50 @@
 
 <main>
 
-<!-- ══ INICIO: titular y llamado a la acción ══ -->
-<section class="hero-plain" id="top">
-  <div class="hero-copy" id="heroCopy">
-    <h1 class="hero-title" id="heroTitle" aria-label="Danilo Hurwitz, editor de Reels y Ads. Estudio cómo las personas consumen información. Después edito.">
-      <span class="hero-eyebrow">Danilo Hurwitz · Editor de Reels y Ads</span>
-      <span class="w">Estudio</span> <span class="w">cómo</span> <span class="w">las</span> <span class="w">personas</span>
-      <span class="w">consumen</span> <span class="w">información.</span>
-      <span class="w w-cut">Después</span> <span class="w w-cut">edito.</span>
-    </h1>
-    <p class="hero-desc">Editor de Reels, Ads y videos de YouTube para marcas, empresas, coaches y creadores que necesitan contenido que la gente realmente mire: con criterio de retención, no solo estética.</p>
-    <div class="hero-actions">
-      <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20trabajar%20con%20vos." target="_blank" rel="noopener" class="btn btn-accent">Empezar un proyecto</a>
-      <a href="#caso-inazio" class="btn btn-ghost">Ver trabajos</a>
+<!-- ══ 001 · HERO + iPHONE: gira con el scroll y reproduce el anuncio de MV Steelframe (provisorio) ══ -->
+<section class="stage device-sec" id="top" data-device="phone">
+  <div class="stage-sticky">
+    <div class="phone-box device-box">
+      <canvas class="device-canvas" width="1000" height="1220" aria-hidden="true"></canvas>
+      <div class="phone-screen device-screen">
+        <video data-title="MV Steelframe" muted loop playsinline controls preload="none" poster="assets/posters/ad1.webp"><source src="assets/Ad1.mp4" type="video/mp4"></video>
+        <span class="phone-island"></span>
+        <span class="phone-glare"></span>
+        <button class="phone-snd" aria-label="Escuchar con sonido desde el inicio"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg><em>Escuchar</em></button>
+      </div>
     </div>
-    <p class="hero-badge"><strong>Top Rated Plus</strong> en Upwork · <strong>100%</strong> Job Success · <strong>ES / EN / HE</strong></p>
+
+    <div class="stage-copy">
+      <div class="hero-copy" id="heroCopy">
+        <h1 class="hero-title" id="heroTitle" aria-label="Danilo Hurwitz, editor de Reels y Ads. Estudio cómo las personas consumen información. Después edito.">
+          <span class="hero-eyebrow">Danilo Hurwitz · Editor de Reels y Ads</span>
+          <span class="w">Estudio</span> <span class="w">cómo</span> <span class="w">las</span> <span class="w">personas</span>
+          <span class="w">consumen</span> <span class="w">información.</span>
+          <span class="w w-cut">Después</span> <span class="w w-cut">edito.</span>
+        </h1>
+        <p class="hero-desc">Editor de Reels, Ads y videos de YouTube para marcas, empresas, coaches y creadores que necesitan contenido que la gente realmente mire: con criterio de retención, no solo estética.</p>
+        <div class="hero-actions">
+          <a href="https://wa.me/5492302219422?text=Hola%20Danilo%2C%20me%20interesa%20trabajar%20con%20vos." target="_blank" rel="noopener" class="btn btn-accent">Empezar un proyecto</a>
+          <a href="#trabajo" class="btn btn-ghost">Ver trabajos</a>
+        </div>
+        <p class="hero-badge"><strong>Top Rated Plus</strong> en Upwork · <strong>100%</strong> Job Success · <strong>ES / EN / HE</strong></p>
+      </div>
+
+      <div class="steps-case" id="trabajo" data-steps-from="0.2" aria-label="MV Steelframe, anuncio para una constructora">
+        <div class="sc" data-step="0">
+          <p class="sc-kicker">MV Steelframe · Constructora · 9:16 · Anuncio</p>
+          <h2 class="sc-title">Un anuncio de construcción en seco que explica el proceso</h2>
+        </div>
+        <div class="sc" data-step="1"><h3>Qué es</h3><p>Un anuncio para una constructora local, centrado en cómo se hace: estructura, materiales y resultado, con música que transmite solidez. Tocá la pantalla para escucharlo.</p></div>
+        <div class="sc sc--brands" data-step="2"><h3>Qué muestra</h3>
+          <ul class="brands"><li>La estructura</li><li>Los materiales</li><li>El resultado</li></ul>
+          <p class="sc-fine">Un trabajo para una constructora de Mar del Plata.</p>
+        </div>
+        <ol class="sc-dots" aria-hidden="true"></ol>
+      </div>
+    </div>
+
+    <p class="stage-cue">Scrolleá: el iPhone se da vuelta</p>
   </div>
 </section>
 
@@ -230,7 +260,7 @@
 
 <a class="upnext" href="#locales" data-upnext>
   <span class="un-label">A continuación</span>
-  <span class="un-title"><b>005</b> Negocios locales · cinco marcas, cinco presupuestos, la misma exigencia</span>
+  <span class="un-title"><b>005</b> Negocios locales · cinco trabajos, la misma exigencia</span>
   <span class="un-bar" aria-hidden="true"><i></i></span>
 </a>
 
@@ -243,23 +273,6 @@
       <p class="locals-sub">Edición adaptada a lo que cada negocio necesita y puede invertir, sin bajar la calidad. <span class="locals-hint">Arrastrá o scrolleá →</span></p>
     </header>
     <div class="locals-track" id="localsTrack">
-      <article class="lc">
-        <div class="lc-inner">
-          <div class="lc-face lc-front">
-            <div class="lc-phone">
-              <video data-title="MV Steelframe" muted loop playsinline controls preload="none" poster="assets/posters/ad1.webp" data-auto><source src="assets/Ad1.mp4" type="video/mp4"></video>
-              <span class="lc-progress" aria-hidden="true"><i></i></span>
-              <button class="lc-snd" aria-label="Escuchar MV Steelframe"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
-            </div>
-            <div class="lc-meta">
-              <p class="lc-where">Constructora local · construcción en seco</p>
-              <h3>MV Steelframe</h3>
-              <p class="lc-desc">Anuncio centrado en el proceso: estructura, materiales, resultado. Música que transmite solidez sin parecer un infomercial.</p>
-              <ul class="lc-tags"><li>Anuncio social</li><li>Proceso</li><li>Música</li></ul>
-            </div>
-          </div>
-        </div>
-      </article>
       <article class="lc">
         <div class="lc-inner">
           <div class="lc-face lc-front">
@@ -307,6 +320,23 @@
               <h3>Aura Aesthetic Clinic</h3>
               <p class="lc-desc">Estética tailandesa: ritmo calmo, tonos cálidos y texto en inglés con tipografía serif.</p>
               <ul class="lc-tags"><li>Estética</li><li>Texto en inglés</li><li>Música</li></ul>
+            </div>
+          </div>
+        </div>
+      </article>
+      <article class="lc">
+        <div class="lc-inner">
+          <div class="lc-face lc-front">
+            <div class="lc-phone">
+              <video data-title="Edit de auto" muted loop playsinline controls preload="none" poster="assets/posters/gti.webp" data-auto><source src="assets/gti.mp4" type="video/mp4"></video>
+              <span class="lc-progress" aria-hidden="true"><i></i></span>
+              <button class="lc-snd" aria-label="Escuchar Edit de auto"><svg class="i-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></svg><svg class="i-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07"/></svg></button>
+            </div>
+            <div class="lc-meta">
+              <p class="lc-where">Automotor · edit con música</p>
+              <h3>Edit de auto</h3>
+              <p class="lc-desc">Un edit de ritmo y color para un Golf GTI, pensado para ir con la música.</p>
+              <ul class="lc-tags"><li>Ritmo</li><li>Color</li><li>Música</li></ul>
             </div>
           </div>
         </div>
@@ -800,7 +830,7 @@
   <!-- créditos finales -->
   <dl class="credits" id="credits">
     <div><dt>Edición y montaje</dt><dd>Danilo Hurwitz</dd></div>
-    <div><dt>Trabajos en esta página</dt><dd>Inazio Coach · Cosami · Aitor Zabaleta Korta · MV Steelframe · Almacén de Colchones · CAOS Club · Aura Aesthetic Clinic</dd></div>
+    <div><dt>Trabajos en esta página</dt><dd>MV Steelframe · Inazio Coach · Cosami · Aitor Zabaleta Korta · Almacén de Colchones · CAOS Club · Aura Aesthetic Clinic · Edit de auto</dd></div>
     <div><dt>Herramientas</dt><dd>Premiere Pro · After Effects · DaVinci Resolve · CapCut</dd></div>
     <div><dt>Idiomas</dt><dd>Español · English · <span lang="he">עברית</span></dd></div>
     <div><dt>Perfiles</dt><dd><a href="https://www.upwork.com/freelancers/~0182e74782945244a8" target="_blank" rel="noopener">Upwork</a> · <a href="https://www.linkedin.com/in/danilohurwitz" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://wa.me/5492302219422" target="_blank" rel="noopener">WhatsApp</a></dd></div>
@@ -819,6 +849,6 @@
   <p class="lb-cap">Izquierda, el material como salió de cámara. Derecha, con la corrección de color.</p>
 </dialog>
 
-<script src="app.js?v=30"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>

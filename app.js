@@ -146,6 +146,14 @@ const secProgress = sec => {
 
 // Hooks propios de cada sección (lo que pasa además del giro)
 const DEVICE_HOOKS = {
+  top(p) {                                   // hero: la frase se va cuando el iPhone gira
+    const hero = $('#heroCopy'), cue = $('.stage-cue');
+    const h = clamp((p - 0.04) / 0.12);
+    hero.style.opacity = 1 - h;
+    hero.style.transform = `translateY(${-h * 60}px)`;
+    hero.style.pointerEvents = h > 0.5 ? 'none' : '';
+    if (cue) cue.style.opacity = 1 - clamp(p / 0.04);
+  },
   proceso(p, sec) {                          // MacBook: el playhead recorre los 4 pasos
     const run = clamp((p - 0.34) / 0.6);
     if (!sec._lw) sec._lw = $('.ls-lane', sec).offsetWidth;
@@ -1362,6 +1370,15 @@ function initReveal() {
   els.forEach(el => io.observe(el));
 }
 
+// ─── "Trabajo" lleva al primer caso dentro del iPhone, no al principio ───
+function initAnchors() {
+  $$('a[href="#trabajo"]').forEach(a => a.addEventListener('click', e => {
+    const st = $('.stage'); if (!st) return;
+    e.preventDefault();
+    scrollTo({ top: st.offsetTop + (st.offsetHeight - innerHeight) * 0.3, behavior: REDUCED ? 'auto' : 'smooth' });
+  }));
+}
+
 // ─── DOCK DE HERRAMIENTAS: magnificación tipo macOS ───
 function initToolDock() {
   const d = $('#tooldock');
@@ -1927,6 +1944,7 @@ document.addEventListener('DOMContentLoaded', () => {
   $$('video[controls]').forEach(v => { v.controls = false; });
   initKaraoke();
   initDevices();
+  initAnchors();
   initReel();
   initMarquee();
   initAutoplay();
