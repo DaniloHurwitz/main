@@ -146,14 +146,6 @@ const secProgress = sec => {
 
 // Hooks propios de cada sección (lo que pasa además del giro)
 const DEVICE_HOOKS = {
-  top(p) {                                   // hero: la frase se va cuando el iPhone gira
-    const hero = $('#heroCopy'), cue = $('.stage-cue');
-    const h = clamp((p - 0.04) / 0.12);
-    hero.style.opacity = 1 - h;
-    hero.style.transform = `translateY(${-h * 60}px)`;
-    hero.style.pointerEvents = h > 0.5 ? 'none' : '';
-    if (cue) cue.style.opacity = 1 - clamp(p / 0.04);
-  },
   proceso(p, sec) {                          // MacBook: el playhead recorre los 4 pasos
     const run = clamp((p - 0.34) / 0.6);
     if (!sec._lw) sec._lw = $('.ls-lane', sec).offsetWidth;
@@ -286,11 +278,11 @@ function initReel() {
   const reel = $('#reel');
   if (!reel) return;
   const segs = $$('a', reel);
-  const secs = [$('.stage'), $('#caso-inazio'), $('#caso-cosami'), $('#caso-aitor'), $('#locales')];
+  const secs = [$('#caso-inazio'), $('#caso-cosami'), $('#caso-color'), $('#caso-aitor'), $('#locales')];
   const focus = $('.focus');
   function prog(el, i) {
     const r = el.getBoundingClientRect();
-    if (i === 0 || el.classList.contains('device-sec') || el.id === 'locales') return clamp(secProgress(el) / 0.98);
+    if (el.classList.contains('device-sec') || el.id === 'locales') return clamp(secProgress(el) / 0.98);
     return clamp((innerHeight * 0.6 - r.top) / r.height);
   }
   onScroll.push(() => {
@@ -568,7 +560,7 @@ function initServices() {
   const items = $$('.svc-item'), stage = $('.sm-stage', mon), imgs = $$('.sm-img', frame);
   const cap = $('#smCap'), res = $('#smRes'), ratio = $('#smRatio'), use = $('#smUse'), tcEl = $('#smTc');
   const F = [
-    { r: 9 / 16, img: 'mda', res: '1080 × 1920', ratio: '9:16', use: 'Reels · TikTok · Shorts', cap: '' },
+    { r: 9 / 16, img: 'fitness', res: '1080 × 1920', ratio: '9:16', use: 'Reels · TikTok · Shorts', cap: '' },
     { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9', use: 'YouTube · intros · largos', cap: '' },
     { r: 4 / 5, img: 'fitness', res: '1080 × 1350', ratio: '4:5', use: 'Feed · ads', cap: '' },
     { r: 1, img: 'cosami-edit2', res: '1080 × 1080', ratio: '1:1', use: 'Marca · producto', cap: '' },
@@ -982,8 +974,8 @@ function waveSVG(seed, bars = 64) {
 // ─── NAV: capítulo actual + progreso de la página ───
 // [selector, nombre, nombre corto para el celular]
 const CHAPTERS = [
-  ['#top', 'Inicio', 'Inicio'], ['#caso-inazio', '002 · Inazio Coach', '002 · Inazio'], ['#caso-cosami', '003 · Cosami', '003 · Cosami'],
-  ['#caso-aitor', '004 · Aitor Zabaleta Korta', '004 · Aitor'], ['#locales', '005 · Negocios locales', '005 · Locales'],
+  ['#top', 'Inicio', 'Inicio'], ['#caso-inazio', '001 · Inazio Coach', '001 · Inazio'], ['#caso-cosami', '002 · Cosami', '002 · Cosami'],
+  ['#caso-color', '003 · Color grading', '003 · Color'], ['#caso-aitor', '004 · Aitor Zabaleta Korta', '004 · Aitor'], ['#locales', '005 · Negocios locales', '005 · Locales'],
   ['#enfoque', 'Enfoque', 'Enfoque'], ['#servicios', 'Servicios', 'Servicios'], ['#subtitulos', 'Subtítulos', 'Subtítulos'], ['#proceso', 'Cómo trabajo', 'Proceso'],
   ['#resenas', 'Reseñas', 'Reseñas'], ['#sobre-mi', 'Sobre mí', 'Sobre mí'], ['#gratis', 'Gratis', 'Gratis'], ['#preguntas', 'Preguntas', 'Preguntas'], ['#cotizar', 'Cotizar', 'Cotizar'], ['#contacto', 'Contacto', 'Contacto']
 ];
@@ -998,7 +990,6 @@ function currentChapter() {
   return idx;
 }
 function chapterLabel(i) {
-  if (i === 0) { const st = $('.stage'); return st && secProgress(st) > 0.18 ? '001 · MDA' : 'Inicio'; }
   return CHAPTERS[i][DESKTOP() ? 1 : 2];
 }
 function initNavMeta() {
@@ -1369,15 +1360,6 @@ function initReveal() {
   if (REDUCED) { els.forEach(el => el.classList.add('in')); return; }
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.3 });
   els.forEach(el => io.observe(el));
-}
-
-// ─── "Trabajo" lleva al primer caso dentro del iPhone, no al principio ───
-function initAnchors() {
-  $$('a[href="#trabajo"]').forEach(a => a.addEventListener('click', e => {
-    const st = $('.stage'); if (!st) return;
-    e.preventDefault();
-    scrollTo({ top: st.offsetTop + (st.offsetHeight - innerHeight) * 0.3, behavior: REDUCED ? 'auto' : 'smooth' });
-  }));
 }
 
 // ─── DOCK DE HERRAMIENTAS: magnificación tipo macOS ───
@@ -1967,7 +1949,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initBAV();
   initLocals();
   initReveal();
-  initAnchors();
   initLightbox();
   initRise();
   initPremiere();
