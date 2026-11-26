@@ -12,6 +12,9 @@ const lerp = (a, b, t) => a + (b - a) * t;
 const DESKTOP = () => innerWidth > 900;
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+// Idioma de la página: la versión en inglés (/en/) usa el mismo script con los textos en inglés.
+const EN = document.documentElement.lang === 'en';
+const tr = (es, en) => (EN ? en : es);
 const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 
 // Timecode HH:MM:SS:FF a 25 fps, como en Premiere
@@ -111,9 +114,9 @@ const SCREENS = {
   monitor: [[[[0.72317,0.15231],[0.36653,0.15129],[0.37105,0.70694],[0.71743,0.57429]],-0.5998],[[[0.72316,0.15231],[0.36654,0.15129],[0.37106,0.70694],[0.71742,0.57429]],-0.5998],[[[0.72312,0.15231],[0.36657,0.15128],[0.37109,0.70695],[0.71738,0.57429]],-0.5996],[[[0.723,0.15231],[0.36666,0.15126],[0.37118,0.70699],[0.71727,0.57428]],-0.5992],[[[0.72278,0.15231],[0.36684,0.15123],[0.37134,0.70706],[0.71705,0.57426]],-0.5985],[[[0.7224,0.15232],[0.36713,0.15116],[0.37163,0.70717],[0.71669,0.57423]],-0.5973],[[[0.72184,0.15232],[0.36756,0.15107],[0.37204,0.70734],[0.71615,0.57419]],-0.5955],[[[0.72106,0.15233],[0.36817,0.15094],[0.37263,0.70758],[0.7154,0.57414]],-0.593],[[[0.72002,0.15234],[0.36899,0.15077],[0.37342,0.70789],[0.71439,0.57407]],-0.5897],[[[0.71868,0.15235],[0.37005,0.15054],[0.37444,0.70829],[0.7131,0.57398]],-0.5854],[[[0.71701,0.15237],[0.37139,0.15026],[0.37573,0.70878],[0.71148,0.57387]],-0.58],[[[0.71495,0.15239],[0.37304,0.14991],[0.37732,0.70938],[0.7095,0.57374]],-0.5734],[[[0.71248,0.15242],[0.37505,0.14949],[0.37925,0.71009],[0.70711,0.57359]],-0.5655],[[[0.70955,0.15246],[0.37747,0.14898],[0.38158,0.71091],[0.70428,0.57342]],-0.556],[[[0.70611,0.15251],[0.38034,0.14839],[0.38434,0.71185],[0.70096,0.57324]],-0.5448],[[[0.70213,0.15257],[0.38372,0.14769],[0.3876,0.71292],[0.69711,0.57305]],-0.5318],[[[0.69755,0.15264],[0.38769,0.14687],[0.39142,0.7141],[0.69268,0.57286]],-0.5167],[[[0.69232,0.15274],[0.3923,0.14593],[0.39587,0.71541],[0.68762,0.57267]],-0.4995],[[[0.6864,0.15285],[0.39763,0.14486],[0.40101,0.71683],[0.68189,0.5725]],-0.4799],[[[0.67973,0.15299],[0.40378,0.14363],[0.40694,0.71834],[0.67543,0.57235]],-0.4576],[[[0.67227,0.15316],[0.41083,0.14223],[0.41374,0.71994],[0.66819,0.57224]],-0.4325],[[[0.66395,0.15336],[0.41889,0.14065],[0.42152,0.72161],[0.66012,0.57219]],-0.4044],[[[0.65471,0.1536],[0.42807,0.13888],[0.43038,0.72331],[0.65115,0.57222]],-0.373],[[[0.64451,0.15387],[0.43847,0.13689],[0.44043,0.72502],[0.64124,0.57235]],-0.3381],[[[0.63329,0.15418],[0.45022,0.13469],[0.45179,0.72669],[0.63032,0.57261]],-0.2995],[[[0.62099,0.15453],[0.46343,0.13225],[0.46457,0.72827],[0.61834,0.57302]],-0.2569],[[[0.60755,0.15492],[0.47821,0.12957],[0.47888,0.72971],[0.60524,0.57362]],-0.2102],[[[0.59292,0.15535],[0.49466,0.12666],[0.49482,0.73093],[0.59097,0.57444]],-0.1591],[[[0.57706,0.1558],[0.51285,0.1235],[0.51247,0.73187],[0.57548,0.57552]],-0.1036],[[[0.55992,0.15626],[0.53283,0.12014],[0.53188,0.73244],[0.55873,0.5769]],-0.0436],[[[0.54147,0.15672],[0.5546,0.11658],[0.55306,0.73256],[0.54067,0.57861]],0.0209],[[[0.52169,0.15715],[0.5781,0.11288],[0.57596,0.73213],[0.52128,0.58072]],0.0897],[[[0.50056,0.15751],[0.60319,0.10911],[0.60046,0.73106],[0.50055,0.58324]],0.1628],[[[0.47809,0.15776],[0.62965,0.10534],[0.62635,0.72928],[0.47848,0.58624]],0.2396],[[[0.45432,0.15783],[0.65712,0.10169],[0.6533,0.72671],[0.45509,0.58975]],0.3197],[[[0.42929,0.15766],[0.68516,0.09829],[0.68089,0.72332],[0.43043,0.59381]],0.4022],[[[0.40347,0.15716],[0.71279,0.09532],[0.70817,0.71914],[0.40496,0.59839]],0.485],[[[0.37913,0.15632],[0.73731,0.09311],[0.73247,0.71464],[0.38091,0.60307]],0.5604],[[[0.35662,0.15517],[0.75839,0.09162],[0.75345,0.71007],[0.35863,0.60772]],0.6276],[[[0.33591,0.15373],[0.77622,0.09077],[0.77127,0.70556],[0.33812,0.61227]],0.6869],[[[0.31696,0.15203],[0.79106,0.09047],[0.78616,0.70121],[0.3193,0.6167]],0.7387],[[[0.29969,0.1501],[0.80319,0.09062],[0.79842,0.6971],[0.30214,0.62096]],0.7836],[[[0.28402,0.148],[0.81294,0.09115],[0.80832,0.69326],[0.28655,0.62502]],0.8222],[[[0.26988,0.14575],[0.82061,0.09196],[0.81617,0.68973],[0.27246,0.62887]],0.8551],[[[0.25718,0.14341],[0.82649,0.09299],[0.82226,0.6865],[0.25978,0.63249]],0.883],[[[0.24581,0.14099],[0.83087,0.09417],[0.82684,0.68359],[0.24841,0.63588]],0.9063],[[[0.23568,0.13856],[0.834,0.09546],[0.83017,0.68097],[0.23827,0.63903]],0.9257],[[[0.22669,0.13612],[0.8361,0.0968],[0.83247,0.67863],[0.22926,0.64194]],0.9417],[[[0.21875,0.13373],[0.83737,0.09815],[0.83393,0.67655],[0.22128,0.64463]],0.9547],[[[0.21176,0.1314],[0.83799,0.0995],[0.83472,0.67471],[0.21425,0.64709]],0.9653],[[[0.20563,0.12915],[0.8381,0.10081],[0.835,0.6731],[0.20808,0.64932]],0.9737],[[[0.20028,0.12702],[0.83782,0.10206],[0.83488,0.67168],[0.20268,0.65135]],0.9803],[[[0.19563,0.125],[0.83728,0.10325],[0.83448,0.67044],[0.19798,0.65318]],0.9855],[[[0.1916,0.12313],[0.83655,0.10435],[0.83387,0.66937],[0.1939,0.65482]],0.9894],[[[0.18812,0.12139],[0.8357,0.10537],[0.83314,0.66843],[0.19038,0.65629]],0.9925],[[[0.18514,0.11981],[0.8348,0.1063],[0.83234,0.66763],[0.18736,0.65758]],0.9947],[[[0.18259,0.11838],[0.83389,0.10714],[0.83152,0.66694],[0.18477,0.65872]],0.9963],[[[0.18043,0.1171],[0.833,0.10788],[0.83071,0.66635],[0.18257,0.65971]],0.9975],[[[0.17861,0.11597],[0.83217,0.10854],[0.82994,0.66585],[0.18071,0.66056]],0.9983],[[[0.17708,0.11499],[0.83141,0.10911],[0.82924,0.66543],[0.17916,0.66129]],0.9989],[[[0.17582,0.11415],[0.83073,0.10959],[0.82861,0.66509],[0.17787,0.66191]],0.9993],[[[0.17479,0.11344],[0.83014,0.11],[0.82806,0.6648],[0.17681,0.66242]],0.9995],[[[0.17396,0.11285],[0.82964,0.11034],[0.82759,0.66457],[0.17596,0.66284]],0.9996],[[[0.1733,0.11238],[0.82922,0.11061],[0.82721,0.66439],[0.17529,0.66318]],0.9997],[[[0.17279,0.11201],[0.8289,0.11083],[0.8269,0.66425],[0.17477,0.66344]],0.9997],[[[0.17242,0.11173],[0.82865,0.11099],[0.82667,0.66414],[0.17439,0.66363]],0.9998],[[[0.17215,0.11153],[0.82847,0.1111],[0.8265,0.66407],[0.17411,0.66377]],0.9998],[[[0.17197,0.1114],[0.82835,0.11118],[0.82638,0.66402],[0.17393,0.66387]],0.9998],[[[0.17186,0.11132],[0.82827,0.11122],[0.82631,0.66399],[0.17382,0.66392]],0.9998],[[[0.1718,0.11128],[0.82823,0.11125],[0.82628,0.66397],[0.17376,0.66395]],0.9998],[[[0.17178,0.11126],[0.82822,0.11126],[0.82627,0.66397],[0.17374,0.66396]],0.9998],[[[0.17178,0.11126],[0.82822,0.11126],[0.82626,0.66397],[0.17374,0.66397]],0.9998]]
 };
 const DEVICES = {
-  phone:   { dir: 'assets/devices/phone/',   sw: 360,  sh: 782, rot: [0.03, 0.34], faceMin: 0.35 },
-  laptop:  { dir: 'assets/devices/laptop/',  sw: 1280, sh: 833, rot: [0, 0.3],     faceMin: 0.55 },
-  monitor: { dir: 'assets/devices/monitor/', sw: 1280, sh: 720, rot: [0.02, 0.36], faceMin: 0.45 }
+  phone:   { dir: '/assets/devices/phone/',   sw: 360,  sh: 782, rot: [0.03, 0.34], faceMin: 0.35 },
+  laptop:  { dir: '/assets/devices/laptop/',  sw: 1280, sh: 833, rot: [0, 0.3],     faceMin: 0.55 },
+  monitor: { dir: '/assets/devices/monitor/', sw: 1280, sh: 720, rot: [0.02, 0.36], faceMin: 0.45 }
 };
 const FRAMES = 72;
 
@@ -256,7 +259,7 @@ function initDevices() {
       const setSound = on => {
         if (on) { muteAllExcept(video); video.currentTime = 0; video.play().catch(() => {}); }
         video.muted = !on; scr.classList.toggle('has-sound', on);
-        snd?.setAttribute('aria-label', on ? 'Silenciar' : 'Escuchar con sonido desde el inicio');
+        snd?.setAttribute('aria-label', on ? tr('Silenciar', 'Mute') : tr('Escuchar con sonido desde el inicio', 'Listen with sound from the start'));
       };
       scr.addEventListener('click', () => setSound(video.muted));
       video.addEventListener('dockclose', () => scr.classList.remove('has-sound'));
@@ -383,8 +386,8 @@ function initScrub() {
   function setPlaying(on) {
     playing = on;
     box.classList.toggle('is-playing', on);
-    btn.textContent = on ? 'Volver a scrubbear' : 'Ver con sonido';
-    hint.textContent = on ? 'Reproduciendo' : 'Scrolleá para scrubbear el corte';
+    btn.textContent = on ? tr('Volver a scrubbear', 'Back to scrubbing') : tr('Ver con sonido', 'Watch with sound');
+    hint.textContent = on ? tr('Reproduciendo', 'Playing') : tr('Scrolleá para scrubbear el corte', 'Scroll to scrub the cut');
     if (on) { muteAllExcept(video); video.currentTime = 0; video.muted = false; video.loop = true; video.play().catch(() => {}); }
     else { video.pause(); video.muted = true; update(); }
   }
@@ -418,8 +421,8 @@ function initPlayers() {
     const v = $('video', pl), play = $('.p-play', pl), snd = $('.p-snd', pl);
     const scrub = $('.p-scrub', pl), fill = $('.p-fill', pl), knob = $('.p-knob', pl), time = $('.p-time', pl);
 
-    v.addEventListener('play', () => { pl.classList.add('is-playing'); play.setAttribute('aria-label', 'Pausar'); });
-    v.addEventListener('pause', () => { pl.classList.remove('is-playing'); play.setAttribute('aria-label', 'Reproducir'); });
+    v.addEventListener('play', () => { pl.classList.add('is-playing'); play.setAttribute('aria-label', tr('Pausar', 'Pause')); });
+    v.addEventListener('pause', () => { pl.classList.remove('is-playing'); play.setAttribute('aria-label', tr('Reproducir', 'Play')); });
     v.addEventListener('timeupdate', () => {
       const p = v.duration ? v.currentTime / v.duration : 0;
       fill.style.width = knob.style.left = (p * 100) + '%';
@@ -569,10 +572,10 @@ function initServices() {
   const cap = $('#smCap'), res = $('#smRes'), ratio = $('#smRatio'), use = $('#smUse'), tcEl = $('#smTc');
   const F = [
     { r: 9 / 16, img: 'fitness', res: '1080 × 1920', ratio: '9:16', use: 'Reels · TikTok · Shorts', cap: '' },
-    { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9', use: 'YouTube · intros · largos', cap: '' },
-    { r: 4 / 5, img: 'fitness', res: '1080 × 1350', ratio: '4:5', use: 'Feed · ads', cap: '' },
-    { r: 1, img: 'cosami-edit2', res: '1080 × 1080', ratio: '1:1', use: 'Marca · producto', cap: '' },
-    { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9 + SRT', use: 'Subtítulos · ES / EN / HE', cap: 'Lo importante va <b>primero</b>' }
+    { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9', use: tr('YouTube · intros · largos', 'YouTube · intros · long-form'), cap: '' },
+    { r: 4 / 5, img: 'fitness', res: '1080 × 1350', ratio: '4:5', use: tr('Feed · ads', 'Feed · ads'), cap: '' },
+    { r: 1, img: 'cosami-edit2', res: '1080 × 1080', ratio: '1:1', use: tr('Marca · producto', 'Brand · product'), cap: '' },
+    { r: 16 / 9, img: 'testeo_intro', res: '1920 × 1080', ratio: '16:9 + SRT', use: tr('Subtítulos · ES / EN / HE', 'Subtitles · ES / EN / HE'), cap: tr('Lo importante va <b>primero</b>', 'What matters goes <b>first</b>') }
   ];
   let cur = -1, flip = 0, auto = true, run = 0, inView = false, running = false, last = 0, clock = 0;
   const HOLD = 4500;
@@ -587,7 +590,7 @@ function initServices() {
     cur = i; const f = F[i];
     fit(i);
     const next = imgs[flip = 1 - flip];
-    next.src = `assets/posters/${f.img}.webp`;
+    next.src = `/assets/posters/${f.img}.webp`;
     imgs.forEach(im => im.classList.toggle('is-on', im === next));
     cap.innerHTML = f.cap; res.textContent = f.res; ratio.textContent = f.ratio; use.textContent = f.use;
   }
@@ -641,7 +644,7 @@ function initCarousel() {
   let i = 0, startX = 0, dx = 0, drag = false;
   cards.forEach((_, k) => {
     const d = document.createElement('button');
-    d.setAttribute('aria-label', `Reseña ${k + 1}`);
+    d.setAttribute('aria-label', tr(`Reseña ${k + 1}`, `Review ${k + 1}`));
     d.addEventListener('click', () => go(k));
     dots.appendChild(d);
   });
@@ -672,10 +675,10 @@ function initSlide() {
   const max = () => slide.offsetWidth - knob.offsetWidth - 12;
   function set(v) { x = clamp(v, 0, max()); knob.style.transform = `translateX(${x}px)`; slide.style.setProperty('--fill', (x + knob.offsetWidth / 2 + 6) + 'px'); }
   function openWA() {
-    text.textContent = 'Abriendo WhatsApp…';
+    text.textContent = tr('Abriendo WhatsApp…', 'Opening WhatsApp…');
     if (window.umami) window.umami.track('click-whatsapp', { via: 'slide' });
     window.open(href, '_blank', 'noopener');
-    setTimeout(() => { text.textContent = 'Deslizá para escribirme'; knob.classList.add('is-back'); set(0); }, 1600);
+    setTimeout(() => { text.textContent = tr('Deslizá para escribirme', 'Slide to message me'); knob.classList.add('is-back'); set(0); }, 1600);
   }
   knob.addEventListener('pointerdown', e => { drag = true; moved = false; start = e.clientX - x; knob.classList.remove('is-back'); knob.setPointerCapture(e.pointerId); });
   knob.addEventListener('pointermove', e => { if (!drag) return; moved = true; set(e.clientX - start); });
@@ -731,11 +734,11 @@ function initCalculator() {
   };
 
   const TIER_INFO = {
-    reel:  { label: "Reel / Short",  desc: "Cortes, subtítulos, SFX y corrección de color. Editado para parar el scroll desde el primer segundo." },
-    ad:    { label: "Ad comercial",  desc: "Hook, mensaje y CTA integrados. Funciona como pieza de performance, no solo como video bonito." },
-    long:  { label: "Video largo",   desc: "Edición de retención para YouTube u otras plataformas. Mantiene al espectador sin sobrestimulación." },
-    intro: { label: "Intro / Outro", desc: "Pieza de identidad para YouTube o redes. Define el tono del canal en los primeros segundos." },
-    subs:  { label: "Subtitulado",   desc: "Transcripción, traducción y timing manual. Entrega en SRT/VTT o quemado al video." },
+    reel:  { label: "Reel / Short",  desc: tr("Cortes, subtítulos, SFX y corrección de color. Editado para parar el scroll desde el primer segundo.", "Cuts, subtitles, SFX and color correction. Edited to stop the scroll from the first second.") },
+    ad:    { label: tr("Ad comercial", "Commercial ad"),  desc: tr("Hook, mensaje y CTA integrados. Funciona como pieza de performance, no solo como video bonito.", "Hook, message and CTA built in. It works as a performance piece, not just a nice video.") },
+    long:  { label: tr("Video largo", "Long video"),   desc: tr("Edición de retención para YouTube u otras plataformas. Mantiene al espectador sin sobrestimulación.", "Retention editing for YouTube or other platforms. Keeps the viewer engaged without overstimulating.") },
+    intro: { label: "Intro / Outro", desc: tr("Pieza de identidad para YouTube o redes. Define el tono del canal en los primeros segundos.", "An identity piece for YouTube or social media. Sets the tone of the channel in the first seconds.") },
+    subs:  { label: tr("Subtitulado", "Subtitling"),   desc: tr("Transcripción, traducción y timing manual. Entrega en SRT/VTT o quemado al video.", "Transcription, translation and manual timing. Delivered as SRT/VTT or burned into the video.") },
   };
 
   // ─── ESTADO ──────────────────────────────────────────────────────
@@ -838,9 +841,9 @@ function initCalculator() {
     const tier = TIER_INFO[state.tipo];
     infoEl.innerHTML = `<strong>${tier.label}</strong><span>${tier.desc}</span>`;
 
-    const durLine = base.fixedDur ? '' : `\n· Duración: ${state.qty} min`;
+    const durLine = base.fixedDur ? '' : tr(`\n· Duración: ${state.qty} min`, `\n· Duration: ${state.qty} min`);
     ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
-      `Hola Danilo, quiero cotizar:\n· Tipo: ${tier.label}${durLine}\n· Urgencia: ${optLabel('urg')}\n· Complejidad: ${optLabel('complex')}\n· Estimado: ${fmtRange(lo, hi).replace(' - ', '-')} USD`
+      tr(`Hola Danilo, quiero cotizar:\n· Tipo: ${tier.label}${durLine}\n· Urgencia: ${optLabel('urg')}\n· Complejidad: ${optLabel('complex')}\n· Estimado: ${fmtRange(lo, hi).replace(' - ', '-')} USD`, `Hi Danilo, I'd like a quote:\n· Type: ${tier.label}${durLine}\n· Urgency: ${optLabel('urg')}\n· Complexity: ${optLabel('complex')}\n· Estimate: ${fmtRange(lo, hi).replace(' - ', '-')} USD`)
     )}`;
   }
 
@@ -855,16 +858,16 @@ function initCalculator() {
 
     rangeEl.textContent = fmtRange(lo, hi);
 
-    const langLabel = { es: 'Español', en: 'Inglés', he: 'Hebreo' };
+    const langLabel = { es: tr('Español', 'Spanish'), en: tr('Inglés', 'English'), he: tr('Hebreo', 'Hebrew') };
     const sameLang  = state.subsLangSrc === state.subsLangDst;
     const desc = sameLang
-      ? `Subtítulos en ${langLabel[state.subsLangDst]} (mismo idioma). Timing, formato y entrega ${state.subsDeliv === 'burned' ? 'quemados al video' : 'en archivo SRT/VTT'}.`
-      : `Traducción y subtítulos de ${langLabel[state.subsLangSrc]} a ${langLabel[state.subsLangDst]}. Entrega ${state.subsDeliv === 'burned' ? 'quemados al video' : 'en archivo SRT/VTT'}.`;
+      ? tr(`Subtítulos en ${langLabel[state.subsLangDst]} (mismo idioma). Timing, formato y entrega ${state.subsDeliv === 'burned' ? 'quemados al video' : 'en archivo SRT/VTT'}.`, `Subtitles in ${langLabel[state.subsLangDst]} (same language). Timing, format and delivery ${state.subsDeliv === 'burned' ? 'burned into the video' : 'as an SRT/VTT file'}.`)
+      : tr(`Traducción y subtítulos de ${langLabel[state.subsLangSrc]} a ${langLabel[state.subsLangDst]}. Entrega ${state.subsDeliv === 'burned' ? 'quemados al video' : 'en archivo SRT/VTT'}.`, `Translation and subtitles from ${langLabel[state.subsLangSrc]} to ${langLabel[state.subsLangDst]}. Delivery ${state.subsDeliv === 'burned' ? 'burned into the video' : 'as an SRT/VTT file'}.`);
 
-    infoEl.innerHTML = `<strong>Subtitulado</strong><span>${desc}</span>`;
+    infoEl.innerHTML = `<strong>${tr('Subtitulado', 'Subtitling')}</strong><span>${desc}</span>`;
 
     ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
-      `Hola Danilo, quiero cotizar subtitulado:\n· Origen: ${langLabel[state.subsLangSrc]}\n· Destino: ${langLabel[state.subsLangDst]}\n· Duración: ${mins} min\n· Entrega: ${state.subsDeliv === 'burned' ? 'Quemado al video' : 'SRT/VTT'}\n· Urgencia: ${optLabel('urg')}\n· Estimado: ${fmtRange(lo, hi).replace(' - ', '-')} USD`
+      tr(`Hola Danilo, quiero cotizar subtitulado:\n· Origen: ${langLabel[state.subsLangSrc]}\n· Destino: ${langLabel[state.subsLangDst]}\n· Duración: ${mins} min\n· Entrega: ${state.subsDeliv === 'burned' ? 'Quemado al video' : 'SRT/VTT'}\n· Urgencia: ${optLabel('urg')}\n· Estimado: ${fmtRange(lo, hi).replace(' - ', '-')} USD`, `Hi Danilo, I'd like a quote for subtitling:\n· Source: ${langLabel[state.subsLangSrc]}\n· Target: ${langLabel[state.subsLangDst]}\n· Duration: ${mins} min\n· Delivery: ${state.subsDeliv === 'burned' ? 'Burned into the video' : 'SRT/VTT'}\n· Urgency: ${optLabel('urg')}\n· Estimate: ${fmtRange(lo, hi).replace(' - ', '-')} USD`)
     )}`;
   }
 
@@ -872,9 +875,9 @@ function initCalculator() {
     const pack = PACKS[state.monthlyQty] || PACKS[20];
     rangeEl.textContent    = `$${pack.total}`;
     perPieceEl.textContent = `$${pack.perPiece % 1 === 0 ? pack.perPiece : pack.perPiece.toFixed(1)}`;
-    infoEl.innerHTML = `<strong>Paquete mensual · ${state.monthlyQty} piezas</strong><span>Precio por pieza menor al unitario. Incluye prioridad de agenda y comunicación directa por WhatsApp.</span>`;
+    infoEl.innerHTML = tr(`<strong>Paquete mensual · ${state.monthlyQty} piezas</strong><span>Precio por pieza menor al unitario. Incluye prioridad de agenda y comunicación directa por WhatsApp.</span>`, `<strong>Monthly package · ${state.monthlyQty} pieces</strong><span>A lower price per piece than individual projects. Includes scheduling priority and direct communication on WhatsApp.</span>`);
     ctaBtn.href = `https://wa.me/5492302219422?text=${encodeURIComponent(
-      `Hola Danilo, me interesa un paquete mensual de ${state.monthlyQty} piezas (~$${pack.total} USD/mes).`
+      tr(`Hola Danilo, me interesa un paquete mensual de ${state.monthlyQty} piezas (~$${pack.total} USD/mes).`, `Hi Danilo, I'm interested in a monthly package of ${state.monthlyQty} pieces (~$${pack.total} USD/month).`)
     )}`;
   }
 
@@ -933,7 +936,7 @@ function initCalculator() {
       monthlyPresets.querySelectorAll('.calc-preset').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       state.monthlyQty = parseInt(btn.dataset.preset);
-      qtyNum2.textContent = state.monthlyQty + ' piezas';
+      qtyNum2.textContent = state.monthlyQty + tr(' piezas', ' pieces');
       update();
     });
   });
@@ -982,10 +985,10 @@ function waveSVG(seed, bars = 64) {
 // ─── NAV: capítulo actual + progreso de la página ───
 // [selector, nombre, nombre corto para el celular]
 const CHAPTERS = [
-  ['#top', 'Inicio', 'Inicio'], ['#caso-inazio', '001 · Inazio Coach', '001 · Inazio'], ['#caso-cosami', '002 · Cosami', '002 · Cosami'],
-  ['#caso-color', '003 · Color grading', '003 · Color'], ['#caso-aitor', '004 · Aitor Zabaleta Korta', '004 · Aitor'], ['#locales', '005 · Negocios locales', '005 · Locales'],
-  ['#enfoque', 'Enfoque', 'Enfoque'], ['#servicios', 'Servicios', 'Servicios'], ['#subtitulos', 'Subtítulos', 'Subtítulos'], ['#proceso', 'Cómo trabajo', 'Proceso'],
-  ['#resenas', 'Reseñas', 'Reseñas'], ['#sobre-mi', 'Sobre mí', 'Sobre mí'], ['#gratis', 'Gratis', 'Gratis'], ['#preguntas', 'Preguntas', 'Preguntas'], ['#cotizar', 'Cotizar', 'Cotizar'], ['#contacto', 'Contacto', 'Contacto']
+  ['#top', tr('Inicio', 'Home'), tr('Inicio', 'Home')], ['#caso-inazio', '001 · Inazio Coach', '001 · Inazio'], ['#caso-cosami', '002 · Cosami', '002 · Cosami'],
+  ['#caso-color', tr('003 · Color grading', '003 · Color grading'), tr('003 · Color', '003 · Color')], ['#caso-aitor', '004 · Aitor Zabaleta Korta', '004 · Aitor'], ['#locales', tr('005 · Negocios locales', '005 · Local businesses'), tr('005 · Locales', '005 · Local')],
+  ['#enfoque', tr('Enfoque', 'Approach'), tr('Enfoque', 'Approach')], ['#servicios', tr('Servicios', 'Services'), tr('Servicios', 'Services')], ['#subtitulos', tr('Subtítulos', 'Subtitles'), tr('Subtítulos', 'Subtitles')], ['#proceso', tr('Cómo trabajo', 'How I work'), tr('Proceso', 'Process')],
+  ['#resenas', tr('Reseñas', 'Reviews'), tr('Reseñas', 'Reviews')], ['#sobre-mi', tr('Sobre mí', 'About me'), tr('Sobre mí', 'About')], ['#gratis', tr('Gratis', 'Free'), tr('Gratis', 'Free')], ['#preguntas', tr('Preguntas', 'FAQ'), tr('Preguntas', 'FAQ')], ['#cotizar', tr('Cotizar', 'Quote'), tr('Cotizar', 'Quote')], ['#contacto', tr('Contacto', 'Contact'), tr('Contacto', 'Contact')]
 ];
 // las posiciones se miden una vez y se vuelven a medir solo si cambia el alto de la página
 let chapterTops = [];
@@ -1056,10 +1059,10 @@ function initKeys() {
     else if (k === 'k') {
       const v = dock.video && !dock.video.muted ? dock.video : mostVisibleVideo();
       if (!v) return;
-      if (v.paused) { v.play().catch(() => {}); toast('K · reproducir'); } else { v.pause(); toast('K · pausa'); }
+      if (v.paused) { v.play().catch(() => {}); toast(tr('K · reproducir', 'K · play')); } else { v.pause(); toast(tr('K · pausa', 'K · pause')); }
     }
   });
-  $('#navKeys')?.addEventListener('click', () => toast('Atajos de edición: J anterior · K pausa · L siguiente'));
+  $('#navKeys')?.addEventListener('click', () => toast(tr('Atajos de edición: J anterior · K pausa · L siguiente', 'Editing shortcuts: J previous · K pause · L next')));
 }
 
 // ─── A CONTINUACIÓN: la barra se llena como el autoplay del próximo video ───
@@ -1106,7 +1109,7 @@ function initDock() {
   function loop() {
     const v = dock.video;
     if (v && v.readyState >= 2) ctx.drawImage(v, 0, 0, canvas.width, canvas.height);
-    if (v) play.textContent = v.paused ? 'Play' : 'Pausa';
+    if (v) play.textContent = v.paused ? 'Play' : tr('Pausa', 'Pause');
     raf = requestAnimationFrame(loop);
   }
   onScroll.push(() => {
@@ -1304,7 +1307,7 @@ function initLocals() {
     const setSound = on => {
       if (on) { muteAllExcept(v); v.currentTime = 0; v.play().catch(() => {}); }
       v.muted = !on; card.classList.toggle('has-sound', on);
-      snd.setAttribute('aria-label', (on ? 'Silenciar ' : 'Escuchar ') + v.dataset.title);
+      snd.setAttribute('aria-label', (on ? tr('Silenciar ', 'Mute ') : tr('Escuchar ', 'Listen to ')) + v.dataset.title);
     };
     snd.addEventListener('click', e => { e.stopPropagation(); setSound(v.muted); });
     v.addEventListener('click', () => setSound(v.muted));
@@ -1335,7 +1338,7 @@ function initLocals() {
 // ─── VISOR: el antes/después del color en grande ───
 function openLightbox() {
   const lb = $('#lightbox');
-  if (!lb || typeof lb.showModal !== 'function') { location.href = 'assets/color-grading.webp'; return; }
+  if (!lb || typeof lb.showModal !== 'function') { location.href = '/assets/color-grading.webp'; return; }
   const img = $('img', lb);
   if (!img.getAttribute('src')) img.src = img.dataset.src;   // la imagen grande se pide recién acá
   lb.showModal();
@@ -1617,8 +1620,8 @@ function initPremiere() {
   const thumb = $('#prThumb'), tx = thumb.getContext('2d'), metaEl = $('#prMeta');
   const META = {
     acam: 'A001_C012.mov\n3840 × 2160 · 25 fps · 00:00:30:00', broll1: 'pantalla_B.mov\n1920 × 1080 · 25 fps · 00:00:04:00',
-    broll2: 'producto_giro.mov\n1920 × 1080 · 25 fps · 00:00:05:00', music: 'musica_base.wav\n48 kHz · estéreo · 00:00:30:00',
-    lumetri: 'Lumetri · cálido\nPreajuste de color'
+    broll2: 'producto_giro.mov\n1920 × 1080 · 25 fps · 00:00:05:00', music: 'musica_base.wav\n48 kHz · ' + tr('estéreo', 'stereo') + ' · 00:00:30:00',
+    lumetri: tr('Lumetri · cálido\nPreajuste de color', 'Lumetri · warm\nColor preset')
   };
   function preview(item) {
     const W = thumb.width, H = thumb.height, iw = photo.naturalWidth, ih = photo.naturalHeight;
@@ -1659,7 +1662,7 @@ function initPremiere() {
     if (old) { old.className = 'out'; setTimeout(() => old.remove(), 460); }
     const sp = document.createElement('span'); sp.textContent = rules[rule].textContent; rnText.append(sp);
     rnNum.textContent = `${String(rule + 1).padStart(2, '0')} / 06`;
-    rnTc.textContent = 'Marcador · ' + tc(T);
+    rnTc.textContent = tr('Marcador · ', 'Marker · ') + tc(T);
     ticks.forEach((li, i) => { li.classList.toggle('now', i === rule); li.classList.toggle('done', seenRules.has(i) && i !== rule); });
   }
   function step(tag, msg, key, rule) {
@@ -1673,11 +1676,15 @@ function initPremiere() {
 
   // ── la edición ──
   const SUFFIX = ['', '_final', '_final_final', '_ahora_si', '_ESTE', '_ESTE_de_verdad'];
-  const SCRIPTS = [
+  const SCRIPTS = tr([
     ['Tenés dos segundos.', 'Después, la gente scrollea.', 'Por eso corto los silencios,', 'muestro lo que se dice', 'y subtitulo todo:', 'mucha gente mira sin sonido.'],
     ['Estudio Medicina.', 'Y edito video.', 'Las dos cosas tratan', 'de lo mismo:', 'cómo presta atención', 'una persona.'],
     ['Cortar no es quitar.', 'Es elegir qué se queda.', 'Cada corte', 'tiene que ganarse', 'el siguiente segundo.', 'Si no, afuera.']
-  ];
+  ], [
+    ['You have two seconds.', 'After that, people scroll.', "That's why I cut the silences,", 'show what is being said', 'and caption everything:', 'a lot of people watch without sound.'],
+    ['I study Medicine.', 'And I edit video.', 'Both are about', 'the same thing:', 'how a person', 'pays attention.'],
+    ['Cutting is not removing.', "It's choosing what stays.", 'Every cut', 'has to earn', 'the next second.', 'If not, out.']
+  ]);
   const jit = (k = 0.5) => (Math.random() - 0.5) * k;
   let n = 0;
 
@@ -1698,23 +1705,23 @@ function initPremiere() {
     reset(name);
 
     // 1 · importar y mirar el crudo
-    step('Importar', 'Material crudo: una sola toma de 30 segundos.', 'I', -1);
+    step(tr('Importar', 'Import'), tr('Material crudo: una sola toma de 30 segundos.', 'Raw footage: a single 30-second take.'), 'I', -1);
     await wait(400);
     await drag('acam', 'v1', 0, 'A001_C012.mov', 'var(--accent)');
     const A = add({ track: 'v1', start: 0, dur: SEQ, in: 0, label: 'A001_C012.mov', zoom: 1 });
     A.link = add({ track: 'a1', start: 0, dur: SEQ, in: 0, label: 'A001_C012.mov', wave: VOICE });
-    step('Revisar', 'Primero la miro entera, sin tocar nada.', 'Espacio', -1);
+    step(tr('Revisar', 'Review'), tr('Primero la miro entera, sin tocar nada.', 'First I watch it all the way through, without touching anything.'), tr('Espacio', 'Space'), -1);
     await play(0, 8, 1600);
 
     // 2 · cortar silencios + ripple
-    step('Cortar', 'Corto los silencios: el ritmo de corte sostiene la retención.', 'C', 1);
+    step(tr('Cortar', 'Cut'), tr('Corto los silencios: el ritmo de corte sostiene la retención.', 'I cut the silences: cutting rhythm sustains retention.'), 'C', 1);
     tool('razor');
     const cuts = [5.4 + jit(0.3), 7.3 + jit(0.2), 14.9 + jit(0.3), 16.5 + jit(0.2)];
     for (const x of cuts) { await move(atT('v1', x)); await click(); split(x); await setT(x, 180); }
     tool('select');
     const gaps = [clipAt('v1', (cuts[0] + cuts[1]) / 2), clipAt('v1', (cuts[2] + cuts[3]) / 2)];
     for (const c of gaps) { await move(atT('v1', c.start + c.dur / 2)); await click(); select(c); }
-    step('Ripple', 'Borro los huecos y todo lo demás se corre solo.', 'Supr', 1);
+    step('Ripple', tr('Borro los huecos y todo lo demás se corre solo.', 'I delete the gaps and everything else shifts on its own.'), tr('Supr', 'Del'), 1);
     await wait(350);
     gaps.forEach(remove);
     await wait(300);
@@ -1722,7 +1729,7 @@ function initPremiere() {
     await wait(550);
 
     // 3 · hook: el mejor momento va primero
-    step('Hook', 'Lo mejor va primero: los primeros 2 segundos deciden.', 'M', 0);
+    step('Hook', tr('Lo mejor va primero: los primeros 2 segundos deciden.', 'The best part goes first: the first 2 seconds decide.'), 'M', 0);
     const src = 24 + jit(0.6), C = live('v1').find(c => src >= c.in && src < c.in + c.dur);
     const hs = C.start + (src - C.in);
     await move([at(ruler, 0, 0.5)[0] + ruler.offsetWidth * hs / SEQ, at(ruler)[1]]); await click();
@@ -1741,7 +1748,7 @@ function initPremiere() {
     await wait(500);
 
     // 4 · punch-ins
-    step('Punch-in', 'Un cambio visual cada pocos segundos: zoom en los cortes.', 'Z', 2);
+    step('Punch-in', tr('Un cambio visual cada pocos segundos: zoom en los cortes.', 'A visual change every few seconds: zoom on the cuts.'), 'Z', 2);
     const segs = live('v1');
     for (let i = 0; i < segs.length; i += 2) {
       segs[i].zoom = i ? 1.13 : 1.22; segs[i].kf = true;
@@ -1750,7 +1757,7 @@ function initPremiere() {
     }
 
     // 5 · B-roll sobre los cortes
-    step('B-roll', 'B-roll sobre los cortes: que se vea lo que se dice.', 'B', 2);
+    step('B-roll', tr('B-roll sobre los cortes: que se vea lo que se dice.', 'B-roll over the cuts: show what is being said.'), 'B', 2);
     const b1 = Math.max(0.2, segs[1].start - 1.1), b2 = Math.max(b1 + 3.6, segs[3].start - 1.4);
     await drag('broll1', 'v2', b1, 'pantalla_B.mov', '#6c66a8');
     add({ track: 'v2', start: b1, dur: 3, label: 'pantalla_B.mov', src: 'screen' });
@@ -1760,7 +1767,7 @@ function initPremiere() {
     await setT(b2 + 1.5);
 
     // 6 · subtítulos palabra por palabra
-    step('Subtítulos', 'Subtítulos palabra por palabra: se entiende sin sonido.', 'T', 3);
+    step(tr('Subtítulos', 'Captions'), tr('Subtítulos palabra por palabra: se entiende sin sonido.', 'Word-by-word captions: it makes sense without sound.'), 'T', 3);
     tool('text');
     const hook = H.dur, rest = (end - hook - 0.3) / (script.length - 1);
     for (let i = 0; i < script.length; i++) {
@@ -1774,21 +1781,21 @@ function initPremiere() {
     await wait(400);
 
     // 7 · música por debajo de la voz
-    step('Música', 'La música, por debajo de la voz: el sonido marca la energía.', 'A', 4);
+    step(tr('Música', 'Music'), tr('La música, por debajo de la voz: el sonido marca la energía.', 'Music sits under the voice: sound sets the energy.'), 'A', 4);
     ws('audio');
     await drag('music', 'a2', 0, 'musica_base.wav', '#1b5f59');
     const M = add({ track: 'a2', start: 0, dur: end, in: 0, label: 'musica_base.wav', wave: MUSIC, vol: 22 });
     await wait(300);
     await move(atT('a2', end * 0.55)); await click();
     M.vol = 62; M.el.querySelector('.vol').style.setProperty('--vol', '62%');
-    msgEl.textContent = 'Música a −18 dB: acompaña, no tapa.';
+    msgEl.textContent = tr('Música a −18 dB: acompaña, no tapa.', 'Music at −18 dB: it supports, it does not cover.');
     await play(T, T + 2.5, 900);
     ws('edit');
 
     // 8 · color
-    step('Color', 'Lumetri: contraste y piel cálida. El ojo va al sujeto.', 'L', 5);
+    step('Color', tr('Lumetri: contraste y piel cálida. El ojo va al sujeto.', 'Lumetri: contrast and warm skin. The eye goes to the subject.'), 'L', 5);
     ws('color');
-    await drag('lumetri', 'v1', live('v1')[1].start + 1, 'Lumetri · cálido', '#d9d6cc');
+    await drag('lumetri', 'v1', live('v1')[1].start + 1, tr('Lumetri · cálido', 'Lumetri · warm'), '#d9d6cc');
     await setT(live('v1')[1].start + 1.5, 200);
     live('v1').forEach(c => { c.fx = true; draw(c); });
     for (let i = 0; i < lum.length; i++) {
@@ -1801,18 +1808,18 @@ function initPremiere() {
     ws('edit');
 
     // 9 · revisar de punta a punta
-    step('Revisar', 'La miro de punta a punta, como alguien que no me conoce.', 'Espacio', -1);
+    step(tr('Revisar', 'Review'), tr('La miro de punta a punta, como alguien que no me conoce.', 'I watch it start to finish, like someone who has never met me.'), tr('Espacio', 'Space'), -1);
     await setT(0, 300);
     await play(0, end, end * 210);
 
     // 10 · exportar
-    step('Exportar', `${name}.mp4 · H.264 · 1080×1920`, '⌘M', -1);
+    step(tr('Exportar', 'Export'), `${name}.mp4 · H.264 · 1080×1920`, '⌘M', -1);
     expName.textContent = name + '.mp4';
     exp.classList.add('on');
     await tween(1900, k => { expBar.style.setProperty('--p', k); expPct.textContent = Math.round(k * 100) + '%'; }, k => k);
     await wait(350);
     exp.classList.remove('on');
-    step('Listo', 'Exportado. Va para el cliente… y arranca la versión siguiente.', '✓', -1);
+    step(tr('Listo', 'Done'), tr('Exportado. Va para el cliente… y arranca la versión siguiente.', 'Exported. It goes to the client… and the next version starts.'), '✓', -1);
     await wait(1300);
     clips.forEach(c => c.el.classList.add('gone'));
     await wait(450);
@@ -1834,7 +1841,7 @@ function initPremiere() {
     sc.forEach((txt, i) => add({ track: 'c1', start: i ? 2.6 + (i - 1) * rest : 0.1, dur: i ? rest - 0.1 : 2.45, text: txt }));
     add({ track: 'a2', start: 0, dur: t, in: 0, label: 'musica_base.wav', wave: MUSIC, vol: 62 });
     pr.classList.add('is-graded'); setLum(LUM_OK, true);
-    step('Listo', 'Una edición terminada: cortes, hook, B-roll, subtítulos, música y color.', '✓', -1);
+    step(tr('Listo', 'Done'), tr('Una edición terminada: cortes, hook, B-roll, subtítulos, música y color.', 'A finished edit: cuts, hook, B-roll, captions, music and color.'), '✓', -1);
     $$('.pc', pr).forEach(e => e.classList.remove('new'));
     T = 1.2; sizeCanvas(); paint();
   }
@@ -1845,7 +1852,7 @@ function initPremiere() {
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting;
     if (!visible) return;
-    if (!photo.src) photo.src = 'assets/danilo-photo.webp';
+    if (!photo.src) photo.src = '/assets/danilo-photo.webp';
     sizeCanvas();
     if (REDUCED) { if (!started) { started = true; still(); } return; }
     if (!started) { started = true; setCursor(40, 60); (async () => { for (;;) await episode(); })(); }
@@ -1908,7 +1915,7 @@ function initVisit() {
     segs.forEach(s => { const c = clips[clips.length - 1]; if (c && (c.label === s.label || s.t < 1)) c.t += s.t; else clips.push({ ...s }); });
     const sums = {};
     segs.forEach(s => { sums[s.label] = (sums[s.label] || 0) + s.t; });
-    const ranked = Object.entries(sums).filter(([l]) => l !== 'Contacto' && l !== 'Inicio').sort((a, b) => b[1] - a[1]);
+    const ranked = Object.entries(sums).filter(([l]) => l !== tr('Contacto', 'Contact') && l !== tr('Inicio', 'Home')).sort((a, b) => b[1] - a[1]);
     const top = ranked[0]?.[0];
     while (lane.children.length > clips.length) lane.lastChild.remove();
     clips.forEach((c, i) => {
